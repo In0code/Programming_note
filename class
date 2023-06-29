@@ -1,0 +1,61 @@
+package day0626;
+
+  public class student{
+    private String name;
+    private int age;
+    private double height;
+    Private double weight;
+    private String eamil;
+
+    publaic Student(){
+  }//Strudent
+
+  public Student(String name, int age, double height, double wieght, String email){
+    this.name=name;
+    this.age=age;
+    this.height=height;
+    this.wieght=wieght;
+    this.email=email;
+  }//Student
+
+  public String getName(){
+    return name;
+  }//getName
+
+  public void setName(String name){
+    this.name=name;
+  }//setName
+
+  public int getAge(){
+    return age;
+  }//getName
+
+  public void setAge(int age){
+    this.age=age;
+  }//setAge
+
+  public int getHeight(){
+    return height;
+  }//getHeight;
+
+  public void setHeight(int height){
+    this.height=height;
+  }//setHeight
+
+  public int getWieght(){
+    return wieght;
+  }//getWieght
+
+  public void setWieght(){
+    this.wieght=wieght;
+  }//setWieght
+
+  public int getEmail(){
+    return email;
+  }//getEmail
+
+  public void setEmail(int email){
+    this.email=email;
+  }//setEmail
+
+}//class
