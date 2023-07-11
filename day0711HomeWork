@@ -1,0 +1,86 @@
+package day0711;
+
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+@SuppressWarnings("serial")
+public class LayoutNull extends JFrame {
+
+	public LayoutNull() {
+		super("숙제");
+		setLayout(null);
+		JComboBox<Integer> jcbAge = new JComboBox<Integer>();
+		JTextField jtfName = new JTextField();
+		JTextField jtfTel = new JTextField();
+		JButton jbnInput = new JButton("입력");
+		JButton jbnChange = new JButton("변경");
+		JButton jbnDelete = new JButton("삭제");
+		JButton jbnEnd = new JButton("종료");
+		JLabel jlblName = new JLabel("이름");
+		JLabel jlblAge = new JLabel("나이");
+		JLabel jlblSex = new JLabel("성별");
+		JLabel jlblTel = new JLabel("전화번호");
+		JRadioButton jrbMen = new JRadioButton("남");
+		JRadioButton jrbWoman = new JRadioButton("여");
+		ButtonGroup bgSex = new ButtonGroup();
+		bgSex.add(jrbMen);
+		bgSex.add(jrbWoman);
+		for (int age = 20; age < 36; age++) {
+			jcbAge.addItem(age);
+		} // end for
+
+		JTextArea jta = new JTextArea();
+		JScrollPane jsp = new JScrollPane(jta);
+
+		jbnInput.setBounds(60, 270, 80, 30);
+		jbnChange.setBounds(160, 270, 80, 30);
+		jbnDelete.setBounds(250, 270, 80, 30);
+		jbnEnd.setBounds(350, 270, 80, 30);
+//		jta.setBounds(10, 100, 100, 100);
+		jsp.setBounds(250, 40, 200, 200);
+		jtfName.setBounds(90, 40, 130, 35);
+		jlblName.setBounds(30, 40, 80, 30);
+		jlblAge.setBounds(30, 95, 80, 30);
+		jlblSex.setBounds(30, 150, 80, 30);
+		jlblTel.setBounds(20, 205, 80, 30);
+		jcbAge.setBounds(90, 95, 130, 35);
+
+		jrbMen.setBounds(90, 150, 40, 30);
+		jrbWoman.setBounds(140, 150, 40, 30);
+		jtfTel.setBounds(90, 205, 130, 35);
+
+		add(jcbAge);
+		add(jsp);
+		add(jbnInput);
+		add(jbnChange);
+		add(jbnDelete);
+		add(jbnEnd);
+		add(jtfName);
+		add(jlblName);
+		add(jlblAge);
+		add(jlblSex);
+		add(jlblTel);
+		add(jrbMen);
+		add(jrbWoman);
+		add(jtfTel);
+		jta.setLineWrap(true);
+		jta.setWrapStyleWord(true);
+
+		setSize(500, 350);
+		setVisible(true);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+	}// LayoutNull
+
+	public static void main(String[] args) {
+		new LayoutNull();
+	}// main
+
+}// class
