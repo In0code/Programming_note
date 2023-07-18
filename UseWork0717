@@ -1,0 +1,13 @@
+package day0717;
+
+@SuppressWarnings("serial")
+public class UseWork0717 extends Exception {
+
+	
+	public UseWork0717() {
+		super();
+	}
+	public UseWork0717(String msg) {
+		super(msg);
+	}
+}
