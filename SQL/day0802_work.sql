@@ -16,7 +16,7 @@ SELECT MODEL,PRICE, CAR_YEAR, substr(car_option,1,instr(car_option,',',instr(CAR
 FROM  CAR_MODEL
 
 
-WHERE  lower(MODEL) in('k5','╬ф╧щев','a8') or CAR_OPTION like '%ABC%'
+WHERE  lower(MODEL) in('k5','б╬ц├б╧ц²ц┘ц≈','a8') or CAR_OPTION like '%ABC%'
 order by price desc, model desc;
 
 select * from CAR_MODEL;
