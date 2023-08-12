@@ -1,19 +1,19 @@
-----------------¹®ÀÚ¿­ÇÔ¼ö-----------------
+----------------ë¬¸ìì—´í•¨ìˆ˜-----------------
 --length
-select length('ABCD'),length('¿À´ÃÀº ¼ö¿äÀÏ ÀÔ´Ï´Ù')
+select length('ABCD'),length('ì˜¤ëŠ˜ì€ ìˆ˜ìš”ì¼ ì…ë‹ˆë‹¤')
 from dual;
 
---»ç¿ø Å×ÀÌºí¿¡¼­ »ç¿ø¸íÀÌ 4ÀÚ ÀÌ»óÀÎ »ç¿øµéÀÇ »ç¿ø¸í, ¿¬ºÀ, ÀÔ»çÀÏ Á¶È¸
+--ì‚¬ì› í…Œì´ë¸”ì—ì„œ ì‚¬ì›ëª…ì´ 4ì ì´ìƒì¸ ì‚¬ì›ë“¤ì˜ ì‚¬ì›ëª…, ì—°ë´‰, ì…ì‚¬ì¼ ì¡°íšŒ
 SELECT  ename,length(ename)ename_leng,sal,hiredate
 FROM  emp
 WHERE length (ename)>=4;
 
---¸ğµÎ ´ë¹®ÀÚ·Î : upper , ¸ğµÎ ¼Ò¹®ÀÚ·Î :lower
+--ëª¨ë‘ ëŒ€ë¬¸ìë¡œ : upper , ëª¨ë‘ ì†Œë¬¸ìë¡œ :lower
 select upper('AbcdEf')upper, lower('AbcdEf')lower
 from  dual;
 
---»ç¿ø Å×ÀÌºí¿¡¼­ »ç¿ø¸íÀÌ 'scott'ÀÎ »ç¿øÀÇ »ç¿ø¹øÈ£, »ç¿ø¸í
---¸Å´ÏÀú¹øÈ£ Á¶È¸
+--ì‚¬ì› í…Œì´ë¸”ì—ì„œ ì‚¬ì›ëª…ì´ 'scott'ì¸ ì‚¬ì›ì˜ ì‚¬ì›ë²ˆí˜¸, ì‚¬ì›ëª…
+--ë§¤ë‹ˆì €ë²ˆí˜¸ ì¡°íšŒ
 select empno,ename,mgr
 from emp
 --where  ename= upper('scott');
@@ -23,7 +23,7 @@ select ename, lower(ename) lower_ename
 from EMP;
 
 
---Ã¹±ÛÀÚ¸¦ ´ë¹®ÀÚ·Î
+--ì²«ê¸€ìë¥¼ ëŒ€ë¬¸ìë¡œ
 SELECT initcap('oracle'),initcap('ORACLE'),
 				initcap('i am a girl'), initcap('java oracle jdbc html')
 FROM dual;
@@ -31,13 +31,13 @@ FROM dual;
 select ename, initcap(ename)
 from EMP;
 
---Æ¯Á¤¹®ÀÚ¿­ÀÇ ÀÎµ¦½º ¾ò±â( ¿À¶óÅ¬Àº ½ÃÀÛÀÎµ¦½º°¡ 1¹øºÎÅÍ)
+--íŠ¹ì •ë¬¸ìì—´ì˜ ì¸ë±ìŠ¤ ì–»ê¸°( ì˜¤ë¼í´ì€ ì‹œì‘ì¸ë±ìŠ¤ê°€ 1ë²ˆë¶€í„°)
 SELECT instr('ABCDEF','A'),instr('ABCDEF','B'),instr('ABCDEF','K'),
 				instr('ABCDEF','CDE'),instr('ABCDEFAB','A',2)
 FROM  dual;
 
---»ç¿øÅ×ÀÌºí¿¡¼­ »ç¿ø¸í¿¡ µÎ ¹øÂ° ±ÛÀÚ¿¡ 'A'°¡ ÀÖ´Â »ç¿øÀÇ
---»ç¿ø¸íÀ» Á¶È¸
+--ì‚¬ì›í…Œì´ë¸”ì—ì„œ ì‚¬ì›ëª…ì— ë‘ ë²ˆì§¸ ê¸€ìì— 'A'ê°€ ìˆëŠ” ì‚¬ì›ì˜
+--ì‚¬ì›ëª…ì„ ì¡°íšŒ
 SELECT  ename
 FROM   emp
 where instr( ename,'A', 2 ) = 2 ;
@@ -57,14 +57,14 @@ commit;
 
 select * from TEST_NULL;
 
---test_nullÅ×ÀÌºíÀÇ ÀÌ¸ŞÀÏ ÄÃ·³À» »ç¿ëÇÏ¿© ¸ŞÀÏÁÖ¼Ò¿Í
---µµ¸ŞÀÎ ÁÖ¼Ò¸¦ ºĞ¸®ÇÏ¿© Á¶È¸
+--test_nullí…Œì´ë¸”ì˜ ì´ë©”ì¼ ì»¬ëŸ¼ì„ ì‚¬ìš©í•˜ì—¬ ë©”ì¼ì£¼ì†Œì™€
+--ë„ë©”ì¸ ì£¼ì†Œë¥¼ ë¶„ë¦¬í•˜ì—¬ ì¡°íšŒ
 SELECT  substr(email,instr(email,1),(instr(email,'@')-1)) email,
 		 substr(email,instr(email,'@')+1,instr(email,'.'))  domain
 
 FROM  test_null;
 --where substr(email,instr(email,'@')+1)='gmail.com';
---where instr(email,'gmail.com') != 0;   --±ÇÀå
+--where instr(email,'gmail.com') != 0;   --ê¶Œì¥
 --WHERE email like '%gmail.com'
 
 
@@ -74,20 +74,20 @@ SELECT  '['||trim('   A BC   ')||']',
 				'['||rtrim('   A BC   ')||']'
 FROM    dual;
 
---Æ¯Á¤ ¹®ÀÚ¿­ »èÁ¦
+--íŠ¹ì • ë¬¸ìì—´ ì‚­ì œ
 SELECT trim( '~'from'~~~~~~~Oracle~~~~~~~') trim
 FROM    dual;
 
 
---Æ¯Á¤¹®ÀÚ Ã¤¿ì±â
---Lpad( °ª, ÀüÃ¼±ÛÀÚ¼ö, Ã¤¿ï¹®ÀÚ¿­ )
-SELECT lpad('ABCDE',10,'$'),lpad('°¡³ª´Ù',10,'$'),
-				lpad('°¡³ª´Ù',11,'$'),lpad('°¡³ª´Ù',11,'Ä«')
+--íŠ¹ì •ë¬¸ì ì±„ìš°ê¸°
+--Lpad( ê°’, ì „ì²´ê¸€ììˆ˜, ì±„ìš¸ë¬¸ìì—´ )
+SELECT lpad('ABCDE',10,'$'),lpad('ê°€ë‚˜ë‹¤',10,'$'),
+				lpad('ê°€ë‚˜ë‹¤',11,'$'),lpad('ê°€ë‚˜ë‹¤',11,'ì¹´')
 
 FROM   dual;
 
---rpad( °ª, ÀüÃ¼±ÛÀÚ¼ö, Ã¤¿ï¹®ÀÚ¿­ )
+--rpad( ê°’, ì „ì²´ê¸€ììˆ˜, ì±„ìš¸ë¬¸ìì—´ )
 SELECT  rpad('ABCDE',10,'#') ,rpad('ABCDE',8,'u'),
- 				rpad('°¡³ª´Ù',11,'$'),rpad('°¡³ª´Ù',11,'Ä«')
+ 				rpad('ê°€ë‚˜ë‹¤',11,'$'),rpad('ê°€ë‚˜ë‹¤',11,'ì¹´')
 FROM   dual;
 
