@@ -1,0 +1,73 @@
+create table work_table(
+num number(5),
+name varchar2(30),
+class char(1),
+email varchar2(50),
+tel varchar2(16),
+addr varchar2 (240),
+gender char (6),
+javascore number(3),
+input_date date
+);
+
+
+
+insert into work_table
+ values(1,'임태균' ,'A','tae@sist.co.kr','010-1234-5678','경기도 용인시','남자',91,sysdate);
+ commit;
+
+insert into work_table
+ values(2,'강다연' ,'A','kang@daum.net','010-7739-9761','서울시 강남구 역삼1동','남자',90,sysdate);
+ commit;
+
+ insert into work_table
+ values(3,'박상준' ,'A','park@test.com','010-5878-8813','서울시 동작구 상도동','여자',97,sysdate);
+ commit;
+
+ insert into work_table
+ values(4,'장용석' ,'B','kyoung@google.com','011-234-7611','서울시  동대문구 동대문동','여자',190,sysdate);
+ commit;
+
+ insert into work_table
+ values(5,'김인영' ,'B','kim@sist.co.kr','010-4334-7656','인천시 부평구 부평3동','여자',89,sysdate);
+ commit;
+
+ select * from work_table;
+
+ select name,class,addr,javaScore
+ from work_table;
+
+ update  work_table
+ set gender='남자',javaScore=90, class='A', tel='010-2234-7611'
+ where num=3;
+
+ select * from work_table;
+
+ update  work_table
+ set  class='B', tel='010-1111-2341'
+ where name='임태균';
+
+  select * from work_table;
+
+ commit;
+
+ delete from work_table
+ where class='A';
+
+ select * from work_table;
+
+ rollback;
+
+ select * from work_table;
+
+
+ drop table work_table;
+ show recyclebin;
+ flashback table work_table
+ to before drop;
+
+ truncate table work_table;
+ drop table work_table;
+
+ show recyclebin;
+ purge recyclebin;
