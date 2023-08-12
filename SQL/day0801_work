@@ -1,0 +1,67 @@
+-----------1-------------
+SELECT empno, ename, hiredate, deptno, sal
+FROM emp
+WHERE  deptno != 10 and sal between 1000 and 3000;
+
+-----------2-------------
+SELECT empno, ename,sal,comm,sal+comm total,sal/12 mon_sal
+FROM emp
+WHERE comm is not null;
+
+-----------3--------------
+SELECT empno||'번 '||ename||' 사원님 연봉은 '||sal||'$입니다' "OutPut"
+FROM emp
+WHERE deptno in (10,30);
+
+-----------4--------------
+SELECT empno, ename, hiredate, sal, job, deptno
+FROM emp
+WHERE sal < 3000
+ ORDER BY sal asc,ename desc;
+
+ select * from EMP;
+
+-----------5--------------
+create table test_like2(
+	num number(1),
+	name varchar2(12),
+	addr varchar2 (100),
+	high_school varchar2 (20)
+);
+
+
+insert into test_like2
+values (1, '기임줌인','서울시 동작구 상도동','정기고');
+insert into test_like2
+values (2, '정대만','경기도 부천시 원미구','썸타고');
+insert into test_like2
+values (3, '송태섭','서울시 동대문구 동대문2동','정기고');
+insert into test_like2
+values (4,'박상준','서울시 동작구 상도동','오지고');
+insert into test_like2
+values (5, '이동원','서울시 동작구 동대문4동','지리고');
+
+
+commit;
+select * from TEST_LIKE2;
+
+------------6--------------
+SELECT '번호 : '||num||', 이름 : '||name||', 주소: '||addr||', 학교 : '||high_school "OutPut"
+FROM test_like2
+WHERE addr like '서울시%' and name like '___';
+
+------------7--------------
+SELECT empno, ename, sal, hiredate, deptno, job
+FROM emp
+WHERE ename like '____' or sal >= 3000;
+
+------------8--------------
+SELECT empno, ename, hiredate, sal+(sal*0.07) next_sal
+FROM emp ;
+
+------------9--------------
+SELECT ename, sal, job, mgr, hiredate
+FROM emp
+WHERE ename like 'A%' and sal >= 1600
+
+ORDER BY  hiredate desc;
