@@ -1,0 +1,77 @@
+package day0814;
+
+import java.awt.FlowLayout;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.ButtonGroup;
+import javax.swing.JFrame;
+import javax.swing.JRadioButton;
+
+import kr.co.sist.statement.DbConnection;
+
+@SuppressWarnings("serial")
+public class TableButton extends JFrame {
+
+	private List<String> tableNames;
+
+	public TableButton() throws SQLException {
+		super("테이블 선택");
+
+		tableNames = new ArrayList<>();
+
+		Connection con = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+
+		DbConnection db = new DbConnection();
+
+		// 1. 드라이버 로딩
+		try {
+			// 2. 커녁션 얻기
+			con = db.getConn();
+			// 3. 쿼리문 생성 객체 얻기
+			stmt = con.createStatement();
+			// 4. 쿼리문 생성 후 결과 얻기
+
+			String selectTable = "select tname from tab where tname not like '%$%'";
+			rs = stmt.executeQuery(selectTable);
+
+			ButtonGroup bg = new ButtonGroup();
+			setLayout(new FlowLayout());
+
+			// 다음 포인터가 있을때까지 테이블 이름 추가하기.
+			while (rs.next()) {
+				String tableName = rs.getString(1);
+				tableNames.add(tableName);
+			} // end while
+
+			// 테이블 이름 라디오 버튼으로 붙이기
+			for (String tableName : tableNames) {
+				JRadioButton jcb = new JRadioButton(tableName);
+				bg.add(jcb);
+				add(jcb);
+			} // end for
+
+			setSize(500, 400);
+			setVisible(true);
+			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		} finally {
+			// 5. 연결 끊기
+			db.closeDB(rs, stmt, con);
+		} // end finally
+	}// tableButton
+
+	public static void main(String[] args) {
+		try {
+			new TableButton();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} // end catch
+	}// main
+}// class
