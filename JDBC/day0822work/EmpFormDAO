@@ -1,0 +1,47 @@
+package day0821_work;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import kr.co.sist.dao.DbConn;
+
+public class EmpFormDAO {
+
+	public EmpFormDAO(EmpNoDesign end) throws SQLException {
+		Connection con = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+
+		DbConn db = DbConn.getInstance();
+
+		try {
+			con = db.getConnection("localhost", "scott", "tiger");
+			stmt = con.createStatement();
+			String selectEmp = "select empno from emp";
+
+			rs = stmt.executeQuery(selectEmp);
+
+			while (rs.next()) {
+				end.addEmpNo(rs.getInt("empno"));
+			} // end while
+
+		} finally {
+			db.dbClose(rs, stmt, con);
+		} // end finally
+
+	}// EmpFormDAO
+	
+	
+
+	public static void main(String[] args) {
+		EmpNoDesign end = new EmpNoDesign();
+		try {
+			new EmpFormDAO(end);
+			end.visible(); // GUI를 화면에 표시
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} // end catch
+	}// main
+}// class
