@@ -1,0 +1,54 @@
+package day0821_work;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
+
+@SuppressWarnings("serial")
+public class EmpNoDesign extends JFrame {
+	DefaultListModel<Integer> dlmEmp;
+	JList<Integer> jlEno;
+	JScrollPane jsp;
+	EmpInfoEvt eie;
+
+	public EmpNoDesign() {
+		super("EmpNo List");
+		
+
+		dlmEmp = new DefaultListModel<Integer>();
+		jlEno = new JList<Integer>(dlmEmp);
+		
+		eie=new EmpInfoEvt(this);
+		jlEno.addListSelectionListener(eie);
+		
+		 jsp = new JScrollPane(jlEno);
+		 
+		add(jsp);
+
+		setBounds(500,100,200, 400);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}// EmpNoDesign
+
+	public void addEmpNo(int empno) {
+		dlmEmp.addElement(empno);
+	}// addEmpNo
+
+	public void visible() {
+		setVisible(true);
+	}// visible
+
+	public DefaultListModel<Integer> getDlmEmp() {
+		return dlmEmp;
+	}
+
+	public JList<Integer> getJlEno() {
+		return jlEno;
+	}
+
+	public JScrollPane getJsp() {
+		return jsp;
+	}
+	
+	
+}// class
