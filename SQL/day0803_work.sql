@@ -17,11 +17,11 @@ bone varchar2 (20),
 identi varchar2(12)
 );
 
-INSERT INTO  test_1 VALUES ('강다연',25,1995,'950101-2234567');
-INSERT INTO  test_1 VALUES ('김다영',25,1995,'951126-1234567');
-INSERT INTO  test_1 VALUES ('김선경',26,1994,'940101-2234567');
-INSERT INTO  test_1 VALUES ('김인영',26,1994,'940101-1234567');
-INSERT INTO  test_1 VALUES ('김주민',27,1993,'930101-5234567');
+INSERT INTO  test_1 VALUES ('강다연',25,'1995','950101-2234567');
+INSERT INTO  test_1 VALUES ('김다영',25,'1995','951126-1234567');
+INSERT INTO  test_1 VALUES ('김선경',26,'1994','940101-2234567');
+INSERT INTO  test_1 VALUES ('김인영',26,'1994','940101-1234567');
+INSERT INTO  test_1 VALUES ('김주민',27,'1993','930101-5234567');
 
 COMMIT;
 
@@ -34,3 +34,13 @@ SELECT name, age, bone, identi,
 FROM test_1;
 
 --------------------5-------------------
+SELECT EMPNO||'번 '|| INITCAP(ENAME)||' 사원의 입사일은 ' ||TO_CHAR(HIREDATE,'yyyy-mm-dd day')
+		||'입니다. 연봉은 $' ||TO_CHAR( SAL,'9,999')||' 입니다.' empinfo
+FROM EMP 
+where TO_CHAR(HIREDATE,'dy') IN ( '월', '화' ,'목' )
+ORDER BY HIREDATE, SAL DESC  ;
+
+--------------------6-------------------
+SELECT DEPTNO ,DNAME 
+FROM dept
+WHERE lower(LOC) = 'dallas';
