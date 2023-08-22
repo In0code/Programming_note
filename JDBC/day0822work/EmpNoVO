@@ -1,0 +1,31 @@
+package day0821_work;
+
+public class EmpNoVO {
+
+	private int empNo;
+
+	public int getEmpNo() {
+		return empNo;
+	}
+
+	public void setEmpNo(int empNo) {
+		this.empNo = empNo;
+	}
+
+	@Override
+	public String toString() {
+		return "EmpNoVO [empNo=" + empNo + "]";
+	}
+
+	public EmpNoVO(int empNo) {
+		super();
+		this.empNo = empNo;
+	}
+
+	public EmpNoVO() {
+		super();
+	}
+	
+	
+	
+}
