@@ -1,0 +1,117 @@
+package day0704;
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
+public class UseCalendar {
+
+	public UseCalendar() {
+
+		System.out.println("시스템의 현재 날짜 : " + System.currentTimeMillis());
+
+		// abstract class => 객체화가 되지 않음
+//		Calendar cal=new Calendar();
+
+		// 1. instance 를 얻는 static method 사용
+		Calendar cal = Calendar.getInstance();
+		// 2.자식 클래스를 사용
+		Calendar cal2 = new GregorianCalendar();
+		
+		System.out.println(cal);
+		System.out.println(cal2); 
+		//객체를 출력했는데 주소가 아니라 message가 나옴 왜?
+		//object의 toString을 overriding했기 때문에 
+		
+		//Constant를 사용하는 이유
+//		System.out.println(cal.get(1) +" / "+cal.get(Calendar.YEAR));  //1번이 뭔지 모름. 그래서 constant를 쓴다
+		
+		StringBuilder sb=new StringBuilder();
+		int dayOfWeek=cal.get(Calendar.DAY_OF_WEEK);
+		//월은 사람의 월보다 1 적게 나온다. 0~11월 그래서 더하기 1 해야함
+		sb.append(cal.get(Calendar.YEAR)).append("년 ")
+		.append(cal.get(Calendar.MONTH)+1).append("월 ")
+		.append(cal.get(Calendar.DAY_OF_MONTH)).append("일 ")
+		
+		.append("오늘이 이번년도에 몇번 째 일 ")
+		.append(cal.get(Calendar.DAY_OF_YEAR)).append(" ")
+		.append(cal.get(Calendar.DAY_OF_WEEK)).append(" 요일 ");
+		
+		String[] weekTitle= {"일","월","화","수","목","금","토"};
+		int amPm=cal.get(Calendar.AM_PM);
+		sb.append(weekTitle[dayOfWeek-1]).append("\n오전/오후 ")
+		.append(cal.get(Calendar.AM_PM));
+		
+		String amTitle="";
+		switch (amPm) {
+		case Calendar.AM : //get이나 set에 넣어 사용하는 상수가 아닌 경우에는 비교용으로 사용
+			amTitle="오전";
+			break;
+		case Calendar.PM :
+			amTitle="오후";
+			break;
+		}//end switch
+		
+		sb.append(amTitle).append(" ")
+		.append(cal.get(Calendar.HOUR)).append(" ")
+		.append(cal.get(Calendar.HOUR_OF_DAY)).append(" ")
+		.append(cal.get(Calendar.MINUTE)).append(" ")
+		.append(cal.get(Calendar.SECOND)).append(" ");
+		
+		
+		System.out.println(sb);
+		
+		
+		
+		
+	}// UseCalendar
+	
+	public UseCalendar calendarSet() {
+		//1. Calendar 생성
+		Calendar cal=Calendar.getInstance();
+		//2. method호출
+		//년을 변경
+		cal.set(Calendar.YEAR,2024 ); //2024-7-4
+		//월변경= java는 0월부터 11월까지 설정한다.
+		cal.set(Calendar.MONTH, 11); //2024-12-4
+		//일변경
+		cal.set(Calendar.DAY_OF_MONTH, 25);//2024-12-25
+		
+		String[] dayTitle="일,월,화,수,목,금,토".split(",");
+		System.out.println(cal.get(Calendar.YEAR)+"- "+
+		(cal.get(Calendar.MONTH)+1)+"- "+
+		cal.get(Calendar.DAY_OF_MONTH)+"- "+
+		dayTitle[cal.get(Calendar.DAY_OF_WEEK)-1]
+				);
+		return this;
+		
+		
+	}//calendarSet
+	
+	public void calSet2() {
+		
+		//1. Calendar 생성
+		Calendar cal=Calendar.getInstance();
+		//2. method호출
+		//일변경 : 현재월에 없는 일이 설정되면 다음 달 1일로 설정된다.
+		cal.set(Calendar.DAY_OF_MONTH, 32);//2024-12-25
+		
+		String[] dayTitle="일,월,화,수,목,금,토".split(",");
+		System.out.println(cal.get(Calendar.YEAR)+"- "+
+				(cal.get(Calendar.MONTH)+1)+"- "+
+				cal.get(Calendar.DAY_OF_MONTH)+"- "+
+				dayTitle[cal.get(Calendar.DAY_OF_WEEK)-1]
+				);
+	}//calSet2
+	
+
+	public static void main(String[] args) {
+		
+		//코드를 변경하여 calSet2를 chain으로 호출해보세요
+//		UseCalendar uc=new UseCalendar();
+//		uc.calendarSet();
+		
+		new UseCalendar().calendarSet().calSet2();
+
+	}// main
+
+}// class
