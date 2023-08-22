@@ -1,0 +1,54 @@
+package day0713;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+
+@SuppressWarnings("serial")
+public class MainWindow extends JFrame implements ActionListener {
+
+//	private JButton jbtnOpenWin;
+
+	public MainWindow() {
+		super("자식창 띄우기");
+
+		JButton jbtnOpenWin = new JButton("자식창 띄웁니다");
+		// 글꼴 변경
+		// 1. Font 생성
+		Font font = new Font("Serif", Font.ITALIC | Font.BOLD, 25);
+		// 2. 컴포넌트에 적용
+		jbtnOpenWin.setFont(font);
+		// 글자색( 전경색 ) 변경
+		jbtnOpenWin.setForeground(Color.RED);
+		// 바닥색( 배경색 ) 변경
+		jbtnOpenWin.setBackground(Color.gray);
+
+		jbtnOpenWin.addActionListener(this);
+
+		add(jbtnOpenWin);
+
+//		SubWindow sw=new SubWindow(this);
+
+		setSize(400, 400);
+		setVisible(true);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+	}// MainWindow
+
+	@Override
+	public void actionPerformed(ActionEvent ae) {
+
+		new SubWindow(this);
+//		jbtnOpenWin
+
+	}// actionPerformed
+
+	public static void main(String[] args) {
+		new MainWindow();
+	}// main
+
+}// class
