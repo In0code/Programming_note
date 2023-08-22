@@ -1,0 +1,19 @@
+//1. 소스코드 작성
+//지역변수를 사용하는 일을 하는 자바 소스코드 작성
+
+class UseLocalVariable{
+
+	//int i;  //instance variable
+	//static int j;  //static variable
+
+	public static void main(String[] args){
+		int 1; //1. 변수의 선언 , local variable
+		i=2023;  //2. 값 할당
+		System.out.println(i);  //3. 변수의 사용
+
+
+	}      //local field 라고 함.
+
+}         //class field라고 함. 
+        
+     
