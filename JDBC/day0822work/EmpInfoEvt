@@ -1,0 +1,82 @@
+package day0821_work;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
+import kr.co.sist.dao.DbConn;
+
+public class EmpInfoEvt extends WindowAdapter implements ListSelectionListener {
+
+	private EmpNoDesign end;
+
+	public EmpInfoEvt(EmpNoDesign end) {
+		this.end = end;
+	}
+
+//	@Override
+//	public void actionPerformed(ActionEvent ae) {
+//	}//actionPerformed
+//	@Override
+	public void valueChanged(ListSelectionEvent lse) {
+		try {
+			Object selectedValue = end.getJlEno().getSelectedValue();
+			if (selectedValue != null) {
+				int empno = (int) selectedValue;
+				empInfo(empno);
+			} // end if
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} // end catch
+
+	}// valueChanged
+
+	public List<EmpInfoVO> empInfo(int empno) throws SQLException {
+		List<EmpInfoVO> list = new ArrayList<EmpInfoVO>();
+
+		JTextField jtf = new JTextField();
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		DbConn db = DbConn.getInstance();
+		try {
+			con = db.getConnection("localhost", "scott", "tiger");
+			StringBuilder selectEmpInfo = new StringBuilder();
+			selectEmpInfo.append("	select empno,ename, hiredate, job, sal	")
+					.append("	from emp								")
+					.append("	where empno=? 							");
+
+			pstmt = con.prepareStatement(selectEmpInfo.toString());
+			pstmt.setInt(1, empno);
+			rs = pstmt.executeQuery();
+
+			StringBuilder selectEmpInfo2 = new StringBuilder();
+			EmpInfoVO eiVO = null;
+			while (rs.next()) {
+
+				eiVO = new EmpInfoVO(rs.getInt("empno"), rs.getString("ename"), rs.getString("hiredate"),
+						rs.getString("job"), rs.getInt("sal"));
+				System.out.println();
+				list.add(eiVO);
+			} // end while
+			JOptionPane.showMessageDialog(jtf, list);
+		} finally {
+			db.dbClose(rs, pstmt, con);
+		} // end finally
+		return list;
+	}// empInfo
+
+}// class
