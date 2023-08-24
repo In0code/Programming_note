@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<font color="red" size="4"><strong>상대경로</strong></font>
+	<h3>HTML과 같은 경로에 이미지 파일이 존재하는 경우.</h3>
+	<img src="hcy.png">
+	<h3>HTML이 존재하는 하위 디렉토리에 이미지 파일이 존재하는 경우.</h3>
+	<img src="images/img1.png">
+	<h3>HTML이 존재하는 상위 디렉토리에 이미지 파일이 존재하는 경우.</h3>
+	<img src="../common/images/default.png">
+
+	<hr>
+
+	<font color="red" size="4"><strong>URL</strong></font>
+	<h3>HTML과 같은 경로에 이미지 파일이 존재하는 경우.</h3>
+	<img src="http://localhost/html_prj/day0824/hcy.png">
+	<h3>HTML이 존재하는 하위 디렉토리에 이미지 파일이 존재하는 경우.</h3>
+	<img src="http://localhost/html_prj/day0824/images/img1.png">
+	<h3>HTML이 존재하는 상위 디렉토리에 이미지 파일이 존재하는 경우.</h3>
+	<img src="http://localhost/html_prj/common/images/default.png">
+
+	<hr>
+	<br>
+	<!-- 넓이나 높이 하나만 설정하면 비율로 나머지가 변경된다. -->
+	<strong>넓이변경</strong>
+	<br>
+	<img src="http://localhost/html_prj/common/images/default.png"
+		width="200">
+	<br>
+	<br>
+	<strong>높이변경</strong>
+	<br>
+	<img src="http://localhost/html_prj/common/images/default.png"
+		height="200">
+	<br>
+	<br>
+	<strong>풍선도움말</strong>
+	<br>
+	<img src="http://localhost/html_prj/common/images/default.png1"
+		title="빨간망토차차의 뚜뚜" alt="엑박일때 제공할 메시지" />
+	<br>
+	<br>
+	<img src="http://localhost/html_prj/common/images/default.png"
+		title="빨간망토차차의 뚜뚜" alt="엑박일때 제공할 메시지" />
+	<br>
+	<br>
+	<strong>테두리선</strong>
+	<br>
+	<img src="http://localhost/html_prj/common/images/default.png"
+		border="100" />
+	<br>
+	
+	<img src = "../../test_sub/images/today/to_day.png">
+	
+<!-- 	http://localhost/test_prj/test_sub/a.html
+http://localhost/test_prj/test_sub/images/today/to_day.png
+
+http://localhost/test_prj/a/b/a.html
+http://localhost/test_prj/test_sub/images/today/to_day.png -->
+
+
+</body>
+</html>
