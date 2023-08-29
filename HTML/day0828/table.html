@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>테이블 연습</title>
+</head>
+<body>
+	<table border="1">
+		<!-- 선이 없음, 부모 태그에 속성을 사용하면 자식 태그로 상속된다 -->
+		<tr>
+			<td>오늘은</td>
+			<td>월요일</td>
+		</tr>
+		<tr>
+			<td>내일은</td>
+			<td>화요일</td>
+		</tr>
+	</table>
+	<hr>
+	<h2>테이블 태그의 속성</h2>
+	<!-- 테이블 시작 : border= "테두리 선" width="넓이"는 <td>에서 사용하는 것을 권장
+	height="높이" <tr>에서 사용하는 것을 권장
+	background="바닥이미지"-->
+	<table border="1" width="500" height="300" bgcolor="#E3AB9A"
+		background="../common/images/daum.png">
+		<!-- 행 시작 : <tr>은 <td>나 <th> 태그만 가질 수 있다.-->
+		<tr>
+			<!-- 열 시작 -->
+			<td><img src="http://localhost/html_prj/common/images/hcy.png" /></td>
+			<td>공부에 집중하고 있는 HCY 학생</td>
+		</tr>
+	</table>
+
+	<hr>
+	<!-- 부모태그와 자식태그의 속성이 같다면 자식 태그의 속성이 우선한다.  -->
+	<table border="1">
+		<tr height=" 40" bgcolor="#E3AB9A">
+			<td height="80" bgcolor="#000000"><font color="FFFFFF">Java
+					SE11</font></td>
+			<td>Oracle 19c</td>
+		</tr>
+		<tr height="80">
+			<td width="120">HTML5</td>
+			<td width="150">CSS3</td>
+		</tr>
+	</table>
+
+	<hr>
+	<h2>정렬</h2>
+	<table border="1">
+		<tr height="80">
+			<td width="100" align="left">강다연</td>
+			<td width="100" align="center" valign="bottom">김다영</td>
+			<td width="100" align="right">김선경</td>
+		</tr>
+		<tr height="80" bgcolor="#E3AB9A">
+			<td valign="top">김주민</td>
+			<td valign="top" align="right" bgcolor="#56ACEE">박상준</td>
+			<td valign="bottom">박세현</td>
+		</tr>
+	</table>
+
+	<h2>테이블 자체 정렬</h2>
+	<!-- 테이블이 정렬되면 객체의 높이가 해제된다 -->
+	<table border="1" align="left">
+		<tr>
+			<td width="100" height="100">홍지성</td>
+		</tr>
+	</table>
+	오늘은 비오는 월요일 
+</body>
+</html>
