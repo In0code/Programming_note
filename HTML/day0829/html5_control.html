@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h2>HTML5에서 추가된 Form Control</h2>
+	<h3>색선택</h3>
+	<input type="color" name="color" />
+	<br />
+	<input type="color" name="color" value="#FF9999" />
+	<br />
+	<!-- value 에는 PRG를 설정한다 <input type="color" name="color" value="테스트"/> -->
+
+	<h3>날짜</h3>
+	date:
+	<input type="date" name="date" /> date설정:
+	<input type="date" name="date" value="2023-08-30" />
+	<br /> month :
+	<input type="month" name="date" /> month 설정
+	<input type="month" name="date" value="2023-08" />
+	<br /> datetime-local :
+	<input type="datetime-local" name="date" /> datetime-local설정 :
+	<input type="datetime-local" name="date" value="2023-08-30 09:32" />
+	<!-- value에는 오전/ 오후를 설정하지 않는다 -->
+
+	<br /> time:
+	<input type="time" name="date" />
+	<br /> time설정:
+	<input type="time" name="date" value="09:34" />
+	<br />
+	<br />
+
+	<h3>범위선택</h3>
+	0
+	<input type="range" name="date" min="0" max="100" value="40" title="40" />100
+	<br />
+
+	<h3>의미적인 객체들</h3>
+	url
+	<input type="url" name="url" />
+	url
+	<input type="url" name="site" />
+	<br /> email
+	<input type="email" name="email" />
+	<br /> tel
+	<input type="tel" name="tel"/>
+	<br /> number
+	<input type="number" name="age"/>
+	<br />
+</body>
+</html>

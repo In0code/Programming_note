@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<!--a 태그는 요청은 가능하나 사용자가 입력하는 값을 넘길 수 없다  -->
+	<a href="call_test.jsp"> <input type="text" name="name"
+		placeholder="이름입력" /> back-end에 존재하는 jsp 요청
+	</a>
+	<hr>
+
+	<!-- form 태그는 요청도 가능하고, 사용자가 입력하는 값을 넘길 수 있다. 값 넘길 일 있으면 form 태그-->
+	<form action="call_test.jsp">
+		<label>이름</label><input type="text" name="name" placeholder="이름입력" /><br />
+		<input type="submit" value="전송" />
+	</form><br>
+
+	<form>
+		<fieldset>
+			
+			<legend>로그인</legend>
+				아이디<input type="text" /><br /> 비밀번호<input type="password"><br/>
+				<input type="submit" value="로그인" /><br/>
+		</fieldset>
+	</form>
+
+</body>
+</html>
