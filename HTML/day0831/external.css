@@ -1,0 +1,22 @@
+@charset "UTF-8";
+
+/* 외부 파일 방식 : 여러 HTML 페이지에서 사용되는 공통디자인을 정의할 때 */
+div {
+	font-family: 궁서체;
+	font-size: 20px;
+	font-style: normal;
+}
+
+p {
+	border: 1px solid #333
+}
+
+/* 외부 파일 방식으로 코드가 변경되었을 때 HTML에서 적용이 되지 않으면
+1. HTML에서 소스보기 후 2. CSS를 클릭하여 열고 3. CSS에서 새로고침을 한다
+ */
+input {
+	width: 300px;
+	height: 40px;
+	font-weight: bold;
+	font-size: 34px
+}
