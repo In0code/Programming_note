@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+/* sub selector : 특정태그 하위에 태그가 존재할 때  */
+/* div>span { font-weight: bold; color:#FF0000 } */
+table>tbody>tr>td>div>span { font-weight: bold; color:#FF0000 }
+</style>
+</head>
+<body>
+	<div>inline 방식 : 태그에 직접 정의하는 방식</div>
+	<div>embed 방식 : HTML에 <span>&lt;style&gt;태그를 정의</span>하고
+		 디자인 코드를 모아서 정의하는 방식</div>
+	<p>external file 방식 : <span>확장자가 .css인</span> 파일을 만들고 디자인 코드를 모아서 정의하는 방식</p>
+	오늘은 <span>금요일</span>입니다<br/>
+	<table>
+		<tr>
+			<td>
+			<div><span>CSS</span></div>
+			</td>
+			</tr>
+	</table>
+</body>
+</html>
