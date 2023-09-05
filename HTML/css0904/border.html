@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	/* 실선 */	
+/* 	img, div{ border : 1px solid #000000 } */
+	/* 점선 */
+ 	 /* img, div{ border : 1px dotted #000000 } */  
+	/* 긴점선 */
+  	/* img, div{ border : 1px dashed #000000 } */ 
+	/* 이중선 : 선의 두께가 3px부터 보여진다 */
+ 	 img, div{ border : 3px double #000000 }   
+ 	 
+ 	 /* 선의 두께가 4px, 선의 종류 실선, 선색 파란색 */
+	.line { border: 4px solid #0000FF }	
+	
+	/* 특정위치의 선만 변경할 수 있다 */
+	#left{ border-left: 4px solid #FF0000 }
+	#top{ border-top: 4px solid #FF0000 }
+	#right{ border-right: 4px solid #FF0000 }
+	#bottom{ border-bottom: 4px solid #FF0000 }
+</style>
+</head>
+<body>
+<img src="http://192.168.10.137/html_prj/common/images/JJanggu.png"/>
+<div>
+ DIV
+</div>
+<p class="line">
+pp
+</p>
+
+
+왼쪽선<img src="http://192.168.10.137/html_prj/common/images/JJanggu.png" id="left"/>
+윗선<img src="http://192.168.10.137/html_prj/common/images/JJanggu.png" id="top"/>
+오른쪽선<img src="http://192.168.10.137/html_prj/common/images/JJanggu.png" id="right"/>
+아랫선<img src="http://192.168.10.137/html_prj/common/images/JJanggu.png" id="bottom"/>
+
+</body>
+</html>

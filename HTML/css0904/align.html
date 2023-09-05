@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+/* #tab { border: 1px solid #333 } */
+td { border-top: 1px solid #333; 
+	 border-bottom: 1px solid #333; 
+	 border-left: 0px; 
+	 border-right: 0px  }
+td { border : 1px solid #333; width: 200px; height: 100px }
+#left { text-align: left }
+#center{ text-align: center}
+#right{ text-align: right}
+	 
+#top { vertical-align: top;}
+#middle{ vertical-align: middle;}
+#bottom{ vertical-align: bottom; }
+	 
+/* div는 vertical-align이 되긴하나 글자의 높이가 해당 행의 높이가 되므로 정렬이 되지 
+ 	않는 것 처럼 보인다. */ 
+#div { border: 1px solid #333; width: 500px; height: 100px;
+		text-align: right; vertical-align: bottom  }
+		
+/* text-align 속성을 설정하면 div 자체가 정렬되지 않는다 
+div 자체 정렬 - float : left | right*/
+#div2 { border: 1px solid #333; width: 500px; height: 100px;
+		text-align: right; float: right;}
+		
+/* margin 속성을 사용한 가운데 정렬 */
+#div3 { border: 1px solid #333; width: 500px; height: 100px;
+		text-align: right; margin: 1030px auto; }
+	
+</style>
+</head>
+<body>
+<table id="tab">
+<tr>
+<td id="left">Java</td>
+<td id="center">Oracle</td>
+<td id="right">HTML</td>
+</tr>
+<tr>
+	<td id="top">홍</td>
+	<td id="middle">찬</td>
+	<td id="bottom">영</td>
+</tr>
+<tr>
+ <td colspan="3" style="text-align: right; vertical-align: bottom;">홍찬영</td>
+</tr>
+</table><br/>
+<div id="div">
+	오늘은 워어어어어어ㅓ어어요일입니다
+</div><br/>
+<div style="margin-top : 10px" id="div2">
+	오늘은 월요일 입니다
+</div>
+
+<div id="div3">
+	오늘은 월요일 입니다
+</div>
+</body>
+</html>
