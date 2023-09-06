@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+table {
+	border: 1px solid #333;
+	border-spacing: 0px;
+}
+
+th, td { border: 1px solid #333; }
+
+@media screen and ( max-width : 1000px) {
+	/* max-width - 설정된 값까지는 아래 CSS가 설정된다. */
+	.color { color: #FF0000 }
+	#img { display: none }
+	.numTitle { width : 100px; }
+	.nameTitle { width : 150px; }
+}
+
+@media ( min-width : 1000px) {
+	/* min-width - 설정된 값 이상부터는 아래 CSS가 설정된다. */
+	.color { color: #0000FF }
+	#img {	display: inline; }
+	.numTitle { width : 150px; }
+	.nameTitle { width : 300px; }
+}
+</style>
+</head>
+<body>
+	<div class="color">브라우저의 넓이가 1000px 까지만 글자의 색이 빨간색으로 변경됩니다 1000px
+		이상부터는 글자생이 파란색으로 변경됩니다</div>
+	<div id="img">
+		<img src="../common/images/hcy2.png" />
+	</div>
+	<div>
+		<table>
+			<tr>
+				<th class="numTitle">번호</th>
+				<th class="nameTitle">이름</th>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td>홍찬영</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>홍지성</td>
+			</tr>
+		</table>
+
+	</div>
+</body>
+</html>
