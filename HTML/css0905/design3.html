@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+#wrap{ width: 1000px; height: 950px; margin : 0px auto}
+#header{height: 200px; }
+/* left나 right의 시작 좌표를 브라우저가 아닌 container가 될 수 있도록
+	position : relative를 설정한다 */
+#container{height: 600px;  position: relative;}
+/* left 나 right는 container의 시작점으로 top과 left를 설정한다 */
+#left{width: 250px; height: 130px;  position: absolute;
+	top:100px; left:70px;}
+#right{width: 300px; height: 200px; position: absolute; top: 350px; left: 600px}
+	
+#footer{height: 150px;  }
+
+
+
+</style>
+</head>
+<body>
+<div id="wrap">
+<div id="header">header ( 1000 x 200 )</div>
+<div id="container"><!-- >container ( 1000 x 600 ) -->
+<div id="left">left ( 700 x 600 )</div>
+<div id="right">right( 300 x 600 )</div>
+</div>
+<div id="footer">footer (1000 x 150)</div>
+</div>
+</body>
+</html>
