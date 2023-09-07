@@ -1,0 +1,28 @@
+@charset "UTF-8";
+/* 공통디자인을 가지는 CSS */
+html, body, div, h1, h2, h3, h4, h5, h6, span, 
+ p, blockquote, pre,
+ address, cite, code, img, q, small, strong, sub, sup, var,
+b, i, a, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend, input, textarea, select,
+table, caption, tbody, tfoot, thead, tr, th, td
+ {
+    margin:0; padding:0; border:0;
+	font-family: '맑은 고딕', Dotum, '돋움', sans-serif;
+	color : #222222;
+	font-size: 13px;
+}
+
+ol, ul, li { list-style: none; }
+i,adress { font-style: normal;}
+
+ol,ul { padding: 0px; }
+
+hr { display: none}
+a{ text-decoration:  none; }
+a:hover{  text-decoration: underline; color : #55AEFF; }
+
+.inputBox { border : 1px soild #E5E5E5; padding-left: 5px; height:30px }
+.btn {  border : 1px solid #E5E5E5; background-color: #FFFFFF;
+	 cursor: pointer;  height:32px; padding: 5px; }
+ 
