@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css"
+	href="http://192.168.10.137/html_prj/common/css/main_v20230906.css">
+<style type="text/css">
+</style>
+<script type="text/javascript">
+	//지역 변수 사용
+	//1. 선언 : var 변수명;) 데이터형은 사용하지 않는다. 
+	var age;
+	alert(typeof (age));
+
+	//2. 값 할당 ) 변수명=값;   // 데이터 형이 결정된다
+	age = 20; // 정수
+	alert(typeof (age)); //number
+
+	age = 20.5; //실수
+	alert(typeof (age)); //number
+
+	//3. 사용) 변수를 사용하여 출력, 연산, 재할당 중 하나를 하면 된다.
+	alert(age);
+
+	var msg;
+	msg = "변수는 일시적인 값을 저장할 용도";
+	alert(msg + "의 데이터 형 " + typeof (msg)); // String
+	//JS는 char가 없다. 문자열을 사용할 때 " 나 ' 모두 사용 가능하다
+	msg = 'JS는 char가 엄서용';
+	alert(msg + "의 데이터 형 " + typeof (msg)); // String
+
+	var flag;
+	flag = true; //true | false
+	alert(flag + "의 데이터 형 " + typeof (flag)); // boolean
+
+	//변수는 이전에 할당된 데이터 형과 다른 데이터형이 입력될 수 있다
+	var temp = 2023;
+	alert(temp + "의 데이터 형 " + typeof (temp)); // number
+	temp = "오늘은 목요일 입니다.";
+	alert(temp + "의 데이터 형 " + typeof (temp)); // number
+
+	//hoisting : 아래에 선언된 변수를 위에서 사용하더라도 에러가 발생하지 않는 것
+
+	alert("hoisting " + today);
+	var today = "오늘은 7일";
+
+	function test() {
+		var i = 10; // var 지역변수 => 함수 안에서만 사용가능
+		j = "포항항항항 ^0^"; // 전역변수 => 함수가 호출된 후 함수 밖에서도 변수를 사용할 수 있다 
+
+		alert(i + " / " + j);
+	}//test
+	test();
+	//alert("지역변수 i " + i); //지역변수는 외부에서 사용할 수 없다.
+	alert("전역변수 : "+j);
+	
+	var today=9; // var를 사용하면 같은 이름의 변수를 여러 번 선언할 수 있다
+	alert("같은 이름의 변수 여러번 선언" + today);
+</script>
+</head>
+<body>
+
+</body>
+</html>

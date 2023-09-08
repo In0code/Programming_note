@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- <link rel = "stylesheet" type="text/css" 
+	href= "http://192.168.10.137/html_prj/common/css/main_v20230906.css"> -->
+<style type="text/css">
+.table{ border-left:  0px; border-right: 0px; border-top: 3px solid #29367C;
+		border-bottom: 1px solid #29367C; border-spacing: 0px}
+		
+.td{ height: 30px; width:80px; border-bottom: 1px solid #EEEEEE }	
+.center{ text-align:  center; }
+tbody > tr:hover{ background-color: #EEEEEE   }	
+</style>
+<script type="text/javascript">
+for(var i=1; i < 7 ; i++){
+	document.write("<h"+i+">안녕하세요?</h"+i+">"); //<br/> <script>태그는 JavaScript영역이므로 HTML태그를 직접 사용할 수 없다.
+}//end for
+
+document.write("<select>");
+for(var i=1; i < 101 ; i++){
+	document.write("<option>"+i+"</option>"); 
+}//end for
+document.write("</select>");
+
+document.write("<table class='table'>");
+for(var i=2; i < 10 ; i++){
+	document.write("<tr>"); 
+		for(var j=1; j < 10 ; j++){
+			document.write("<td class='td center'>"+i +" x "+ j + " = "+ i*j+"</td>"); 
+		}//end for
+	document.write("</tr>"); 
+}//end for
+document.write("</table>");
+document.write("<marquee scrollamount='25'>");
+for(var i=0; i < 4 ; i++){
+		for(var j=0; j < i+1 ; j++){
+			document.write("<img style='width:100px' src='../common/images/JJanggu.png'>"); 
+		}//end for
+	document.write("<br/>"); 
+}//end for
+document.write("</marquee>");
+
+</script>
+</head>
+<body>
+
+</body>
+</html>
