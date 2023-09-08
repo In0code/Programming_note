@@ -32,6 +32,7 @@ public class EmployProfManageDialog extends JDialog {
 	JButton jbtnAdd;
 	JButton jbtnSearch;
 	EmployProfManageEvt epme;
+	DefaultTableModel dtmProf;
 
 	public EmployProfManageDialog(EmployMainFrame emf) {
 		super(emf, "관리자", true);
@@ -56,7 +57,7 @@ public class EmployProfManageDialog extends JDialog {
 		// 조회버튼
 		jbtnSearch = new JButton("조회");
 		// 테이블
-		DefaultTableModel dtmProf = new DefaultTableModel();
+		dtmProf = new DefaultTableModel();
 		// 컬럼 이름 추가
 		dtmProf.addColumn("No");
 		dtmProf.addColumn("사번");
@@ -65,24 +66,10 @@ public class EmployProfManageDialog extends JDialog {
 		dtmProf.addColumn("학과명");
 		dtmProf.addColumn("전화번호");
 		dtmProf.addColumn("이메일");
+		
+		epme=new EmployProfManageEvt(this);
 
-		ProfDAO profDAO = ProfDAO.getInstance();
-		List<ProfVO> dataList = null;
-		try {
-			dataList = profDAO.selectAllProf();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		for (int i = 0; i < dataList.size(); i++) {
-			ProfVO prof = dataList.get(i);
-			dtmProf.addRow(new Object[] { i + 1, // No 컬럼은 1부터 시작하는 순번으로 설정
-					prof.getEmpno(), prof.getEname(), prof.getMajorname(), prof.getDptname(), prof.getPhone(),
-					prof.getEmail() });
-		}
-
-		JTable jtProf = new JTable(dtmProf);
+		jtProf = new JTable(dtmProf);
 
 		jtProf.setRowHeight(25);
 		JScrollPane jspJtProf = new JScrollPane(jtProf);
@@ -139,6 +126,18 @@ public class EmployProfManageDialog extends JDialog {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 	}// EmployProfManageDialog
+	
+	 public void setJtProf(JTable jtProf) {
+	        this.jtProf = jtProf;
+	        // JTable을 JScrollPane에 추가
+	        JScrollPane jspJtProf = new JScrollPane(jtProf);
+	        jspJtProf.setBounds(110, 170, 770, 350);
+	        add(jspJtProf);
+	    }
+
+	public EmployMainFrame getEmf() {
+		return emf;
+	}
 
 	public DefaultComboBoxModel<String> getDcbmSearch() {
 		return dcbmSearch;
@@ -163,5 +162,17 @@ public class EmployProfManageDialog extends JDialog {
 	public JButton getJbtnSearch() {
 		return jbtnSearch;
 	}
+
+	public EmployProfManageEvt getEpme() {
+		return epme;
+	}
+
+	public DefaultTableModel getDtmProf() {
+		return dtmProf;
+	}
+
+	
+	
+	
 
 }// class
