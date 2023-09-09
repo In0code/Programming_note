@@ -1,4 +1,4 @@
-package self_practice_course_prj;
+package course_prj;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,10 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import kr.co.sist.dao.DbConn;
-
 public class ProfDAO {
-
+//////////////인영 ///////////////
+/////////// 교수 DAO ///////////
 	private static ProfDAO pDAO;
 
 	private ProfDAO() {
@@ -23,34 +22,48 @@ public class ProfDAO {
 		} // end if
 		return pDAO;
 	}// getInstance
-//
-//	public ProfVO selectProf(String prof) throws SQLException {
+	
+	
+	//교수 한 명 조회
+	public ProfVO selectProf(String prof) throws SQLException {
 //		ProfVO pVO = null;
-//
-//		Connection con = null;
-//		PreparedStatement pstmt = null;
-//		DbConn db = DbConn.getInstance();
-//
-//		// 1. 드라이버로딩
-//		// 2. 커넥션 얻기
-//		con = db.getConnection("localhost", "applepie", "mincho");
-//		// 3. 쿼리문 생성 객체 얻기
-//		String insertInfo = "";
-//
-//		pstmt = con.prepareStatement(insertInfo);
-//		// 4. 바인드 변수 값 설정
-//
-//		// 5. 쿼리문 실행 결과 얻기
-////		pstmt.excuteQuery();   
-//		// 6. 연결끊기
-//		db.dbClose(null, pstmt, con);
-//
-//		return null;
-//
-//	}// selectProf
 
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		DbConn db = DbConn.getInstance();
+
+		try {
+			// 1. 드라이버로딩
+			// 2. 커넥션 얻기
+			con = db.getConnection("192.168.10.142", "applepie", "mincho");
+			// 3. 쿼리문 생성 객체 얻기
+			StringBuilder selectOneProfInfo = new StringBuilder();
+			selectOneProfInfo.append("  select e.empno, e.ename, m.majorname, d.dptname, e.phone, e.email ")
+					.append("  from  emp e, major m, dpt d ")
+					.append(" where (e.dptcode=d.dptcode) and (e.majorcode=m.majorcode) and ((e.ename= ? ) or (e.empno= ?))   ");
+
+			pstmt = con.prepareStatement(selectOneProfInfo.toString());
+			
+			// 4. 바인드 변수 값 설정
+			pstmt.setString(1, prof);
+			// 5. 쿼리문 실행 결과 얻기
+			pstmt.executeQuery();
+			// 6. 연결끊기
+		} finally {
+
+			db.dbClose(null, pstmt, con);
+		}
+
+		return null;
+
+	}// selectProf
+	
+
+	//교수 전체 조회
 	public List<ProfVO> selectAllProf() throws SQLException {
 
+		ProfVO pVO = null;
 		List<ProfVO> list = new ArrayList<ProfVO>();
 
 		Connection con = null;
@@ -65,105 +78,134 @@ public class ProfDAO {
 			// 2. 커넥션 얻기
 			con = db.getConnection("192.168.10.142", "applepie", "mincho");
 			// 3. 쿼리문 생성 객체 얻기
-			String insertInfo = "select * from emp";
+			StringBuilder selectAllProfInfo = new StringBuilder();
+			selectAllProfInfo.append("  select e.empno, e.ename, m.majorname, d.dptname, e.phone, e.email ")
+					.append("  from  emp e, major m, dpt d ")
+					.append("  where (e.dptcode=d.dptcode) and (e.majorcode=m.majorcode)   ");
 
-			pstmt = con.prepareStatement(insertInfo);
+			pstmt = con.prepareStatement(selectAllProfInfo.toString());
 
-			ProfVO pVO = null;
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				pVO = new ProfVO(
-
-						rs.getString("ename"), rs.getString("phone"), rs.getString("email"), rs.getString("image"),
-						rs.getString("major"), rs.getString("dpt"), rs.getInt("empno"),
-						rs.getString("usercode").charAt(0));
+				pVO = new ProfVO(rs.getString("ename"), rs.getString("phone"), rs.getString("email"),
+						rs.getString("majorname"), rs.getString("dptname"), rs.getString("empno"));
 				list.add(pVO);
-			}
-			// 4. 바인드 변수 값 설정
+			} // end while
+				// 4. 바인드 변수 값 설정
 
 			// 5. 쿼리문 실행 결과 얻기
 
 		} finally {
 
 			// 6. 연결끊기
-			db.dbClose(null, pstmt, con);
+			db.dbClose(rs, pstmt, con);
 		}
 
 		return list;
 
 	}// selectAllProf
+	
+	
+	//교수 수정
+	public int updateProf(ProfVO prof) throws SQLException {
+		ProfVO pVO = null;
 
-//	public int updateProf(ProfVO prof) throws SQLException {
-//		ProfVO pVO = null;
-//
-//		Connection con = null;
-//		PreparedStatement pstmt = null;
-//		DbConn db = DbConn.getInstance();
-//
-//		// 1. 드라이버로딩
-//		// 2. 커넥션 얻기
-//		con = db.getConnection("localhost", "applepie", "mincho");
-//		// 3. 쿼리문 생성 객체 얻기
-//		String insertInfo = "";
-//
-//		pstmt = con.prepareStatement(insertInfo);
-//		// 4. 바인드 변수 값 설정
-//
-//		// 5. 쿼리문 실행 결과 얻기
-////		pstmt.excuteQuery();   
-//		// 6. 연결끊기
-//		db.dbClose(null, pstmt, con);
-//
-//		return 0;
-//
-//	}//updateProf
-//	
-//	public int insertProf(ProfVO prof) throws SQLException{
-//		ProfVO pVO = null;
-//
-//		Connection con = null;
-//		PreparedStatement pstmt = null;
-//		DbConn db = DbConn.getInstance();
-//
-//		// 1. 드라이버로딩
-//		// 2. 커넥션 얻기
-//		con = db.getConnection("localhost", "applepie", "mincho");
-//		// 3. 쿼리문 생성 객체 얻기
-//		String insertInfo = "";
-//
-//		pstmt = con.prepareStatement(insertInfo);
-//		// 4. 바인드 변수 값 설정
-//
-//		// 5. 쿼리문 실행 결과 얻기
-////		pstmt.excuteQuery();   
-//		// 6. 연결끊기
-//		db.dbClose(null, pstmt, con);
-//		
-//		return 0;
-//	}//insertProf
-//	
-//	public int createProfNo() throws SQLException {
-//		ProfVO pVO = null;
-//
-//		Connection con = null;
-//		PreparedStatement pstmt = null;
-//		DbConn db = DbConn.getInstance();
-//
-//		// 1. 드라이버로딩
-//		// 2. 커넥션 얻기
-//		con = db.getConnection("localhost", "applepie", "mincho");
-//		// 3. 쿼리문 생성 객체 얻기
-//		String insertInfo = "";
-//
-//		pstmt = con.prepareStatement(insertInfo);
-//		// 4. 바인드 변수 값 설정
-//
-//		// 5. 쿼리문 실행 결과 얻기
-////		pstmt.excuteQuery();   
-//		// 6. 연결끊기
-//		db.dbClose(null, pstmt, con);
-//		return 0;
-//	}
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		DbConn db = DbConn.getInstance();
+		try {
+			
+		// 1. 드라이버로딩
+		// 2. 커넥션 얻기
+		con = db.getConnection("192.168.10.142", "applepie", "mincho");
+		// 3. 쿼리문 생성 객체 얻기
+		StringBuilder updateProfInfo = new StringBuilder();
+		updateProfInfo.append("  update emp ")
+				.append("  Set  ? = ? ")
+				.append("  where empno = ?   ");
+
+		pstmt = con.prepareStatement(updateProfInfo.toString());
+		// 4. 바인드 변수 값 설정
+		pstmt.setString(1, null);
+		pstmt.setString(2, null);
+		pstmt.setString(3, null);
+		// 5. 쿼리문 실행 결과 얻기
+		pstmt.executeQuery();   
+		// 6. 연결끊기
+		}finally {
+		db.dbClose(null, pstmt, con);
+		}
+
+		return 0;
+
+	}// updateProf
+	
+	
+	//교수 등록
+	public int insertProf(ProfVO prof) throws SQLException{
+		ProfVO pVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		DbConn db = DbConn.getInstance();
+
+		try {
+			
+		// 1. 드라이버로딩
+		// 2. 커넥션 얻기
+		con = db.getConnection("localhost", "applepie", "mincho");
+		// 3. 쿼리문 생성 객체 얻기
+		StringBuilder insertProfInfo = new StringBuilder();
+		insertProfInfo.append("   ")
+				.append("   ")
+				.append("     ");
+
+		pstmt = con.prepareStatement(insertProfInfo.toString());
+		// 4. 바인드 변수 값 설정
+
+		// 5. 쿼리문 실행 결과 얻기
+		pstmt.executeQuery();   
+		// 6. 연결끊기
+		}finally {
+		db.dbClose(null, pstmt, con);
+		}
+		return 0;
+	}//insertProf
+	
+	//사번 생성
+	public int createProfNo() throws SQLException {
+		ProfVO pVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		DbConn db = DbConn.getInstance();
+
+		try {
+			
+		// 1. 드라이버로딩
+		// 2. 커넥션 얻기
+		con = db.getConnection("localhost", "applepie", "mincho");
+		// 3. 쿼리문 생성 객체 얻기
+		StringBuilder createProfInfo = new StringBuilder();
+		createProfInfo.append("   ")
+				.append("   ")
+				.append("     ");
+
+		pstmt = con.prepareStatement(createProfInfo.toString());
+		// 4. 바인드 변수 값 설정
+
+		// 5. 쿼리문 실행 결과 얻기
+		pstmt.executeQuery();  
+		// 6. 연결끊기
+		}finally {
+			
+		db.dbClose(null, pstmt, con);
+		}
+		return 0;
+	}//createProfNo
 
 	public static void main(String[] args) {
 		try {

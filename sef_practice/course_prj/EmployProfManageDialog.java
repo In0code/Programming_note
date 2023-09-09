@@ -1,7 +1,9 @@
-package self_practice_course_prj;
+package course_prj;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.sql.SQLException;
+import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -17,6 +19,8 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 @SuppressWarnings("serial")
+//////////////인영 ///////////////
+/////////// 교수관리 Dialog ///////////
 public class EmployProfManageDialog extends JDialog {
 
 	private EmployMainFrame emf;
@@ -28,6 +32,7 @@ public class EmployProfManageDialog extends JDialog {
 	JButton jbtnAdd;
 	JButton jbtnSearch;
 	EmployProfManageEvt epme;
+	DefaultTableModel dtmProf;
 
 	public EmployProfManageDialog(EmployMainFrame emf) {
 		super(emf, "관리자", true);
@@ -37,7 +42,7 @@ public class EmployProfManageDialog extends JDialog {
 		JLabel jlblTitle = new JLabel("교수관리");
 		// 배경
 		JLabel jlblback = new JLabel(
-				new ImageIcon("E:/dev/workspace/html_prj/src/main/webapp/common/images/backgr.png"));
+				new ImageIcon("C:/Users/user/eclipse-workspace/sistWork/src/course_prj/backgr.png"));
 
 		dcbmSearch = new DefaultComboBoxModel<String>();
 		jcbSearch = new JComboBox<String>(dcbmSearch);
@@ -52,10 +57,23 @@ public class EmployProfManageDialog extends JDialog {
 		// 조회버튼
 		jbtnSearch = new JButton("조회");
 		// 테이블
-		String[] columNames = { "No", "사번", "이름", "학부명", "학과명", "전화번호", "이메일" };
-		DefaultTableModel dtmProf = new DefaultTableModel(null, columNames);
+		dtmProf = new DefaultTableModel();
+		// 컬럼 이름 추가
+		dtmProf.addColumn("No");
+		dtmProf.addColumn("사번");
+		dtmProf.addColumn("이름");
+		dtmProf.addColumn("학부명");
+		dtmProf.addColumn("학과명");
+		dtmProf.addColumn("전화번호");
+		dtmProf.addColumn("이메일");
+		
+		epme=new EmployProfManageEvt(this);
+
 		jtProf = new JTable(dtmProf);
+
+		jtProf.setRowHeight(25);
 		JScrollPane jspJtProf = new JScrollPane(jtProf);
+		
 
 		// Bounds
 		jlblback.setBounds(0, 0, 1000, 700);
@@ -86,6 +104,9 @@ public class EmployProfManageDialog extends JDialog {
 		epme = new EmployProfManageEvt(this);
 		jbtnAdd.addActionListener(epme);
 
+		for (int i = 0; i < jtProf.getColumnModel().getColumnCount(); i++) {
+			jtProf.getColumnModel().getColumn(i).setResizable(false);
+		}
 		// add
 		add(jlblTitle);
 		add(jbtnSearch);
@@ -105,6 +126,18 @@ public class EmployProfManageDialog extends JDialog {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 	}// EmployProfManageDialog
+	
+	 public void setJtProf(JTable jtProf) {
+	        this.jtProf = jtProf;
+	        // JTable을 JScrollPane에 추가
+	        JScrollPane jspJtProf = new JScrollPane(jtProf);
+	        jspJtProf.setBounds(110, 170, 770, 350);
+	        add(jspJtProf);
+	    }
+
+	public EmployMainFrame getEmf() {
+		return emf;
+	}
 
 	public DefaultComboBoxModel<String> getDcbmSearch() {
 		return dcbmSearch;
@@ -130,5 +163,16 @@ public class EmployProfManageDialog extends JDialog {
 		return jbtnSearch;
 	}
 
+	public EmployProfManageEvt getEpme() {
+		return epme;
+	}
+
+	public DefaultTableModel getDtmProf() {
+		return dtmProf;
+	}
+
+	
+	
+	
 
 }// class
