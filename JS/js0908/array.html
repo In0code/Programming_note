@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css"
+	href="http://192.168.10.137/html_prj/common/css/main_v20230906.css">
+<style type="text/css">
+</style>
+<script type="text/javascript">
+	//1. 생성 ) var 배엶명 = new Array();  일차원 배열 생성
+	var arr = new Array();
+
+	//2. 값 할당 ) - 모든 값이 할당된다
+	arr[0] = 10;
+	arr[1] = 9.08;
+	arr[2] = "안녕하세요?";
+	arr[3] = '오늘은 금요일 입니다^^';
+	arr[4] = true;
+	arr[5] = new Date();
+
+	//3. 값 사용 )
+	document.write(arr[0] + " / " + arr[5]);
+
+	//4. 일괄처리
+	document.write("<ul>");
+	for (var i = 0; i < arr.length; i++) {
+		document.write("<li>arr[" + i + "] : " + arr[i] + "</li>");
+	}//end for
+	document.write("</ul>");
+
+	//기본형 형식의 사용
+	var arr2 = [ 2023, 9, 8, 10, 22 ];
+	alert(arr2.length);
+	
+	arr2[5]=40;
+	
+	document.write("<table style=\"border:1px solid #333\">");
+	document.write("<tr>");
+	for( var i=0; i< arr2.length; i++){
+	document.write("<td style=\"width:100px\">"+arr2[i]+"</td>");
+	}//end for
+	document.write("</tr>");
+	document.write("</table>");
+	
+</script>
+</head>
+<body>
+
+</body>
+</html>

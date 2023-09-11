@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css"
+	href="http://192.168.10.137/html_prj/common/css/main_v20230906.css">
+<style type="text/css">
+</style>
+<script type="text/javascript">
+	function callTest() {
+		alert("콜~~~!!!!");
+	}
+</script>
+</head>
+<!-- <body onload="callTest()"> -->
+<body>
+	<strong>HTML body에서 JavaScript함수호출</strong>
+	<br />
+	<input type="button" value="클릭" class="btn" onclick="callTest()" />
+	<!--  href="HTML영역이므로 HTML파일을 찾는다. callTest()라는 HTML이 존재하지 않기 때문에
+404 에러가 발생" 
+ HTML영역에서 JavaScript영역으로 변경할 때에는 javascript:을 붙이면 된다. -->
+	<a href="javascript:callTest()">클릭</a>
+	<br />
+	<a onclick="callTest()">클릭</a>
+	<br />
+	<!-- onload는 body태에서만 동작한다. <div onload="callTest()"></div> -->
+	<label>키가 눌림</label>
+	<input type="text" class="inputBox" placeholder="키눌림"
+		onkeydown="callTest()" />
+	<br />
+	<label>키가 올라옴</label>
+	<input type="text" class="inputBox" placeholder="키올라옴"
+		onkeyup="callTest()" />
+	<br />
+	<label>마우스 포인터가 올라오는 순간</label>
+	<img src="../common/images/JJanggu.png" onmouseover="callTest()" />
+	<br />
+	<label>마우스 포인터가 빠져나가는 순간</label>
+	<img src="../common/images/JJanggu.png" onmouseout="callTest()" />
+	<br />
+
+	<label>change : 다른 옵션이 선택될 때</label>
+	<select onchange="callTest()"
+		style="border: 1px solid #333; width: 200px; height: 40px; font-size: 20px">
+		<option>자바</option>
+		<option>오라클</option>
+		<option>HTML</option>
+	</select><br/>
+	<label>change : 커서가 들어갔을 때의 값과 나갔을 때의 값이 다를 때</label>
+	<input type="text" onchange="callTest()" class="inputBox"/><br/>
+	
+	<label>커서가 빠져 나갈 때</label>
+	<input type="text" onblur="callTest()" class="inputBox"/><br/>
+	
+	<label>더블클릭 했을 때</label>
+	<input type="button" ondblclick="callTest()" value="더블클릭" class="btn"/><br/>
+	
+</body>
+</html>
