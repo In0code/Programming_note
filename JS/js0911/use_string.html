@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css"
+	href="http://192.168.10.137/html_prj/common/css/main_v20230906.css">
+<style type="text/css">
+	#div{ border: 1px solid #333; width: 400px; height: 300px; overflow: auto; }
+	select{ width: 150px; height: 30px; font-size: 18px; border: 1px solid #333; }
+</style>
+<script type="text/javascript">
+function useStringFunction(){
+	
+	var msg="오늘은 11일 입니다.";
+
+	//문자열의 길이는 length keyword로 얻는다
+	var output=msg+"의 글자수 : "+msg.length+"<br/>";
+
+	msg="AbcdEfg";
+	output += msg+"를 모두 대문자로 : "+msg.toUpperCase() + "<br/>";
+	output += msg+"를 모두 소문자로 : "+msg.toLowerCase() + "<br/>";
+
+	msg="Java,Oracle,HTML,VSCode,Java,Eclipse";
+
+	output += msg+"에 ";
+
+	var flag="java";
+	if(msg.indexOf(flag) != -1){
+		output += flag+" 가 존재합니다. <br/>"
+	}else{
+		output +=flag+" 가  없습니다. <br/>"
+	}//end else
+
+	output +=msg+"에서 HTML의 시작인덱스 : "+msg.indexOf("HTML")+"<br/>";
+	output +=msg+"에서 뒤부터 찾은 Java의 시작인덱스 : "+msg.lastIndexOf("Java")+"<br/>";
+
+	//특정 문자를 기준으로 잘라서 배열로 얻을 때 사용.
+	var subjectArr=msg.split(",");
+	
+	var select="<select>";
+		for( var i=0; i<subjectArr.length; i++ ){
+			select+="<option>"+subjectArr[i]+"</option>";
+		}//end for
+		select+="</select>";
+
+		output+=select+"<br/>";
+
+		msg="Java,Oracle,JDBC";
+
+		output +=msg+"에서 5번 째 인덱스에 해당하는 문자 : "+msg.charAt(5)+"<br/>";
+		output +=msg+"에서 5~10번 째 인덱스에 해당하는 문자 : "+msg.substring(5,11)+"<br/>";
+		//처음, 이후부터 끝까지 잘라서 출력
+		output +=msg+"에서 처음, 이후부터 끝까지의 문자열 : "+msg.substring(msg.indexOf(",")+1)+"<br/>";
+
+		msg="점심";
+		var msg2=" 맛있게 드세요 ^o^";
+
+		var msg3=msg.concat(msg2);
+		output+=msg3+"<br/>";
+
+		msg="서울시 강남구 역삼동";
+
+		output += msg+"는 서울인가? " + msg.startsWith("서울")+"<br/>";
+
+		output += msg+"는 시골인가? " + msg.endsWith("리")+"<br/>";
+
+		let name="김짱구";
+
+		// if( name.equals("김짱구")){ // equals 함수는 JS에서 지원하지 않는다
+			if( name=="김짱구"){  //JS를 비교할때는 == 으로 비교한다
+			output+="강아지 ";
+		}//end if
+		output +=name+"님 안녕하세요<br/>";
+
+		msg="Java,Oracle,Java,HTML,JavaScript";
+		output += msg+" replace => " + msg.replace("Java","Java SE")+"<br/>";
+
+		output += msg+" replaceAll => " + msg.replaceAll("Java","Java SE")+"<br/>";
+		
+		msg="   이 태균   ";
+		output += msg+" [" + msg.trim()+"] <br/>";
+
+	var divNode=document.getElementById("div");
+	divNode.innerHTML=output;
+
+}//useStringFunction
+</script>
+</head>
+<body>
+<input type="button" value="문자열함수" onclick="useStringFunction()" class="btn"/>
+<div id="div"></div>
+</body>
+</html>

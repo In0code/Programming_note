@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css"
+	href="http://192.168.10.137/html_prj/common/css/main_v20230906.css">
+<style type="text/css">
+	#wrapBtn{ text-align : center }
+    .btn2{ width:120px }
+    table{ border-spacing: 0px; border: 1px solid #333;}
+    td,th{  border: 1px solid #333; text-align: center;}
+    
+</style>
+<script type="text/javascript">
+    var names=new Array();
+
+    function inputName(){
+        names[ names.length]=prompt("이름을 입력해주세요","김인영");
+    }
+
+    function outputName(){
+
+        var table="<table>";
+        table+="<tr><th style='width:100px'>성</th><th style='width:200px'>이름</th></tr>";
+
+        var firstName="";
+        var lastName="";
+
+        if(names.length == 0){
+            table+="<tr><td colspan='2'>이름을 입력해주세요</td></tr>";
+        }//end if
+
+        var ind=0;
+
+
+        for( var i=0; i < names.length ;i++ ){
+            ind=1;
+            if( names[i].startsWith("남궁") || names[i].startsWith("선우") ||
+            names[i].startsWith("제갈") || names[i].startsWith("독고")  ){
+                ind=2;
+            }
+            firstName=names[i].substring(ind);
+            lastName=names[i].substring(0,ind);
+            table+="<tr><td>"+lastName+"</td><td>"+firstName+"</td></tr>";
+        }
+            
+
+        table+="</table>";
+
+        var divNode=document.getElementById("output");
+        divNode.innerHTML=table;
+    }
+
+</script>
+</head>
+<body>
+<div id="wrapBtn">
+    <input type="button" value="이름입력" class="btn btn2" onclick="inputName()"/>
+    <input type="button" value="이름출력" class="btn btn2" onclick="outputName()"/>
+</div>
+<div id="output"></div>
+
+</body>
+</html>

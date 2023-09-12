@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css"
+	href="http://192.168.10.137/html_prj/common/css/main_v20230906.css">
+<style type="text/css">
+#output{ border: 1px solid #222; width: 400px; height: 300px; overflow: auto; }
+</style>
+<script type="text/javascript">
+function useMath(){
+	var num=-11;
+
+	var outputMsg="";
+	outputMsg+=num+"의 절대값 : "+Math.abs(num)+"<br/>";
+
+	num=10.5
+	outputMsg+=num+"을 반올림 : "+Math.round(num)+"<br/>";
+
+	num=10.4
+	outputMsg+=num+"을 반올림 : "+Math.round(num)+"<br/>";
+
+	num=10.1
+	outputMsg+=num+"을 올림 : "+Math.ceil(num)+"<br/>";
+
+	num=10.9
+	outputMsg+=num+"을 버림 : "+Math.floor(num)+"<br/>";
+
+	// var inputNum=prompt("아무숫자나 입력","0");
+	// num=inputNum*3;
+	// //JS은 숫자가 아닌 값을 연산하면 NaN (Not at Number)이 발생한다
+	// outputMsg+=num+"<br/>";
+
+	//실수를 정수로 변경
+	num=9.11;
+	var value = parseInt(num);
+	outputMsg+="실수 "+num+"을 정수로 : "+value+"<br/>";
+
+	//문자열을 정수로 변경
+	num="2023";
+	var value = parseInt(num);
+	outputMsg+="문자열 "+num+"을 정수로 : "+value+"<br/>";
+
+	//난수
+	var num=Math.random();
+	outputMsg+="발생한 난수 : "+num+"<br/>";
+	outputMsg+="범위의 난수 : " + (num * 10)+ "<br/>";
+	outputMsg+="실수를 제외한 난수 : " + parseInt(num * 10)+ "<br/>";
+
+	//2. 디자인을 적용할 태그 찾기
+	var divNode=document.getElementById("output");
+	//3. 디자인 적용
+	divNode.innerHTML=outputMsg;
+}
+
+function useinnerHTML(){
+	//1. 다자인 생성
+	var output="<strong>짱구 기다려</strong><br/><br/>"+"<img src='../common/images/jjanggu.png'>";
+
+	//2. 디자인을 적용할 태그를 찾기
+	var divNode=document.getElementById("output")
+	//3. 디자인을 적용할 
+	divNode.innerHTML=output;
+}
+</script>
+</head>
+<body>
+
+<input type="button" value="Math사용" class="btn" onclick="useMath()"/>
+<input type="button" value="innerHTML사용" class="btn" onclick="useinnerHTML()"/>
+<div id="output"></div>
+</body>
+</html>

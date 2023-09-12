@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css"
+	href="http://192.168.10.137/html_prj/common/css/main_v20230906.css">
+<style type="text/css">
+
+</style>
+<script type="text/javascript">
+/*매개변수에는 var를 붙일 수 없다 -> error*/
+// function test (var name){
+// 	alert(name+"님 안녕하세요?");
+// }
+
+//ES6에서 부터는 매개변수에 초기값을 설정할 수 있다
+function test( name='홍지성',age=20 ){
+	document.write("이름 : "+name+", 나이 : "+age+"<br/>");
+}//test
+
+//호출
+test('김인영',23);
+test('김인영');
+test();
+
+</script>
+</head>
+<body>
+
+</body>
+</html>
