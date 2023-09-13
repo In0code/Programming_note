@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css"
+	href="http://192.168.10.137/html_prj/common/css/main_v20230906.css">
+<style type="text/css">
+
+</style>
+<script type="text/javascript">
+//name 속성으로 HTML Form Control 값 얻기
+function getValue() {
+    //window.document.폼이름.control명.value
+    //1 값 얻기
+
+
+
+    // var name=window.document.frm.name.value;
+    // var age=document.frm.age.value;
+    //obj객체에 form태그를 저장할 수 있다.
+    var obj=document.frm;
+    var name=obj.name.value;
+    var age=obj.age.value;
+    var output="이름 : "+name+"<br>나이 : "+age;
+
+    document.getElementById("output").innerHTML=output;
+    
+}
+
+</script>
+</head>
+<body>
+    <form name="frm">
+        <input type="text" name="name" class="inputBox" placeholder="이름입력"/><br/>
+        <input type="text" name="age" class="inputBox" placeholder="나이입력"/><br/>
+        <input type="button" value="값얻기" onclick="getValue()" class="btn" /><br/>
+
+	</form>
+    <div id="output" style="border: 1px solid #333; width: 300px; height: 200px;"></div>
+</body>
+</html>

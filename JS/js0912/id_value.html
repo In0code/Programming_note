@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css"
+	href="http://192.168.10.137/html_prj/common/css/main_v20230906.css">
+<style type="text/css">
+
+</style>
+<script type="text/javascript">
+	function getDate(){
+	//id로 접근하여 값 얻기
+
+	//1. HTML Form Control 얻기
+	var inputName=document.getElementById("name");
+	var inputAge=document.getElementById("age");
+	var textareaTa=document.getElementById("ta");
+	// alert( inputName );
+
+	var output="";
+	//2. value 속성을 사용하여 값 얻기
+	var age = inputAge.value;
+	var msg=textareaTa.value;
+
+	output += "이름 : "+inputName.value+"<br/>";
+	output += "나이 : "+age+"<br/>";
+	output += "메시지 : "+msg.replaceAll("\n","<br/>")+"<br/>";
+
+	//3. 값을 출력할 HTML Element를 얻어서 HTML을 설정한다
+	document.getElementById("output").innerHTML=output;
+
+
+	}//getDate
+
+</script>
+
+</head>
+<body>
+<label>이름 </label><input type="text" id="name" class="inputBox"/><br/>
+<label>나이 </label><input type="text" id="age" class="inputBox"/><br/>
+<textarea id="ta" class="inputBox" style="width: 400px; height: 200px;">오늘은  
+화요일입니다. 내일은
+수요일입니다</textarea><br/>
+<input type="button" value="값 얻기" class="btn" onclick="getDate()"/>
+
+<div id="output" style="border: 1px solid #333; width: 300px; height: 200px; margin-top: 20px;"></div>
+</body> 
+</html>

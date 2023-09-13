@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css"
+	href="http://192.168.10.137/html_prj/common/css/main_v20230906.css">
+<style type="text/css">
+#output {  width: 400px; height: 300px; border: 1px solid #333; background-color:#F9F8F8 ; 
+box-shadow: 10px 10px 10px; position:absolute; top: 50px; left: 350px; }
+</style>
+<script type="text/javascript">
+	function getValue(){
+		//name 속성을 사용하여 이름이 유일한 객체의 값을 얻기
+		//1. form을 변수에 저장
+		var obj=document.frm;
+		//2. <form>의 자식 tag들을 접근하여 값 얻기. 폼이름.control명.value
+		var name=obj.name.value; // text
+		var pass=obj.pass.value;  //password
+		var date=obj.date.value;  //date
+		var email=obj.email.value;  //select은 select에만 name이 있기 때문에 value 또는 배열로 얻을 수 있다
+		var msg=obj.msg.value;
+
+		var data="<strong>입력 데이터</strong>";
+
+		data += "<ul>";
+		data +="<li>이름 : <strong>"+name+"</strong></li>";
+		data +="<li>비번 : <strong>"+pass+"</strong></li>";
+		data +="<li>date : <strong>"+date+"</strong></li>";
+		data +="<li>email : <strong>"+email+"</strong></li>";
+		data +="<li>textarea : <strong>"+msg.replaceAll("\n","<br>")+"</strong></li>";
+		data += "</ul>";
+
+		document.getElementById("output").innerHTML=data;
+
+	}//getValue
+
+</script>
+</head>
+<body>
+	<form name="frm">
+		<strong>이름이 유일한 Form Control 값 얻기</strong><br/>
+		<label>text</label><input type="text" name="name" class="inputBox"/><br/>
+		<label>password</label><input type="password" name="pass" class="inputBox"/><br/>
+		<label>date</label><input type="date" name="date" class="inputBox"/><br/>
+		<label>select</label>
+		<select name="email" class="inputBox">
+			<option value="gmail.com">지메일</option>
+			<option value="naver.com">네이버메일</option>
+			<option value="hotmail.com">핫메일</option>
+			<option value="nate.com">네이트메일</option>
+			<option value="empal.com">엠파스메일</option>
+		</select>
+		<br>
+		<textarea name="msg" class="inputBox" style="width: 200px; height: 100px;"></textarea><br/>
+		<input type="button" value="값 얻기" class="btn" onclick="getValue()"/>
+	</form>
+	<div id="output"></div>
+</body>
+</html>

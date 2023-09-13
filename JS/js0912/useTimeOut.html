@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css"
+	href="http://192.168.10.137/html_prj/common/css/main_v20230906.css">
+<style type="text/css">
+
+</style>
+<script type="text/javascript">
+	var cnt=0;
+	function useTimeOut(){
+		console.log(cnt+"번 useTimeOut 함수 호출");
+		if(cnt == 20){
+			finsish();
+		}//end if
+		setTimeout( useTimeOut, 500 );
+		cnt++;
+	}//useTimeOut
+	function finsish(){
+		alert("완료!!!");
+		location.href="http://daum.net";
+	}
+
+</script>
+</head>
+<body>
+<input type="button" value="클릭" onclick="useTimeOut()" class="btn"/>
+
+</body>
+</html>
