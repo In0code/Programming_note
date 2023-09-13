@@ -1,9 +1,7 @@
-package course_prj;
+package self_practice_course_prj;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.sql.SQLException;
-import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -42,7 +40,7 @@ public class EmployProfManageDialog extends JDialog {
 		JLabel jlblTitle = new JLabel("교수관리");
 		// 배경
 		JLabel jlblback = new JLabel(
-				new ImageIcon("C:/Users/user/eclipse-workspace/sistWork/src/course_prj/backgr.png"));
+				new ImageIcon("C:/Users/user/git/course_prj2/course_prj2/src/images/backgr.png"));
 
 		dcbmSearch = new DefaultComboBoxModel<String>();
 		jcbSearch = new JComboBox<String>(dcbmSearch);
@@ -67,7 +65,6 @@ public class EmployProfManageDialog extends JDialog {
 		dtmProf.addColumn("전화번호");
 		dtmProf.addColumn("이메일");
 		
-		epme=new EmployProfManageEvt(this);
 
 		jtProf = new JTable(dtmProf);
 
@@ -101,8 +98,11 @@ public class EmployProfManageDialog extends JDialog {
 		jbtnSearch.setBorder(null);
 		jbtnAdd.setBorder(null);
 
+		///이벤트 연결///
 		epme = new EmployProfManageEvt(this);
 		jbtnAdd.addActionListener(epme);
+		
+		jbtnSearch.addActionListener(epme);
 
 		for (int i = 0; i < jtProf.getColumnModel().getColumnCount(); i++) {
 			jtProf.getColumnModel().getColumn(i).setResizable(false);

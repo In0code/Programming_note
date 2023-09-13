@@ -1,78 +1,82 @@
 package self_practice_course_prj;
 
 public class ProfVO {
+//////////////인영 ///////////////
+/////////// 교수 VO ///////////
+	private  String ename, phone, email, majorname, dptname, empno ;
 
-	private  String name, phone, email, image, major, dpt ;
-	private int empno;
-	private char usercode;
-	public String getName() {
-		return name;
+	public String getEname() {
+		return ename;
 	}
-	public void setName(String name) {
-		this.name = name;
+
+	public void setEname(String ename) {
+		this.ename = ename;
 	}
+
 	public String getPhone() {
 		return phone;
 	}
+
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getImage() {
-		return image;
+
+	public String getMajorname() {
+		return majorname;
 	}
-	public void setImage(String image) {
-		this.image = image;
+
+	public void setMajorname(String majorname) {
+		this.majorname = majorname;
 	}
-	public String getMajor() {
-		return major;
+
+	public String getDptname() {
+		return dptname;
 	}
-	public void setMajor(String major) {
-		this.major = major;
+
+	public void setDptname(String dptname) {
+		this.dptname = dptname;
 	}
-	public String getDpt() {
-		return dpt;
-	}
-	public void setDpt(String dpt) {
-		this.dpt = dpt;
-	}
-	public int getEmpno() {
+
+	public String getEmpno() {
 		return empno;
 	}
-	public void setEmpno(int empno) {
+
+	public void setEmpno(String empno) {
 		this.empno = empno;
 	}
-	public char getUsercode() {
-		return usercode;
-	}
-	public void setUsercode(char usercode) {
-		this.usercode = usercode;
-	}
+
 	@Override
 	public String toString() {
-		return "ProfVO [name=" + name + ", phone=" + phone + ", email=" + email + ", image=" + image + ", major="
-				+ major + ", dpt=" + dpt + ", empno=" + empno + ", usercode=" + usercode + "]";
+		return "ProfVO [ename=" + ename + ", phone=" + phone + ", email=" + email + ", majorname=" + majorname
+				+ ", dptname=" + dptname + ", empno=" + empno + "]";
 	}
-	public ProfVO(String name, String phone, String email, String image, String major, String dpt, int empno,
-			char usercode) {
+
+	public ProfVO(String ename, String phone, String email, String majorname, String dptname, String empno) {
 		super();
-		this.name = name;
+		this.ename = ename;
 		this.phone = phone;
 		this.email = email;
-		this.image = image;
-		this.major = major;
-		this.dpt = dpt;
+		this.majorname = majorname;
+		this.dptname = dptname;
 		this.empno = empno;
-		this.usercode = usercode;
 	}
+
 	public ProfVO() {
 		super();
 	}
+	
+	
+	
+	
+	
 	
 	
 	

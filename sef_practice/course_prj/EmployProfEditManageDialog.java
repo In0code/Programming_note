@@ -11,9 +11,10 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.border.LineBorder;
 
 @SuppressWarnings("serial")
+//////////////인영 ///////////////
+/////////// 교수관리-수정 Dialog ///////////
 public class EmployProfEditManageDialog extends JDialog {
 
 	private EmployProfManageDialog epmd;
@@ -30,11 +31,11 @@ public class EmployProfEditManageDialog extends JDialog {
 	JButton jbtnEdit;
 
 	//교수 수정 창
-	public EmployProfEditManageDialog(/* EmployProfManageDialog epmd */) {
-		/*
-		 * super(epmd, "관리자", true); 
-		 * this.epmd = epmd;
-		 */
+	public EmployProfEditManageDialog(EmployProfManageDialog epmd ) {
+		
+		 super(epmd, "관리자", true); 
+		 this.epmd = epmd;
+		
 		//// 라벨 ////
 		JLabel jlblTitle = new JLabel("교수 수정");
 		JLabel jlblEmpno = new JLabel("사번");
@@ -53,20 +54,35 @@ public class EmployProfEditManageDialog extends JDialog {
 		//// 콤보 박스 ///
 		// 학부
 		dcbmDept = new DefaultComboBoxModel<String>();
-		jcbDept = new JComboBox<String>(dcbmDept);
 		// 학과
 		dcbmMajor = new DefaultComboBoxModel<String>();
-		jcbMajor = new JComboBox<String>(dcbmMajor);
+		
 		// 이메일
 		dcbmEmail = new DefaultComboBoxModel<String>();
-		jcbEmail = new JComboBox<String>(dcbmEmail);
+		
 
+		
+		dcbmDept.addElement("컴퓨터공학부");
+		dcbmDept.addElement("인문사회부");
+		dcbmDept.addElement("연극학부");
+		dcbmDept.addElement("건축학부");
+		dcbmDept.addElement("체육학부");
+		
+		dcbmMajor.addElement("컴퓨터과학과");
+		dcbmMajor.addElement("국어국문학과");
+		dcbmMajor.addElement("연극영화과");
+		dcbmMajor.addElement("건축공학과");
+		dcbmMajor.addElement("사회체육학과");
+		
 		dcbmEmail.addElement("@naver.com");
 		dcbmEmail.addElement("@gmail.com");
 		dcbmEmail.addElement("@daum.net");
 		dcbmEmail.addElement("@naver.com");
 		dcbmEmail.addElement("@gmail.com");
 
+		jcbDept = new JComboBox<String>(dcbmDept);
+		jcbMajor = new JComboBox<String>(dcbmMajor);
+		jcbEmail = new JComboBox<String>(dcbmEmail);
 		//// 버튼 ////
 		jbtnEdit = new JButton("수정"); // 수정버튼
 
@@ -139,6 +155,8 @@ public class EmployProfEditManageDialog extends JDialog {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}// EmployProfEditManageDialog
 
+	
+	///getter///
 	public EmployProfManageDialog getEpmd() {
 		return epmd;
 	}
