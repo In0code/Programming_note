@@ -226,7 +226,7 @@ public class ProfDAO {
 		} finally {
 			db.dbClose(rs, pstmt, con);
 		} // end finally
-
+		majorcode=majorcode.trim();
 		return majorcode;
 	}// getMajorcode
 
@@ -279,14 +279,14 @@ public class ProfDAO {
 			
 			 empNo = majorcode+ String.format("%03d", seq);
 			
-			// 3. 쿼리문 생성 객체 얻기 - bind 값 설정하는 과정에 오류가 있어서 직접 넣음
+			// 3. 쿼리문 생성 객체 얻기 - bind 값 설정하는 과정에 오류가 있어서 직접 넣음 
 			StringBuilder insertProfInfo = new StringBuilder();
 			insertProfInfo.append(" insert into emp(  empno, ename, dptcode, majorcode, phone, email, usercode) values (")
 			 .append("'"+empNo+"','"+pVO.getEname()+"' , (select DPTCODE from DPT where DPTNAME = '"+pVO.getDptname()+"')")
-//			 .append("'"+empNo+"','"+pVO.getEname()+"' , (select DPTCODE from DPT where DPTNAME = '컴퓨터공학부')")
-			 		.append(", (select MAJORCODE from MAJOR where MAJORNAME ='"+ pVO.getMajorname()+"'), '"+pVO.getPhone()+"', '"+pVO.getEmail()+"', P");
-//			.append(", (select MAJORCODE from MAJOR where MAJORNAME ='컴퓨터과학과'), '"+pVO.getPhone()+"', '"+pVO.getEmail()+"', P");
+			 		.append(", (select MAJORCODE from MAJOR where MAJORNAME ='"+ pVO.getMajorname()+"'), '"+pVO.getPhone()+"', '"+pVO.getEmail()+"', 'P')");
 
+			System.out.println(insertProfInfo);
+			
 			pstmt = con.prepareStatement(insertProfInfo.toString());
 
 			// 5. 쿼리문 실행 결과 얻기

@@ -5,6 +5,7 @@ import java.awt.Container;
 import java.awt.Font;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -42,6 +43,8 @@ public class EmployProfAddManageDialog extends JDialog {
 		JLabel jlblPhone = new JLabel("전화번호");
 		JLabel jlblEmail = new JLabel("이메일");
 		JLabel jlblPhoneInfo=new JLabel("예 ) 010-1234-5678");
+//		JLabel jlblback = new JLabel(
+//				new ImageIcon("C:/Users/user/git/course_prj2/course_prj2/src/images/cutesexy.png"));
 
 		//// 텍스트 필드 ////
 		jtfName = new JTextField(); // 이름
@@ -92,6 +95,7 @@ public class EmployProfAddManageDialog extends JDialog {
 		contentPane.setBackground(backgroundColor);
 		//// Bounds ////
 		// 라벨
+//		jlblback.setBounds(0, 0, 800, 500);
 		jlblTitle.setBounds(20, 10, 210, 50);
 		jlblName.setBounds(148, 110, 140, 30);
 		jlblDpt.setBounds(148, 165, 60, 30);
@@ -143,6 +147,7 @@ public class EmployProfAddManageDialog extends JDialog {
 		add(jcbMajor);
 		add(jcbEmail);
 		add(jbtnAdd);
+//		add(jlblback);
 
 		setLayout(null);
 		setResizable(false);

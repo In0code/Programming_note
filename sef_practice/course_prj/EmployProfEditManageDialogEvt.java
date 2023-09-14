@@ -31,7 +31,14 @@ public class EmployProfEditManageDialogEvt extends WindowAdapter implements Acti
 //				: "";
 
 		ProfVO pVO = new ProfVO(epad.getJtfName().getText().trim(), epad.getJtfPhone().getText().trim(),
-				epad.getJtfEmail().getText().trim(), epad.getJcbMajor().getSelectedItem().toString(), epad.getJcbDept().getSelectedItem().toString(), "");
+				epad.getJtfEmail().getText().trim().concat(epad.getJcbEmail().getSelectedItem().toString()), epad.getJcbMajor().getSelectedItem().toString(), epad.getJcbDept().getSelectedItem().toString(), "");
+		
+		ProfDAO pDAO=ProfDAO.getInstance();
+		try {
+			pDAO.insertProf(pVO);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}//end catch
 		
 	}//addProf
 	
@@ -45,32 +52,22 @@ public class EmployProfEditManageDialogEvt extends WindowAdapter implements Acti
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 
-}
+}//class

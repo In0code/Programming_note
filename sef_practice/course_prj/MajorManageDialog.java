@@ -19,7 +19,8 @@ import javax.swing.table.DefaultTableModel;
 
 @SuppressWarnings("serial")
 public class MajorManageDialog extends JDialog {
-
+//////////////인영 ///////////////
+/////////// 학과관리 dialog창 ///////////
 	private EmployMainFrame emf;
 
 	DefaultComboBoxModel<String> dcbmDpt;
@@ -126,7 +127,7 @@ public class MajorManageDialog extends JDialog {
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-	}
+	}//MajorManageDialog
 
 	public EmployMainFrame getEmf() {
 		return emf;
@@ -179,7 +180,5 @@ public class MajorManageDialog extends JDialog {
 	public EmployMainEvt getEmfe() {
 		return emfe;
 	}
-	
-	
 
-}
+}// class

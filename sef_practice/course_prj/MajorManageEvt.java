@@ -18,4 +18,4 @@ public class MajorManageEvt  extends WindowAdapter implements ActionListener {
 		
 	}
 
-}
+}//class

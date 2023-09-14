@@ -18,7 +18,7 @@ import javax.swing.JTextField;
 public class EmployProfEditManageDialog extends JDialog {
 
 	private EmployProfManageDialog epmd;
-	JTextField jtfEmpno;
+	JLabel JlblSetEmpno;
 	JTextField jtfName;
 	JTextField jtfPhone;
 	JTextField jtfEmail;
@@ -44,9 +44,9 @@ public class EmployProfEditManageDialog extends JDialog {
 		JLabel jlblMajor = new JLabel("학과");
 		JLabel jlblPhone = new JLabel("전화번호");
 		JLabel jlblEmail = new JLabel("이메일");
+		JlblSetEmpno = new JLabel(); // 사번
 
 		//// 텍스트 필드 ////
-		jtfEmpno = new JTextField(); // 사번
 		jtfName = new JTextField(); // 이름
 		jtfPhone = new JTextField(); // 전화번호
 		jtfEmail = new JTextField(); // 이메일
@@ -59,8 +59,6 @@ public class EmployProfEditManageDialog extends JDialog {
 		
 		// 이메일
 		dcbmEmail = new DefaultComboBoxModel<String>();
-		
-
 		
 		dcbmDept.addElement("컴퓨터공학부");
 		dcbmDept.addElement("인문사회부");
@@ -102,7 +100,7 @@ public class EmployProfEditManageDialog extends JDialog {
 		jlblPhone.setBounds(148, 290, 100, 30);
 		jlblEmail.setBounds(148, 340, 80, 30);
 		// 텍스트필드
-		jtfEmpno.setBounds(260, 90, 150, 30);
+		JlblSetEmpno.setBounds(260, 90, 150, 30);
 		jtfName.setBounds(260, 140, 140, 30);
 		jtfPhone.setBounds(260, 290, 140, 30);
 		jtfEmail.setBounds(260, 340, 140, 30);
@@ -116,16 +114,16 @@ public class EmployProfEditManageDialog extends JDialog {
 		//// Font ////
 		Font font = new Font("Pretendard", Font.BOLD, 25);
 		jlblTitle.setFont(new Font("Pretendard", Font.BOLD, 22));
+		jbtnEdit.setFont(new Font("Pretendard", Font.BOLD, 14));
+		jcbDept.setFont(new Font("Pretendard", Font.BOLD, 14));
+		jcbMajor.setFont(new Font("Pretendard", Font.BOLD, 14));
+		jcbEmail.setFont(new Font("Pretendard", Font.BOLD, 14));
 		jlblEmpno.setFont(font);
 		jlblName.setFont(font);
 		jlblDpt.setFont(font);
 		jlblMajor.setFont(font);
 		jlblPhone.setFont(font);
 		jlblEmail.setFont(font);
-		jbtnEdit.setFont(new Font("Pretendard", Font.BOLD, 14));
-		jcbDept.setFont(new Font("Pretendard", Font.BOLD, 14));
-		jcbMajor.setFont(new Font("Pretendard", Font.BOLD, 14));
-		jcbEmail.setFont(new Font("Pretendard", Font.BOLD, 14));
 
 		//// back-color ////
 		jbtnEdit.setBackground(new Color(0xE0E0E0));
@@ -138,7 +136,7 @@ public class EmployProfEditManageDialog extends JDialog {
 		add(jlblMajor);
 		add(jlblPhone);
 		add(jlblEmail);
-		add(jtfEmpno);
+		add(JlblSetEmpno);
 		add(jtfName);
 		add(jtfPhone);
 		add(jtfEmail);
@@ -155,14 +153,13 @@ public class EmployProfEditManageDialog extends JDialog {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}// EmployProfEditManageDialog
 
-	
 	///getter///
 	public EmployProfManageDialog getEpmd() {
 		return epmd;
 	}
 
-	public JTextField getJtfEmpno() {
-		return jtfEmpno;
+	public JLabel getJlblSetEmpno() {
+		return JlblSetEmpno;
 	}
 
 	public JTextField getJtfName() {
@@ -204,8 +201,5 @@ public class EmployProfEditManageDialog extends JDialog {
 	public JButton getJbtnEdit() {
 		return jbtnEdit;
 	}
-	
-	
-	
 
 }// class

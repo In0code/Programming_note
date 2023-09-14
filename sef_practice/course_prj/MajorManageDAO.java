@@ -9,7 +9,8 @@ import java.util.List;
 import javax.naming.spi.DirStateFactory.Result;
 
 import kr.co.sist.dao.DbConn;
-
+//////////////인영 ///////////////
+/////////// 학과관리 DAO ///////////
 public class MajorManageDAO {
 
 	private static MajorManageDAO mmDAO;
@@ -37,4 +38,4 @@ public class MajorManageDAO {
 //		return major ;
 //	}
 
-}
+}//class

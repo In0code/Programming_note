@@ -1,7 +1,8 @@
 package self_practice_course_prj;
 
 public class MajorManageVO {
-
+//////////////인영 ///////////////
+/////////// 학과관리 VO ///////////
 	private String dptName;
 	private String mahorCode;
 	private String majorName;
@@ -46,4 +47,4 @@ public class MajorManageVO {
 		super();
 	}
 
-}
+}//class

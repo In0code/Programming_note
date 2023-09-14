@@ -73,11 +73,4 @@ public class ProfVO {
 		super();
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-}
+}//class
