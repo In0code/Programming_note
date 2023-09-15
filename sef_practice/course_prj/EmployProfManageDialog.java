@@ -17,9 +17,13 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
+/**
+ *인영
+ *교수 관리 Dialog
+ * @author user
+ *
+ */
 @SuppressWarnings("serial")
-//////////////인영 ///////////////
-/////////// 교수관리 Dialog ///////////
 public class EmployProfManageDialog extends JDialog {
 
 	private EmployMainFrame emf;
@@ -90,7 +94,7 @@ public class EmployProfManageDialog extends JDialog {
 		// JTable 크기 조절 불가
 		for (int i = 0; i < jtProf.getColumnModel().getColumnCount(); i++) {
 			jtProf.getColumnModel().getColumn(i).setResizable(false);
-		}
+		}//end for
 
 		// Bounds
 		jlblback.setBounds(0, 0, 1000, 700);

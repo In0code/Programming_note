@@ -14,17 +14,24 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
+/**
+ * 인영 교수 관리 Event
+ * 
+ * @author user
+ *
+ */
 public class EmployProfManageEvt extends WindowAdapter implements ActionListener, MouseListener {
-//////////////인영 ///////////////
-/////////// 교수관리 Event ///////////
 	private EmployProfManageDialog epmd;
 
 	public EmployProfManageEvt(EmployProfManageDialog epmd) {
 		this.epmd = epmd;
 		selectAllProfinfo();
-	}//EmployProfManageEvt
+	}// EmployProfManageEvt
 
-	public void selectAllProfinfo() { // JTable에 모든 교수 정부 추가
+	/**
+	 * JTable에 모든 교수 정보 추가
+	 */
+	public void selectAllProfinfo() {
 
 		ProfDAO profDAO = ProfDAO.getInstance();
 		List<ProfVO> dataList = null;
@@ -37,12 +44,17 @@ public class EmployProfManageEvt extends WindowAdapter implements ActionListener
 		for (int i = 0; i < dataList.size(); i++) {
 			ProfVO prof = dataList.get(i);
 			epmd.getDtmProf().addRow(new Object[] { i + 1, // No 컬럼은 1부터 시작하는 순번으로 설정
-					prof.getEmpno(), prof.getEname(), prof.getDptname(),  prof.getMajorname(),prof.getPhone(),
+					prof.getEmpno(), prof.getEname(), prof.getDptname(), prof.getMajorname(), prof.getPhone(),
 					prof.getEmail() });
 		} // end for
 	}// selectAllProfinfo
 
-	public void selectOneProfInfo(String searchValue) { // 교수 한 명 조회
+	/**
+	 * 교수 한 명의 정보를 조회해서 JTable에 보여주는 일
+	 * 
+	 * @param searchValue
+	 */
+	public void selectOneProfInfo(String searchValue) {
 		if (searchValue.isEmpty()) {
 			return;
 		} // end if
@@ -58,14 +70,14 @@ public class EmployProfManageEvt extends WindowAdapter implements ActionListener
 				prof = profDAO.selectOneProfEmpno(searchValue);
 			} else if (epmd.getJcbSearch().getSelectedItem().equals("이름")) {
 				prof = profDAO.selectOneProfEname(searchValue);
-			} //
+			} // else
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} // end catch
 
 		if (prof != null) {
 			dtmProf.addRow(new Object[] { 1, // No 컬럼은 1부터 시작하는 순번으로 설정
-					prof.getEmpno(), prof.getEname(),  prof.getDptname(),prof.getMajorname(), prof.getPhone(),
+					prof.getEmpno(), prof.getEname(), prof.getDptname(), prof.getMajorname(), prof.getPhone(),
 					prof.getEmail() });
 
 			// JTable 갱신
@@ -74,39 +86,55 @@ public class EmployProfManageEvt extends WindowAdapter implements ActionListener
 			JOptionPane.showMessageDialog(epmd, "교수를 찾을 수 없습니다\n입력한 정보를 확인하세요", "조회실패", JOptionPane.ERROR_MESSAGE);
 		} // end else
 	}// selectOneProfInfo
-	
-	public void selectionProfInfo() { 
-		//JTable에서 선택한 행을 얻어오는 일
-		EmployProfEditManageDialog epemd=new EmployProfEditManageDialog(epmd);
-		JTable jtProf=epmd.getJtProf();
-		DefaultTableModel dtm=epmd.getDtmProf();
-		int row=jtProf.getSelectedRow();
-		
-//		epemd.get
-		
-	}//selectionProfInfo
+
+	/**
+	 * JTable에서 선택한 행을 얻어오는 일
+	 */
+	public void selectionProfInfo() {
+		JTable jtProf = epmd.getJtProf();
+		DefaultTableModel dtm = epmd.getDtmProf();
+		int row = jtProf.getSelectedRow();
+
+		String empno = String.valueOf(dtm.getValueAt(row, 1));
+		String ename = String.valueOf(dtm.getValueAt(row, 2));
+		String dptname = String.valueOf(dtm.getValueAt(row, 3));
+		String majorname = String.valueOf(dtm.getValueAt(row, 4));
+		String phone = String.valueOf(dtm.getValueAt(row, 5));
+		String email = String.valueOf(dtm.getValueAt(row, 6));
+
+		ProfVO pVO = new ProfVO(ename, phone, email, majorname, dptname, empno);
+
+		new EmployProfEditManageDialog(epmd, pVO);
+
+	}// selectionProfInfo
 
 	@Override
 	public void actionPerformed(ActionEvent ae) {
-		if (ae.getSource() == epmd.getJbtnAdd()) {
+		if (ae.getSource() == epmd.getJbtnAdd()) { // 추가 버튼 누르면 동작
 			new EmployProfAddManageDialog(epmd);
 		} // end if
 
-		if (ae.getSource() == epmd.getJbtnEdit()) {
-			selectionProfInfo() ;
+		if (ae.getSource() == epmd.getJbtnEdit()) { // 수정 버튼 누르면 동작
+			selectionProfInfo();
 		} // end if
 
+		// 교수 정보 조회 텍스트 필드에 입력된 값 얻어오기
 		String searchValue = epmd.getJtfSearch().getText().trim().toUpperCase();
-		if (!searchValue.isEmpty()) {
-
+		if (!searchValue.isEmpty()) { // 교수 정보 조회 텍스 필드가 비어있지 않으면 정보를 조회하는 일
 			selectOneProfInfo(searchValue);
 		} // end if
 	}// actionPerformed
-	
-	
 
 	@Override
 	public void mouseClicked(MouseEvent me) {
+		switch (me.getButton()) {
+		// JTable에서 교수를 클릭하고 수정 버튼을 누르면 수정 창이 나오게
+
+		case MouseEvent.BUTTON1:
+			selectionProfInfo();
+			break;
+		}// end switch
+
 	}
 
 	public void mousePressed(MouseEvent e) {

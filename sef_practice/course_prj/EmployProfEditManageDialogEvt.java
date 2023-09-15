@@ -9,19 +9,26 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
+/**
+ * 인영 교수 수정 창 Event
+ * 
+ * @author user
+ *
+ */
 public class EmployProfEditManageDialogEvt extends WindowAdapter implements ActionListener, MouseListener {
-//////////////인영 ///////////////
-/////////// 교수등록 Event ///////////
-	private EmployProfAddManageDialog epad;
+	private EmployProfEditManageDialog epemd;
 
-	public EmployProfEditManageDialogEvt(EmployProfAddManageDialog epad) {
-		this.epad = epad;
+	public EmployProfEditManageDialogEvt(EmployProfEditManageDialog epemd) {
+		this.epemd = epemd;
 	}
-	
-	public void addProf() {
-		int flag=JOptionPane.showConfirmDialog(epad, "교수를 등록하겠습니까?","교수등록",JOptionPane.YES_NO_OPTION);
-		if(flag != JOptionPane.OK_OPTION) {
-			return ;
+
+	/**
+	 * 텍스트 필드에 사용자가 입력한 정보를 얻어와서 교수를 수정하기 위한 일
+	 */
+	public void editProf() {
+		int flag = JOptionPane.showConfirmDialog(epemd, "교수를 수정하겠습니까?", "교수등록", JOptionPane.YES_NO_OPTION);
+		if (flag != JOptionPane.OK_OPTION) {
+			return;
 		}
 //		String selectedMajor = epad.getJcbMajor().getSelectedItem() != null
 //				? epad.getJcbMajor().getSelectedItem().toString()
@@ -30,24 +37,25 @@ public class EmployProfEditManageDialogEvt extends WindowAdapter implements Acti
 //				? epad.getJcbDept().getSelectedItem().toString()
 //				: "";
 
-		ProfVO pVO = new ProfVO(epad.getJtfName().getText().trim(), epad.getJtfPhone().getText().trim(),
-				epad.getJtfEmail().getText().trim().concat(epad.getJcbEmail().getSelectedItem().toString()), epad.getJcbMajor().getSelectedItem().toString(), epad.getJcbDept().getSelectedItem().toString(), "");
-		
-		ProfDAO pDAO=ProfDAO.getInstance();
+		ProfVO pVO = new ProfVO(epemd.getJtfName().getText().trim(), epemd.getJtfPhone().getText().trim(),
+				epemd.getJtfEmail().getText().trim().concat(epemd.getJcbEmail().getSelectedItem().toString()),
+				epemd.getJcbMajor().getSelectedItem().toString(), epemd.getJcbDept().getSelectedItem().toString(), "");
+
+		ProfDAO pDAO = ProfDAO.getInstance();
 		try {
 			pDAO.insertProf(pVO);
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}//end catch
-		
-	}//addProf
-	
+		} // end catch
+
+	}// addProf
+
 	@Override
 	public void actionPerformed(ActionEvent ae) {
-		if (ae.getSource() == epad.getJbtnAdd()) {
-			addProf();
+		if (ae.getSource() == epemd.getJbtnEdit()) { // 수정 버튼을 누리면 동작
+			editProf();
 		} // end if
-			
+
 	}
 
 	@Override
@@ -70,4 +78,4 @@ public class EmployProfEditManageDialogEvt extends WindowAdapter implements Acti
 	public void mouseExited(MouseEvent e) {
 	}
 
-}//class
+}// class

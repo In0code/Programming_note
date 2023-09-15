@@ -17,10 +17,14 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
+/**
+ * 인영 학과관리 Dialog
+ * 
+ * @author user
+ *
+ */
 @SuppressWarnings("serial")
 public class MajorManageDialog extends JDialog {
-//////////////인영 ///////////////
-/////////// 학과관리 dialog창 ///////////
 	private EmployMainFrame emf;
 
 	DefaultComboBoxModel<String> dcbmDpt;
@@ -127,7 +131,7 @@ public class MajorManageDialog extends JDialog {
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-	}//MajorManageDialog
+	}// MajorManageDialog
 
 	public EmployMainFrame getEmf() {
 		return emf;

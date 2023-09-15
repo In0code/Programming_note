@@ -1,8 +1,12 @@
 package self_practice_course_prj;
 
+/**
+ * 인영
+ * 교수 VO
+ * @author user
+ *
+ */
 public class ProfVO {
-//////////////인영 ///////////////
-/////////// 교수 VO ///////////
 	private  String ename, phone, email, majorname, dptname, empno ;
 
 	public String getEname() {

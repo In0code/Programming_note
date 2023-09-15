@@ -13,9 +13,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+/**
+ * 인영 교수 관리 - 등록 Dialog
+ * 
+ * @author user
+ *
+ */
 @SuppressWarnings("serial")
-//////////////인영 ///////////////
-/////////// 교수관리-등록 Dialog ///////////
 public class EmployProfAddManageDialog extends JDialog {
 	private EmployProfManageDialog epmd;
 	JTextField jtfName;
@@ -28,7 +32,7 @@ public class EmployProfAddManageDialog extends JDialog {
 	DefaultComboBoxModel<String> dcbmEmail;
 	JComboBox<String> jcbEmail;
 	JButton jbtnAdd;
-	EmployProfEditManageDialogEvt eped;
+	EmployProfAddManageDialogEvt eped;
 
 	// 교수 등록 창
 	public EmployProfAddManageDialog(EmployProfManageDialog epmd) {
@@ -42,7 +46,7 @@ public class EmployProfAddManageDialog extends JDialog {
 		JLabel jlblMajor = new JLabel("학과");
 		JLabel jlblPhone = new JLabel("전화번호");
 		JLabel jlblEmail = new JLabel("이메일");
-		JLabel jlblPhoneInfo=new JLabel("예 ) 010-1234-5678");
+		JLabel jlblPhoneInfo = new JLabel("예 ) 010-1234-5678");
 //		JLabel jlblback = new JLabel(
 //				new ImageIcon("C:/Users/user/git/course_prj2/course_prj2/src/images/cutesexy.png"));
 
@@ -67,13 +71,13 @@ public class EmployProfAddManageDialog extends JDialog {
 		dcbmDept.addElement("연극학부");
 		dcbmDept.addElement("건축학부");
 		dcbmDept.addElement("체육학부");
-		
+
 		dcbmMajor.addElement("컴퓨터과학과");
 		dcbmMajor.addElement("국어국문학과");
 		dcbmMajor.addElement("연극영화과");
 		dcbmMajor.addElement("건축공학과");
 		dcbmMajor.addElement("사회체육학과");
-		
+
 		dcbmEmail.addElement("@naver.com");
 		dcbmEmail.addElement("@gmail.com");
 		dcbmEmail.addElement("@daum.net");
@@ -82,9 +86,9 @@ public class EmployProfAddManageDialog extends JDialog {
 
 		//// 버튼 ////
 		jbtnAdd = new JButton("등록"); // 등록버튼
-		
-		///이벤트 연결///
-		 eped=new EmployProfEditManageDialogEvt(this);
+
+		/// 이벤트 연결///
+		eped = new EmployProfAddManageDialogEvt(this);
 		jbtnAdd.addActionListener(eped);
 
 		//// 배경 색 설정 ////

@@ -12,9 +12,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+/**
+ * 인영 교수 관리- 수정 Dialog
+ * 
+ * @author user
+ *
+ */
 @SuppressWarnings("serial")
-//////////////인영 ///////////////
-/////////// 교수관리-수정 Dialog ///////////
 public class EmployProfEditManageDialog extends JDialog {
 
 	private EmployProfManageDialog epmd;
@@ -30,12 +34,12 @@ public class EmployProfEditManageDialog extends JDialog {
 	JComboBox<String> jcbEmail;
 	JButton jbtnEdit;
 
-	//교수 수정 창
-	public EmployProfEditManageDialog(EmployProfManageDialog epmd ) {
-		
-		 super(epmd, "관리자", true); 
-		 this.epmd = epmd;
-		
+	// 교수 수정 창
+	public EmployProfEditManageDialog(EmployProfManageDialog epmd, ProfVO pVO) {
+
+		super(epmd, "관리자", true);
+		this.epmd = epmd;
+
 		//// 라벨 ////
 		JLabel jlblTitle = new JLabel("교수 수정");
 		JLabel jlblEmpno = new JLabel("사번");
@@ -44,34 +48,39 @@ public class EmployProfEditManageDialog extends JDialog {
 		JLabel jlblMajor = new JLabel("학과");
 		JLabel jlblPhone = new JLabel("전화번호");
 		JLabel jlblEmail = new JLabel("이메일");
-		JlblSetEmpno = new JLabel(); // 사번
-
+		JlblSetEmpno = new JLabel(pVO.getEmpno()); // 사번
 		//// 텍스트 필드 ////
-		jtfName = new JTextField(); // 이름
-		jtfPhone = new JTextField(); // 전화번호
-		jtfEmail = new JTextField(); // 이메일
+
+		String email = pVO.getEmail();
+		jtfName = new JTextField(pVO.getEname()); // 이름
+		jtfPhone = new JTextField(pVO.getPhone()); // 전화번호
+		jtfEmail = new JTextField(email.substring(0, (email.indexOf("@")))); // 이메일
 
 		//// 콤보 박스 ///
 		// 학부
 		dcbmDept = new DefaultComboBoxModel<String>();
 		// 학과
 		dcbmMajor = new DefaultComboBoxModel<String>();
-		
+
 		// 이메일
 		dcbmEmail = new DefaultComboBoxModel<String>();
-		
+
+		dcbmDept.setSelectedItem(pVO.getDptname());
 		dcbmDept.addElement("컴퓨터공학부");
 		dcbmDept.addElement("인문사회부");
 		dcbmDept.addElement("연극학부");
 		dcbmDept.addElement("건축학부");
 		dcbmDept.addElement("체육학부");
-		
+
+		dcbmMajor.setSelectedItem(pVO.getMajorname());
 		dcbmMajor.addElement("컴퓨터과학과");
 		dcbmMajor.addElement("국어국문학과");
 		dcbmMajor.addElement("연극영화과");
 		dcbmMajor.addElement("건축공학과");
 		dcbmMajor.addElement("사회체육학과");
-		
+
+		email = pVO.getEmail().substring(email.lastIndexOf("@"), email.length());
+		dcbmEmail.setSelectedItem(email);
 		dcbmEmail.addElement("@naver.com");
 		dcbmEmail.addElement("@gmail.com");
 		dcbmEmail.addElement("@daum.net");
@@ -87,9 +96,9 @@ public class EmployProfEditManageDialog extends JDialog {
 		//// 배경 색 설정 ////
 		Color backgroundColor = Color.decode("#FCF7F5");
 
-        // getContentPane() 메서드를 사용하여 배경색 설정
-        Container contentPane = getContentPane();
-        contentPane.setBackground(backgroundColor);
+		// getContentPane() 메서드를 사용하여 배경색 설정
+		Container contentPane = getContentPane();
+		contentPane.setBackground(backgroundColor);
 		//// Bounds ////
 		// 라벨
 		jlblTitle.setBounds(20, 10, 210, 50);
@@ -124,6 +133,7 @@ public class EmployProfEditManageDialog extends JDialog {
 		jlblMajor.setFont(font);
 		jlblPhone.setFont(font);
 		jlblEmail.setFont(font);
+		JlblSetEmpno.setFont(new Font("Pretendard", Font.BOLD, 18));
 
 		//// back-color ////
 		jbtnEdit.setBackground(new Color(0xE0E0E0));
@@ -153,7 +163,7 @@ public class EmployProfEditManageDialog extends JDialog {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}// EmployProfEditManageDialog
 
-	///getter///
+	/// getter///
 	public EmployProfManageDialog getEpmd() {
 		return epmd;
 	}
