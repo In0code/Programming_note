@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css"
+	href="http://192.168.10.137/html_prj/common/css/main_v20230906.css">
+	<style type="text/css">
+		textarea{ width: 300px; height: 100px;}
+		</style>
+		<script type="text/javascript">
+		window.onload=function(){
+			document.getElementById("kd").addEventListener("keydown",setKeyEvt);
+			document.getElementById("ku").addEventListener("keyup",setKeyEvt2);
+			document.getElementById("msg").addEventListener("keydown",keylength);
+		}//onload
+		
+		function setKeyEvt( evt ){ //매개변수를 정의하면 JS에서 생성된 window.event객체를 할당해 준다.
+			//keydown은 키가 눌리는 순간에 동작하기 때문에 keytext는 가지고 올 수 없다.
+			var data=document.getElementById("kd").value;
+			document.getElementById("output").value= "키눌림 "+  data +"("+ evt.keyCode +")";
+		}//setKeyEvt
+		
+		function setKeyEvt2( evt ){
+			//keyup은 키가 올라오는 순간에 동작하기 때문에 keytext 를 가지고 올 수 있다.
+			var data=document.getElementById("ku").value;
+			document.getElementById("output").value= "키올라옴 :  "+data+"("+ evt.which +")";// which 속성을 권장
+		}//setKeyEvt2
+		
+		function keylength(){
+			var data=document.getElementById("msg").value.length;
+			if( data >= 300 ){
+				document.getElementById("msg").value=document.getElementById("msg").value.substring(0,300);
+				alert("최대입력글자수를 초과하였습니다.");
+				return;    
+			}//end if
+		
+			document.getElementById("text_length").innerHTML=data;
+			
+		}//keylength
+		</script>
+		</head>
+		<body>
+		<input type="text" name="kd" class="inputBox" id="kd"/><br/>
+		<input type="text" name="ku" class="inputBox" id="ku"/><br/>
+		<textarea id="output" class="inputBox" ></textarea>
+		
+		<div style="width: 400px;height: 300px; text-align: right;">
+		<textarea id="msg" class="inputBox" style="width: 400px;"></textarea><br/>
+		<span id="text_length">0</span>/ 300
+		</div>
+		</body>
+		</html>

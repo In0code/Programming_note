@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css"
+	href="http://192.168.10.137/html_prj/common/css/main_v20230906.css">
+<style type="text/css">
+
+</style>
+<script type="text/javascript">
+function setValue(){
+	//1. 폼 태그를 얻기
+	var obj=document.frm;
+	// alert(obj);
+	//2. 폼 태그 안에 자식 태그 얻고 값 설정
+	obj.id.value="kim1234";//text
+	obj.pass.value="sdfzer"//password
+	obj.date.value="2023-09-13"//date
+	obj.color.value="#FEBFB0"//color
+	obj.hid.value="짱구 오줌 먹음"//hidden
+
+	// file은 JS나 JSP등 value를 설정 할 수 없다 ( 접속자 컴퓨터의 HDD를 접근하기 때문에 보안상 이슈로)
+	// obj.upfile.value="e:/dev/env.bat";
+
+	//이미지는 value가 아닌 src속성으로 변경한다
+	obj.img.src="../common/images/img2.png";
+
+	obj.info.value="오늘은 비오는 수요일\n내일은 맑은 목요일";
+
+
+
+}//setValue
+</script>
+</head>
+<body>
+<form name="frm">
+	<fieldset>
+		<legend>JS에서 HTML Form Control 값 설정</legend>
+		<label>text</label> <input type="text" name="id" class="inputBox"/><br/>
+		<label>password</label> <input type="password" name="pass" class="inputBox"/><br/>
+		<label>date</label> <input type="date" name="date" class="inputBox"/><br/>
+		<label>color</label> <input type="color" name="color" class="inputBox"/><br/>
+		<label>숨김값</label> <input type="hidden" name="hid"/><br/>
+		<label>파일</label> <input type="file" name="upfile"/><br/>
+		<label>이미지</label> <img src="../common/images/JJanggu.png" name="img"/><br/>
+		<label>설명</label> <textarea name="info" class="inputBox" style="width: 300px; height: 100px;"></textarea><br/>
+		<input type="button" value="값 설정" class="btn" onclick="setValue()"/>
+		<input type="reset" value="초기화" class="btn"/>
+
+
+	</fieldset>
+</form>
+</body>
+</html>

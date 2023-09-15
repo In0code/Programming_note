@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css"
+	href="http://192.168.10.137/html_prj/common/css/main_v20230906.css">
+<style type="text/css">
+
+</style>
+<script type="text/javascript">
+
+    window.onload=function(){ 
+    
+        //무기명 함수로 이벤트 등록
+        document.getElementById("btn").onclick=function(){
+            alert("버튼을 클릭!!");
+        }//anonymous function
+
+        document.getElementById("sel").onchange=function(){
+            alert(document.getElementById("sel").value+"를 선택하셨습니다.");
+        }//onchange
+
+    }//onload
+</script>
+</head>
+<body >
+	<input type="button" value="클릭" class="btn"  id="btn"/><br/>
+    <select id="sel" class="inputBox">
+        <option value="자바">자바</option>
+        <option value="오라클">오라클</option>
+        <option value="JSP">JSP</option>
+        <option value="JavaScript">JavaScript</option>
+    </select>
+   
+</body>
+</html>

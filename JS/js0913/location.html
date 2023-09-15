@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css"
+	href="http://192.168.10.137/html_prj/common/css/main_v20230906.css">
+	<style type="text/css">
+
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		document.getElementById("btnHref").addEventListener("click",useHref);
+		document.getElementById("btnReplace").addEventListener("click",useReplace);
+		document.getElementById("btnReload").addEventListener("click",useReload);
+		
+		document.getElementById("url").addEventListener("change",moveSite);
+	}//onload
+	
+	function moveSite(){
+		var site=document.getElementById("url").value;
+		if( site !="N/A"){
+			if( confirm(site+"로 이동하시겠습니까?")){
+				location.href="http://"+site;
+			}//end if
+		}//end if
+	}//moveSite
+	
+	function useHref(){
+	var flag=confirm("daum.net으로 이동하시겠습니까?");
+	if(flag){
+		window.location.href="http://daum.net";
+	}
+	}//useHref
+	
+	function useReplace(){
+		if(confirm("daum.net으로 이동하시겠습니까?")){
+			location.replace("http://daum.net");
+		}//end if
+	}//useReplace
+	
+	function useReload(){
+		if(confirm("새로 고침하시겠습니까?")){
+			location.reload();
+		}//end if
+	}//useReplace
+	</script>
+	</head>
+	<body>
+	<input type="button" value="href 이동" class="btn" id="btnHref"/>
+	<input type="button" value="replace 이동" class="btn" id="btnReplace"/>
+	<input type="button" value="현재페이지 새로고침" class="btn" id="btnReload"/>
+	
+	<select id="url" class="inputBox">
+		<option value="N/A">-----사이트 선택------</option>
+		<option value="google.com">구글</option>
+		<option value="naver.com">네이버</option>
+		<option value="daum.net">다음</option>
+		<option value="youtube.com">유튜브</option>
+	</select>
+	
+	</body>
+	</html>
