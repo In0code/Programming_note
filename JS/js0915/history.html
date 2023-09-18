@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css"
+	href="http://192.168.10.137/html_prj/common/css/main_v20230906.css">
+<style type="text/css">
+
+</style>
+<script type="text/javascript">
+	window.onload=function(){
+		//버튼을 이벤트에 등록하고, 클릭되었을 때 아래의 함수를 호출하도록 연결
+		document.getElementById("btnLength").addEventListener("click",testLeng);
+		document.getElementById("btnBack").addEventListener("click",testBack);
+		document.getElementById("btnGO").addEventListener("click",testGo);
+		document.getElementById("btnGo2").addEventListener("click",testGo2);
+	}//onload
+
+	function testLeng(){
+		// alert("히스토리의 수 : "+window.history.length);
+		alert("히스토리의 수 : "+history.length);
+	}//testLeng
+	function testBack(){
+		// history.back();
+		history.go(-1);
+		
+	}//testBack
+	function testGo(){
+		history.go(1);
+		
+	}//testGo
+	function testGo2(){
+		history.go(1);
+
+	}//testGo2
+
+</script>
+</head>
+<body>
+<input type="button" value="history 수" class="btn" id="btnLength"/><br/>
+<input type="button" value="뒤로" class="btn" id="btnBack"/><br/>
+<input type="button" value="앞으로" class="btn" id="btnGO"/><br/>
+<input type="button" value="앞으로 2칸" class="btn" id="btnGo2"/><br/>
+</body>
+</html>

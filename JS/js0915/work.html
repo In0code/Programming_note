@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css"
+	href="http://192.168.10.137/html_prj/common/css/main_v20230906.css">
+	<style type="text/css">
+
+	</style>
+	<script type="text/javascript">
+		window.onload=function(){
+			document.getElementById("btn").addEventListener("click",setInput)
+			getInput();
+		}
+	
+		function getInput(){
+			var flag=localStorage.getItem("flag");
+			var name=localStorage.getItem("name");
+			 
+			document.getElementById("save").checked=(flag=="true"?true: false);
+			document.getElementById("name").value=name;
+		}
+	
+		function setInput(){
+			var flag=document.getElementById("save").checked;
+			localStorage.setItem("flag",document.getElementById("save").checked );
+			
+			if( flag ){
+				localStorage.setItem("name",document.getElementById("name").value);
+			}else{
+				localStorage.removeItem("name");
+			}//end else
+		}
+	</script>
+	</head>
+	<body>
+		<table>
+		<tr>
+		<td style="vertical-align: bottom;position: relative;">
+			<input type="text" name="name" id="name" class="inputBox"/>
+			<input type="checkbox" name="save" id="save" class="inputBox" 
+					style="width: 30px;height: 30px;position: absolute;top:0px;left: 155px;"/>
+			</td>
+		 </tr>
+		 <tr>
+			<td> <input type="button"  value="입력" class="btn" id="btn"/></td>        
+		 </tr>
+		</table>
+	</body>
+	</html>
