@@ -18,6 +18,22 @@ public class MajorManageEvt extends WindowAdapter implements ActionListener {
 		this.mmd = mmd;
 	}
 
+	public void searchDpt() {
+
+	}//searchDpt
+
+	public void search() {
+
+	}//search
+
+	public void addDpt(MajorManageVO mmVO) {
+
+	}//addDpt
+
+	public void changeDpt(MajorManageVO mmVO) {
+
+	}//changeDpt
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 

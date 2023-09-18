@@ -22,6 +22,7 @@ import javax.swing.JTextField;
 public class EmployProfEditManageDialog extends JDialog {
 
 	private EmployProfManageDialog epmd;
+	private EmployProfEditManageDialogEvt epemde;
 	JLabel JlblSetEmpno;
 	JTextField jtfName;
 	JTextField jtfPhone;
@@ -65,14 +66,14 @@ public class EmployProfEditManageDialog extends JDialog {
 		// 이메일
 		dcbmEmail = new DefaultComboBoxModel<String>();
 
-		dcbmDept.setSelectedItem(pVO.getDptname());
+		dcbmDept.setSelectedItem(pVO.getDptName());
 		dcbmDept.addElement("컴퓨터공학부");
 		dcbmDept.addElement("인문사회부");
 		dcbmDept.addElement("연극학부");
 		dcbmDept.addElement("건축학부");
 		dcbmDept.addElement("체육학부");
 
-		dcbmMajor.setSelectedItem(pVO.getMajorname());
+		dcbmMajor.setSelectedItem(pVO.getMajorName());
 		dcbmMajor.addElement("컴퓨터과학과");
 		dcbmMajor.addElement("국어국문학과");
 		dcbmMajor.addElement("연극영화과");
@@ -119,6 +120,11 @@ public class EmployProfEditManageDialog extends JDialog {
 		jcbEmail.setBounds(410, 340, 140, 30);
 		// 버튼
 		jbtnEdit.setBounds(274, 414, 80, 30);
+		
+		//이벤트 등록
+		epemde= new EmployProfEditManageDialogEvt(this);
+		jbtnEdit.addActionListener(epemde);
+		
 
 		//// Font ////
 		Font font = new Font("Pretendard", Font.BOLD, 25);

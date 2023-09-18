@@ -44,7 +44,7 @@ public class EmployProfManageEvt extends WindowAdapter implements ActionListener
 		for (int i = 0; i < dataList.size(); i++) {
 			ProfVO prof = dataList.get(i);
 			epmd.getDtmProf().addRow(new Object[] { i + 1, // No 컬럼은 1부터 시작하는 순번으로 설정
-					prof.getEmpno(), prof.getEname(), prof.getDptname(), prof.getMajorname(), prof.getPhone(),
+					prof.getEmpno(), prof.getEname(), prof.getDptName(), prof.getMajorName(), prof.getPhone(),
 					prof.getEmail() });
 		} // end for
 	}// selectAllProfinfo
@@ -77,7 +77,7 @@ public class EmployProfManageEvt extends WindowAdapter implements ActionListener
 
 		if (prof != null) {
 			dtmProf.addRow(new Object[] { 1, // No 컬럼은 1부터 시작하는 순번으로 설정
-					prof.getEmpno(), prof.getEname(), prof.getDptname(), prof.getMajorname(), prof.getPhone(),
+					prof.getEmpno(), prof.getEname(), prof.getDptName(), prof.getMajorName(), prof.getPhone(),
 					prof.getEmail() });
 
 			// JTable 갱신

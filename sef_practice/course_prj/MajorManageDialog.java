@@ -60,8 +60,8 @@ public class MajorManageDialog extends JDialog {
 		// 검색창
 		jtfMajor = new JTextField();
 
-		jlblMajor = new JLabel("학과");
-		jlblDpt = new JLabel("학부");
+		jlblMajor = new JLabel("학부");
+		jlblDpt = new JLabel("학과");
 
 		// 등록버튼
 		jbtnAdd = new JButton("등록");

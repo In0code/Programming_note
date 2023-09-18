@@ -36,6 +36,7 @@ public class EmployProfAddManageDialogEvt extends WindowAdapter implements Actio
 //		String selectedDept = epad.getJcbDept().getSelectedItem() != null
 //				? epad.getJcbDept().getSelectedItem().toString()
 //				: "";
+		
 
 		ProfVO pVO = new ProfVO(epad.getJtfName().getText().trim(), epad.getJtfPhone().getText().trim(),
 				epad.getJtfEmail().getText().trim().concat(epad.getJcbEmail().getSelectedItem().toString()), epad.getJcbMajor().getSelectedItem().toString(), epad.getJcbDept().getSelectedItem().toString(), "");

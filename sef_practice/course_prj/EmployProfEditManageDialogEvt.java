@@ -26,7 +26,7 @@ public class EmployProfEditManageDialogEvt extends WindowAdapter implements Acti
 	 * 텍스트 필드에 사용자가 입력한 정보를 얻어와서 교수를 수정하기 위한 일
 	 */
 	public void editProf() {
-		int flag = JOptionPane.showConfirmDialog(epemd, "교수를 수정하겠습니까?", "교수등록", JOptionPane.YES_NO_OPTION);
+		int flag = JOptionPane.showConfirmDialog(epemd, "교수를 수정하겠습니까?", "교수수정", JOptionPane.YES_NO_OPTION);
 		if (flag != JOptionPane.OK_OPTION) {
 			return;
 		}
@@ -39,11 +39,12 @@ public class EmployProfEditManageDialogEvt extends WindowAdapter implements Acti
 
 		ProfVO pVO = new ProfVO(epemd.getJtfName().getText().trim(), epemd.getJtfPhone().getText().trim(),
 				epemd.getJtfEmail().getText().trim().concat(epemd.getJcbEmail().getSelectedItem().toString()),
-				epemd.getJcbMajor().getSelectedItem().toString(), epemd.getJcbDept().getSelectedItem().toString(), "");
+				epemd.getJcbMajor().getSelectedItem().toString(), epemd.getJcbDept().getSelectedItem().toString(), epemd.getJlblSetEmpno().getText().trim());
 
 		ProfDAO pDAO = ProfDAO.getInstance();
 		try {
-			pDAO.insertProf(pVO);
+			pDAO.updateProf(pVO);
+			pDAO.selectAllProf();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} // end catch

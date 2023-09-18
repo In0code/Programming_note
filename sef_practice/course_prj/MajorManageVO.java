@@ -8,7 +8,7 @@ package self_practice_course_prj;
  */
 public class MajorManageVO {
 	private String dptName;
-	private String mahorCode;
+	private String majorCode;
 	private String majorName;
 
 	public String getDptName() {
@@ -19,12 +19,12 @@ public class MajorManageVO {
 		this.dptName = dptName;
 	}
 
-	public String getMahorCode() {
-		return mahorCode;
+	public String getmajorCode() {
+		return majorCode;
 	}
 
-	public void setMahorCode(String mahorCode) {
-		this.mahorCode = mahorCode;
+	public void setmajorCode(String majorCode) {
+		this.majorCode = majorCode;
 	}
 
 	public String getMajorName() {
@@ -37,13 +37,13 @@ public class MajorManageVO {
 
 	@Override
 	public String toString() {
-		return "MajorManageVO [dptName=" + dptName + ", mahorCode=" + mahorCode + ", majorName=" + majorName + "]";
+		return "MajorManageVO [dptName=" + dptName + ", majorCode=" + majorCode + ", majorName=" + majorName + "]";
 	}
 
-	public MajorManageVO(String dptName, String mahorCode, String majorName) {
+	public MajorManageVO(String dptName, String majorCode, String majorName) {
 		super();
 		this.dptName = dptName;
-		this.mahorCode = mahorCode;
+		this.majorCode = majorCode;
 		this.majorName = majorName;
 	}
 

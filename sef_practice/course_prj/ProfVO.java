@@ -7,7 +7,7 @@ package self_practice_course_prj;
  *
  */
 public class ProfVO {
-	private  String ename, phone, email, majorname, dptname, empno ;
+	private  String ename, phone, email, majorName, dptName, empno ;
 
 	public String getEname() {
 		return ename;
@@ -33,20 +33,20 @@ public class ProfVO {
 		this.email = email;
 	}
 
-	public String getMajorname() {
-		return majorname;
+	public String getMajorName() {
+		return majorName;
 	}
 
-	public void setMajorname(String majorname) {
-		this.majorname = majorname;
+	public void setMajorName(String majorName) {
+		this.majorName = majorName;
 	}
 
-	public String getDptname() {
-		return dptname;
+	public String getDptName() {
+		return dptName;
 	}
 
-	public void setDptname(String dptname) {
-		this.dptname = dptname;
+	public void setDptName(String dptName) {
+		this.dptName = dptName;
 	}
 
 	public String getEmpno() {
@@ -59,22 +59,23 @@ public class ProfVO {
 
 	@Override
 	public String toString() {
-		return "ProfVO [ename=" + ename + ", phone=" + phone + ", email=" + email + ", majorname=" + majorname
-				+ ", dptname=" + dptname + ", empno=" + empno + "]";
+		return "ProfVO [ename=" + ename + ", phone=" + phone + ", email=" + email + ", majorName=" + majorName
+				+ ", dptName=" + dptName + ", empno=" + empno + "]";
 	}
 
-	public ProfVO(String ename, String phone, String email, String majorname, String dptname, String empno) {
+	public ProfVO(String ename, String phone, String email, String majorName, String dptName, String empno) {
 		super();
 		this.ename = ename;
 		this.phone = phone;
 		this.email = email;
-		this.majorname = majorname;
-		this.dptname = dptname;
+		this.majorName = majorName;
+		this.dptName = dptName;
 		this.empno = empno;
 	}
 
 	public ProfVO() {
 		super();
 	}
+
 	
 }//class
