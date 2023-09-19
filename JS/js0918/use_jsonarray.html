@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="http://192.168.10.132/html_prj/common/css/main_v20230906.css">
+<style type="text/css">
+#table { border:1px solid #333; border-spacing: 0px; }
+th,td{ border: 1px solid #333; height: 30px; }
+#nameTitle { width: 120px; }
+#ageTitle { width: 80px; }
+#addrTitle { width: 300px; }
+</style>
+<script type="text/javascript">
+window.onload=function(){
+    document.getElementById("btn").addEventListener("click", useJSONArray);
+}
+
+function useJSONArray(){
+    //JSONArray의 사용
+    //1. 선언 : var 변수명 [ {}, {}, {} , ... ]
+    var JSONArray = [{ name:"홍찬영" , age: 26, addr:"서울시 강남구 역삼동"} , { name:"김주민", age:27, addr:"서울시 도봉구 도봉동" }
+,{ name: "송지하", age:25, addr:"서울시 관악구 신대방동" }];
+
+    //2.값 얻기
+    var jsonObj;
+    var output="<table id = 'table'>";
+        output += "<tr><th id='nameTitle'>이름</th><th id='ageTitle'>나이</th><th id='addrTitle'>주소</th></tr>"
+        //alert( jsonArray.length )
+        for( var i = 0; i < JSONArray.length; i++ ){
+            //3.JSONArray에서 JSONObject 얻기
+            jsonObj = JSONArray[i];
+            output += "<tr>";
+            output += "<td>"+ jsonObj.name +"</td>";
+            output += "<td>"+ jsonObj.age +"</td>";
+            output += "<td>"+ jsonObj.addr +"</td>";
+            output += "</tr>";
+        }//end for
+        output += "</table>";
+
+        document.getElementById("output").innerHTML=output;
+
+}//useJSONArray
+
+</script>
+</head>
+<body>
+<input type="button" value="JSONArray" id="btn" class="btn"/>
+<div id="output"></div>
+</body>
+</html>

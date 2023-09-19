@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="http://192.168.10.132/html_prj/common/css/main_v20230906.css">
+<style type="text/css">
+
+</style>
+<script type="text/javascript">
+window.onload=function(){
+    document.getElementById("btn").addEventListener("click", useJsonObject);
+    document.getElementById("btn1").addEventListener("click", setJsonObject);
+    document.getElementById("btn2").addEventListener("click", printJsonObject);
+}//onload
+
+function useJsonObject(){
+//1. JSONobject 선언
+var jsonObj={ name: "홍찬영",age:26, 
+                    trip:[ 
+                        {day:"1일차" , schedule: "술마심"},
+                        {day: "2일차", schedule: "디즈니랜드"}, 
+                        {day: "3일차", schedule: "아키하바라"} 
+                    ] 
+                };
+//2. JSONArray를 선언
+//3. JSONArray를 JSONobject에 추가
+
+//4. 사용
+var obj = document.frm;
+obj.name.value = jsonObj.name;
+obj.age.value = jsonObj.age;
+
+var data = "";
+var jsonArr=jsonObj.trip;
+var jsonTripData;
+for( var i = 0; i < jsonArr.length; i++ ){
+    jsonTripData = jsonArr[i];
+    data += jsonTripData.day + " - " + jsonTripData.schedule + "\n";
+}//end for
+obj.tripInfo.value = data;
+
+}//useJsonObject
+
+var jsonObj = {};
+
+function setJsonObject( ){
+
+}
+
+function printJsonObject(){
+
+}
+    
+
+</script>
+</head>
+<body>
+    <input type="button" value="사용" class="btn" id="btn">
+    <form name="frm">
+        <label>이름</label><input type="text" name="name" class="inputBox"/><br>
+        <label>나이</label><input type="text" name="age" class="inputBox"/><br>
+        <textarea name="tripInfo" class="inputBox" style="width: 300px; height: 100px;"></textarea>
+    </form>
+    <br>
+    <div>
+        
+        <form name="frm2">
+            <label>이름</label><input type="text" name="name" class="inputBox"/><br>
+            <label>나이</label><input type="text" name="age" class="inputBox"/><br>
+            <label>취미</label>
+            <input type="checkbox" name="hobby" value="게임"/>게임<br>
+            <input type="checkbox" name="hobby" value="등산"/>등산<br>
+            <input type="checkbox" name="hobby" value="축구"/>축구<br>
+            <input type="checkbox" name="hobby" value="독서"/>독서<br>
+            
+            <input type="button" value="값설정" class="btn" id="btn1"/>
+            <input type="button" value="값출력" class="btn" id="btn2"/><br>
+            <textarea name="tripInfo" class="inputBox" style="width: 300px; height: 100px;"></textarea>
+        </form>
+
+    </div>
+</body>
+</html>
