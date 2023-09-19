@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -20,7 +21,42 @@ public class EmployProfAddManageDialogEvt extends WindowAdapter implements Actio
 
 	public EmployProfAddManageDialogEvt(EmployProfAddManageDialog epad) {
 		this.epad = epad;
+		setDptNameCombo();
+		setMajorNameCombo();
 	}
+	
+	public void setDptNameCombo() {
+		ProfDAO pDAO = ProfDAO.getInstance();
+		List<ProfVO> dataList=null;
+		try {
+			dataList=pDAO.setDptComboBox();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}//end catch
+		
+		for(int i=0; i<dataList.size(); i++) {
+			ProfVO prof=dataList.get(i);
+			epad.getDcbmDept().addElement(prof.getDptName());
+		}//end for
+	}//setDptNameCombo
+	
+	public void setMajorNameCombo() {
+		ProfDAO pDAO = ProfDAO.getInstance();
+		ProfVO pVO=null;
+		List<ProfVO> dataList=null;
+		try {
+			pVO=new ProfVO();
+			dataList=pDAO.setMajorComboBox(pVO);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}//end catch
+		
+		for(int i=0; i<dataList.size(); i++) {
+			ProfVO prof=dataList.get(i);
+//			epad.getDcbmMajor().addElement(major.getDptName());
+			epad.getDcbmMajor().addElement(prof.getMajorName());
+		}//end for
+	}//setDptNameCombo
 	
 	/**
 	 * 텍스트 필드에 사용자가 입력한 정보를 얻어와서 교수를 등록하기 위한 일

@@ -30,6 +30,52 @@ public class ProfDAO {
 		} // end if
 		return pDAO;
 	}// getInstance
+	
+	
+
+	/**
+	 * 교수 전체 조회해서 조회된 정보를 JTable에 추가하는 위한 일
+	 * 
+	 * @return list
+	 * @throws SQLException
+	 */
+	public List<ProfVO> selectAllProf() throws SQLException {
+
+		ProfVO pVO = null;
+		List<ProfVO> list = new ArrayList<ProfVO>();
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		DbConn db = DbConn.getInstance();
+		try {
+			// 1. 드라이버로딩
+			// 2. 커넥션 얻기
+			con = db.getConnection("192.168.10.142", "applepie", "mincho");
+			// 3. 쿼리문 생성 객체 얻기
+			StringBuilder selectAllProfInfo = new StringBuilder();
+			selectAllProfInfo
+					.append("  select e.empno, e.ename, m.majorname, d.dptname, e.phone, e.email 	")
+					.append("  from  emp e, major m, dpt d 											")
+					.append("  where (e.dptcode=d.dptcode) and (e.majorcode=m.majorcode)			");
+
+			pstmt = con.prepareStatement(selectAllProfInfo.toString());
+
+			// 5. 쿼리문 실행 결과 얻기
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				pVO = new ProfVO(rs.getString("ename"), rs.getString("phone"), rs.getString("email"),
+						rs.getString("majorName"), rs.getString("dptName"), rs.getString("empno"));
+				list.add(pVO);
+			} // end while
+		} finally {
+			// 6. 연결끊기
+			db.dbClose(rs, pstmt, con);
+		} // end finally
+		return list;
+	}// selectAllProf
+	
 
 	/**
 	 * 사번으로 교수 한 명 조회해서 조회된 교수의 정보를 JTable에 넣기 위한 일
@@ -127,48 +173,6 @@ public class ProfDAO {
 		return pVO;
 	}// selectProf
 
-	/**
-	 * 교수 전체 조회해서 조회된 정보를 JTable에 추가하는 위한 일
-	 * 
-	 * @return list
-	 * @throws SQLException
-	 */
-	public List<ProfVO> selectAllProf() throws SQLException {
-
-		ProfVO pVO = null;
-		List<ProfVO> list = new ArrayList<ProfVO>();
-
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		DbConn db = DbConn.getInstance();
-		try {
-			// 1. 드라이버로딩
-			// 2. 커넥션 얻기
-			con = db.getConnection("192.168.10.142", "applepie", "mincho");
-			// 3. 쿼리문 생성 객체 얻기
-			StringBuilder selectAllProfInfo = new StringBuilder();
-			selectAllProfInfo
-					.append("  select e.empno, e.ename, m.majorname, d.dptname, e.phone, e.email 	")
-					.append("  from  emp e, major m, dpt d 											")
-					.append("  where (e.dptcode=d.dptcode) and (e.majorcode=m.majorcode)			");
-
-			pstmt = con.prepareStatement(selectAllProfInfo.toString());
-
-			// 5. 쿼리문 실행 결과 얻기
-			rs = pstmt.executeQuery();
-			while (rs.next()) {
-				pVO = new ProfVO(rs.getString("ename"), rs.getString("phone"), rs.getString("email"),
-						rs.getString("majorName"), rs.getString("dptName"), rs.getString("empno"));
-				list.add(pVO);
-			} // end while
-		} finally {
-			// 6. 연결끊기
-			db.dbClose(rs, pstmt, con);
-		} // end finally
-		return list;
-	}// selectAllProf
 
 
 	/**
@@ -205,6 +209,7 @@ public class ProfDAO {
 		majorcode = majorcode.trim();
 		return majorcode;
 	}// getMajorcode
+	
 
 	/**
 	 * 사번을 생성하기 위해 생성한 시퀀스에서 next number를 가져오는 일
@@ -361,5 +366,59 @@ public class ProfDAO {
 		return rowCntUpdate;
 	}// updateProf
 
+public List<ProfVO> setDptComboBox() throws SQLException{
+		
+		ProfVO pVO=null;
+		List<ProfVO> list=new ArrayList<ProfVO>();
+		
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		DbConn db=DbConn.getInstance();
+		try {
+			con=db.getConnection("192.168.10.142", "applepie", "mincho");
+			
+			 String setdpt="select dptname from dpt";
+			
+			pstmt=con.prepareStatement(setdpt);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				pVO=new ProfVO();
+				pVO.setDptName(rs.getString("dptname"));
+				list.add(pVO);
+			}//end if
+		}finally {
+			db.dbClose(null, pstmt, con);
+		}//end finally
+		return list;
+	}//setdptComboBox
+	
+	public List<ProfVO> setMajorComboBox(ProfVO pVO) throws SQLException{
+		
+		List<ProfVO> list=new ArrayList<ProfVO>();
+		
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		DbConn db=DbConn.getInstance();
+		try {
+			con=db.getConnection("192.168.10.142", "applepie", "mincho");
+			
+			String setmajor="select majorname from major where dptname='"+pVO.getDptName()+"'";
+			
+			pstmt=con.prepareStatement(setmajor);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				pVO=new ProfVO();
+				pVO.setMajorName(rs.getString("majorname"));
+				list.add(pVO);
+			}//end if
+		}finally {
+			db.dbClose(null, pstmt, con);
+		}//end finally
+		return list;
+	}//setdptComboBox
 
 }// class

@@ -16,6 +16,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 /**
  * 인영 학과관리 Dialog
@@ -33,12 +34,13 @@ public class MajorManageDialog extends JDialog {
 	JComboBox<String> jcbDptAdd;
 	JTextField jtfMajor;
 	JTable jtMajor;
+	DefaultTableModel dtmMajor;
 	JLabel jlblMajor;
 	JLabel jlblDpt;
 	JButton jbtnAdd;
 	JButton jbtnSearch;
 	JButton jbtnChange;
-	EmployMainEvt emfe;
+	MajorManageEvt mme;
 
 	public MajorManageDialog(EmployMainFrame emf) {
 
@@ -56,6 +58,8 @@ public class MajorManageDialog extends JDialog {
 
 		dcbmDptAdd = new DefaultComboBoxModel<String>();
 		jcbDptAdd = new JComboBox<String>(dcbmDptAdd);
+		
+//		mme.setDptNameCombo();
 
 		// 검색창
 		jtfMajor = new JTextField();
@@ -71,9 +75,23 @@ public class MajorManageDialog extends JDialog {
 		jbtnChange = new JButton("수정");
 		// 테이블
 		String[] columNames = { "No", "학부", "학과코드", "학과명" };
-		DefaultTableModel dtmMajor = new DefaultTableModel(null, columNames);
-		jtMajor = new JTable(dtmMajor);
+		dtmMajor = new DefaultTableModel(null, columNames);
+
+		// JTable 컬럼 값 수정 불가
+		jtMajor = new JTable(dtmMajor) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
 		JScrollPane jspJtMajor = new JScrollPane(jtMajor);
+
+//		// 컬럼 height 크기 설정
+		jtMajor.setRowHeight(25);
+		// JTable 크기 조절 불가
+		for (int i = 0; i < jtMajor.getColumnModel().getColumnCount(); i++) {
+			jtMajor.getColumnModel().getColumn(i).setResizable(false);
+		} // end for
 
 		// Bounds
 		jlblback.setBounds(0, 0, 1000, 700);
@@ -108,6 +126,9 @@ public class MajorManageDialog extends JDialog {
 		jbtnSearch.setBorder(null);
 		jbtnChange.setBorder(null);
 		jbtnAdd.setBorder(null);
+
+		// 이벤트 연결//
+		mme = new MajorManageEvt(this);
 
 		// add
 		add(jlblTitle);
@@ -161,6 +182,10 @@ public class MajorManageDialog extends JDialog {
 		return jtMajor;
 	}
 
+	public DefaultTableModel getDtmMajor() {
+		return dtmMajor;
+	}
+
 	public JLabel getJlblMajor() {
 		return jlblMajor;
 	}
@@ -181,8 +206,10 @@ public class MajorManageDialog extends JDialog {
 		return jbtnChange;
 	}
 
-	public EmployMainEvt getEmfe() {
-		return emfe;
+	public MajorManageEvt getMme() {
+		return mme;
 	}
+
+	
 
 }// class

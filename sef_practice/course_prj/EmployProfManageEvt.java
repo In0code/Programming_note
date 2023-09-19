@@ -25,13 +25,13 @@ public class EmployProfManageEvt extends WindowAdapter implements ActionListener
 
 	public EmployProfManageEvt(EmployProfManageDialog epmd) {
 		this.epmd = epmd;
-		selectAllProfinfo();
+		searchAllProfInfo();
 	}// EmployProfManageEvt
 
 	/**
-	 * JTable에 모든 교수 정보 추가
+	 * JTable에 모든 교수 정보 조회하여 추가
 	 */
-	public void selectAllProfinfo() {
+	public void searchAllProfInfo() {
 
 		ProfDAO profDAO = ProfDAO.getInstance();
 		List<ProfVO> dataList = null;
@@ -54,7 +54,7 @@ public class EmployProfManageEvt extends WindowAdapter implements ActionListener
 	 * 
 	 * @param searchValue
 	 */
-	public void selectOneProfInfo(String searchValue) {
+	public void searchOneProfInfo(String searchValue) {
 		if (searchValue.isEmpty()) {
 			return;
 		} // end if
@@ -121,7 +121,7 @@ public class EmployProfManageEvt extends WindowAdapter implements ActionListener
 		// 교수 정보 조회 텍스트 필드에 입력된 값 얻어오기
 		String searchValue = epmd.getJtfSearch().getText().trim().toUpperCase();
 		if (!searchValue.isEmpty()) { // 교수 정보 조회 텍스 필드가 비어있지 않으면 정보를 조회하는 일
-			selectOneProfInfo(searchValue);
+			searchOneProfInfo(searchValue);
 		} // end if
 	}// actionPerformed
 
