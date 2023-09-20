@@ -41,7 +41,7 @@ public class MajorManageDAO {
 	 * @throws SQLException
 	 */
 	public List<MajorManageVO> selectAllMajor() throws SQLException {
-		
+
 		List<MajorManageVO> list = new ArrayList<MajorManageVO>();
 		MajorManageVO mmVO = null;
 
@@ -54,8 +54,7 @@ public class MajorManageDAO {
 			con = db.getConnection("192.168.10.142", "applepie", "mincho");
 			StringBuilder selectAllMajorInfo = new StringBuilder();
 			selectAllMajorInfo.append("	select d.dptname, m.majorcode, m.majorname	")
-					.append("	from dpt d, major m		")
-					.append("	where d.dptcode = m.dptcode	");
+					.append("	from dpt d, major m		").append("	where d.dptcode = m.dptcode	");
 			System.out.println(selectAllMajorInfo);
 			pstmt = con.prepareStatement(selectAllMajorInfo.toString());
 
@@ -71,15 +70,16 @@ public class MajorManageDAO {
 		} // end finally
 		return list;
 	}// selectAllMajor
-	
 
 	/**
 	 * 이름으로 교수 한 명 조회해서 조회된 교수의 정보를 JTable에 넣기 위한 일
+	 * 
 	 * @param dpt
 	 * @return
 	 * @throws SQLException
 	 */
-	public MajorManageVO selectOneMajorDpt(String dpt) throws SQLException {
+	public List<MajorManageVO> selectOneMajorDpt(String dpt) throws SQLException {
+		List<MajorManageVO> list=new ArrayList<MajorManageVO>();
 		MajorManageVO mmVO = null;
 
 		Connection con = null;
@@ -94,28 +94,25 @@ public class MajorManageDAO {
 			con = db.getConnection("192.168.10.142", "applepie", "mincho");
 			// 3. 쿼리문 생성 객체 얻기
 			StringBuilder selectOneMajorInfo = new StringBuilder();
-			selectOneMajorInfo
-			.append("	select d.dptname, m.majorcode, m.majorname	")
+			selectOneMajorInfo.append("	select d.dptname, m.majorcode, m.majorname	")
 					.append("	from dpt d, major m		")
-					.append("	where (d.dptcode = m.dptcode) and (d.dptname='"+dpt+"'	");			
+					.append("	where (d.dptcode = m.dptcode) and (d.dptname='" + dpt + "')	");
 
 			pstmt = con.prepareStatement(selectOneMajorInfo.toString());
 			// 5. 쿼리문 실행 결과 얻기
 			rs = pstmt.executeQuery();
 
-			if (rs.next()) {
-				mmVO = new MajorManageVO();
-				mmVO.setDptName(rs.getString("dptName"));
-				mmVO.setmajorCode(rs.getString("majorCode"));
-				mmVO.setMajorName(rs.getString("majorName"));
+			while (rs.next()) {
+				mmVO = new MajorManageVO(rs.getString("dptName"), rs.getString("majorCode"), rs.getString("majorName"));
+				list.add(mmVO);
 			} // end if
 				// 6. 연결끊기
 		} finally {
 			db.dbClose(rs, pstmt, con);
 		} // end finally
-		return mmVO;
+		return list;
 	}// selectProf
-	
+
 	/**
 	 * 학과코드를 생성하기 위해 학부 코드를 얻는 일<br>
 	 * 사번 : 학과코드 6자리 (문자, 숫자 )+ 시퀀스 3자리 ( 숫자 )
@@ -157,7 +154,7 @@ public class MajorManageDAO {
 	 * @return Integer.parseInt(seq)
 	 * @throws SQLException
 	 */
-	public int getNextProfSeq() throws SQLException {
+	public int getNextMajorSeq() throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -167,7 +164,7 @@ public class MajorManageDAO {
 		try {
 			con = db.getConnection("192.168.10.142", "applepie", "mincho");
 
-			String getSeq = "select empno_seq.nextval from dual";
+			String getSeq = "select majorcode_seq.nextval from dual";
 
 			pstmt = con.prepareStatement(getSeq);
 			rs = pstmt.executeQuery();
@@ -181,15 +178,15 @@ public class MajorManageDAO {
 		} // end finally
 		return Integer.parseInt(seq);
 	}// getNextProfSeq
-	
-	
+
 	/**
 	 * 학과를 등록하기 위한 일
+	 * 
 	 * @param mmVO
 	 * @throws SQLException
 	 */
 	public int insertMajor(MajorManageVO mmVO) throws SQLException {
-		
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String majorCode = null;
@@ -204,18 +201,16 @@ public class MajorManageDAO {
 			con.setAutoCommit(false); // 자동 커밋 비활성화
 
 			String dptCode = getDptCode(mmVO);
-			int seq = getNextProfSeq();
+			int seq = getNextMajorSeq();
 
 			majorCode = dptCode + String.format("%03d", seq);
 
 			// 3. 쿼리문 생성 객체 얻기 - bind 값 설정하는 과정에 오류가 있어서 직접 넣음
 			StringBuilder insertMajorInfo = new StringBuilder();
-			insertMajorInfo
-					.append(" insert into major values ('"+mmVO.getmajorCode()+"'	")
-					.append("	,(select DPTCODE from DPT where DPTNAME = '"+mmVO.getDptName()+"'	")
-					.append("	,'"+mmVO.getMajorName()+"')	");
+			insertMajorInfo.append(" insert into major values ('" + majorCode + "'	")
+					.append("	,(select DPTCODE from DPT where DPTNAME = '" + mmVO.getDptName() + "')	")
+					.append("	,'" + mmVO.getMajorName() + "')	");
 
-			System.out.println(insertMajorInfo);
 			pstmt = con.prepareStatement(insertMajorInfo.toString());
 
 			// 5. 쿼리문 실행 결과 얻기
@@ -244,7 +239,6 @@ public class MajorManageDAO {
 		return rowCnt;
 	}// insertMajor
 
-	
 	/**
 	 * 학과 정보 수정 후, 수정 된 학과 정보를 DB에 update하는 일
 	 * 
@@ -264,10 +258,8 @@ public class MajorManageDAO {
 			con.setAutoCommit(false);
 
 			StringBuilder updateMajorInfo = new StringBuilder();
-			updateMajorInfo
-			.append("	update major	")
-			.append("	set  majorname= '"+mmVO.getMajorName()+"'	")
-			.append("	where  majorcode= '"+mmVO.getmajorCode()+"'	");
+			updateMajorInfo.append("	update major	").append("	set  majorname= '" + mmVO.getMajorName() + "'	")
+					.append("	where  majorcode= '" + mmVO.getmajorCode() + "'	");
 
 			System.out.println(updateMajorInfo);
 			pstmt = con.prepareStatement(updateMajorInfo.toString());
@@ -294,8 +286,5 @@ public class MajorManageDAO {
 
 		return rowCntUpdate;
 	}// updateMajor
-	
-	
-	
 
 }// class

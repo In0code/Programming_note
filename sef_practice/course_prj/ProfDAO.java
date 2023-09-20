@@ -30,8 +30,6 @@ public class ProfDAO {
 		} // end if
 		return pDAO;
 	}// getInstance
-	
-	
 
 	/**
 	 * 교수 전체 조회해서 조회된 정보를 JTable에 추가하는 위한 일
@@ -55,8 +53,7 @@ public class ProfDAO {
 			con = db.getConnection("192.168.10.142", "applepie", "mincho");
 			// 3. 쿼리문 생성 객체 얻기
 			StringBuilder selectAllProfInfo = new StringBuilder();
-			selectAllProfInfo
-					.append("  select e.empno, e.ename, m.majorname, d.dptname, e.phone, e.email 	")
+			selectAllProfInfo.append("  select e.empno, e.ename, m.majorname, d.dptname, e.phone, e.email 	")
 					.append("  from  emp e, major m, dpt d 											")
 					.append("  where (e.dptcode=d.dptcode) and (e.majorcode=m.majorcode)			");
 
@@ -75,7 +72,6 @@ public class ProfDAO {
 		} // end finally
 		return list;
 	}// selectAllProf
-	
 
 	/**
 	 * 사번으로 교수 한 명 조회해서 조회된 교수의 정보를 JTable에 넣기 위한 일
@@ -98,11 +94,10 @@ public class ProfDAO {
 			con = db.getConnection("192.168.10.142", "applepie", "mincho");
 			// 3. 쿼리문 생성 객체 얻기
 			StringBuilder selectOneProfInfo = new StringBuilder();
-			selectOneProfInfo
-					.append("  select e.empno, e.ename, m.majorname, d.dptname, e.phone, e.email	")
+			selectOneProfInfo.append("  select e.empno, e.ename, m.majorname, d.dptname, e.phone, e.email	")
 					.append("  from  emp e, major m, dpt d											")
 					.append(" where (e.dptcode=d.dptcode) and (e.majorcode=m.majorcode)				")
-					.append("and ((e.ename= '" + prof+ "') or (e.empno= '" + prof + "'))			");
+					.append("and ((e.ename= '" + prof + "') or (e.empno= '" + prof + "'))			");
 
 			pstmt = con.prepareStatement(selectOneProfInfo.toString());
 
@@ -147,11 +142,10 @@ public class ProfDAO {
 			con = db.getConnection("192.168.10.142", "applepie", "mincho");
 			// 3. 쿼리문 생성 객체 얻기
 			StringBuilder selectOneProfInfo = new StringBuilder();
-			selectOneProfInfo
-					.append("  select e.empno, e.ename, m.majorname, d.dptname, e.phone, e.email	")
+			selectOneProfInfo.append("  select e.empno, e.ename, m.majorname, d.dptname, e.phone, e.email	")
 					.append("  from  emp e, major m, dpt d 										  	")
 					.append(" where (e.dptcode=d.dptcode) and (e.majorcode=m.majorcode)				")
-					.append("and (e.ename= '" + prof+"')											");
+					.append("and (e.ename= '" + prof + "')											");
 
 			pstmt = con.prepareStatement(selectOneProfInfo.toString());
 			// 5. 쿼리문 실행 결과 얻기
@@ -173,11 +167,9 @@ public class ProfDAO {
 		return pVO;
 	}// selectProf
 
-
-
 	/**
 	 * 사번을 생성하기 위해 학과 코드를 얻는 일<br>
-	 * 사번 : 학과코드 6자리 (문자, 숫자 )+ 시퀀스 3자리 ( 숫자 )
+	 * 사번 : 학과코드 6자리 ( 문자, 숫자 )+ C ( 과목코드와 구분하기 위한 ) + 시퀀스 3자리 ( 숫자 ) = 총 10자리
 	 * 
 	 * @param pVO
 	 * @return majorcode
@@ -209,7 +201,41 @@ public class ProfDAO {
 		majorcode = majorcode.trim();
 		return majorcode;
 	}// getMajorcode
-	
+
+//	/**
+//	 * 사번을 생성하기 위해 userCode를 얻는 일
+//	 * @param pVO
+//	 * @return
+//	 * @throws SQLException
+//	 */
+//	public String getUserCode(ProfVO pVO) throws SQLException{
+//		
+//		Connection con = null;
+//		PreparedStatement pstmt = null;
+//		ResultSet rs = null;
+//		String userCode = null;
+//
+//		DbConn db = DbConn.getInstance();
+//		try {
+//			con = db.getConnection("192.168.10.142", "applepie", "mincho");
+//
+//			String getUserCode = "select usercode from emp where majorcode=(select MAJORCODE from MAJOR where MAJORNAME = '" + pVO.getMajorName() + "')";
+//
+//			pstmt = con.prepareStatement(getUserCode);
+//
+//			rs = pstmt.executeQuery();
+//
+//			if (rs.next()) {
+//				userCode = rs.getString(1);
+//			} // end if
+//
+//		} finally {
+//			db.dbClose(rs, pstmt, con);
+//		} // end finally
+//		userCode = userCode.trim();
+//		return userCode;
+//		
+//	}
 
 	/**
 	 * 사번을 생성하기 위해 생성한 시퀀스에서 next number를 가져오는 일
@@ -244,7 +270,7 @@ public class ProfDAO {
 	}// getNextProfSeq
 
 	/**
-	 * 교수를 등록하기 위한 일
+	 * 교수를 등록하기 위한 DB 작업
 	 * 
 	 * @param pVO
 	 * @return rowCnt
@@ -265,19 +291,20 @@ public class ProfDAO {
 			con = db.getConnection("192.168.10.142", "applepie", "mincho");
 			con.setAutoCommit(false); // 자동 커밋 비활성화
 
-			String majorcode = getMajorcode(pVO);
+			String majorCode = getMajorcode(pVO);
+			String userCode = "C";
 			int seq = getNextProfSeq();
 
-			empNo = majorcode + String.format("%03d", seq);
+			empNo = majorCode + userCode + String.format("%03d", seq);
 
 			// 3. 쿼리문 생성 객체 얻기 - bind 값 설정하는 과정에 오류가 있어서 직접 넣음
 			StringBuilder insertProfInfo = new StringBuilder();
-			insertProfInfo
-					.append(" insert into emp(  empno, ename, dptcode, majorcode, phone, email, usercode)				")
-					.append(" values ( '" + empNo + "','" + pVO.getEname() + "' ,										")
-					.append(" (select DPTCODE from DPT where DPTNAME = '"+ pVO.getDptName() + "')						")
-					.append(" , (select MAJORCODE from MAJOR where MAJORNAME ='" + pVO.getMajorName() + "'),			")
-					.append("'"+ pVO.getPhone() + "', '" + pVO.getEmail() + "', 'P')									");
+			insertProfInfo.append(
+					" insert into emp(  empno, ename, dptcode, majorcode, phone, email, usercode)				")
+					.append(" values ( '" + empNo + "','" + pVO.getEname() + "' ,	")
+					.append(" (select DPTCODE from DPT where DPTNAME = '" + pVO.getDptName() + "')	")
+					.append(" , (select MAJORCODE from MAJOR where MAJORNAME ='" + pVO.getMajorName() + "'),")
+					.append("'" + pVO.getPhone() + "', '" + pVO.getEmail() + "', 'P')	");
 
 //			System.out.println(insertProfInfo);
 			pstmt = con.prepareStatement(insertProfInfo.toString());
@@ -307,7 +334,7 @@ public class ProfDAO {
 		} // end finally
 		return rowCnt;
 	}// insertProf
-	
+
 	/**
 	 * 교수 수정 후, 수정 된 교수 정보를 DB에 update하는 일
 	 * 
@@ -329,15 +356,13 @@ public class ProfDAO {
 			con.setAutoCommit(false); // 자동커밋 비활성화
 			// 3. 쿼리문 생성 객체 얻기
 			StringBuilder updateProfInfo = new StringBuilder();
-			updateProfInfo
-					.append("update emp ")
-					.append(" set ename = '" + pVO.getEname() + "' ")
-					.append(",DPTCODE= (select DPTCODE from DPT where DPTNAME = '"+ pVO.getDptName() + "'  ) ,			")
-					.append("MAJORCODE = (select MAJORCODE from MAJOR where MAJORNAME = '" + pVO.getMajorName()+ "' )	")
-					.append(" , phone = '" + pVO.getPhone() + "' , email = '" + pVO.getEmail() + "'						")
-					.append("  where empno = '" + pVO.getEmpno() + "' 													");
+			updateProfInfo.append("update emp ").append(" set ename = '" + pVO.getEname() + "' ")
+					.append(",DPTCODE= (select DPTCODE from DPT where DPTNAME = '" + pVO.getDptName() + "'  ) ,")
+					.append(" MAJORCODE = (select MAJORCODE from MAJOR where MAJORNAME = '" + pVO.getMajorName()
+							+ "' )")
+					.append(" , phone = '" + pVO.getPhone() + "' , email = '" + pVO.getEmail() + "'")
+					.append("  where empno = '" + pVO.getEmpno() + "'");
 
-//			System.out.println(updateProfInfo);
 			pstmt = con.prepareStatement(updateProfInfo.toString());
 
 			// 5. 쿼리문 실행 결과 얻기
@@ -366,59 +391,75 @@ public class ProfDAO {
 		return rowCntUpdate;
 	}// updateProf
 
-public List<ProfVO> setDptComboBox() throws SQLException{
-		
-		ProfVO pVO=null;
-		List<ProfVO> list=new ArrayList<ProfVO>();
-		
-		Connection con=null;
-		PreparedStatement pstmt=null;
-		ResultSet rs=null;
-		
-		DbConn db=DbConn.getInstance();
+	/**
+	 * DB에서 학부를 불러와 콤보박스에 넣기 위한 DB 작업
+	 * 
+	 * @return list
+	 * @throws SQLException
+	 */
+	public List<ProfVO> selectDptComboBox() throws SQLException {
+
+		ProfVO pVO = null;
+		List<ProfVO> list = new ArrayList<ProfVO>();
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		DbConn db = DbConn.getInstance();
 		try {
-			con=db.getConnection("192.168.10.142", "applepie", "mincho");
-			
-			 String setdpt="select dptname from dpt";
-			
-			pstmt=con.prepareStatement(setdpt);
-			rs=pstmt.executeQuery();
-			while(rs.next()) {
-				pVO=new ProfVO();
+			con = db.getConnection("192.168.10.142", "applepie", "mincho");
+
+			String setdpt = "select dptname from dpt";
+
+			pstmt = con.prepareStatement(setdpt);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				pVO = new ProfVO();
 				pVO.setDptName(rs.getString("dptname"));
 				list.add(pVO);
-			}//end if
-		}finally {
+			} // end if
+		} finally {
 			db.dbClose(null, pstmt, con);
-		}//end finally
+		} // end finally
 		return list;
-	}//setdptComboBox
-	
-	public List<ProfVO> setMajorComboBox(ProfVO pVO) throws SQLException{
-		
-		List<ProfVO> list=new ArrayList<ProfVO>();
-		
-		Connection con=null;
-		PreparedStatement pstmt=null;
-		ResultSet rs=null;
-		
-		DbConn db=DbConn.getInstance();
+	}// setdptComboBox
+
+	/**
+	 * 학부 콤보박스에서 학부가 선택되면 그에 맞는 학과가 선택되게 하기위한 DB작업
+	 * 
+	 * @param dpt
+	 * @return list
+	 * @throws SQLException
+	 */
+	public List<ProfVO> selectMajorComboBox(String dpt) throws SQLException {
+
+		ProfVO pVO = null;
+		List<ProfVO> list = new ArrayList<ProfVO>();
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		DbConn db = DbConn.getInstance();
 		try {
-			con=db.getConnection("192.168.10.142", "applepie", "mincho");
-			
-			String setmajor="select majorname from major where dptname='"+pVO.getDptName()+"'";
-			
-			pstmt=con.prepareStatement(setmajor);
-			rs=pstmt.executeQuery();
-			while(rs.next()) {
-				pVO=new ProfVO();
+			con = db.getConnection("192.168.10.142", "applepie", "mincho");
+
+			StringBuilder setmajor = new StringBuilder();
+			setmajor.append("	select majorname from major m, dpt d	")
+					.append(" where m.dptcode=d.dptcode and (d.dptname='" + dpt + "')");
+
+			pstmt = con.prepareStatement(setmajor.toString());
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				pVO = new ProfVO();
 				pVO.setMajorName(rs.getString("majorname"));
 				list.add(pVO);
-			}//end if
-		}finally {
+			} // end if
+		} finally {
 			db.dbClose(null, pstmt, con);
-		}//end finally
+		} // end finally
 		return list;
-	}//setdptComboBox
+	}// setdptComboBox
 
 }// class

@@ -67,18 +67,18 @@ public class EmployProfEditManageDialog extends JDialog {
 		dcbmEmail = new DefaultComboBoxModel<String>();
 
 		dcbmDept.setSelectedItem(pVO.getDptName());
-		dcbmDept.addElement("컴퓨터공학부");
-		dcbmDept.addElement("인문사회부");
-		dcbmDept.addElement("연극학부");
-		dcbmDept.addElement("건축학부");
-		dcbmDept.addElement("체육학부");
+//		dcbmDept.addElement("컴퓨터공학부");
+//		dcbmDept.addElement("인문사회부");
+//		dcbmDept.addElement("연극학부");
+//		dcbmDept.addElement("건축학부");
+//		dcbmDept.addElement("체육학부");
 
 		dcbmMajor.setSelectedItem(pVO.getMajorName());
-		dcbmMajor.addElement("컴퓨터과학과");
-		dcbmMajor.addElement("국어국문학과");
-		dcbmMajor.addElement("연극영화과");
-		dcbmMajor.addElement("건축공학과");
-		dcbmMajor.addElement("사회체육학과");
+//		dcbmMajor.addElement("컴퓨터과학과");
+//		dcbmMajor.addElement("국어국문학과");
+//		dcbmMajor.addElement("연극영화과");
+//		dcbmMajor.addElement("건축공학과");
+//		dcbmMajor.addElement("사회체육학과");
 
 		email = pVO.getEmail().substring(email.lastIndexOf("@"), email.length());
 		dcbmEmail.setSelectedItem(email);
@@ -124,6 +124,8 @@ public class EmployProfEditManageDialog extends JDialog {
 		//이벤트 등록
 		epemde= new EmployProfEditManageDialogEvt(this);
 		jbtnEdit.addActionListener(epemde);
+		jcbDept.addActionListener(epemde);
+		jcbMajor.addActionListener(epemde);
 		
 
 		//// Font ////

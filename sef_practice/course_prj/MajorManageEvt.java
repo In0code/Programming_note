@@ -2,6 +2,8 @@ package self_practice_course_prj;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.sql.SQLException;
 import java.util.List;
@@ -17,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
  * @author user
  *
  */
-public class MajorManageEvt extends WindowAdapter implements ActionListener {
+public class MajorManageEvt extends WindowAdapter implements ActionListener, MouseListener  {
 
 	private MajorManageDialog mmd;
 
@@ -25,7 +27,6 @@ public class MajorManageEvt extends WindowAdapter implements ActionListener {
 		this.mmd = mmd;
 		searchAllMajorInfo();
 		setDptNameCombo();
-//		setDptNameCombo();
 	}
 
 	/**
@@ -46,56 +47,39 @@ public class MajorManageEvt extends WindowAdapter implements ActionListener {
 			mmd.getDtmMajor().addRow(new Object[] { i + 1, // No 컬럼은 1부터 시작하는 순번으로 설정
 					major.getDptName(), major.getmajorCode(), major.getMajorName() });
 		} // end for
-		
-	}//searchDpt
-	
-	public void setDptNameCombo() {
-		MajorManageDAO majorDAO = MajorManageDAO.getInstance();
-		List<MajorManageVO> dataList=null;
-		try {
-			dataList=majorDAO.setDptComboBox();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}//end catch
-		
-		for(int i=0; i<dataList.size(); i++) {
-			MajorManageVO major=dataList.get(i);
-			mmd.getDcbmDpt().addElement(major.getDptName());
-			mmd.getDcbmDptAdd().addElement(major.getDptName());
-		}//end for
-	}//setDptNameCombo
 
+	}// searchDpt
+
+	/**
+	 * 콤보박스에서 원하는 학부를 선택하여 조회 버튼을 누르면 그 학부에 해당하는 학과를 JTable에 추가하는 일
+	 * 
+	 * @param searchValue
+	 */
 	public void searchOneMajorInfo(String searchValue) {
-		if (searchValue.isEmpty()) {
-			return;
-		} // end if
 
 		DefaultTableModel dtmDpt = (DefaultTableModel) mmd.getJtMajor().getModel();
 		dtmDpt.setRowCount(0); // JTable의 정보 초기화
 
 		MajorManageDAO majorDAO = MajorManageDAO.getInstance();
-
-		MajorManageVO major= null;
+		List<MajorManageVO> dataList2 = null;
 		try {
-			if (mmd.getJcbDpt().getSelectedItem() != null) {
-				major = majorDAO.selectOneMajorDpt(searchValue);
-			}
+			dataList2 = majorDAO.selectOneMajorDpt(searchValue);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} // end catch
 
-		if (major != null) {
-			dtmDpt.addRow(new Object[] { 1, // No 컬럼은 1부터 시작하는 순번으로 설정
+		for (int i = 0; i < dataList2.size(); i++) {
+			MajorManageVO major = dataList2.get(i);
+			mmd.getDtmMajor().addRow(new Object[] { i + 1, // No 컬럼은 1부터 시작하는 순번으로 설정
 					major.getDptName(), major.getmajorCode(), major.getMajorName() });
+		} // end for
 
-			// JTable 갱신
-			mmd.getJtMajor().repaint();
-		} else {
-			JOptionPane.showMessageDialog(mmd, "를 찾을 수 없습니다\n입력한 정보를 확인하세요", "조회실패", JOptionPane.ERROR_MESSAGE);
-		} // end else
+		// JTable 갱신
+//		mmd.getJtMajor().repaint();
+		mmd.getJtMajor().setModel(dtmDpt);
 
-	}//search
-	
+	}// search
+
 	/**
 	 * JTable에서 선택한 행을 얻어오는 일
 	 */
@@ -104,76 +88,141 @@ public class MajorManageEvt extends WindowAdapter implements ActionListener {
 		DefaultTableModel dtm = mmd.getDtmMajor();
 		int row = jtMajor.getSelectedRow();
 
-//		String empno = String.valueOf(dtm.getValueAt(row, 1));
-//		String ename = String.valueOf(dtm.getValueAt(row, 2));
-//		String dptname = String.valueOf(dtm.getValueAt(row, 3));
-//		String majorname = String.valueOf(dtm.getValueAt(row, 4));
-//		String phone = String.valueOf(dtm.getValueAt(row, 5));
-//		String email = String.valueOf(dtm.getValueAt(row, 6));
-//
-//		ProfVO pVO = new ProfVO(ename, phone, email, majorname, dptname, empno);
-//
-//		new EmployProfEditManageDialog(mmd, pVO);
+		if(row != -1) {
+			String dptname = String.valueOf(dtm.getValueAt(row, 1));
+			String majorcode = String.valueOf(dtm.getValueAt(row, 2));
+			String majorname = String.valueOf(dtm.getValueAt(row, 3));
+			
+			 mmd.getJcbDptAdd().setSelectedItem(dptname);
+		     mmd.jtfMajor.setText(majorname);
+		}
 
 	}// selectionProfInfo
 
-
+	/**
+	 * 학부의 새로운 학과를 등록하는 일
+	 */
 	public void addMajor() {
-		int flag=JOptionPane.showConfirmDialog(mmd, "학과를 등록하겠습니끼?","학과등록",JOptionPane.YES_NO_OPTION);
-		if(flag != JOptionPane.YES_OPTION) {
+		int flag = JOptionPane.showConfirmDialog(mmd, "학과를 등록하겠습니끼?", "학과등록", JOptionPane.YES_NO_OPTION);
+		if (flag != JOptionPane.YES_OPTION) {
 			return;
-		}//end if
+		} // end if
 		
-		MajorManageVO mmVO=new MajorManageVO(mmd.getJcbDpt().getSelectedItem().toString(),"",mmd.getJtfMajor().getText().trim());
-		
-		
-		MajorManageDAO mmDAO=MajorManageDAO.getInstance();
+
+		MajorManageVO mmVO = new MajorManageVO(mmd.getJcbDptAdd().getSelectedItem().toString(), "",
+				mmd.getJtfMajor().getText().trim());
+
+		MajorManageDAO mmDAO = MajorManageDAO.getInstance();
+		searchAllMajorInfo();
 		try {
-		mmDAO.insertMajor(mmVO);
-		}catch (SQLException e) {
-			e.printStackTrace();
-		}//end catch
-	}//addDpt
-
-	public void EditMajorName() {
-
-		int flag = JOptionPane.showConfirmDialog(mmd, "학과 이름을 수정하겠습니까?", "교수수정", JOptionPane.YES_NO_OPTION);
-		if (flag != JOptionPane.OK_OPTION) {
-			return;
-		}
-//		String selectedMajor = epad.getJcbMajor().getSelectedItem() != null
-//				? epad.getJcbMajor().getSelectedItem().toString()
-//				: "";
-//		String selectedDept = epad.getJcbDept().getSelectedItem() != null
-//				? epad.getJcbDept().getSelectedItem().toString()
-//				: "";
-
-//		MajorManageVO mmVO = new MajorManageVO(mmd.getJtfName().getText().trim(), epemd.getJtfPhone().getText().trim(),
-//				epemd.getJtfEmail().getText().trim().concat(epemd.getJcbEmail().getSelectedItem().toString()),
-//				epemd.getJcbMajor().getSelectedItem().toString(), epemd.getJcbDept().getSelectedItem().toString(), epemd.getJlblSetEmpno().getText().trim());
-
-		MajorManageDAO majorDAO = MajorManageDAO.getInstance();
-		try {
-//			majorDAO.updateMajor(mmVO);
-			majorDAO.selectAllMajor();
+			mmDAO.insertMajor(mmVO);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} // end catch
-	}// EditMajorName
+		searchAllMajorInfo();
+	}// addDpt
+
+	/**
+	 * 존재하는 하고가의 이름을 수정하는 일
+	 */
+	public void EditMajorName() {
+	    int flag = JOptionPane.showConfirmDialog(mmd, "학과 이름을 수정하겠습니까?", "학과 수정", JOptionPane.YES_NO_OPTION);
+	    if (flag != JOptionPane.OK_OPTION) {
+	        return;
+	    }
+	    JTable jtMajor = mmd.getJtMajor();
+	    DefaultTableModel dtm = mmd.getDtmMajor();
+	    int row = jtMajor.getSelectedRow();
+
+	    if (row != -1) {
+	        String majorcode = String.valueOf(dtm.getValueAt(row, 2));
+	        String newMajorName = mmd.jtfMajor.getText().trim();
+
+	        // 수정된 학과 정보를 MajorManageVO에 설정
+	        MajorManageVO mmVO = new MajorManageVO(
+	            mmd.getJcbDptAdd().getSelectedItem().toString(),
+	            majorcode,
+	            newMajorName
+	        );
+
+	        // 수정된 학과 정보를 데이터베이스에 업데이트
+	        MajorManageDAO majorDAO = MajorManageDAO.getInstance();
+	        try {
+	            majorDAO.updateMajor(mmVO);
+	            // 업데이트 이후에 JTable을 다시 갱신해줄 필요가 있을 수 있습니다.
+	            searchAllMajorInfo();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	}
+
+	/**
+	 * 학부를 불러와서 콤보박스에 넣는 일
+	 */
+	public void setDptNameCombo() {
+		ProfDAO pDAO = ProfDAO.getInstance();
+		List<ProfVO> dataList = null;
+		try {
+			dataList = pDAO.selectDptComboBox();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} // end catch
+
+		for (int i = 0; i < dataList.size(); i++) {
+			ProfVO prof = dataList.get(i);
+			mmd.getDcbmDpt().addElement(prof.getDptName());
+			mmd.getDcbmDptAdd().addElement(prof.getDptName());
+		} // end for
+	}// setDptNameCombo
 
 	@Override
 	public void actionPerformed(ActionEvent ae) {
-		if(ae.getSource()== mmd.getJbtnAdd()) {
+		if (ae.getSource() == mmd.getJbtnAdd()) {
 			addMajor();
-		}//end if
-		if(ae.getSource()== mmd.getJbtnChange()) {
+
+		} // end if
+		if (ae.getSource() == mmd.getJbtnChange()) {
 			EditMajorName();
+		} // end if
+
+		String searchValue = mmd.getJcbDpt().getSelectedItem().toString();
+		if (ae.getSource() == mmd.jbtnSearch) {
+			if (!searchValue.isEmpty()) {
+				searchOneMajorInfo(searchValue);
+			} // end if
 		}//end if
+	}//actionPerformed
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		selectionMajorInfo();
 		
-		String searchValue=mmd.getJcbDpt().getSelectedItem().toString();
-		if(!searchValue.isEmpty()) {
-			searchOneMajorInfo(searchValue);
-		}//end if
 	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }// class

@@ -66,18 +66,6 @@ public class EmployProfAddManageDialog extends JDialog {
 		dcbmEmail = new DefaultComboBoxModel<String>();
 		jcbEmail = new JComboBox<String>(dcbmEmail);
 
-//		dcbmDept.addElement("컴퓨터공학부");
-//		dcbmDept.addElement("인문사회부");
-//		dcbmDept.addElement("연극학부");
-//		dcbmDept.addElement("건축학부");
-//		dcbmDept.addElement("체육학부");
-
-//		dcbmMajor.addElement("컴퓨터과학과");
-//		dcbmMajor.addElement("국어국문학과");
-//		dcbmMajor.addElement("연극영화과");
-//		dcbmMajor.addElement("건축공학과");
-//		dcbmMajor.addElement("사회체육학과");
-
 		dcbmEmail.addElement("@naver.com");
 		dcbmEmail.addElement("@gmail.com");
 		dcbmEmail.addElement("@daum.net");
@@ -90,6 +78,8 @@ public class EmployProfAddManageDialog extends JDialog {
 		/// 이벤트 연결///
 		eped = new EmployProfAddManageDialogEvt(this);
 		jbtnAdd.addActionListener(eped);
+		jcbDept.addActionListener(eped);
+		jcbMajor.addActionListener(eped);
 
 		//// 배경 색 설정 ////
 		Color backgroundColor = Color.decode("#FCF7F5");

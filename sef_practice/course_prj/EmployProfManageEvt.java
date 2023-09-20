@@ -115,14 +115,21 @@ public class EmployProfManageEvt extends WindowAdapter implements ActionListener
 		} // end if
 
 		if (ae.getSource() == epmd.getJbtnEdit()) { // 수정 버튼 누르면 동작
+			int selectedRow = epmd.getJtProf().getSelectedRow();
+			if (selectedRow == -1) {
+				JOptionPane.showMessageDialog(epmd, "수정할 교수를 선택해주세요", "알림", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
 			selectionProfInfo();
 		} // end if
 
 		// 교수 정보 조회 텍스트 필드에 입력된 값 얻어오기
 		String searchValue = epmd.getJtfSearch().getText().trim().toUpperCase();
-		if (!searchValue.isEmpty()) { // 교수 정보 조회 텍스 필드가 비어있지 않으면 정보를 조회하는 일
-			searchOneProfInfo(searchValue);
-		} // end if
+		if (ae.getSource() == epmd.jbtnSearch) { //조회 버튼이 눌리면
+			if (!searchValue.isEmpty()) { // 교수 정보 조회 텍스 필드가 비어있지 않으면 정보를 조회하는 일
+				searchOneProfInfo(searchValue);
+			} // end if
+		}//end if
 	}// actionPerformed
 
 	@Override

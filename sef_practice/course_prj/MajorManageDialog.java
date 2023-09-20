@@ -129,6 +129,8 @@ public class MajorManageDialog extends JDialog {
 
 		// 이벤트 연결//
 		mme = new MajorManageEvt(this);
+		jbtnSearch.addActionListener(mme);
+		jbtnAdd.addActionListener(mme);
 
 		// add
 		add(jlblTitle);
