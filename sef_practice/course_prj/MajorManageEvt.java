@@ -75,7 +75,7 @@ public class MajorManageEvt extends WindowAdapter implements ActionListener, Mou
 		} // end for
 
 		// JTable 갱신
-//		mmd.getJtMajor().repaint();
+		mmd.getJtMajor().repaint();
 		mmd.getJtMajor().setModel(dtmDpt);
 
 	}// search
@@ -94,7 +94,7 @@ public class MajorManageEvt extends WindowAdapter implements ActionListener, Mou
 			String majorname = String.valueOf(dtm.getValueAt(row, 3));
 
 			mmd.getJcbDptAdd().setSelectedItem(dptname);
-			mmd.jtfMajor.setText(majorname);
+			mmd.getJtfMajor().setText(majorname);
 		}//end if
 	}// selectionProfInfo
 
@@ -134,7 +134,7 @@ public class MajorManageEvt extends WindowAdapter implements ActionListener, Mou
 
 		if (row != -1) {
 			String majorcode = String.valueOf(dtm.getValueAt(row, 2));
-			String newMajorName = mmd.jtfMajor.getText().trim();
+			String newMajorName = mmd.getJtfMajor().getText().trim();
 
 			// 수정된 학과 정보를 MajorManageVO에 설정
 			MajorManageVO mmVO = new MajorManageVO(mmd.getJcbDptAdd().getSelectedItem().toString(), majorcode,
@@ -182,7 +182,7 @@ public class MajorManageEvt extends WindowAdapter implements ActionListener, Mou
 		} // end if
 
 		String searchValue = mmd.getJcbDpt().getSelectedItem().toString();
-		if (ae.getSource() == mmd.jbtnSearch) {
+		if (ae.getSource() == mmd.getJbtnSearch()) {
 			if (!searchValue.isEmpty()) {
 				searchOneMajorInfo(searchValue);
 			} // end if

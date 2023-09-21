@@ -29,19 +29,19 @@ import javax.swing.table.TableColumn;
 public class MajorManageDialog extends JDialog {
 	private EmployMainFrame emf;
 
-	DefaultComboBoxModel<String> dcbmDpt;
-	JComboBox<String> jcbDpt;
-	DefaultComboBoxModel<String> dcbmDptAdd;
-	JComboBox<String> jcbDptAdd;
-	JTextField jtfMajor;
-	JTable jtMajor;
-	DefaultTableModel dtmMajor;
-	JLabel jlblMajor;
-	JLabel jlblDpt;
-	JButton jbtnAdd;
-	JButton jbtnSearch;
-	JButton jbtnChange;
-	MajorManageEvt mme;
+	private DefaultComboBoxModel<String> dcbmDpt;
+	private JComboBox<String> jcbDpt;
+	private DefaultComboBoxModel<String> dcbmDptAdd;
+	private JComboBox<String> jcbDptAdd;
+	private JTextField jtfMajor;
+	private JTable jtMajor;
+	private DefaultTableModel dtmMajor;
+	private JLabel jlblMajor;
+	private JLabel jlblDpt;
+	private JButton jbtnAdd;
+	private JButton jbtnSearch;
+	private JButton jbtnChange;
+	private MajorManageEvt mme;
 
 	public MajorManageDialog(EmployMainFrame emf) {
 
@@ -123,7 +123,9 @@ public class MajorManageDialog extends JDialog {
 		jbtnSearch.setBackground(new Color(0xE0E0E0));
 		jbtnAdd.setBackground(new Color(0xE0E0E0));
 		jbtnChange.setBackground(new Color(0xE0E0E0));
-		jtfMajor.setBorder(new LineBorder(new Color(0xE0E0E0)));
+		jtfMajor.setBorder(new LineBorder(new Color(0xCFCFCF)));
+		jcbDpt.setBackground(Color.white);
+		jcbDptAdd.setBackground(Color.white);
 		jbtnSearch.setBorder(null);
 		jbtnChange.setBorder(null);
 		jbtnAdd.setBorder(null);

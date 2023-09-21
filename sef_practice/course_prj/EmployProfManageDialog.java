@@ -28,15 +28,15 @@ public class EmployProfManageDialog extends JDialog {
 
 	private EmployMainFrame emf;
 
-	DefaultComboBoxModel<String> dcbmSearch;
-	JComboBox<String> jcbSearch;
-	JTextField jtfSearch;
-	JTable jtProf;
-	JButton jbtnAdd;
-	JButton jbtnEdit;
-	JButton jbtnSearch;
-	EmployProfManageEvt epme;
-	DefaultTableModel dtmProf;
+	private JComboBox<String> jcbSearch;
+	private DefaultComboBoxModel<String> dcbmSearch;
+	private JTextField jtfSearch;
+	private JTable jtProf;
+	private JButton jbtnAdd;
+	private JButton jbtnEdit;
+	private JButton jbtnSearch;
+	private EmployProfManageEvt epme;
+	private DefaultTableModel dtmProf;
 
 	public EmployProfManageDialog(EmployMainFrame emf) {
 		super(emf, "관리자", true);
@@ -121,10 +121,11 @@ public class EmployProfManageDialog extends JDialog {
 		jbtnSearch.setBackground(new Color(0xE0E0E0));
 		jbtnAdd.setBackground(new Color(0xE0E0E0));
 		jbtnEdit.setBackground(new Color(0xE0E0E0));
-		jtfSearch.setBorder(new LineBorder(new Color(0xE0E0E0)));
+		jtfSearch.setBorder(new LineBorder(new Color(0xCFCFCF)));
 		jbtnSearch.setBorder(null);
 		jbtnAdd.setBorder(null);
 		jbtnEdit.setBorder(null);
+		jcbSearch.setBackground(Color.white);
 
 		/// 이벤트 연결///
 		epme = new EmployProfManageEvt(this);

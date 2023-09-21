@@ -5,13 +5,13 @@ import java.awt.Container;
 import java.awt.Font;
 
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
 
 /**
  * 인영 교수 관리 - 등록 Dialog
@@ -22,23 +22,24 @@ import javax.swing.JTextField;
 @SuppressWarnings("serial")
 public class EmployProfAddManageDialog extends JDialog {
 	private EmployProfManageDialog epmd;
-	JTextField jtfName;
-	JTextField jtfPhone;
-	JTextField jtfEmail;
-	DefaultComboBoxModel<String> dcbmDept;
-	JComboBox<String> jcbDept;
-	DefaultComboBoxModel<String> dcbmMajor;
-	JComboBox<String> jcbMajor;
-	DefaultComboBoxModel<String> dcbmEmail;
-	JComboBox<String> jcbEmail;
-	JButton jbtnAdd;
-	EmployProfAddManageDialogEvt eped;
+	private JTextField jtfName;
+	private JTextField jtfPhone;
+	private JTextField jtfEmail;
+	private DefaultComboBoxModel<String> dcbmDept;
+	private JComboBox<String> jcbDept;
+	private DefaultComboBoxModel<String> dcbmMajor;
+	private JComboBox<String> jcbMajor;
+	private DefaultComboBoxModel<String> dcbmEmail;
+	private JComboBox<String> jcbEmail;
+	private JButton jbtnAdd;
+	private EmployProfAddManageDialogEvt eped;
 
 	// 교수 등록 창
 	public EmployProfAddManageDialog(EmployProfManageDialog epmd) {
 		super(epmd, "관리자", true);
 		this.epmd = epmd;
 
+		
 		//// 라벨 ////
 		JLabel jlblTitle = new JLabel("교수 등록");
 		JLabel jlblName = new JLabel("이름");
@@ -125,6 +126,14 @@ public class EmployProfAddManageDialog extends JDialog {
 
 		//// back-color ////
 		jbtnAdd.setBackground(new Color(0xE0E0E0));
+		jbtnAdd.setBorder(null);
+		jtfEmail.setBorder(new LineBorder(new Color(0xCFCFCF)));
+		jtfName.setBorder(new LineBorder(new Color(0xCFCFCF)));
+		jtfPhone.setBorder(new LineBorder(new Color(0xCFCFCF)));
+		jcbDept.setBackground(Color.white);
+		jcbEmail.setBackground(Color.white);
+		jcbMajor.setBackground(Color.white);
+		
 
 		//// add ////
 		add(jlblTitle);

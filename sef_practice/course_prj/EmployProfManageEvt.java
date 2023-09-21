@@ -125,7 +125,7 @@ public class EmployProfManageEvt extends WindowAdapter implements ActionListener
 
 		// 교수 정보 조회 텍스트 필드에 입력된 값 얻어오기
 		String searchValue = epmd.getJtfSearch().getText().trim().toUpperCase();
-		if (ae.getSource() == epmd.jbtnSearch) { //조회 버튼이 눌리면
+		if (ae.getSource() == epmd.getJbtnSearch()) { //조회 버튼이 눌리면
 			if (!searchValue.isEmpty()) { // 교수 정보 조회 텍스 필드가 비어있지 않으면 정보를 조회하는 일
 				searchOneProfInfo(searchValue);
 			} // end if

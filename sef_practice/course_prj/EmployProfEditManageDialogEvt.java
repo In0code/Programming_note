@@ -74,7 +74,7 @@ public class EmployProfEditManageDialogEvt extends WindowAdapter implements Acti
 		ProfDAO pDAO = ProfDAO.getInstance();
 		List<ProfVO> dataList = null;
 		String dpt = epemd.getDcbmDept().getElementAt(epemd.getJcbDept().getSelectedIndex());
-		epemd.dcbmMajor.removeAllElements();
+		epemd.getDcbmMajor().removeAllElements();
 		try {
 			dataList = pDAO.selectMajorComboBox(dpt);
 		} catch (SQLException e) {
