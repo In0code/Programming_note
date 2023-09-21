@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css"
+	href="http://192.168.10.137/html_prj/common/css/main_v20230906.css">
+<style type="text/css">
+	#loginWrap{ width: 500px; height: 400px; margin: 200px auto;}
+#id,#pass{ border: 1px solid #333 ;width: 400px; height: 50px; margin-top: 20px; font-size: 30px;}
+#btnLogin{ width: 400px; height: 60px; font-size: 30px;color: aliceblue ;background-color: rgb(206, 206, 220); margin-top: 20px;  text-align: center;}
+</style>
+<!-- jQuery CDN 시작 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<!-- jQuery CDN 끝 -->
+<script type="text/javascript">
+	$(function(){
+		$("#id").keyup(function(evt){
+			if(evt.which==13){
+				checkNull();
+			}
+		});
+		$("#pass").keyup(function(evt){
+			if(evt.which==13){
+				checkNull();
+			}
+		});
+
+	});
+
+	function checkNull(){
+		var id=$("#id").val();
+		var pass=$("#pass").val();
+		if(id == ""){
+			$("#idWarn").html("<span>아이디 없음</span>");
+			$("#id").val("");
+			return;
+		}//end if
+		if(pass==""){
+			$("#passWarn").html("<span>비밀번호 없음</span>");
+			$("#pass").val("");
+			
+		}
+	}
+
+
+</script>
+</head>
+<body>
+<div id="loginWrap">
+	<div>
+		<img src="http://localhost/html_prj/js0921/sist_logo.png" style="width: 300px; margin-left: 40px;" />
+	</div>
+	<div>
+		<input type="text" class="inputBox" id="id" name="id"/>
+		<div id="idWarn"></div>
+	</div>
+	<div>
+		<input type="text" class="inputBox" id="pass" name="pass"/>
+		<div id="passWarn"></div>
+	</div>
+	<div>
+		<input type="button " value="로그인" id="btnLogin" class="btn" name="btn" />
+	</div>
+</div>
+	
+
+</body>
+</html>

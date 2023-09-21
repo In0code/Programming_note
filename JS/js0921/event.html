@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css"
+	href="http://192.168.10.137/html_prj/common/css/main_v20230906.css">
+<style type="text/css">
+#output{ border:  1px solid #333; width: 300px; height: 100px; overflow: auto;} 
+</style>
+<!-- jQuery CDN 시작 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<!-- jQuery CDN 끝 -->
+<script type="text/javascript">
+ $(function(){
+	//클릭이벤트
+	$("#btn").click(function(){
+		test();
+	});//click
+	$("#atag").click(function(){
+		test();
+	});//click
+
+	$("#sel").change(function(){
+		alert("변경되었습니다");
+	});//change
+
+	$("#txt").change(function(){ //커서가 들어갔을 때의 값과 빠져나갔을 때의 값이 다를 때 동작
+		alert("변경되었습니다");
+	});//change
+
+	$("#txt2").focusin(function(){ 
+		$("#output").html("커서가 들어감");
+	});//focusin
+
+	$("#txt3").focusout(function(){ // HTML Form Control의 값 변경 여부와 상관 없이 호출
+		$("#output").html("<strong>focuseout 커서가 빠져나감</strong>");
+	});//focusout
+
+	$("#txt4").blur(function(){ // HTML Form Control의 값 변경 여부와 상관 없이 호출 
+		$("#output").html("<strong>blur 커서가 빠져나감</strong>");
+	});//blur
+
+	$("#txt5").keydown(function(evt){ // 키코드를 얻고 싶다면 무기명 함수의 매개변수를 설정한다
+		//키가 눌리는 시점에 이벤트가 발생하기 때문에 keycode는 얻지만 keytext는 얻을 수 없다
+		$("#output").html("<strong>키가 눌림</strong> : "+$("#txt5").val() + " / "+evt.which);
+	});//keydown
+
+	$("#txt6").keyup(function(evt){
+		var keyText=$("#txt6").val();
+		var keyChar=evt.which;
+		$("#output").html("<strong>키가 올라옴</strong> : "+keyText+" / "+keyChar );
+	});//keydown
+
+	$("#img").mouseover(function(){
+		$("#output").html("짱구 기다려");
+	});//mouseover
+
+	$("#img2").mouseout(function(){
+		$("#output").html("짱구 귀여워");
+	});//mouseover
+
+ });//ready
+
+ function test(){
+	alert("클릭되었습니다");
+ }//test
+
+
+</script>
+</head>
+<body>
+<input type="button" value="클릭" class="btn" id="btn"/><br/>
+<a href="#void" id="atag">클릭</a><br/>
+<select id="sel" class="inputBox">
+	<option>Java SE</option>
+	<option>Oracle DBMS</option>
+	<option>JDBC</option>
+</select><br/>
+<input type="text" name="text" id="txt" class="inputBox" placeholder="변경"/><br/>
+<label>커서가 들어갈 때</label>
+<input type="text" name="text" id="txt2" class="inputBox" placeholder="커서가 들어옴"/><br/>
+
+<label>커서가 빠져나갈 때 : foucsout</label>
+<input type="text" name="text" id="txt3" class="inputBox" placeholder="커서가 빠져나감"/><br/>
+
+<label>커서가 빠져나갈 때 : blur</label>
+<input type="text" name="text" id="txt4" class="inputBox" placeholder="커서가 빠져나감"/><br/>
+
+<label>키가 눌릴 때 : keydown</label>
+<input type="text" name="text" id="txt5" class="inputBox" placeholder="키가 눌림"/><br/>
+
+<label>키가 올라올 때 : keyup</label>
+<input type="text" name="text" id="txt6" class="inputBox" placeholder="키가 올라옴"/><br/>
+
+<label>마우스가 올라올 때 </label>
+<img src="../common/images/JJanggu.png" id="img"/><br/>
+
+<label>마우스가 빠져나갔을 때 </label>
+<img src="../common/images/jjangu2.jpg" id="img2"/>
+
+<div id="output"></div>
+</body>
+</html>

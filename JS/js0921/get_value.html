@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="http://192.168.10.137/html_prj/common/css/main_v20230906.css">
+<style type="text/css">
+</style>
+<!-- jQuery CDN 시작 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<!-- jQuery CDN 끝 -->
+<script type="text/javascript">
+$(function(){
+
+    var date = new Date();
+
+    var month=(date.getMonth()+1);
+    
+    if( month < 10 ){
+        month="0" + month;
+    }
+
+    $("#date").val(date.getFullYear()+" - " + month + " - " + date.getDate() );
+
+    $("#btn").click(function(){
+
+        //form 태그안에 정의된 모든 HTML Form Control들의 값을 back-end로 전송하기위해 submit을 사용.
+        $("#frm").submit();
+    });
+
+    $("#btn2").click(function(){
+        getValue();
+    });
+
+    $("#btn3").click(function(){
+        getArrayValue();
+    });
+    
+
+});
+
+function getValue(){
+    var output="";
+    //val()로 값을 얻는 HTML Form Control
+    output += "text : " + $("#id").val() + "<br/>";
+    output += "password : " + $("#pass").val() + "<br/>";
+    output += "date : " + $("#date").val() + "<br/>";
+    output += "tel : " + $("#tel").val() + "<br/>";
+
+    $("#output").html( output );
+}
+
+function getArrayValue(){
+    //alert( $("#m").is(":checked") + " / " + $("#f").is(":checked") ); 
+    var genderFlag = false;
+    if ( !( $("#m").is(":checked") || $("#f").is(":checked") ) ){
+        alert("성별을 선택해 주세요.");
+        return;
+    }//end if
+    // var gender = $(".gender:checked").val();
+    // alert(gender)
+    var genderArr=$(".gender"); //class 속성이 gender인 Node(Tag)를 찾고
+    for( var i=0; i < genderArr.length; i++ ){ // Node의 수 만큼 반복 시키고
+        if( $(genderArr[i]).is(":checked") ){// checked된 상태를 얻는다. true 라면
+            alert( "선택된 라디오의 값 : " + $( genderArr[i] ).val() ); //해당 객체의 값을 얻는다.
+        }//end if
+    }//end for
+
+    //checkbox의 값 얻기
+    var checkArr = $("[name = 'hobby']"); // 같은 이름이 여러개 존재하므로 배열로 얻어진다.
+    //alert( checkArr )
+
+    var temp="";
+    /*
+    for( var i=0; i < checkArr.length; i++ ){
+        if( $(checkArr[i]).is(":checked") ){
+            temp += $(checkArr[i]).val()+" ";
+        }//end if
+    }//end for
+    */
+   //선택된 체크박스만 얻을 수 있다. => 반복문 안에서 if로 비교할 필요가 없다.
+   var checkArr = $("[name='hobby']:checked");
+   for(var i=0; i<checkArr.length; i++){ // Node의 수 만큼 반복 시키고
+	temp += $(checkArr[i]).val()+" ";
+   }//end for
+   alert("선택된 체크박스의 값 : " + temp);
+
+}//getArrayValue
+
+
+    
+</script>
+</head>
+<body>
+<form action="http://sist.co.kr" name="frm" id="frm">
+    <label>값얻기</label>
+    <input type="text" name="text" id="id" class="inputBox" placeholder="아이디" value="hong"><br>
+    <input type="password" name="pass" id="pass" class="inputBox" placeholder="비밀번호" value="1234"><br>
+    <input type="date" name="date" id="date" class="inputBox"><br>
+    <input type="tel" name="tel" id="tel" class="inputBox" placeholder="전화번호" value="010-1234-5678"><br>
+    <select name="sel" id="sel">
+        <option value="사과">사과</option>
+        <option value="배">배</option>
+        <option value="포도" selected="selected">포도</option>
+        <option value="감">감</option>
+        <option value="오렌지">오렌지</option>
+    </select><br>
+    <textarea class="inputBox" name="ta" style="width: 300px; height: 100px;">오늘은 월요일 같은 목요일</textarea>
+    <br>
+    <input type="button" value="val()로 값 얻기" id="btn2" class="btn"><br>
+    <br>
+
+    <label>성별</label>
+    <input type="radio" name="gender" class="gender" id="m" value="남자">남자
+    <input type="radio" name="gender" class="gender" id="f" value="여자">여자
+    <br/>
+    <label>취미</label>
+    <input type="checkbox" name="hobby" value="자바코딩">자바
+    <input type="checkbox" name="hobby" value="이클립스먹기">이클립스먹기
+    <input type="checkbox" name="hobby" value="유튜브감상">유튜브감상
+    <input type="checkbox" name="hobby" value="웹툰감상">웹툰감상
+    <input type="checkbox" name="hobby" value="음악감상">음악감상
+    <br>
+
+    <input type="button" value="is()로 선택 된 것들만 값 얻기" id="btn3" class="btn"><br>
+
+<input type="button" value="전송" id="btn" class="btn"/>
+
+<div id="output"></div>
+</form>
+</body>
+</html>
