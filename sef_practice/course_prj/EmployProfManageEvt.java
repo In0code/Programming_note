@@ -107,6 +107,7 @@ public class EmployProfManageEvt extends WindowAdapter implements ActionListener
 
 	}// selectionProfInfo
 
+	
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		if (ae.getSource() == epmd.getJbtnAdd()) { // 추가 버튼 누르면 동작

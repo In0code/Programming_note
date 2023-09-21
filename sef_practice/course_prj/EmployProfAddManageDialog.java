@@ -120,6 +120,7 @@ public class EmployProfAddManageDialog extends JDialog {
 		jcbDept.setFont(new Font("Pretendard", Font.BOLD, 14));
 		jcbMajor.setFont(new Font("Pretendard", Font.BOLD, 14));
 		jcbEmail.setFont(new Font("Pretendard", Font.BOLD, 14));
+		
 
 		//// back-color ////
 		jbtnAdd.setBackground(new Color(0xE0E0E0));

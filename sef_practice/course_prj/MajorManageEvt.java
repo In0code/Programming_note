@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -101,32 +102,29 @@ public class MajorManageEvt extends WindowAdapter implements ActionListener, Mou
 	 * 학부의 새로운 학과를 등록하는 일
 	 */
 	public void addMajor() {
-		int flag = JOptionPane.showConfirmDialog(mmd, "학과를 등록하겠습니끼?", "학과등록", JOptionPane.YES_NO_OPTION);
-		if (flag != JOptionPane.YES_OPTION) {
-			return;
-		} // end if
-
 		MajorManageVO mmVO = new MajorManageVO(mmd.getJcbDptAdd().getSelectedItem().toString(), "",
 				mmd.getJtfMajor().getText().trim());
+		if (checkInputData(mmVO)) {
+			int flag = JOptionPane.showConfirmDialog(mmd, "학과를 등록하겠습니끼?", "학과등록", JOptionPane.YES_NO_OPTION);
+			if (flag != JOptionPane.YES_OPTION) {
+				return;
+			} // end if
 
-		MajorManageDAO mmDAO = MajorManageDAO.getInstance();
-		searchAllMajorInfo();
-		try {
-			mmDAO.insertMajor(mmVO);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} // end catch
-		searchAllMajorInfo();
+			MajorManageDAO mmDAO = MajorManageDAO.getInstance();
+			searchAllMajorInfo();
+			try {
+				mmDAO.insertMajor(mmVO);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} // end catch
+			searchAllMajorInfo();
+		} // end if
 	}// addDpt
 
 	/**
-	 * 존재하는 하고가의 이름을 수정하는 일
+	 * 존재하는 학과의 이름을 수정하는 일
 	 */
 	public void EditMajorName() {
-		int flag = JOptionPane.showConfirmDialog(mmd, "학과 이름을 수정하겠습니까?", "학과 수정", JOptionPane.YES_NO_OPTION);
-		if (flag != JOptionPane.OK_OPTION) {
-			return;
-		}
 		JTable jtMajor = mmd.getJtMajor();
 		DefaultTableModel dtm = mmd.getDtmMajor();
 		int row = jtMajor.getSelectedRow();
@@ -139,15 +137,22 @@ public class MajorManageEvt extends WindowAdapter implements ActionListener, Mou
 			MajorManageVO mmVO = new MajorManageVO(mmd.getJcbDptAdd().getSelectedItem().toString(), majorcode,
 					newMajorName);
 
-			// 수정된 학과 정보를 데이터베이스에 업데이트
-			MajorManageDAO majorDAO = MajorManageDAO.getInstance();
-			try {
-				majorDAO.updateMajor(mmVO);
-				// 업데이트 이후에 JTable을 다시 갱신해줄 필요가 있을 수 있습니다.
-				searchAllMajorInfo();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} // end catch
+			if (checkInputData(mmVO)) {
+				int flag = JOptionPane.showConfirmDialog(mmd, "학과 이름을 수정하겠습니까?", "학과 수정", JOptionPane.YES_NO_OPTION);
+				if (flag != JOptionPane.OK_OPTION) {
+					return;
+				} // end if
+
+				// 수정된 학과 정보를 데이터베이스에 업데이트
+				MajorManageDAO majorDAO = MajorManageDAO.getInstance();
+				try {
+					majorDAO.updateMajor(mmVO);
+					// 업데이트 이후에 JTable을 다시 갱신해줄 필요가 있을 수 있습니다.
+					searchAllMajorInfo();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} // end catch
+			} // end if
 		} // end if
 	}// EditMajorName
 
@@ -169,6 +174,38 @@ public class MajorManageEvt extends WindowAdapter implements ActionListener, Mou
 			mmd.getDcbmDptAdd().addElement(prof.getDptName());
 		} // end for
 	}// setDptNameCombo
+
+	/**
+	 * 입력 값 검사
+	 * 
+	 * @param esmVO
+	 * @return
+	 */
+	public boolean checkInputData(MajorManageVO mmVO) {
+		if (mmVO.getMajorName().replace(" ", "").isEmpty()) {
+			showErrorMsg("학과는 필수 입력 사항입니다.", mmd.getJtfMajor());
+			return false;
+		} // end if
+
+		if ((mmVO.getMajorName().matches(".*[ㄱ-ㅎㅏ-ㅣ가-힣].*") && mmVO.getMajorName().length() > 20)
+				|| (mmVO.getMajorName().matches(".*[a-zA-Z].*") && mmVO.getMajorName().length() > 60)) {
+			showErrorMsg("이름 : 한글 20자, 영문 60자를 초과할 수 없습니다.", mmd.getJtfMajor());
+			return false;
+		} // end if
+		return true;
+	}// checkInputData
+
+	/**
+	 * 에러 메시지 표시
+	 * 
+	 * @param msg - 에러 문구
+	 * @param jtf - 에러 발생한 jTextfield
+	 */
+	public void showErrorMsg(String msg, JTextField jtf) {
+		JOptionPane.showMessageDialog(mmd, msg);
+		jtf.setText("");
+		jtf.requestFocus();
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent ae) {

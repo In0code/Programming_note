@@ -135,6 +135,7 @@ public class EmployProfEditManageDialog extends JDialog {
 		jlblPhone.setFont(font);
 		jlblEmail.setFont(font);
 		JlblSetEmpno.setFont(new Font("Pretendard", Font.BOLD, 18));
+		
 
 		//// back-color ////
 		jbtnEdit.setBackground(new Color(0xE0E0E0));

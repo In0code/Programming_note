@@ -257,19 +257,21 @@ public class ProfDAO {
 			con.setAutoCommit(false); // 자동 커밋 비활성화
 
 			String majorCode = getMajorcode(pVO);
-			String userCode = "C";
+			String userCode = "P";
 			int seq = getNextProfSeq();
 
 			empNo = majorCode + userCode + String.format("%03d", seq);
 
 			// 3. 쿼리문 생성 객체 얻기 - bind 값 설정하는 과정에 오류가 있어서 직접 넣음
+			String getPwByPhone=pVO.getPhone().substring(9,13);
+			System.out.println(getPwByPhone);
 			StringBuilder insertProfInfo = new StringBuilder();
 			insertProfInfo.append(
-					" insert into emp(  empno, ename, dptcode, majorcode, phone, email, usercode)				")
+					" insert into emp(  empno, ename, dptcode, majorcode, phone, email, usercode, pass )				")
 					.append(" values ( '" + empNo + "','" + pVO.getEname() + "' ,	")
 					.append(" (select DPTCODE from DPT where DPTNAME = '" + pVO.getDptName() + "')	")
 					.append(" , (select MAJORCODE from MAJOR where MAJORNAME ='" + pVO.getMajorName() + "'),")
-					.append("'" + pVO.getPhone() + "', '" + pVO.getEmail() + "', 'P')	");
+					.append("'" + pVO.getPhone() + "', '" + pVO.getEmail() + "', 'P', '"+getPwByPhone+"' )	");
 
 			pstmt = con.prepareStatement(insertProfInfo.toString());
 

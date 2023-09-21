@@ -86,9 +86,11 @@ public class EmployProfManageDialog extends JDialog {
 		TableColumn column = jtProf.getColumnModel().getColumn(0);
 		column.setPreferredWidth(5);
 		column = jtProf.getColumnModel().getColumn(1);
-		column.setPreferredWidth(30);
+		column.setPreferredWidth(50);
 		column = jtProf.getColumnModel().getColumn(2);
 		column.setPreferredWidth(20);
+		column = jtProf.getColumnModel().getColumn(6);
+		column.setPreferredWidth(90);
 		// 컬럼 height 크기 설정
 		jtProf.setRowHeight(25);
 		// JTable 크기 조절 불가
@@ -108,13 +110,14 @@ public class EmployProfManageDialog extends JDialog {
 
 		// Font 설정
 		Font font = new Font("Pretendard", Font.BOLD, 14);
+//		jtProf.setFont(font);
 		jlblTitle.setFont(new Font("Pretendard", Font.BOLD, 20));
 		jcbSearch.setFont(font);
 		jtfSearch.setFont(font);
 		jbtnSearch.setFont(font);
 		jbtnAdd.setFont(font);
 		jbtnEdit.setFont(font);
-		jspJtProf.setFont(font);
+		jtProf.setFont(new Font("Pretendard", Font.BOLD, 13));
 
 		// background-color 설정
 		jbtnSearch.setBackground(new Color(0xE0E0E0));
