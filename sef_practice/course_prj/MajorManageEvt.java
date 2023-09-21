@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
  * @author user
  *
  */
-public class MajorManageEvt extends WindowAdapter implements ActionListener, MouseListener  {
+public class MajorManageEvt extends WindowAdapter implements ActionListener, MouseListener {
 
 	private MajorManageDialog mmd;
 
@@ -88,15 +88,14 @@ public class MajorManageEvt extends WindowAdapter implements ActionListener, Mou
 		DefaultTableModel dtm = mmd.getDtmMajor();
 		int row = jtMajor.getSelectedRow();
 
-		if(row != -1) {
+		if (row != -1) {
 			String dptname = String.valueOf(dtm.getValueAt(row, 1));
 			String majorcode = String.valueOf(dtm.getValueAt(row, 2));
 			String majorname = String.valueOf(dtm.getValueAt(row, 3));
-			
-			 mmd.getJcbDptAdd().setSelectedItem(dptname);
-		     mmd.jtfMajor.setText(majorname);
-		}
 
+			mmd.getJcbDptAdd().setSelectedItem(dptname);
+			mmd.jtfMajor.setText(majorname);
+		}//end if
 	}// selectionProfInfo
 
 	/**
@@ -107,7 +106,6 @@ public class MajorManageEvt extends WindowAdapter implements ActionListener, Mou
 		if (flag != JOptionPane.YES_OPTION) {
 			return;
 		} // end if
-		
 
 		MajorManageVO mmVO = new MajorManageVO(mmd.getJcbDptAdd().getSelectedItem().toString(), "",
 				mmd.getJtfMajor().getText().trim());
@@ -126,36 +124,33 @@ public class MajorManageEvt extends WindowAdapter implements ActionListener, Mou
 	 * 존재하는 하고가의 이름을 수정하는 일
 	 */
 	public void EditMajorName() {
-	    int flag = JOptionPane.showConfirmDialog(mmd, "학과 이름을 수정하겠습니까?", "학과 수정", JOptionPane.YES_NO_OPTION);
-	    if (flag != JOptionPane.OK_OPTION) {
-	        return;
-	    }
-	    JTable jtMajor = mmd.getJtMajor();
-	    DefaultTableModel dtm = mmd.getDtmMajor();
-	    int row = jtMajor.getSelectedRow();
+		int flag = JOptionPane.showConfirmDialog(mmd, "학과 이름을 수정하겠습니까?", "학과 수정", JOptionPane.YES_NO_OPTION);
+		if (flag != JOptionPane.OK_OPTION) {
+			return;
+		}
+		JTable jtMajor = mmd.getJtMajor();
+		DefaultTableModel dtm = mmd.getDtmMajor();
+		int row = jtMajor.getSelectedRow();
 
-	    if (row != -1) {
-	        String majorcode = String.valueOf(dtm.getValueAt(row, 2));
-	        String newMajorName = mmd.jtfMajor.getText().trim();
+		if (row != -1) {
+			String majorcode = String.valueOf(dtm.getValueAt(row, 2));
+			String newMajorName = mmd.jtfMajor.getText().trim();
 
-	        // 수정된 학과 정보를 MajorManageVO에 설정
-	        MajorManageVO mmVO = new MajorManageVO(
-	            mmd.getJcbDptAdd().getSelectedItem().toString(),
-	            majorcode,
-	            newMajorName
-	        );
+			// 수정된 학과 정보를 MajorManageVO에 설정
+			MajorManageVO mmVO = new MajorManageVO(mmd.getJcbDptAdd().getSelectedItem().toString(), majorcode,
+					newMajorName);
 
-	        // 수정된 학과 정보를 데이터베이스에 업데이트
-	        MajorManageDAO majorDAO = MajorManageDAO.getInstance();
-	        try {
-	            majorDAO.updateMajor(mmVO);
-	            // 업데이트 이후에 JTable을 다시 갱신해줄 필요가 있을 수 있습니다.
-	            searchAllMajorInfo();
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-	    }
-	}
+			// 수정된 학과 정보를 데이터베이스에 업데이트
+			MajorManageDAO majorDAO = MajorManageDAO.getInstance();
+			try {
+				majorDAO.updateMajor(mmVO);
+				// 업데이트 이후에 JTable을 다시 갱신해줄 필요가 있을 수 있습니다.
+				searchAllMajorInfo();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} // end catch
+		} // end if
+	}// EditMajorName
 
 	/**
 	 * 학부를 불러와서 콤보박스에 넣는 일
@@ -191,38 +186,40 @@ public class MajorManageEvt extends WindowAdapter implements ActionListener, Mou
 			if (!searchValue.isEmpty()) {
 				searchOneMajorInfo(searchValue);
 			} // end if
-		}//end if
-	}//actionPerformed
+		} // end if
+	}// actionPerformed
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		selectionMajorInfo();
-		
+		switch (e.getButton()) {
+		case MouseEvent.BUTTON1:
+			selectionMajorInfo();
+			break;
+		}// end switch
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
-	}
 
+	}
 
 }// class

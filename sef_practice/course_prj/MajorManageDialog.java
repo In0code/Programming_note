@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -58,7 +59,7 @@ public class MajorManageDialog extends JDialog {
 
 		dcbmDptAdd = new DefaultComboBoxModel<String>();
 		jcbDptAdd = new JComboBox<String>(dcbmDptAdd);
-		
+
 //		mme.setDptNameCombo();
 
 		// 검색창
@@ -131,6 +132,8 @@ public class MajorManageDialog extends JDialog {
 		mme = new MajorManageEvt(this);
 		jbtnSearch.addActionListener(mme);
 		jbtnAdd.addActionListener(mme);
+		jtMajor.addMouseListener(mme);
+		jbtnChange.addActionListener(mme);
 
 		// add
 		add(jlblTitle);
@@ -211,7 +214,5 @@ public class MajorManageDialog extends JDialog {
 	public MajorManageEvt getMme() {
 		return mme;
 	}
-
-	
 
 }// class

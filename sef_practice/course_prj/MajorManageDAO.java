@@ -79,7 +79,7 @@ public class MajorManageDAO {
 	 * @throws SQLException
 	 */
 	public List<MajorManageVO> selectOneMajorDpt(String dpt) throws SQLException {
-		List<MajorManageVO> list=new ArrayList<MajorManageVO>();
+		List<MajorManageVO> list = new ArrayList<MajorManageVO>();
 		MajorManageVO mmVO = null;
 
 		Connection con = null;
