@@ -1,10 +1,8 @@
-package kr.co.sist.course;
+package self_practice_course_prj;
 
 import java.awt.Color;
 import java.awt.Font;
 
-////////////// 인영 ///////////////
-/////////// 학과관리 Dialog ///////////
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;

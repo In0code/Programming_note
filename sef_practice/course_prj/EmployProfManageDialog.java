@@ -1,4 +1,4 @@
-package kr.co.sist.course;
+package self_practice_course_prj;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -18,8 +18,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 /**
- *인영
- *교수 관리 Dialog
+ * 인영 교수 관리 Dialog
+ * 
  * @author user
  *
  */
@@ -61,7 +61,7 @@ public class EmployProfManageDialog extends JDialog {
 		// 조회버튼
 		jbtnSearch = new JButton("조회");
 
-		/////JTable/////
+		///// JTable/////
 		// 테이블
 		dtmProf = new DefaultTableModel();
 		// 컬럼 이름 추가
@@ -94,7 +94,7 @@ public class EmployProfManageDialog extends JDialog {
 		// JTable 크기 조절 불가
 		for (int i = 0; i < jtProf.getColumnModel().getColumnCount(); i++) {
 			jtProf.getColumnModel().getColumn(i).setResizable(false);
-		}//end for
+		} // end for
 
 		// Bounds
 		jlblback.setBounds(0, 0, 1000, 700);
@@ -117,7 +117,6 @@ public class EmployProfManageDialog extends JDialog {
 		jspJtProf.setFont(font);
 
 		// background-color 설정
-//		jcbSearch.setBackground(new Color(0xE0E0E0));
 		jbtnSearch.setBackground(new Color(0xE0E0E0));
 		jbtnAdd.setBackground(new Color(0xE0E0E0));
 		jbtnEdit.setBackground(new Color(0xE0E0E0));

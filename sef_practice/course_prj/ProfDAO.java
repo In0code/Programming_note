@@ -1,4 +1,4 @@
-package kr.co.sist.course;
+package self_practice_course_prj;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -202,41 +202,6 @@ public class ProfDAO {
 		return majorcode;
 	}// getMajorcode
 
-//	/**
-//	 * 사번을 생성하기 위해 userCode를 얻는 일
-//	 * @param pVO
-//	 * @return
-//	 * @throws SQLException
-//	 */
-//	public String getUserCode(ProfVO pVO) throws SQLException{
-//		
-//		Connection con = null;
-//		PreparedStatement pstmt = null;
-//		ResultSet rs = null;
-//		String userCode = null;
-//
-//		DbConn db = DbConn.getInstance();
-//		try {
-//			con = db.getConnection("192.168.10.142", "applepie", "mincho");
-//
-//			String getUserCode = "select usercode from emp where majorcode=(select MAJORCODE from MAJOR where MAJORNAME = '" + pVO.getMajorName() + "')";
-//
-//			pstmt = con.prepareStatement(getUserCode);
-//
-//			rs = pstmt.executeQuery();
-//
-//			if (rs.next()) {
-//				userCode = rs.getString(1);
-//			} // end if
-//
-//		} finally {
-//			db.dbClose(rs, pstmt, con);
-//		} // end finally
-//		userCode = userCode.trim();
-//		return userCode;
-//		
-//	}
-
 	/**
 	 * 사번을 생성하기 위해 생성한 시퀀스에서 next number를 가져오는 일
 	 * 
@@ -306,7 +271,6 @@ public class ProfDAO {
 					.append(" , (select MAJORCODE from MAJOR where MAJORNAME ='" + pVO.getMajorName() + "'),")
 					.append("'" + pVO.getPhone() + "', '" + pVO.getEmail() + "', 'P')	");
 
-//			System.out.println(insertProfInfo);
 			pstmt = con.prepareStatement(insertProfInfo.toString());
 
 			// 5. 쿼리문 실행 결과 얻기

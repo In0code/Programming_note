@@ -1,4 +1,4 @@
-package kr.co.sist.course;
+package self_practice_course_prj;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,7 +8,6 @@ import java.awt.event.WindowAdapter;
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -95,7 +94,7 @@ public class MajorManageEvt extends WindowAdapter implements ActionListener, Mou
 
 			mmd.getJcbDptAdd().setSelectedItem(dptname);
 			mmd.getJtfMajor().setText(majorname);
-		}//end if
+		} // end if
 	}// selectionProfInfo
 
 	/**
@@ -200,26 +199,18 @@ public class MajorManageEvt extends WindowAdapter implements ActionListener, Mou
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 
 }// class

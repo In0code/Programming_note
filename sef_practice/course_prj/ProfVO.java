@@ -1,13 +1,13 @@
-package kr.co.sist.course;
+package self_practice_course_prj;
 
 /**
- * 인영
- * 교수 VO
+ * 인영 교수 VO
+ * 
  * @author user
  *
  */
 public class ProfVO {
-	private  String ename, phone, email, majorName, dptName, empno ;
+	private String ename, phone, email, majorName, dptName, empno;
 
 	public String getEname() {
 		return ename;
@@ -77,5 +77,4 @@ public class ProfVO {
 		super();
 	}
 
-	
-}//class
+}// class

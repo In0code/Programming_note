@@ -1,4 +1,4 @@
-package kr.co.sist.course;
+package self_practice_course_prj;
 
 /**
  * 인영 학과관리 VO

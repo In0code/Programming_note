@@ -1,5 +1,4 @@
-package kr.co.sist.course;
-
+package self_practice_course_prj;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -46,7 +45,6 @@ public class EmployProfEditManageDialogEvt extends WindowAdapter implements Acti
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} // end catch
-
 	}// addProf
 
 	/**
