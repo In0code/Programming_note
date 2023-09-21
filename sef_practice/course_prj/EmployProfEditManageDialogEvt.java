@@ -1,4 +1,4 @@
-package self_practice_course_prj;
+package kr.co.sist.course;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

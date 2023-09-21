@@ -1,7 +1,8 @@
-package self_practice_course_prj;
+package kr.co.sist.course;
 
 import java.awt.Color;
 import java.awt.Font;
+
 ////////////// 인영 ///////////////
 /////////// 학과관리 Dialog ///////////
 import javax.swing.DefaultComboBoxModel;
@@ -14,10 +15,8 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 
 /**
  * 인영 학과관리 Dialog
