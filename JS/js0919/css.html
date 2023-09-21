@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css"
+	href="http://192.168.10.137/html_prj/common/css/main_v20230906.css">
+<style type="text/css">
+#div{font-size: 40px; font-family: '궁서체'; color: #005FB8;}
+</style>
+<!-- jQuery CDN 시작 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<!-- jQuery CDN 끝 -->
+<script type="text/javascript">
+$(function(){
+	//css함수
+	//값 얻기 css("CSS속성명")
+	var output="";
+	output+="div1의 속성값<br>";
+	output+="글자 크기 : "+$("#div").css("font-size")+"<br/>";
+	output+="글꼴 : "+$("#div").css("font-family")+"<br/>";
+	output+="색 : "+$("#div").css("color")+"<br/>";
+
+	$("#output").html(output);
+
+	//값 설정 .css("CSS속성명","속성값")
+	$("#div2").css("color","#FF0000");
+	$("#div2").css("font-weight","bold");
+
+})//ready
+
+
+</script>
+</head>
+<body>
+<div id="div">DIV1</div>
+<div id="div2">DIV2</div>
+<div id="output"></div>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css"
+	href="http://192.168.10.137/html_prj/common/css/main_v20230906.css">
+	<style type="text/css">
+		p:hover { font-size: 40px; }
+		</style>
+		<!-- jQuery CDN 시작 -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+		<!-- jQuery CDN 끝 -->
+		<script type="text/javascript">
+		$(function(){
+			//ID selector
+			$("#btn").click(function(){
+				alert("ID selector  ");
+			});
+			
+			//class selector
+			$(".div").css("font-size", "30px");
+		
+			//tag selector
+			$("li").css("color", "red");
+		
+			//multiple selector
+			$("th,td").css("color", "blue");
+		
+			//sub selector
+			$("ol > li").css("color", "green");
+		
+			//sub selector
+			$("ol > li").css("color", "green");
+		
+			//behavior selector의 hover는 지원하지 않는다.
+			//$("p:hover").css("font-size","40px");
+			$("p").hover(function(){
+				$("p").css("font-size","40px");
+			});
+		
+			//odd - 홀수 번째에 적용
+			//even - 짝수 번째에 적용
+			//$("li:odd").css("color","purple")
+			$("li:even").css("color","purple")
+		
+		});//ready
+		</script>
+		</head>
+		<body>
+		<input type="button" value="클릭" id="btn" class="btn"/>
+		<div class="div">div1</div>
+		<div class="div2">div2</div>
+		<div class="div">div3</div>
+		
+		<ul>
+			<li>짜장면</li>
+			<li>볶음밥</li>
+			<li>구내식당</li>
+			<li>역삼갈비</li>
+			<li>탄</li>
+		</ul>
+		
+		<ol>
+			<li>사과</li>
+			<li>자몽</li>
+			<li>망고</li>
+			<li>망고스틴</li>
+			<li>감</li>
+		</ol>
+		
+		<table>
+			<tr>
+				<th>교재명</th>
+				<th>저자</th>
+				<th>출판사</th>
+			</tr>
+			<tr>
+				<td>이것이 자바다</td>
+				<td>신용권,임태균</td>
+				<td>한빛미디어</td>
+			</tr>
+			<tr>
+				<td>데이터베이스 개론과 실습</td>
+				<td>박우창</td>
+				<td>한빛미디어</td>
+			</tr>
+			<tr>
+				<td>HTML5 프로그래밍 입문</td>
+				<td>윤인성</td>
+				<td>한빛미디어</td>
+			</tr>
+		</table>
+		<a href=""><p>오늘은 화요일입니다.</p></a>
+		</body>
+		</html>
