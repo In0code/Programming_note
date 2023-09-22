@@ -19,9 +19,11 @@ import javax.swing.JTextField;
  */
 public class EmployProfEditManageDialogEvt extends WindowAdapter implements ActionListener, MouseListener {
 	private EmployProfEditManageDialog epemd;
-
-	public EmployProfEditManageDialogEvt(EmployProfEditManageDialog epemd) {
+	private String dptName;
+	
+	public EmployProfEditManageDialogEvt(EmployProfEditManageDialog epemd, String dptName) {
 		this.epemd = epemd;
+		this.dptName=dptName;
 		setDptNameCombo();
 		setMajorNameCombo();
 	}
@@ -77,7 +79,7 @@ public class EmployProfEditManageDialogEvt extends WindowAdapter implements Acti
 		String dpt = epemd.getDcbmDept().getElementAt(epemd.getJcbDept().getSelectedIndex());
 		epemd.getDcbmMajor().removeAllElements();
 		try {
-			dataList = pDAO.selectMajorComboBox(dpt);
+			dataList = pDAO.selectMajorComboBox(dptName);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} // end catch
