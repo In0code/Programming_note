@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css"
+	href="http://192.168.10.137/html_prj/common/css/main_v20230906.css">
+<style type="text/css">
+
+</style>
+<!-- jQuery CDN 시작 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<!-- jQuery CDN 끝 -->
+<script type="text/javascript">
+	
+	var arr=["강다연","박상준","송지하","홍찬영"];
+	//아이디가 btn인 버튼이 클릭되면 배열의 값을 아이디가 output인 div에 <ul><li>로 출력해보세요
+		$(function(){
+        $("#btn").click(function(){
+            var output =""
+
+            output += "<ul>"
+            for( var i = 0; i < arr.length; i++ ){
+                output += "<li>"+arr[i]+"</li>"
+            }
+            output += "</ul>"
+
+            $("#output").html(output);
+        });
+		
+		
+		//each를 사용한 배열반복
+		$("#btn2").click(function(){
+			var ouput="<ul>";
+				
+				$.each(arr, function(i, name){
+					ouput+="<li><strong>"+i+" : "+name+"</strong></li>";
+				});//each
+				
+				ouput+="</ul>";
+				
+				$("#output").html(output);
+			});//click
+
+			$("#btn3").click(function(){
+				var ouput="<ul>";
+					//id가 sel인 대상(배열)의 모든 값을 얻기
+					$("#option").each(function(i,opt){
+						ouput+="<li><strong>"+i+" : "+$(opt).val()+" / "+$(opt).is(":selected")+"</strong></li>";
+					});
+
+				ouput+="</ul>";
+				
+				$("#output").html(output);
+
+			});//click
+
+			$("#btn4").click(function(){
+				var ouput="<ul>";
+					if($("[name='movie']:checked").length > 3){
+						alert("영화는 3개까지만 선택 가능");
+						return;
+					}//end if
+					$("[name='movie']:checked").each(function(i,check){
+						ouput+="<li><strong>"+$(check).val()+"</strong></li>";
+					});
+
+				ouput+="</ul>";
+				
+				$("#output").html(output);
+
+			});//click
+
+		});	//ready
+			
+		
+</script>
+</head>
+<body>
+	<div>
+		<select name="sel" id="sel">
+			<option value="JavaSE">JavaSE</option>
+			<option value="Oracle">Oracle</option>
+			<option value="JDBC">JDBC</option>
+			<option value="HTML">HTML</option>
+			<option value="CSS">CSS</option>
+			<option value="JavaScript">JavaScript</option>
+			<option value="jQuery" selected="selected">jQuery</option>
+			<option value="JSP">JSP</option>
+		</select>
+	</div>
+
+	<div>
+		<input type="checkbox" name="movie" value="천박사 퇴마연구소"/>천박사퇴마연구소
+		<input type="checkbox" name="movie" value="거미집"/>거미집
+		<input type="checkbox" name="movie" value="1947보스톤"/>1947보스톤
+		<input type="checkbox" name="movie" value="플로라 앤 썬"/>플로라 앤 썬
+		<input type="checkbox" name="movie" value="더 넌 2"/>더 넌 2
+		<input type="button" value="영화 선택" id="btn4" class="btn">
+	</div>
+	<div id="divMovie"></div>
+
+<input type="button" value="for 사용 클릭" id="btn" class="btn">
+<input type="button" value="each 사용 클릭" id="btn2" class="btn">
+<input type="button" value="select의 모든 옵션 값 얻기" id="btn3" class="btn">
+<div id="output"></div>
+</body>
+</html>

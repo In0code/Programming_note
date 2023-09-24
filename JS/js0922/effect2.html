@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css"
+	href="http://192.168.10.137/html_prj/common/css/main_v20230906.css">
+<style type="text/css">
+#imgDiv{ height: 200px; }
+#img{ display: none;}
+</style>
+<!-- jQuery CDN 시작 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<!-- jQuery CDN 끝 -->
+<script type="text/javascript">
+$(function(){
+	// $(img).hide();
+
+	$("#btnDown").click(function(){
+		$("#img").slideDown(1000);
+	})//click
+	
+	$("#btnUp").click(function(){
+		$("#img").slideUp(1000);
+	})//click
+	
+	$("#btnToggle").click(function(){
+		$("#img").slideToggle(1000);
+	})//click
+
+});//ready
+
+
+</script>
+</head>
+<body>
+	<div id="imgDiv">
+		<img src="../common/images/JJanggu.png" id="img"/>
+	</div>
+	<div>
+		<input type="button" value="펼처보이기" class="btn" id="btnDown"/> 
+		<input type="button" value="말아올리기" class="btn" id="btnUp"/> 
+		<input type="button" value="반전" class="btn" id="btnToggle"/> 
+	</div>
+</body>
+</html>
