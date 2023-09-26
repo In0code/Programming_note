@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css"
+	href="http://192.168.10.137/html_prj/common/css/main_v20230906.css">
+<style type="text/css">	
+.box{ width: 250px; }
+#tab{ border-top: 2px solid #333; border-spacing: 0px; }
+#subTitle{ width: 400px; border-bottom: 1px solid #333; height: 30px;}
+#writeTitle{ width:150px; border-bottom: 1px solid #333;}
+td{ border-bottom: 1px; }
+</style>
+<!-- jQuery CDN 시작 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<!-- jQuery CDN 끝 -->
+<script type="text/javascript">
+$(function(){
+	$("#btn").click(function(){
+		var output="<div style='border:1px solid #333; margin-top:10px'><strong>"+ num++ +"</strong></div>";
+		$("output").append(output); //자식 노드로 추가
+	});//click
+
+	$("#btn2").click(function(){
+		$("#subject li:first").remove();
+	});//click
+
+	$("#btn3").click(function(){
+		$("#subject li:last").remove();
+	});//click
+
+	$("#btn4").click(function(){
+		$("#subject li:eq(1)").remove();
+	});//click
+
+	$("#appendFrm").click(function(){
+		var div="<div style='width: 300px;'>"+
+			"<label>이름</label>"+
+			"<input type='text' name='name' class='inputBox box'/>"+
+		"</div>";
+
+		$("#div").append(div);
+	});//click
+
+	
+	$("#removeFrm").click(function(){
+		if($("#div div").length != 1){
+
+			$("#div div:last").remove();
+		}
+	})//click
+
+
+	$("#btnInput").click(function(){
+		var subject=$("#subject2").val();
+		var date=new Date();
+		var inputDate=date.getFullYear()+"-"+(date.getMonth+1)+"-"+date.getDate();
+
+		var output="<tr><th>"+subject+"</th><td>"+inputDate+"</td></tr>";
+
+		$("$tab tabody").append(output);
+
+	});//click
+
+
+})//ready
+
+
+</script>
+</head>
+<body>
+	<input type="button" value="추가" class="btn" id="btn"/>
+	<div id="output"></div>
+	<input type="button" value="처음 태그삭제" class="btn" id="btn2"/>
+	<input type="button" value="마지막 태그삭제" class="btn" id="btn3"/>
+	<input type="button" value="인덱스에대한 태그삭제" class="btn" id="btn4"/>
+	<div>
+		<ul id="subject">
+			<li>Java SE</li>
+			<li>Oracle</li>
+			<li>JDBC</li>
+			<li>HTML</li>
+		</ul>
+	</div><br/>
+
+	<div style="width: 300px; text-align: right;">
+		<img src="images/plus.png" style="width: 32px; cursor: pointer;"  title="추가하기" id="appendFrm">
+		<img src="images/minus.png" style="width: 32px; cursor: pointer;" title="삭제하기" id="removeFrm">
+	</div>
+	<div id="div">
+		<div style="width: 300px;">
+			<label>이름</label>
+			<input type="text" name="name" class="inputBox box"/>
+		</div>
+	</div><br/>
+	<div>
+		<form name="frm">
+
+			<label>제목</label><input type="text" name="subject2" class="inputBox" id="subject" style="width: 400px;"/>
+			<input type="button" value="입력" class="btn" id="btnInput"/><br/>
+		</form>
+			<table id="tab">
+				<thead>
+					<tr>
+						<th id="subTitle">제목</th>
+						<th id="writeTitle">작성일</th>
+					</tr>
+				</thead>
+				
+			</table>
+		</div>
+
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css"
+	href="http://192.168.10.137/html_prj/common/css/main_v20230906.css">
+<style type="text/css">
+
+</style>
+<!-- jQuery CDN 시작 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<!-- jQuery CDN 끝 -->
+<script type="text/javascript">
+$(function(){
+    $("#btnM").click(function(){
+        //$("#m").attr("checked",true);
+        $("#m").prop("checked",true);
+    });//click
+
+    $("#btnF").click(function(){
+        //$("#f").attr("checked",true);
+        $("#f").prop("checked",true);
+    });//click
+
+    $("[name='ssn2']").focusout(function(){
+        chkSsn();
+    });//focusout
+
+    $("#btnSel").click(function(){
+        var num=$("#sel option").length;
+        var ranNum= parseInt(Math.random()* num) ;
+        //JDBC옵션을 선택
+        //$("#sel option:eq(2)").prop("selected",true);
+        $("#sel option:eq("+ranNum+")").prop("selected",true);
+     });
+
+});//ready
+
+function chkSsn(){
+    var ssn=$("[name='ssn']").val()+$("[name='ssn2']").val();//9701011234567
+    if( ssn.length != 13 ){
+        alert("주민번호의 길이가 잘못되었습니다.");
+        $("[name='ssn']").val("");
+        $("[name='ssn2']").val("");
+        $("[name='ssn']").focus();
+        return;
+    }//end if
+
+    var checkSumCode=[2,3,4,5,6,7,8,9,2,3,4,5];
+    var data=0;
+    
+    for( var i = 0 ; i < checkSumCode.length ; i++){
+    data+=ssn.charAt(i)*checkSumCode[i];
+    }//end for
+
+    var flag=ssn.charAt(ssn.length-1);
+    
+    var msg="무효";
+    if( (11-data%11)%10 == flag){ //가장 마지막자리와 같다면
+        msg="유효";
+    }//end if
+    alert(msg);
+
+    var genderFlag=ssn.charAt(6);
+    var id="#m";
+    if(genderFlag%2 == 0){
+        id="#f";
+    }
+    $(id).prop("checked",true);
+
+}//chkSsn
+</script>
+</head>
+<body>
+<div>
+    <input type="radio" value="남자" name="gender" id="m">남자
+    <input type="radio" value="여자" name="gender" id="f">여자
+</div>
+<div>
+    <input type="button" value="남자선택" class="btn" id="btnM">
+    <input type="button" value="여자선택" class="btn" id="btnF">
+</div>
+<div>
+<form name="frm">
+<label>주민번호</label>
+<input type="text" name="ssn" maxlength="6" class="inputBox" width="60px" value="121212">-
+<input type="text" name="ssn2" maxlength="7" class="inputBox" width="70px" value="1234567">
+</form>
+</div>
+<div>
+<input type="button" value="옵션 선택" class="inputBox"  id="btnSel"/><br/>
+<select id="sel" class="inputBox" style="width: 120px;">
+<option value="Java">자바</option>
+<option value="Oracle">오라클</option>
+<option value="JDBC">JDBC</option>
+<option value="HTML">HTML</option>
+<option value="CSS">CSS</option>
+<option value="JSP">JSP</option>
+</select>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css"
+	href="http://192.168.10.137/html_prj/common/css/main_v20230906.css">
+<style type="text/css">
+
+</style>
+<!-- jQuery CDN 시작 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<!-- jQuery CDN 끝 -->
+<script type="text/javascript">
+$(function(){
+	setDice();
+	$("#btn").click(function(){
+		setDice();
+
+	});//click
+
+});//ready
+
+function setDice(){
+	var num1=parseInt(Math.random()*6)+1;
+	var num2=parseInt(Math.random()*6)+1;
+
+	$("#dice1").prop("src","images/dice_"+num1+".png");
+	$("#dice2").prop("src","images/dice_"+num2+".png");
+
+}//setDice
+
+</script>
+</head>
+<body>
+<div>
+	<img src="images/dice_1.png" id="dice1"/>
+	<img src="images/dice_1.png" id="dice2"/>
+</div>
+<div>
+	<input type="button" value="주사위던지기" id="btn" class="btn">
+</div>
+</body>
+</html>
