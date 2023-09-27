@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>Kakao 지도 시작하기</title>
+	<!-- jQuery CDN 시작 -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<!-- jQuery CDN 끝 -->
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e9ed330c8d43206ebb416f1c5bfec72d"></script>
+	<script type="text/javascript">
+	var map ;
+	window.onload=function(){
+		var container = document.getElementById('map');
+		var options = {
+			center: new kakao.maps.LatLng(37.4993118,127.0331422),
+			level: 3
+		};
+
+		map = new kakao.maps.Map(container, options);
+	}//onload
+	
+	function setCenter() {            
+	    // 이동할 위도 경도 위치를 생성합니다 
+	    var moveLatLon = new kakao.maps.LatLng(37.4993118,127.0331422);
+	    
+	    // 지도 중심을 이동 시킵니다
+	    map.panTo(moveLatLon);
+	}
+
+	function panTo( latLng ) {
+	    // 이동할 위도 경도 위치를 생성합니다 
+	    var tempLatLng=latLng.split(",");
+	    var moveLatLon = new kakao.maps.LatLng(tempLatLng[0],tempLatLng[1] );
+	    
+	    // 지도 중심을 부드럽게 이동시킵니다
+	    // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+	    map.panTo(moveLatLon);            
+	}        
+	
+	</script>
+	<script type="text/javascript">
+	var arr=["37.5009659,127.0333562","37.4939223,127.0131869"];
+	$(function(){
+		$("#btn1").click( setCenter );
+		$("#btn2").click( function(){
+			panTo(arr[0]);
+		} );
+		$("#btn3").click( function(){
+			panTo(arr[1]);
+		} );
+	});
+	</script>
+</head>
+<body>
+	<div id="map" style="width:800px;height:500px;"></div>
+	<div>
+		<input type="button" value="원래위치" id="btn1" class="btn"/>
+		<input type="button" value="점심식당" id="btn2" class="btn"/>
+		<input type="button" value="하이마트" id="btn3" class="btn"/>
+	</div>
+</body>
+</html>

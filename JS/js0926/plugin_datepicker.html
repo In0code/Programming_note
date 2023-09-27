@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css"
+	href="http://192.168.10.137/html_prj/common/css/main_v20230906.css">
+<style type="text/css">
+
+</style>
+<!-- jQuery CDN 시작 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<!-- jQuery CDN 끝 -->
+
+<!-- datepicker 시작 -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script>
+	$( function() {
+		$( "#datepicker" ).datepicker({
+		  dateFormat: "yy-mm-dd",
+			  dayNamesMin: [ "일", "월", "화", "수", "목", "금", "토" ],
+			  duration: "fast",
+			  monthNames: [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
+			  showButtonPanel: true
+		});
+
+		
+	} );
+</script>
+	<!-- datepicker 끝 -->
+
+<script type="text/javascript">
+$(function(){
+	
+	
+})//ready
+
+
+</script>
+</head>
+<body>
+	<p>Date: <input type="text" id="datepicker" class="inputBox"></p>
+</body>
+</html>
