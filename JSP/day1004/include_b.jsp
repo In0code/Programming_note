@@ -1,8 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
     
 <%
-String msg="¿À´ÃÀº ÇÇ°ïÇÑ ¼ö¿äÀÏ";
+String msg="ì˜¤ëŠ˜ì€ í”¼ê³¤í•œ ìˆ˜ìš”ì¼";
 %>
-<strong>³»ºÎ JSP</strong>
+<strong>ë‚´ë¶€ JSP</strong>
 <%= msg %>

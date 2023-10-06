@@ -2,8 +2,8 @@
 <%@page import="day1004.testVO"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Calendar"%>
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,12 +33,12 @@ function result(i,j) {
 </head>
 <body>
  <%
-      //scriptlet : method ³»ÀÇ java code Á¤ÀÇÇÒ ¶§ »ç¿ëÇÑ´Ù.
-      String msg="´ÙÀ½ÁÖ ¿ù¿äÀÏµµ ½®´Ù^o^";
+      //scriptlet : method ë‚´ì˜ java code ì •ì˜í•  ë•Œ ì‚¬ìš©í•œë‹¤.
+      String msg="ë‹¤ìŒì£¼ ì›”ìš”ì¼ë„ ì‰°ë‹¤^o^";
  %>
    <mark><%= msg %></mark>
   <%
-  msg="ÀÌ¹øÁÖ´Â ÀÌÆ²¸¸ ´õ...";
+  msg="ì´ë²ˆì£¼ëŠ” ì´í‹€ë§Œ ë”...";
   %>
   <div>
   <marquee scrollamount="25"><%= msg %></marquee>
@@ -46,12 +46,12 @@ function result(i,j) {
 <%
 for(int i=1; i<7; i++){
 %>
-<h<%= i %>>¾È³çÇÏ¼¼¿ä</h<%= i %>>
+<h<%= i %>>ì•ˆë…•í•˜ì„¸ìš”</h<%= i %>>
 <%	
 }//end for
 %>
 
-<!-- 1~100±îÁö ¿É¼ÇÀ» °¡Áö°í ÀÖ´Â select Ãâ·Â -->
+<!-- 1~100ê¹Œì§€ ì˜µì…˜ì„ ê°€ì§€ê³  ìˆëŠ” select ì¶œë ¥ -->
 <select>
 <% for(int j=1; j<101; j++){ %>
 	<option><%= j %></option>
@@ -59,12 +59,12 @@ for(int i=1; i<7; i++){
 </select><br/>
 
 <%
-//java¿¡¼­ Á¦°øÇÏ´Â °´Ã¼¸¦ ¸ğµÎ »ç¿ëÇÒ ¼ö ÀÖ´Ù
+//javaì—ì„œ ì œê³µí•˜ëŠ” ê°ì²´ë¥¼ ëª¨ë‘ ì‚¬ìš©í•  ìˆ˜ ìˆë‹¤
 Calendar cal=Calendar.getInstance();
 int nowYear=cal.get(Calendar.YEAR);		
 %>
 <select>
-<option>---³â---</option>
+<option>---ë…„---</option>
 <%for(int i=-2; i<3; i++){ %>
 <option <%= nowYear+i==nowYear?"selected='selected'":"" %>><%= nowYear+i %></option>
 <%} //end for %>
@@ -73,7 +73,7 @@ int nowYear=cal.get(Calendar.YEAR);
 int nowMonth=cal.get(Calendar.MONTH)+1;
 %>
 <select>
-<option>---¿ù---</option>
+<option>---ì›”---</option>
 <% for(int i=1; i<13; i++){ %>
 	<option<%= i==nowMonth?" selected='selected'":"" %>><%= i %></option>
 <%} //end for %>
@@ -84,7 +84,7 @@ int lastDay=cal.getActualMaximum(Calendar.DATE);
 		
 %>
 <select>
-<option>---ÀÏ---</option>
+<option>---ì¼---</option>
 <% for(int i=1; i<lastDay+1; i++){ %>
 	<option<%= i==nowDay?" selected='selected'":"" %>><%= i %></option>
 <%} //end for %>
@@ -107,14 +107,14 @@ int lastDay=cal.getActualMaximum(Calendar.DATE);
 	<table class="table table-hover">
 		<thead>
 			<tr>
-				<th id="numTitle">¹øÈ£</th>
-				<th id="imgTitle">ÀÌ¹ÌÁö</th>
-				<th id="infoTitle">¼³¸í</th>
+				<th id="numTitle">ë²ˆí˜¸</th>
+				<th id="imgTitle">ì´ë¯¸ì§€</th>
+				<th id="infoTitle">ì„¤ëª…</th>
 			</tr>
 		</thead>
 		<tbody>
-		<!-- selectURL method¸¦ È£ÃâÇÏ¿© ¹øÈ£, ÀÌ¹ÌÁö, ¼³¸í
-		ÀÌ¹ÌÁö¸¦ Å¬¸¯ÇÏ¸é ÇØ´ç site·Î ÀÌµ¿ÇÏµµ·Ï link ¼³Á¤ -->
+		<!-- selectURL methodë¥¼ í˜¸ì¶œí•˜ì—¬ ë²ˆí˜¸, ì´ë¯¸ì§€, ì„¤ëª…
+		ì´ë¯¸ì§€ë¥¼ í´ë¦­í•˜ë©´ í•´ë‹¹ siteë¡œ ì´ë™í•˜ë„ë¡ link ì„¤ì • -->
 		<%
 		testDAO tDAO=new testDAO();
 		List<testVO> list=tDAO.selectURL();

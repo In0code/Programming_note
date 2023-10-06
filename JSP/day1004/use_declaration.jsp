@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,15 +22,15 @@ $(function(){
 </head>
 <body>
 <%!
-   //! class field¿¡ ÄÚµå°¡ »ý¼ºµÈ´Ù.
-   int i; //instanceº¯¼ö // Á¢¼ÓÀÚ°¡ ¿äÃ»À» ÇÏ¸é °´Ã¼°¡ »ý¼ºµÇ¹Ç·Î, °³¹ßÀÚ´Â °´Ã¼È­¸¦ ÇÏÁö ¾Ê°í
-   //»ç¿ëÇÏ¸é µÈ´Ù.
+   //! class fieldì— ì½”ë“œê°€ ìƒì„±ëœë‹¤.
+   int i; //instanceë³€ìˆ˜ // ì ‘ì†ìžê°€ ìš”ì²­ì„ í•˜ë©´ ê°ì²´ê°€ ìƒì„±ë˜ë¯€ë¡œ, ê°œë°œìžëŠ” ê°ì²´í™”ë¥¼ í•˜ì§€ ì•Šê³ 
+   //ì‚¬ìš©í•˜ë©´ ëœë‹¤.
    public void test(){
-   System.out.println("¾È³ç?");
+   System.out.println("ì•ˆë…•?");
 }
    
    public String getMsg() {
-      String msg="¿À´Ã ÁöÇÏ½Ä´ç Á¡½ÉÀº ¸ÀÀÌ ¾ø¾ú½À´Ï´Ù.";
+      String msg="ì˜¤ëŠ˜ ì§€í•˜ì‹ë‹¹ ì ì‹¬ì€ ë§›ì´ ì—†ì—ˆìŠµë‹ˆë‹¤.";
       return msg;   
    }//getmsg
    
@@ -46,17 +46,17 @@ $(function(){
 %>
 <%test();
 
-int j=0;//Áö¿ªº¯¼ö , Áö¿ªº¯¼ö´Â ÃÊ±âÈ­ ÇÏÁö¾Ê°í »ç¿ëÇÏ¸é error¹ß»ý
+int j=0;//ì§€ì—­ë³€ìˆ˜ , ì§€ì—­ë³€ìˆ˜ëŠ” ì´ˆê¸°í™” í•˜ì§€ì•Šê³  ì‚¬ìš©í•˜ë©´ errorë°œìƒ
 %>
-ÀÎ½ºÅÏ½ºº¯¼ö : <%=i %>
-Áö¿ªº¯¼ö : <%=j %><br>
+ì¸ìŠ¤í„´ìŠ¤ë³€ìˆ˜ : <%=i %>
+ì§€ì—­ë³€ìˆ˜ : <%=j %><br>
 <%=getMsg() %><br>
-<%String[] names={"±èÁÖ¹Î","±è¼±°æ","¹Ú»óÁØ","È«Áö¼º","È«Âù¿µ"}; 
+<%String[] names={"ê¹€ì£¼ë¯¼","ê¹€ì„ ê²½","ë°•ìƒì¤€","í™ì§€ì„±","í™ì°¬ì˜"}; 
 %>
 <table class="table table-hover">
 <tr>
-<th>ÀÌ¸§</th>
-<th>Á¡¼ö</th>
+<th>ì´ë¦„</th>
+<th>ì ìˆ˜</th>
 </tr>
 <%for(int i=0;i<names.length;i++){ %>
 <tr><td><%=names[i] %></td>

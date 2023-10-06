@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" 
+    isErrorPage="true"
+    info="다른 JSP에서 에러가 발생했을 때 응답할 JSP"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,18 +23,7 @@ $(function(){
 
 </head>
 <body>
-외부 JSP
-<div>
-<%--
-<% 변수는 중복선언될 수 없다
-String msg="";
-%>
- --%>
-
-<%@ include file="include_b.jsp" %>
-</div>
-<!-- 외부 JSP에서는 변수명에 대해 주의하여 사용할 것 -->
-외부 JSP<br/>
-변수 공유 : <%= msg %>
+<img src="../common/images/jjangu2.jpg"/><br/>
+짱구야 에러 났어
 </body>
 </html>

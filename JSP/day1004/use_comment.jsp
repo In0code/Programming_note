@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,8 +21,8 @@ $(function(){
 
 </head>
 <body>
-1~100╠НаЖюг гу цБ╥б го╢б дз╣Е юш╪╨
-<%-- JSPаж╪╝ю╨ Java code╥н ╩Щ╪╨╣гаЖ ╬й╢б╢ы 
+1~100Й╧▄Л╖─Л²≤ М∙╘ Л╤°К═╔ М∙≤К┼■ Л╫■К⌠° Л·▒Л└╠
+<%-- JSPЛё╪Л└²Л²─ Java codeК║° Л┐²Л└╠К░≤Л╖─ Л∙┼К┼■К▀╓ 
 <% 
 int sum=0;
 for(int i=1; i<101; i++){
@@ -33,7 +33,7 @@ for(int i=1; i<101; i++){
  --%>
  
  <% 
- //int i;  // Java аж╪╝
+ //int i;  // Java Лё╪Л└²
 int sum=0;
 for(int i=1; i<101; i++){
 	sum+= i;

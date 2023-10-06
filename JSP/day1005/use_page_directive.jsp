@@ -1,5 +1,11 @@
+<%@page import="java.util.Random"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" info="페이지 지시자 연습" %>
+<%@ page buffer="8kb" autoFlush="true" %>
+<%@ page isThreadSafe="true" %>
+<%@ page session="true" %>
+<%@ page errorPage="page_directive2.jsp" %>
+<%@ page trimDirectiveWhitespaces="true" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,18 +27,11 @@ $(function(){
 
 </head>
 <body>
-외부 JSP
-<div>
-<%--
-<% 변수는 중복선언될 수 없다
-String msg="";
+페이지 지시자 연습
+<%
+if(new Random().nextBoolean()){
+	throw new Exception("에러발생");
+}//end if
 %>
- --%>
-
-<%@ include file="include_b.jsp" %>
-</div>
-<!-- 외부 JSP에서는 변수명에 대해 주의하여 사용할 것 -->
-외부 JSP<br/>
-변수 공유 : <%= msg %>
 </body>
 </html>

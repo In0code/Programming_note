@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"
+    info="JSP 요청 연습"
+    %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,18 +23,23 @@ $(function(){
 
 </head>
 <body>
-외부 JSP
-<div>
-<%--
-<% 변수는 중복선언될 수 없다
-String msg="";
+<%
+Object o=session.getAttribute("num");
+int num=0;
+if(o != null){
+	num=Integer.parseInt(o.toString());
+	num++;
+}
+session.setAttribute("num", num);
 %>
- --%>
-
-<%@ include file="include_b.jsp" %>
+<div style="margin-top: 50px">
+<button type="button" class="btn btn-primary position-relative">
+요청방식 : <%= request.getMethod() %>
+  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+    ${num}+
+    <span class="visually-hidden">요청방식 입니다</span>
+  </span>
+</button>
 </div>
-<!-- 외부 JSP에서는 변수명에 대해 주의하여 사용할 것 -->
-외부 JSP<br/>
-변수 공유 : <%= msg %>
 </body>
 </html>
