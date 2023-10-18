@@ -264,7 +264,7 @@ body.search_active .headSearchBtn_magnifier {
 							-->
 						</li>
 						<li>
-							<a href="/order/basket.html">Cart
+							<a href="cart.jsp">Cart
 								<span class="count displaynone EC-Layout_Basket-count-display">
 									<span class="EC-Layout-Basket-count"></span>
 								</span>
