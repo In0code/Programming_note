@@ -21,15 +21,27 @@
 <script type="text/javascript">
 $(function() {
    $("#btn").click(function(){
-      var id =$("#id").val();
-      
-      if(id.trim() == ""){
-         alert("중복확인할 아이디를 입력해 주세요.");
-         return;
-      }//end if
-      $("#frm").submit();   
+	   chkNull();
    });//click
+   
+   $("#id").keydown(function( evt ){
+	   if(evt.which == 13){ //엔더가 눌렸니?
+	   chkNull();
+		   
+	   }//end if
+   });//keydown
+   
 });//ready
+
+function chkNull(){
+	 var id =$("#id").val();
+     
+     if(id.trim() == ""){
+        alert("중복확인할 아이디를 입력해 주세요.");
+        return;
+     }//end if
+     $("#frm").submit();   
+}//chkNull
 </script>
 <script type="text/javascript">
 
@@ -37,6 +49,8 @@ $(function() {
 function useId(id){
 	//부모창에 전달한 후 ( opener )
    opener.window.document.frm.id.value = id;
+	//중복확인 flag를 설정
+	opener.window.document.frm.idDupFlag.value=1;
 	//자식창을 닫기
    self.close();
 }
@@ -52,7 +66,9 @@ function useId(id){
             <label>아이디</label>
             <input type="text" id="id" name="id" class="inputBox" style="width:160px;"
             maxlength="16" autofocus="autofocus" value="${ param.id }"/>
+            
             <input type="button" value="중복확인" class="btn" id="btn"/>
+            <input type="text" style="display:none"/>
          </div>
       </form>
       </div>
@@ -60,7 +76,7 @@ function useId(id){
 	      <c:catch var="se">
 	            <%
 	            String id = request.getParameter("id");
-	            if(id != null && !"".equals(id)){
+	            if(id != null  && !"".equals(id) ){
 	            	//DB에서 입력된 아이디를 검색
 	            	MemberDAO mDAO=MemberDAO.getInstane();
 	            	try{

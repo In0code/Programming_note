@@ -78,8 +78,17 @@ $(function(){
 	
 	$("#btn").click(function(){
 		//입력값에 대한 유효성 검증
+		if($("#idDupFlag").val() == 0){
+			alert($("#id").val()+"은 중복확인 되지 않은 아이디 입니다. 중복확인을 수행해 주세요.");
+			return;
+		}//end if
 		$("#frm").submit();
+		
 	});//click
+	
+	$("#id").keydown(function(){
+		$("#idDupFlag").val(0);
+	});
 });//ready
 </script>
 
@@ -93,6 +102,7 @@ $(function(){
 					<td>
 						<input data-value="아이디를 입력해주세요." name="id" id="id" class="inputTxt inputIdtype" type="text" maxlength="20"  />
 						<input type="button" value="중복확인" class="btn btn-info" id="btnDup"/>
+						<input type="hidden" id="idDupFlag" name="idDupFlag"/>
 					</td>
 				</tr>
 				<tr>

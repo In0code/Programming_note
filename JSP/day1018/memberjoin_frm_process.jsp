@@ -1,3 +1,4 @@
+<%@page import="kr.co.sist.member.vo.WebMemberLangVO"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="kr.co.sist.member.dao.MemberDAO"%>
 <%@page import="kr.co.sist.util.cipher.DataEncrypt"%>
@@ -39,6 +40,7 @@ $(function(){
 <body>
 <jsp:useBean id="wmVO" class="kr.co.sist.member.vo.WebMemberVO" scope="page"/>
 <jsp:setProperty property="*" name="wmVO"/>
+<c:catch var="se">
 <%
 DataEncrypt de=new DataEncrypt("a12345678901234567");
 
@@ -47,15 +49,40 @@ wmVO.setName(de.encryption(wmVO.getName()));
 wmVO.setCell(de.encryption(wmVO.getCell()));
 wmVO.setEmail(de.encryption(wmVO.getEmail1()+"@"+wmVO.getEmail2()));
 
-MemberDAO mDAO=MemberDAO.getInstane();
-try{
-mDAO.insertMember(wmVO);
-out.println("가입성공");
-}catch(SQLException se){
-	se.printStackTrace();
-}
-%>
+// 접속자 ip주소를 받아서 VO에 설정
+wmVO.setIp(request.getRemoteAddr());
 
-${ wmVO }
+MemberDAO mDAO=MemberDAO.getInstane();
+//try{
+mDAO.insertMember(wmVO);
+
+// 언어를 추가
+WebMemberLangVO wmlVO=null;
+for(String lang : wmVO.getLang()){
+	wmlVO=new WebMemberLangVO(wmVO.getId(),lang);
+	mDAO.insertLang(wmlVO);
+}//end for
+
+//}catch(SQLException se){
+	//se.printStackTrace();
+//}
+%>
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">회원가입 성공</h5>
+    <h6 class="card-subtitle mb-2 text-body-secondary">회원가입해주셔서 감사합니다</h6>
+    <p class="card-text"><c:out value="${ param.name }"/>님께서 입력하신 정보는 아래와 같습니다</p>
+    <p class="card-text">생년월일 : <c:out value="${ wmVO.birthday }"/></p>
+    <p class="card-text">전화번호 : <c:out value="${ param.cell }"/></p>
+    <a href="http://localhost/jsp_prj/" class="card-link">메인으로</a>
+    <a href="http://localhost/jsp_prj/day1019/login_frm.jsp" class="card-link">로그인</a>
+  </div>
+</div>
+</c:catch>
+<c:if test="${ not empty se }">
+입력하신 아이디는 [ <c:out value="${ wmVO.id }"/> ]는 이미 사용 중 입니다.<br/>
+다른 id로 재가입 해주세요.<br/>
+<a href="javascript:history.back();">뒤로</a>
+</c:if>
 </body>
 </html>
