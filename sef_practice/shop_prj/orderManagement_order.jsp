@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>주문관리-주문</title>
-<link rel="icon" href="http://192.168.10.143/servlet_prj/common/main/favicon.png">
+<link rel="icon" href="http://192.168.10.137/servlet_prj/common/main/favicon.png">
 <!-- bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <!-- jQuery CDN -->
@@ -49,14 +49,13 @@ body{
 	font-size:25px;
 	color: #333;
 	position: absolute;
-	left : 40px;
-	position: relative;
+	left : 55px;
 } 
 #background_box{
 overflow: auto;
 background-color:  #FFFFFF;
 color:  #333333;
-height: 150%; width: 90%;
+height: 130%; width: 90%;
 position: absolute;
 top: 100px; left: 40px;
 outline:  1px;
@@ -70,58 +69,68 @@ position: relative;
 }
 #top_title th{
 border-left:1px solid #CCCCCC;
-padding: 15px; padding-left: 30px; padding-right: 30px;
+padding: 15px; padding-left: 20px; padding-right: 20px;
 background-color: #EAEAEA;
 }
 th{
 border-left:1px solid #CCCCCC;
 border-top:1px solid #CCCCCC;
-padding: 15px; padding-left: 30px; padding-right: 30px;
+padding: 15px; 
 }
 #btnChange{
-background-color:  #FFFFFF;
-position: absolute; right: 65px; bottom: 65px;
-border: 1px solid  #BEBEBE;
-padding : 10px;
-padding-left: 35px; padding-right: 35px;
-transition: all 0s ease 0s;
-outline:  1px;
-border-radius: 4px;
+ position: fixed;
+ right:150px;
+ bottom: 80px;
+    height: 50px;
+width: 150px;
+  background-color: #FFFFFF;
+  border: 1px solid #BEBEBE;
+  font-size:20px;
+  outline: 1px;
+  border-radius: 4px;
 }
 #btnSearch{
-background-color:  #FFFFFF;
-position: absolute; right: 130px; bottom: -5px;
-border: 1px solid  #BEBEBE;
-padding : 10px;
-transition: all 0s ease 0s;
-outline:  1px;
-height: 40px; width: 100px;
-border-radius: 4px;
+position: absolute; left: 550px;
+  background-color: #FFFFFF;
+  border: 1px solid #BEBEBE;
+  height: 40px;
+width: 100px;
+  font-size:15px;
+  outline: 1px;
+  border-radius: 4px;
 }
-select{
-background-color:  #FFFFFF;
-height: 40px; width: 130px;
+#searchList{
+height: 38px;
+width: 112px;
 border: 1px solid  #CCCCCC;
-position: absolute; right: 400px; bottom: -5px;
-transition: all 0s ease 0s;
+position: absolute; left: 200px;
+transform: none;
 outline: 1px;
 box-shadow: rgba(0, 0, 0, 0.075) 0px 1px 1px 0px inset;
-border-radius: 4px;
+border--radius: 4px;
 font-size: 16px;
-line-height: 40px;
 }
-#text{
-background-color:  #FFFFFF;
-height: 40px; width: 150px;
+
+#inputText{
+height: 40px; width: 180px;
 border: 1px solid  #CCCCCC;
-position: absolute; right: 245px; bottom: -5px;
-transition: all 0s ease 0s;
+position: absolute; left: 330px;
+transform: none;
 outline: 1px;
 box-shadow: rgba(0, 0, 0, 0.075) 0px 1px 1px 0px inset;
-border-radius: 4px;
-font-size: 16px;
-line-height: 40px;
+border--radius: 5px;
+font-size: 17px;
 color:  #CCCCCC;
+}
+#orderCondi{
+height: 38px;
+width: 100px;
+border: 1px solid  #CCCCCC;
+transform: none;
+outline: 1px;
+box-shadow: rgba(0, 0, 0, 0.075) 0px 1px 1px 0px inset;
+border--radius: 4px;
+font-size: 17px;
 }
 
 /* 인영 - 주문관리 style 끝 */
@@ -129,9 +138,10 @@ color:  #CCCCCC;
 
 <script type="text/javascript">
 	$(function() {
-		$("#text").click(function(){
-			$(this).val('');
-		});//click
+			$("#inputText").click(function(){
+				$(this).val('');
+				$(this).css('color', 'black');
+			});//click
 	});
 </script>
 </head>
@@ -144,17 +154,20 @@ color:  #CCCCCC;
 	</div>
 <div id="rightBody">
 			<div class="text" id="mainTitle">
+			
 			<strong>주문 리스트</strong>
-			<select>
+			<select id="searchList">
+				<option>주문번호</option>
 				<option>주문자명</option>
 				<option>아이디</option>
 			</select>
-			<input type="text" class="textBox" id="text" value="내용을 입력해주세요"/>
+			
+			<input type="text" class="textBox" id="inputText" value="내용을 입력해주세요"/>
 			<input type="button" class="btn" id="btnSearch" value="검색"/>
 			</div>
 			<div id="background_box">
 			<div style="margin-top : 50px; margin-left: 50px">
-			<table id="order_list">
+		<table id="order_list">
 				<tr id="top_title">
 					<th></th>
 					<th>No</th>
@@ -177,7 +190,14 @@ color:  #CCCCCC;
 					<th></th>
 					<th></th>
 					<th></th>
-					<th></th>
+					<th>
+					<select id="orderCondi">
+					<option>결제완료</option>
+					<option>주문확인</option>
+					<option>배송준비</option>
+					<option>배송중</option>
+					</select>
+					</th>
 					<th></th>
 					<th></th>
 				</tr>
@@ -286,10 +306,10 @@ color:  #CCCCCC;
 					<th></th>
 				</tr>
 			</table>
-			<input type="button" class="btn" id="btnChange" value="변경"/>
 			
 			</div>
 			</div>
+			<input type="button" class="btn" id="btnChange" value="변경"/>
 		</div>
 </div>	
 </body>
