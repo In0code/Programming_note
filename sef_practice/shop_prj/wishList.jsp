@@ -48,6 +48,7 @@ transform: none;
 transition: all 0.3s ease-in-out 0s;
 outline: rgb(255, 255, 255) dashed 0px;
 box-sizing: border-box;
+
 }
 a.btnSubmit.right.sizeL {
 /* Font & Text */
