@@ -1,0 +1,40 @@
+package kr.co.sist.member.vo;
+
+public class BoardRangeVO {
+
+	private int startNum, endNum;
+
+	public BoardRangeVO() {
+		super();
+	}
+
+	public BoardRangeVO(int startNum, int endNum) {
+		super();
+		this.startNum = startNum;
+		this.endNum = endNum;
+	}
+
+	public int getStartNum() {
+		return startNum;
+	}
+
+	public void setStartNum(int startNum) {
+		this.startNum = startNum;
+	}
+
+	public int getEndNum() {
+		return endNum;
+	}
+
+	public void setEndNum(int endNum) {
+		this.endNum = endNum;
+	}
+
+	@Override
+	public String toString() {
+		return "BoardRangeVO [startNum=" + startNum + ", endNum=" + endNum + "]";
+	}
+	
+	
+	
+}

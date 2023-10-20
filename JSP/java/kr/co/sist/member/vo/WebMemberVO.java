@@ -1,11 +1,13 @@
 package kr.co.sist.member.vo;
 
+import java.sql.Date;
 import java.util.Arrays;
 
 public class WebMemberVO {
 	private String id, password, name, birthday, cell, email, email1, email2, gender, area, 
 	zipcode, addr1, addr2, info, ip;
 	private String[] lang;
+	private Date inputDate;
 
 	public WebMemberVO() {
 
@@ -13,7 +15,7 @@ public class WebMemberVO {
 
 	public WebMemberVO(String id, String password, String name, String birthday, String cell, String email,
 			String email1, String email2, String gender, String area, String zipcode, String addr1, String addr2,
-			String info, String ip, String[] lang) {
+			String info, String ip, String[] lang, Date inputDate) {
 		super();
 		this.id = id;
 		this.password = password;
@@ -31,6 +33,7 @@ public class WebMemberVO {
 		this.info = info;
 		this.ip = ip;
 		this.lang = lang;
+		this.inputDate = inputDate;
 	}
 
 	public String getId() {
@@ -161,13 +164,23 @@ public class WebMemberVO {
 		this.lang = lang;
 	}
 
+	public Date getInputDate() {
+		return inputDate;
+	}
+
+	public void setInputDate(Date inputDate) {
+		this.inputDate = inputDate;
+	}
+
 	@Override
 	public String toString() {
 		return "WebMemberVO [id=" + id + ", password=" + password + ", name=" + name + ", birthday=" + birthday
 				+ ", cell=" + cell + ", email=" + email + ", email1=" + email1 + ", email2=" + email2 + ", gender="
 				+ gender + ", area=" + area + ", zipcode=" + zipcode + ", addr1=" + addr1 + ", addr2=" + addr2
-				+ ", info=" + info + ", ip=" + ip + ", lang=" + Arrays.toString(lang) + "]";
+				+ ", info=" + info + ", ip=" + ip + ", lang=" + Arrays.toString(lang) + ", inputDate=" + inputDate
+				+ "]";
 	}
+
 	
 	
 }

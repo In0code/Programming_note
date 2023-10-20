@@ -1,9 +1,14 @@
 package kr.co.sist.member.dao;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.sql.Clob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import kr.co.sist.dao.DbConnection;
 import kr.co.sist.member.vo.WebMemberLangVO;
@@ -121,5 +126,97 @@ public class MemberDAO {
 		}//end finally
 		
 	}// insertLang
+	
+	public WebMemberVO selectMember ( String id )throws SQLException{
+		WebMemberVO wmVO=null;
+		
+		DbConnection db=DbConnection.getInstance();
+		
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+		//1.
+		//2.
+		//3.
+			con=db.getConn("jdbc/dbcp");
+		//4.
+			StringBuilder selectMember=new StringBuilder();
+			selectMember
+			.append("	select NAME, BIRTH, TEL, EMAIL, GENDER, ZIPCODE, ADDR1, ADDR2, INFO, INPUT_DATE, IP	")
+			.append("	from WEB_MEMBER	")
+			.append("	where ID= ?	");
+			pstmt=con.prepareStatement(selectMember.toString());
+		//5.
+			pstmt.setString(1, id);
+		//6.
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				wmVO=new WebMemberVO();
+				wmVO.setId(id);
+				wmVO.setName(rs.getString("name"));
+				wmVO.setBirthday(rs.getString("BIRTH"));
+				wmVO.setCell(rs.getString("TEL"));
+				wmVO.setEmail(rs.getString("EMAIL"));
+				wmVO.setGender(rs.getString("GENDER"));
+				wmVO.setZipcode(rs.getString("ZIPCODE"));
+				wmVO.setAddr1(rs.getString("ADDR1"));
+				wmVO.setAddr2(rs.getString("ADDR2"));
+				wmVO.setInfo(rs.getString("INFO"));
+				wmVO.setInputDate(rs.getDate("INPUT_DATE"));
+				wmVO.setIp(rs.getString("IP"));
+				
+				BufferedReader br=null;
+				StringBuilder info=new StringBuilder("");
+				try {
+					Clob clob=rs.getClob("INFO");
+					if(clob != null) {
+					br=new BufferedReader(clob.getCharacterStream());
+					String temp="";
+					
+					while((temp=br.readLine()) != null) {
+						info.append(temp);
+					}//end while
+					if(br != null) { br.close(); }//end if
+					}//end if
+				}catch (IOException ie) {
+					ie.printStackTrace();
+				}//end catch
+				
+				wmVO.setInfo(info.toString());
+			}//end if
+		}finally {
+			//7.
+			db.dbClose(rs, pstmt, con);
+		}//end finally
+		return wmVO;
+	}//selectMember
+	
+	public List<String> selectLang ( String id )throws SQLException{
+		List<String> list=new ArrayList<String>();
+		
+		DbConnection db=DbConnection.getInstance();
+		
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			//1.
+			//2.
+			//3.
+			con=db.getConn("jdbc/dbcp");
+			//4.
+			//5.
+			//6.
+		}finally {
+			//7.
+			db.dbClose(rs, pstmt, con);
+		}
+		
+		
+		return list;
+	}//selectMember
 
 }// class
+;
