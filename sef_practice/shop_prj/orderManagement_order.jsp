@@ -168,6 +168,7 @@ font-size: 17px;
 			<div id="background_box">
 			<div style="margin-top : 50px; margin-left: 50px">
 		<table id="order_list">
+		<thead>
 				<tr id="top_title">
 					<th></th>
 					<th>No</th>
@@ -181,16 +182,23 @@ font-size: 17px;
 					<th>주문자명</th>
 					<th>총주문액</th>
 				</tr>
-				<tr >
-					<th><input type="checkbox"></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th>
+				</thead>
+				<tbody>
+				
+				<c:forEach var="member" items="${ memberList }" varStatus="i">
+				<tr>
+				<%-- <td><c:out value="<%= startNum++ %>"/></td> --%>
+				<td><c:out value="${ member.id }"/></td>
+				<td><a href="#void" onclick="memberDetail('${ member.id }')"><c:out value="${ member.name }"/></a></td>
+				<td><c:out value="${ member.birthday }"/></td>
+				<td><c:out value="${ member.cell }"/></td>
+				<td><c:out value="${ member.email }"/></td>
+				<td><c:out value="${ member.gender eq 1?'남자':'여자' }"/></td>
+				<td><fmt:formatDate value="${ member.inputDate }" pattern="yyyy-MM-dd HH:mm"/></td>
+				</tr>
+				</c:forEach>
+				<!-- 
+				<th>
 					<select id="orderCondi">
 					<option>결제완료</option>
 					<option>주문확인</option>
@@ -198,113 +206,9 @@ font-size: 17px;
 					<option>배송중</option>
 					</select>
 					</th>
-					<th></th>
-					<th></th>
-				</tr>
-				<tr >
-					<th><input type="checkbox"></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-				</tr>
-				<tr >
-					<th><input type="checkbox"></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-				</tr>
-				<tr >
-					<th><input type="checkbox"></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-				</tr>
-				<tr >
-					<th><input type="checkbox"></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-				</tr>
-				<tr >
-					<th><input type="checkbox"></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-				</tr>
-				<tr >
-					<th><input type="checkbox"></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-				</tr>
-				<tr >
-					<th><input type="checkbox"></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-				</tr>
-				<tr >
-					<th><input type="checkbox"></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-				</tr>
+				 -->
+				</tbody>
+				
 			</table>
 			
 			</div>

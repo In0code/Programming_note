@@ -1,22 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ page info="" %>
-    <jsp:include page="cdn.jsp"/>
+<jsp:include page="cdn.jsp"/>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&amp;display=swap" rel="stylesheet"/>
 
-
-<link rel="stylesheet" type="text/css" href="//img.echosting.cafe24.com/editors/froala/css/froala_style_ec.min.css?vs=2310111247" charset="utf-8"/>
-<link rel="stylesheet" type="text/css" href="https://www.afterblow-scent.com//ind-script/optimizer.php?filename=nZExDgIxDAT7KC3vsOAJPIEfOMFwJxJv5DgS_J6jggYJ0o52doulBVVofzBqhqtxJZOOYVko904Xgzpl1AqNG9jRL3nJoaMMX6Eh4T4pDvfZ0cIPsTnVORWZVNFCWVVCYtWv-9waHcF2ptNn3YZjeuGYCvJtVjZpMP_Pft_7BA&type=css&k=ecd691e0c80070ef935d0e961272742f67437a3c&t=1681776733"  />
-<link rel="stylesheet" type="text/css" href="https://www.afterblow-scent.com//ind-script/optimizer_user.php?filename=tZVRTkQhDEX_B39dRxPjQkxcQSmdRzNACYVRdy_RiS7gwSe0OaWXcoGomYHJDeNmgNfOzSf9gDp8EnKx5wQW2AU2OQrYTcorkBlkDSMxeMUWIIn1N6QbHvw0g8-wBmuMjeJKImHnrPelp7yOQl20nGAm_NLRwaMJ_RQgzXkt8XdjJZHpMhd8GbKD2lVTl7oDHTlt4dY2x4K2aFzxkDJnd4vS6Hdg_eh97Qj_kfVzkw5pi8Azi04aTuCOkpZAXk5S0M8uXdU6tjyiGeC2xp4fNfKYRmJR63uUWqUcS-mk5T4B0__r2UuOjOF07w8Tcv9_5zc&type=css&k=1cf7bf9104f439c2319ffe078ce73e719637e27b&t=1641537240&user=T"  />
-
 <style type="text/css">
-p{
+#cart{
 /* Font & Text */
 font-family: Roboto, "Noto Sans KR", "malgun gothic", 맑은고딕, NanumGothic, dotum, 돋움, sans-serif;
 font-size: 13px;
@@ -118,9 +112,9 @@ $(function(){
 <div class="xans-element- xans-order xans-order-basketpackage "><div class="xans-element- xans-order xans-order-tabinfo ec-base-tab typeLight "><ul class="menu">
 <li class="selected "><a href="/order/basket.html">국내배송상품 (0)</a></li>
         </ul>
-<p class="right displaynone">장바구니에 담긴 상품은 7일 동안 보관됩니다.</p>
+<p id="cart" class="right displaynone">장바구니에 담긴 상품은 7일 동안 보관됩니다.</p>
 </div>
-<div class="xans-element- xans-order xans-order-empty "><p>장바구니가 비어 있습니다.</p>
+<div class="xans-element- xans-order xans-order-empty "><p  id="cart">장바구니가 비어 있습니다.</p>
 </div>
 <div class="orderListArea ec-base-table typeList gBorder">
         
