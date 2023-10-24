@@ -185,6 +185,7 @@ font-size: 17px;
 				</thead>
 				<tbody>
 				
+				
 				<c:forEach var="member" items="${ memberList }" varStatus="i">
 				<tr>
 				<%-- <td><c:out value="<%= startNum++ %>"/></td> --%>
