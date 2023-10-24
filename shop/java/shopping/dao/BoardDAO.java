@@ -40,11 +40,10 @@ public class BoardDAO {
 		try {
 			con = db.getConn("jdbc/dbcp");
 			
-			String selectCount = "SELECT COUNT(*) CNT FROM = ? ";
+			String selectCount = "SELECT COUNT(*) CNT FROM  "+ brVO.getTableName() ;
 			
 			pstmt = con.prepareStatement(selectCount);
 			
-			pstmt.setString(1, brVO.getTableName());
 			/*
 			 * StringBuilder selectCount = new StringBuilder();
 			 * selectCount.append("SELECT COUNT(*) CNT FROM ?");

@@ -150,9 +150,9 @@ public class OrderProcessDAO {
 			//4.
 			StringBuilder updateShipPro=new StringBuilder();
 			updateShipPro
-			.append("		")
-			.append("		")
-			.append("		");
+			.append("	update UORDER	")
+			.append("	set  DLVY_PRO=	")
+			.append("	where    DLVY_PRO= ? and  id= ?  ");
 			
 			pstmt=con.prepareStatement(updateShipPro.toString());
 			//5.

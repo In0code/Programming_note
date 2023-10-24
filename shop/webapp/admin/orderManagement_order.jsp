@@ -57,15 +57,16 @@ $(function() {
 </head>
 <body>
 <%
-/* BoardDAO bDAO=BoardDAO.getInstance();
+BoardDAO bDAO=BoardDAO.getInstance();
 BoardRangeVO brVO=new BoardRangeVO();
 
 String field=request.getParameter("field");
 String keyword=request.getParameter("keyword");
-String tableName="";
+String tableName="UORDER";
 
 brVO.setField(field);
 brVO.setKeyword(keyword);
+brVO.setTableName(tableName);
 
 int totalCount=bDAO.totalCount(brVO);
 
@@ -87,7 +88,7 @@ pageContext.setAttribute("startNum", startNum);
 int endNum=startNum+pageScale-1;
 
 brVO.setStartNum(startNum);
-brVO.setEndNum(endNum); */
+brVO.setEndNum(endNum); 
 
 int deliveryPrice=2500;
 
@@ -96,6 +97,7 @@ try{
 List<OrderVO> list=opDAO.selectAllOrder();
 
 pageContext.setAttribute("orderList", list);
+pageContext.setAttribute("deliveryPrice", deliveryPrice);
 }catch(SQLException se){
 	se.printStackTrace();
 }//end catch
@@ -153,17 +155,22 @@ pageContext.setAttribute("orderList", list);
 				
 				<c:forEach var="order" items="${ orderList }" varStatus="i">
 				<tr>
-				<%-- <td><c:out value="${  }"/></td> --%>
+				 <td><c:out value="<%=startNum++ %>"/></td> 
 				<td><c:out value="${ order.date }"/></td>
 				<td><c:out value="${ order.orderNo }"/></td>
 				<td><c:out value="${ order.productName }"/></td>
 				<td><c:out value="${ order.amount }"/></td>
 				<td><c:out value="${ order.price }"/></td>
-				<td><c:out value="${ order.amount }"/></td>
 				<td><c:out value="<%= deliveryPrice %>"/></td>
-				<td><c:out value="${ order.orderStatus }"/></td>
+				<td>
+				 <select name="statuslist" style="border: 1px solid #CCCCCC; border-radius: 5px; font-size: 18px; height: 30px;">
+					<option>결제완료</option>
+					<option>배송중</option>
+					<option>배송완료</option> 
+				</select> 
+				</td>
 				<td><c:out value="${ order.userName }"/></td>
-			<%-- 	<td><c:out value="${ order.price } <%= + deliveryPrice %>"/></td> --%>
+			 	<td><c:out value="${ order.price + deliveryPrice }"/></td> 
 				</tr>
 				</c:forEach>
 			</table>
