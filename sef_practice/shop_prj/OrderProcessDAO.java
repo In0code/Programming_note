@@ -49,7 +49,7 @@ public class OrderProcessDAO {
 		//4. 쿼리문 생성 객체 얻기
 			StringBuilder selectAllOrder=new StringBuilder();
 			selectAllOrder
-			.append("		")
+			.append("	select	")
 			.append("		")
 			.append("		");
 			
