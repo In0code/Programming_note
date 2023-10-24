@@ -1,3 +1,5 @@
+<%@page import="kr.co.sist.util.BoardUtil"%>
+<%@page import="kr.co.sist.member.vo.BoardUtilVO"%>
 <%@page import="kr.co.sist.util.cipher.DataDecrypt"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="kr.co.sist.member.vo.BoardRangeVO"%>
@@ -30,7 +32,35 @@ $(function(){
    $("#btn").click(function(){
 	   $("#frm").submit();
    });//click
+   
+   $("#btnSearch").click(function(){
+	   chkNull();
+   });//click
+   
+   $("#keyword").keyup(function(evt){ //keyup은 값을 받을 수 있음
+	   if(evt.which == 13){ //enter는 13번
+		   chkNull();
+	   }//end if
+   });//keyup
+   
 });//ready
+
+function chkNull(){
+	var keyword=$("#keyword").val();
+	
+	if(keyword.trim() == "" ){
+		alert("검색 키워드를 입력해주세요.");
+		return;
+	}//end if
+	
+	//글자수 제한
+	
+	//
+	
+	$("#frmSearch").submit();
+	
+	
+}//chkNull
 
 function memberDetail( id ){
 
@@ -44,10 +74,20 @@ function memberDetail( id ){
 <body>
 <%
 BoardDAO bDAO=BoardDAO.getInstance();
-//1. 총 레코드의 수
-int totalCount=bDAO.totalCount();
+BoardRangeVO brVO=new BoardRangeVO();
+
+String field=request.getParameter("field");
+String keyword=request.getParameter("keyword");
+//페이지가 최초 호출시에는 field나 keyword가 없다. 검색을 하지 않는 경우에도 값이 없음
+brVO.setField(field);
+brVO.setKeyword(keyword);
+
+//1. 총 레코드의 수 -> 검색 키워드에 해당하는 총 레코드의 수
+/* int totalCount=bDAO.totalCount(); */
+int totalCount=bDAO.totalCount( brVO ); 
+
 //2. 한 화면에 보여줄 게시물의 수
-int pageScale=5;
+int pageScale=10;
 //3. 총 페이지 수
 int totalPage=0;
 
@@ -66,10 +106,14 @@ if(tempPage != null){
 }//end if
 
 int startNum=currentPage*pageScale-pageScale+1;
-
+pageContext.setAttribute("startNum", startNum);
 
 //끝페이지 번호 구하기
 int endNum=startNum+pageScale-1;
+
+//Dynamic Query에 의해서 구해진 시작번호화 끝 번호를 VO에 넣는다
+brVO.setStartNum(startNum);
+brVO.setEndNum(endNum);
 
 %>
 총 레코드의 수 : <%=totalCount %>건<br/>
@@ -80,7 +124,6 @@ int endNum=startNum+pageScale-1;
 끝 번호 : <%=endNum %><br/>
 
 <%
-BoardRangeVO brVO=new BoardRangeVO(startNum,endNum);
 try{
 List<WebMemberVO> list=bDAO.selectMember(brVO);
 
@@ -120,6 +163,7 @@ pageContext.setAttribute("memberList", list);
 <form action="../day1020/member_detail.jsp" method="post" id="hidFrm">
 <input type="hidden" name="id" id="id"/>
 </form>
+<a href="member_list.jsp?dataFlag=1" class="btn btn-warning">전체보기</a>
 <table class="table">
 <thead>
 <tr>
@@ -158,11 +202,35 @@ pageContext.setAttribute("memberList", list);
 
 </table>
 </div>
+<%-- ${param.blood eq 'a'? " selected='selected'" : "" --%>
+<div style="text-align: center; ">
+<form name="frmSearch" id="frmSearch" action="member_list.jsp" method="get">
+<select name="field">
+<option value="1" ${ param.field eq '1' ?" selected='selected'":"" }>아이디</option>
+<option value="2" ${ param.field eq '2' ?" selected='selected'":"" }>주소</option>
+<option value="3" ${ param.field eq '3' ?" selected='selected'":"" }>소개</option>
+</select>
+<input type="text" name="keyword" id="keyword" class="inputBox" value="${ param.keyword ne 'null'? param.keyword:'' }"/>
+<input type="text" style="display:none;"/> <!-- 엔터를 쳐도 요청이 안되게 하나 더 넣어준다  -->
+<input type="hidden" name="dataFlag" value="1"/>
+<input type="button" value="btnSearch" id="btnSearch" class="btn btn-info"/>
+
+
+</form>
+</div>
 
 <br>
-<%for(int i=1; i < totalPage+1; i++){ %>
-   [ <a href="member_list.jsp?currentPage=<%= i %>"> <%= i %></a> ]
-<%} %>
+<div style="text-align: center;">
+
+<%--  <%for(int i=1; i < totalPage+1; i++){ %>
+   [ <a href="member_list.jsp?currentPage=<%= i %>&dataFlag=1&keyword=${ param.keyword }&field=${ param.field }"> <%= i %></a> ]
+<%} %>  --%>
+<%
+String dataFlag=request.getParameter("dataFlag");
+BoardUtilVO buVO=new BoardUtilVO("member_list.jsp",dataFlag,keyword,field,currentPage,totalPage);
+out.println(BoardUtil.getInstance().pageNation(buVO));
+%>
+</div>
 
 </body>
 </html>
