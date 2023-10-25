@@ -84,7 +84,13 @@ public class BoardDAO {
 			.append(brVO.getTableName());
 			
 			if(keyword!=null && !"".equals(keyword) && !"null".equals(keyword)) {
-				String field = "1".equals(brVO.getField()) ? "id" : "gname";
+				String field = "id";
+				if("2".equals(brVO.getField())) {
+					field = "gname";
+				}
+				if("3".equals(brVO.getField())) {
+					field = "cat_name";
+				}
 				
 				selectCount.append("where ").append(field).append(" like '%'||?||'%'");
 			}
