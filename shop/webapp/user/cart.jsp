@@ -14,7 +14,7 @@ font-family: Roboto, "Noto Sans KR", "malgun gothic", 맑은고딕, NanumGothic,
 font-size: 13px;
 line-height: 20px;
 text-decoration: none solid rgb(153, 153, 153);
-text-align: center; 
+text-align: center;
 word-spacing: 0px;
 /* Color & Background */
 background-color:  #FFFFFF;
@@ -100,37 +100,30 @@ $(function(){
 </head>
 <body>
 <%@ include file="layout/header.jsp"%>
-<%-- <%
-WishListDAO wlDAO=WishListDAO.getInstance();
-WishListVO wlVO=new WishListVO();
+<%-- 
+<%
+BoardDAO bDAO=BoardDAO.getInstance();
+BoardRangeVO brVO=new BoardRangeVO();
 
 String field=request.getParameter("field");
 String keyword=request.getParameter("keyword");
-//페이지가 최초 호출시에는 field나 keyword가 없다. 검색을 하지 않는 경우에도 값이 없음
+String tableName="UORDER";
+
 brVO.setField(field);
 brVO.setKeyword(keyword);
+brVO.setTableName(tableName);
 
-//1. 총 레코드의 수 -> 검색 키워드에 해당하는 총 레코드의 수
-/* int totalCount=bDAO.totalCount(); */
-int totalCount=bDAO.totalCount( brVO ); 
+int totalCount=bDAO.totalCount(brVO);
 
-//2. 한 화면에 보여줄 게시물의 수
-int pageScale=10;
-//3. 총 페이지 수
-int totalPage=0;
+int pageScale=10; // 한 화면에 보여줄 게시물의 수
+int totalPage=0; // 총 페이지 수
 
 totalPage=(int)Math.ceil(totalCount/pageScale);
-//int totalPage=totalCount/pageScale;
-//딱 떨어지지 않은 경우 1장 더 추가
-//if(totalCount % pageScale != 0){
-//   totalPage++;
-//}
 
-//현재페이지의 시작번호 구하기
 String tempPage=request.getParameter("currentPage");
 int currentPage=1;
 if(tempPage != null){
-   currentPage=Integer.parseInt(tempPage);
+	currentPage=Integer.parseInt(tempPage);
 }//end if
 
 int startNum=currentPage*pageScale-pageScale+1;
@@ -139,42 +132,24 @@ pageContext.setAttribute("startNum", startNum);
 //끝페이지 번호 구하기
 int endNum=startNum+pageScale-1;
 
-//Dynamic Query에 의해서 구해진 시작번호화 끝 번호를 VO에 넣는다
 brVO.setStartNum(startNum);
-brVO.setEndNum(endNum);
+brVO.setEndNum(endNum); 
+
+int deliveryPrice=2500;
 
 try{
-List<WebMemberVO> list=bDAO.selectMember(brVO);
+	OrderProcessDAO opDAO=OrderProcessDAO.getInstance();
+List<RecallVO> list=opDAO.selectRecallAllOrder();
 
-//관리자 : 1011kiy111 - 권한있음 / 1011kiy222 권한 없음
-String id=(String)session.getAttribute("sesId");
-if("1".equals(request.getParameter("dataFlag"))){
-	if("1011kiy111".equals(id)){
-		DataDecrypt dd=new DataDecrypt("a12345678901234567");
-		
-		for(int i=0; i<list.size(); i++){
-			list.get(i).setName(dd.decryption(list.get(i).getName()));
-			list.get(i).setCell (dd.decryption(list.get(i).getCell()));
-			list.get(i).setEmail(dd.decryption(list.get(i).getEmail()));
-		}//end for
-		
-	}//end if
-	if("1011kiy222".equals(id)){
-		%>
-		<script type="text/javascript">
-		alert("해당계정은 권한이 없습니다");
-		</script>
-		<%
-	}//end if
-}//end if
-
-pageContext.setAttribute("memberList", list);
+pageContext.setAttribute("recallList", list);
+pageContext.setAttribute("deliveryPrice", deliveryPrice);
 }catch(SQLException se){
 	se.printStackTrace();
 }//end catch
-%> --%>
+%>
+--%>
 
-<div id="pageTitle">관심상품</div><br>
+<div id="pageTitle">장바구니</div><br>
 <div id="container">
 <div id="contents">
 <div>
@@ -185,31 +160,44 @@ pageContext.setAttribute("memberList", list);
 <th style="width:100px; text-align: left; color: #929492;">이미지</th>
 <th style="width:350px;  text-align: center; color: #929492">상품정보</th>
 <th style="width:350px;  text-align: center;color: #929492">판매가</th>
+<th style="width:350px;  text-align: center;color: #929492">수량</th>
 <th style="width:100px;  color: #929492">배송비</th>
 <th style="width:100px ;text-align: right; color: #929492">합계</th>
 <th style="width:100px; text-align: right;color: #929492">선택</th>
 </tr>
 </thead>
 <tbody>
-
 <c:if test="${ empty memberList }">
 <tr>
 <td colspan="8" style="text-align: center; color: #929492">회원정보가 존재하지 않습니다</td>
 </tr>
 </c:if>
 
-<%-- <c:forEach var="member" items="${ memberList }" varStatus="i">
-<tr>
-<td><c:out value="<%= startNum++ %>"/></td>
-<td><c:out value="${ member.id }"/></td>
-<td><a href="#void" onclick="memberDetail('${ member.id }')"><c:out value="${ member.name }"/></a></td>
-<td><c:out value="${ member.birthday }"/></td>
-<td><c:out value="${ member.cell }"/></td>
-<td><c:out value="${ member.email }"/></td>
-<td><c:out value="${ member.gender eq 1?'남자':'여자' }"/></td>
-<td><fmt:formatDate value="${ member.inputDate }" pattern="yyyy-MM-dd HH:mm"/></td> 
-</tr>
-</c:forEach> 
+<%-- 
+			<c:forEach var="recall" items="${ recallList }" varStatus="i">
+				<tr>
+				 <td><input type="checkbox"></td> 
+				 <td><c:out value="<%=startNum++ %>"/></td> 
+				<td><c:out value="${ recall.orderNum }"/></td>
+				<td><c:out value="${ recall.userName }"/></td>
+				<td><c:out value="${ recall.date }"/></td>
+				<td><c:out value=""/></td>
+				<td><c:out value="${ recall.productName }"/></td>
+				<td><c:out value="${ recall.quantity }"/></td>
+				<td><c:out value="${ recall.price }"/></td>
+				<td><c:out value="<%= deliveryPrice %>"/></td>
+			 	<td><c:out value="${ recall.price + deliveryPrice }"/></td> 
+				<td>
+				 <select name="statuslist" style="border: 1px solid #CCCCCC; border-radius: 5px; font-size: 18px; height: 30px;">
+					<option>반품신청</option>
+					<option>처리중</option>
+					<option>반품완료</option> 
+					<option>교환신청</option> 
+					<option>교환완료</option> 
+				</select> 
+				</td>
+				</tr>
+				</c:forEach>--%>
 </tbody>
 
 </table>
