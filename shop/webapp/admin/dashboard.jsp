@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ page info=""%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:if test="${ empty adminId }">
+	<c:redirect url="http://localhost/prj_web_shopping/admin/login.jsp"/>
+</c:if>
 <!DOCTYPE html>
 <html>
 <head>

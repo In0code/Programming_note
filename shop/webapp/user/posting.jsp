@@ -30,9 +30,9 @@ $(function() {
 <body>
 <%@include file="layout/header.jsp" %>
 
-<%@page import="summary.vo.SummaryVO"%>
+<%@page import="user.vo.SummaryVO"%>
 <%@page import="java.util.List"%>
-<%@page import="userReview.dao.UserReviewDAO"%>
+<%@page import="admin.dao.UserReviewDAO"%>
 <%@page import="java.sql.SQLException"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -54,7 +54,7 @@ $(function(){
 </head>
 <body>
 
-<jsp:useBean id="sVO" class="summary.vo.SummaryVO" scope="page"></jsp:useBean> 
+<jsp:useBean id="sVO" class="user.vo.SummaryVO" scope="page"></jsp:useBean> 
 <jsp:setProperty property="*" name="sVO"/>
 
 
@@ -109,7 +109,7 @@ try{
 </form>        
 </div>
 <div class="xans-element- xans-myshop xans-myshop-boardlist ec-base-table typeList gBorder gBlank10">
-        
+
 <table border="1" summary="">
 <caption>게시물 관리 목록</caption>
         <colgroup class="xans-element- xans-board xans-board-listheader-1002 xans-board-listheader xans-board-1002 "><col style="width:70px;"/>
@@ -130,31 +130,37 @@ try{
 </tr>
 </thead>
             
-       
+     
 <tbody style="text-align: center">
        <c:if test="${ empty reviewList}">
        <p class="message ">작성한 게시물이 없습니다.</p>
        </c:if>
+      
 <c:forEach var="review" items="${reviewList}" varStatus="i">
-<tr >
+
+			<tr>
                 <td><span class="txtNum"><c:out value="${i.count}"/></span></td>
-                <td><span class="txtNum"><c:out value="${review.category}" /></span></td>
-                <td><span class="txtNum"><c:out value="${review.review}" /></span></td>
-                <td><span class="txtNum"><c:out value="${review.name}" /></span></td>
-                <td><span class="txtNum"><c:out value="${review.reviewDate}" /></span></td>
-                <td><span class="txtNum"><c:out value="${review.view}" /></span></td>
+                <td><span class="txtNum"><a href="review_manage.jsp?rcode=${review.rcode }" 
+	onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.category}" /></a></span></td>
+                <td><span class="txtNum">     <a href="review_manage.jsp?rcode=${review.rcode }" 
+	onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.review}" /></a>  </span></td>
+                <td><span class="txtNum"><a href="review_manage.jsp?rcode=${review.rcode }" 
+	onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.name}" /></a></span></td>
+                <td><span class="txtNum"><a href="review_manage.jsp?rcode=${review.rcode }" 
+	onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.reviewDate}" /></a></span></td>
+                <td><span class="txtNum"><a href="review_manage.jsp?rcode=${review.rcode }" 
+	onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.view}" /></a></span></td>
+                
+                
             </tr>
             </c:forEach>
 </tbody>
+
 </table>
+           
 
-
-<input type="button" value="리뷰작성" name="btn" id="btn">
 </div>
 </div>
-
-
-
 </div>   
 </div>  
 </div>   

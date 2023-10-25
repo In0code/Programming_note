@@ -48,35 +48,7 @@ $(function() {
 	$("#btnLogout").click(function() {
 		location.href="logout.jsp";
 	});
-	
-	$("#btnSearch").click(function() {
-		chkNull();
-	});
-	
-	$("#keyword").keyup(function(evt) {
-		if(evt.which == 13){
-			chkNull();
-		}//end if
-	});//keyup
 });
-
-function chkNull() {
-	var keyword = $("#keyword").val();
-	if(keyword.trim() == ""){
-		alert("검색 키워드를 입력해주세요.");
-		return;
-	}//end if
-	
-	//글자 수 제한
-	
-	//모두 통과했으면 submit
-	$("#frmSearch").submit();
-}
-
-function boardDetail(rcode){
-	$("#rcode").val(rcode);
-	$("#frmDetail").submit();
-}
 </script>
 </head>
 <body>
@@ -146,27 +118,9 @@ function boardDetail(rcode){
 	<div id="rightBody">
 		<!-- 타이틀  -->
 		<div class="text" id="mainTitle">		
-			<strong>리뷰 리스트</strong>
+			<strong>&lt; 리뷰</strong>
 		</div>
-		
-		<!-- 검색 -->
-		<div class="searchDiv">
-		<form id="frmSearch">
-			<select class="searchList" id="field" name="field">
-				<option value="1"${ param.field eq "1" ? " selected='selected'" : "" }>아이디</option>
-				<option value="2"${ param.field eq "2" ? " selected='selected'" : "" }>상품명</option>
-			</select>
-			<input type="text" class="textBox" id="keyword" name="keyword" placeholder="내용을 입력해주세요"
-			value = "${ not empty param.keyword ? param.keyword : ''}"/>
-			<input type="button" id="btnSearch" value="검색"/>
-		</form>
-		</div>
-		
-		<!-- 리뷰 상세보기 페이지로 -->
-		<form id="frmDetail" action="board_detail.jsp">
-			<input type="hidden" id="rcode" name="rcode"/>
-		</form>
-		
+
 		<div id="background_box">
 			<div style="margin: 10px; text-align: center;">
 			<!-- 리스트 시작 -->
@@ -183,14 +137,6 @@ function boardDetail(rcode){
 				</thead>
 				
 				<tbody>
-					<!-- list가 존재하지 않을 경우 -->
-					<c:if test="${ empty reviewList }">
-					<tr>
-						<td colspan="8" style="text-align: center;"> 
-							리뷰가 존재하지 않습니다. </td>
-					</tr>
-					</c:if>
-				
 					<c:forEach var="review" items="${ reviewList }" varStatus="i">
 					<tr onclick="boardDetail(${ review.rcode })">
 						<td>${ startNum + i.index }</td>
@@ -207,22 +153,8 @@ function boardDetail(rcode){
 				</tbody>
 			</table>
 			</div>
+			
 		</div>
-		
-		<!-- 페이지네이션 -->
-		<div class="pagenationDiv">
-			<div class="pagination">
- 				<a href="#">&laquo;</a>
-  				<a href="#">1</a>
-  				<a href="#" class="active">2</a>
-  				<a href="#">3</a>
-  				<a href="#">&raquo;</a>
-			</div>
-		</div>
-		
-		<% if(request.getParameter("keyword") != null) 
-			out.print("<a href='boardManagement.jsp'><input type='button' id='btnList' value='목록'/></a>");
-		%>
 	</div>
 </div>	
 </body>

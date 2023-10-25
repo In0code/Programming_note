@@ -1,3 +1,10 @@
+<%@page import="admin.vo.RecallVO"%>
+<%@page import="admin.vo.BoardRangeVO"%>
+<%@page import="common.dao.BoardDAO"%>
+<%@page import="java.sql.SQLException"%>
+<%@page import="admin.vo.OrderVO"%>
+<%@page import="java.util.List"%>
+<%@page import="admin.dao.OrderProcessDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page info=""%>
@@ -48,6 +55,53 @@ $(function() {
 </script>
 </head>
 <body>
+<%
+BoardDAO bDAO=BoardDAO.getInstance();
+BoardRangeVO brVO=new BoardRangeVO();
+
+String field=request.getParameter("field");
+String keyword=request.getParameter("keyword");
+String tableName="UORDER";
+
+brVO.setField(field);
+brVO.setKeyword(keyword);
+brVO.setTableName(tableName);
+
+int totalCount=bDAO.totalCount(brVO);
+
+int pageScale=10; // 한 화면에 보여줄 게시물의 수
+int totalPage=0; // 총 페이지 수
+
+totalPage=(int)Math.ceil(totalCount/pageScale);
+
+String tempPage=request.getParameter("currentPage");
+int currentPage=1;
+if(tempPage != null){
+	currentPage=Integer.parseInt(tempPage);
+}//end if
+
+int startNum=currentPage*pageScale-pageScale+1;
+pageContext.setAttribute("startNum", startNum);
+
+//끝페이지 번호 구하기
+int endNum=startNum+pageScale-1;
+
+brVO.setStartNum(startNum);
+brVO.setEndNum(endNum); 
+
+int deliveryPrice=2500;
+
+try{
+	OrderProcessDAO opDAO=OrderProcessDAO.getInstance();
+List<RecallVO> list=opDAO.selectRecallAllOrder();
+
+pageContext.setAttribute("recallList", list);
+pageContext.setAttribute("deliveryPrice", deliveryPrice);
+}catch(SQLException se){
+	se.printStackTrace();
+}//end catch
+%>
+
 <%@ include file="sidebar.jsp" %>
 <div id="right">
 	<div id="rightHeader" align="right">
@@ -63,7 +117,7 @@ $(function() {
 		<!-- 검색 -->
 		<form id="searchFrm" action="">
 		<div class="searchDiv">
-			<select id="searchList">
+			<select id="field" class="searchList">
 				<option>주문번호</option>
 				<option>주문자명</option>
 				<option>아이디</option>
@@ -79,148 +133,49 @@ $(function() {
 			<table id="order_list" class="table tableList">
 				<tr id="top_title">
 					<!-- 컬럼 사이즈 -->
-				<th style="width:170px">No</th>
-					<th style="width:250px">주문번호</th>
+				<th style="width:100px"></th>
+				<th style="width:150px">No</th>
+					<th style="width:150px">주문번호</th>
 					<th style="width:230px">주문자명</th>
 					<th style="width:230px">주문일시</th>
-					<th style="width:200px">교환/반품 일시</th>
-					<th style="width:200px">상품명</th>
+					<th style="width:230px">교환/반품 일시</th>
+					<th style="width:230px">상품명</th>
 					<th style="width:200px">수량</th>
 					<th style="width:200px">가격정보</th>
 					<th style="width:200px">배송비</th>
 					<th style="width:200px">총 주문액</th>
 					<th style="width:200px">총 처리상태</th>
 				</tr>
+				<c:if test="${ empty recallList }">
 				<tr>
-					<td>1</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
+				<td colspan="10" style="text-align: center;">회원정보가 존재하지 않습니다</td>
 				</tr>
+				</c:if>
+				
+				<c:forEach var="recall" items="${ recallList }" varStatus="i">
 				<tr>
-					<td>2</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
+				 <td><input type="checkbox"></td> 
+				 <td><c:out value="<%=startNum++ %>"/></td> 
+				<td><c:out value="${ recall.orderNum }"/></td>
+				<td><c:out value="${ recall.userName }"/></td>
+				<td><c:out value="${ recall.date }"/></td>
+				<td><c:out value=""/></td>
+				<td><c:out value="${ recall.productName }"/></td>
+				<td><c:out value="${ recall.quantity }"/></td>
+				<td><c:out value="${ recall.price }"/></td>
+				<td><c:out value="<%= deliveryPrice %>"/></td>
+			 	<td><c:out value="${ recall.price + deliveryPrice }"/></td> 
+				<td>
+				 <select name="statuslist" style="border: 1px solid #CCCCCC; border-radius: 5px; font-size: 18px; height: 30px;">
+					<option>반품신청</option>
+					<option>처리중</option>
+					<option>반품완료</option> 
+					<option>교환신청</option> 
+					<option>교환완료</option> 
+				</select> 
+				</td>
 				</tr>
-				<tr>
-					<td>3</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>4</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>5</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>6</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>7</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>8</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>9</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>10</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
+				</c:forEach>
 			</table>
 			</div>
 		</div>

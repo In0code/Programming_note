@@ -1,16 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% String adminId = (String)session.getAttribute("adminId");
-if((adminId != null) ){
-	response.sendRedirect("admin_display.jsp");
-	return;
-}
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:if test="${ not empty adminId }">
+	<c:redirect url="dashboard.jsp"/>
+</c:if>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>관리자 페이지</title>
+<title>Chérie Admin</title>
 <link rel="icon" href="http://192.168.10.136/cherie_ysy_private/common/images/favicon.png"/>
 <meta name="theme-color" content="#712cf9">
 <script src="/docs/5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
@@ -54,27 +52,28 @@ body {
 
 <script type="text/javascript">
 $(function() {
-    $("#adminId").keydown(function( evt ){
+    $("#adminId").keydown(function(evt){
         if(evt.which == 13){
-            checkNull();
+            checkValue();
         }//end if
     });//end keydown
 
-    $("#adminPass").keydown(function( evt ){
+    $("#adminPass").keydown(function(evt){
         if(evt.which == 13){
-            checkNull();
+            if(checkValue()){
+            	$("#adminLoginFrm").submit();
+            }
         }//end if
     });//end keydown
 
     $("#loginBtn").click(function(){
-        if(checkNull()){
+        if(checkValue()){
 	        $("#adminLoginFrm").submit();
         }
     });//end click
-	
 });//ready
 
-function checkNull(){
+function checkValue(){
 	var id=$("#adminId").val();
 	var pass=$("#adminPass").val();
 
@@ -82,7 +81,7 @@ function checkNull(){
 	if(id.replace(/ /g,"") == ""){
 	    $("#warginDiv").html("<span style='color:red'>아이디를 입력해주세요.</span>");
 	    $("#adminId").val("");
-	    return false;
+	    return;
 	}
 
 	$("#adminPass").focus();
@@ -134,7 +133,7 @@ if(cookies != null){
     </div>
     
     <div class="form-check text-start my-3">
-      <input class="form-check-input" type="checkbox" value="save" id="idSave" name="idSave" ${ adminIdValue ne null ? "checked='checked'" : ""}>
+      <input class="form-check-input" type="checkbox" value="save" id="idSave" name="idSave" ${ not empty adminIdValue ? "checked='checked'" : ""}>
       <!-- ${ not empty adminIdValue or param.adminId ? " checked='checked'" : "" } -->
       <label class="form-check-label" for="flexCheckDefault">
         아이디 저장

@@ -1,8 +1,8 @@
-<%@page import="shopping.vo.BoardRangeVO"%>
+<%@page import="admin.vo.BoardRangeVO"%>
 <%@page import="java.sql.SQLException"%>
-<%@page import="shopping.dao.OrderProcessDAO"%>
-<%@page import="shopping.dao.BoardDAO"%>
-<%@page import="shopping.vo.OrderVO"%>
+<%@page import="admin.dao.OrderProcessDAO"%>
+<%@page import="common.dao.BoardDAO"%>
+<%@page import="admin.vo.OrderVO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -120,7 +120,7 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 		<!-- 검색 -->
 		<form id="searchFrm" action="">
 		<div class="searchDiv">
-			<select id="searchList">
+			<select id="field" class="searchList">
 				<option>주문번호</option>
 				<option>주문자명</option>
 				<option>아이디</option>
@@ -136,6 +136,7 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 			<table id="order_list" class="table tableList">
 				<tr id="top_title">
 					<!-- 컬럼 사이즈 -->
+					<th style="width:100px"></th>
 					<th style="width:170px">No</th>
 					<th style="width:250px">주문일시</th>
 					<th style="width:230px">주문번호</th>
@@ -155,6 +156,7 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 				
 				<c:forEach var="order" items="${ orderList }" varStatus="i">
 				<tr>
+				<td><input type="checkbox"></td> 
 				 <td><c:out value="<%=startNum++ %>"/></td> 
 				<td><c:out value="${ order.date }"/></td>
 				<td><c:out value="${ order.orderNo }"/></td>

@@ -44,6 +44,15 @@ td {
 	height: 50px;
 }
 
+.searchList{
+	height: 45px;
+	width: 108px;
+	border: 1px solid #CCCCCC;
+	position: absolute; left: 244px;
+	border-radius: 5px;
+	font-size: 18px;
+}
+
 #searchList{
 	height: 45px;
 	width: 108px;
@@ -76,6 +85,18 @@ font-size: 18px;
 }
 
 #btnChange{
+  position: relative;
+  left: 1359px;
+  top: 680px;
+  height: 60px;
+  width: 135px;
+  background-color: #FFFFFF;
+  border: 1px solid #BEBEBE;
+  font-size:20px;
+  border-radius: 10px;
+}
+
+#btnList {
   position: relative;
   left: 1359px;
   top: 680px;

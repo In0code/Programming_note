@@ -32,20 +32,22 @@ margin-bottom: 30px;
 
 text-align: center;
 margin-top: 100px;
-margin-left: 12em;
+margin-left: 13.2em;
 }
 .subTitle{
-padding-top: 11px;
+padding-top: 5px;
 font-size: 16px;
 min-width: 90px;
+margin-right: 0px;
 }
 .cardNum{
  float: left;
  width: 70px;
  margin: 10px;
+ min-height: 34px
 }
 .divInput{
-padding-left: 50px;
+padding-left: 33px;
 height: 60px;
 }
 </style>
@@ -97,7 +99,7 @@ height: 60px;
 		</div>
 		<div class="divInput">
 			<span class="cardNum subTitle">CVC 번호</span>
-			<input type="text" class="form-control cardNum" id="c5" placeholder="카드 뒷면 숫자 3자리" required="required" maxlength="3" style="width: 130px;padding-left: 5px;border: 0px;border-radius:0px;border-bottom: 1px solid #E0E0E0;">
+			<input type="text" class="form-control cardNum" id="c5" placeholder="카드 뒷면 숫자 3자리" required="required" maxlength="3" style="width: 140px;padding-left: 5px;border: 0px;border-radius:0px;border-bottom: 1px solid #E0E0E0;">
 		</div>
 		<div id="divPurchase" class="divInput">
 			<input id="purchase" type="button" class="btn btn-outline-success cardNum" value="결제" style="width: 100px;">
