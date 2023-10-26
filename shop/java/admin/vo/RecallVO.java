@@ -4,12 +4,12 @@ public class RecallVO {
 
 	private String userName,date,recallDate,productName;
 	private int orderNum,quantity,price,totalPrice; 
-	private char processStatus;
+	private char orderStatus;
 	public RecallVO() {
 		super();
 	}
 	public RecallVO(String userName, String date, String recallDate, String productName, int orderNum, int quantity,
-			int price, int totalPrice, char processStatus) {
+			int price, int totalPrice, char orderStatus) {
 		super();
 		this.userName = userName;
 		this.date = date;
@@ -19,7 +19,7 @@ public class RecallVO {
 		this.quantity = quantity;
 		this.price = price;
 		this.totalPrice = totalPrice;
-		this.processStatus = processStatus;
+		this.orderStatus = orderStatus;
 	}
 	public String getUserName() {
 		return userName;
@@ -69,18 +69,19 @@ public class RecallVO {
 	public void setTotalPrice(int totalPrice) {
 		this.totalPrice = totalPrice;
 	}
-	public char getProcessStatus() {
-		return processStatus;
+	public char getOrderStatus() {
+		return orderStatus;
 	}
-	public void setProcessStatus(char processStatus) {
-		this.processStatus = processStatus;
+	public void setOrderStatus(char orderStatus) {
+		this.orderStatus = orderStatus;
 	}
 	@Override
 	public String toString() {
 		return "RecallVO [userName=" + userName + ", date=" + date + ", recallDate=" + recallDate + ", productName="
 				+ productName + ", orderNum=" + orderNum + ", quantity=" + quantity + ", price=" + price
-				+ ", totalPrice=" + totalPrice + ", processStatus=" + processStatus + "]";
+				+ ", totalPrice=" + totalPrice + ", orderStatus=" + orderStatus + "]";
 	}
+	
 	
 	
 	

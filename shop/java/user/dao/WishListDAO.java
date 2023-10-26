@@ -25,7 +25,7 @@ public class WishListDAO {
 		return wlDAO;
 	}//getInstance
 	
-	public List<WishListVO> selectAllLIst(String id) throws SQLException{
+	public List<WishListVO> selectAllList(String id) throws SQLException{
 		List<WishListVO> list=new ArrayList<WishListVO>();
 		WishListVO wlVO=null;
 		DbConnection db=DbConnection.getInstance();
@@ -60,10 +60,8 @@ public class WishListDAO {
 			//7. 연결 끊기
 			db.dbClose(rs, pstmt, con);
 		}//end finally
-		
-		
 		return list;
-	}//selectAllLIst
+	}//selectAllList
 	
 	
 }//class

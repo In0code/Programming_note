@@ -7,7 +7,9 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import member.vo.FindIdPwVO;
 import member.vo.RegisterVO;
+import member.vo.UserVO;
 
 
 public class MemberDAO {
@@ -97,17 +99,37 @@ public class MemberDAO {
 		}//end finally
 	}//insertMember
 	
-	public RegisterVO selectMember (String id) throws SQLException{
-		RegisterVO rVO=null;
-		
+	public UserVO findId(String name, String phone) throws SQLException{
+		UserVO uVO=null;
+	
 		DbConnection db=DbConnection.getInstance();
+		
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		
-		return rVO;
-		
-	}//selectMember
+		try {
+			con=db.getConn("jdbc/dbcp");
+			
+			String findId=" select id, email, sign_date from member where name=? and phone=?";
+			
+			pstmt=con.prepareStatement(findId);
+			pstmt.setString(1, name);
+			pstmt.setString(2, phone);
+			
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				uVO=new UserVO();
+				uVO.setId(rs.getString("id"));
+				uVO.setEmail(rs.getString("email"));
+				uVO.setSign_date(rs.getDate("sign_date"));
+			}//end if
+		} finally {
+			db.dbClose(rs, pstmt, con);
+		}
+		return uVO;
+	}//findId
 	
 }//class
 
