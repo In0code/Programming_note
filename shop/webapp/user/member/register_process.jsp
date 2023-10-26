@@ -53,7 +53,7 @@ String id = rVO.getId();
 String name = rVO.getName();
 String email = rVO.getEmail();
 
-// 값들을 URL 인코딩합니다.
+//값들을 URL 인코딩
 id = URLEncoder.encode(id, "UTF-8");
 name = URLEncoder.encode(name, "UTF-8");
 email = URLEncoder.encode(email, "UTF-8");

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <jsp:include page="../../cdn/cdn.jsp" />
 <!DOCTYPE html>
 <html>
@@ -39,15 +40,15 @@
 				</p> 
 				<div class="description" style="padding-left: 30px;">
 					<ul class="ec-base-desc gSmall">
-						<li><strong class="term">이름</strong><strong class="desc">
-								: <span>이승우</span>
+						<li><strong class="term">아이디</strong><strong class="desc">
+								: <span><%= request.getParameter("id") %></span>
 						</strong></li>
 						<li><strong class="term">이메일</strong><span class="desc">
-								: <span>dltmddn29@naver.com</span>
+								: <span><%= request.getParameter("email") %></span>
 						</span></li>
 						<li><label> 
 						<span class="id"> </span> 
-						<span class="gaip">( 개인회원, 2023-10-04 가입 )</span></label><br>
+						<span class="gaip">( 개인회원, <%= request.getParameter("sign_date") %> 가입 )</span></label><br>
 						</li>
 					</ul>
 				</div>

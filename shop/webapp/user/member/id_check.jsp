@@ -14,7 +14,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <style type="text/css">
 #wrap{ width:502px; height:303px; margin:0px auto;}
-#idDup{width: 502px; height: 303px; background: #FFFFFF url( ../images/id_background.png) no-repeat;}
+#idDup{width: 502px; height: 303px; background: #FFFFFF url( images/id_background.png) no-repeat;}
 #idDiv{ position: absolute; top:100px; left:80px; width:300px; }
 #idResult{ position: absolute; top:200px; left:80px}
 </style>
@@ -30,6 +30,16 @@ $(function(){
 	         
 	      }//end if
 	   });//keydown
+	   
+	   $("#id").on('input', function() {
+           var id = $(this).val();
+           var regex = /^[a-zA-Z0-9]*$/; // 영문자와 숫자만 허용
+           if (!regex.test(id)) {
+               alert("영문자와 숫자만 입력 가능합니다.");
+               $(this).val(""); // 입력한 값 비움
+               return;
+           }
+       });
 	   
 	});//ready
 
@@ -88,8 +98,8 @@ function useId(id){
                <span style="color:#DC5460"> 이미 사용 중 입니다.</span>
                </c:when>
                <c:otherwise>
-               <span style="color:#233942"> 사용 가능합니다.</span>
-               <a href="javascript:useId('${ param.id }')">사용</a>
+               <span style="color:#233942"> 사용 가능합니다</span>
+               <a href="javascript:useId('${ param.id }')" style="color:teal;"> [아이디 사용] </a>
                </c:otherwise>
             </c:choose>
                <%

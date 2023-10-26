@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ page info="" %>
+    <%@ page info="장바구니" %>
 <jsp:include page="../cdn/cdn.jsp"/>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-
+<%
+		////////////// 사용자 장바구니  - 인영 ////////////
+%>
 <style type="text/css">
 #cart{
 /* Font & Text */

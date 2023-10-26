@@ -87,7 +87,7 @@ function checkNull(){
 			<input type='text' id="id" name="id" class="inputForm" placeholder="회원 아이디">
 		</fieldset>
 		<fieldset>
-			<input type='password' id="pw" name="pass" class="inputForm"  placeholder="비밀번호">
+			<input type='password' id="pw" name=pass class="inputForm"  placeholder="비밀번호">
 		</fieldset>		
 		<!-- 로그인 버튼  -->
 		<div>

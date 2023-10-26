@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ page info="" %>
+    <%@ page info="관심상품" %>
 <jsp:include page="../cdn/cdn.jsp"/>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-
+<%
+		////////////// 사용자 관심상품  - 인영 ////////////
+%>
 <style type="text/css">
 #cart{
 /* Font & Text */

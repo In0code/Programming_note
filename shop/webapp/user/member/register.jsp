@@ -30,7 +30,7 @@ table td input, table td select, table td button {
 </style>
 <script type="text/javascript">
 $(function(){
-	
+	//$("#idDupFlag").val(0);
 	$("#btnDup").click(function(){
 		var id=$("#id").val();
 		window.open("id_check.jsp?id="+id,"id_check","width=512,height=313,top="
@@ -41,22 +41,71 @@ $(function(){
 		searchZipcode();
 	});
 	
-
+	 $("#id").on('input', function() {
+	        var id = $(this).val();
+	        var regex = /^[a-zA-Z0-9]*$/; // 영문자와 숫자만 허용
+	        if (!regex.test(id)) {
+	            alert("영문자와 숫자만 입력 가능합니다.");
+	            $(this).val(""); // 입력한 값 비움
+	            return;
+	        }
+	    });
+	
 	$("#btn").click(function(){
-		//입력값에 대한 유효성 검증
-		if($("#idDupFlag").val() == 0){
-			alert($("#id").val()+"은 중복확인 되지 않은 아이디 입니다.\n중복확인을 수행해 주세요.");
+        // 필수 입력 필드가 비어있는지 확인
+        var id = $("#id").val();
+        var pass = $("#pass").val();
+        var pass2 = $("#pass2").val();
+        var name = $("#name").val();
+        var email = $("#email").val();
+        var phone = $("#phone").val();
+        var zipcode = $("#zipcode").val();
+        var addr = $("#addr").val();
+        var detailAddr = $("#detailAddr").val();
+        
+        if( pass == "" || pass2 == "" || name == "" || email == "" || phone == "" || zipcode == "" || addr == "" || detailAddr == ""){
+            alert("모든 항목을 입력해주세요.");
+            return;
+        }
+        
+        if($("#idDupFlag").val() == 0){
+			alert("아이디 중복확인을 해주세요.");
 			return;
 		}//end if
 		
-		$("#frm").submit();
-	});//click	
-	
+		//비밀번호 불일치했을때 알림팝업
+		if (!compare_result()) {
+			alert('비밀번호가 일치하지 않습니다.');
+			return; 
+		}
+		
+        // 입력값에 대한 유효성 검증을 통과했을 때, 회원가입 처리
+        $("#frm").submit();
+    });//click
+    
 	$("#id").keydown(function(){
 		$("#idDupFlag").val(0);
 	});
+    
+	$("#pass, #pass2").on('input', function() {
+		compare_result();
+	});
 	
 });//ready
+
+function compare_result() {
+	var pw1 = $("#pass").val();
+	var pw2 = $("#pass2").val();
+	var $s_result = $("#s_result");
+
+	if (pw1 === pw2 && pw1 !== "" && pw2 !== "") {
+		$s_result.text("비밀번호가 일치합니다.");
+		return true;
+	}
+
+	$s_result.text("비밀번호가 일치하지 않습니다.");
+	return false;
+}
 
 </script>
 
@@ -73,7 +122,7 @@ $(function(){
 			<td>
 			<input type="text" name="id" id="id" maxlength="16"> 
 			<input type="button"  value="중복확인" id="btnDup"  class="btn btn-secondary btn-sm" > 
-			<input type="hidden" name="idDupFlag" value="idDupFlag" />
+			<input type="hidden" name="idDupFlag" id="idDupFlag"/>
 			</td>
 		</tr>
 
@@ -86,7 +135,8 @@ $(function(){
 
 		<tr>
 			<td id="title">비밀번호 확인</td>
-			<td><input type="password" id="pass2" name="pass2" maxlength="15"></td>
+			<td><input type="password" id="pass2" name="pass2" maxlength="15">
+			<span id="s_result" style="font-size: 9px;"></span></td>
 		</tr>
 
 		<tr>
@@ -115,7 +165,7 @@ $(function(){
 		</tr>
 	</table>
 		<div class="ec-base-button gBottom">
-			<input type="button" value="회원가입" id="btn" class="btnSubmits sizeM btn"/>
+			<input type="button" value="회원가입" id="btn" class="btnSubmits sizeM btn" style="color: white;"/>
 		</div>
 	</form>
 </div>
