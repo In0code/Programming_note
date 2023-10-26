@@ -2,22 +2,21 @@ package admin.vo;
 
 public class OrderVO {
 
-	private String date,productName,userName;
+	private String date,productName,userName,orderStatus;
 	private int orderNo,amount,price; 
-	private char orderStatus ;
 	public OrderVO() {
 		super();
 	}
-	public OrderVO(String date, String productName, String userName, int orderNo, int amount, int price,
-			char orderStatus) {
+	public OrderVO(String date, String productName, String userName, String orderStatus, int orderNo, int amount,
+			int price) {
 		super();
 		this.date = date;
 		this.productName = productName;
 		this.userName = userName;
+		this.orderStatus = orderStatus;
 		this.orderNo = orderNo;
 		this.amount = amount;
 		this.price = price;
-		this.orderStatus = orderStatus;
 	}
 	public String getDate() {
 		return date;
@@ -37,6 +36,12 @@ public class OrderVO {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+	public String getOrderStatus() {
+		return orderStatus;
+	}
+	public void setOrderStatus(String orderStatus) {
+		this.orderStatus = orderStatus;
+	}
 	public int getOrderNo() {
 		return orderNo;
 	}
@@ -55,18 +60,11 @@ public class OrderVO {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	public char getOrderStatus() {
-		return orderStatus;
-	}
-	public void setOrderStatus(char orderStatus) {
-		this.orderStatus = orderStatus;
-	}
 	@Override
 	public String toString() {
-		return "OrderVO [date=" + date + ", productName=" + productName + ", userName=" + userName + ", orderNo="
-				+ orderNo + ", amount=" + amount + ", price=" + price + ", orderStatus=" + orderStatus + "]";
+		return "OrderVO [date=" + date + ", productName=" + productName + ", userName=" + userName + ", orderStatus="
+				+ orderStatus + ", orderNo=" + orderNo + ", amount=" + amount + ", price=" + price + "]";
 	}
-	
 	
 	
 	

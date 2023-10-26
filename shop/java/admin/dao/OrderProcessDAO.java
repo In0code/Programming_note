@@ -54,7 +54,7 @@ public class OrderProcessDAO {
 			.append("	select  u.ORD_DATE, u.ORDNO, g.GNAME, od.AMOUNT, g.PRICE, u.DLVY_PRO, m.NAME	")
 			.append("	from UORDER u, GOODS g, MEMBER m, ORDER_DETAIL od	")
 			.append("	where m.id=u.id and od.gcode=g.gcode and u.ordno=od.ordno	")
-			.append("	and ( DLVY_PRO in ('D0','DF') )	");
+			.append("	and ( DLVY_PRO in ('D0','DF','PF' ) )	");
 			
 			pstmt=con.prepareStatement(selectAllOrder.toString());
 		//5. 바인드 변수 값 설정
@@ -67,7 +67,7 @@ public class OrderProcessDAO {
 				oVO.setProductName(rs.getString("GNAME"));
 				oVO.setAmount(rs.getInt("AMOUNT"));
 				oVO.setPrice(rs.getInt("PRICE"));
-				oVO.setOrderStatus(rs.getString("DLVY_PRO").charAt(0));
+				oVO.setOrderStatus(rs.getString("DLVY_PRO"));
 				oVO.setUserName(rs.getString("NAME"));
 				list.add(oVO);
 			}//end while
@@ -105,7 +105,7 @@ public class OrderProcessDAO {
 			.append("	select  u.ORD_DATE, u.ORDNO, g.GNAME, od.AMOUNT, g.PRICE, u.DLVY_PRO, m.NAME	")
 			.append("	from UORDER u, GOODS g, MEMBER m, ORDER_DETAIL od	")
 			.append("	where m.id=u.id and od.gcode=g.gcode and u.ordno=od.ordno and  m.id=u.id	")
-			.append("	and ( DLVY_PRO in ('D0','DF') )	")
+			.append("	and ( DLVY_PRO in ('D0','DF','PF' ) )	")
 			.append("	 and ( m.name= ? or m.id=? or u.ORDNO= ? )	");
 			
 			pstmt=con.prepareStatement(selectAllOrder.toString());
@@ -122,7 +122,7 @@ public class OrderProcessDAO {
 				oVO.setProductName(rs.getString("GNAME"));
 				oVO.setAmount(rs.getInt("AMOUNT"));
 				oVO.setPrice(rs.getInt("PRICE"));
-				oVO.setOrderStatus(rs.getString("DLVY_PRO").charAt(0));
+				oVO.setOrderStatus(rs.getString("DLVY_PRO"));
 				oVO.setUserName(rs.getString("NAME"));
 				list.add(oVO);
 			}//end while
@@ -205,7 +205,7 @@ public class OrderProcessDAO {
 			.append("	select  u.ORD_DATE, u.ORDNO, g.GNAME, od.AMOUNT, g.PRICE, u.DLVY_PRO, m.NAME	")
 			.append("	from UORDER u, GOODS g, MEMBER m, ORDER_DETAIL od	")
 			.append("	where m.id=u.id and od.gcode=g.gcode and u.ordno=od.ordno	")
-			.append("	and DLVY_PRO (  in ('CF','C0','R0','RF') )	");
+			.append("	and  (  DLVY_PRO in ('CF','C0','R0','RF') )	");
 			
 			pstmt=con.prepareStatement(selectAllOrder.toString());
 		//5. 바인드 변수 값 설정
@@ -218,7 +218,7 @@ public class OrderProcessDAO {
 				rVO.setProductName(rs.getString("GNAME"));
 				rVO.setQuantity(rs.getInt("AMOUNT"));
 				rVO.setPrice(rs.getInt("PRICE"));
-				rVO.setOrderStatus(rs.getString("DLVY_PRO").charAt(0));
+				rVO.setOrderStatus(rs.getString("DLVY_PRO"));
 				rVO.setUserName(rs.getString("NAME"));
 				list.add(rVO);
 			}//end while
@@ -273,7 +273,7 @@ public class OrderProcessDAO {
 				rVO.setProductName(rs.getString("GNAME"));
 				rVO.setQuantity(rs.getInt("AMOUNT"));
 				rVO.setPrice(rs.getInt("PRICE"));
-				rVO.setOrderStatus(rs.getString("DLVY_PRO").charAt(0));
+				rVO.setOrderStatus(rs.getString("DLVY_PRO"));
 				rVO.setUserName(rs.getString("NAME"));
 				list.add(rVO);
 			}//end while

@@ -10,6 +10,7 @@ import java.util.List;
 import admin.vo.BoardManageVO;
 import admin.vo.BoardRangeVO;
 import common.dao.DbConnection;
+import oracle.jdbc.proxy.annotation.Pre;
 
 public class BoardManageDAO {
 	
@@ -224,11 +225,65 @@ public class BoardManageDAO {
 	 * 선택한 리뷰 디테일
 	 * @param rcode
 	 * @return
+	 * @throws SQLException 
 	 */
-	public BoardManageVO selectReview(String rcode) {
+	public BoardManageVO selectOneReview(String rcode) throws SQLException {
 		BoardManageVO bmVO = null;
+		
+		DbConnection db = DbConnection.getInstance();
+		Connection con = null;
+		ResultSet rs = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = db.getConn("jdbc/dbcp");
+			
+			StringBuilder selectReview = new StringBuilder();
+			selectReview
+			.append("	select id, title, rev_cont, star, img,			")
+			.append("	to_char(rev_date,'yyyy-mm-dd') rev_date, r_view	")
+			.append("	from review where rcode = ?						");
+			
+			pstmt = con.prepareStatement(selectReview.toString());
+			
+			pstmt.setString(1, rcode);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				bmVO = new BoardManageVO(rs.getString("title"),rs.getString("rev_cont"),
+											rs.getString("img"),rs.getString("rev_date"),
+											rs.getString("id"),rs.getInt("star"),rs.getInt("r_view"));
+			}
+			
+		}finally {
+			db.dbClose(rs, pstmt, con);
+		}
 		
 		return bmVO;
 	}
-
+	
+	/**
+	 * 선택한 게시물 삭제
+	 * @param rcode
+	 * @throws SQLException
+	 */
+	public void deleteReview(int rcode) throws SQLException{
+		DbConnection db = DbConnection.getInstance();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = db.getConn("jdbc/dbcp");
+			
+			pstmt = con.prepareStatement(" delete from review where rcode = ? ");
+			
+			pstmt.setInt(1, rcode);
+			
+			pstmt.execute();
+			
+		}finally {
+			db.dbClose(null, pstmt, con);
+		}
+	}
 }

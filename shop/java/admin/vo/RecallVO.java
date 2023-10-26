@@ -2,24 +2,23 @@ package admin.vo;
 
 public class RecallVO {
 
-	private String userName,date,recallDate,productName;
+	private String userName,date,recallDate,productName ,orderStatus;
 	private int orderNum,quantity,price,totalPrice; 
-	private char orderStatus;
 	public RecallVO() {
 		super();
 	}
-	public RecallVO(String userName, String date, String recallDate, String productName, int orderNum, int quantity,
-			int price, int totalPrice, char orderStatus) {
+	public RecallVO(String userName, String date, String recallDate, String productName, String orderStatus,
+			int orderNum, int quantity, int price, int totalPrice) {
 		super();
 		this.userName = userName;
 		this.date = date;
 		this.recallDate = recallDate;
 		this.productName = productName;
+		this.orderStatus = orderStatus;
 		this.orderNum = orderNum;
 		this.quantity = quantity;
 		this.price = price;
 		this.totalPrice = totalPrice;
-		this.orderStatus = orderStatus;
 	}
 	public String getUserName() {
 		return userName;
@@ -45,6 +44,12 @@ public class RecallVO {
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
+	public String getOrderStatus() {
+		return orderStatus;
+	}
+	public void setOrderStatus(String orderStatus) {
+		this.orderStatus = orderStatus;
+	}
 	public int getOrderNum() {
 		return orderNum;
 	}
@@ -69,19 +74,13 @@ public class RecallVO {
 	public void setTotalPrice(int totalPrice) {
 		this.totalPrice = totalPrice;
 	}
-	public char getOrderStatus() {
-		return orderStatus;
-	}
-	public void setOrderStatus(char orderStatus) {
-		this.orderStatus = orderStatus;
-	}
 	@Override
 	public String toString() {
 		return "RecallVO [userName=" + userName + ", date=" + date + ", recallDate=" + recallDate + ", productName="
-				+ productName + ", orderNum=" + orderNum + ", quantity=" + quantity + ", price=" + price
-				+ ", totalPrice=" + totalPrice + ", orderStatus=" + orderStatus + "]";
+				+ productName + ", orderStatus=" + orderStatus + ", orderNum=" + orderNum + ", quantity=" + quantity
+				+ ", price=" + price + ", totalPrice=" + totalPrice + "]";
 	}
-	
+
 	
 	
 	
