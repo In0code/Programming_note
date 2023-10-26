@@ -27,18 +27,7 @@ public class UserReviewDAO {
 	}
 	
 	
-	public void insertReview() {
-		
-		
-	}
 	
-	public void updateReview() {
-		
-	}
-	
-	public void deleteReview() {
-		
-	}
 	
 	public List<SummaryVO> selectAllReview(String id) throws SQLException {
 		
@@ -124,6 +113,85 @@ public SummaryVO selectOneReview(int rcode) throws SQLException {
 		
 		return sVO;
 	}
+
+public void updateReivew (SummaryVO sVO,int rcode) throws SQLException {
+	
+	
+	
+	
+	DbConnection db= DbConnection.getInstance();
+	Connection con = null;
+	PreparedStatement pstmt=null;
+	
+	
+	
+	
+	try {
+		con=db.getConn("jdbc/dbcp");
+		
+		String updateReivew = " update  review set REV_CONT = ? , STAR = ? , IMG = ?  where  rcode=? ";
+
+		
+		
+		pstmt=con.prepareStatement(updateReivew);
+		
+		pstmt.setString(1, sVO.getReview());
+		pstmt.setInt(2, sVO.getStar());
+		pstmt.setString(3, sVO.getReview());
+		
+		pstmt.setInt(4, rcode);
+		
+		pstmt.executeQuery();
+	
+	}finally {
+		db.dbClose(null, pstmt, con);
+		
+	}
+	
+
+}
+
+public void deleteReivew (int rcode) throws SQLException {
+	
+	
+	SummaryVO sVO= null;
+	
+	DbConnection db= DbConnection.getInstance();
+	Connection con = null;
+	PreparedStatement pstmt=null;
+	ResultSet rs= null;
+	
+	
+	
+	
+	try {
+		con=db.getConn("jdbc/dbcp");
+		
+		String selectAllReview = "select distinct m.name, r.REV_CONT,  r.star, r.rcode from member m, review r, category c where m.id=r.id   and r.rcode= ? ";
+
+		
+		
+		pstmt=con.prepareStatement(selectAllReview);
+		
+		pstmt.setInt(1, rcode);
+		
+		rs=pstmt.executeQuery();
+		if(rs.next()) {
+			sVO= new SummaryVO();
+			sVO.setName(rs.getString("name"));
+			sVO.setReview(rs.getString("REV_CONT"));
+			sVO.setRcode(rs.getInt("rcode"));
+			sVO.setStar(rs.getInt("star"));
+		
+		}
+	}finally {
+		db.dbClose(rs, pstmt, con);
+		
+	}
+	
+
+}
+	
 	
 	
 }

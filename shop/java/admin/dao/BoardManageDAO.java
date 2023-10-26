@@ -26,6 +26,80 @@ public class BoardManageDAO {
 		return bmDAO;
 	}
 	
+	public int totalCount(BoardRangeVO brVO) throws SQLException {
+		int totalCnt = 0;
+		String keyword = brVO.getKeyword();
+		String category = "전체";
+		
+		DbConnection db = DbConnection.getInstance();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = db.getConn("jdbc/dbcp");
+
+			
+			StringBuilder selectCount = new StringBuilder();
+			if("1".equals(brVO.getCategory())) {
+				selectCount
+				.append("	SELECT COUNT(*) CNT FROM review	");
+			}else {
+				selectCount
+				.append("	select count(*) CNT		")
+				.append("	from review r, goods g, category c	")
+				.append("	where r.gcode = g.gcode and g.cat_code = c.cat_code		");
+			}
+			
+			if(keyword!=null && !"".equals(keyword) && !"null".equals(keyword)) {
+				String field = "id";
+				if("2".equals(brVO.getField())) {
+					field = "gname";
+				}
+				if("3".equals(brVO.getField())) {
+					field = "cat_name";
+				}
+				
+				if("2".equals(brVO.getCategory())) {
+					category = "바디케어";
+				}else if("3".equals(brVO.getCategory())) {
+					category = "핸드케어";
+				}else if("4".equals(brVO.getCategory())) {
+					category = "홈프래그런스";
+				}else if("5".equals(brVO.getCategory())) {
+					category = "향수";
+				}
+				
+				if("전체".equals(category)) {
+					selectCount.append(" where ").append(field).append(" like '%'||?||'%'");					
+				}else {
+					selectCount.append(" and ").append(field).append(" like '%'||?||'%'");
+					selectCount.append(" and c.cat_name like '%'||?||'%'");
+				}
+			}
+			
+			pstmt = con.prepareStatement(selectCount.toString());
+			
+			if(keyword!=null && !"".equals(keyword) && !"null".equals(keyword)) {
+				pstmt.setString(1, keyword);
+				if(!"전체".equals(category)) {
+					pstmt.setString(2, category);
+				}
+			}
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				totalCnt = rs.getInt("CNT");
+			}
+			
+		} finally {
+			db.dbClose(rs, pstmt, con);
+		}
+		
+		return totalCnt;
+	}
+	
 	/**
 	 * 카테고리 이름 반환
 	 * @return
@@ -107,7 +181,7 @@ public class BoardManageDAO {
 				selectReview.append("and ").append(field).append(" like '%'||?||'%'	");
 				
 				if(!"전체".equals(category)) {
-					selectReview.append("and c.cat_name").append(" like '%'||?||'%' ");
+					selectReview.append("and c.cat_name like '%'||?||'%' ");
 				}
 			}
 			

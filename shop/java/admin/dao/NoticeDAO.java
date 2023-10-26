@@ -38,20 +38,20 @@ public class NoticeDAO {
 			con = db.getConn("jdbc/dbcp");
 			
 			StringBuilder selectNotice = new StringBuilder();
-			selectNotice.append("	SELECT NCODE, NOT_TITLE, NOT_TEXT, TO_CHAR(NOT_DATE, 'YYYY-MM-DD HH24:MI') DATE, VIEW_NUM	")
-			.append("	FROM (SELECT ROW_NUMBER() OVER(ORDER BY NOT_DATE DESC) RNUM,	")
-			.append("	NCODE, ID, NOT_TITLE, NOT_TEXT, NOT_DATE, VIEW_NUM	")
-			.append("	FROM NOTICE)	")
+			selectNotice.append("	SELECT NCODE, NOT_TITLE, NOT_TEXT, TO_CHAR(NOT_DATE, 'YYYY-MM-DD HH24:MI') INPUT_DATE, VIEW_NUM, EDIT_DATE	")
+			.append("	FROM (SELECT (ROW_NUMBER() OVER(ORDER BY NOT_DATE DESC)) RNUM,	")
+			.append("	NCODE, ID, NOT_TITLE, NOT_TEXT, NOT_DATE, VIEW_NUM, EDIT_DATE	")
+			.append("	FROM NOTICE WHERE DEL_FLAG='N')	")
 			.append("	WHERE RNUM BETWEEN ? AND ?	");
 			
 			pstmt = con.prepareStatement(selectNotice.toString());
 			pstmt.setInt(1, brVO.getStartNum());
-			pstmt.setInt(2, brVO.getStartNum());
+			pstmt.setInt(2, brVO.getEndNum());
 			
 			rs = pstmt.executeQuery();
 			NoticeVO nVO = null;
 			while(rs.next()) {
-				nVO = new NoticeVO(rs.getString("NOT_TITLE"), rs.getString("NOT_TEXT"), rs.getString("DATE"),
+				nVO = new NoticeVO(rs.getString("NOT_TITLE"), rs.getString("NOT_TEXT"), rs.getString("INPUT_DATE"), rs.getString("EDIT_DATE"),
 						rs.getInt("NCODE"), rs.getInt("VIEW_NUM"));
 				
 				list.add(nVO);
@@ -74,7 +74,7 @@ public class NoticeDAO {
 		
 		try {
 			con = db.getConn("jdbc/dbcp");
-			String selectNotice = "SELECT NOT_TITLE, NOT_TEXT FROM NOTICE WHERE NCODE = ?";
+			String selectNotice = "SELECT NOT_TITLE, NOT_TEXT,TO_CHAR(NOT_DATE, 'YYYY-MM-DD HH24:MI') INPUT_DATE, VIEW_NUM, EDIT_DATE  FROM NOTICE WHERE NCODE = ?";
 			
 			pstmt = con.prepareStatement(selectNotice);
 			pstmt.setInt(1, code);
@@ -83,7 +83,10 @@ public class NoticeDAO {
 			if(rs.next()) {
 				nVO = new NoticeVO();
 				nVO.setNoticeTitle(rs.getString("NOT_TITLE"));
-				nVO.setNoticeText("NOT_TEXT");
+				nVO.setNoticeText(rs.getString("NOT_TEXT"));
+				nVO.setNoticeDate(rs.getString("INPUT_DATE"));
+				nVO.setViewNum(rs.getInt("VIEW_NUM"));
+				nVO.setEditDate(rs.getString("EDIT_DATE"));
 			}
 			
 		} finally {
@@ -99,15 +102,15 @@ public class NoticeDAO {
 		PreparedStatement pstmt = null;
 		
 		try {
-			con = db.getConn("jdbc/dbcp");
-			StringBuilder insertNotice = new StringBuilder();
-			insertNotice
-			.append("INSERT INTO NOTICE(NCODE, ID, NOT_TITLE, NOT_TEXT, VIEW_NUM")
-			.append("VALUES(NCODE, ID, ?, ?, 0)");
+			int seq = getNextProfSeq();
 			
-			pstmt = con.prepareStatement(insertNotice.toString());
-			pstmt.setString(1, nVO.getNoticeTitle());
-			pstmt.setString(2, nVO.getNoticeText());
+			con = db.getConn("jdbc/dbcp");
+			String insertNotice = "INSERT INTO NOTICE(NCODE, NOT_TITLE, NOT_TEXT, VIEW_NUM) VALUES(?, ?, ?, 0)";
+			
+			pstmt = con.prepareStatement(insertNotice);
+			pstmt.setInt(1, seq);
+			pstmt.setString(2, nVO.getNoticeTitle());
+			pstmt.setString(3, nVO.getNoticeText());
 			
 			pstmt.executeUpdate();
 			
@@ -125,7 +128,7 @@ public class NoticeDAO {
 		
 		try {
 			con = db.getConn("jdbc/dbcp");
-			String updateNotice = "UPDATE NOTICE SET NOT_TITLE=?, NOT_TEXT=? WHERE NCODE=?";
+			String updateNotice = "UPDATE NOTICE SET NOT_TITLE=?, NOT_TEXT=?, EDIT_DATE=SYSDATE WHERE NCODE=?";
 			
 			pstmt = con.prepareStatement(updateNotice);
 			pstmt.setString(1, nVO.getNoticeTitle());
@@ -138,6 +141,60 @@ public class NoticeDAO {
 			db.dbClose(null, pstmt, con);
 		}
 		
+		
+		return result;
+	}
+	
+	public int getNextProfSeq() throws SQLException {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String seq = null;
+
+		DbConnection db = DbConnection.getInstance();
+		try {
+			con = db.getConn("jdbc/dbcp");
+			con.setAutoCommit(false);
+
+			String getSeq = "select notice_seq.nextval from dual";
+
+			pstmt = con.prepareStatement(getSeq);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				seq = rs.getString(1);
+			} // end if
+
+		} finally {
+			db.dbClose(rs, pstmt, con);
+		} // end finally
+		return Integer.parseInt(seq);
+	}// getNextProfSeq
+	
+	public boolean updateDelete(int ncode) throws SQLException {
+		boolean result = false;
+		int temp = 0;
+		
+		DbConnection db = DbConnection.getInstance();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = db.getConn("jdbc/dbcp");
+			String updateDelete = "UPDATE NOTICE SET DEL_FLAG='Y' WHERE NCODE=?";
+			
+			pstmt = con.prepareStatement(updateDelete);
+			pstmt.setInt(1, ncode);
+			
+			temp = pstmt.executeUpdate();
+			
+		} finally {
+			db.dbClose(null, pstmt, con);
+		}
+		
+		if(temp == 1) {
+			result = true;
+		}
 		
 		return result;
 	}

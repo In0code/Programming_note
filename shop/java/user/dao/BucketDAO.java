@@ -68,25 +68,26 @@ public class BucketDAO {
 		return list;
 	}//selectAllList
 	
-	public int deleteList(String[]) throws SQLException{
-				
-		
-		
-	}//deleteList
-	
-	public int deleteList(String) throws SQLException{
-		List<BucketVO> list=new ArrayList<BucketVO>();
-				
-		
-		
-	}//deleteList
-	
-	public int changeAmount(String[]) throws SQLException{
-		List<BucketVO> list=new ArrayList<BucketVO>();
-				
-		
-		
-	}//changeAmount
-	
+	/*
+	 * public int deleteList(String[]) throws SQLException{
+	 * 
+	 * 
+	 * 
+	 * }//deleteList
+	 * 
+	 * public int deleteList(String) throws SQLException{ 
+	 * List<BucketVO> list=new ArrayList<BucketVO>();
+	 * 
+	 * 
+	 * 
+	 * }//deleteList
+	 * 
+	 * public int changeAmount(String[]) throws SQLException{ 
+	 * List<BucketVO> list=new ArrayList<BucketVO>();
+	 * 
+	 * 
+	 * 
+	 * }//changeAmount
+	 */	
 	
 }//class
