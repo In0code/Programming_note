@@ -171,19 +171,12 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 				<td><c:out value="<%= deliveryPrice %>"/></td>
 			 	<td><c:out value="${ recall.price + deliveryPrice }"/></td> 
 				<td class="status">
-           <%-- <c:if test="${recall.processStatus eq 'C'}">
-                    <option value="C" selected="selected">교환</option>
-                    <option value="R">반품</option>
-                </c:if>
-                <c:if test="${recall.processStatus eq 'R'}">
-                    <option value="C">교환</option>
-                    <option value="R" selected="selected">반품</option>
-                </c:if>--%>
+      
               <select name="statuslist">
-                <option value="CF" ${ recall.processStatus eq 'CF'? " selected='selected'" : "" } >교환완료</option>
-                <option value=" C0"${ recall.processStatus eq 'C0'? " selected='selected'" : "" } >교환신청 </option>
-                <option value=" R0"${ recall.processStatus eq 'R0'? " selected='selected'" : "" } >반품신청 </option>
-                <option value=" RF"${ recall.processStatus eq 'RF'? " selected='selected'" : "" } >반품완료</option>
+                <option value="CF"${ recall.orderStatus eq 'CF'? " selected='selected'" : "" }  >교환완료</option>
+                <option value="C0"${ recall.orderStatus eq 'C0'? " selected='selected'" : "" }  >교환신청 </option>
+                <option value="R0"${ recall.orderStatus eq 'R0'? " selected='selected'" : "" } >반품신청 </option>
+                <option value="RF"${ recall.orderStatus eq 'RF'? " selected='selected'" : "" } >반품완료</option>
             </select>  
 				</td>
 				</tr>

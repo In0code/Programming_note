@@ -8,6 +8,9 @@
     pageEncoding="UTF-8"%>
 <%@ page info=""%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:if test="${ empty adminId }">
+	<c:redirect url="login.jsp"/>
+</c:if>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,6 +44,40 @@ body{
 	background: #EEEEEE;
 	position: relative;
 }
+
+td {
+	text-align: left;
+}
+
+th {
+	height:63px;
+	font-size:18.5px;
+	background-color: #FAFAFA;
+	vertical-align: middle;
+	width: 165px;
+}
+
+#revContent {
+	position: absolute;
+	left: 65px;
+}
+
+#btnDel {
+  position: absolute; 
+  top: 820px;
+  left: 1320px;
+  background-color: #FFFFFF;
+  border: 1px solid #BEBEBE;
+  height: 60px;
+  width: 135px;
+  font-size:20px;
+  border-radius: 10px;
+}
+
+#btnDel:hover {
+	background-color: #F2F2F2;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -48,65 +85,21 @@ $(function() {
 	$("#btnLogout").click(function() {
 		location.href="logout.jsp";
 	});
+	
+	$("#btnDel").click(function() {
+		
+		$("#frmDel").submit();
+	});
 });
 </script>
 </head>
 <body>
 <%
 	BoardManageDAO bmDAO = BoardManageDAO.getInstance();
-	BoardRangeVO brVO = new BoardRangeVO();
-	brVO.setTableName("review");
-	
-	bmDAO.selectAllReview(brVO);
-
-	String field = request.getParameter("field");
-	String keyword = request.getParameter("keyword");
-	
-	/* 페이지가 최초 호출 시에는 field나 keyword가 없다. 
-	검색을 하지 않는 경우에도 값이 없다. */
-	brVO.setField(field);
-	brVO.setKeyword(keyword);
-	
-	//1.총 레코드의 수 
-	int totalCount = BoardDAO.getInstance().totalCount(brVO);
-	
-	//2.한 화면에 보여줄 게시물의 수
-	int pageScale = 10;
-	
-	//3.총 페이지 수
-	int totalPage = totalCount/pageScale;
-	
-	//총 레코드 수 나누기 한 화면에 보여줄 게시물의 수를 했을 때
-	//나머지가 있다면(0이 아니라면) 한 화면에 보여줄 게시물의 수를 초과한 것이므로
-	//총 페이지 수를 하나 늘림
-	//Math 사용 - 올림
-	totalPage = (int)Math.ceil(totalCount/(double)pageScale);
-	
-	//4.현재 페이지 번호 구하기
-	String tempPage = request.getParameter("currentPage");
-	int currentPage = 1; //최초 페이지는 1번째 페이지가 보임
-	if(tempPage != null){
-		currentPage = Integer.parseInt(tempPage);
-	}//end if
-	
-	//5.시작 번호
-	int startNum = currentPage*pageScale-pageScale+1;
-	pageContext.setAttribute("startNum", startNum);
-	
-	//6.끝 번호
-	int endNum = startNum+pageScale-1;
-	
-	//Dynamic Query에 의해서 구해진 시작번호와 끝번호를 VO에 넣는다.
-	brVO.setStartNum(startNum);
-	brVO.setEndNum(endNum);
-	
-	try{
-		List<BoardManageVO> reviewList = bmDAO.selectAllReview(brVO);
-		pageContext.setAttribute("reviewList", reviewList);
-		
-	}catch(SQLException se){
-		se.printStackTrace();
-	}
+	String rcode = request.getParameter("rcode");
+	BoardManageVO bmVO = bmDAO.selectOneReview(rcode);
+	pageContext.setAttribute("review", bmVO);
+	pageContext.setAttribute("rcode", rcode);
 %>
 
 <%@ include file="sidebar.jsp" %>
@@ -117,46 +110,52 @@ $(function() {
 	</div>
 	<div id="rightBody">
 		<!-- 타이틀  -->
-		<div class="text" id="mainTitle">		
-			<img src="../common/images/back1.png" style="width:27px"/>
-			<strong>리뷰</strong>
+		<div class="text" id="mainTitle">	
+			<a href="javascript:history.back()">	
+				<img src="../common/images/back1.png" style="width:27px"/>
+				<strong>리뷰</strong>
+			</a>
 		</div>
 
-		<div id="background_box">
+		<div id="background_box" style="width:70%">
 			<div style="margin: 10px; text-align: center;">
 			<!-- 리스트 시작 -->
 			<table id="order_list" class="table tableList">
-				<thead>
-				<tr id="top_title">
-					<!-- 컬럼 사이즈 -->
-					<th style="width:170px">No</th>
-					<th style="width:250px">상품명</th>
-					<th style="width:230px">작성자</th>
-					<th style="width:230px">작성일</th>
-					<th style="width:200px">평점</th>
+				<tr>
+					<th>제목</th>
+					<td colspan="5"><c:out value="${ review.title }"/></td>
 				</tr>
-				</thead>
-				
-				<tbody>
-					<c:forEach var="review" items="${ reviewList }" varStatus="i">
-					<tr onclick="boardDetail(${ review.rcode })">
-						<td>${ startNum + i.index }</td>
-						<td>${ review.gname }</td>
-						<td>${ review.id }</td>
-						<td>${ review.rev_date }</td>
-						<td style="color:#FF923A">
-						<c:forEach var="star" begin="1" end="${ review.star }">
-							<img src="../common/images/star.png" style="width:16px"/>
-						</c:forEach>
-						</td>
-					</tr>
+				<tr>
+					<th>작성자</th>
+					<td colspan="5"><c:out value="${ review.id }"/></td>
+				</tr>
+				<tr>
+					<th>작성일</th>
+					<td style="width:140px"><c:out value="${ review.rev_date }"/></td>
+					<th style="width:100px">조회수</th>
+					<td style="width:100px"><c:out value="${ review.r_view }"/></td>
+					<th style="width:100px">평점</th>
+					<td>
+					<c:forEach var="star" begin="1" end="${ review.star }">
+						<img src="../common/images/star.png" width="16px"/>
 					</c:forEach>
-				</tbody>
+					</td>
+				</tr>
 			</table>
-			</div>
 			
+			<div id="revContent">
+				<span style="font-size:20px; text-align:left">${ review.rev_cont }</span>
+			</div>
+			</div>
 		</div>
 	</div>
+	
+	<form action="board_delete_process.jsp" id="frmDel">
+		<input type="button" id="btnDel" value="삭제"/>
+		<input type="hidden" id="rcode" name="rcode" value="${ rcode }"/>
+	</form>
+	
+	
 </div>	
 </body>
 </html>

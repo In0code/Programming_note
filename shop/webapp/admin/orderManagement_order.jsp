@@ -167,11 +167,11 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 				<td><c:out value="${ order.price }"/></td>
 				<td><c:out value="<%= deliveryPrice %>"/></td>
 				<td>
-				 <select name="statuslist" style="border: 1px solid #CCCCCC; border-radius: 5px; font-size: 18px; height: 30px;">
-					<option>결제완료</option>
-					<option>배송중</option>
-					<option>배송완료</option> 
-				</select> 
+				 <select name="statuslist">
+                <option value="PF"${ order.orderStatus eq 'PF'? " selected='selected'" : "" }  >결제완료 </option>
+                <option value="D0"${ order.orderStatus eq 'D0'? " selected='selected'" : "" }  >배송중</option>
+                <option value="DF"${ order.orderStatus eq 'DF'? " selected='selected'" : "" }  >배송완료 </option>
+            </select>  
 				</td>
 				<td><c:out value="${ order.userName }"/></td>
 			 	<td><c:out value="${ order.price + deliveryPrice }"/></td> 
