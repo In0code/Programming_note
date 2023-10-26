@@ -14,7 +14,9 @@
 <meta charset="UTF-8">
 <title>주문관리-주문</title>
 <jsp:include page="../cdn/admin_cdn.jsp"/>
-
+<%
+		////////////// 관리자 주문관리 ( 주문 ) - 인영 ////////////
+%>
 
 
 <style type="text/css">

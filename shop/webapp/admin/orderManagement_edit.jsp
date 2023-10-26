@@ -15,7 +15,9 @@
 <meta charset="UTF-8">
 <title>주문관리-교환/반품</title>
 <jsp:include page="../cdn/admin_cdn.jsp"/>
-
+<%
+		////////////// 관리자 주문관리 ( 교환/ 반품 ) - 인영 ////////////
+%>
 <style type="text/css">
 body{
  margin: 0px;
@@ -66,6 +68,9 @@ String tableName="UORDER";
 brVO.setField(field);
 brVO.setKeyword(keyword);
 brVO.setTableName(tableName);
+
+String[] status={"반품","교환"};
+pageContext.setAttribute("status", status);
 
 int totalCount=bDAO.totalCount(brVO);
 
@@ -165,14 +170,21 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 				<td><c:out value="${ recall.price }"/></td>
 				<td><c:out value="<%= deliveryPrice %>"/></td>
 			 	<td><c:out value="${ recall.price + deliveryPrice }"/></td> 
-				<td>
-				 <select name="statuslist" style="border: 1px solid #CCCCCC; border-radius: 5px; font-size: 18px; height: 30px;">
-					<option>반품신청</option>
-					<option>처리중</option>
-					<option>반품완료</option> 
-					<option>교환신청</option> 
-					<option>교환완료</option> 
-				</select> 
+				<td class="status">
+           <%-- <c:if test="${recall.processStatus eq 'C'}">
+                    <option value="C" selected="selected">교환</option>
+                    <option value="R">반품</option>
+                </c:if>
+                <c:if test="${recall.processStatus eq 'R'}">
+                    <option value="C">교환</option>
+                    <option value="R" selected="selected">반품</option>
+                </c:if>--%>
+              <select name="statuslist">
+                <option value="CF" ${ recall.processStatus eq 'CF'? " selected='selected'" : "" } >교환완료</option>
+                <option value=" C0"${ recall.processStatus eq 'C0'? " selected='selected'" : "" } >교환신청 </option>
+                <option value=" R0"${ recall.processStatus eq 'R0'? " selected='selected'" : "" } >반품신청 </option>
+                <option value=" RF"${ recall.processStatus eq 'RF'? " selected='selected'" : "" } >반품완료</option>
+            </select>  
 				</td>
 				</tr>
 				</c:forEach>
