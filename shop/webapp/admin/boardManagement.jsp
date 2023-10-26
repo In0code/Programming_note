@@ -1,8 +1,10 @@
+<%@page import="common.util.BoardUtilVO"%>
+<%@page import="common.util.BoardUtil"%>
 <%@page import="java.util.List"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="common.dao.BoardDAO"%>
-<%@page import="user.dao.BoardManageDAO"%>
-<%@page import="user.vo.BoardManageVO"%>
+<%@page import="admin.dao.BoardManageDAO"%>
+<%@page import="admin.vo.BoardManageVO"%>
 <%@page import="admin.vo.BoardRangeVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -83,32 +85,33 @@ function boardDetail(rcode){
 <%
 	BoardManageDAO bmDAO = BoardManageDAO.getInstance();
 	BoardRangeVO brVO = new BoardRangeVO();
-	brVO.setTableName("review");
 	
 	bmDAO.selectAllReview(brVO);
 
 	String field = request.getParameter("field");
 	String keyword = request.getParameter("keyword");
+	String category = request.getParameter("category");
 	
 	/* 페이지가 최초 호출 시에는 field나 keyword가 없다. 
 	검색을 하지 않는 경우에도 값이 없다. */
 	brVO.setField(field);
 	brVO.setKeyword(keyword);
+	brVO.setCategory(category);
 	
 	//1.총 레코드의 수 
-	int totalCount = BoardDAO.getInstance().totalCount(brVO);
+	int totalCount = bmDAO.totalCount(brVO);
 	
 	//2.한 화면에 보여줄 게시물의 수
 	int pageScale = 10;
 	
 	//3.총 페이지 수
-	int totalPage = totalCount/pageScale;
+	//int totalPage = totalCount/pageScale;
 	
 	//총 레코드 수 나누기 한 화면에 보여줄 게시물의 수를 했을 때
 	//나머지가 있다면(0이 아니라면) 한 화면에 보여줄 게시물의 수를 초과한 것이므로
 	//총 페이지 수를 하나 늘림
 	//Math 사용 - 올림
-	totalPage = (int)Math.ceil(totalCount/(double)pageScale);
+	int totalPage = (int)Math.ceil(totalCount/(double)pageScale);
 	
 	//4.현재 페이지 번호 구하기
 	String tempPage = request.getParameter("currentPage");
@@ -130,7 +133,9 @@ function boardDetail(rcode){
 	
 	try{
 		List<BoardManageVO> reviewList = bmDAO.selectAllReview(brVO);
+		List<String> categoryList = bmDAO.selectCategory();
 		pageContext.setAttribute("reviewList", reviewList);
+		pageContext.setAttribute("category", categoryList);
 		
 	}catch(SQLException se){
 		se.printStackTrace();
@@ -152,12 +157,19 @@ function boardDetail(rcode){
 		<!-- 검색 -->
 		<div class="searchDiv">
 		<form id="frmSearch">
+			<select class="searchCat" id="category" name="category">
+					<option value="1">전체</option>
+				<c:forEach var="cat" items="${ category }" varStatus="i">
+					<option value="${ i.count+1 }"${ param.category eq (i.count+1).toString() ? " selected='selected'" : "" }>${ cat }</option>
+				</c:forEach>
+			</select>
 			<select class="searchList" id="field" name="field">
 				<option value="1"${ param.field eq "1" ? " selected='selected'" : "" }>아이디</option>
 				<option value="2"${ param.field eq "2" ? " selected='selected'" : "" }>상품명</option>
+				<option value="3"${ param.field eq "3" ? " selected='selected'" : "" }>카테고리명</option>
 			</select>
 			<input type="text" class="textBox" id="keyword" name="keyword" placeholder="내용을 입력해주세요"
-			value = "${ not empty param.keyword ? param.keyword : ''}"/>
+			value = "${ param.keyword ne 'null' ? param.keyword : ''}"/>
 			<input type="button" id="btnSearch" value="검색"/>
 		</form>
 		</div>
@@ -174,9 +186,10 @@ function boardDetail(rcode){
 				<thead>
 				<tr id="top_title">
 					<!-- 컬럼 사이즈 -->
-					<th style="width:170px">No</th>
-					<th style="width:250px">상품명</th>
-					<th style="width:230px">작성자</th>
+					<th style="width:120px">No</th>
+					<th style="width:180px">카테고리명</th>
+					<th style="width:260px">상품명</th>
+					<th style="width:240px">작성자</th>
 					<th style="width:230px">작성일</th>
 					<th style="width:200px">평점</th>
 				</tr>
@@ -186,7 +199,7 @@ function boardDetail(rcode){
 					<!-- list가 존재하지 않을 경우 -->
 					<c:if test="${ empty reviewList }">
 					<tr>
-						<td colspan="8" style="text-align: center;"> 
+						<td colspan="6" style="text-align: center;"> 
 							리뷰가 존재하지 않습니다. </td>
 					</tr>
 					</c:if>
@@ -194,6 +207,7 @@ function boardDetail(rcode){
 					<c:forEach var="review" items="${ reviewList }" varStatus="i">
 					<tr onclick="boardDetail(${ review.rcode })">
 						<td>${ startNum + i.index }</td>
+						<td>${ review.cat_name }</td>
 						<td>${ review.gname }</td>
 						<td>${ review.id }</td>
 						<td>${ review.rev_date }</td>
@@ -209,16 +223,18 @@ function boardDetail(rcode){
 			</div>
 		</div>
 		
+		<c:if test="${ not empty reviewList }">
 		<!-- 페이지네이션 -->
 		<div class="pagenationDiv">
 			<div class="pagination">
- 				<a href="#">&laquo;</a>
-  				<a href="#">1</a>
-  				<a href="#" class="active">2</a>
-  				<a href="#">3</a>
-  				<a href="#">&raquo;</a>
+ 				<%
+ 					BoardUtil util = BoardUtil.getInstance();
+ 					BoardUtilVO buVO = new BoardUtilVO("boardManagement.jsp", keyword, field, currentPage, totalPage, category);
+ 					out.println(util.pageNationBM(buVO));
+ 				%>
 			</div>
 		</div>
+		</c:if>
 		
 		<% if(request.getParameter("keyword") != null) 
 			out.print("<a href='boardManagement.jsp'><input type='button' id='btnList' value='목록'/></a>");

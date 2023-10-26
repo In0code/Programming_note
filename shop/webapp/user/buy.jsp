@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page info="구매 화면, 신용카드 및 배송정보 입력" %>
 <!-- 프로젝트용 CDN -->
 <%@ include file="../cdn/cdn.jsp"%>
 <!DOCTYPE html>

@@ -1,3 +1,4 @@
+<%@page import="javax.swing.plaf.synth.SynthOptionPaneUI"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="admin.dao.NoticeDAO"%>
 <%@page import="admin.vo.NoticeVO"%>
@@ -6,7 +7,7 @@
 <%@page import="common.dao.BoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page info=""%>
+<%@ page info="공지사항 메인 화면"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -133,7 +134,7 @@ body{
 overflow: auto;
 background-color:  #FFFFFF;
 color:  #333333;
-min-height: 700px;
+min-height: 770px;
 max-width: 1300px;
 position: absolute;
 top: 80px; left: 60px;
@@ -180,11 +181,11 @@ border-radius: 9px;
 			location.href = "notice_wirte.jsp";
 		});
 		
-		$(".styled-table tr").click(function() { //테이블을 열을 클릭하면 번호가 나옴, 추후에는 공지사항 코드가 나옴
+		/* $(".styled-table tr").click(function() { //테이블을 열을 클릭하면 번호가 나옴, 추후에는 공지사항 코드가 나옴
 			var tr = $(this);
 			var td = tr.children();
 			alert(td.eq(0).text()+"번째 공지사항 수정하기");
-		});
+		}); */
 		
 		$("#btnLogout").click(function() {
 	        alert("로그아웃..??");
@@ -197,7 +198,7 @@ border-radius: 9px;
 	});
 	
 	function edit(code) {
-		location.href = "notice_write.jsp?code="+code+"&flag=2";
+		location.href = "notice_detail.jsp?ncode="+code+"&flag=2";
 	}
 	
 </script>
@@ -207,7 +208,11 @@ border-radius: 9px;
 <%
 try{
 	NoticeDAO nDAO = NoticeDAO.getInstance();
-    List<NoticeVO> list = nDAO.selectNotice(brVO);
+	List<NoticeVO> list = null;
+	
+	if(brVO != null) {
+    	list = nDAO.selectNotice(brVO);
+	}
 
     String id = (String)session.getAttribute("sesId");
     
@@ -226,7 +231,7 @@ try{
 	<div class="text" id="mainTitle">
 		<strong>공지사항</strong>
 	</div>
-<div id="background_box">
+<div id="background_box" style="top:90px;">
 <table class="styled-table" id="keyword">
     <thead>
         <tr style="text-align: center;">
@@ -243,9 +248,9 @@ try{
 </tr>
 </c:if>
 <c:forEach var="notice" items="${noticeList}" varStatus="i">
-        <tr onclick="edit(${notice.code})">
+        <tr onclick="edit(${notice.ncode})">
             <td>
-            <c:out value="${i.index}"/>
+            <c:out value="${i.count}"/>
             </td>
             <td><c:out value="${notice.noticeTitle}"/></td>
             <td style="text-align: center;">관리자</td>
@@ -256,13 +261,14 @@ try{
     </tbody>
 </table>
 <!-- <div style="width: 100%;margin-top: 20px;padding-left: 50%;"> -->
+</div>
 <div style="padding-left: 1165px;padding-bottom: 10px;">
-<input type="button" class="btn btn-outline-success" value="등록" id="btnAdd"/>
+<input type="button" class="btn btn-outline-success" value="등록" id="btnAdd"style="position: absolute; top:750px;"/>
 </div>
 <div>
 <!-- 페이지 이동 -->
 <c:if test="${totalPage != 0}">
-<nav aria-label="Page navigation example">
+<nav aria-label="Page navigation example" style="margin-left: 29vw;position: absolute; top:790px;">
   <ul class="pagination ulCenter">
     <li class="page-item">
       <a class="page-link" href="#void_previous" aria-label="Previous">
@@ -270,7 +276,7 @@ try{
       </a>
     </li>
     <c:forEach var="i" begin="1" end="<%=totalPage %>" step="1">
-    <li class="page-item"><a class="page-link" href="#void${i}">${i}</a></li>
+    <li class="page-item"><a class="page-link" href="notice.jsp?no=5&page=${i}">${i}</a></li>
     </c:forEach>
     <li class="page-item">
       <a class="page-link" href="#void_next" aria-label="Next">
@@ -280,7 +286,6 @@ try{
   </ul>
 </nav>
 </c:if>
-</div>
 </div>
 	</div>
 </div>	

@@ -251,11 +251,30 @@ body.search_active .headSearchBtn_magnifier {
 								<i class="icon-close headSearchBtn_close"></i> -->
 							</a>
 						</li>
+					<li>
+					 	<%
+					 		String id=(String)session.getAttribute("sesId");
+					 		if( id == null){
+					 	%>
+							<a href="login.jsp">Login</a>
+						<% 
+						}else{ 
+						%>
+					 		<a href="logout.jsp">Logout</a>
+				 		<% } %>
+					</li>
+						
 						<li>
-							<a href="../user/login.jsp">Login</a>
-						</li>
-						<li>
-							<a href="../user/join.jsp">Join</a>
+						<%
+						 	String move=(String)session.getAttribute("sesId");
+						 	if( id == null){
+						 %>
+							<a href="register.jsp">Join</a>
+						<% 
+							}else{ 
+						%>
+				 			<a href="mypage.jsp">MyPage</a>
+				 		<% } %>
 							<!-- 
 							<div id="tooltip">
 								<div class="tooltipArrow"></div>

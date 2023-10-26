@@ -36,7 +36,34 @@
 
 
 <style type="text/css">
+.star-rating {
+  border:solid 1px #ccc;
+  display:flex;
+  flex-direction: row-reverse;
+  font-size:1.5em;
+  justify-content:space-around;
+  padding:0 .2em;
+  text-align:center;
+  width:5em;
+}
 
+.star-rating input {
+  display:none;
+}
+
+.star-rating label {
+  color:#ccc;
+  cursor:pointer;
+}
+
+.star-rating :checked ~ label {
+  color:#f90;
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  color:#fc0;
+}
 
 </style>
 <script type="text/javascript">
@@ -74,34 +101,89 @@ try{
  </div>
 
 <!-- 상품 만족도 -->
-<div style="border: 1px solid #333; margin-left: 5px; width:502px; height:150px;" >
-<div style="text-align: center">
+<div style="border: 1px solid #333; margin-left: 5px; width:502px; height:150px; text-align: center" >
+<div style=" margin-top: 10px"><strong ><c:out value="${review.name}" /></strong>님 상품은 어떠셨나요?</div><br>
+<div  style= "border: 0px; position:absolute; top:80px; left:200px" class="star-rating" >
+
+  <input type="radio" id="5-stars" name="rating" value="5" ${review.star eq 5 ? "checked='checked'" : "" }/>
+  
+  <label for="5-stars" class="star" >&#9733;</label>
+
+
+  
+  <input type="radio" id="4-stars" name="rating" value="4" ${review.star eq 4 ? "checked='checked'" : "" }/>
+  <label for="4-stars" class="star">&#9733; </label>
+  
+ 
+  <input type="radio" id="3-stars" name="rating" value="3" ${review.star eq 3 ? "checked='checked'" : "" }/>
+  <label for="3-stars" class="star">&#9733;</label>
+
+  <input type="radio" id="2-stars" name="rating" value="2" ${review.star eq 2 ? "checked='checked'" : "" }/>
+
+  <label for="2-stars" class="star">&#9733;</label>
+   
+  <input type="radio" id="1-star" name="rating" value="1" ${review.star eq 1 ? "checked='checked'" : "" }/>
+  <label for="1-star" class="star">&#9733;</label>
+ <br>
+ 
+  <br>
+
+<%-- <div style="text-align: center">
 <div><c:out value="${review.name}" />님 상품은 어떠셨나요?</div><br>
 <c:choose >
-<c:when test="${review.rcode eq 1 }">
+<c:when test="${review.star eq 1 }">
 <c:set var="star" value="★☆☆☆☆"/>
-<c:set var="text" value="나쁘지 않았아요."/>
+<c:set var="text" value="별로에요."/>
 </c:when>
-<c:when test="${review.rcode eq 2 }">
+<c:when test="${review.star eq 2 }">
 <c:set var="star" value="★★☆☆☆"/>
 <c:set var="text" value="그냥 그랬어요."/>
 </c:when>
-<c:when test="${review.rcode eq 3 }">
+<c:when test="${review.star eq 3 }">
 <c:set var="star" value="★★★☆☆"/>
 <c:set var="text" value="보통이에요."/>
 </c:when>
-<c:when test="${review.rcode eq 4 }">
+<c:when test="${review.star eq 4 }">
 <c:set var="star" value="★★★★☆"/>
 <c:set var="text" value="좋았어요."/>
 </c:when>
-<c:when test="${review.rcode eq 5 }">
+<c:when test="${review.star eq 5 }">
 <c:set var="star" value="★★★★★" />
 <c:set var="text" value="최고에요"/>
 </c:when>
 </c:choose>
 <div style="color:#FF923A"><c:out value="${star}" /></div><br><c:out value="${text}" />
+</div> --%>
+
 </div>
+<br>
+<c:catch var="ele">
+ <c:choose >
+<c:when test="${review.star eq 1  }">
+<c:set var="text" value="별로에요."/>
+</c:when>
+<c:when test="${review.star eq 2   }">
+
+<c:set var="text" value="그냥 그랬어요."/>
+</c:when>
+<c:when test="${review.star eq 3  }">
+
+<c:set var="text" value="보통이에요."/>
+</c:when>
+<c:when test="${review.star eq  4 }">
+<c:set var="text" value="좋았어요."/>
+</c:when>
+<c:when test="${review.star eq 5 }">
+<c:set var="text" value="최고에요"/>
+
+
+
+</c:when>
+</c:choose>
+</c:catch>
+<div style="color:#FF923A"><c:out value="${text}" /></div>  
 </div>
+<div></div>
 <br/>
 <!-- 리뷰 작성 -->
 <img src="../common/images/icon/check-circle.svg" style="margin-left: 5px;">&ensp;리뷰 작성

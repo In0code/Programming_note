@@ -1,8 +1,8 @@
 <%@page import="java.util.List"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="common.dao.BoardDAO"%>
-<%@page import="user.dao.BoardManageDAO"%>
-<%@page import="user.vo.BoardManageVO"%>
+<%@page import="admin.dao.BoardManageDAO"%>
+<%@page import="admin.vo.BoardManageVO"%>
 <%@page import="admin.vo.BoardRangeVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -118,7 +118,8 @@ $(function() {
 	<div id="rightBody">
 		<!-- 타이틀  -->
 		<div class="text" id="mainTitle">		
-			<strong>&lt; 리뷰</strong>
+			<img src="../common/images/back1.png" style="width:27px"/>
+			<strong>리뷰</strong>
 		</div>
 
 		<div id="background_box">

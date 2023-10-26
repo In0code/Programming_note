@@ -1,16 +1,20 @@
-<%@page import="java.text.NumberFormat"%>
-<%@page import="admin.vo.NoticeVO"%>
-<%@page import="java.sql.SQLException"%>
 <%@page import="admin.dao.NoticeDAO"%>
+<%@page import="admin.vo.NoticeVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page info="공지사항 상세한 내용을 표시하고 수정/삭제가 가능한 화면"%>
+<%@ page info="삭제하는 일을 하는 jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <!-- jQuery CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<!-- summernote 시작 -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<!-- i18n -->
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/lang/summernote-ko-KR.min.js"></script>
+
 <meta charset="UTF-8">
 <style type="text/css">
 body{
@@ -65,6 +69,7 @@ border-radius: 9px;
 position: absolute;
 width: 100%;
 height: 120px;
+margin-top: 20px;
 }
 #info{
 padding: 10px;
@@ -100,53 +105,15 @@ padding: 0px;
 }
 </style>
 <!-- 태균이가 만든거 끝-->
+<%request.setCharacterEncoding("UTF-8"); %>
 <script type="text/javascript">
 	$(function() {
-		$("#btnLogout").click(function() {
-			location.href="logout.jsp";
-		});
-		
-		$("#btnEdit").click(function() {
-			location.href = "notice_write.jsp?ncode="+${param.ncode}+"&flag=2";
-		});
-		
-		$("#btnCel").click(function() {
-			if(confirm("삭제 하시겠습니까?")) {
-				location.href = "notice_del_process.jsp?ncode="+${param.ncode}+"&flag=2";
-			}
-		});
 		
 	});
 </script>
 </head>
 <body>
-<%@ include file="sidebar.jsp" %>
-
-<%
-NoticeDAO nDAO = NoticeDAO.getInstance();
-String title = "";
-String context = "";
-String date = "";
-String editDate = "";
-int view = -1;
-try {
-	int ncode = Integer.parseInt(request.getParameter("ncode"));
-	NoticeVO nVO = nDAO.selectOneNotice(ncode);
-	
-	title = nVO.getNoticeTitle();
-	context = nVO.getNoticeText();
-	date = nVO.getNoticeDate();
-	view = nVO.getViewNum();
-	editDate = nVO.getEditDate();
-	
-	pageContext.setAttribute("editDate", editDate);
-	
-} catch(SQLException se) {
-	se.printStackTrace();
-} catch(NumberFormatException nfe) {
-	nfe.printStackTrace();
-}
-%>
+<jsp:include page="sidebar.jsp" />
 
 <div id="right">
 	<div id="rightHeader" align="right">
@@ -159,31 +126,24 @@ try {
 		</div>
 		<div id="background_box"> <!-- 각자 원하는데로 사용 -->
 <!-- 여기부터가 코딩하는 div 영역 --><!-- 여기부터가 코딩하는 div 영역 --><!-- 여기부터가 코딩하는 div 영역 --><!-- 여기부터가 코딩하는 div 영역 --><!-- 여기부터가 코딩하는 div 영역 -->
-<div id="divTable" class="pad">
-<table class="table">
-	<tr style="border-bottom: 2px solid #A5A5A5;">
-		<td style="background: #F1F1F1;"><strong>제목</strong></td>
-		<td colspan="3"><%=title %></td>
-		<td style="background: #F1F1F1;"><strong>작성자</strong></td>
-		<td>관리자</td>
-	</tr>
-	<tr style="border-bottom: 2px solid #A5A5A5;">
-		<td style="background: #F1F1F1;"><strong>작성일</strong></td>
-		<td colspan="3"><%=date %><%=editDate == null?"":"("+editDate+")" %></td>
-		<td style="background: #F1F1F1;"><strong>조회수</strong></td>
-		<td><%=view %></td>
-	</tr>
-</table>
-</div>
-<div id="info">
-<textarea id="note" readonly="readonly" style="padding-top: 30px;padding-left: 40px;resize: none;border: 1px solid #333;margin-left: 20px;width: 1240px;">
-<%=context %>
-</textarea>
-<div>
-	<input type="button" class="btn btn-outline-danger input" value="삭제" id="btnCel" style="margin-right: 30px;"/>
-	<input type="button" class="btn btn-outline-success input" value="수정" id="btnEdit" style="margin-right: 15px;"/>
-</div>
-</div>
+<%
+String flag = request.getParameter("flag");
+String temp = request.getParameter("ncode");
+
+if(!"2".equals(flag) || "".equals(temp) || "null".equals(temp) || temp == null) {
+	response.sendRedirect("notice.jsp?no=5");
+}
+
+int ncode = Integer.parseInt(temp);
+
+boolean result = NoticeDAO.getInstance().updateDelete(ncode);
+String msg = "삭제 되었습니다.";
+if(!result) {
+	msg = "서버 오류! 잠시 후 다시 시도해주세요.";
+}
+%>
+
+<%=msg %>
 <!-- 여기까지가 코딩하는 div 영역 --><!-- 여기까지가 코딩하는 div 영역 --><!-- 여기까지가 코딩하는 div 영역 --><!-- 여기까지가 코딩하는 div 영역 --><!-- 여기까지가 코딩하는 div 영역 --> 
 		</div>
 	</div>	

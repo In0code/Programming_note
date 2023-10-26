@@ -2,16 +2,13 @@
 <%@page import="admin.vo.NoticeVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page info=""%>
+<%@ page info="공지사항 작성 화면, 등록/수정은 화면이 모두 같다."%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <!-- jQuery CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<!-- i18n -->
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/lang/summernote-ko-KR.min.js"></script>
-
 <meta charset="UTF-8">
 <style type="text/css">
 body{
@@ -109,8 +106,14 @@ padding: 0px;
 		});
 		
 		$("#btnEdit").click(function() {
-			var 
-			alert("수정");
+			var title = $("#basic-url").val();
+			var context = $("#context").val();
+			
+			if($("#basic-url").val() != "" && $("#context").val() != "") {
+				$("#sfrm").submit();
+			} else {
+				alert("내용을 입력하세요.");
+			}
 		});
 		
 	});
@@ -131,21 +134,23 @@ padding: 0px;
 		<div id="background_box"> <!-- 각자 원하는데로 사용 -->
 <!-- 여기부터가 코딩하는 div 영역 --><!-- 여기부터가 코딩하는 div 영역 --><!-- 여기부터가 코딩하는 div 영역 --><!-- 여기부터가 코딩하는 div 영역 --><!-- 여기부터가 코딩하는 div 영역 -->
 <%
-String ncode = request.getParameter("code");
+String flag = request.getParameter("flag");
 NoticeVO nVO = null;
 String title = "";
 String context = "";
 
-if(ncode != null) {
+if("2".equals(flag)) {
+	String ncode = request.getParameter("ncode");
 	nVO = NoticeDAO.getInstance().selectOneNotice(Integer.parseInt(ncode));
 	title = nVO.getNoticeTitle();
 	context = nVO.getNoticeText();
+	
+	pageContext.setAttribute("title", title);
+	pageContext.setAttribute("ncode", ncode);
 }
 
-pageContext.setAttribute("title", title);
-pageContext.setAttribute("ncode", ncode);
 %>
-<form id="sfrm" method="post" action="notice_write_process?flag=${param.flag}">
+<form id="sfrm" method="post" action="notice_write_process.jsp?flag=${param.flag}&ncode=${ncode}">
 <div id="divTable" class="pad">
 <div class="input-group mb-3">
   <span class="input-group-text" id="basic-addon3" style="min-width: 100px;">제목</span>
@@ -156,7 +161,6 @@ pageContext.setAttribute("ncode", ncode);
 <textarea id="context" name="context"><%=context%></textarea>
 <div>
 	<input type="button" class="btn btn-outline-success input" value="등록" id="btnEdit" style="margin-right: 30px;"/>
-	<input type="hidden" value="${ncode}" id="ncode" name="ncode">
 </div>
 </div>
 </form>
