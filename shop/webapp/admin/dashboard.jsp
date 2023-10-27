@@ -1,3 +1,5 @@
+<%@page import="java.sql.SQLException"%>
+<%@page import="admin.dao.DashboardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page info=""%>
@@ -164,6 +166,10 @@ td {
 	width: 57px;
 }
 
+tr {
+	font-size: 14px;
+}
+
 tbody{
 	font-size: 14px;
 }
@@ -188,6 +194,25 @@ tbody{
 </head>
 <body>
 <%@ include file="sidebar.jsp" %>
+
+<%
+	DashboardDAO dbDAO = DashboardDAO.getInstance();
+	try{
+		int[] salesCnt = dbDAO.selectSalesStatus();
+		pageContext.setAttribute("salesCnt", salesCnt);
+
+		int[] productCnt = dbDAO.selectProductStatus();
+		pageContext.setAttribute("productCnt", productCnt);
+		
+	}catch(SQLException se){
+		se.printStackTrace();
+	}
+	
+	
+
+%>
+
+
 <div id="right">
 	<div id="rightHeader" align="right">
 		<span style="font-weight: bold;margin-right: 20px">관리자님</span>
@@ -198,42 +223,37 @@ tbody{
 			<span class="titleText">판매 현황</span>
 			<div class="innerDiv">
 					<div class="grayBox">
-						<span class="count"> 15 </span>
+						<span class="count">${ salesCnt[0] }</span>
 						<span class="grayTitle">결제 완료</span>
 					</div>
 					
 					<div class="grayBox" style="left: 123px">
-						<span class="count">0</span>
-						<span class="grayTitle">주문 확인</span>
-					</div>
-					
-					<div class="grayBox" style="left: 224px">
-						<span class="count">100</span>
+						<span class="count">${ salesCnt[1] }</span>
 						<span class="grayTitle">배송 준비</span>
 					</div>
 					
-					<div class="grayBox" style="top: 140px">
-						<span class="count">1234</span>
+					<div class="grayBox" style="left: 224px">
+						<span class="count">${ salesCnt[2] }</span>
 						<span class="grayTitle">배송 중</span>
 					</div>
 					
-					<div class="grayBox" style="top: 140px; left: 123px;">
-						<span class="count">0</span>
+					<div class="grayBox" style="top: 140px">
+						<span class="count">${ salesCnt[3] }</span>
 						<span class="grayTitle">배송 완료</span>
 					</div>
 			</div>
 		</div>
 		
 		<div id="returnDiv" class="dashboardBox statusBox">
-			<span class="titleText">취소/반품 현황</span>
+			<span class="titleText">교환/반품 현황</span>
 			<div class="innerDiv">
 				<div class="grayBox">
-					<span class="count">3</span>
-						<span class="grayTitle">취소</span>
+					<span class="count">${ salesCnt[4] }</span>
+						<span class="grayTitle">교환</span>
 					</div>
 					
 					<div class="grayBox" style="left: 123px">
-						<span class="count">1</span>
+						<span class="count">${ salesCnt[5] }</span>
 						<span class="grayTitle">반품</span>
 					</div>
 			</div>
@@ -243,17 +263,17 @@ tbody{
 			<span class="titleText">상품 현황</span>
 			<div class="innerDiv">
 				<div class="grayBox">
-					<span class="count"> 20 </span>
+					<span class="count"> ${ productCnt[0] } </span>
 						<span class="grayTitle">판매 중</span>
 					</div>
 					
 					<div class="grayBox" style="left: 123px">
-						<span class="count">2</span>
+						<span class="count">${ productCnt[1] }</span>
 						<span class="grayTitle">품절</span>
 					</div>
 					
 					<div class="grayBox" style="left: 224px">
-						<span class="count">5</span>
+						<span class="count">${ productCnt[2] }</span>
 						<span class="grayTitle">재고 10개↓</span>
 					</div>
 			</div>
@@ -273,42 +293,42 @@ tbody{
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
+						<tr style="font-size:14px; height: 46px">
 							<td>2023-10-20</td>
 							<td>120</td>
 							<td>561,500</td>
 							<td>1636</td>
 							<td>10</td>
 						</tr>
-						<tr>
+						<tr style="font-size:14px; height: 46px">
 							<td>1</td>
 							<td>1</td>
 							<td>1</td>
 							<td>1</td>
 							<td>1</td>
 						</tr>
-						<tr>
+						<tr style="font-size:14px; height: 46px">
 							<td>1</td>
 							<td>1</td>
 							<td>1</td>
 							<td>1</td>
 							<td>1</td>
 						</tr>
-						<tr>
+						<tr style="font-size:14px; height: 46px">
 							<td>1</td>
 							<td>1</td>
 							<td>1</td>
 							<td>1</td>
 							<td>1</td>
 						</tr>
-						<tr>
+						<tr style="font-size:14px; height: 46px">
 							<td>1</td>
 							<td>1</td>
 							<td>1</td>
 							<td>1</td>
 							<td>1</td>
 						</tr>
-						<tr class="total">
+						<tr class="total" style="font-size:14px; height: 46px">
 							<td>합계</td>
 							<td>1</td>
 							<td>1</td>
@@ -334,35 +354,35 @@ tbody{
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
+						<tr style="font-size:14px; height: 46px">
 							<td>1분기</td>
 							<td>1</td>
 							<td>1</td>
 							<td>1</td>
 							<td>1</td>
 						</tr>
-						<tr>
+						<tr style="font-size:14px; height: 46px">
 							<td>2분기</td>
 							<td>1</td>
 							<td>1</td>
 							<td>1</td>
 							<td>1</td>
 						</tr>
-						<tr>
+						<tr style="font-size:14px; height: 46px">
 							<td>3분기</td>
 							<td>1</td>
 							<td>1</td>
 							<td>1</td>
 							<td>1</td>
 						</tr>
-						<tr>
+						<tr style="font-size:14px; height: 46px">
 							<td>4분기</td>
 							<td>1</td>
 							<td>1</td>
 							<td>1</td>
 							<td>1</td>
 						</tr>
-						<tr class="total">
+						<tr class="total" style="font-size:14px; height: 46px">
 							<td>합계</td>
 							<td>1</td>
 							<td>1</td>

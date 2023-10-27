@@ -182,7 +182,7 @@ function boardDetail(rcode){
 		<div id="background_box">
 			<div style="margin: 10px; text-align: center;">
 			<!-- 리스트 시작 -->
-			<table id="order_list" class="table tableList">
+			<table class="table tableList">
 				<thead>
 				<tr id="top_title">
 					<!-- 컬럼 사이즈 -->
