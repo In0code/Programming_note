@@ -9,11 +9,20 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import admin.vo.BoardRangeVO;
 import admin.vo.OrderVO;
 import admin.vo.RecallVO;
 import common.dao.DbConnection;
 
-
+/*
+결제완료 -  PF
+배송중  -  D0
+배송완료 -  DF
+교환신청 - C0
+교환완료 - CF
+반품신청 - R0
+반품완료 - RF
+*/
 public class OrderProcessDAO {
 
 	private static OrderProcessDAO opDAO;
@@ -28,13 +37,19 @@ public class OrderProcessDAO {
 		return opDAO;
 	}//getInstance
 	
+	
+
+	
+	
+	
 	/**
 	 * 전체 주문 조회해서 조회된 정보를 넣어주기 위한 일
 	 * @return list
 	 * @throws SQLException
 	 */
-	public List<OrderVO> selectAllOrder() throws SQLException{
+	public List<OrderVO> selectAllOrder(BoardRangeVO brVO) throws SQLException{
 		
+		String keyword = brVO.getKeyword();
 		OrderVO oVO=null;
 		List<OrderVO> list= new ArrayList<OrderVO>();
 		
@@ -51,12 +66,37 @@ public class OrderProcessDAO {
 		//4. 쿼리문 생성 객체 얻기
 			StringBuilder selectAllOrder=new StringBuilder();
 			selectAllOrder
-			.append("	select  u.ORD_DATE, u.ORDNO, g.GNAME, od.AMOUNT, g.PRICE, u.DLVY_PRO, m.NAME	")
+			.append("	select ORD_DATE, ORDNO, GNAME, AMOUNT, PRICE, DLVY_PRO, NAME	")
+			.append("	from (select row_number() over(order by ORD_DATE desc) rnum,	")
+			.append("	u.ORD_DATE, u.ORDNO, g.GNAME, od.AMOUNT, g.PRICE, u.DLVY_PRO, m.NAME	")
 			.append("	from UORDER u, GOODS g, MEMBER m, ORDER_DETAIL od	")
 			.append("	where m.id=u.id and od.gcode=g.gcode and u.ordno=od.ordno	")
-			.append("	and ( DLVY_PRO in ('D0','DF','PF' ) )	");
+			.append("	and ( DLVY_PRO in ('D0','DF','DR','PF' ) )	");
+			//
+			
+			if(brVO.getKeyword() != null && !"".equals(brVO.getKeyword() )&& !"null".equals(brVO.getKeyword())) {
+				String field="id";
+				if("1".equals(brVO.getField())) {
+					field="name";
+				}//end if
+				if("2".equals(brVO.getField())) {
+					field="ORDNO";
+				}//end if
+				
+				selectAllOrder.append("where ").append(field).append(" like '%'||?||'%' ");
+			}//end if
+			
+			selectAllOrder.append(")	where rnum between ? and ?					");
 			
 			pstmt=con.prepareStatement(selectAllOrder.toString());
+		//5. 바인드 변수 값 설정
+			int bindCnt=1;
+			if(brVO.getKeyword() != null && !"".equals(brVO.getKeyword() )&& !"null".equals(brVO.getKeyword())) {
+			pstmt.setString(bindCnt++, brVO.getKeyword());	
+			}//end if
+			
+			pstmt.setInt(bindCnt++, brVO.getStartNum());
+			pstmt.setInt(bindCnt++, brVO.getEndNum());
 		//5. 바인드 변수 값 설정
 		//6. 쿼리문 실행 후 값 얻기
 			rs=pstmt.executeQuery();
@@ -105,7 +145,7 @@ public class OrderProcessDAO {
 			.append("	select  u.ORD_DATE, u.ORDNO, g.GNAME, od.AMOUNT, g.PRICE, u.DLVY_PRO, m.NAME	")
 			.append("	from UORDER u, GOODS g, MEMBER m, ORDER_DETAIL od	")
 			.append("	where m.id=u.id and od.gcode=g.gcode and u.ordno=od.ordno and  m.id=u.id	")
-			.append("	and ( DLVY_PRO in ('D0','DF','PF' ) )	")
+			.append("	and ( DLVY_PRO in ('D0','DF','DR','PF' ) )	")
 			.append("	 and ( m.name= ? or m.id=? or u.ORDNO= ? )	");
 			
 			pstmt=con.prepareStatement(selectAllOrder.toString());
