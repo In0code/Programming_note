@@ -13,7 +13,7 @@ int rcode = Integer.parseInt(request.getParameter("rcode"));
 BoardManageDAO bmDAO = BoardManageDAO.getInstance();
 bmDAO.deleteReview(rcode);
 %>
-<script> alert("")</script>
+<script>alert("삭제되었습니다."); window.location = "boardManagement.jsp";</script>
 <%
 
 %>

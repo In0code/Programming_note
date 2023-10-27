@@ -173,8 +173,8 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 				<td class="status">
       
               <select name="statuslist">
-                <option value="CF"${ recall.orderStatus eq 'CF'? " selected='selected'" : "" }  >교환완료</option>
                 <option value="C0"${ recall.orderStatus eq 'C0'? " selected='selected'" : "" }  >교환신청 </option>
+                <option value="CF"${ recall.orderStatus eq 'CF'? " selected='selected'" : "" }  >교환완료</option>
                 <option value="R0"${ recall.orderStatus eq 'R0'? " selected='selected'" : "" } >반품신청 </option>
                 <option value="RF"${ recall.orderStatus eq 'RF'? " selected='selected'" : "" } >반품완료</option>
             </select>  

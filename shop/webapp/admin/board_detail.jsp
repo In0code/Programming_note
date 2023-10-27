@@ -65,17 +65,11 @@ th {
 #btnDel {
   position: absolute; 
   top: 820px;
-  left: 1320px;
-  background-color: #FFFFFF;
-  border: 1px solid #BEBEBE;
+  left: 1310px;
   height: 60px;
-  width: 135px;
+  width: 120px;
   font-size:20px;
   border-radius: 10px;
-}
-
-#btnDel:hover {
-	background-color: #F2F2F2;
 }
 
 </style>
@@ -87,8 +81,9 @@ $(function() {
 	});
 	
 	$("#btnDel").click(function() {
-		
-		$("#frmDel").submit();
+		if(confirm("삭제 하시겠습니까?")){
+			$("#frmDel").submit();
+		}
 	});
 });
 </script>
@@ -117,41 +112,43 @@ $(function() {
 			</a>
 		</div>
 
-		<div id="background_box" style="width:70%">
+		<div id="background_box" style="width:70%; height: 150%">
 			<div style="margin: 10px; text-align: center;">
 			<!-- 리스트 시작 -->
 			<table id="order_list" class="table tableList">
 				<tr>
-					<th>제목</th>
-					<td colspan="5"><c:out value="${ review.title }"/></td>
+					<th style="background-color: #F7F7F7">제목</th>
+					<td colspan="5" style="padding-left:20px"><c:out value="${ review.title }"/></td>
 				</tr>
 				<tr>
-					<th>작성자</th>
-					<td colspan="5"><c:out value="${ review.id }"/></td>
+					<th style="background-color: #F7F7F7">작성자</th>
+					<td colspan="5" style="padding-left:20px"><c:out value="${ review.id }"/></td>
 				</tr>
 				<tr>
-					<th>작성일</th>
-					<td style="width:140px"><c:out value="${ review.rev_date }"/></td>
-					<th style="width:100px">조회수</th>
-					<td style="width:100px"><c:out value="${ review.r_view }"/></td>
-					<th style="width:100px">평점</th>
-					<td>
+					<th style="background-color: #F7F7F7">작성일</th>
+					<td style="width:160px; padding-left:20px"><c:out value="${ review.rev_date }"/></td>
+					<th style="width:100px; background-color: #F7F7F7">조회수</th>
+					<td style="width:110px; padding-left:20px"><c:out value="${ review.r_view }"/></td>
+					<th style="width:100px; background-color: #F7F7F7; ">평점</th>
+					<td style="padding-left:20px">
 					<c:forEach var="star" begin="1" end="${ review.star }">
 						<img src="../common/images/star.png" width="16px"/>
 					</c:forEach>
 					</td>
 				</tr>
+				<tr>
+					<td colspan="6" style="border:none; padding: 10px 0px 0px 58px;">
+					<span style="font-size:18px; text-align:left;">${ review.rev_cont }</span>
+					</td>
+				</tr>
 			</table>
-			
-			<div id="revContent">
-				<span style="font-size:20px; text-align:left">${ review.rev_cont }</span>
-			</div>
+
 			</div>
 		</div>
 	</div>
 	
 	<form action="board_delete_process.jsp" id="frmDel">
-		<input type="button" id="btnDel" value="삭제"/>
+		<input type="button" id="btnDel" class="btn btn-outline-danger input" value="삭제"/>
 		<input type="hidden" id="rcode" name="rcode" value="${ rcode }"/>
 	</form>
 	
