@@ -43,8 +43,8 @@ public class BoardUtil {
 		if(currentPage > pageNumber) { //시작페이지보다 1 적은 페이지로 이동
 			movePage = startPage-1;
 		
-			pageNation.append("[ <a href = '").append(buVO.getUrl()).append("?currentPage=").append(movePage).append("&dataFlag=")
-			.append(buVO.getDataFlag()).append("&keyword=").append(buVO.getKeyword()).append("&field=")
+			pageNation.append("[ <a href = '").append(buVO.getUrl()).append("?currentPage=").append(movePage)
+			.append("&keyword=").append(buVO.getKeyword()).append("&field=")
 			.append(buVO.getField()).append("'> &lt;&lt; </a>] ...");
 		}else{
 			pageNation.append("[ &lt;&lt; ]");
@@ -61,8 +61,8 @@ public class BoardUtil {
 			}else{
 			//나머지 인덱스는 링크 있는 인덱스 제공
 			pageNation.append("[ <a href='")
-			.append(buVO.getUrl()).append("?currentPage=").append(movePage).append("&dataFlag=")
-			.append(buVO.getDataFlag()).append("&keyword=").append(buVO.getKeyword())
+			.append(buVO.getUrl()).append("?currentPage=").append(movePage)
+			.append("&keyword=").append(buVO.getKeyword())
 			.append("&field=").append(buVO.getField()).append("'>").append(movePage).append("</a> ]");
 		
 			}//end else
@@ -76,8 +76,7 @@ public class BoardUtil {
 			movePage = endPage+1; //현재 페이지의 마지막 인덱스에 +1
 		
 			pageNation.append("... [ <a href = '").append(buVO.getUrl())
-			.append("?currentPage=").append(movePage).append("&dataFlag=")
-			.append(buVO.getDataFlag()).append("&keyword=")
+			.append("?currentPage=").append(movePage).append("&keyword=")
 			.append(buVO.getKeyword()).append("&field=").append(buVO.getField())
 			.append("'> &gt;&gt; </a>]");   
 			

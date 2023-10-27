@@ -1,13 +1,12 @@
 package common.util;
 
 public class BoardUtilVO {
-	private String url, dataFlag, keyword, field, category;
+	private String url,  keyword, field, category;
 	private int currentPage, totalPage;
 	
-	public BoardUtilVO(String url, String dataFlag, String keyword, String field, int currentPage, int totalPage) {
+	public BoardUtilVO(String url, String keyword, String field, int currentPage, int totalPage) {
 		super();
 		this.url = url;
-		this.dataFlag = dataFlag;
 		this.keyword = keyword;
 		this.field = field;
 		this.currentPage = currentPage;
@@ -44,13 +43,6 @@ public class BoardUtilVO {
 		this.url = url;
 	}
 
-	public String getDataFlag() {
-		return dataFlag;
-	}
-
-	public void setDataFlag(String dataFlag) {
-		this.dataFlag = dataFlag;
-	}
 
 	public String getKeyword() {
 		return keyword;
@@ -86,9 +78,9 @@ public class BoardUtilVO {
 
 	@Override
 	public String toString() {
-		return "BoardUtilVO [url=" + url + ", dataFlag=" + dataFlag + ", keyword=" + keyword + ", field=" + field
+		return "BoardUtilVO [url=" + url + ", keyword=" + keyword + ", field=" + field
 				+ ", totalPage=" + totalPage + ", currentPage=" + currentPage + ", getUrl()=" + getUrl()
-				+ ", getDataFlag()=" + getDataFlag() + ", getKeyword()=" + getKeyword() + ", getField()=" + getField()
+				 + ", getKeyword()=" + getKeyword() + ", getField()=" + getField()
 				+ ", getTotalPage()=" + getTotalPage() + ", getCurrentPage()=" + getCurrentPage() + ", getClass()="
 				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
