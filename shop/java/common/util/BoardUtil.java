@@ -43,11 +43,11 @@ public class BoardUtil {
 		if(currentPage > pageNumber) { //시작페이지보다 1 적은 페이지로 이동
 			movePage = startPage-1;
 		
-			pageNation.append("[ <a href = '").append(buVO.getUrl()).append("?currentPage=").append(movePage)
+			pageNation.append("<a href = '").append(buVO.getUrl()).append("?currentPage=").append(movePage)
 			.append("&keyword=").append(buVO.getKeyword()).append("&field=")
-			.append(buVO.getField()).append("'> &lt;&lt; </a>] ...");
+			.append(buVO.getField()).append("'>&laquo;</a>");
 		}else{
-			pageNation.append("[ &lt;&lt; ]");
+			pageNation.append("<span>&laquo;</span>");
 		}
 
 		//6.시작번호부터 끝번호까지 출력
@@ -55,15 +55,13 @@ public class BoardUtil {
 		while(movePage <= endPage){
 			if(movePage == currentPage){ 
 			//현재 페이지 인덱스는 링크 없이 인덱스 리스트 제공
-			pageNation.append("[ <span style='font-size:20px'>")
-			.append(movePage).append("</span> ]"); 
+			pageNation.append("<span class='active'>").append(movePage).append("</span>"); 
 		
 			}else{
 			//나머지 인덱스는 링크 있는 인덱스 제공
-			pageNation.append("[ <a href='")
-			.append(buVO.getUrl()).append("?currentPage=").append(movePage)
-			.append("&keyword=").append(buVO.getKeyword())
-			.append("&field=").append(buVO.getField()).append("'>").append(movePage).append("</a> ]");
+			pageNation.append("<a href='")
+			.append(buVO.getUrl()).append("?currentPage=").append(movePage).append("&keyword=").append(buVO.getKeyword())
+			.append("&field=").append(buVO.getField()).append("'>").append(movePage).append("</a>");
 		
 			}//end else
 			
@@ -75,19 +73,24 @@ public class BoardUtil {
 		if(totalPage>endPage){
 			movePage = endPage+1; //현재 페이지의 마지막 인덱스에 +1
 		
-			pageNation.append("... [ <a href = '").append(buVO.getUrl())
+			pageNation.append("<a href = '").append(buVO.getUrl())
 			.append("?currentPage=").append(movePage).append("&keyword=")
 			.append(buVO.getKeyword()).append("&field=").append(buVO.getField())
-			.append("'> &gt;&gt; </a>]");   
+			.append("'>&raquo;</a>");   
 			
 		}else{
 			//없으면 링크 비활성화
-			pageNation.append("[ >> ]");
+			pageNation.append("<span>&raquo;</span>");
 		}
 		
 		return pageNation.toString();
 	}//pageNation
 	
+	/**
+	 * 승연이만 쓰는 페이지네이션
+	 * @param buVO
+	 * @return
+	 */
 	public String pageNationBM(BoardUtilVO buVO) {
 		StringBuilder pageNation = new StringBuilder();
 		int currentPage = buVO.getCurrentPage();

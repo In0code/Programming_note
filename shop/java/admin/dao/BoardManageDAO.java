@@ -40,8 +40,6 @@ public class BoardManageDAO {
 		try {
 			con = db.getConn("jdbc/dbcp");
 
-			System.out.println(brVO.getCategory());
-			
 			StringBuilder selectCount = new StringBuilder();
 			selectCount
 			.append("	select count(*) CNT		")
@@ -262,10 +260,11 @@ public class BoardManageDAO {
 	 * @param rcode
 	 * @throws SQLException
 	 */
-	public void deleteReview(int rcode) throws SQLException{
+	public int deleteReview(int rcode) throws SQLException{
 		DbConnection db = DbConnection.getInstance();
 		Connection con = null;
 		PreparedStatement pstmt = null;
+		int cnt = 0;
 		
 		try {
 			con = db.getConn("jdbc/dbcp");
@@ -274,10 +273,12 @@ public class BoardManageDAO {
 			
 			pstmt.setInt(1, rcode);
 			
-			pstmt.execute();
+			cnt = pstmt.executeUpdate();
 			
 		}finally {
 			db.dbClose(null, pstmt, con);
 		}
+		
+		return cnt;
 	}
 }

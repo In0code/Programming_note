@@ -46,7 +46,7 @@ public class UserReviewDAO {
 			
 			StringBuilder selectAllReview = new StringBuilder();
 
-			selectAllReview.append(" select  m.name, r.REV_CONT, r.star , r.REV_DATE, r.r_view, r.rcode ,c.cat_name from member m, review r,goods g, category c where m.id=r.id and g.gcode=r.gcode and c.cat_code = g.cat_code and m.id= ? ");
+			selectAllReview.append(" select  m.name, r.REV_CONT, r.star , to_char(r.rev_date,'yyyy-MM-dd') as REV_DATE , r.r_view, r.rcode ,c.cat_name from member m, review r,goods g, category c where m.id=r.id and g.gcode=r.gcode and c.cat_code = g.cat_code and m.id= ? ");
 			
 			pstmt=con.prepareStatement(selectAllReview.toString());
 			
@@ -113,8 +113,9 @@ public SummaryVO selectOneReview(int rcode) throws SQLException {
 		
 		return sVO;
 	}
+/*SummaryVO sVO*/
 
-public void updateReivew (SummaryVO sVO,int rcode) throws SQLException {
+public void updateReivew ( String review,int star,int rcode) throws SQLException {
 	
 	
 	
@@ -129,17 +130,18 @@ public void updateReivew (SummaryVO sVO,int rcode) throws SQLException {
 	try {
 		con=db.getConn("jdbc/dbcp");
 		
-		String updateReivew = " update  review set REV_CONT = ? , STAR = ? , IMG = ?  where  rcode=? ";
+		String updateReivew = " update  review set REV_CONT = ? , STAR = ?   where  rcode=? ";
+		/*, IMG = ?*/
 
 		
 		
 		pstmt=con.prepareStatement(updateReivew);
 		
-		pstmt.setString(1, sVO.getReview());
-		pstmt.setInt(2, sVO.getStar());
-		pstmt.setString(3, sVO.getReview());
+		pstmt.setString(1, review);
+		pstmt.setInt(2,star);
+		/*pstmt.setString(3, sVO.getReview());*/
 		
-		pstmt.setInt(4, rcode);
+		pstmt.setInt(3, rcode);
 		
 		pstmt.executeQuery();
 	
@@ -154,12 +156,12 @@ public void updateReivew (SummaryVO sVO,int rcode) throws SQLException {
 public void deleteReivew (int rcode) throws SQLException {
 	
 	
-	SummaryVO sVO= null;
+	
 	
 	DbConnection db= DbConnection.getInstance();
 	Connection con = null;
 	PreparedStatement pstmt=null;
-	ResultSet rs= null;
+	
 	
 	
 	
@@ -167,30 +169,23 @@ public void deleteReivew (int rcode) throws SQLException {
 	try {
 		con=db.getConn("jdbc/dbcp");
 		
-		String selectAllReview = "select distinct m.name, r.REV_CONT,  r.star, r.rcode from member m, review r, category c where m.id=r.id   and r.rcode= ? ";
+		String deleteReivew = "delete from review where rcode=? ";
 
 		
 		
-		pstmt=con.prepareStatement(selectAllReview);
+		pstmt=con.prepareStatement(deleteReivew);
 		
 		pstmt.setInt(1, rcode);
 		
-		rs=pstmt.executeQuery();
-		if(rs.next()) {
-			sVO= new SummaryVO();
-			sVO.setName(rs.getString("name"));
-			sVO.setReview(rs.getString("REV_CONT"));
-			sVO.setRcode(rs.getInt("rcode"));
-			sVO.setStar(rs.getInt("star"));
-		
-		}
+		pstmt.executeQuery();
+	
 	}finally {
-		db.dbClose(rs, pstmt, con);
+		db.dbClose(null, pstmt, con);
 		
 	}
 	
 
-}
+}//deleteReivew
 	
 	
 	
