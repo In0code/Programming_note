@@ -1,3 +1,5 @@
+<%@page import="common.util.BoardUtilVO"%>
+<%@page import="common.util.BoardUtil"%>
 <%@page import="admin.vo.RecallVO"%>
 <%@page import="admin.vo.BoardRangeVO"%>
 <%@page import="common.dao.BoardDAO"%>
@@ -53,7 +55,27 @@ $(function() {
 		location.href="logout.jsp";
 	});
 	
-});
+	$("#btnSearch").click(function(){
+		chkNull();
+	});//click
+	
+	$("#keyword").keyup(function(evt){
+		if(evt.which == 13 ){
+			chkNull();
+		}//end if
+	});//keyup
+});//ready
+
+function chkNull(){
+	var keyword=$("#keyword").val();
+	if(keyword.trim() == ""){
+		alert("검색 키워드를 입력해주세요.");
+		return;
+	}//end if
+	
+	$("#frmSearch").submit();
+}//chkNull
+
 </script>
 </head>
 <body>
@@ -63,21 +85,17 @@ BoardRangeVO brVO=new BoardRangeVO();
 
 String field=request.getParameter("field");
 String keyword=request.getParameter("keyword");
-String tableName="UORDER";
 
 brVO.setField(field);
 brVO.setKeyword(keyword);
-brVO.setTableName(tableName);
-
-String[] status={"반품","교환"};
-pageContext.setAttribute("status", status);
+brVO.setTableName("UORDER");
 
 int totalCount=bDAO.totalCount(brVO);
 
 int pageScale=10; // 한 화면에 보여줄 게시물의 수
 int totalPage=0; // 총 페이지 수
 
-totalPage=(int)Math.ceil(totalCount/pageScale);
+totalPage=(int)Math.ceil(totalCount/(double)pageScale);
 
 String tempPage=request.getParameter("currentPage");
 int currentPage=1;
@@ -98,7 +116,7 @@ int deliveryPrice=2500;
 
 try{
 	OrderProcessDAO opDAO=OrderProcessDAO.getInstance();
-List<RecallVO> list=opDAO.selectRecallAllOrder();
+List<RecallVO> list=opDAO.selectRecallAllOrder(brVO);
 
 pageContext.setAttribute("recallList", list);
 pageContext.setAttribute("deliveryPrice", deliveryPrice);
@@ -120,17 +138,18 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 		</div>
 		
 		<!-- 검색 -->
-		<form id="searchFrm" action="">
 		<div class="searchDiv">
-			<select id="field" class="searchList">
-				<option>주문번호</option>
-				<option>주문자명</option>
-				<option>아이디</option>
+		<form id="frmSearch">
+			<select id="field" name="field"     class="searchList">
+				<option value="1"${ param.field eq "1" ?" selected='selected'" : "" }>주문자명</option>
+				<option value="2"${ param.field eq "2" ?" selected='selected'" : "" }>주문번호</option>
+				<option value="3"${ param.field eq "3" ?" selected='selected'" : "" }>아이디</option>
 			</select>
-			<input type="text" class="textBox" id="keyword" placeholder="내용을 입력해주세요"/>
+			<input type="text" class="textBox" id="keyword" placeholder="내용을 입력해주세요"
+			value="${ param.keyword ne 'null' ? param.keyword:'정보없음' }"/>
 			<input type="button" class="btn" id="btnSearch" value="검색"/>
-		</div>
 		</form>
+		</div>
 		
 		<div id="background_box">
 			<div style="margin: 10px; text-align: center;">
@@ -197,6 +216,13 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 		</div>
 		
 		<input type="button" class="btn" id="btnChange" value="변경"/>
+		<%
+		out.print("<a href='orderManagement_edit.jsp'><input type='button' id='btnList' value='목록' style='left:1060px; top:683px'></a> ");
+		
+		BoardUtil util=BoardUtil.getInstance();
+		BoardUtilVO buVO=new BoardUtilVO("orderManagement_edit",keyword,field,currentPage,totalPage);
+		out.println(util.pageNation(buVO));
+		%>
 	</div>
 </div>	
 </body>

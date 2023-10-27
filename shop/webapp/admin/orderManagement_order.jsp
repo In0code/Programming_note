@@ -221,15 +221,13 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 		</div>
 		
 		<input type="button" class="btn" id="btnChange" value="변경"/>
-		<% if(request.getParameter("keyword") != null) 
-			out.print("<a href='orderManagement_order.jsp?dataFlag=1'><input type='button' id='btnList' value='목록' style='left:1060px; top:683px'/></a>");
-		%>
-		
 		<%
-		String dataFlag=request.getParameter("dataFlag");
-		BoardUtilVO buVO=new BoardUtilVO("orderManagement_order.jsp",dataFlag,keyword,field,currentPage,totalPage);
-		out.println(BoardUtil.getInstance().pageNation(buVO));
-%>
+			out.print("<a href='orderManagement_order.jsp'><input type='button' id='btnList' value='목록' style='left:1060px; top:683px'/></a>");
+		
+			BoardUtil util=BoardUtil.getInstance();
+			BoardUtilVO buVO=new BoardUtilVO("orderManagement_order.jsp",keyword,field,currentPage,totalPage);
+			out.println(util.pageNation(buVO));
+		%>
 	</div>
 </div>	
 </body>
