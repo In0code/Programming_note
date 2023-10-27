@@ -133,7 +133,7 @@ try{
      
 <tbody style="text-align: center">
        <c:if test="${ empty reviewList}">
-       <p class="message ">작성한 게시물이 없습니다.</p>
+       <p class="message">작성한 게시물이 없습니다.</p>
        </c:if>
       
 <c:forEach var="review" items="${reviewList}" varStatus="i">

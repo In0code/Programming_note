@@ -3,7 +3,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page info="등록/수정된 공지사항을 DB에 저장하는 일을 한다. 결과를 alert로 알려준다."%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%request.setCharacterEncoding("UTF-8"); %>
 <%
 String flag = request.getParameter("flag");

@@ -79,13 +79,31 @@ $(function() {
 	$("#btnLogout").click(function() {
 		location.href="logout.jsp";
 	});
-	
-	$("#btnDel").click(function() {
-		if(confirm("삭제 하시겠습니까?")){
-			$("#frmDel").submit();
-		}
-	});
 });
+
+function boardDelete(rcode){
+	if(confirm("삭제 하시겠습니까?")){
+		$.ajax({
+			url : "board_delete_process.jsp",
+			type : "get",
+			data : "rcode="+rcode,
+			dataType : "json",
+			error : function(xhr){
+				alert("서버에서 문제가 발생하였습니다.");
+				location.href = "boardManagement.jsp";
+			},
+			success : function(jsonObj){
+				if(jsonObj.result){
+					alert("삭제 되었습니다.")
+				}else{
+					alert("서버에서 문제가 발생하였습니다.");
+				}
+				location.href = "boardManagement.jsp";
+			}
+		});
+	}
+}
+
 </script>
 </head>
 <body>
@@ -148,8 +166,8 @@ $(function() {
 	</div>
 	
 	<form action="board_delete_process.jsp" id="frmDel">
-		<input type="button" id="btnDel" class="btn btn-outline-danger input" value="삭제"/>
-		<input type="hidden" id="rcode" name="rcode" value="${ rcode }"/>
+		<input type="button" id="btnDel" class="btn btn-outline-danger input" value="삭제" onclick="boardDelete(${ rcode })"/>
+		<%-- <input type="hidden" id="rcode" name="rcode" value="${ rcode }"/> --%>
 	</form>
 	
 	

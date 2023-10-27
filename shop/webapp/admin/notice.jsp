@@ -1,3 +1,5 @@
+<%@page import="common.util.BoardUtilVO"%>
+<%@page import="common.util.BoardUtil"%>
 <%@page import="javax.swing.plaf.synth.SynthOptionPaneUI"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="admin.dao.NoticeDAO"%>
@@ -14,7 +16,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="icon" href="http://192.168.10.143/servlet_prj/common/main/favicon.png">
 <!-- bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <!-- jQuery CDN -->
@@ -51,53 +52,9 @@ brVO.setEndNum(endNum);
 <!-- 임태균 scriptlet 작업장 끝 -->
 
 <style type="text/css">
-/* table Style 시작 */
-.styled-table {
-    border-collapse: collapse;
-    margin: 25px;
-    margin-left: 35px;margin-right: 35px;margin-bottom: 15px;
-    font-family: sans-serif;
-    min-width: 1200px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-}
-
-.styled-table thead tr {
-    background-color: #009879;
-    color: #ffffff;
-    text-align: left;
-}
-
-.styled-table th, .styled-table td {
-    padding: 12px 15px;
-}
-
-.styled-table tbody tr {
-    border-bottom: 1px solid #dddddd;
-}
-
-.styled-table tbody tr:nth-of-type(even) {
-    background-color: #f3f3f3;
-}
-
-.styled-table tbody tr:last-of-type {
-    border-bottom: 2px solid #009879;
-}
-
-.styled-table tbody tr.active-row {
-    font-weight: bold;
-    color: #009879;
-}
-/* table Style 끝 */
-
 /* 태균이가 만든거 */
-td{
-  color: #000000;
-}
 body{
  margin: 0px;
-}
-#wrap{
-	
 }
 #right{
 	width: calc(100vw - 240px); height: 100%;float: right;
@@ -130,7 +87,7 @@ body{
 	left : 90px;
 	padding-top: 10px;
 } 
-#background_box{
+/* #background_box{
 overflow: auto;
 background-color:  #FFFFFF;
 color:  #333333;
@@ -141,19 +98,30 @@ top: 80px; left: 60px;
 outline:  1px;
 box-shadow: rgb(204, 202, 202) 0px 2px 8px 0px;
 border-radius: 9px;
-}
+padding-left: 20px;
+padding-right: 20px;
+} */
 /* 인영 style 끝*/
 #num{
   width:170px;
 }
 #title{
-  min-width: 500px;
+  width: 500px;
 }
 #writer{
   width:230px;
+  text-align: center;
 }
 #date{
   width:230px;
+  text-align: center;
+}
+#btnAdd{
+position: absolute; 
+  left: 1340px;
+  width: 120px;
+  font-size:20px;
+  border-radius: 10px;
 }
 .divCircle {
   background-color : #FFFFFF;
@@ -188,8 +156,8 @@ border-radius: 9px;
 		}); */
 		
 		$("#btnLogout").click(function() {
-	        alert("로그아웃..??");
-	    });
+			location.href="logout.jsp";
+		});
 		
 		$("#btnAdd").click(function() {
 			location.href = "notice_write.jsp?flag=1";
@@ -232,9 +200,9 @@ try{
 		<strong>공지사항</strong>
 	</div>
 <div id="background_box" style="top:90px;">
-<table class="styled-table" id="keyword">
+<table class="table tableList" id="order_list">
     <thead>
-        <tr style="text-align: center;">
+        <tr id="top_title" style="text-align: center;">
             <th id="num">No.</th>
             <th id="title">제목</th>
             <th id="writer">작성자</th>
@@ -249,7 +217,7 @@ try{
 </c:if>
 <c:forEach var="notice" items="${noticeList}" varStatus="i">
         <tr onclick="edit(${notice.ncode})">
-            <td>
+            <td style="text-align: center;">
             <c:out value="${i.count}"/>
             </td>
             <td><c:out value="${notice.noticeTitle}"/></td>
@@ -260,31 +228,21 @@ try{
 </c:forEach>
     </tbody>
 </table>
-<!-- <div style="width: 100%;margin-top: 20px;padding-left: 50%;"> -->
-</div>
-<div style="padding-left: 1165px;padding-bottom: 10px;">
-<input type="button" class="btn btn-outline-success" value="등록" id="btnAdd"style="position: absolute; top:750px;"/>
 </div>
 <div>
 <!-- 페이지 이동 -->
-<c:if test="${totalPage != 0}">
-<nav aria-label="Page navigation example" style="margin-left: 29vw;position: absolute; top:790px;">
-  <ul class="pagination ulCenter">
-    <li class="page-item">
-      <a class="page-link" href="#void_previous" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-    <c:forEach var="i" begin="1" end="<%=totalPage %>" step="1">
-    <li class="page-item"><a class="page-link" href="notice.jsp?no=5&page=${i}">${i}</a></li>
-    </c:forEach>
-    <li class="page-item">
-      <a class="page-link" href="#void_next" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  </ul>
-</nav>
+<c:if test="${not empty noticeList}">
+<!-- 페이지네이션 -->
+		<div class="pagenationDiv">
+			<div class="pagination">
+ 				<%
+ 					BoardUtil util = BoardUtil.getInstance();
+ 					BoardUtilVO buVO = new BoardUtilVO("notice.jsp", null, null, currentPage, totalPage, null);
+ 					out.println(util.pageNationBM(buVO));
+ 				%>
+			</div>
+<input type="button" class="btn btn-outline-success input" value="등록" id="btnAdd" />
+		</div>
 </c:if>
 </div>
 	</div>

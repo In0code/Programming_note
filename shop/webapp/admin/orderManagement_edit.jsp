@@ -55,26 +55,30 @@ $(function() {
 		location.href="logout.jsp";
 	});
 	
-	$("#btnSearch").click(function(){
+	$("#btnSearch").click(function() {
 		chkNull();
-	});//click
+	});
 	
-	$("#keyword").keyup(function(evt){
-		if(evt.which == 13 ){
+	$("#keyword").keyup(function(evt) {
+		if(evt.which == 13){
 			chkNull();
 		}//end if
 	});//keyup
-});//ready
+});
 
-function chkNull(){
-	var keyword=$("#keyword").val();
+function chkNull() {
+	var keyword = $("#keyword").val();
 	if(keyword.trim() == ""){
 		alert("검색 키워드를 입력해주세요.");
 		return;
 	}//end if
 	
+	//글자 수 제한
+	
+	//모두 통과했으면 submit
 	$("#frmSearch").submit();
-}//chkNull
+}
+
 
 </script>
 </head>
@@ -125,6 +129,8 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 }//end catch
 %>
 
+
+
 <%@ include file="sidebar.jsp" %>
 <div id="right">
 	<div id="rightHeader" align="right">
@@ -140,13 +146,14 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 		<!-- 검색 -->
 		<div class="searchDiv">
 		<form id="frmSearch">
-			<select id="field" name="field"     class="searchList">
-				<option value="1"${ param.field eq "1" ?" selected='selected'" : "" }>주문자명</option>
-				<option value="2"${ param.field eq "2" ?" selected='selected'" : "" }>주문번호</option>
-				<option value="3"${ param.field eq "3" ?" selected='selected'" : "" }>아이디</option>
+			<select id="field" name="field" class="searchList">
+				<option value="1"${ param.field eq "1" ?" selected='selected'":"" }>주문자명</option>
+				<option value="2"${ param.field eq "2" ?" selected='selected'":"" }>주문번호</option>
+				<option value="3"${ param.field eq "3" ?" selected='selected'":"" }>아이디</option>
 			</select>
-			<input type="text" class="textBox" id="keyword" placeholder="내용을 입력해주세요"
-			value="${ param.keyword ne 'null' ? param.keyword:'정보없음' }"/>
+			<input type="text" class="textBox" id="keyword" name="keyword" placeholder="내용을 입력해주세요" 
+			value="${ param.keyword ne 'null'? param.keyword:'' }"/>
+			<!-- <input type="text" style="display:none;"/> -->
 			<input type="button" class="btn" id="btnSearch" value="검색"/>
 		</form>
 		</div>
@@ -217,11 +224,11 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 		
 		<input type="button" class="btn" id="btnChange" value="변경"/>
 		<%
-		out.print("<a href='orderManagement_edit.jsp'><input type='button' id='btnList' value='목록' style='left:1060px; top:683px'></a> ");
+			out.print("<a href='orderManagement_edit.jsp'><input type='button' id='btnList' value='목록' style='left:1060px; top:683px'/></a>");
 		
-		BoardUtil util=BoardUtil.getInstance();
-		BoardUtilVO buVO=new BoardUtilVO("orderManagement_edit",keyword,field,currentPage,totalPage);
-		out.println(util.pageNation(buVO));
+			BoardUtil util=BoardUtil.getInstance();
+			BoardUtilVO buVO=new BoardUtilVO("orderManagement_edit.jsp",keyword,field,currentPage,totalPage);
+			out.println(util.pageNation(buVO));
 		%>
 	</div>
 </div>	

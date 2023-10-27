@@ -1,3 +1,5 @@
+<%@page import="java.sql.SQLException"%>
+<%@page import="admin.dao.UserReviewDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ page info="" %>
@@ -23,6 +25,20 @@ $(function(){
 
 </head>
 <body>
+<% 
+String rcode= request.getParameter("rcode");
+System.out.println(rcode+"del");
+UserReviewDAO uDAO= UserReviewDAO.getInstance();
+try{
+	 uDAO.deleteReivew(Integer.parseInt(rcode));
+	
 
+	
+	
+}catch (SQLException se) {
+	se.printStackTrace();
+}//end catch%>
+
+<strong>삭제가 완료되었습니다.</strong>
 </body>
 </html>

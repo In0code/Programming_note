@@ -21,7 +21,8 @@
 <link rel="icon"
 	href="http://192.168.10.142/jsp_prj/common/main/favicon.png">
 <jsp:include page="../cdn/cdn.jsp"/>
-
+  <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 
 
 <!--  common-layout -->
@@ -66,27 +67,21 @@
 }
 
 </style>
-<script type="text/javascript">
-$(function(){
-   
-});//ready
-</script>
-
-</head>
-
-<body>
 <jsp:useBean id="sVO" class="user.vo.SummaryVO" scope="page"></jsp:useBean> 
 <jsp:setProperty property="*" name="sVO"/>
-
 
 <%
 
 UserReviewDAO uDAO= UserReviewDAO.getInstance();
+String rcode= request.getParameter("rcode");
+System.out.println(rcode);
 
 try{
-	sVO = uDAO.selectOneReview(Integer.parseInt(request.getParameter("rcode")));
+	sVO = uDAO.selectOneReview(Integer.parseInt(rcode==null?"0":rcode));
 	
 	pageContext.setAttribute("review", sVO);
+
+	
 	
 }catch (SQLException se) {
 	se.printStackTrace();
@@ -95,34 +90,91 @@ try{
 
 %>
 
+<script type="text/javascript">
+$(function(){
+
+	
+	$("#delete").click(function() {
+		
+		$.ajax({
+			url:"review_manage_del_process.jsp",
+			type:"post",
+			async:true,
+			data: "rcode=<%= rcode %>" ,
+			dataType:"html",
+			
+			error:function(xhr){
+				alert("에러 발생");
+			},
+			success:function(data){
+				$("#resultDiv").html(data);
+			}//ajax
+		})
+	});
+	
+	$("#save").click(function() {
+		 ;
+	
+		$.ajax({
+			url:"review_manage_updt_process.jsp",
+			type:"POST",
+			async: true,
+			data: "rcode=<%= rcode %>&review=${review.review}&star=${review.star}" ,
+			dataType:"html",
+			
+			error:function(xhr){
+				alert("에러 발생");
+			},
+			success:function(data){
+				$("#resultDiv").html(data);
+			}
+			
+		})//ajax
+		
+		//$("#frm").submit();
+		//$("#uploadForm").submit();
+	});
+   
+});//ready
+</script>
+
+</head>
+
+<body>
+
+
+
+
 <div id="wrap" style="font-family:pretendard; font-size: 16px">
 <div id="div" >
  <img src="../common/images/icon/check-circle.svg" style="margin-left: 5px;">&ensp;상품 만족도
  </div>
 
+<form action="review_manage_updt_process.jsp" id="frm"  name="frm"><!-- get방식 일때는 evt가 발생하면 쿼리스트링이 삭제가된다. -->
+<input type="hidden" name="rcode" value="<%= rcode %>"/>
 <!-- 상품 만족도 -->
 <div style="border: 1px solid #333; margin-left: 5px; width:502px; height:150px; text-align: center" >
 <div style=" margin-top: 10px"><strong ><c:out value="${review.name}" /></strong>님 상품은 어떠셨나요?</div><br>
 <div  style= "border: 0px; position:absolute; top:80px; left:200px" class="star-rating" >
 
-  <input type="radio" id="5-stars" name="rating" value="5" ${review.star eq 5 ? "checked='checked'" : "" }/>
+  <input type="radio" id="5-stars" name="star" value="5" ${review.star eq 5 ? "checked='checked'" : "" }/>
   
   <label for="5-stars" class="star" >&#9733;</label>
 
 
   
-  <input type="radio" id="4-stars" name="rating" value="4" ${review.star eq 4 ? "checked='checked'" : "" }/>
+  <input type="radio" id="4-stars" name="star" value="4" ${review.star eq 4 ? "checked='checked'" : "" }/>
   <label for="4-stars" class="star">&#9733; </label>
   
  
-  <input type="radio" id="3-stars" name="rating" value="3" ${review.star eq 3 ? "checked='checked'" : "" }/>
+  <input type="radio" id="3-stars" name="star" value="3" ${review.star eq 3 ? "checked='checked'" : "" }/>
   <label for="3-stars" class="star">&#9733;</label>
 
-  <input type="radio" id="2-stars" name="rating" value="2" ${review.star eq 2 ? "checked='checked'" : "" }/>
+  <input type="radio" id="2-stars" name="star" value="2" ${review.star eq 2 ? "checked='checked'" : "" }/>
 
   <label for="2-stars" class="star">&#9733;</label>
    
-  <input type="radio" id="1-star" name="rating" value="1" ${review.star eq 1 ? "checked='checked'" : "" }/>
+  <input type="radio" id="1-star" name="star" value="1" ${review.star eq 1 ? "checked='checked'" : "" }/>
   <label for="1-star" class="star">&#9733;</label>
  <br>
  
@@ -188,11 +240,12 @@ try{
 <!-- 리뷰 작성 -->
 <img src="../common/images/icon/check-circle.svg" style="margin-left: 5px;">&ensp;리뷰 작성
 <div style=" margin-left: 5px;" >
-<textarea  style="width:502px; height:180px;"><c:out value="${review.review}" /></textarea>
+<textarea  style="width:502px; height:180px;" name="review"><c:out value="${review.review}" /></textarea>
 
 </div>
+</form>
 <br>
-<form action="upload" id="uploadForm" method="post" enctype="multipart/form-data">
+<<form action="upload" id="uploadForm"  name="uploadForm" method="post" enctype="multipart/form-data" >
 <input type="file" name="file" id="file" style="display:none"/>
 </form>
 <img src="../common/images/icon/check-circle.svg" style="margin-left: 5px; ">&ensp;동영상/사진 첨부
@@ -200,13 +253,19 @@ try{
 <button type="button" style="padding: 5px 10px;  font-size: 15px; position: absolute; left:210px; top:540px;"  class="btn btn-outline-danger" ><img src="../common/images/icon/camera.svg" >&ensp;첨부하기</button>
 
 </div>
+	
+
 <div id="btndiv" style="position: absolute;
     top: 660px;
     left: 400px; ">
-<input type="button" style="padding: 3px 10px; font-size: 10px" value="저장" id="save" class="btn btn-danger"><input type="button" style="padding: 3px 10px; font-size: 10px" value="삭제" id="delete" class="btn btn-danger">
+<input type="button" style="padding: 3px 10px; font-size: 10px" value="저장" id="save" class="btn btn-dark">
+<input type="button" style="padding: 3px 10px; font-size: 10px" value="삭제" id="delete" class="btn btn-dark">
+<br>
 
 </div>
+<span id="resultDiv" style="position: absolute;
+    top: 670px;
+    left: 200px;"></span>
 </div>
-
 </body>
 </html>

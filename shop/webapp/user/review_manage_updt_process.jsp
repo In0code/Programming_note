@@ -1,3 +1,6 @@
+<%@page import="user.vo.SummaryVO"%>
+<%@page import="java.sql.SQLException"%>
+<%@page import="admin.dao.UserReviewDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ page info="" %>
@@ -7,22 +10,44 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="icon" href="http://192.168.10.142/jsp_prj/common/main/favicon.png">
-<!-- bootstrap CDN-->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<!-- jQuery CDN -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<style type="text/css">
 
-</style>
-<script type="text/javascript">
-$(function(){
-   
-});//ready
-</script>
+
 
 </head>
 <body>
 
+<%
+
+UserReviewDAO uDAO = UserReviewDAO.getInstance();
+
+try {
+    String rcodeParam = request.getParameter("rcode");
+int star = Integer.parseInt(request.getParameter("star"));
+String review= request.getParameter("review");
+System.out.println(review);
+System.out.println(star);
+System.out.println(rcodeParam);
+    if (rcodeParam != null && !rcodeParam.isEmpty()) {
+        int rcode = Integer.parseInt(rcodeParam);
+     
+        uDAO.updateReivew(review,star,rcode);
+	
+    } else {
+        // rcodeParam이 null이거나 비어 있을 때 처리할 내용 추가
+        out.println("rcodem이 유효하지 않습니다.");
+    }
+} catch (NumberFormatException e) {
+    // NumberFormatException을 처리할 코드 추가
+    out.println("rcodem을 파싱하는 중 오류가 발생했습니다.");
+    e.printStackTrace(); // 에러 메시지와 스택 트레이스 출력
+}
+
+
+%>
+
+
+<strong>리뷰 수정이 완료되었습니다.</strong>
 </body>
+
+
 </html>

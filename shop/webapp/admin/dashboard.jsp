@@ -207,9 +207,6 @@ tbody{
 	}catch(SQLException se){
 		se.printStackTrace();
 	}
-	
-	
-
 %>
 
 

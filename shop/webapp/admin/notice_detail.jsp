@@ -85,18 +85,28 @@ height: 560px;
 border: none;
 }
 #btnEdit{
-margin-top: 10px;
-float: right;
-height: 30px;
-width: 50px;
-padding: 0px;
+position: absolute; 
+  top: 855px;
+  left: 1470px;
+  height: 50px;
+  width: 100px;
+  font-size:20px;
+  border-radius: 10px;
+  padding: 0px;
 }
 #btnCel{
-margin-top: 10px;
-float: right;
-height: 30px;
-width: 50px;
-padding: 0px;
+position: absolute; 
+  top: 855px;
+  left: 1355px;
+  height: 50px;
+  width: 100px;
+  font-size:20px;
+  border-radius: 10px;
+  padding: 0px;
+}
+#revContent {
+	position: absolute;
+	left: 65px;
 }
 </style>
 <!-- 태균이가 만든거 끝-->
@@ -112,16 +122,30 @@ padding: 0px;
 		
 		$("#btnCel").click(function() {
 			if(confirm("삭제 하시겠습니까?")) {
-				location.href = "notice_del_process.jsp?ncode="+${param.ncode}+"&flag=2";
+				/* location.href = "notice_del_process.jsp?ncode="+${param.ncode}+"&flag=2"; */
+				var queryString = "ncode="+${param.ncode}+"&flag=2";
+				
+				$.ajax({
+					url:"notice_del_process.jsp",
+					type:"get",
+					data:queryString,
+					dataType:"text",
+					error: function(xhr) {
+						alert("서버 오류! 잠시 후 다시 시도해주세요."+xhr.status);
+					},
+					success: function(msg) {
+						alert(msg);
+						window.location = "notice.jsp?no=5";
+					}
+				});//ajax
 			}
-		});
+		});//click end
 		
 	});
 </script>
 </head>
 <body>
 <%@ include file="sidebar.jsp" %>
-
 <%
 NoticeDAO nDAO = NoticeDAO.getInstance();
 String title = "";
@@ -159,8 +183,8 @@ try {
 		</div>
 		<div id="background_box"> <!-- 각자 원하는데로 사용 -->
 <!-- 여기부터가 코딩하는 div 영역 --><!-- 여기부터가 코딩하는 div 영역 --><!-- 여기부터가 코딩하는 div 영역 --><!-- 여기부터가 코딩하는 div 영역 --><!-- 여기부터가 코딩하는 div 영역 -->
-<div id="divTable" class="pad">
-<table class="table">
+<div style="margin: 10px; text-align: center;">
+<table class="table tableList" id="order_list">
 	<tr style="border-bottom: 2px solid #A5A5A5;">
 		<td style="background: #F1F1F1;"><strong>제목</strong></td>
 		<td colspan="3"><%=title %></td>
@@ -174,19 +198,17 @@ try {
 		<td><%=view %></td>
 	</tr>
 </table>
+<div id="revContent">
+<span style="font-size:20px; text-align:left"><%=context %></span>
 </div>
-<div id="info">
-<textarea id="note" readonly="readonly" style="padding-top: 30px;padding-left: 40px;resize: none;border: 1px solid #333;margin-left: 20px;width: 1240px;">
-<%=context %>
-</textarea>
-<div>
-	<input type="button" class="btn btn-outline-danger input" value="삭제" id="btnCel" style="margin-right: 30px;"/>
-	<input type="button" class="btn btn-outline-success input" value="수정" id="btnEdit" style="margin-right: 15px;"/>
 </div>
 </div>
 <!-- 여기까지가 코딩하는 div 영역 --><!-- 여기까지가 코딩하는 div 영역 --><!-- 여기까지가 코딩하는 div 영역 --><!-- 여기까지가 코딩하는 div 영역 --><!-- 여기까지가 코딩하는 div 영역 --> 
 		</div>
-	</div>	
+		</div>
+<div>
+	<input type="button" class="btn btn-outline-danger input" value="삭제" id="btnCel"/>
+	<input type="button" class="btn btn-outline-success input" value="수정" id="btnEdit"/>
 </div>
 </body>
 </html>
