@@ -40,17 +40,13 @@ public class BoardManageDAO {
 		try {
 			con = db.getConn("jdbc/dbcp");
 
+			System.out.println(brVO.getCategory());
 			
 			StringBuilder selectCount = new StringBuilder();
-			if("1".equals(brVO.getCategory())) {
-				selectCount
-				.append("	SELECT COUNT(*) CNT FROM review	");
-			}else {
-				selectCount
-				.append("	select count(*) CNT		")
-				.append("	from review r, goods g, category c	")
-				.append("	where r.gcode = g.gcode and g.cat_code = c.cat_code		");
-			}
+			selectCount
+			.append("	select count(*) CNT		")
+			.append("	from review r, goods g, category c	")
+			.append("	where r.gcode = g.gcode and g.cat_code = c.cat_code		");
 			
 			if(keyword!=null && !"".equals(keyword) && !"null".equals(keyword)) {
 				String field = "id";
@@ -71,10 +67,8 @@ public class BoardManageDAO {
 					category = "향수";
 				}
 				
-				if("전체".equals(category)) {
-					selectCount.append(" where ").append(field).append(" like '%'||?||'%'");					
-				}else {
-					selectCount.append(" and ").append(field).append(" like '%'||?||'%'");
+				selectCount.append(" and ").append(field).append(" like '%'||?||'%'");					
+				if(!"전체".equals(category)) {
 					selectCount.append(" and c.cat_name like '%'||?||'%'");
 				}
 			}
