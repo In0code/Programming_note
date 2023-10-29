@@ -2,17 +2,19 @@ package admin.vo;
 
 public class NoticeVO {
 	
-	private String noticeTitle, noticeText, noticeDate, editDate;
+	private String noticeTitle, noticeText, noticeDate, editDate, image;
 	private int ncode, viewNum;
 	
 	public NoticeVO() {
 	}
 
-	public NoticeVO(String noticeTitle, String noticeText, String noticeDate, String editDate, int ncode, int viewNum) {
+	public NoticeVO(String noticeTitle, String noticeText, String noticeDate, String editDate, String image, int ncode,
+			int viewNum) {
 		this.noticeTitle = noticeTitle;
 		this.noticeText = noticeText;
 		this.noticeDate = noticeDate;
 		this.editDate = editDate;
+		this.image = image;
 		this.ncode = ncode;
 		this.viewNum = viewNum;
 	}
@@ -49,6 +51,14 @@ public class NoticeVO {
 		this.editDate = editDate;
 	}
 
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 	public int getNcode() {
 		return ncode;
 	}
@@ -68,6 +78,6 @@ public class NoticeVO {
 	@Override
 	public String toString() {
 		return "NoticeVO [noticeTitle=" + noticeTitle + ", noticeText=" + noticeText + ", noticeDate=" + noticeDate
-				+ ", editDate=" + editDate + ", ncode=" + ncode + ", viewNum=" + viewNum + "]";
+				+ ", editDate=" + editDate + ", image=" + image + ", ncode=" + ncode + ", viewNum=" + viewNum + "]";
 	}
 }

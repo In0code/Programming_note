@@ -26,7 +26,7 @@ public class ClientOrderDAO {
 		return coDAO;
 	}
 	
-	public List<ClientOrderVO> selectAllOrder(String id) throws SQLException {
+	public List<ClientOrderVO> selectAllOrder(String id, String flag) throws SQLException {
 		List<ClientOrderVO> list = new ArrayList<ClientOrderVO>();
 		
 		DbConnection db = DbConnection.getInstance();
@@ -73,29 +73,6 @@ public class ClientOrderDAO {
 	}
 	
 	public DetailInfoVO selectOneOrder(String ordno) throws SQLException {
-		DetailInfoVO diVO = null;
-		
-		DbConnection db = DbConnection.getInstance();
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			con = db.getConn("jdbc/dbcp");
-			StringBuilder selectOne = new StringBuilder();
-			selectOne
-			.append("		")
-			.append("		")
-			.append("		");
-			
-		} finally {
-			db.dbClose(rs, pstmt, con);
-		}
-		
-		return diVO;
-	}
-	
-	public DetailInfoVO selectOneRecall(String ordno) throws SQLException {
 		DetailInfoVO diVO = null;
 		
 		DbConnection db = DbConnection.getInstance();

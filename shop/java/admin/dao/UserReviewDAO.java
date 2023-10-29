@@ -115,7 +115,7 @@ public SummaryVO selectOneReview(int rcode) throws SQLException {
 	}
 /*SummaryVO sVO*/
 
-public void updateReivew ( String review,int star,int rcode) throws SQLException {
+public void updateReivew ( String review,int star,int rcode,String img) throws SQLException {
 	
 	
 	
@@ -130,7 +130,7 @@ public void updateReivew ( String review,int star,int rcode) throws SQLException
 	try {
 		con=db.getConn("jdbc/dbcp");
 		
-		String updateReivew = " update  review set REV_CONT = ? , STAR = ?   where  rcode=? ";
+		String updateReivew = " update  review set REV_CONT = ? , STAR = ? ,img=? where  rcode=? ";
 		/*, IMG = ?*/
 
 		
@@ -141,10 +141,14 @@ public void updateReivew ( String review,int star,int rcode) throws SQLException
 		pstmt.setInt(2,star);
 		/*pstmt.setString(3, sVO.getReview());*/
 		
-		pstmt.setInt(3, rcode);
+		pstmt.setString(3, img);
+		pstmt.setInt(4, rcode);
 		
-		pstmt.executeQuery();
-	
+		int cnt=pstmt.executeUpdate();
+		System.out.println(cnt+"건 변경");
+		System.out.println(updateReivew+ " / "+review+" / " + star+" / "+ rcode );
+		
+		
 	}finally {
 		db.dbClose(null, pstmt, con);
 		

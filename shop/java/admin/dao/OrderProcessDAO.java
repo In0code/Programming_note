@@ -128,12 +128,13 @@ public class OrderProcessDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	public int updateShippingProgress(String dlvyPro) throws SQLException{
+	public int updateShippingProgress(int orderNo, String dlvyPro) throws SQLException{
 		
 		DbConnection db=DbConnection.getInstance();
 		
 		Connection con=null;
 		PreparedStatement pstmt=null;
+		
 		int rowCntShipUpdate=0;
 		try {
 			//1.
@@ -144,21 +145,24 @@ public class OrderProcessDAO {
 			StringBuilder updateShipPro=new StringBuilder();
 			updateShipPro
 			.append("	update UORDER	")
-			.append("	set  DLVY_PRO=	")
-			.append("	where    DLVY_PRO= ? and  id= ?  ");
+			.append("	set  DLVY_PRO=	? ")
+			.append("	where ORDNO= ?  ");
 			
 			pstmt=con.prepareStatement(updateShipPro.toString());
+			
+			OrderVO oVO=new OrderVO();
 			//5.
+			pstmt.setString(1, dlvyPro );
+			pstmt.setInt(2, orderNo );
 			
 			//6.
+			
 			rowCntShipUpdate=pstmt.executeUpdate();
 			
-			if (rowCntShipUpdate == 0) {
-				JOptionPane.showMessageDialog(null, "변경된 내용이 없습니다. 다시 확인해주세요");
-				con.rollback(); // 실패하면 롤백
-			} else {
-				JOptionPane.showMessageDialog(null, "수정이 완료되었습니다");
+			if (rowCntShipUpdate > 0) {
 				con.commit(); // 성공하면 커밋
+			} else {
+				con.rollback(); // 실패하면 롤백
 			} // end else
 		}finally{
 			//7.
@@ -190,9 +194,9 @@ public class OrderProcessDAO {
 		//4. 쿼리문 생성 객체 얻기
 			StringBuilder selectAllOrder=new StringBuilder();
 			selectAllOrder
-			.append("	select ORD_DATE, ORDNO,id, GNAME, AMOUNT, PRICE, DLVY_PRO, NAME	")
+			.append("	select ORD_DATE, ORDNO,id, GNAME, AMOUNT, PRICE, DLVY_PRO, NAME	, RECALL_DATE")
 			.append("	from (select row_number() over(order by ORD_DATE desc) rnum,	")
-			.append("	u.ORD_DATE, u.ORDNO,m.id ,g.GNAME, od.AMOUNT, g.PRICE, u.DLVY_PRO, m.NAME	")
+			.append("	u.ORD_DATE, u.ORDNO,m.id ,g.GNAME, od.AMOUNT, g.PRICE, u.DLVY_PRO, m.NAME, u.RECALL_DATE	")
 			.append("	from UORDER u, GOODS g, MEMBER m, ORDER_DETAIL od	")
 			.append("	where m.id=u.id and od.gcode=g.gcode and u.ordno=od.ordno	")
 			.append("	and ( DLVY_PRO in ('C0','CF','R0','RF' ) )	");
@@ -233,6 +237,7 @@ public class OrderProcessDAO {
 				rVO.setPrice(rs.getInt("PRICE"));
 				rVO.setOrderStatus(rs.getString("DLVY_PRO"));
 				rVO.setUserName(rs.getString("NAME"));
+				rVO.setRecallDate(rs.getString("RECALL_DATE"));
 				list.add(rVO);
 			}//end while
 		}finally {
@@ -241,51 +246,5 @@ public class OrderProcessDAO {
 		}//end finally
 		return list;
 	}//selectRecallAllOrder
-	
-	/**
-	 * 교환/반품 처리 상태 변경 후, 수정 된 주문 정보를 DB에 update하는 일
-	 * @param progress
-	 * @return
-	 * @throws SQLException
-	 */
-	public int updateRecall(String progress)throws SQLException {
-		
-DbConnection db=DbConnection.getInstance();
-		
-		Connection con=null;
-		PreparedStatement pstmt=null;
-		int rowCntUpdate=0;
-		try {
-			//1.
-			//2.
-			//3.
-			con=db.getConn("jdbc/dbcp");
-			//4.
-			StringBuilder updateShipPro=new StringBuilder();
-			updateShipPro
-			.append("	update UORDER	")
-			.append("	set  DLVY_PRO=	")
-			.append("	where    DLVY_PRO= ? and  id= ?  ");
-			
-			pstmt=con.prepareStatement(updateShipPro.toString());
-			//5.
-			
-			//6.
-			rowCntUpdate=pstmt.executeUpdate();
-			
-			if (rowCntUpdate == 0) {
-				JOptionPane.showMessageDialog(null, "변경된 내용이 없습니다. 다시 확인해주세요");
-				con.rollback(); // 실패하면 롤백
-			} else {
-				JOptionPane.showMessageDialog(null, "수정이 완료되었습니다");
-				con.commit(); // 성공하면 커밋
-			} // end else
-		}finally{
-			//7.
-			db.dbClose(null, pstmt, con);
-		}//end finally
-		return rowCntUpdate;
-	}//updateRecall
-	
 	
 }//class

@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import admin.vo.DashboardVO;
 import common.dao.DbConnection;
 
 public class DashboardDAO {
@@ -22,6 +25,11 @@ public class DashboardDAO {
 		return dbDAO;
 	}
 	
+	/**
+	 * 결제완료/배송준비/배송중/배송완료/교환신청/반품신청 카운트
+	 * @return
+	 * @throws SQLException
+	 */
 	public int[] selectSalesStatus() throws SQLException {
 		int[] cnt = new int[6];
 		//결제완료 - PF / 배송준비 - DR / 배송중 - D0 / 배송완료 - DF
@@ -38,9 +46,10 @@ public class DashboardDAO {
 			StringBuilder selectSalesStatus = new StringBuilder();
 			
 			for(int i=0; i<cnt.length; i++) {
-				selectSalesStatus.append(" select count(*) as cnt from uorder ")
+				selectSalesStatus
+				.append(" select count(*) as cnt from uorder 		")
 				.append(" where ord_date >= ADD_MONTHS(SYSDATE, -3) ")
-				.append(" group by dlvy_pro having dlvy_pro like '")
+				.append(" group by dlvy_pro having dlvy_pro like '	")
 				.append(status[i])
 				.append("'");
 				pstmt = con.prepareStatement(selectSalesStatus.toString());
@@ -58,6 +67,11 @@ public class DashboardDAO {
 		return cnt;
 	}
 	
+	/**
+	 * 판매 중/품절/재고 10개 이하 카운트
+	 * @return
+	 * @throws SQLException
+	 */
 	public int[] selectProductStatus() throws SQLException {
 		int[] cnt = new int[3];
 		
@@ -90,6 +104,144 @@ public class DashboardDAO {
 			pstmt.close();
 			rs.close();
 		}finally {
+			db.dbClose(rs, pstmt, con);
+		}
+		
+		return cnt;
+	}
+	
+	/**
+	 * 방문자 카운트
+	 * @throws SQLException
+	 */
+	public void insertVisitCount() throws SQLException{
+		DbConnection db = DbConnection.getInstance();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = db.getConn("jdbc/dbcp");
+			
+			pstmt = con.prepareStatement(" insert into visit values(to_char(sysdate,'yyyy-mm-dd')) ");
+			
+			pstmt.executeQuery();
+		}finally {
+			db.dbClose(null, pstmt, con);
+		}
+	}
+	
+	/**
+	 * 최근 5일간 방문자 수
+	 * @return
+	 * @throws SQLException
+	 */
+	public int[] selectVisitCount() throws SQLException{
+		DbConnection db = DbConnection.getInstance();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int[] count = {0, 0, 0, 0, 0};
+		
+		try {
+			con = db.getConn("jdbc/dbcp");
+			
+			StringBuilder selectCount = new StringBuilder();
+			
+			selectCount
+			.append(" select daydate, count(*) cnt 							")
+			.append(" from visit 											")
+			.append(" group by daydate 										")
+			.append(" having daydate >= SYSDATE - NUMTODSINTERVAL(5, 'DAY')	")
+			.append(" order by daydate										");
+			
+			int i = 0;
+			pstmt = con.prepareStatement(selectCount.toString());
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				count[i] = rs.getInt("cnt");
+				i++;
+			}
+			
+		}finally {
+			db.dbClose(rs, pstmt, con);
+		}
+		
+		return count;
+	}
+	
+	/**
+	 * 상품 판매량 top 5
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<DashboardVO> selectTopProducts() throws SQLException{
+		List<DashboardVO> list = new ArrayList<DashboardVO>();
+		
+		DbConnection db = DbConnection.getInstance();
+		Connection con = null;
+		ResultSet rs = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = db.getConn("jdbc/dbcp");
+			
+			StringBuilder selectTopPro = new StringBuilder();
+			selectTopPro
+			.append("	select rownum, gname, amount			")
+			.append("	from(select g.gname, sum(amount) amount	")
+			.append("	from order_detail o, goods g			")
+			.append("	where o.gcode = g.gcode					")
+			.append("	group by g.gname order by amount desc)	")
+			.append("	where rownum between 1 and 5			");
+			
+			pstmt = con.prepareStatement(selectTopPro.toString());
+			
+			rs = pstmt.executeQuery();
+			
+			DashboardVO dbVO = null;
+			while(rs.next()) {
+				dbVO = new DashboardVO(rs.getString("gname"),rs.getInt("amount"));
+				list.add(dbVO);
+			}
+			
+		}finally{
+			db.dbClose(rs, pstmt, con);
+		}
+		
+		return list;
+	}
+	
+	public int[] selectVisitSale() throws SQLException {
+		int[] cnt = {0, 0, 0, 0, 0};
+		
+		DbConnection db = DbConnection.getInstance();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = db.getConn("jdbc/dbcp");
+			
+			StringBuilder selectVisitSale = new StringBuilder();
+			selectVisitSale
+			.append("	select to_char(ord_date,'yyyy-mm-dd') ord_date, count(*) cnt	")
+			.append("	from uorder														")
+			.append("	group by to_char(ord_date,'yyyy-mm-dd')							")
+			.append("	having to_char(ord_date,'yyyy-mm-dd') >= SYSDATE - NUMTODSINTERVAL(5, 'DAY')	")
+			.append("	order by ord_date desc											");
+			
+			pstmt = con.prepareStatement(selectVisitSale.toString());
+			
+			rs = pstmt.executeQuery();
+			int i = 0;
+			while(rs.next()) {
+				cnt[i] = rs.getInt("cnt");
+				i++;
+			}
+			
+		}finally{
 			db.dbClose(rs, pstmt, con);
 		}
 		

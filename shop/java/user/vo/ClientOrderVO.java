@@ -2,21 +2,19 @@ package user.vo;
 
 public class ClientOrderVO {
 	
-	private String orderDate, orderNum, img, productName, productInfo, onProcess, purchaseStatus;
+	private String orderDate, orderNum, img, productName, onProcess;
 	private int amount, price;
 	
 	public ClientOrderVO() {
 	}
 
-	public ClientOrderVO(String orderDate, String orderNum, String img, String productName, String productInfo,
-			String onProcess, String purchaseStatus, int amount, int price) {
+	public ClientOrderVO(String orderDate, String orderNum, String img, String productName, String onProcess,
+			int amount, int price) {
 		this.orderDate = orderDate;
 		this.orderNum = orderNum;
 		this.img = img;
 		this.productName = productName;
-		this.productInfo = productInfo;
 		this.onProcess = onProcess;
-		this.purchaseStatus = purchaseStatus;
 		this.amount = amount;
 		this.price = price;
 	}
@@ -53,28 +51,12 @@ public class ClientOrderVO {
 		this.productName = productName;
 	}
 
-	public String getProductInfo() {
-		return productInfo;
-	}
-
-	public void setProductInfo(String productInfo) {
-		this.productInfo = productInfo;
-	}
-
 	public String getOnProcess() {
 		return onProcess;
 	}
 
 	public void setOnProcess(String onProcess) {
 		this.onProcess = onProcess;
-	}
-
-	public String getPurchaseStatus() {
-		return purchaseStatus;
-	}
-
-	public void setPurchaseStatus(String purchaseStatus) {
-		this.purchaseStatus = purchaseStatus;
 	}
 
 	public int getAmount() {
@@ -96,7 +78,6 @@ public class ClientOrderVO {
 	@Override
 	public String toString() {
 		return "ClientOrderVO [orderDate=" + orderDate + ", orderNum=" + orderNum + ", img=" + img + ", productName="
-				+ productName + ", productInfo=" + productInfo + ", onProcess=" + onProcess + ", purchaseStatus="
-				+ purchaseStatus + ", amount=" + amount + ", price=" + price + "]";
+				+ productName + ", onProcess=" + onProcess + ", amount=" + amount + ", price=" + price + "]";
 	}
 }

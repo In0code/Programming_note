@@ -52,7 +52,7 @@ public class NoticeDAO {
 			NoticeVO nVO = null;
 			while(rs.next()) {
 				nVO = new NoticeVO(rs.getString("NOT_TITLE"), rs.getString("NOT_TEXT"), rs.getString("INPUT_DATE"), rs.getString("EDIT_DATE"),
-						rs.getInt("NCODE"), rs.getInt("VIEW_NUM"));
+						"", rs.getInt("NCODE"), rs.getInt("VIEW_NUM"));
 				
 				list.add(nVO);
 			}
@@ -74,7 +74,7 @@ public class NoticeDAO {
 		
 		try {
 			con = db.getConn("jdbc/dbcp");
-			String selectNotice = "SELECT NOT_TITLE, NOT_TEXT,TO_CHAR(NOT_DATE, 'YYYY-MM-DD HH24:MI') INPUT_DATE, VIEW_NUM, EDIT_DATE  FROM NOTICE WHERE NCODE = ?";
+			String selectNotice = "SELECT NOT_TITLE, NOT_TEXT,TO_CHAR(NOT_DATE, 'YYYY-MM-DD HH24:MI') INPUT_DATE, VIEW_NUM, EDIT_DATE, IMAGE  FROM NOTICE WHERE NCODE = ?";
 			
 			pstmt = con.prepareStatement(selectNotice);
 			pstmt.setInt(1, code);
@@ -87,6 +87,7 @@ public class NoticeDAO {
 				nVO.setNoticeDate(rs.getString("INPUT_DATE"));
 				nVO.setViewNum(rs.getInt("VIEW_NUM"));
 				nVO.setEditDate(rs.getString("EDIT_DATE"));
+				nVO.setImage("IMAGE");
 			}
 			
 		} finally {
@@ -102,15 +103,24 @@ public class NoticeDAO {
 		PreparedStatement pstmt = null;
 		
 		try {
-			int seq = getNextProfSeq();
+			int seq = 0;
+			if(nVO.getNcode() != 0) {
+				seq = getNextProfSeq();
+			}
 			
 			con = db.getConn("jdbc/dbcp");
-			String insertNotice = "INSERT INTO NOTICE(NCODE, NOT_TITLE, NOT_TEXT, VIEW_NUM) VALUES(?, ?, ?, 0)";
+			String insertNotice = "INSERT INTO NOTICE(NCODE, NOT_TITLE, NOT_TEXT, IMAGE, VIEW_NUM) VALUES(?, ?, ?, ?, 0)";
 			
 			pstmt = con.prepareStatement(insertNotice);
-			pstmt.setInt(1, seq);
+			
+			if(seq == 0) {
+				pstmt.setInt(1, nVO.getNcode());
+			} else {
+				pstmt.setInt(1, seq);
+			}
 			pstmt.setString(2, nVO.getNoticeTitle());
 			pstmt.setString(3, nVO.getNoticeText());
+			pstmt.setString(4, nVO.getImage());
 			
 			pstmt.executeUpdate();
 			
