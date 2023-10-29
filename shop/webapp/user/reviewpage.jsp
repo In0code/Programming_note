@@ -50,6 +50,34 @@
 .review-satisfaction-form__radio {display:none; }
 #myReviewAgree{display:none; }
 #goods_text{width:800px}
+.star-rating {
+  border:solid 1px #ccc;
+  display:flex;
+  flex-direction: row-reverse;
+  font-size:1.5em;
+  justify-content:space-around;
+  padding:0 .2em;
+  text-align:center;
+  width:5em;
+}
+
+.star-rating input {
+  display:none;
+}
+
+.star-rating label {
+  color:#ccc;
+  cursor:pointer;
+}
+
+.star-rating :checked ~ label {
+  color:#f90;
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  color:#fc0;
+}
 </style>
 <script type="text/javascript">
 $(function(){
@@ -65,7 +93,7 @@ $(function(){
 
 
 <!-- <section class="mypage-cont" style="  position:relative; top:10px;left:0px; font-family: musinsa;"> -->
-            <form id="reviewForm" name="reviewForm" method="post" target="hf" style="position:relative; left:30px">
+            <form id="reviewForm" name="reviewForm" method="post" style="position:relative; left:30px">
                 <input type="hidden" name="tmpcode" value="1697704836038">
                 <input type="hidden" name="imageCount" value="0">
                 <input type="hidden" name="opt_kind_cd" id="optKindCode" value="BEAUTY">
@@ -109,16 +137,34 @@ $(function(){
                     <!-- //상품 -->
 
                     <!-- 별점 -->
-                    <div class="review-score" id="reviewScorePos">
-                        <em class="label">별점을 매겨주세요</em>
-                        <div class="n-score score-lg clickable goods_est_area" id="startScoreWrap">
-                            <a href="#" class="score score10" data-star="5"></a>
-                            <a href="#" class="score score8" data-star="4"></a>
-                            <a href="#" class="score score6" data-star="3"></a>
-                            <a href="#" class="score score4" data-star="2"></a>
-                            <a href="#" class="score score2" data-star="1"></a>
-                        </div>
-                    </div>
+	<h3 style="font-family :musinsa;">별점을 매겨주세요</h3><div  style= "margin-left: 10px; margin-top:5px; border: 0px " class="star-rating" >
+  <input type="radio" id="5-stars" name="star" value="5"/>
+  
+  <label for="5-stars" class="star" >&#9733;</label>
+
+
+  
+  <input type="radio" id="4-stars" name="star" value="4" />
+  <label for="4-stars" class="star">&#9733; </label>
+  
+ 
+  <input type="radio" id="3-stars" name="star" value="3"/>
+  <label for="3-stars" class="star">&#9733;</label>
+
+  <input type="radio" id="2-stars" name="star" value="2"/>
+
+  <label for="2-stars" class="star">&#9733;</label>
+   
+  <input type="radio" id="1-star" name="star" value="1" />
+  <label for="1-star" class="star">&#9733;</label>
+ <br>
+ 
+  <br>
+
+
+
+</div>
+
                     <!-- //별점 -->
 
                     <!-- 구매만족도 -->

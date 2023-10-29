@@ -1,12 +1,17 @@
+<%@page import="admin.vo.DashboardVO"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.Calendar"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="admin.dao.DashboardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page info=""%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:if test="${ empty adminId }">
+<%-- <c:if test="${ empty adminId }">
 	<c:redirect url="http://localhost/prj_web_shopping/admin/login.jsp"/>
-</c:if>
+</c:if> --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -196,6 +201,11 @@ tbody{
 <%@ include file="sidebar.jsp" %>
 
 <%
+	Calendar cal = Calendar.getInstance();
+	int year = cal.get(Calendar.YEAR);
+	int month = cal.get(Calendar.MONTH)+1;
+	int day = cal.get(Calendar.DAY_OF_MONTH);
+	
 	DashboardDAO dbDAO = DashboardDAO.getInstance();
 	try{
 		int[] salesCnt = dbDAO.selectSalesStatus();
@@ -203,6 +213,20 @@ tbody{
 
 		int[] productCnt = dbDAO.selectProductStatus();
 		pageContext.setAttribute("productCnt", productCnt);
+		
+		int[] visitCnt = dbDAO.selectVisitCount();
+		pageContext.setAttribute("visitCnt", visitCnt);
+		/* pageContext.setAttribute("visitCnt1", visitCnt[0]);
+		pageContext.setAttribute("visitCnt2", visitCnt[1]);
+		pageContext.setAttribute("visitCnt3", visitCnt[2]);
+		pageContext.setAttribute("visitCnt4", visitCnt[3]);
+		pageContext.setAttribute("visitCnt5", visitCnt[4]);  */
+		
+		List<DashboardVO> topList = dbDAO.selectTopProducts();
+		pageContext.setAttribute("topList", topList);
+		
+		int[] visitSaleCnt = dbDAO.selectVisitSale();
+		pageContext.setAttribute("visitSaleCnt", visitSaleCnt);
 		
 	}catch(SQLException se){
 		se.printStackTrace();
@@ -291,11 +315,11 @@ tbody{
 					</thead>
 					<tbody>
 						<tr style="font-size:14px; height: 46px">
-							<td>2023-10-20</td>
-							<td>120</td>
-							<td>561,500</td>
-							<td>1636</td>
-							<td>10</td>
+							<td>2023-10-20</td> <!-- 일자 -->
+							<td>120</td>		<!-- 주문수 -->
+							<td>561,500</td>	<!-- 매출액 -->
+							<td>1636</td>		<!-- 방문 -->
+							<td>10</td>			<!-- 가입 -->
 						</tr>
 						<tr style="font-size:14px; height: 46px">
 							<td>1</td>
@@ -412,35 +436,7 @@ tbody{
 </div>	
 
 <!-- 차트 -->
-<script>
- /*  const ctx = document.getElementById('myChart');
-
-  new Chart(ctx, {
-	   type: 'bar',
-	   data: {
-	       datasets: [{
-	           label: 'Bar Dataset',
-	           data: [10, 20, 30, 40],
-	           // this dataset is drawn below
-	           order: 2
-	       }, {
-	           label: 'Line Dataset',
-	           data: [10, 10, 10, 10],
-	           type: 'line',
-	           // this dataset is drawn on top
-	           order: 1
-	       }],
-	       labels: ['January', 'February', 'March', 'April']
-	   },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  }); */
- 
+<script type="text/javascript">
 var date = new Date();
 var month = date.getMonth() + 1;
 var day = date.getDate();
@@ -463,7 +459,7 @@ var myChart = new Chart(context, {
               label: '방문자', //차트 제목
               fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
               data: [
-                  40,10,20,30,15 //x축 label에 대응되는 데이터 값
+                  ${visitCnt[0]},${visitCnt[1]},${visitCnt[2]},${visitCnt[3]},${visitCnt[4]} //x축 label에 대응되는 데이터 값
               ],
               backgroundColor: [
                   //색상
@@ -484,17 +480,18 @@ var myChart = new Chart(context, {
                   'rgba(255, 159, 64, 1)'
               ],
               borderWidth: 1 //경계선 굵기
-          },/* 
-          {
-              label: 'test2',
+          }, 
+/*           {
+              label: '판매',
               fill: false,
               data: [
-                  8, 20, 12, 24, 30
+            	  ${visitSaleCnt[4]}, ${visitSaleCnt[3]}, ${visitSaleCnt[2]},
+            	  ${visitSaleCnt[1]}, ${visitSaleCnt[0]}
               ],
               type: 'line',
               backgroundColor: 'rgb(157, 109, 12)',
               borderColor: 'rgb(157, 109, 12)'
-          } */
+          }  */
       ]
   },
   options: {
@@ -512,22 +509,28 @@ var myChart = new Chart(context, {
   }
 });
 
-/*                    두번째 차트                    */
 
+/*                    두번째 차트                    */
 var context2 = document.getElementById('myChart2').getContext('2d');
 var myChart2 = new Chart(context2, {
   type: 'pie', // 차트의 형태
   data: { // 차트에 들어갈 데이터
       labels: [
           //x 축
-          '6am', 'Noon', '3pm', '9pm', 'Midnight'
+			/* '${topName0}', '${topName1}', '${topName2}', '${topName3}', '${topName4}' */
+			'${topList.get(0).gname}', '${topList.get(1).gname}',
+			'${topList.get(2).gname}', '${topList.get(3).gname}',
+			'${topList.get(4).gname}'
       ],
       datasets: [
           { //데이터
               label: '판매량', //차트 제목
               fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
               data: [
-                  21,19,25,20,23 //x축 label에 대응되는 데이터 값
+            	//x축 label에 대응되는 데이터 값
+                  ${topList.get(0).amount}, ${topList.get(1).amount}, 
+                  ${topList.get(2).amount}, ${topList.get(3).amount}, 
+                  ${topList.get(4).amount}
               ],
               backgroundColor: [
                   //색상

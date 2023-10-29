@@ -152,7 +152,9 @@ String title = "";
 String context = "";
 String date = "";
 String editDate = "";
+String image = "";
 int view = -1;
+
 try {
 	int ncode = Integer.parseInt(request.getParameter("ncode"));
 	NoticeVO nVO = nDAO.selectOneNotice(ncode);
@@ -162,8 +164,10 @@ try {
 	date = nVO.getNoticeDate();
 	view = nVO.getViewNum();
 	editDate = nVO.getEditDate();
+	image = nVO.getImage();
 	
 	pageContext.setAttribute("editDate", editDate);
+	pageContext.setAttribute("image", image);
 	
 } catch(SQLException se) {
 	se.printStackTrace();
@@ -199,7 +203,10 @@ try {
 	</tr>
 </table>
 <div id="revContent">
-<span style="font-size:20px; text-align:left"><%=context %></span>
+	<div style="margin: 0px auto;">
+		<img src="http://192.168.10.143/prj_web_shopping/upload/notice/${image}" alt="${image}">
+	</div>
+	<span style="font-size:20px; text-align:left"><%=context%></span>
 </div>
 </div>
 </div>

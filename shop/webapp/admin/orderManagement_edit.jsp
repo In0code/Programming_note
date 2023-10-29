@@ -166,20 +166,20 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 					<!-- 컬럼 사이즈 -->
 				<th style="width:100px"></th>
 				<th style="width:150px">No</th>
-					<th style="width:150px">주문번호</th>
-					<th style="width:230px">주문자명</th>
 					<th style="width:230px">주문일시</th>
-					<th style="width:230px">교환/반품 일시</th>
+					<th style="width:150px">주문번호</th>
 					<th style="width:230px">상품명</th>
 					<th style="width:200px">수량</th>
 					<th style="width:200px">가격정보</th>
 					<th style="width:200px">배송비</th>
-					<th style="width:200px">총 주문액</th>
 					<th style="width:200px">총 처리상태</th>
+					<th style="width:230px">주문자명</th>
+					<th style="width:200px">총 주문액</th>
+					<th style="width:230px">교환/반품 일시</th>
 				</tr>
 				<c:if test="${ empty recallList }">
 				<tr>
-				<td colspan="10" style="text-align: center;">회원정보가 존재하지 않습니다</td>
+				<td colspan="12" style="text-align: center;">회원정보가 존재하지 않습니다</td>
 				</tr>
 				</c:if>
 				
@@ -187,48 +187,47 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 				<tr>
 				 <td><input type="checkbox"></td> 
 				 <td><c:out value="<%=startNum++ %>"/></td> 
-				<td><c:out value="${ recall.orderNum }"/></td>
-				<td><c:out value="${ recall.userName }"/></td>
 				<td><c:out value="${ recall.date }"/></td>
-				<td><c:out value=""/></td>
+				<td><c:out value="${ recall.orderNum }"/></td>
 				<td><c:out value="${ recall.productName }"/></td>
 				<td><c:out value="${ recall.quantity }"/></td>
 				<td><c:out value="${ recall.price }"/></td>
 				<td><c:out value="<%= deliveryPrice %>"/></td>
-			 	<td><c:out value="${ recall.price + deliveryPrice }"/></td> 
 				<td class="status">
-      
-              <select name="statuslist">
-                <option value="C0"${ recall.orderStatus eq 'C0'? " selected='selected'" : "" }  >교환신청 </option>
-                <option value="CF"${ recall.orderStatus eq 'CF'? " selected='selected'" : "" }  >교환완료</option>
-                <option value="R0"${ recall.orderStatus eq 'R0'? " selected='selected'" : "" } >반품신청 </option>
-                <option value="RF"${ recall.orderStatus eq 'RF'? " selected='selected'" : "" } >반품완료</option>
-            </select>  
+	              <select name="statuslist">
+	                <option value="C0"${ recall.orderStatus eq 'C0'? " selected='selected'" : "" }  >교환신청 </option>
+	                <option value="CF"${ recall.orderStatus eq 'CF'? " selected='selected'" : "" }  >교환완료</option>
+	                <option value="R0"${ recall.orderStatus eq 'R0'? " selected='selected'" : "" } >반품신청 </option>
+	                <option value="RF"${ recall.orderStatus eq 'RF'? " selected='selected'" : "" } >반품완료</option>
+	            </select>  
 				</td>
+				<td><c:out value="${ recall.userName }"/></td>
+			 	<td><c:out value="${ recall.price + deliveryPrice }"/></td> 
+				<td><c:out value="${ recall.recallDate }"/></td>
 				</tr>
 				</c:forEach>
 			</table>
 			</div>
 		</div>
 		
+		<c:if test="${ not empty orderList }">
 		<!-- 페이지네이션 -->
 		<div class="pagenationDiv">
 			<div class="pagination">
- 				<a href="#">&laquo;</a>
-  				<a href="#">1</a>
-  				<a href="#" class="active">2</a>
-  				<a href="#">3</a>
-  				<a href="#">&raquo;</a>
+ 			<%
+ 			BoardUtil util=BoardUtil.getInstance();
+			BoardUtilVO buVO=new BoardUtilVO("orderManagement_order.jsp",keyword,field,currentPage,totalPage);
+			out.println(util.pageNation(buVO));
+ 			%>
 			</div>
 		</div>
+		</c:if>
 		
 		<input type="button" class="btn" id="btnChange" value="변경"/>
 		<%
+			if(request.getParameter("keyword") != null) {
 			out.print("<a href='orderManagement_edit.jsp'><input type='button' id='btnList' value='목록' style='left:1060px; top:683px'/></a>");
-		
-			BoardUtil util=BoardUtil.getInstance();
-			BoardUtilVO buVO=new BoardUtilVO("orderManagement_edit.jsp",keyword,field,currentPage,totalPage);
-			out.println(util.pageNation(buVO));
+			}
 		%>
 	</div>
 </div>	

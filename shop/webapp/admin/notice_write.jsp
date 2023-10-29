@@ -256,7 +256,7 @@ $(function() {
 		var context = $("#context").val();
 		
 		if(title != "" && context != "") {
-			$("#hid").val(title);
+			$("#hidTxt").val(title);
 			$("#sfrm").submit();
 		} else {
 			alert("내용을 입력하세요.");
@@ -266,7 +266,7 @@ $(function() {
 	$("#inputGroupFileAddon04").click(function() {
 		//유효성 검증
 		var blockExt = ["jpg", "png", "bmp", "gif"];
-		var fileName = $("#upFile").val();
+		var fileName = $("#inputGroupFile04").val();
 		var flag = false;
 		
 		var fileExt = fileName.substring(fileName.lastIndexOf(".")+1);
@@ -280,7 +280,26 @@ $(function() {
 			return;
 		}
 		
-		$("#imgFrm").submit();
+		var formData = new FormData();
+		formData.append("file", $("#inputGroupFile04")[0].files[0]);
+		
+		alert("formData : "+formData);
+		
+		$.ajax({
+			url:"notice_file_process.jsp",
+			type:"post",
+			data:formData,
+			dataType:"json",
+			processData: false,
+			contentType: false,
+			error: function(xhr) {
+				alert("업로드에 실패하였습니다."+xhr.status);
+			},
+			success: function(json) {
+				alert(json.msg);
+				${"#hidImg"}.val(json.image);
+			}
+		});
 	});
 });
 </script>
@@ -290,6 +309,7 @@ String flag = request.getParameter("flag");
 NoticeVO nVO = null;
 String title = "";
 String context = "";
+String image = "";
 
 if("2".equals(flag)) {
 	String ncode = request.getParameter("ncode");
@@ -299,7 +319,7 @@ if("2".equals(flag)) {
 	
 	pageContext.setAttribute("title", title);
 	pageContext.setAttribute("ncode", ncode);
-	pageContext.setAttribute("context", context);
+	pageContext.setAttribute("image", image);
 }
 
 %>
@@ -404,17 +424,21 @@ if("2".equals(flag)) {
 			<input type="text" class="form-control" id="basic-url" name="title" aria-describedby="basic-addon3" value="${title}" style="font-size: 16px;font-weight: bold;">
 		</div>
 		<div class="input-group">
-		<form id="imgFrm" name="imgFrm">
+		<form id="imgFrm" name="imgFrm" enctype="multipart/form-data">
 			<input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" style="font-size: 16px">
 			<input class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04" style="font-size: 16px;" value="Button">
 		</form>
 		</div>
-		<div>
-<form id="sfrm" method="post" action="notice_write_process.jsp?no=5&flag=${param.flag}&ncode=${ncode}">
+<div>
+	<form id="sfrm" method="post" action="notice_write_process.jsp?no=5&flag=${param.flag}&ncode=${ncode}">
+			<div style="margin: 0px auto;">
+				<img alt="${image}" src="http://192.168.10.143/prj_web_shopping/upload/notice/${image}">
+			</div>
 			<textarea id="context" name="context"><%=context%></textarea>
-			<input type="hidden" id="hid" name="hid">
-</form>
-		</div>
+			<input type="hidden" id="hidTxt" name="hidTxt">
+			<input type="hidden" id="hidImg" name="hidImg">
+	</form>
+</div>
 	</div>
 </div>
 <div>

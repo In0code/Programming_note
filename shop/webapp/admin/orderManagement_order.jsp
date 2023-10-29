@@ -65,7 +65,37 @@ $(function() {
 			chkNull();
 		}//end if
 	});//keyup
-});
+	
+	$("#btnChange").click(function(){
+	var jaonObj= { 
+			dlvyPro : $("#statuslist").val(), 
+			orderNo : $("#orderNo").val() 
+			};
+	
+		if(confirm("선택사항을 변겨하시겠습니까?")){
+			$.ajax({
+				url : "order_process.jsp",
+				type : "GET",
+				data : jsonObj,
+				dataType : "text",
+				error: function( xhr ){
+					alert("죄송합니다. 서버에 문제가 발생하였습니다./n잠시 후에 다시 시도해주세요. ");
+				},
+				success : function( data ){
+					if( data == "success" ){
+						alert("변경되었습니다.");
+						location.reload();
+					}else{
+						alert("죄송합니다. 서버에 문제가 발생하였습니다./n잠시 후에 다시 시도해주세요.");
+					}//end else
+				}//success
+				
+			});//ajax
+		}//end if
+		
+	});//click
+	
+});//ready
 
 function chkNull() {
 	var keyword = $("#keyword").val();
@@ -168,7 +198,7 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 					<th style="width:100px"></th>
 					<th style="width:170px">No</th>
 					<th style="width:250px">주문일시</th>
-					<th style="width:230px">주문번호</th>
+					<th id="orderNo" name="orderNo"  style="width:230px">주문번호</th>
 					<th style="width:230px">상품명</th>
 					<th style="width:200px">수량</th>
 					<th style="width:200px">가격정보</th>
@@ -194,7 +224,7 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 				<td><c:out value="${ order.price }"/></td>
 				<td><c:out value="<%= deliveryPrice %>"/></td>
 				<td>
-				 <select name="statuslist">
+				 <select name="statuslist" id="statuslist">
                 <option value="PF"${ order.orderStatus eq 'PF'? " selected='selected'" : "" }  >결제완료 </option>
                 <option value="D0"${ order.orderStatus eq 'D0'? " selected='selected'" : "" }  >배송중</option>
                 <option value="DR"${ order.orderStatus eq 'DR'? " selected='selected'" : "" }  >배송준비</option>
@@ -209,24 +239,24 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 			</div>
 		</div>
 		
+		<c:if test="${ not empty orderList }">
 		<!-- 페이지네이션 -->
 		<div class="pagenationDiv">
 			<div class="pagination">
- 				<a href="#">&laquo;</a>
-  				<a href="#">1</a>
-  				<a href="#" class="active">2</a>
-  				<a href="#">3</a>
-  				<a href="#">&raquo;</a>
+ 			<%
+ 			BoardUtil util=BoardUtil.getInstance();
+			BoardUtilVO buVO=new BoardUtilVO("orderManagement_order.jsp",keyword,field,currentPage,totalPage);
+			out.println(util.pageNation(buVO));
+ 			%>
 			</div>
 		</div>
+		</c:if>
 		
 		<input type="button" class="btn" id="btnChange" value="변경"/>
 		<%
+			if(request.getParameter("keyword") != null) {
 			out.print("<a href='orderManagement_order.jsp'><input type='button' id='btnList' value='목록' style='left:1060px; top:683px'/></a>");
-		
-			BoardUtil util=BoardUtil.getInstance();
-			BoardUtilVO buVO=new BoardUtilVO("orderManagement_order.jsp",keyword,field,currentPage,totalPage);
-			out.println(util.pageNation(buVO));
+			}
 		%>
 	</div>
 </div>	

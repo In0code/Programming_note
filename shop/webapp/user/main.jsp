@@ -1,13 +1,18 @@
+<%@page import="java.sql.SQLException"%>
+<%@page import="admin.dao.DashboardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <jsp:include page="../cdn/cdn.jsp"/>
 <%
 	if(session.getAttribute("counter") == null){
-		session.setAttribute("counter", "v");
-	}else {
-		
+		session.setAttribute("counter", "visit");
+		DashboardDAO dbDAO = DashboardDAO.getInstance();
+		try{
+			dbDAO.insertVisitCount();
+		}catch(SQLException se){
+			se.printStackTrace();
+		}
 	}
-
 %>
 <!DOCTYPE html>
 <html>

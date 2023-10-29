@@ -7,8 +7,9 @@
 <%
 String flag = request.getParameter("flag");
 
-String title = request.getParameter("title");
+String title = request.getParameter("hidTxt");
 String context = request.getParameter("context");
+String image = request.getParameter("hidImg");
 
 NoticeVO nVO = new NoticeVO();
 
@@ -18,6 +19,7 @@ if("2".equals(flag)) {
 }
 nVO.setNoticeTitle(title);
 nVO.setNoticeText(context);
+nVO.setImage(image);
 
 String msg = "성공적으로 저장되었습니다.";
 
@@ -38,6 +40,6 @@ pageContext.setAttribute("msg", msg);
 <script type="text/javascript">
 	$(function() {
 		alert("${msg}");
-		location.href = "notice.jsp?no=5";
+		window.loaction = "notice.jsp?no=5";
 	});
 </script>
