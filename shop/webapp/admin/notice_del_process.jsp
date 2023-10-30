@@ -12,7 +12,6 @@ if(!"2".equals(flag) || "".equals(temp) || "null".equals(temp) || temp == null) 
 	response.sendRedirect("notice.jsp?no=5");
 }
 
-System.out.println("temp : "+temp);
 int ncode = Integer.parseInt(temp);
 
 String msg = "삭제 되었습니다.";

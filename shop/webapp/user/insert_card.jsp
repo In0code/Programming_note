@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page info="카드번호 입력" %>
 <!-- 프로젝트용 CDN -->
 <jsp:include page="../cdn/cdn.jsp"/>
 <!DOCTYPE html>

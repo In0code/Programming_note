@@ -164,18 +164,18 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 			<table id="order_list" class="table tableList">
 				<tr id="top_title">
 					<!-- 컬럼 사이즈 -->
-				<th style="width:100px"></th>
-				<th style="width:150px">No</th>
-					<th style="width:230px">주문일시</th>
-					<th style="width:150px">주문번호</th>
-					<th style="width:230px">상품명</th>
-					<th style="width:200px">수량</th>
-					<th style="width:200px">가격정보</th>
-					<th style="width:200px">배송비</th>
-					<th style="width:200px">총 처리상태</th>
-					<th style="width:230px">주문자명</th>
-					<th style="width:200px">총 주문액</th>
-					<th style="width:230px">교환/반품 일시</th>
+				<th style="width:70px"></th>
+				<th style="width:50px">No</th>
+					<th style="width:200px">주문일시</th>
+					<th style="width:80px">주문번호</th>
+					<th style="width:200px">상품명</th>
+					<th style="width:50px">수량</th>
+					<th style="width:100px">가격정보</th>
+					<th style="width:100px">배송비</th>
+					<th style="width:100px">총 처리상태</th>
+					<th style="width:100px">주문자명</th>
+					<th style="width:100px">총 주문액</th>
+					<th style="width:200px">교환/반품 일시</th>
 				</tr>
 				<c:if test="${ empty recallList }">
 				<tr>

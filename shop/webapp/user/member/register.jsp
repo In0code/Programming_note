@@ -79,7 +79,7 @@ $(function(){
 			return; 
 		}
 		
-        // 입력값에 대한 유효성 검증을 통과했을 때, 회원가입 처리
+        // 입력값에 대한 유효성 검증을 통과했을 때
         $("#frm").submit();
     });//click
     
@@ -100,10 +100,12 @@ function compare_result() {
 
 	if (pw1 === pw2 && pw1 !== "" && pw2 !== "") {
 		$s_result.text("비밀번호가 일치합니다.");
+		$s_result.css("color", "teal");
 		return true;
 	}
 
 	$s_result.text("비밀번호가 일치하지 않습니다.");
+	$s_result.css("color", "red");
 	return false;
 }
 

@@ -1,15 +1,15 @@
+<%@page import="java.sql.SQLException"%>
+<%@page import="admin.dao.UserReviewDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page info=""%>
 <%@ page import="java.io.File" %>
 <%@ page import="java.util.Enumeration" %>
-<%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
-<%@ page import="com.oreilly.servlet.MultipartRequest"%>
+
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8" name="viewport"
-	content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=3, user-scalable=yes">
+<meta charset="UTF-8" >
 
 <title>리뷰 작성</title>
 <%-- <jsp:include page="/cdn/cdn.jsp" />
@@ -41,7 +41,6 @@
 
 
 <!-- 후기 외부 style -->
-
 
 
 
@@ -81,19 +80,49 @@
 </style>
 <script type="text/javascript">
 $(function(){
-   
+	$('#review').keyup(function (e) {
+		let content = $("#review").val();
+	    
+	    // 글자수 세기
+	    if (content.length == 0 || content == '') {
+	    	$('.textCount').text('0자');
+	    } else {
+	    	$('.textCount').text(content.length + '자');
+	    }
+	    
+	    // 글자수 제한
+	    if (content.length > 200) {
+	    	// 200자 부터는 타이핑 되지 않도록
+	        $(this).val($(this).val().substring(0, 200));
+	        // 200자 넘으면 알림창 뜨도록
+	        alert('글자수는 200자까지 입력 가능합니다.');
+	    };
+	});
 });//ready
 </script>
 
 </head>
+<jsp:useBean id="urVO" class="admin.vo.UserReviewVO" scope="page"/><!-- string party_no2="양승연"+"이동원"+"이승우"+"임태균"+"김인영" --> 
+<jsp:setProperty property="*" name="urVO"/>
+<%
+UserReviewDAO uDAO= UserReviewDAO.getInstance();
 
+try{
+	String main_img = uDAO.selectproductImg("바디워시 BIGALICO 500ml");
+	
+	pageContext.setAttribute("main_img", main_img);
+}catch (SQLException se) {
+	se.printStackTrace();
+}//end catch
+%>
 <body>
 
  <%@ include file="layout/header.jsp" %> 
 
 
 <!-- <section class="mypage-cont" style="  position:relative; top:10px;left:0px; font-family: musinsa;"> -->
-            <form id="reviewForm" name="reviewForm" method="post" style="position:relative; left:30px">
+		
+            <form action="" id="frm" name="frm" method="post" style="position:relative; left:30px" enctype="multipart/form-data">
                 <input type="hidden" name="tmpcode" value="1697704836038">
                 <input type="hidden" name="imageCount" value="0">
                 <input type="hidden" name="opt_kind_cd" id="optKindCode" value="BEAUTY">
@@ -105,8 +134,7 @@ $(function(){
 
     <ul class="n-info-txt">
     	<br/>
-        <li>작성하신 후기는 Cherie 및 Cherie 글로벌 이용자에게 공개됩니다. </li>
-        <li>후기 내용은 20자 이상 작성합니다.</li>
+        <li>작성하신 후기는 Cherie 및 Cherie 글로벌 이용자에게 공개됩니다. </li> 
         <li>
             아래에 해당할 경우 일부 후기는 조건에 따라 비노출 처리 됩니다.
             <br>- 문자 및 기호의 단순 나열, 반복된 내용의 후기
@@ -123,14 +151,17 @@ $(function(){
 
                 <div class="my-review-write" id="reviewWrap" style="max-width: 1850px">
                     <!-- 상품 -->
-                    <div class="n-prd-row">
+                    <div class="n-prd-row"  >
+                  
                         <a href="/app/goods/2027866" class="img-block">
-                            <img src="//image.msscdn.net/images/goods_img/20210713/2027866/2027866_16974232192040_100.jpg" alt="레플리카 바이 더 파이어플레이스 EDT 100ML">
+                            <img src="../upload/goods/${main_img}" />
+                             
                         </a>
+                      
                         <ul class="info">
-                            <li class="brand"><a href="//www.musinsa.com/brands/maisonmargielaperfume">메종 마르지엘라 퍼퓸</a></li>
-                            <li class="name"><a href="/app/goods/2027866">레플리카 바이 더 파이어플레이스 EDT 100ML</a></li>
-                            <li class="option">FREE</li>
+                       <!--  <li class="name"><a href="/app/goods/2027866">레플리카 바이 더 파이어플레이스 EDT 100ML</a></li> -->
+                            <li class="name">레플리카 바이 더 파이어플레이스 EDT 100ML</li>
+                            
                             
                         </ul>
                     </div>
@@ -182,18 +213,19 @@ $(function(){
 
                             <div class="input-area">
                                 <!-- Text -->
-                                <div class="tab-block is-active" data-tab="text">
-                                    <textarea id="goods_text" style="width:1000px" placeholder="다른 회원분에게 도움이 되는 나만의 팁을 소개해 주세요. (20자 이상 작성)" name="goods_text"></textarea>
-                                    <p class="info" id="text_size">0 자 / 20자 이상</p>
+                                <div class="tab-block is-active" data-tab="">
+                                    <textarea id="review" name="review" style="width:1840px; font-size: 15px" cols='1000' maxlength="200" placeholder="다른 회원분에게 도움이 되는 나만의 팁을 소개해 주세요."> </textarea>
+                                    <p class="textCount" id="text_size" style="position:absolute; top: 250px; right:70px; color: #AAAAAA">0 자 </p>
+                                    <p class="textTotal" style="position:absolute; top: 250px; right:20px; color: #AAAAAA">/200자</p>
                                 </div>
                             </div>
+                            
+                            
                         </div>
-                        <!-- //입력 영역 -->
-                        <!-- 사진 첨부 -->
-                        
-                        <!-- //사진 첨부 -->
+                       
+                   
                     </div>
-                    <!-- //후기 작성 -->
+                
 
                  
 
@@ -202,7 +234,7 @@ $(function(){
                     </div>
                 </div>
             </form>
-<!--         </section> -->
+
 
 <footer><%@ include file="postingfooter.jsp" %> </footer> 
 

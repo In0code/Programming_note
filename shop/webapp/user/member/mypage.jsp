@@ -4,6 +4,9 @@
 <%@ page info="마이페이지"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../../cdn/cdn.jsp" />
+<c:if test="${ empty sesId }">
+<c:redirect url="login.jsp"/>
+</c:if>
 <!DOCTYPE html>
 <html>
 <head>

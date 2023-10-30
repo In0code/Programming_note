@@ -1,3 +1,5 @@
+<%@page import="java.time.temporal.ChronoUnit"%>
+<%@page import="java.time.LocalDate"%>
 <%@page import="admin.vo.DashboardVO"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Calendar"%>
@@ -201,19 +203,17 @@ tbody{
 <%@ include file="sidebar.jsp" %>
 
 <%
-	Calendar cal = Calendar.getInstance();
-	int year = cal.get(Calendar.YEAR);
-	int month = cal.get(Calendar.MONTH)+1;
-	int day = cal.get(Calendar.DAY_OF_MONTH);
-	
 	DashboardDAO dbDAO = DashboardDAO.getInstance();
 	try{
+		//판매 현황
 		int[] salesCnt = dbDAO.selectSalesStatus();
 		pageContext.setAttribute("salesCnt", salesCnt);
 
+		//상품 현황
 		int[] productCnt = dbDAO.selectProductStatus();
 		pageContext.setAttribute("productCnt", productCnt);
 		
+		//방문자
 		int[] visitCnt = dbDAO.selectVisitCount();
 		pageContext.setAttribute("visitCnt", visitCnt);
 		/* pageContext.setAttribute("visitCnt1", visitCnt[0]);
@@ -222,11 +222,16 @@ tbody{
 		pageContext.setAttribute("visitCnt4", visitCnt[3]);
 		pageContext.setAttribute("visitCnt5", visitCnt[4]);  */
 		
+		//방문자 대비 판매건수
+		int[] visitSaleCnt = dbDAO.selectVisitSale();
+		pageContext.setAttribute("visitSaleCnt", visitSaleCnt);
+		
+		//상품 판매 top5
 		List<DashboardVO> topList = dbDAO.selectTopProducts();
 		pageContext.setAttribute("topList", topList);
 		
-		int[] visitSaleCnt = dbDAO.selectVisitSale();
-		pageContext.setAttribute("visitSaleCnt", visitSaleCnt);
+		List<DashboardVO> dailySum = dbDAO.selectDailySummary();
+		pageContext.setAttribute("dailySum", dailySum);
 		
 	}catch(SQLException se){
 		se.printStackTrace();
@@ -314,41 +319,15 @@ tbody{
 						</tr>
 					</thead>
 					<tbody>
+						<c:forEach var="summary" items="${ dailySum }">
 						<tr style="font-size:14px; height: 46px">
-							<td>2023-10-20</td> <!-- 일자 -->
-							<td>120</td>		<!-- 주문수 -->
-							<td>561,500</td>	<!-- 매출액 -->
-							<td>1636</td>		<!-- 방문 -->
-							<td>10</td>			<!-- 가입 -->
+							<td>${ summary.date }</td> <!-- 일자 -->
+							<td>${ summary.ordCnt }</td>		<!-- 주문수 -->
+							<td>${ summary.sales }</td>	<!-- 매출액 -->
+							<td>${ summary.visitCnt }</td>		<!-- 방문 -->
+							<td>${ summary.signCnt }</td>			<!-- 가입 -->
 						</tr>
-						<tr style="font-size:14px; height: 46px">
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-						</tr>
-						<tr style="font-size:14px; height: 46px">
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-						</tr>
-						<tr style="font-size:14px; height: 46px">
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-						</tr>
-						<tr style="font-size:14px; height: 46px">
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-						</tr>
+						</c:forEach>
 						<tr class="total" style="font-size:14px; height: 46px">
 							<td>합계</td>
 							<td>1</td>
@@ -416,7 +395,7 @@ tbody{
 		</div>
 		
 		<div id="visitDiv" class="dashboardBox" style="height: 465px; width: 504px">
-			<span class="titleText">방문자 현황</span>
+			<span class="titleText">방문자 대비 판매 현황</span>
 			<div class="innerDiv" style="width:504px;">
 				<div style="height:355px">
   					<canvas id="myChart" style="padding:5px"></canvas>
@@ -425,7 +404,7 @@ tbody{
 		</div>
 		
 		<div id="sellDiv" class="dashboardBox" style="height: 465px; width: 505px">
-			<span class="titleText">주요 상품 판매 현황</span>
+			<span class="titleText">상품 판매 TOP 5</span>
 			<div class="innerDiv" style="width:504px">
 				<div style="height:355px">
   					<canvas id="myChart2"></canvas>
@@ -459,7 +438,7 @@ var myChart = new Chart(context, {
               label: '방문자', //차트 제목
               fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
               data: [
-                  ${visitCnt[0]},${visitCnt[1]},${visitCnt[2]},${visitCnt[3]},${visitCnt[4]} //x축 label에 대응되는 데이터 값
+                  ${visitCnt[4]},${visitCnt[3]},${visitCnt[2]},${visitCnt[1]},${visitCnt[0]} //x축 label에 대응되는 데이터 값
               ],
               backgroundColor: [
                   //색상
@@ -481,17 +460,16 @@ var myChart = new Chart(context, {
               ],
               borderWidth: 1 //경계선 굵기
           }, 
-/*           {
-              label: '판매',
+           {
+              label: '판매건 수',
               fill: false,
               data: [
             	  ${visitSaleCnt[4]}, ${visitSaleCnt[3]}, ${visitSaleCnt[2]},
             	  ${visitSaleCnt[1]}, ${visitSaleCnt[0]}
               ],
               type: 'line',
-              backgroundColor: 'rgb(157, 109, 12)',
-              borderColor: 'rgb(157, 109, 12)'
-          }  */
+              borderColor: 'rgb(255,192,203)'
+          } 
       ]
   },
   options: {
@@ -513,7 +491,7 @@ var myChart = new Chart(context, {
 /*                    두번째 차트                    */
 var context2 = document.getElementById('myChart2').getContext('2d');
 var myChart2 = new Chart(context2, {
-  type: 'pie', // 차트의 형태
+  type: 'doughnut', // 차트의 형태
   data: { // 차트에 들어갈 데이터
       labels: [
           //x 축

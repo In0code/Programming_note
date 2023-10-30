@@ -82,18 +82,19 @@ $(function(){
 	$("#btn").click(function(){
 		checkNull();
 	})//end click
+	
 });//ready
 
 function checkNull(){
-	var id=$("#name").val();
-	var pw=$("#phone").val();
+	var name=$("#name").val();
+	var phone=$("#phone").val();
 	
-	if(id.trim() === ""){
+	if(name.trim() === ""){
         alert("이름을 입력하세요.");
         return;
     }
 	
-	if(pw.trim() === ""){
+	if(phone.trim() === ""){
 		alert("휴대폰번호를 입력하세요.");
 		return;
 	}

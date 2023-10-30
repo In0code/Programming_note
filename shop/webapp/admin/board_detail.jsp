@@ -125,7 +125,7 @@ function boardDelete(rcode){
 		<!-- 타이틀  -->
 		<div class="text" id="mainTitle">	
 			<a href="javascript:history.back()">	
-				<img src="../common/images/back1.png" style="width:27px"/>
+				<img src="../common/images/back.png" style="width:27px"/>
 				<strong>리뷰</strong>
 			</a>
 		</div>

@@ -8,18 +8,17 @@
     pageEncoding="UTF-8"%>
 <%@ page info="사진 업로드 하는 jsp"%>
 <%
-File saveDir = new File("E:/dev/workspace/prj_web_shopping/src/main/webapp/upload/notice");
+File saveDir = new File("C:/Users/user/git/prj_online_store/prj_web_shopping/src/main/webapp/upload/notice");
 
-int maxSize = 1024*1024*10; //10Mb
+int maxSize = 1024*1024*30; //30Mb
 MultipartRequest mr = new MultipartRequest(request, saveDir.getAbsolutePath(), maxSize, "UTF-8", new DefaultFileRenamePolicy());
 
 //input type="file"인 것
-/* String originFile = mr.getOriginalFileName("inputGroupFile04"); */
-String newFile = mr.getFilesystemName("inputGroupFile04");
+String newFile = mr.getFilesystemName("uploadImg");
 
 boolean flag = false;
 if(newFile != null) {
-	File tempFile = new File(saveDir.getAbsolutePath()+"/"+newFile);
+	File tempFile = new File(saveDir.getAbsoluteFile()+"/"+newFile);
 	
 	int limitSize = 1024*1024*5;
 	if(tempFile.length() > limitSize) {

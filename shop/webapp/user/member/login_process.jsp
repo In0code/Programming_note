@@ -29,10 +29,10 @@ $(function() {
    
 });//ready
 </script>
-
 </head>
+
 <body>
-<jsp:useBean id="lVO" class="member.vo.LoginVO" scope="page"/>
+<jsp:useBean id="lVO" class="member.vo.LoginVO" scope="session"/>
 <jsp:setProperty property="*" name="lVO"/>
 <%
 //암호화
@@ -45,6 +45,7 @@ try{
 	if(uVO != null){
 		session.setAttribute("sesId", lVO.getId());
 		session.setAttribute("userData", uVO);
+		
 		response.sendRedirect("mypage.jsp");
 	}else{
 %>

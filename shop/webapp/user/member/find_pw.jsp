@@ -1,3 +1,5 @@
+<%@page import="java.sql.SQLException"%>
+<%@page import="member.dao.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page info="비밀번호 찾기" %>
 <jsp:include page="../../cdn/cdn.jsp" />
@@ -70,34 +72,85 @@
     margin-left: 330px;
 }
     </style>
+
+<script type="text/javascript">
+$(function(){
+	$("#id").keydown(function(evt){
+		if(evt.which == 13){
+			checkNull();
+		}//end if
+	});//end keydown
+	
+	$("#name").keydown(function(evt){
+		if(evt.which == 13){
+			checkNull();
+		}//end if
+	});//end keydown
+	
+	$("#phone").keydown(function(evt){
+		if(evt.which == 13){
+			checkNull();
+		}//end if
+	})//end keydown
+	
+	$("#btn").click(function(){
+		checkNull();
+	})//end click
+	
+});//ready
+
+function checkNull(){
+	var id=$("#id").val();
+	var name=$("#name").val();
+	var phone=$("#phone").val();
+	
+	if(id.trim() === ""){
+        alert("아이디를 입력하세요.");
+        return;
+    }
+	
+	if(name.trim() === ""){
+        alert("이름을 입력하세요.");
+        return;
+    }
+	
+	if(phone.trim() === ""){
+		alert("휴대폰번호를 입력하세요.");
+		return;
+	}
+	
+    $("#frm").submit();
+    
+}//checkNull
+</script>
 </head>
 <body>
+
     <!-- header -->
     <%@ include file="../layout/header.jsp"%>
     <div id="wrap">
-        <form name="pwfindscreen" method="POST">
+        <form action="find_pw_process.jsp" id="frm" name="frm" method="post">
             <div class="search-title">
                 <h3>비밀번호 찾기</h3>
             </div>
             <section class="form-search">
                 <div class="input-group">
                     <label for="member_mid">아이디</label>
-                    <input type="text" id="member_mid" name="member_mid" class="btn-name" placeholder="ID를 입력하세요">
+                    <input type="text" id="id" name="id" class="btn-name" placeholder="ID를 입력하세요" maxlength="15">
                 </div>
 
                 <div class="input-group">
                     <label for="member_name">이름</label>
-                    <input type="text" id="member_name" name="member_name" class="btn-name" placeholder="이름을 입력하세요">
+                    <input type="text" id="name" name="name" class="btn-name" placeholder="이름을 입력하세요" maxlength="10">
                 </div>
 
                 <div class="input-group">
                     <label for="member_phone">휴대폰번호</label>
-                    <input type="text" id="member_phone" onKeyup="addHypen(this);" name="member_phone" class="btn-phone" placeholder="휴대폰번호를 '-'없이 입력">
+                    <input type="text" id="phone"  name="phone" class="btn-phone" placeholder="휴대폰번호를 '-'없이 입력" maxlength="11">
                 </div>
             </section>
-
             <div class="btnSearch">
-                <input type="button" name="enter" value="확인" onClick="location.href='temporary_pw.jsp' ">
+                <input type="button" id="btn" name="btn" value="확인">
             </div>
         </form>
     </div>

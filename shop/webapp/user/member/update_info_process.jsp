@@ -1,21 +1,13 @@
+<%@page import="java.sql.SQLException"%>
 <%@page import="member.dao.MemberDAO"%>
 <%@page import="kr.co.sist.util.cipher.DataEncrypt"%>
-<%@page import="java.net.URLEncoder"%>
-<%@page import="java.sql.SQLException"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ page info="회원가입 처리" %>
+    <%@ page info="회원정보 수정 처리" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <%
+    <% 
     request.setCharacterEncoding("UTF-8");
-    //GET방식의 요청이라면 register.jsp로 이동
-    String method=request.getMethod();
-    if("GET".equals(method)){
-    	response.sendRedirect("register.jsp");
-    	return;
-    }//end if
     %>
-    
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,38 +26,42 @@ $(function(){
 	
 });//ready
 </script>
-
 </head>
 <body>
 <jsp:useBean id="rVO" class="member.vo.RegisterVO" scope="page"/>
 <jsp:setProperty property="*" name="rVO"/>
-<c:catch var="se">
 <%
+//전달된 정보(파라메터) 저장 -> 수정할 데이터값(비번,주소,휴대전화,이메일)
 DataEncrypt de=new DataEncrypt("a12345678901234567");
-rVO.setPass(DataEncrypt.messageDigest("MD5", rVO.getPass()));
-
+rVO.setPass(DataEncrypt.messageDigest("MD5",rVO.getPass()));
 MemberDAO mDAO=MemberDAO.getInstance();
-mDAO.insertMember(rVO);
 
-//회원가입 성공 시 데이터를 저장하고 regi_complete.jsp로 이동
-String id = rVO.getId();
-String name = rVO.getName();
-String email = rVO.getEmail();
+try{
+int cntUp=mDAO.updateInfo(rVO);
+//System.out.println("결과 : " + cntUp);
 
-//값들을 URL 인코딩
-id = URLEncoder.encode(id, "UTF-8");
-name = URLEncoder.encode(name, "UTF-8");
-email = URLEncoder.encode(email, "UTF-8");
-
-response.sendRedirect("regi_complete.jsp?id=" + id + "&name=" + name + "&email=" + email);
+if( cntUp == 1 ){
 %>
-</c:catch>
-
+<script type="text/javascript">
+	alert("회원정보 수정이 완료되었습니다.")
+	location.href='mypage.jsp';
+</script>
+<% 	
+}else{
+%>
+<script type="text/javascript">
+	alert("시스템 오류 다시 시도해주세요.")
+	location.href='error.jsp';
+</script>
+<%	
+}
+	
+}catch(SQLException se){
+	se.printStackTrace();
+}
+%>
 </body>
 </html>
-
-
-
 
 
 

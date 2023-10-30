@@ -409,7 +409,7 @@ function hover(event, element) {
                 <div class="xans-element- xans-layout xans-layout-statelogoff ">
                 	<div id="" class="xans-element- xans-product xans-product-action productAction ">
                 		<div class="ec-base-button gColumn ">
-                        	<a href="#none" class="btn gFlex2 actionBuy " onclick="">
+                        	<a href="buy.jsp" class="btn gFlex2 actionBuy " onclick="">
                         		<span id="actionBuy" style="font-size:16px">구매하기</span>
                         	</a>
                         	<input type="button" value="장바구니" class="btn gFlex2 actionCart " style="font-family:Pretendard Medium" onclick="" id="actionCart">

@@ -171,7 +171,7 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 <tbody>
 <c:if test="${ empty memberList }">
 <tr>
-<td colspan="8" style="text-align: center; color: #929492">회원정보가 존재하지 않습니다</td>
+<td colspan="8" style="text-align: center; color: #929492; padding:30px">회원정보가 존재하지 않습니다</td>
 </tr>
 </c:if>
 

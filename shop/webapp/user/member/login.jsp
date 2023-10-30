@@ -77,6 +77,7 @@ function checkNull(){
     
 }//checkNull
 </script>
+
 </head>
 <body>
 	<%@ include file="../layout/header.jsp"%>

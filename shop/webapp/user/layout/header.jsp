@@ -253,8 +253,8 @@ body.search_active .headSearchBtn_magnifier {
 						</li>
 					<li>
 					 	<%
-					 		String id=(String)session.getAttribute("sesId");
-					 		if( id == null){
+					 		String mId=(String)session.getAttribute("sesId");
+					 		if( mId == null){
 					 	%>
 							<a href="login.jsp">Login</a>
 						<% 
@@ -267,7 +267,7 @@ body.search_active .headSearchBtn_magnifier {
 						<li>
 						<%
 						 	String move=(String)session.getAttribute("sesId");
-						 	if( id == null){
+						 	if( mId == null){
 						 %>
 							<a href="register.jsp">Join</a>
 						<% 

@@ -183,7 +183,7 @@ pageContext.setAttribute("memberList", list);
 <table class="table" style="border: 1px solid #E5E4E4;">
 <thead>
 <tr style="border: 1px solid #E5E4E4;">
-<th  style="width:10px;  color: #929492"><input type="checkbox" style="border: 1px solid #929492 ; width: 15px; height: 15px"></td>
+<th  style="width:10px; color: #929492"><input type="checkbox" style="border: 1px solid #929492 ; width: 15px; height: 15px"></td>
 <th style="width:100px; text-align: left; color: #929492;">이미지</th>
 <th style="width:350px;  text-align: center; color: #929492">상품정보</th>
 <th style="width:350px;  text-align: center;color: #929492">판매가</th>
@@ -196,7 +196,7 @@ pageContext.setAttribute("memberList", list);
 
 <c:if test="${ empty memberList }">
 <tr>
-<td colspan="8" style="text-align: center; color: #929492">회원정보가 존재하지 않습니다</td>
+<td colspan="8" style="text-align: center; color: #929492; padding : 30px">회원정보가 존재하지 않습니다</td>
 </tr>
 </c:if>
 

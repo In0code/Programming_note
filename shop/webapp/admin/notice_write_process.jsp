@@ -13,10 +13,6 @@ String image = request.getParameter("hidImg");
 
 NoticeVO nVO = new NoticeVO();
 
-if("2".equals(flag)) {
-	int ncode = Integer.parseInt(request.getParameter("ncode"));
-	nVO.setNcode(ncode);
-}
 nVO.setNoticeTitle(title);
 nVO.setNoticeText(context);
 nVO.setImage(image);
@@ -28,6 +24,8 @@ if("1".equals(flag)) {
 } 
 
 if("2".equals(flag)) {
+	int ncode = Integer.parseInt(request.getParameter("ncode"));
+	nVO.setNcode(ncode);
 	int result = NoticeDAO.getInstance().updateNotice(nVO);
 	
 	if(result != 1) {
@@ -37,9 +35,12 @@ if("2".equals(flag)) {
 
 pageContext.setAttribute("msg", msg);
 %>
+<!-- jQuery CDN -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
 	$(function() {
-		alert("${msg}");
-		window.loaction = "notice.jsp?no=5";
+		var msg = "${msg}";
+		alert(msg);
+		window.location.replace("http://localhost/prj_web_shopping/admin/notice.jsp?no=5");
 	});
 </script>

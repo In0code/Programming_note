@@ -43,6 +43,10 @@ body{
 	background: #EEEEEE;
 	position: relative;
 }
+
+td {
+	cursor: pointer;
+}
 </style>
 
 <script type="text/javascript">
@@ -236,7 +240,7 @@ function boardDetail(rcode){
 		</div>
 		</c:if>
 		
-		<% if(request.getParameter("keyword") != null) 
+		<% if(request.getParameter("keyword") != null && !"null".equals(request.getParameter("keyword"))) 
 			out.print("<a href='boardManagement.jsp'><input type='button' id='btnList' value='목록'/></a>");
 		%>
 	</div>

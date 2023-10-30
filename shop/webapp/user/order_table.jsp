@@ -67,6 +67,7 @@ text-align: center;
 		});
 		
 		$("#pills-profile").click(function() {
+			$.ajax({
 				url:"order_list_process.jsp",
 				type:"get",
 				data:"flag=r",
@@ -78,7 +79,6 @@ text-align: center;
 					alert(jsonObj);
 				}
 			});
-			
 		});
 		
 	});//load end
@@ -95,8 +95,8 @@ text-align: center;
 <!-- header -->
 <%@ include file="layout/header.jsp"%>
 <div id="fst" class="loc">
-<span style="font-weight: bold;">아무개님</span>
-<span style="margin-left: calc(100% - 250px);"><a href="member/mypage.jsp">마이페이지</a> | <a href=""><strong>주문내역조회</strong></a> | <a href="cart.jsp">장바구니</a></span>
+<span style="font-weight: bold;padding-left: 10px;">아무개님</span>
+<span style="margin-left: calc(100% - 300px);"><a href="member/mypage.jsp">마이페이지</a> | <a href=""><strong>주문내역조회</strong></a> | <a href="cart.jsp">장바구니</a></span>
 </div>
 <div id="sec" class="loc">
 	<div id="txtDiv">
@@ -152,25 +152,7 @@ text-align: center;
 				<td>배송완료</td>
 				<td>-</td>
 			</tr>
-			<tr>
-				<td>2023-10-10<br>[203949-394494]</td>
-				<td>image</td>
-				<td class="subject left txtBreak">product information</td>
-				<td>2</td>
-				<td>135,000원</td>
-				<td>배송완료</td>
-				<td>-</td>
-			</tr>
-			<tr>
-				<td>2023-10-10<br>[203949-394494]</td>
-				<td>image</td>
-				<td class="subject left txtBreak">product information</td>
-				<td>2</td>
-				<td>135,000원</td>
-				<td>배송완료</td>
-				<td>-</td>
-			</tr>
-			<tr>
+			<tr onclick="detail(12345)">
 				<td>2023-10-10<br>[203949-394494]</td>
 				<td>image</td>
 				<td class="subject left txtBreak">product information</td>

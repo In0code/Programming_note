@@ -94,7 +94,7 @@ position: absolute;
   border-radius: 10px;
   padding: 0px;
 }
-#btnCel{
+#btnDel{
 position: absolute; 
   top: 855px;
   left: 1355px;
@@ -104,10 +104,7 @@ position: absolute;
   border-radius: 10px;
   padding: 0px;
 }
-#revContent {
-	position: absolute;
-	left: 65px;
-}
+
 </style>
 <!-- 태균이가 만든거 끝-->
 <script type="text/javascript">
@@ -117,10 +114,10 @@ position: absolute;
 		});
 		
 		$("#btnEdit").click(function() {
-			location.href = "notice_write.jsp?ncode="+${param.ncode}+"&flag=2";
+			location.href = "notice_write.jsp?no=5&ncode="+${param.ncode}+"&flag=2";
 		});
 		
-		$("#btnCel").click(function() {
+		$("#btnDel").click(function() {
 			if(confirm("삭제 하시겠습니까?")) {
 				/* location.href = "notice_del_process.jsp?ncode="+${param.ncode}+"&flag=2"; */
 				var queryString = "ncode="+${param.ncode}+"&flag=2";
@@ -190,23 +187,25 @@ try {
 <div style="margin: 10px; text-align: center;">
 <table class="table tableList" id="order_list">
 	<tr style="border-bottom: 2px solid #A5A5A5;">
-		<td style="background: #F1F1F1;"><strong>제목</strong></td>
-		<td colspan="3"><%=title %></td>
-		<td style="background: #F1F1F1;"><strong>작성자</strong></td>
-		<td>관리자</td>
+		<td style="background: #F1F1F1;max-width: 50px;"><strong>제목</strong></td>
+		<td colspan="6" style="text-align: left;"><%=title %></td>
 	</tr>
 	<tr style="border-bottom: 2px solid #A5A5A5;">
-		<td style="background: #F1F1F1;"><strong>작성일</strong></td>
-		<td colspan="3"><%=date %><%=editDate == null?"":"("+editDate+")" %></td>
-		<td style="background: #F1F1F1;"><strong>조회수</strong></td>
+		<td style="background: #F1F1F1;max-width: 50px;"><strong>작성자</strong></td>
+		<td>관리자</td>
+		<td style="background: #F1F1F1;max-width: 50px;"><strong>작성일</strong></td>
+		<td><%=date %><%=editDate == null?"":"("+editDate+")" %></td>
+		<td style="background: #F1F1F1;max-width: 50px;"><strong>조회수</strong></td>
 		<td><%=view %></td>
 	</tr>
 </table>
-<div id="revContent">
-	<div style="margin: 0px auto;">
-		<img src="http://192.168.10.143/prj_web_shopping/upload/notice/${image}" alt="${image}">
+<div style="width: 100%;">
+	<div style="text-align: center;margin-right: 10px;">
+		<img src="http://localhost/prj_web_shopping/upload/notice/<%=image %>" onerror="this.style.display='none'">
 	</div>
-	<span style="font-size:20px; text-align:left"><%=context%></span>
+	<div style="font-size:20px; text-align:left">
+		<span><%=context%></span>
+	</div>
 </div>
 </div>
 </div>
@@ -214,7 +213,7 @@ try {
 		</div>
 		</div>
 <div>
-	<input type="button" class="btn btn-outline-danger input" value="삭제" id="btnCel"/>
+	<input type="button" class="btn btn-outline-danger input" value="삭제" id="btnDel"/>
 	<input type="button" class="btn btn-outline-success input" value="수정" id="btnEdit"/>
 </div>
 </body>

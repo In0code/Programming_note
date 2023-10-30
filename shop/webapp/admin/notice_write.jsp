@@ -209,17 +209,18 @@ padding-right: 30px;
 }
 textarea {
 position: absolute;
-top: 90px;
-width: 100%;
+/* top: 112px; */
+width: 1240px;
 height: 570px;
 border: 1px solid #CED4DA;
+font-size: 18px;
 resize: none;
 }
 #btnEdit{
 position: absolute; 
-  top: 700px;
+top: 690px;
   left: 1170px;
-  height: 50px;
+height: 50px;
   width: 100px;
   font-size:20px;
   border-radius: 10px;
@@ -231,6 +232,26 @@ top: 200px;
 }
 
 </style>
+<%
+String flag = request.getParameter("flag");
+NoticeVO nVO = null;
+String title = "";
+String context = "";
+String image = "";
+
+if("2".equals(flag)) {
+	String ncode = request.getParameter("ncode");
+	nVO = NoticeDAO.getInstance().selectOneNotice(Integer.parseInt(ncode));
+	title = nVO.getNoticeTitle();
+	context = nVO.getNoticeText();
+	image = nVO.getImage();
+	
+	pageContext.setAttribute("title", title);
+	pageContext.setAttribute("ncode", ncode);
+	pageContext.setAttribute("image", image);
+}
+
+%>
 <script type="text/javascript">
 $(function() {
 	document.getElementById("${param.no}").classList.add("active");
@@ -252,8 +273,8 @@ $(function() {
 	});
 	
 	$("#btnEdit").click(function() {
-		var title = $("#basic-url").val();
-		var context = $("#context").val();
+		let title = $("#title").val();
+		let context = $("#context").val();
 		
 		if(title != "" && context != "") {
 			$("#hidTxt").val(title);
@@ -263,10 +284,41 @@ $(function() {
 		}
 	});
 	
-	$("#inputGroupFileAddon04").click(function() {
+	$("#btnDelImg").click(function() {
+		if(confirm("삭제 하시겠습니까?")) {
+			var img = "${image}";
+			var ncode = "${ncode}";
+			
+			$.ajax({
+				url:"notice_file_delete.jsp",
+				type:"get",
+				data:"ncode="+ncode+"&image="+img,
+				dataType:"json",
+				error: function(xhr) {
+					alert("서버 오류!");
+					console.log(xhr.status);
+				},
+				success: function(json) {
+					if(json.flag) {
+						$("#uploadImg").val("");
+						$("#hidImg").val("");
+						$("#displayImg").val("");
+						$("#displayImgName").val("");
+					}
+				}
+			});
+		}
+	});
+	
+	$("#btnUplaod").click(function() {
 		//유효성 검증
+		if($("#uploadImg").val() == "") {
+			alert("이미지를 선택해주세요.");
+			return;
+		}
+		
 		var blockExt = ["jpg", "png", "bmp", "gif"];
-		var fileName = $("#inputGroupFile04").val();
+		var fileName = $("#uploadImg").val();
 		var flag = false;
 		
 		var fileExt = fileName.substring(fileName.lastIndexOf(".")+1);
@@ -280,10 +332,10 @@ $(function() {
 			return;
 		}
 		
-		var formData = new FormData();
-		formData.append("file", $("#inputGroupFile04")[0].files[0]);
-		
-		alert("formData : "+formData);
+		//1.form 얻기
+		var frm = $("#imgFrm")[0];
+		//2.ajax으로 전송할 form 객체 생성
+		var formData = new FormData(frm);
 		
 		$.ajax({
 			url:"notice_file_process.jsp",
@@ -292,38 +344,23 @@ $(function() {
 			dataType:"json",
 			processData: false,
 			contentType: false,
+			async:false,
 			error: function(xhr) {
 				alert("업로드에 실패하였습니다."+xhr.status);
 			},
 			success: function(json) {
 				alert(json.msg);
-				${"#hidImg"}.val(json.image);
+				$("#hidImg").val(json.image);
+				
+				$("#displayImg").attr("src", "http://localhost/prj_web_shopping/upload/notice/"+json.image);
+				$("#displayImg").attr("alt", json.image);
+				$("#displayImgName").html(json.image);
 			}
 		});
 	});
 });
 </script>
 <!-- 태균이가 만든거 끝-->
-<%
-String flag = request.getParameter("flag");
-NoticeVO nVO = null;
-String title = "";
-String context = "";
-String image = "";
-
-if("2".equals(flag)) {
-	String ncode = request.getParameter("ncode");
-	nVO = NoticeDAO.getInstance().selectOneNotice(Integer.parseInt(ncode));
-	title = nVO.getNoticeTitle();
-	context = nVO.getNoticeText();
-	
-	pageContext.setAttribute("title", title);
-	pageContext.setAttribute("ncode", ncode);
-	pageContext.setAttribute("image", image);
-}
-
-%>
-
 </head>
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 <body>
@@ -418,34 +455,39 @@ if("2".equals(flag)) {
 		<div id="background_box"> <!-- 각자 원하는데로 사용 -->
 <!-- 여기부터가 코딩하는 div 영역 --><!-- 여기부터가 코딩하는 div 영역 --><!-- 여기부터가 코딩하는 div 영역 --><!-- 여기부터가 코딩하는 div 영역 --><!-- 여기부터가 코딩하는 div 영역 -->
 <div id="divTable" class="pad">
-	<div class="table tableList" >
+	<div>
 		<div class="input-group mb-3">
-		  	<span class="input-group-text" id="basic-addon3" style="min-width: 100px;font-size: 16px;">제목</span>
-			<input type="text" class="form-control" id="basic-url" name="title" aria-describedby="basic-addon3" value="${title}" style="font-size: 16px;font-weight: bold;">
+		  	<span class="input-group-text" id="basic-addon3" style="min-width: 76px;font-size: 16px;">제목</span>
+			<input type="text" class="form-control" id="title" name="title" aria-describedby="basic-addon3" value="${title}" style="font-size: 16px;font-weight: bold;">
 		</div>
-		<div class="input-group">
-		<form id="imgFrm" name="imgFrm" enctype="multipart/form-data">
-			<input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" style="font-size: 16px">
-			<input class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04" style="font-size: 16px;" value="Button">
+		<form id="imgFrm" name="imgFrm" method="post" enctype="multipart/form-data">
+		<div class="input-group mb-3">
+			<input type="file" class="form-control" id="uploadImg" name="uploadImg" aria-label="Upload" style="font-size: 16px;">
+			<input class="btn btn-outline-secondary" type="button" id="btnUplaod" name="btnUplaod" value="업로드" style="font-size: 16px;width: 80px;">
+		</div>
 		</form>
-		</div>
 <div>
 	<form id="sfrm" method="post" action="notice_write_process.jsp?no=5&flag=${param.flag}&ncode=${ncode}">
-			<div style="margin: 0px auto;">
-				<img alt="${image}" src="http://192.168.10.143/prj_web_shopping/upload/notice/${image}">
-			</div>
+		<div>
 			<textarea id="context" name="context"><%=context%></textarea>
+			<input type="button" class="btn btn-outline-success input" value="등록" id="btnEdit" style="margin-right: 5px;"/>
 			<input type="hidden" id="hidTxt" name="hidTxt">
-			<input type="hidden" id="hidImg" name="hidImg">
+			<input type="hidden" id="hidImg" name="hidImg" value="${image}">
+		</div>
 	</form>
 </div>
 	</div>
 </div>
-<div>
-	<input type="button" class="btn btn-outline-success input" value="등록" id="btnEdit" style="margin-right: 15px;"/>
-</div>
 <!-- 여기까지가 코딩하는 div 영역 --><!-- 여기까지가 코딩하는 div 영역 --><!-- 여기까지가 코딩하는 div 영역 --><!-- 여기까지가 코딩하는 div 영역 --><!-- 여기까지가 코딩하는 div 영역 --> 
 		</div>
+<div class="card" style="position: absolute;left: 1380px;top: 100px;width: 240px;">
+	<div class="card-body">
+		<img id="displayImg" src="http://localhost/prj_web_shopping/upload/notice/${image}" class="card-img-top" alt="${image}">
+	    <h4 id="displayImgName" class="card-title" style="margin-top: 10px;">${image}</h4>
+	    <input type="button" id="btnDelImg" class="btn btn-primary" value="이미지 제거" style="margin-top: 5px;width: 117px;font-size: 14px;height: 30px;">
+	</div>
+</div>		
+
 	</div>	
 </div>
 </body>

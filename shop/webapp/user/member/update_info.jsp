@@ -1,5 +1,12 @@
+<%@page import="java.sql.SQLException"%>
+<%@page import="member.vo.RegisterVO"%>
+<%@page import="member.dao.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:if test="${ empty sesId }">
+<c:redirect url="login.jsp"/>
+</c:if>
 <jsp:include page="../../cdn/cdn.jsp" />
 <!DOCTYPE html>
 <html>
@@ -17,22 +24,92 @@ href="https://afterblow-scent.com/ind-script/optimizer_user.php?filename=tZRbTkQ
 </style>
 
 <script type="text/javascript">
-	$(function() {
+$(function() {
 
-	});//ready
+	$("#btnZipcode").click(function(){
+		searchZipcode();
+	});	
+	
+	$("#btn").click(function(){
+        // 필수 입력 필드가 비어있는지 확인
+        var pass = $("#pass").val();
+        var pass2 = $("#pass2").val();
+        var email = $("#email").val();
+        var phone = $("#phone").val();
+        var zipcode = $("#zipcode").val();
+        var addr = $("#addr").val();
+        var detailAddr = $("#detailAddr").val();
+        
+        if( pass == "" || pass2 == "" ||  email == "" || phone == "" || zipcode == "" || addr == "" || detailAddr == ""){
+            alert("모든 항목을 입력해주세요.");
+            return;
+        }
+		
+		//비밀번호 불일치했을때 알림팝업
+		if (!compare_result()) {
+			alert('비밀번호가 일치하지 않습니다.');
+			return; 
+		}
+		
+        // 입력값에 대한 유효성 검증을 통과했을 때, 정보수정 처리
+        $("#frm").submit();
+    });//click
+    
+	$("#pass, #pass2").on('input', function() {
+		compare_result();
+	});
+	
+});//ready
+
+function compare_result() {
+	var pw1 = $("#pass").val();
+	var pw2 = $("#pass2").val();
+	var $s_result = $("#s_result");
+
+	if (pw1 === pw2 && pw1 !== "" && pw2 !== "") {
+		$s_result.text("비밀번호가 일치합니다.");
+		$s_result.css("color", "teal");
+		return true;
+	}
+
+	$s_result.text("비밀번호가 일치하지 않습니다.");
+	$s_result.css("color", "red");
+	return false;
+}
 </script>
 
 </head>
 <body>
-	<%@ include file="../layout/header.jsp"%>
+<%
+//한글처리
+request.setCharacterEncoding("UTF-8");
+String id=(String)session.getAttribute("sesId");
+if(id == null || "".equals(id)){
+	System.out.println((String)session.getAttribute("sesId"));
+	response.sendRedirect("login.jsp");
+	return;
+}//end if
 
-	<div id="contents">
+MemberDAO mDAO=MemberDAO.getInstance();
+try{
+	RegisterVO rVO=mDAO.selectInfo(id);
+	pageContext.setAttribute("member", rVO);
+	
+}catch(SQLException se){
+	se.printStackTrace();
+	response.sendRedirect("main.jsp");
+	return;
+}
+%>
+
+<%@ include file="../layout/header.jsp"%>
+<div id="contents">
 		<div class="titleArea">
 			<h2>회원 정보 수정</h2>
 		</div>
 
 		<h3 class="displaynone ">기본정보</h3>
-
+		<form action="update_info_process.jsp" id="frm" name="frm" method="post">
 		<div class="ec-base-table typeList">
 			<table border="1" summary="">
 				<caption>회원 기본정보</caption>
@@ -43,86 +120,70 @@ href="https://afterblow-scent.com/ind-script/optimizer_user.php?filename=tZRbTkQ
 				<tbody>
 					<tr>
 						<th scope="row">아이디</th>
-						<td><input id="member_id" name="member_id" class="inputTypeText"  type="text" readonly="readonly" value="test123"/>
-							<p class="info" style="font-size:6px">(영문소문자/숫자, 4~16자)</p></td>
+						<td><input id="id" name="id" value="${ member.id }" class="inputTypeText"  type="text" readonly="readonly" />
+							<p class="info" style="font-size:6px">(영문 소문자/숫자, 4~16자)</p></td>
 					</tr>
 					<tr>
 						<th scope="row">비밀번호</th>
 						<td>
-								<input id="passwd" name="passwd"
-									fw-filter="isFill&amp;isMin[4]&amp;isMax[16]" fw-label="비밀번호"
-									fw-msg="" autocomplete="off" maxlength="16" value="" type="password">
-							<p class="info" style="font-size:6px">(영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 10자~16자)</p>
+								<input id="pass" name="pass"  maxlength="16" value="" type="password">
+							<p class="info" style="font-size:6px">(영문 소문자/숫자 조합, 4자~16자)</p>
 						</td>
 					</tr>
 					<tr class="">
 						<th scope="row">비밀번호 확인</th>
-						<td><input id="user_passwd_confirm"
-							name="user_passwd_confirm" fw-filter="isFill&amp;isMatch[passwd]"
-							fw-label="비밀번호 확인" fw-msg="비밀번호가 일치하지 않습니다." autocomplete="off"
-							maxlength="16" 0="disabled" value="" type="password"> <span
-							id="pwConfirmMsg"></span></td>
+						<td>
+						<input id="pass2" name="pass2"   maxlength="16" value="" type="password">
+						<span id="s_result" style="font-size: 9px;"></span>
+						</td>
 					</tr>
-					
-					<tr class="displaynone">
-						<th scope="row">새 비밀번호 확인</th>
-						<td><input id="new_passwd_confirm" name="new_passwd_confirm"
-							fw-filter="isFill&amp;isMin[4]&amp;isMax[16]" fw-label="비밀번호"
-							fw-msg="" maxlength="16" 0="disabled" value="" type="password">
-							<span id="new_pwConfirmMsg"></span></td>
-					</tr>
-
 
 					<tr style="display: 1">
 						<th scope="row" id="">이름</th>
-						<td><input id="name" name="name" readonly="readonly" maxlength="20" value="테스트" type="text"></td>
+						<td><input id="name" name="name"  value="${ member.name }" readonly="readonly" maxlength="20" type="text"></td>
 					</tr>
 					
 
 					<tr class="">
 						<th scope="row">주소</th>
 						<td>
-						<input type="text" id="sample6_postcode"  style="width:100px; height:29px" placeholder="우편번호" readonly="readonly">
-						<input type="button" class="btn btn-secondary btn-sm" style="font-size:5px; width:100px; height:29px"
-						onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-						<input type="text" id="sample6_address" name="address" style="width:204px; height:29px" placeholder="주소" readonly="readonly"><br>
-						<input type="text" id="sample6_detailAddress" style="width:204px; height:29px" placeholder="상세주소">
+						<input type="text" value="${ member.zipcode }" id="zipcode" name="zipcode" style="width:100px; height:29px" placeholder="우편번호" readonly="readonly">
+						<input type="button" id="btnZipcode" class="btn btn-secondary btn-sm" 
+						style="font-size:5px; width:100px; height:29px" value="우편번호 찾기"><br>
+						<input type="text" value="${ member.addr }" id="addr" name="addr" style="width:270px; height:29px" placeholder="주소" readonly="readonly"><br>
+						<input type="text" value="${ member.detailAddr }" id="detailAddr" name="detailAddr" style="width:270px; height:29px" placeholder="상세주소">
 						</td>
 					</tr>
 
 					<tr class="">
 						<th scope="row">휴대전화</th>
 						<td>
-						 <input id="mobile" name="mobile" maxlength="11" placeholder="" value="01077778888" type="text">
+						 <input id="phone" name="phone" value="${ member.phone }" maxlength="11" placeholder="" type="text">
 						</td>
 					</tr>
 
 					<tr>
 						<th scope="row">이메일</th>
 						<td>
-							<input id="email" name="email" placeholder="" value="test@naver.com" type="text">  
+							<input id="email" name="email" value="${ member.email }" type="text">  
 						</td>
 					</tr>
 
 				</tbody>
 			</table>
 		</div>
-
 		<div class="ec-base-button 100per">
-			<ul class="grid2">
-				<a href="#none" style="color:white; width:1175px" class="btnSubmits sizeM btn" 
-				onclick="memberEditAction()">회원정보수정</a>
-			</ul>
+			<input type="button" id="btn" style="color:white; width:1175px" class="btnSubmits sizeM btn" value="회원정보수정"/>
 		</div>
+		</form>
+</div>
 
-	</div>
 
-
-	<%@ include file="../layout/footer.jsp"%>
+<%@ include file="../layout/footer.jsp"%>
 </body>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-    function sample6_execDaumPostcode() {
+    function searchZipcode() {
         new daum.Postcode({
         	width: '500px', // 원하는 가로 크기
             height: '555px', // 원하는 세로 크기
@@ -143,10 +204,10 @@ href="https://afterblow-scent.com/ind-script/optimizer_user.php?filename=tZRbTkQ
                 }
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('sample6_postcode').value = data.zonecode;
-                document.getElementById("sample6_address").value = addr;
+                document.getElementById('zipcode').value = data.zonecode;
+                document.getElementById("addr").value = addr;
                 // 커서를 상세주소 필드로 이동한다.
-                document.getElementById("sample6_detailAddress").focus();
+                document.getElementById("detailAddr").focus();
             }
         }).open();
     }

@@ -1,6 +1,6 @@
-<%-- <%@page import="java.sql.SQLException"%>
+<%@page import="java.sql.SQLException"%>
 <%@page import="user.vo.DetailInfoVO"%>
-<%@page import="user.dao.ClientOrderDAO"%> --%>
+<%@page import="user.dao.ClientOrderDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../cdn/cdn.jsp"%>
@@ -70,7 +70,7 @@ background: #333;
 		});
 	});
 </script>
-<%-- <%
+<%
 String ordno = request.getParameter("ordno");
 
 ClientOrderDAO cDAO = ClientOrderDAO.getInstance();
@@ -81,7 +81,7 @@ try {
 } catch(SQLException se) {
 	se.printStackTrace();
 }
-%> --%>
+%>
 <body>
 <!-- header -->
 <div>

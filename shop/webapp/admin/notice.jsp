@@ -1,12 +1,12 @@
 <%@page import="common.util.BoardUtilVO"%>
 <%@page import="common.util.BoardUtil"%>
+<%@page import="admin.vo.BoardRangeVO"%>
+<%@page import="common.dao.BoardDAO"%>
 <%@page import="javax.swing.plaf.synth.SynthOptionPaneUI"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="admin.dao.NoticeDAO"%>
 <%@page import="admin.vo.NoticeVO"%>
 <%@page import="java.util.List"%>
-<%@page import="admin.vo.BoardRangeVO"%>
-<%@page import="common.dao.BoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page info="공지사항 메인 화면"%>
@@ -33,19 +33,24 @@ int totalCount = bDAO.totalCount(brVO);
 int pageScale = 10;
 
 int totalPage = (int)Math.ceil(totalCount / (double)pageScale); //페이지 수 가져오기
-pageContext.setAttribute("totalPage", totalPage);
 
-String tempPage = request.getParameter("page"); //현재 페이지 가져오기
+String tempPage = request.getParameter("currentPage"); //현재 페이지 가져오기
 int currentPage = 1;
 if(tempPage != null) {
 	currentPage = Integer.parseInt(tempPage);
 }
 
-int startNum = currentPage * pageScale - pageScale + 1; //페이지 게시물 시작 번호
-int endNum = startNum + pageScale -1; //페이지 게시물 마지막 번호
+pageContext.setAttribute("totalPage", totalPage);
+pageContext.setAttribute("currentPage", currentPage);
 
+//5.시작 번호
+int startNum = currentPage*pageScale-pageScale+1;
 pageContext.setAttribute("startNum", startNum);
 
+//6.끝 번호
+int endNum = startNum+pageScale-1;
+
+//Dynamic Query에 의해서 구해진 시작번호와 끝번호를 VO에 넣는다.
 brVO.setStartNum(startNum);
 brVO.setEndNum(endNum);
 %>
@@ -146,7 +151,7 @@ position: absolute;
 <script type="text/javascript">
 	$(function() {
 		$("#btnAdd").click(function() {
-			location.href = "notice_wirte.jsp";
+			location.href = "notice_wirte.jsp?no=5";
 		});
 		
 		/* $(".styled-table tr").click(function() { //테이블을 열을 클릭하면 번호가 나옴, 추후에는 공지사항 코드가 나옴
@@ -160,13 +165,13 @@ position: absolute;
 		});
 		
 		$("#btnAdd").click(function() {
-			location.href = "notice_write.jsp?flag=1";
+			location.href = "notice_write.jsp?no=5&flag=1";
 						
 		});
 	});
 	
 	function edit(code) {
-		location.href = "notice_detail.jsp?ncode="+code+"&flag=2";
+		location.href = "notice_detail.jsp?no=5&flag=2&ncode="+code;
 	}
 	
 </script>
@@ -218,7 +223,7 @@ try{
 <c:forEach var="notice" items="${noticeList}" varStatus="i">
         <tr onclick="edit(${notice.ncode})">
             <td style="text-align: center;">
-            <c:out value="${i.count}"/>
+            <c:out value="${startNum + i.index}"/>
             </td>
             <td><c:out value="${notice.noticeTitle}"/></td>
             <td style="text-align: center;">관리자</td>
@@ -237,8 +242,12 @@ try{
 			<div class="pagination">
  				<%
  					BoardUtil util = BoardUtil.getInstance();
- 					BoardUtilVO buVO = new BoardUtilVO("notice.jsp", null, null, currentPage, totalPage, null);
- 					out.println(util.pageNationBM(buVO));
+ 					BoardUtilVO buVO = new BoardUtilVO();
+ 					buVO.setUrl("notice.jsp");
+ 					buVO.setCurrentPage(currentPage);
+ 					buVO.setTotalPage(totalPage);
+ 					
+ 					out.print(util.pageNation(buVO));
  				%>
 			</div>
 <input type="button" class="btn btn-outline-success input" value="등록" id="btnAdd" />
