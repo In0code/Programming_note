@@ -7,7 +7,10 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.swing.JOptionPane;
+
 import member.vo.FindIdPwVO;
+import member.vo.LoginVO;
 import member.vo.RegisterVO;
 import member.vo.UserVO;
 
@@ -130,6 +133,127 @@ public class MemberDAO {
 		}
 		return uVO;
 	}//findId
+	
+	public boolean selectPw(UserVO uVO) throws SQLException{
+		boolean resultPw=false;
+
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		DbConnection db=DbConnection.getInstance();
+		
+		try {
+			con=db.getConn("jdbc/dbcp");
+			
+			String selectPw=" select pw from member where id=? and name=? and phone=? ";
+			pstmt=con.prepareStatement(selectPw);
+			
+			pstmt.setString(1, uVO.getId());
+			pstmt.setString(2, uVO.getName());
+			pstmt.setString(3, uVO.getPhone());
+			
+			rs=pstmt.executeQuery();
+			
+			resultPw=rs.next();	//조회 결과가 있으면 true / 없으면 false
+		}finally {							
+			db.dbClose(rs, pstmt, con);
+		}//end finally
+		return resultPw;
+	}//resetPw
+	
+	public int resetPw(LoginVO lVO) throws SQLException{
+		
+		int cntPw=0;
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		DbConnection db=DbConnection.getInstance();
+		
+		try {
+			con=db.getConn("jdbc/dbcp");
+			String updatePw=" update member set pw=? where id=? ";
+			
+			pstmt=con.prepareStatement(updatePw);
+			pstmt.setString(1, lVO.getPass());
+			pstmt.setString(2, lVO.getId());
+			
+			cntPw=pstmt.executeUpdate();
+		} finally {
+			db.dbClose(null, pstmt, con);
+		}//end finally
+		return cntPw;
+	}//resetPw
+	
+	
+	
+	public RegisterVO selectInfo(String id) throws SQLException{
+		RegisterVO rVO=null;
+		
+		DbConnection db=DbConnection.getInstance();
+		
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		try {
+			con=db.getConn("jdbc/dbcp");
+			StringBuilder selectInfo=new StringBuilder();
+			selectInfo
+			.append(" select id, name, zipcode, sido, addr, phone, email ")
+			.append(" from member ")
+			.append("  where id=? ");
+			pstmt=con.prepareStatement(selectInfo.toString());
+			
+			pstmt.setString(1, id);
+			
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				rVO=new RegisterVO();
+				
+				rVO.setId(id);
+				rVO.setName(rs.getString("name"));
+				rVO.setZipcode(rs.getString("zipcode"));
+				rVO.setAddr(rs.getString("sido"));
+				rVO.setDetailAddr(rs.getString("addr"));
+				rVO.setPhone(rs.getString("phone"));
+				rVO.setEmail(rs.getString("email"));
+			}//end if
+		} finally {
+			db.dbClose(rs, pstmt, con);
+		}
+		return rVO;
+	}//selectInfo
+	
+	public int updateInfo(RegisterVO rVO) throws SQLException{
+		int cntUp=0;
+		DbConnection db=DbConnection.getInstance();
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		
+		try {
+			con=db.getConn("jdbc/dbcp");
+			StringBuilder updateInfo=new StringBuilder();
+			updateInfo
+			.append(" update member ")
+			.append(" set pw=?, phone=?, zipcode=?, sido=?, addr=?, email=? ")
+			.append(" where id=? ");
+			
+			pstmt=con.prepareStatement(updateInfo.toString());
+			pstmt.setString(1, rVO.getPass());
+			pstmt.setString(2, rVO.getPhone());
+			pstmt.setString(3, rVO.getZipcode());
+			pstmt.setString(4, rVO.getAddr());
+			pstmt.setString(5, rVO.getDetailAddr());
+			pstmt.setString(6, rVO.getEmail());
+			pstmt.setString(7, rVO.getId());
+			
+			cntUp=pstmt.executeUpdate();
+
+		}finally {
+			db.dbClose(null, pstmt, con);
+		}
+		return cntUp;
+	}//updateInfo
 	
 }//class
 

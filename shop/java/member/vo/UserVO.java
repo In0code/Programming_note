@@ -3,18 +3,19 @@ package member.vo;
 import java.sql.Date;
 
 public class UserVO {
-	private String id, name, email;
+	private String id, name, email, phone;
 	private Date sign_date;
 	
 	public UserVO(){
 		
 	}
 
-	public UserVO(String id, String name, String email, Date sign_date) {
+	public UserVO(String id, String name, String email, String phone, Date sign_date) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.email = email;
+		this.phone = phone;
 		this.sign_date = sign_date;
 	}
 
@@ -42,6 +43,14 @@ public class UserVO {
 		this.email = email;
 	}
 
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
 	public Date getSign_date() {
 		return sign_date;
 	}
@@ -52,7 +61,8 @@ public class UserVO {
 
 	@Override
 	public String toString() {
-		return "UserVO [id=" + id + ", name=" + name + ", email=" + email + ", sign_date=" + sign_date + "]";
+		return "UserVO [id=" + id + ", name=" + name + ", email=" + email + ", phone=" + phone + ", sign_date="
+				+ sign_date + "]";
 	}
 
 

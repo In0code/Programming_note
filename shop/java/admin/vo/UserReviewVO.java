@@ -4,8 +4,14 @@ public class UserReviewVO {
 	private String productName,review,img;
 	
 	private int star;
+	
+	
 
-	public String getProductName() {
+	public UserReviewVO() {
+		super();
+	}
+
+	public String getProductName() { 
 		return productName;
 	}
 

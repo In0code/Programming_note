@@ -35,7 +35,7 @@ public class LoginDAO {
 		try {
 			con=db.getConn("jdbc/dbcp");
 			
-			String selectData=" select id, name, email, sign_date from member where id=? and pw=? ";
+			String selectData=" select id, name, email, phone, sign_date from member where id=? and pw=? ";
 			pstmt=con.prepareStatement(selectData);
 			
 			pstmt.setString(1, lVO.getId());
@@ -44,8 +44,8 @@ public class LoginDAO {
 			rs=pstmt.executeQuery();
 			
 			if(rs.next()) {	//검색결과있으면
-				uVO
-				=new UserVO(rs.getString("id"), rs.getString("name"), rs.getString("email"), rs.getDate("sign_date"));
+				uVO=new UserVO(rs.getString("id"), rs.getString("name"), rs.getString("email"), 
+						rs.getString("phone"), rs.getDate("sign_date"));
 			}//end if
 				
 		} finally {

@@ -190,7 +190,45 @@ public void deleteReivew (int rcode) throws SQLException {
 	
 
 }//deleteReivew
+
 	
+public String selectproductImg(String gname) throws SQLException {
+	
+	
+	
+	
+	DbConnection db= DbConnection.getInstance();
+	Connection con = null;
+	PreparedStatement pstmt=null;
+	ResultSet rs= null;
+	String mainImg="";
+	
+	
+	
+	try {
+		
+		con=db.getConn("jdbc/dbcp");
+		
+		String selectAllReview = " select main_img  from goods where gname=? ";
+
+		
+		
+		pstmt=con.prepareStatement(selectAllReview);
+		
+		pstmt.setString(1, gname);
+		
+		rs=pstmt.executeQuery();
+		if(rs.next()) {
+			mainImg=rs.getString("main_img");
+		}
+		
+	}finally {
+		db.dbClose(rs, pstmt, con);
+		
+	}
+	
+	return mainImg;
+}
 	
 	
 }

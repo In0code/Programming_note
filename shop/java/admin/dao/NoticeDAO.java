@@ -41,14 +41,23 @@ public class NoticeDAO {
 			selectNotice.append("	SELECT NCODE, NOT_TITLE, NOT_TEXT, TO_CHAR(NOT_DATE, 'YYYY-MM-DD HH24:MI') INPUT_DATE, VIEW_NUM, EDIT_DATE	")
 			.append("	FROM (SELECT (ROW_NUMBER() OVER(ORDER BY NOT_DATE DESC)) RNUM,	")
 			.append("	NCODE, ID, NOT_TITLE, NOT_TEXT, NOT_DATE, VIEW_NUM, EDIT_DATE	")
-			.append("	FROM NOTICE WHERE DEL_FLAG='N')	")
-			.append("	WHERE RNUM BETWEEN ? AND ?	");
+			.append("	FROM NOTICE WHERE DEL_FLAG='N')	");
+			
+			boolean flag = false;
+			if(brVO.getStartNum() != 0) {
+				selectNotice.append("	WHERE RNUM BETWEEN ? AND ?	");
+				flag = true;
+			}
 			
 			pstmt = con.prepareStatement(selectNotice.toString());
-			pstmt.setInt(1, brVO.getStartNum());
-			pstmt.setInt(2, brVO.getEndNum());
+
+			if(flag) {
+				pstmt.setInt(1, brVO.getStartNum());
+				pstmt.setInt(2, brVO.getEndNum());
+			}
 			
 			rs = pstmt.executeQuery();
+			
 			NoticeVO nVO = null;
 			while(rs.next()) {
 				nVO = new NoticeVO(rs.getString("NOT_TITLE"), rs.getString("NOT_TEXT"), rs.getString("INPUT_DATE"), rs.getString("EDIT_DATE"),
@@ -87,7 +96,7 @@ public class NoticeDAO {
 				nVO.setNoticeDate(rs.getString("INPUT_DATE"));
 				nVO.setViewNum(rs.getInt("VIEW_NUM"));
 				nVO.setEditDate(rs.getString("EDIT_DATE"));
-				nVO.setImage("IMAGE");
+				nVO.setImage(rs.getString("IMAGE"));
 			}
 			
 		} finally {
@@ -103,8 +112,8 @@ public class NoticeDAO {
 		PreparedStatement pstmt = null;
 		
 		try {
-			int seq = 0;
-			if(nVO.getNcode() != 0) {
+			int seq = -1;
+			if(nVO.getNcode() != -1) {
 				seq = getNextProfSeq();
 			}
 			
@@ -113,7 +122,7 @@ public class NoticeDAO {
 			
 			pstmt = con.prepareStatement(insertNotice);
 			
-			if(seq == 0) {
+			if(seq == -1) {
 				pstmt.setInt(1, nVO.getNcode());
 			} else {
 				pstmt.setInt(1, seq);
@@ -138,12 +147,13 @@ public class NoticeDAO {
 		
 		try {
 			con = db.getConn("jdbc/dbcp");
-			String updateNotice = "UPDATE NOTICE SET NOT_TITLE=?, NOT_TEXT=?, EDIT_DATE=SYSDATE WHERE NCODE=?";
+			String updateNotice = "UPDATE NOTICE SET NOT_TITLE=?, NOT_TEXT=?,IMAGE=?, EDIT_DATE=SYSDATE WHERE NCODE=?";
 			
 			pstmt = con.prepareStatement(updateNotice);
 			pstmt.setString(1, nVO.getNoticeTitle());
 			pstmt.setString(2, nVO.getNoticeText());
-			pstmt.setInt(3, nVO.getNcode());
+			pstmt.setString(3, nVO.getImage());
+			pstmt.setInt(4, nVO.getNcode());
 			
 			result = pstmt.executeUpdate();
 			
@@ -204,6 +214,29 @@ public class NoticeDAO {
 		
 		if(temp == 1) {
 			result = true;
+		}
+		
+		return result;
+	}
+	
+	public int updateFileName(int ncode) throws SQLException {
+		int result = 0;
+		
+		DbConnection db = DbConnection.getInstance();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = db.getConn("jdbc/dbcp");
+			String updateFileName = "UPDATE NOTICE SET IMAGE='' WHERE NCODE=?";
+			
+			pstmt = con.prepareStatement(updateFileName);
+			pstmt.setInt(1, ncode);
+			
+			result = pstmt.executeUpdate();
+			
+		} finally {
+			db.dbClose(null, pstmt, con);
 		}
 		
 		return result;

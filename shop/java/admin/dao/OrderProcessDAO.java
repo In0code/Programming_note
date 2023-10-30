@@ -37,11 +37,6 @@ public class OrderProcessDAO {
 		return opDAO;
 	}//getInstance
 	
-	
-
-	
-	
-	
 	/**
 	 * 전체 주문 조회해서 조회된 정보를 넣어주기 위한 일
 	 * @return list
@@ -112,7 +107,6 @@ public class OrderProcessDAO {
 				list.add(oVO);
 				
 			}//end while
-			System.out.println(list);
 		}finally {
 			//7. 연결 끊기
 			db.dbClose(rs, pstmt, con);
@@ -156,14 +150,7 @@ public class OrderProcessDAO {
 			pstmt.setInt(2, orderNo );
 			
 			//6.
-			
 			rowCntShipUpdate=pstmt.executeUpdate();
-			
-			if (rowCntShipUpdate > 0) {
-				con.commit(); // 성공하면 커밋
-			} else {
-				con.rollback(); // 실패하면 롤백
-			} // end else
 		}finally{
 			//7.
 			db.dbClose(null, pstmt, con);
