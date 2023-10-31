@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- 부서의 정보를 표현하는 XML -->
+<depts>
+<dept>
+	<deptno>10</deptno>
+	<dname>개발부</dname>
+	<loc>서울</loc>
+</dept>
+<dept>
+	<deptno>20</deptno>
+	<dname>유지보수</dname>
+	<loc>경기도</loc>
+</dept>
+<dept>
+	<deptno>30</deptno>
+	<dname>식사부</dname>
+	<loc>경기도</loc>
+</dept>
+</depts>
