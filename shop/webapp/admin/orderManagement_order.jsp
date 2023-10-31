@@ -69,25 +69,35 @@ $(function() {
 
 
 	$("#btnChange").click(function(){
-		 if($(".check").prop("checked")){
-			var ordno = $("#ordNo").val();
-			var statusList = $("#statuslist").val();
-			
-			$("#list").submit();
-		}else{
-			alert("선택된 체크박스가 없습니다");
-		} 
-		 
-		/*주문상태를 변경하고 변경 버튼을 누르면,
-		체크박스가 checked된 행의 주문번호와 변경된 주문상태를 가져온다.
-		불러온 주문번호와 주문상태를 form의 submit을 통해서 DAO에서 사용할 수 
-		있게끔 order_process.jsp로 보낸다
-		checked된 행은 여러 개 일수있으므로 하나씩 처리할 수 있게 for문으로 처리한다
-		값을 넘기는 방법에는 ajax, queryString 등등이 있다
-		
-		*/
-	});//click 
-});//ready
+		 var selectedOrders = [];
+		    // 클래스명이 'check'인 체크박스를 모두 선택
+		    $("input.check:checked").each(function(){
+		        var orderNo = $(this).val();
+		        var newStatus = $(this).closest("tr").find("select[name=statuslist]").val();
+		        selectedOrders.push({ orderNo: orderNo, newStatus: newStatus });
+		    });//end each
+		    
+		    if (selectedOrders.length > 0) {
+	            $.ajax({
+	                url: "order_process.jsp",
+	                type: "POST",
+	                data: JSON.stringify(selectedOrders),
+	                contentType: "application/json; charset=UTF-8",
+	                dataType: "text",
+	                error: function(xhr) {
+	                    alert("죄송합니다. 서버에 문제가 발생하였습니다. 잠시 후에 다시 시도해주세요.");
+	                },
+	                success: function(data) {
+	                        alert("변경되었습니다.");
+	                        location.reload();
+	                }//success
+	            });//ajax
+	        } else {
+	            alert("변경할 주문을 선택해주세요");
+	        }//end else
+	    });//click
+	});//ready
+
 
 function chkNull() {
 	var keyword = $("#keyword").val();
@@ -95,28 +105,10 @@ function chkNull() {
 		alert("검색 키워드를 입력해주세요.");
 		return;
 	}//end if
-	
 	//글자 수 제한
-	
 	//모두 통과했으면 submit
 	$("#frmSearch").submit();
 }//chkNull
-
-
-
-/* //JavaScript 함수로 checkbox의 선택 여부 확인
-function isCheckboxChecked(checkboxId) {
-    var checkbox = document.getElementById(checkboxId);
-    if (checkbox) {
-        return checkbox.checked;
-    }
-    return false;
-}
-
-// 예시: 주문번호가 123인 checkbox의 선택 여부 확인
-var orderNo = 123;
-var isChecked = isCheckboxChecked(orderNo);
-console.log(isChecked); // 선택된 경우 true, 선택되지 않은 경우 false를 출력 */
 
 </script>
 </head>
@@ -197,7 +189,6 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 		</form>
 		</div>
 		
-				<form id="list" action="order_process.jsp">
 		<div id="background_box">
 			<div style="margin: 10px; text-align: center;">
 			<!-- 리스트 시작 -->
@@ -223,7 +214,7 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 				</c:if>
 				<c:forEach var="order" items="${ orderList }" varStatus="i">
 				<tr>
-				<td><input type="checkbox" class="check" name="order${ order.orderNo }"  value="${ order.orderNo }"></td> 
+				<td><input type="checkbox" class="check" name="check"  value="${ order.orderNo }"></td> 
 				 <td><c:out value="<%=startNum++ %>"/></td> 
 				<td><c:out value="${ order.date }"/></td>
 				<td><c:out value="${ order.orderNo }"/></td>
@@ -242,16 +233,15 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 				<td><c:out value="${ order.userName }"/></td>
 			 	<td><c:out value="${ order.price + deliveryPrice }"/></td> 
 				</tr>
-				</c:forEach>
+			</c:forEach>
 			</table>
 			</div>
 		</div>
-			<input type="button" class="btn" id="btnChange" value="변경"/>
-		</form>
-	<c:if test="${ not empty orderList }">
+		
+		<c:if test="${ not empty orderList }">
 		<!-- 페이지네이션 -->
-		<div class="pagenationDiv" style="width : 100px">
-			<div class="pagination" >
+		<div class="pagenationDiv">
+			<div class="pagination">
  			<%
  			BoardUtil util=BoardUtil.getInstance();
 			BoardUtilVO buVO=new BoardUtilVO("orderManagement_order.jsp",keyword,field,currentPage,totalPage);
@@ -261,6 +251,7 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 		</div>
 		</c:if>
 		
+		<input type="button" class="btn" id="btnChange" value="변경"/>
 		<%
 			if(request.getParameter("keyword") != null) {
 			out.print("<a href='orderManagement_order.jsp'><input type='button' id='btnList' value='목록' style='left:1060px; top:683px'/></a>");

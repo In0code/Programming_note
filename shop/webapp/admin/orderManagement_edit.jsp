@@ -64,7 +64,36 @@ $(function() {
 			chkNull();
 		}//end if
 	});//keyup
-});
+	
+	$("#btnChange").click(function(){
+		 var selectedOrders = [];
+		    // 클래스명이 'check'인 체크박스를 모두 선택
+		    $("input.check:checked").each(function(){
+		        var orderNo = $(this).val();
+		        var newStatus = $(this).closest("tr").find("select[name=statuslist]").val();
+		        selectedOrders.push({ orderNo: orderNo, newStatus: newStatus });
+		    });//end each
+		    
+		    if (selectedOrders.length > 0) {
+	            $.ajax({
+	                url: "order_process.jsp",
+	                type: "POST",
+	                data: JSON.stringify(selectedOrders),
+	                contentType: "application/json; charset=UTF-8",
+	                dataType: "text",
+	                error: function(xhr) {
+	                    alert("죄송합니다. 서버에 문제가 발생하였습니다. 잠시 후에 다시 시도해주세요.");
+	                },
+	                success: function(data) {
+	                        alert("변경되었습니다.");
+	                        location.reload();
+	                }//success
+	            });//ajax
+	        } else {
+	            alert("변경할 주문을 선택해주세요");
+	        }//end else
+	    });//click
+	});//ready
 
 function chkNull() {
 	var keyword = $("#keyword").val();
@@ -77,8 +106,7 @@ function chkNull() {
 	
 	//모두 통과했으면 submit
 	$("#frmSearch").submit();
-}
-
+}//chkNull
 
 </script>
 </head>
@@ -167,7 +195,7 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 				<th style="width:70px"></th>
 				<th style="width:50px">No</th>
 					<th style="width:200px">주문일시</th>
-					<th style="width:80px">주문번호</th>
+					<th id="ordNo" name="ordNo" style="width:80px">주문번호</th>
 					<th style="width:200px">상품명</th>
 					<th style="width:50px">수량</th>
 					<th style="width:100px">가격정보</th>
@@ -185,7 +213,7 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 				
 				<c:forEach var="recall" items="${ recallList }" varStatus="i">
 				<tr>
-				 <td><input type="checkbox"></td> 
+				 <td><input type="checkbox" class="check" name="check"  value="${ recall.orderNum }"></td> 
 				 <td><c:out value="<%=startNum++ %>"/></td> 
 				<td><c:out value="${ recall.date }"/></td>
 				<td><c:out value="${ recall.orderNum }"/></td>
@@ -193,8 +221,8 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 				<td><c:out value="${ recall.quantity }"/></td>
 				<td><c:out value="${ recall.price }"/></td>
 				<td><c:out value="<%= deliveryPrice %>"/></td>
-				<td class="status">
-	              <select name="statuslist">
+				<td>
+	              <select name="statuslist" id="statuslist">
 	                <option value="C0"${ recall.orderStatus eq 'C0'? " selected='selected'" : "" }  >교환신청 </option>
 	                <option value="CF"${ recall.orderStatus eq 'CF'? " selected='selected'" : "" }  >교환완료</option>
 	                <option value="R0"${ recall.orderStatus eq 'R0'? " selected='selected'" : "" } >반품신청 </option>
@@ -216,7 +244,7 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 			<div class="pagination">
  			<%
  			BoardUtil util=BoardUtil.getInstance();
-			BoardUtilVO buVO=new BoardUtilVO("orderManagement_order.jsp",keyword,field,currentPage,totalPage);
+			BoardUtilVO buVO=new BoardUtilVO("orderManagement_edit.jsp",keyword,field,currentPage,totalPage);
 			out.println(util.pageNation(buVO));
  			%>
 			</div>

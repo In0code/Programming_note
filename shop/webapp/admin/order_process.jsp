@@ -10,6 +10,35 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%
-String ordno =request.getParameter("");
+BufferedReader reader = request.getReader();
+StringBuilder jsonInput = new StringBuilder();
+String line;
 
+OrderProcessDAO opDAO = OrderProcessDAO.getInstance();
+
+while((line = reader.readLine()) != null) {
+    jsonInput.append(line);
+}//end while
+
+String jsonString = jsonInput.toString();
+
+try {
+    JSONArray jsonArr = (JSONArray) JSONValue.parse(jsonString);
+
+    for (Object obj : jsonArr) {
+        JSONObject jsonObj = (JSONObject) obj;
+        int orderNo = Integer.parseInt(jsonObj.get("orderNo").toString());
+        String newStatus = (String) jsonObj.get("newStatus");
+
+        int updatedRows = opDAO.updateShippingProgress(orderNo, newStatus);
+
+        if (updatedRows > 0) {
+            // 성공
+        } else {
+            // 실패
+        }//end else
+    }//end for
+} catch (SQLException se) {
+    se.printStackTrace();
+}//end catch
 %>
