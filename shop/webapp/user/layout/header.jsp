@@ -256,11 +256,11 @@ body.search_active .headSearchBtn_magnifier {
 					 		String mId=(String)session.getAttribute("sesId");
 					 		if( mId == null){
 					 	%>
-							<a href="login.jsp">Login</a>
+							<a href="http://localhost/prj_web_shopping/user/member/login.jsp">Login</a>
 						<% 
 						}else{ 
 						%>
-					 		<a href="logout.jsp">Logout</a>
+					 		<a href="http://localhost/prj_web_shopping/user/member/login.jsp">Logout</a>
 				 		<% } %>
 					</li>
 						
@@ -269,11 +269,11 @@ body.search_active .headSearchBtn_magnifier {
 						 	String move=(String)session.getAttribute("sesId");
 						 	if( mId == null){
 						 %>
-							<a href="register.jsp">Join</a>
+							<a href="http://localhost/prj_web_shopping/user/member/register.jsp">Join</a>
 						<% 
 							}else{ 
 						%>
-				 			<a href="mypage.jsp">MyPage</a>
+				 			<a href="http://localhost/prj_web_shopping/user/member/mypage.jsp">MyPage</a>
 				 		<% } %>
 							<!-- 
 							<div id="tooltip">
@@ -283,7 +283,7 @@ body.search_active .headSearchBtn_magnifier {
 							-->
 						</li>
 						<li>
-							<a href="../user/cart.jsp">Cart
+							<a href="http://localhost/prj_web_shopping/user/cart.jsp">Cart
 								<span class="count displaynone EC-Layout_Basket-count-display">
 									<span class="EC-Layout-Basket-count"></span>
 								</span>
@@ -294,7 +294,7 @@ body.search_active .headSearchBtn_magnifier {
 
 				<ul class="navigation__util">
 					<li>
-						<a href="../user/shop.jsp">SHOP</a>
+						<a href="http://localhost/prj_web_shopping/user/shop.jsp">SHOP</a>
 					</li>
 					<li class="headCart headSearchBtn">
 						<a href="javascript:void(0)" onclick="searchLayerToggle()">
@@ -303,7 +303,7 @@ body.search_active .headSearchBtn_magnifier {
 						</a>
 					</li>
 					<li class="xans-element- xans-layout xans-layout-statelogoff headCart ">
-						<a href="../user/cart.jsp">
+						<a href="http://localhost/prj_web_shopping/user/cart.jsp">
 							<i class="icon-bag"></i>
 							<span class="count displaynone EC-Layout_Basket-count-display">
 								<span class="EC-Layout-Basket-count"></span>
@@ -313,7 +313,7 @@ body.search_active .headSearchBtn_magnifier {
 				</ul>
 				<!-- logo img -->
 				<h1 class="xans-element- xans-layout xans-layout-logotop topArea__logo " >
-					<a href="../user/main.jsp">
+					<a href="http://localhost/prj_web_shopping/user/main.jsp">
 						<img src="http://192.168.10.136/prj_web_shopping/common/images/logo.png" alt="Cherie">
 					</a>
 				</h1>

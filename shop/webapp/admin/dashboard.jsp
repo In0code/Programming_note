@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.time.temporal.ChronoUnit"%>
 <%@page import="java.time.LocalDate"%>
 <%@page import="admin.vo.DashboardVO"%>
@@ -11,6 +12,7 @@
     pageEncoding="UTF-8"%>
 <%@ page info=""%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%-- <c:if test="${ empty adminId }">
 	<c:redirect url="http://localhost/prj_web_shopping/admin/login.jsp"/>
 </c:if> --%>
@@ -206,32 +208,87 @@ tbody{
 	DashboardDAO dbDAO = DashboardDAO.getInstance();
 	try{
 		//판매 현황
-		int[] salesCnt = dbDAO.selectSalesStatus();
-		pageContext.setAttribute("salesCnt", salesCnt);
-
+		// 결제완료 - PF / 배송준비 - DR / 배송중 - D0 / 배송완료 - DF
+		// 교환신청 - C0 / 반품신청 - R0
+		int[] salesCntArr = { dbDAO.selectSaleStatus("PF"), 
+							  dbDAO.selectSaleStatus("DR"), 
+							  dbDAO.selectSaleStatus("D0"),
+							  dbDAO.selectSaleStatus("DF"), 
+							  dbDAO.selectSaleStatus("C0"), 
+							  dbDAO.selectSaleStatus("R0")};
+		pageContext.setAttribute("salesCnt", salesCntArr);
+		
 		//상품 현황
-		int[] productCnt = dbDAO.selectProductStatus();
-		pageContext.setAttribute("productCnt", productCnt);
+		int[] productCntArr = { dbDAO.selectOnSale(), 
+								dbDAO.selectSoldOut(), 
+								dbDAO.selectUnderStock()};
+		pageContext.setAttribute("productCnt", productCntArr);
 		
 		//방문자
-		int[] visitCnt = dbDAO.selectVisitCount();
+		int[] visitCnt = { dbDAO.selectVisitCount(0),
+				   		   dbDAO.selectVisitCount(1),
+				   	  	   dbDAO.selectVisitCount(2),
+				   		   dbDAO.selectVisitCount(3),
+				   		   dbDAO.selectVisitCount(4)};
 		pageContext.setAttribute("visitCnt", visitCnt);
-		/* pageContext.setAttribute("visitCnt1", visitCnt[0]);
-		pageContext.setAttribute("visitCnt2", visitCnt[1]);
-		pageContext.setAttribute("visitCnt3", visitCnt[2]);
-		pageContext.setAttribute("visitCnt4", visitCnt[3]);
-		pageContext.setAttribute("visitCnt5", visitCnt[4]);  */
 		
 		//방문자 대비 판매건수
-		int[] visitSaleCnt = dbDAO.selectVisitSale();
+		int[] visitSaleCnt = { dbDAO.selectVisitSale(0),
+							   dbDAO.selectVisitSale(1),
+							   dbDAO.selectVisitSale(2),
+							   dbDAO.selectVisitSale(3),
+							   dbDAO.selectVisitSale(4)};
 		pageContext.setAttribute("visitSaleCnt", visitSaleCnt);
 		
 		//상품 판매 top5
 		List<DashboardVO> topList = dbDAO.selectTopProducts();
 		pageContext.setAttribute("topList", topList);
 		
-		List<DashboardVO> dailySum = dbDAO.selectDailySummary();
-		pageContext.setAttribute("dailySum", dailySum);
+		//일일 요약
+		List<DashboardVO> dailySummary = new ArrayList<DashboardVO>(); 
+		DashboardVO dbVO = null;
+		LocalDate date = LocalDate.now();
+		
+		int[] dailyTotal = {0, 0, 0, 0};
+
+		for(int i=0; i<5; i++){
+			//int sales, int signCnt, int visitCnt, int ordCnt
+			dbVO = new DashboardVO(
+					date.minus(i, ChronoUnit.DAYS).toString(),
+					dbDAO.selectSummaryOrder(i),
+					dbDAO.selectSummarySale(i),
+					dbDAO.selectVisitCount(i),
+					dbDAO.selectSummarySign(i));
+			dailyTotal[0] += dbDAO.selectSummaryOrder(i);
+			dailyTotal[1] += dbDAO.selectSummarySale(i);
+			dailyTotal[2] += dbDAO.selectVisitCount(i);
+			dailyTotal[3] += dbDAO.selectSummarySign(i);
+			dailySummary.add(dbVO);
+		}
+		pageContext.setAttribute("dailySummary", dailySummary);
+		pageContext.setAttribute("dailyTotal", dailyTotal);
+		
+		//분기별
+		List<DashboardVO> quarterSummary = new ArrayList<DashboardVO>(); 
+		int[] quarterTotal = {0, 0, 0, 0};
+		for(int i=1; i<5; i++){
+			
+			//String date, int ordCnt, int sales, int visitCnt, int signCnt
+			dbVO = new DashboardVO(
+					i+"분기",
+					dbDAO.selectQuarterOrder(i),
+					dbDAO.selectQuarterSale(i),
+					dbDAO.selectQuarterVisit(i),
+					dbDAO.selectQuarterSign(i));
+			quarterTotal[0] += dbDAO.selectQuarterOrder(i);
+			quarterTotal[1] += dbDAO.selectQuarterSale(i);
+			quarterTotal[2] += dbDAO.selectQuarterVisit(i);
+			quarterTotal[3] += dbDAO.selectQuarterSign(i);
+			quarterSummary.add(dbVO);
+		}
+		pageContext.setAttribute("quarterSummary", quarterSummary);
+		pageContext.setAttribute("quarterTotal", quarterTotal);
+		
 		
 	}catch(SQLException se){
 		se.printStackTrace();
@@ -319,21 +376,21 @@ tbody{
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="summary" items="${ dailySum }">
+						<c:forEach var="summary" items="${ dailySummary }">
 						<tr style="font-size:14px; height: 46px">
 							<td>${ summary.date }</td> <!-- 일자 -->
-							<td>${ summary.ordCnt }</td>		<!-- 주문수 -->
-							<td>${ summary.sales }</td>	<!-- 매출액 -->
-							<td>${ summary.visitCnt }</td>		<!-- 방문 -->
-							<td>${ summary.signCnt }</td>			<!-- 가입 -->
+							<td><fmt:formatNumber value="${ summary.ordCnt }" pattern="#,###,###"/></td>		<!-- 주문수 -->
+							<td><fmt:formatNumber value="${ summary.sales }" pattern="#,###,###"/></td>	<!-- 매출액 -->
+							<td><fmt:formatNumber value="${ summary.visitCnt }" pattern="#,###,###"/></td>		<!-- 방문 -->
+							<td><fmt:formatNumber value="${ summary.signCnt }" pattern="#,###,###"/></td>			<!-- 가입 -->
 						</tr>
 						</c:forEach>
 						<tr class="total" style="font-size:14px; height: 46px">
 							<td>합계</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
+							<td><fmt:formatNumber value="${ dailyTotal[0] }" pattern="#,###,###"/></td>
+							<td><fmt:formatNumber value="${ dailyTotal[1] }" pattern="#,###,###"/></td>
+							<td><fmt:formatNumber value="${ dailyTotal[2] }" pattern="#,###,###"/></td>
+							<td><fmt:formatNumber value="${ dailyTotal[3] }" pattern="#,###,###"/></td>
 						</tr>
 					</tbody>
 				</table>
@@ -354,40 +411,21 @@ tbody{
 						</tr>
 					</thead>
 					<tbody>
+						<c:forEach var="summary" items="${ quarterSummary }">
 						<tr style="font-size:14px; height: 46px">
-							<td>1분기</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
+							<td>${ summary.date }</td>
+							<td><fmt:formatNumber value="${ summary.ordCnt }" pattern="#,###,###"/></td>
+							<td><fmt:formatNumber value="${ summary.sales }" pattern="#,###,###"/></td>	
+							<td><fmt:formatNumber value="${ summary.visitCnt }" pattern="#,###,###"/></td>
+							<td><fmt:formatNumber value="${ summary.signCnt }" pattern="#,###,###"/></td>
 						</tr>
-						<tr style="font-size:14px; height: 46px">
-							<td>2분기</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-						</tr>
-						<tr style="font-size:14px; height: 46px">
-							<td>3분기</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-						</tr>
-						<tr style="font-size:14px; height: 46px">
-							<td>4분기</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-						</tr>
+						</c:forEach>
 						<tr class="total" style="font-size:14px; height: 46px">
 							<td>합계</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
-							<td>1</td>
+							<td><fmt:formatNumber value="${ quarterTotal[0] }" pattern="#,###,###"/></td>
+							<td><fmt:formatNumber value="${ quarterTotal[1] }" pattern="#,###,###"/></td>
+							<td><fmt:formatNumber value="${ quarterTotal[2] }" pattern="#,###,###"/></td>
+							<td><fmt:formatNumber value="${ quarterTotal[3] }" pattern="#,###,###"/></td>
 						</tr>
 					</tbody>
 				</table>
