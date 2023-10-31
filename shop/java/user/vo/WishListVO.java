@@ -2,28 +2,25 @@ package user.vo;
 
 public class WishListVO {
 
-	private String productCode,img,id,productInfo,productNo,gName ;
-	private int price,totalPrice;
+	private String gcode,img,id,wcode,gname ;
+	private int price;
 	public WishListVO() {
 		super();
 	}
-	public WishListVO(String productCode, String img, String id, String productInfo, String productNo, String gName,
-			int price, int totalPrice) {
+	public WishListVO(String gcode, String img, String id, String wcode, String gname, int price) {
 		super();
-		this.productCode = productCode;
+		this.gcode = gcode;
 		this.img = img;
 		this.id = id;
-		this.productInfo = productInfo;
-		this.productNo = productNo;
-		this.gName = gName;
+		this.wcode = wcode;
+		this.gname = gname;
 		this.price = price;
-		this.totalPrice = totalPrice;
 	}
-	public String getProductCode() {
-		return productCode;
+	public String getGcode() {
+		return gcode;
 	}
-	public void setProductCode(String productCode) {
-		this.productCode = productCode;
+	public void setGcode(String gcode) {
+		this.gcode = gcode;
 	}
 	public String getImg() {
 		return img;
@@ -37,23 +34,17 @@ public class WishListVO {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getProductInfo() {
-		return productInfo;
+	public String getWcode() {
+		return wcode;
 	}
-	public void setProductInfo(String productInfo) {
-		this.productInfo = productInfo;
+	public void setWcode(String wcode) {
+		this.wcode = wcode;
 	}
-	public String getProductNo() {
-		return productNo;
+	public String getGname() {
+		return gname;
 	}
-	public void setProductNo(String productNo) {
-		this.productNo = productNo;
-	}
-	public String getgName() {
-		return gName;
-	}
-	public void setgName(String gName) {
-		this.gName = gName;
+	public void setGname(String gname) {
+		this.gname = gname;
 	}
 	public int getPrice() {
 		return price;
@@ -61,19 +52,11 @@ public class WishListVO {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	public int getTotalPrice() {
-		return totalPrice;
-	}
-	public void setTotalPrice(int totalPrice) {
-		this.totalPrice = totalPrice;
-	}
 	@Override
 	public String toString() {
-		return "WishListVO [productCode=" + productCode + ", img=" + img + ", id=" + id + ", productInfo=" + productInfo
-				+ ", productNo=" + productNo + ", gName=" + gName + ", price=" + price + ", totalPrice=" + totalPrice
-				+ "]";
+		return "WishListVO [gcode=" + gcode + ", img=" + img + ", id=" + id + ", wcode=" + wcode + ", gname=" + gname
+				+ ", price=" + price + "]";
 	}
-	
 	
 	
 }

@@ -28,17 +28,14 @@ public class DashboardDAO {
 	}
 
 	/**
-	 * 결제완료/배송준비/배송중/배송완료/교환신청/반품신청 카운트
-	 * 
+	 * 판매 현황
 	 * @return
 	 * @throws SQLException
 	 */
-	public int[] selectSalesStatus() throws SQLException {
-		int[] cnt = new int[6];
+	public int selectSaleStatus(String status) throws SQLException {
+		int cnt = 0;
 		// 결제완료 - PF / 배송준비 - DR / 배송중 - D0 / 배송완료 - DF
 		// 교환신청 - C0 / 반품신청 - R0
-		String[] status = { "PF", "DR", "D0", "DF", "C0", "R0" };
-
 		DbConnection db = DbConnection.getInstance();
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -48,22 +45,20 @@ public class DashboardDAO {
 			con = db.getConn("jdbc/dbcp");
 			StringBuilder selectSalesStatus = new StringBuilder();
 
-			for (int i = 0; i < cnt.length; i++) {
-				selectSalesStatus
-				.append(" select count(*) as cnt from uorder 		")
-				.append(" where ord_date >= ADD_MONTHS(SYSDATE, -3) ")
-				.append(" group by dlvy_pro having dlvy_pro like '"  )
-				.append(status[i]).append("'");
-				
-				pstmt = con.prepareStatement(selectSalesStatus.toString());
-				rs = pstmt.executeQuery();
-				
-				cnt[i] = rs.next() ? rs.getInt("cnt") : 0;
-				
-				selectSalesStatus.setLength(0);
-				pstmt.close();
-				rs.close();
-			}
+			selectSalesStatus
+			.append(" select count(*) as cnt from uorder 									  ")
+			.append(" where ord_date >= ADD_MONTHS(SYSDATE, -3) and dlvy_pro like '%'||?||'%' ")
+			.append(" group by dlvy_pro  													  ");
+			
+			pstmt = con.prepareStatement(selectSalesStatus.toString());
+			pstmt.setString(1, status);
+			rs = pstmt.executeQuery();
+			
+			cnt = rs.next() ? rs.getInt("cnt") : 0;
+			
+			selectSalesStatus.setLength(0);
+			pstmt.close();
+			rs.close();
 
 		} finally {
 			db.dbClose(rs, pstmt, con);
@@ -71,15 +66,14 @@ public class DashboardDAO {
 
 		return cnt;
 	}
-
+	
 	/**
-	 * 판매 중/품절/재고 10개 이하 카운트
-	 * 
-	 * @return
+	 * 판매 중
+	 * @return 판매 중인 상품 개수
 	 * @throws SQLException
 	 */
-	public int[] selectProductStatus() throws SQLException {
-		int[] cnt = new int[3];
+	public int selectOnSale() throws SQLException {
+		int cnt = 0;
 
 		DbConnection db = DbConnection.getInstance();
 		Connection con = null;
@@ -92,21 +86,8 @@ public class DashboardDAO {
 			// 판매중
 			pstmt = con.prepareStatement(" select count(*) cnt from goods where quantity <> 0 ");
 			rs = pstmt.executeQuery();
-			cnt[0] = rs.next() ? rs.getInt("cnt") : 0;
-			pstmt.close();
-			rs.close();
-
-			// 품절
-			pstmt = con.prepareStatement(" select count(*) cnt from goods where quantity = 0 ");
-			rs = pstmt.executeQuery();
-			cnt[1] = rs.next() ? rs.getInt("cnt") : 0;
-			pstmt.close();
-			rs.close();
-
-			// 재고 10개 미만
-			pstmt = con.prepareStatement(" select count(*) cnt from goods where quantity between 1 and 10 ");
-			rs = pstmt.executeQuery();
-			cnt[2] = rs.next() ? rs.getInt("cnt") : 0;
+			
+			cnt = rs.next() ? rs.getInt("cnt") : 0;
 			
 			pstmt.close();
 			rs.close();
@@ -116,6 +97,69 @@ public class DashboardDAO {
 
 		return cnt;
 	}
+	
+	/**
+	 * 품절
+	 * @return 품절인 상품 개수
+	 * @throws SQLException
+	 */
+	public int selectSoldOut() throws SQLException {
+		int cnt = 0;
+
+		DbConnection db = DbConnection.getInstance();
+		Connection con = null;
+		ResultSet rs = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = db.getConn("jdbc/dbcp");
+
+			// 판매중
+			pstmt = con.prepareStatement(" select count(*) cnt from goods where quantity = 0 ");
+			rs = pstmt.executeQuery();
+			
+			cnt = rs.next() ? rs.getInt("cnt") : 0;
+			
+			pstmt.close();
+			rs.close();
+		} finally {
+			db.dbClose(rs, pstmt, con);
+		}
+
+		return cnt;
+	}
+	
+	/**
+	 * 재고 10개 이하
+	 * @return 재고 10개 이하인 상품 개수
+	 * @throws SQLException
+	 */
+	public int selectUnderStock() throws SQLException {
+		int cnt = 0;
+
+		DbConnection db = DbConnection.getInstance();
+		Connection con = null;
+		ResultSet rs = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = db.getConn("jdbc/dbcp");
+
+			// 판매중
+			pstmt = con.prepareStatement(" select count(*) cnt from goods where quantity between 1 and 10 ");
+			rs = pstmt.executeQuery();
+			
+			cnt = rs.next() ? rs.getInt("cnt") : 0;
+			
+			pstmt.close();
+			rs.close();
+		} finally {
+			db.dbClose(rs, pstmt, con);
+		}
+
+		return cnt;
+	}
+	
 
 	/**
 	 * 최근 3달 동안 상품 판매량 top 5
@@ -186,8 +230,8 @@ public class DashboardDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	public int[] selectVisitCount() throws SQLException {
-		int[] cnt = new int[5];
+	public int selectVisitCount(int day) throws SQLException {
+		int cnt = 0;
 		
 		DbConnection db = DbConnection.getInstance();
 		Connection con = null;
@@ -196,29 +240,27 @@ public class DashboardDAO {
 
 		try {
 			con = db.getConn("jdbc/dbcp");
-			LocalDate date = LocalDate.now().plus(1, ChronoUnit.DAYS);
+			LocalDate date = LocalDate.now();
 			StringBuilder selectCount = new StringBuilder();
 
-			for (int i = 0; i < cnt.length; i++) {
-				date = date.minus(1, ChronoUnit.DAYS);	
-				
-				selectCount
-				.append(" select daydate, count(*) cnt 	")
-				.append(" from visit 					")
-				.append(" where daydate = ? 			")
-				.append(" group by daydate 				");
-
-				pstmt = con.prepareStatement(selectCount.toString());
-				pstmt.setString(1, date.toString());
-
-				rs = pstmt.executeQuery();
-
-				cnt[i] = rs.next() ? rs.getInt("cnt") : 0;
-
-				selectCount.setLength(0);
-				pstmt.close();
-				rs.close();
-			}
+			date = date.minus(day, ChronoUnit.DAYS);	
+			
+			selectCount
+			.append(" select daydate, count(*) cnt 	")
+			.append(" from visit 					")
+			.append(" where daydate = ? 			")
+			.append(" group by daydate 				");
+			
+			pstmt = con.prepareStatement(selectCount.toString());
+			pstmt.setString(1, date.toString());
+			
+			rs = pstmt.executeQuery();
+			
+			cnt = rs.next() ? rs.getInt("cnt") : 0;
+			
+			selectCount.setLength(0);
+			pstmt.close();
+			rs.close();
 
 		} finally {
 			db.dbClose(rs, pstmt, con);
@@ -233,8 +275,8 @@ public class DashboardDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	public int[] selectVisitSale() throws SQLException {
-		int[] cnt = new int[5];
+	public int selectVisitSale(int day) throws SQLException {
+		int cnt = 0;
 
 		DbConnection db = DbConnection.getInstance();
 		Connection con = null;
@@ -243,29 +285,27 @@ public class DashboardDAO {
 		
 		try {
 			con = db.getConn("jdbc/dbcp");
-			LocalDate date = LocalDate.now().plus(1, ChronoUnit.DAYS);
+			LocalDate date = LocalDate.now();
 			StringBuilder selectVisitSale = new StringBuilder();
 
-			for(int i=0; i<cnt.length; i++) {
-				date = date.minus(1, ChronoUnit.DAYS);	
-				
-				selectVisitSale
-				.append("	select to_char(ord_date,'yyyy-mm-dd') ord_date, count(*) cnt		     ")
-				.append("	from uorder																 ")
-				.append("   where to_char(ord_date,'yyyy-mm-dd') = ? and dlvy_pro not in ('R0','RF') ")
-				.append("	group by to_char(ord_date,'yyyy-mm-dd')									 ");
-				
-				pstmt = con.prepareStatement(selectVisitSale.toString()); 
-				pstmt.setString(1, date.toString());
-				
-				rs = pstmt.executeQuery();
-				
-				cnt[i] = rs.next() ? rs.getInt("cnt") : 0;
-				
-				selectVisitSale.setLength(0);
-				rs.close();
-				pstmt.close();
-			}
+			date = date.minus(day, ChronoUnit.DAYS);	
+			
+			selectVisitSale
+			.append("	select to_char(ord_date,'yyyy-mm-dd') ord_date, count(*) cnt		     ")
+			.append("	from uorder																 ")
+			.append("   where to_char(ord_date,'yyyy-mm-dd') = ? and dlvy_pro not in ('R0','RF') ")
+			.append("	group by to_char(ord_date,'yyyy-mm-dd')									 ");
+			
+			pstmt = con.prepareStatement(selectVisitSale.toString()); 
+			pstmt.setString(1, date.toString());
+			
+			rs = pstmt.executeQuery();
+			
+			cnt = rs.next() ? rs.getInt("cnt") : 0;
+			
+			selectVisitSale.setLength(0);
+			rs.close();
+			pstmt.close();
 
 		} finally {
 			db.dbClose(rs, pstmt, con);
@@ -275,13 +315,13 @@ public class DashboardDAO {
 	}
 
 	/**
-	 * 일일 요약
+	 * 일일 요약 - 주문 수
 	 * 
 	 * @return
 	 * @throws SQLException
 	 */
-	public List<DashboardVO> selectDailySummary() throws SQLException {
-		List<DashboardVO> list = new ArrayList<DashboardVO>();
+	public int selectSummaryOrder(int day) throws SQLException {
+		int cnt = 0;
 
 		DbConnection db = DbConnection.getInstance();
 		Connection con = null;
@@ -290,82 +330,251 @@ public class DashboardDAO {
 
 		try {
 			con = db.getConn("jdbc/dbcp");
-			LocalDate date = LocalDate.now().plus(1, ChronoUnit.DAYS);
+			LocalDate date = LocalDate.now();
 			StringBuilder selectDailySummary = new StringBuilder();
-
-			DashboardVO dbVO = null;
-
-			for (int i = 0; i < 5; i++) {
-				dbVO = new DashboardVO();
-				date = date.minus(1, ChronoUnit.DAYS);
-				dbVO.setDate(date.toString());
-				
-				selectDailySummary
-				.append("	select to_char(ord_date, 'yyyy-mm-dd') ord_date, count(*) cnt, sum(price * amount) sales	")
-				.append("	from order_detail o, uorder u, goods g														")
-				.append("	where o.ordno = u.ordno and o.gcode = g.gcode and dlvy_pro not in ('R0','RF') 						")
-				.append("   and to_char(ord_date, 'yyyy-mm-dd') = ?														")
-				.append("	group by to_char(ord_date, 'yyyy-mm-dd')													");
-
-				pstmt = con.prepareStatement(selectDailySummary.toString());
-				pstmt.setString(1, date.toString());
-				rs = pstmt.executeQuery();
-
-				if (rs.next()) {
-					dbVO.setOrdCnt(rs.getInt("cnt"));
-					dbVO.setSales(rs.getInt("sales"));
-				}
-
-				selectDailySummary.setLength(0);
-				pstmt.close();
-				rs.close();
-
-				selectDailySummary
-				.append("	select daydate, count(*) cnt	")
-				.append("	from visit						")
-				.append("   where daydate = ?			    ")
-				.append("	group by daydate				");
-				
-				pstmt = con.prepareStatement(selectDailySummary.toString());
-				pstmt.setString(1, date.toString());
-				rs = pstmt.executeQuery();
-
-				if (rs.next()) {
-					dbVO.setVisitCnt(rs.getInt("cnt"));
-				}
-
-				selectDailySummary.setLength(0);
-				pstmt.close();
-				rs.close();
-				
-				selectDailySummary
-				.append("	select to_char(sign_date, 'yyyy-mm-dd') sign_date, count(*) cnt	")
-				.append("	from member														")
-				.append("	where to_char(sign_date, 'yyyy-mm-dd') = ?						")
-				.append("	group by to_char(sign_date, 'yyyy-mm-dd')						");
-
-				pstmt = con.prepareStatement(selectDailySummary.toString());
-				pstmt.setString(1, date.toString());
-				rs = pstmt.executeQuery();
-
-				if (rs.next()) {
-					dbVO.setSignCnt(rs.getInt("cnt"));
-				}
-				
-				list.add(dbVO);
-
-				selectDailySummary.setLength(0);
-				pstmt.close();
-				rs.close();
-			}
+			
+			date = date.minus(day, ChronoUnit.DAYS);
+			
+			selectDailySummary
+			.append("	select to_char(ord_date, 'yyyy-mm-dd') ord_date, count(*) cnt					")
+			.append("	from order_detail o, uorder u, goods g											")
+			.append("	where o.ordno = u.ordno and o.gcode = g.gcode and dlvy_pro not in ('R0','RF') 	")
+			.append("   and to_char(ord_date, 'yyyy-mm-dd') = ?											")
+			.append("	group by to_char(ord_date, 'yyyy-mm-dd')										");
+			
+			pstmt = con.prepareStatement(selectDailySummary.toString());
+			pstmt.setString(1, date.toString());
+			rs = pstmt.executeQuery();
+			
+			cnt = rs.next() ? rs.getInt("cnt") : 0;
 
 		} finally {
 			db.dbClose(rs, pstmt, con);
 		}
 
-		return list;
+		return cnt;
 	}
 	
+	/**
+	 * 일일 요약 - 매출
+	 * @param day
+	 * @return
+	 * @throws SQLException
+	 */
+	public int selectSummarySale(int day) throws SQLException {
+		int sales = 0;
+
+		DbConnection db = DbConnection.getInstance();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			con = db.getConn("jdbc/dbcp");
+			LocalDate date = LocalDate.now();
+			StringBuilder selectDailySummary = new StringBuilder();
+			
+			date = date.minus(day, ChronoUnit.DAYS);
+			
+			selectDailySummary
+			.append("	select to_char(ord_date, 'yyyy-mm-dd') ord_date, sum(price * amount) sales		")
+			.append("	from order_detail o, uorder u, goods g											")
+			.append("	where o.ordno = u.ordno and o.gcode = g.gcode and dlvy_pro not in ('R0','RF') 	")
+			.append("   and to_char(ord_date, 'yyyy-mm-dd') = ?											")
+			.append("	group by to_char(ord_date, 'yyyy-mm-dd')										");
+			
+			pstmt = con.prepareStatement(selectDailySummary.toString());
+			pstmt.setString(1, date.toString());
+			rs = pstmt.executeQuery();
+			
+			sales = rs.next() ? rs.getInt("sales") : 0;
+		} finally {
+			db.dbClose(rs, pstmt, con);
+		}
+
+		return sales;
+	}
+	
+	/**
+	 * 일일 요약 - 가입
+	 * @param day
+	 * @return
+	 * @throws SQLException
+	 */
+	public int selectSummarySign(int day) throws SQLException {
+		int cnt = 0;
+		
+		DbConnection db = DbConnection.getInstance();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = db.getConn("jdbc/dbcp");
+			LocalDate date = LocalDate.now();
+			StringBuilder selectDailySummary = new StringBuilder();
+			
+			date = date.minus(day, ChronoUnit.DAYS);
+			
+			selectDailySummary
+			.append("	select to_char(sign_date, 'yyyy-mm-dd') sign_date, count(*) cnt	")
+			.append("	from member														")
+			.append("	where to_char(sign_date, 'yyyy-mm-dd') = ?						")
+			.append("	group by to_char(sign_date, 'yyyy-mm-dd')						");
+			
+			pstmt = con.prepareStatement(selectDailySummary.toString());
+			pstmt.setString(1, date.toString());
+			rs = pstmt.executeQuery();
+			
+			cnt = rs.next() ? rs.getInt("cnt") : 0;
+		} finally {
+			db.dbClose(rs, pstmt, con);
+		}
+		
+		return cnt;
+	}
+	
+	/**
+	 * 분기 - 주문
+	 * @param quarter 분기
+	 * @return 분기별 주문 수
+	 * @throws SQLException
+	 */
+	public int selectQuarterOrder(int quarter) throws SQLException {
+		int cnt = 0;
+		DbConnection db = DbConnection.getInstance();
+		Connection con = null;
+		ResultSet rs = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = db.getConn("jdbc/dbcp");
+			
+			StringBuilder selectQuarter = new StringBuilder();
+			selectQuarter
+			.append("	select cnt																		")
+			.append("	from(select ceil(to_char(ord_date,'mm')/3) quarter, count(*) cnt				")
+			.append("	from order_detail o, uorder u, goods g											")
+			.append("	where o.ordno = u.ordno and o.gcode = g.gcode and dlvy_pro not in ('R0','RF')	")
+			.append("   group by ceil(to_char(ord_date,'mm')/3))										")
+			.append("	where quarter = ?																");
+			
+			pstmt = con.prepareStatement(selectQuarter.toString());
+			pstmt.setInt(1, quarter);
+			rs = pstmt.executeQuery();
+			
+			cnt = rs.next() ? rs.getInt("cnt") : 0;
+		}finally {
+			db.dbClose(rs, pstmt, con);
+		}
+		return cnt;
+	}
+	
+	/**
+	 * 분기 - 매출
+	 * @param quarter 분기
+	 * @return 분기별 매출 금액
+	 * @throws SQLException
+	 */
+	public int selectQuarterSale(int quarter) throws SQLException {
+		int sales = 0;
+		DbConnection db = DbConnection.getInstance();
+		Connection con = null;
+		ResultSet rs = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = db.getConn("jdbc/dbcp");
+			
+			StringBuilder selectQuarter = new StringBuilder();
+			selectQuarter
+			.append("	select sales																	")
+			.append("	from(select ceil(to_char(ord_date,'mm')/3) quarter, sum(price * amount) sales	")
+			.append("	from order_detail o, uorder u, goods g											")
+			.append("	where o.ordno = u.ordno and o.gcode = g.gcode and dlvy_pro not in ('R0','RF')	")
+			.append("   group by ceil(to_char(ord_date,'mm')/3))										")
+			.append("	where quarter = ?																");
+			
+			pstmt = con.prepareStatement(selectQuarter.toString());
+			pstmt.setInt(1, quarter);
+			rs = pstmt.executeQuery();
+			
+			sales = rs.next() ? rs.getInt("sales") : 0;
+		}finally {
+			db.dbClose(rs, pstmt, con);
+		}
+		return sales;
+	}
+	
+	/**
+	 * 분기 - 가입
+	 * @param quarter 분기
+	 * @return 분기별 방문자 수
+	 * @throws SQLException
+	 */
+	public int selectQuarterSign(int quarter) throws SQLException {
+		int cnt = 0;
+		DbConnection db = DbConnection.getInstance();
+		Connection con = null;
+		ResultSet rs = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = db.getConn("jdbc/dbcp");
+			
+			StringBuilder selectQuarter = new StringBuilder();
+			selectQuarter
+			.append("	select cnt															")
+			.append("	from(select ceil(to_char(sign_date,'mm')/3) quarter, count(*) cnt	")
+			.append("	from member															")
+			.append("	group by ceil(to_char(sign_date,'mm')/3))							")
+			.append("   where quarter = ?													");
+			
+			pstmt = con.prepareStatement(selectQuarter.toString());
+			pstmt.setInt(1, quarter);
+			rs = pstmt.executeQuery();
+			
+			cnt = rs.next() ? rs.getInt("cnt") : 0;
+		}finally {
+			db.dbClose(rs, pstmt, con);
+		}
+		return cnt;
+	}
+	
+	/**
+	 * 분기 - 방문
+	 * @param quarter 분기
+	 * @return 분기별 가입자 수
+	 * @throws SQLException
+	 */
+	public int selectQuarterVisit(int quarter) throws SQLException {
+		int cnt = 0;
+		DbConnection db = DbConnection.getInstance();
+		Connection con = null;
+		ResultSet rs = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = db.getConn("jdbc/dbcp");
+			
+			StringBuilder selectQuarter = new StringBuilder();
+			selectQuarter
+			.append("	select cnt															")
+			.append("	from(select ceil(to_char(daydate,'mm')/3) quarter, count(*) cnt		")
+			.append("	from visit															")
+			.append("	group by ceil(to_char(daydate,'mm')/3))								")
+			.append("   where quarter = ?													");
+			
+			pstmt = con.prepareStatement(selectQuarter.toString());
+			pstmt.setInt(1, quarter);
+			rs = pstmt.executeQuery();
+			
+			cnt = rs.next() ? rs.getInt("cnt") : 0;
+		}finally {
+			db.dbClose(rs, pstmt, con);
+		}
+		return cnt;
+	}
 	
 
 }

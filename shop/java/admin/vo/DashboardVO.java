@@ -15,8 +15,9 @@ public class DashboardVO {
 		this.amount = amount;
 	}
 	
-	public DashboardVO(int sales, int signCnt, int visitCnt, int ordCnt) {
+	public DashboardVO(String date, int ordCnt, int sales, int visitCnt, int signCnt) {
 		super();
+		this.date = date;
 		this.sales = sales;
 		this.signCnt = signCnt;
 		this.visitCnt = visitCnt;
@@ -79,5 +80,10 @@ public class DashboardVO {
 		this.amount = amount;
 	}
 
-
+	@Override
+	public String toString() {
+		return "DashboardVO [gname=" + gname + ", date=" + date + ", amount=" + amount + ", sales=" + sales
+				+ ", signCnt=" + signCnt + ", visitCnt=" + visitCnt + ", ordCnt=" + ordCnt + "]";
+	}
+	
 }
