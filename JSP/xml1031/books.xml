@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<books>
+<book>
+<subject>이것이 자바다</subject>
+<isbn>979-11-6921-002-7</isbn>
+<company>한빛미디어</company>
+<auth>신용권</auth>
+<price>35,000</price>
+</book>
+<book>
+<subject>HTML5 웹프로그래밍 입문</subject>
+<isbn>111-21-6922-02-7</isbn>
+<company>한빛아카데미</company>
+<auth>윤인성</auth>
+<price>30,000</price>
+</book>
+<!-- 유효문서는 위의 태그와 아래의 태그가 같지 않아도 된다 -->
+<book>
+<isbn>131-21-6922-02-7</isbn>
+<subject>데이터베이스개론과 실습</subject>
+<company>한빛아카데미</company>
+<auth>박우창</auth>
+<auth>남승휘</auth>
+<price>34,000</price>
+</book>
+</books>

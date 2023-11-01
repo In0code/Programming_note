@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persons>
+  <person gender="남자" age="31">
+    <name lastName="김">짱구</name>
+  </person>
+  <person gender="여자" age="25">
+    <name lastName="김">인영</name>
+  </person>
+  <person gender="여자" age="27">
+    <name lastName="김">아영</name>
+  </person>
+  <person gender="남자" age="29">
+    <name lastName="김">영재</name>
+  </person>
+</persons>
