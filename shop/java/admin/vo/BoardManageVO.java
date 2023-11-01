@@ -9,9 +9,10 @@ public class BoardManageVO {
 	}
 	
 
-	public BoardManageVO(String title, String rev_cont, String img, String rev_date, String id, int star, int r_view) {
+	public BoardManageVO(String title, String gname, String rev_cont, String img, String rev_date, String id, int star, int r_view) {
 		super();
 		this.title = title;
+		this.gname = gname;
 		this.rev_cont = rev_cont;
 		this.img = img;
 		this.rev_date = rev_date;
@@ -20,10 +21,11 @@ public class BoardManageVO {
 		this.r_view = r_view;
 	}
 
-	public BoardManageVO(int rcode, String cat_name, String gname, String id, String rev_date, int star) {
+	public BoardManageVO(int rcode, String cat_name, String gname, String title, String id, String rev_date, int star) {
 		super();
 		this.cat_name = cat_name;
 		this.gname = gname;
+		this.title = title;
 		this.rev_date = rev_date;
 		this.id = id;
 		this.star = star;

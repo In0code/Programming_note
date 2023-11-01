@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import admin.vo.ProductManageVO;
+import admin.vo.UserReviewVO;
 import common.dao.DbConnection;
 import user.vo.SummaryVO;
 
@@ -192,16 +194,16 @@ public void deleteReivew (int rcode) throws SQLException {
 }//deleteReivew
 
 	
-public String selectproductImg(String gname) throws SQLException {
+public ProductManageVO selectproductImg(String gcode) throws SQLException {
 	
 	
-	
+	ProductManageVO pmVO= null;
 	
 	DbConnection db= DbConnection.getInstance();
 	Connection con = null;
 	PreparedStatement pstmt=null;
 	ResultSet rs= null;
-	String mainImg="";
+	
 	
 	
 	
@@ -209,17 +211,19 @@ public String selectproductImg(String gname) throws SQLException {
 		
 		con=db.getConn("jdbc/dbcp");
 		
-		String selectAllReview = " select main_img  from goods where gname=? ";
+		String selectAllReview = " select main_img , gname from goods where gcode=? ";
 
 		
 		
 		pstmt=con.prepareStatement(selectAllReview);
 		
-		pstmt.setString(1, gname);
+		pstmt.setString(1, gcode);
 		
 		rs=pstmt.executeQuery();
 		if(rs.next()) {
-			mainImg=rs.getString("main_img");
+			pmVO= new ProductManageVO();
+			pmVO.setMainImg(rs.getString("main_img"));
+			pmVO.setGoodsName(rs.getString("GNAME"));
 		}
 		
 	}finally {
@@ -227,7 +231,7 @@ public String selectproductImg(String gname) throws SQLException {
 		
 	}
 	
-	return mainImg;
+	return pmVO;
 }
 	
 	

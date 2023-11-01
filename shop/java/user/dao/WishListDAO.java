@@ -9,6 +9,7 @@ import java.util.List;
 
 import admin.vo.BoardRangeVO;
 import common.dao.DbConnection;
+import user.vo.WishListPageVO;
 import user.vo.WishListVO;
 
 public class WishListDAO {
@@ -33,7 +34,7 @@ public class WishListDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	public List<WishListVO> selectAllWishList(String id , BoardRangeVO brVO) throws SQLException{
+	public List<WishListVO> selectAllWishList(String id, BoardRangeVO brVO) throws SQLException{
 		List<WishListVO> list=new ArrayList<WishListVO>();
 		WishListVO wlVO=null;
 		DbConnection db=DbConnection.getInstance();
@@ -48,26 +49,34 @@ public class WishListDAO {
 			con=db.getConn("jdbc/dbcp");
 		//4. 쿼리문 생성 객체 얻기
 			StringBuilder selectAllWishList=new StringBuilder();
-			selectAllWishList.append("	select img1,gname,price, id, gcode , wcode	")
+			selectAllWishList.append("	select MAIN_IMG,gname,price, id, gcode , wcode	")
 			.append("	from(select row_number() over(order by wcode ) rnum,	")
-			.append("	   g.img1, g.gname, g.price, w.id ,w.GCODE, w.wcode	")
+			.append("	   g.MAIN_IMG, g.gname, g.price, w.id ,w.GCODE, w.wcode	")
 			.append("	  from goods g,WISHLIST w	")
-			.append("	 where  g.gcode = w.gcode and w.id= ?	")
-			.append("	  ) where rnum between ? and ?	");
+			.append("	 where  g.gcode = w.gcode and w.id= ?	");
+			
+			boolean flag = false;
+			if(brVO.getStartNum() != 0) {
+				selectAllWishList.append(")	WHERE RNUM BETWEEN ? AND ?	");
+				flag = true;
+			}//end if
 			
 			pstmt=con.prepareStatement(selectAllWishList.toString());
 		//5. 바인드 변수 값 설정
 			pstmt.setString(1, id);
-			pstmt.setInt(2, brVO.getStartNum());
-			pstmt.setInt(3, brVO.getEndNum());
+			
+			if(flag) {
+				pstmt.setInt(2, brVO.getStartNum());
+				pstmt.setInt(3, brVO.getEndNum());
+			}//end if
+			
 		//6. 쿼리문 실행 후 값 얻기
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				wlVO=new WishListVO();
-				wlVO.setImg(rs.getString("img1"));
+				wlVO.setImg(rs.getString("MAIN_IMG"));
 				wlVO.setGname(rs.getString("gname"));
 				wlVO.setPrice(rs.getInt("price"));
-				wlVO.setId(id);
 				
 				list.add(wlVO);
 			}//end while
@@ -84,8 +93,8 @@ public class WishListDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	public int intsertWhisList(String id, int gcode)throws SQLException {
-		
+	public int intsertWhisList(int gcode)throws SQLException {
+		WishListPageVO wpVO=new WishListPageVO();
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		int rowCnt = 0;
@@ -99,7 +108,7 @@ public class WishListDAO {
 
 			pstmt = con.prepareStatement(intsertWhisList);
 			
-			pstmt.setString(1, id);
+			pstmt.setString(1, wpVO.getId());
 			pstmt.setInt(2, gcode);
 			
 			// 5. 쿼리문 실행 결과 얻기

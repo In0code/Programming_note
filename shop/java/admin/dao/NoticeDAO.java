@@ -41,7 +41,7 @@ public class NoticeDAO {
 			selectNotice.append("	SELECT NCODE, NOT_TITLE, NOT_TEXT, TO_CHAR(NOT_DATE, 'YYYY-MM-DD HH24:MI') INPUT_DATE, VIEW_NUM, EDIT_DATE	")
 			.append("	FROM (SELECT (ROW_NUMBER() OVER(ORDER BY NOT_DATE DESC)) RNUM,	")
 			.append("	NCODE, ID, NOT_TITLE, NOT_TEXT, NOT_DATE, VIEW_NUM, EDIT_DATE	")
-			.append("	FROM NOTICE WHERE DEL_FLAG='N')	");
+			.append("	FROM NOTICE WHERE DEL_FLAG NOT IN ('Y'))	");
 			
 			boolean flag = false;
 			if(brVO.getStartNum() != 0) {
