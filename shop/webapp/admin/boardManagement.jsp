@@ -191,11 +191,10 @@ function boardDetail(rcode){
 				<tr id="top_title">
 					<!-- 컬럼 사이즈 -->
 					<th style="width:100px">No</th>
-					<th style="width:140px">카테고리명</th>
-					<th style="width:280px">상품명</th>
-					<th style="width:270px">제목</th>
+					<th style="width:200px">카테고리명</th>
+					<th style="width:300px">상품명</th>
 					<th style="width:200px">작성자</th>
-					<th style="width:230px">작성일</th>
+					<th style="width:200px">작성일</th>
 					<th style="width:180px">평점</th>
 				</tr>
 				</thead>
@@ -204,7 +203,7 @@ function boardDetail(rcode){
 					<!-- list가 존재하지 않을 경우 -->
 					<c:if test="${ empty reviewList }">
 					<tr>
-						<td colspan="7" style="text-align: center;"> 
+						<td colspan="6" style="text-align: center;"> 
 							리뷰가 존재하지 않습니다. </td>
 					</tr>
 					</c:if>
@@ -214,7 +213,6 @@ function boardDetail(rcode){
 						<td>${ startNum + i.index }</td>
 						<td>${ review.cat_name }</td>
 						<td>${ review.gname }</td>
-						<td>${ review.title }</td>
 						<td>${ review.id }</td>
 						<td>${ review.rev_date }</td>
 						<td style="color:#FF923A">

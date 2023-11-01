@@ -1,6 +1,17 @@
+<%@page import="admin.vo.BoardRangeVO"%>
+<%@page import="common.dao.BoardDAO"%>
+<%@page import="common.util.BoardUtilVO"%>
+<%@page import="common.util.BoardUtil"%>
+
+<%@page import="user.vo.SummaryVO"%>
+<%@page import="java.util.List"%>
+<%@page import="admin.dao.UserReviewDAO"%>
+<%@page import="java.sql.SQLException"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <jsp:include page="../cdn/cdn.jsp"/>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,48 +22,60 @@
 
 
 <style type="text/css">
+.pagenationDiv{
+	position: absolute;
+	top: 775px;
+	width: 1480px;
+	text-align: center;
+}
 
+.pagination {
+  display: inline-block;
+}
 
+.pagination a{
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+  background-color: white;
+}
+
+.pagination span{
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+  background-color: white;
+}
+
+.pagination a.active {
+  background-color: black;
+  color: white;
+  border: 1px solid #333;
+}
+
+.pagination span.active {
+  background-color: black;
+  color: white;
+  border: 1px solid #333;
+}
+
+.pagination a:hover:not(.active) {background-color: #ddd;}
+
+a {
+	text-decoration: none;
+	color: #333;
+}
+
+a:hover {
+	color: #333;
+}
 </style>
-
-
-
-
-<script type="text/javascript">
-
-$(function() {
-   
-   
-});//ready
-</script>
-
-</head>
-<body>
-<%@include file="layout/header.jsp" %>
-
-<%@page import="user.vo.SummaryVO"%>
-<%@page import="java.util.List"%>
-<%@page import="admin.dao.UserReviewDAO"%>
-<%@page import="java.sql.SQLException"%>
- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<style type="text/css">
-
-</style>
-<script type="text/javascript">
-$(function(){
-		$("#btn").click(function() {
-			window.open("posting_control.jsp" , "", "width=513, height=710, top=50, left=50");
-		})
-   	
-		$("#btnSearch").click();
-});//ready
-</script>
-
-</head>
-<body>
 
 <jsp:useBean id="sVO" class="user.vo.SummaryVO" scope="page"></jsp:useBean> 
 <jsp:setProperty property="*" name="sVO"/>
@@ -64,13 +87,44 @@ $(function(){
 
 
 UserReviewDAO uDAO= UserReviewDAO.getInstance();
+BoardDAO bDAO=BoardDAO.getInstance();
+BoardRangeVO brVO=new BoardRangeVO();
+
+String field=request.getParameter("field");
+System.out.println(field+"=====");
+String keyword=request.getParameter("keyword1");
+System.out.println(keyword+"=====");
+brVO.setTableName("REVIEW");
+
+brVO.setField(field);
+brVO.setKeyword(keyword);
+int totalCount=bDAO.totalCount(brVO);
+
+int pageScale=10; // 한 화면에 보여줄 게시물의 수
+int totalPage=0; // 총 페이지 수
+
+totalPage=((int)Math.ceil(totalCount/(double)pageScale))-1;
 
 
+String tempPage=request.getParameter("currentPage");
+int currentPage=1;
+if(tempPage != null){
+	currentPage=Integer.parseInt(tempPage);
+}//end if
+
+int startNum=currentPage*pageScale-pageScale+1;
+pageContext.setAttribute("startNum", startNum);
+
+//끝페이지 번호 구하기
+int endNum=startNum+pageScale-1;
+
+brVO.setStartNum(startNum);
+brVO.setEndNum(endNum); 
 //mDAO.
 
 
 try{
-	List<SummaryVO> list = uDAO.selectAllReview("tuna5127");
+	List<SummaryVO> list = uDAO.selectAllReview("tuna5127", brVO);
 	
 	pageContext.setAttribute("reviewList", list);
 }catch (SQLException se) {
@@ -80,35 +134,93 @@ try{
 
 %>
 
+<script type="text/javascript">
+$(function(){
+	/* $("#btn").click(function(){
+		window.open("posting_control.jsp" , "", "width=513, height=710, top=50, left=50");
+	});
+	 */
+	
+	$("#btnSearch").click(function(){
+		chkNull();
+		
+	});
+	
+	$("#keyword1").keyup(function(evt) {
+		if(evt.which == 13){
+			chkNull();
+		}//end if
+	});//keyup
+	
+	
+});//ready
+
+//$("#keyword").val();
+function chkNull(){
+	var keyword =  $("#keyword1").val();
+
+	if(keyword.trim()==""){
+		alert("검색 키워드를 입력해주세요. k : '"+keyword+"'");
+		return;
+	}//end if
+	
+	//모두 통과했으면 submit
+	$("#frmSearch").submit();
+}//chkNull
+
+
+
+
+</script>
+
+
+</head>
+
+
+
+
+
+
+
+
+<%@include file="layout/header.jsp" %>
+
+<body>
+
+
+
 <div id="wrap">    
 <div id="wrap_inner">     
 <div id="container">
 <div id="contents">
 
 <div class="titleArea">
-    <h2>게시물 관리</h2>
+    <h4 style="font-family:pretend">게시물 관리</h4>
 </div>
 
+<form id="frmSearch"  action="posting.jsp?field=${param.field}&keyword=${param.keyword}" >
 <div class="xans-element- xans-myshop xans-myshop-boardpackage "><div class="board_top">
         
-<form id="boardSearchForm" name="" action="/myshop/board_list.html" method="get" target="" enctype="multipart/form-data" >
-<input id="board_no" name="board_no" value="" type="hidden"  />
+<!-- <form id="boardSearchForm" name="" action="/myshop/board_list.html" method="get" target="" enctype="multipart/form-data" > -->
+<!-- <input id="board_no" name="board_no" value="" type="hidden"  />
 <input id="page" name="page" value="1" type="hidden"  />
-<input id="board_sort" name="board_sort" value="" type="hidden"  /><div class="xans-element- xans-myshop xans-myshop-boardlistsearch "><fieldset class="boardSearch">
-<legend>게시물 검색</legend>
-        <p><select id="search_key" name="search_key" fw-filter="" fw-label="" fw-msg=""  >
-<option value="writer_name">이름</option>
-<option value="subject">카테고리</option>
-<option value="content">내용</option>
+<input id="board_sort" name="board_sort" value="" type="hidden"  /><div class="xans-element- xans-myshop xans-myshop-boardlistsearch "> --><fieldset class="boardSearch">
+        <p><select id="field" name="field"  >
+<option value="1">내용</option>
+<option value="2">카테고리</option>
 
 
-</select> <input id="search" name="search"  style="height:27px" class="inputTypeText" placeholder="" value="" type="text"  />
-<input type="button" id="btnSearch" class="btnNormalFix" style="height:27px" value="search">
+
+</select> 
+<input id="keyword1" name="keyword1"  style="height:27px" class="inputTypeText" placeholder="내용을 입력해주세요"
+	 value="${param.keyword1}" type="text"  />
+<input type="text" style="display: none"	> 
+<input type="button" id="btnSearch" name="btnSearch" class="btnNormalFix" style="height:27px" value="search">
  </p>
     </fieldset>
 </div>
-</form>        
 </div>
+</form>        
 <div class="xans-element- xans-myshop xans-myshop-boardlist ec-base-table typeList gBorder gBlank10">
 
 <table border="1" summary="">
@@ -132,9 +244,9 @@ try{
 </thead>
             
      
-<tbody style="text-align: center">
+
        <c:if test="${ empty reviewList}">
-       <p class="message">작성한 게시물이 없습니다.</p>
+       <p class="message" style="width:1220px;position: absolute; top:180px">작성한 게시물이 없습니다.</p>
        </c:if>
       
 <c:forEach var="review" items="${reviewList}" varStatus="i">
@@ -155,18 +267,34 @@ try{
                 
             </tr>
             </c:forEach>
-</tbody>
-
-</table>
+            
            
 
-</div>
-</div>
-</div>   
-</div>  
-</div>   
-</div>  
 
+</table>
+
+
+</div><div id="pageNation" style="position: absolute; top: -120px; left: 210px">
+   <c:if test="${ not empty reviewList }">
+      <!-- 페이지네이션 -->
+      <div class="pagenationDiv" style="text-align: center;">
+         <div class="pagination" >
+          <%
+          BoardUtil util=BoardUtil.getInstance();
+         BoardUtilVO buVO=new BoardUtilVO("posting.jsp",keyword,field,currentPage,totalPage);
+         out.println(util.pageNation(buVO));
+          %>
+         </div>
+      </div>
+      </c:if>
+      </div> 
+</div>
+</div>   
+</div>  
+</div>
+       
+  
+    
  
 
  <%@ include file="postingfooter.jsp" %> 

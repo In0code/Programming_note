@@ -52,7 +52,7 @@ td {
 }
 
 th {
-	height:63px;
+	height:50px;
 	font-size:18.5px;
 	background-color: #FAFAFA;
 	vertical-align: middle;
@@ -135,22 +135,22 @@ function boardDelete(rcode){
 		<div id="background_box" style="width:70%; height: 150%">
 			<div style="margin: 10px; text-align: center;">
 			<!-- 리스트 시작 -->
-			<table id="order_list" class="table tableList">
+			<table id="boardList" class="table tableList">
+				<tr>
+					<th style="background-color: #F7F7F7">카테고리</th>
+					<td colspan="8" style="padding-left:20px"><c:out value="${ review.cat_name }"/></td>
+				</tr>
 				<tr>
 					<th style="background-color: #F7F7F7">상품명</th>
 					<td colspan="8" style="padding-left:20px"><c:out value="${ review.gname }"/></td>
 				</tr>
 				<tr>
-					<th style="background-color: #F7F7F7">제목</th>
-					<td colspan="8" style="padding-left:20px"><c:out value="${ review.title }"/></td>
-				</tr>
-				<tr>
 					<th style="background-color: #F7F7F7">작성자</th>
-					<td style="padding-left:20px; width:280px"><c:out value="${ review.id }"/></td>
+					<td style="padding-left:20px; width:260px"><c:out value="${ review.id }"/></td>
 					<th style="background-color: #F7F7F7; width: 100px">작성일</th>
-					<td style="width:160px; padding-left:20px"><c:out value="${ review.rev_date }"/></td>
+					<td style="width:170px; padding-left:20px"><c:out value="${ review.rev_date }"/></td>
 					<th style="width:100px; background-color: #F7F7F7">조회수</th>
-					<td style="width:110px; padding-left:20px"><c:out value="${ review.r_view }"/></td>
+					<td style="width:120px; padding-left:20px"><c:out value="${ review.r_view }"/></td>
 					<th style="width:100px; background-color: #F7F7F7; ">평점</th>
 					<td style="padding-left:20px">
 					<c:forEach var="star" begin="1" end="${ review.star }">

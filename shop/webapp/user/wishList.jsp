@@ -20,6 +20,19 @@
 		////////////// 사용자 관심상품  - 인영 ////////////
 %>
 <style type="text/css">
+
+#pageTitle {
+	font-size: 25px;
+	text-align: center;
+	margin-top: 100px;
+}
+.table-container{
+position: relative;
+}
+#move{
+position: absolute;
+
+}
 #btnBlack{
 font-size: 14px;
 text-align: center;
@@ -35,11 +48,58 @@ background-color:  #FFFFFF;
 height: 56px; width: 500px;
 padding: 16px 16px 16px 16px;
 }
-#pageTitle {
-	font-size: 25px;
-	text-align: center;
-	margin-top: 100px;
+.pagenationDiv{
+   top: 575px;
+   text-align: center;
+    margin-top: 10px; 
 }
+
+.pagination {
+  display: inline-block;
+}
+pagination a{
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+  background-color: white;
+}
+
+.pagination span{
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+  background-color: white;
+}
+
+.pagination a.active {
+  background-color: black;
+  color: white;
+  border: 1px solid #333;
+}
+
+.pagination span.active {
+  background-color: black;
+  color: white;
+  border: 1px solid #333;
+}
+
+.pagination a:hover:not(.active) {background-color: #ddd;}
+
+a {
+   text-decoration: none;
+   color: #333;
+}
+
+a:hover {
+   color: #333;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -47,27 +107,55 @@ $(function(){
 	 $("#btn").click(function(){
 		   $("#frm").submit();
 	   });//click
-	   
-	   $("#btnSearch").click(function(){
-		   chkNull();
-	   });//click
-	   
-	   $("#keyword").keyup(function(evt){ //keyup은 값을 받을 수 있음
-		   if(evt.which == 13){ //enter는 13번
-			   chkNull();
-		   }//end if
-	   });//keyup
+	   $("#btnBlack").click(function() {
+		    window.location.href = "주문하기 페이지 URL";
+		  });////click
+		  $("#btnSubmit").click(function() {
+		    window.location.href = "주문하기 페이지 URL";
+		  });//click
+		  /* $(".addCartBtn").click(function() {
+			        var gcode = $(this).attr('data-gcode');
+			        alert ( "장바구니에 상품 추가 : "+gcode)
+			    
+		            $.ajax({
+		                url: "wish_process.jsp",
+		                type: "POST",
+		                data:{ gcode : gcode },
+		                error: function(xhr) {
+		                    alert("죄송합니다. 서버에 문제가 발생하였습니다. 잠시 후에 다시 시도해주세요.");
+		                },
+		                success: function(data) {
+		                        alert("장바구니에 상품이 추가되었습니다.");
+		                        location.reload();
+		                }//success
+		            });//ajax
+			  });//click */
+			  
+		  $(".deleteBtn").click(function(){
+			    alert("상품이 삭제되었습니다.");
+			  });//click
 	   
 	});//ready
+	
+	function bucket(gcode) {
+        alert ( "장바구니에 상품 추가 : "+gcode);
+    
+        $.ajax({
+            url: "wish_process.jsp",
+            type: "POST",
+            data: "gcode="+gcode,
+            dataType: "text",
+            error: function(xhr) {
+                alert("죄송합니다. 서버에 문제가 발생하였습니다. 잠시 후에 다시 시도해주세요.");
+            },
+            success: function(data) {
+                    alert("장바구니에 상품이 추가되었습니다." + data);
+                    location.reload();
+            }//success
+        });//ajax
+	}
 
 	function chkNull(){
-		var keyword=$("#keyword").val();
-		
-		if(keyword.trim() == "" ){
-			alert("검색 키워드를 입력해주세요.");
-			return;
-		}//end if
-		//글자수 제한
 		//
 		$("#frmSearch").submit();
 	}//chkNull
@@ -120,9 +208,10 @@ try{
 WishListDAO wlDAO=WishListDAO.getInstance();
 String id=(String)session.getAttribute("sesId");
 
-List<WishListVO> list=wlDAO.selectAllWishList("inyoung", brVO);
+List<WishListVO> list=wlDAO.selectAllWishList("tuna5127", brVO);
 
 pageContext.setAttribute("wishList", list);
+pageContext.setAttribute("deliveryPrice", deliveryPrice);
 pageContext.setAttribute("deliveryPrice", deliveryPrice);
 }catch(SQLException se){
 	se.printStackTrace();
@@ -132,25 +221,25 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 <div id="pageTitle" style="font-family:Pretendard Medium;">관심상품</div><br>
 <div id="container" style="font-family:Pretendard Medium;">
 	<div id="contents">
-		<div >
+		<div class="table-container">
+				<form id="tableFrm">
 			<table class="table" id="table" style="border: 1px solid #E5E4E4;">
 				<tr style="border: 1px solid #E5E4E4; border-bottom: 1px solid #919191;">
 					<td  style="width:10px; color: #929492">
 						<input type="hidden" style="border: 1px solid #929492 ; width: 15px; height: 15px"/>
 					</td>
-					<td style="width:100px; color: #929492;">이미지</td>
-					<td style="width:350px;color: #929492; ">상품정보</td>
-					<td style="width:350px;color: #929492; ">판매가</td>
-					<td style="width:100px;color: #929492;">배송비</td>
-					<td style="width:100px ;color: #929492;">합계</td>
-					<td style="width:10px; color: #929492;"> 선택</td>
+					<td style="width:100px; color: #929492; vertical-align: middle;">이미지</td>
+					<td style="width:350px;color: #929492;vertical-align: middle; ">상품정보</td>
+					<td style="width:200px;color: #929492; vertical-align: middle;">판매가</td>
+					<td style="width:100px;color: #929492;vertical-align: middle;">배송비</td>
+					<td style="width:100px ;color: #929492;vertical-align: middle;">합계</td>
+					<td style="width:100px; color: #929492;vertical-align: middle;"> 선택</td>
 				</tr>
 				<c:if test="${ empty wishList }">
 					<tr>
 					<td colspan="7" style="text-align: center; padding:100px">회원정보가 존재하지 않습니다</td>
 					</tr>
 				</c:if>
-				
 					<c:forEach var="wish" items="${ wishList }" varStatus="i">
 					  <tr style="border-bottom: 1px solid #E5E4E4;" >
 						<td style=" vertical-align: middle;"><input type="checkbox" class="check" name="check"  value="${ wish.wcode }" style="border: 1px solid #929492 ; width: 15px; "></td> 
@@ -160,31 +249,35 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 						<td style=" vertical-align: middle;"><c:out value="<%= deliveryPrice %>"/></td>
 					 	<td style=" vertical-align: middle;"><c:out value="${ wish.price + deliveryPrice }"/></td> 
 						<td>
-							<input type="button" value="주문하기" id="orderBtn" name="orderBtn" style="width:90px; height:30px ;background-color: white;border : 1px solid #929492;"/><br/>
-					 		<input type="button" value="장바구니담기" id="addCartBtn" name="addCartBtn" style="width:90px; height:30px ;background-color: white;border : 1px solid #929492;"/><br/>
-					 		<input type="button" value="x삭제" id="deleteBtn" name="deleteBtn" style="width:90px; height:30px ;background-color: white; border : 1px solid #929492;"/>
+							<input type="button" value="주문하기" id="orderBtn${ wish.gcode }" class="orderBtn" name="orderBtn" style="width:90px; height:30px ;background-color: white;border : 1px solid  #E5E4E4;"/><br/>
+					 		<input type="button" value="장바구니담기" data-gcode="${ wish.gcode }" <%-- id="addCartBtn${ wish.gcode }" --%> class="addCartBtn" name="addCartBtn" onclick="bucket('${wish.gcode}')" style="width:90px; height:30px ;background-color: white;border : 1px solid  #E5E4E4;"/><br/>
+					 		<input type="button" value="x삭제" id="deleteBtn${ wish.gcode }" class="deleteBtn" name="deleteBtn" style="width:90px; height:30px ;background-color: white; border : 1px solid  #E5E4E4;"/>
 					 	</td>
 					 </tr>
 					</c:forEach>
 				</table>
+				</form>
 		</div>
+		<div class="move">
+		
 				<div class="xans-element- xans-order xans-order-totalorder ec-base-button 100per">
 					<a href="" class="btnBlack" id="btnBlack">전체상품주문</a>
 		     		<a href="" class="btnSubmit" id="btnSubmit">선택상품주문</a> 
 				</div>
 		
-          <c:if test="${ not empty orderList }">
+          <c:if test="${ not empty wishList }">
 		<!-- 페이지네이션 -->
-		<div class="pagenationDiv" style=" position: absolute; top: 775px; width: 1480px; text-align: center;">
-			<div class="pagination" style="display: inline-block;">
+		<div class="pagenationDiv">
+			<div class="pagination">
  			<%
  			BoardUtil util=BoardUtil.getInstance();
-			BoardUtilVO buVO=new BoardUtilVO("orderManagement_order.jsp","","",currentPage,totalPage);
+			BoardUtilVO buVO=new BoardUtilVO("wishList.jsp","","",currentPage,totalPage);
 			out.println(util.pageNation(buVO));
  			%>
 			</div>
 		</div>
 		</c:if>
+</div>
 </div>
 <%@ include file="layout/footer.jsp"%>
 </div>

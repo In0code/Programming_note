@@ -1,3 +1,4 @@
+<%@page import="admin.dao.UserReviewDAO"%>
 <%@page import="org.json.simple.JSONObject"%>
 <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
@@ -27,6 +28,8 @@ $(function(){
 
 </head>
 <%
+UserReviewDAO uDAO = UserReviewDAO.getInstance();
+//파일업로드
 File uploadDir = new File("C:/Users/user/git/prj_online_store/prj_web_shopping/src/main/webapp/upload/review");
 int maxSize=1024*1024*30;
 MultipartRequest mr = new MultipartRequest(request , uploadDir.getAbsolutePath(), maxSize,"UTF-8",new DefaultFileRenamePolicy());
@@ -44,6 +47,8 @@ if(uploadFile.length() > blockSize){
 
 JSONObject json = new JSONObject();
 json.put("fileName", fileName);
+
+//insert 
 
 
 

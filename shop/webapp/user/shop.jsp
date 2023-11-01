@@ -1,7 +1,7 @@
-<%@page import="user.vo.ProductVO"%>
+<%@page import="user.vo.GoodsVO"%>
 <%@page import="java.util.List"%>
 <%@page import="java.sql.SQLException"%>
-<%@page import="user.dao.ProductDAO"%>
+<%@page import="user.dao.GoodsDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -35,8 +35,8 @@
 
 .xans-product-headcategory.title h3 {
     position: absolute;
-    top: 30px;
-    left: 35px;
+    top: 50px;
+    left: 40px;
     line-height: 1.4;
     font-size: 16px;
     font-weight: normal;
@@ -63,19 +63,19 @@ $(function() {
 <body>
 <%@ include file="layout/header.jsp"%>
 <%
-	ProductDAO pDAO = ProductDAO.getInstantce();
+	GoodsDAO gDAO = GoodsDAO.getInstantce();
 	String category = request.getParameter("category");
-	List<ProductVO> productList = null;
+	List<GoodsVO> productList = null;
 
 	try{
 		if(category == null){
 			productList = null;
-			productList = pDAO.selectAllProducts();
+			productList = gDAO.selectAllProducts();
 		}
 		
 		if(category != null){
 			productList = null;
-			productList = pDAO.selectCateProducts(category);
+			productList = gDAO.selectCateProducts(category);
 		}
 		
 		pageContext.setAttribute("productList", productList);
@@ -83,9 +83,7 @@ $(function() {
 	}catch(SQLException se){
 		se.printStackTrace();
 	}
-	
 %>
-
 
 <div id="container">
      <div id="contents" role="main">
@@ -97,7 +95,7 @@ $(function() {
 
 <div class="xans-element- xans-product xans-product-headcategory title ">
 	<div id="pageTitle">
-		<h2 class="hFamily_PD" style="margin-bottom:30px">
+		<h2 class="hFamily_PD" style="margin-bottom:30px; font-size:29px">
 			${ empty param.category ? 'All Products' : productList.get(0).getCat_name() }		
 		</h2>
 	</div>
@@ -133,7 +131,7 @@ $(function() {
     		<!-- 대표 사진 -->
             <div class="thumbnail">
             	  <!-- 사진 눌렀을 때 이동할 상품 페이지 -->
-                  <a href="http://localhost/prj_web_shopping/user/product_detail.jsp?gcode=${ product.gcode }">
+                  <a href="product_detail.jsp?gcode=${ product.gcode }">
                       <img class="hI hImg orgImg hImgover" src="http://localhost/prj_web_shopping/upload/goods/${ product.main_img }" id="img${ product.gcode }" alt="Cherie ${ product.gname }">
                       <img class="hoverImg" src="http://localhost/prj_web_shopping/upload/goods/${ product.img1 }" id="img${ product.gcode }" alt="Cherie ${ product.gname }">
                         &nbsp;<!--img class="hI hImg orgImg" src="//sw19official.com/web/product/medium/202309/4b9b535eb0e7b015b45944a86c995269.jpg" id="eListPrdImage104_1" alt="SW19 MINI DISCOVERY SET"><img class="hoverImg" src="//sw19official.com/web/product/tiny/202309/451ea41391969b890543f550968841d0.jpg" id="eListPrdImage104_1" alt="SW19 MINI DISCOVERY SET"-->
@@ -160,10 +158,12 @@ $(function() {
                       <span id="span_product_tax_type_text" style=""> </span>                                
                     </li>
 				</ul>
-<!-- 				<div class="icon"></div>
+				<c:if test="${ product.gcode eq 'PF0007' }">
+ 				<div class="icon"></div>
                 <div class="iconNew"><img src="/web/upload/icon_202206091627347200.png" class="icon_img" alt="New">
                 	<span>NEW!</span>
-				</div> -->
+				</div>
+				</c:if>
          	</div>
     </div>
 </li>
@@ -171,9 +171,6 @@ $(function() {
 </c:forEach>
 </ul>
 </div>
-
-
-
 <!-- 더보기 버튼 -->
 <!-- <div class="xans-element- xans-product xans-product-listmore more ">
 	<a href="#none" onclick="try { $M.displayMore(0, 0, 48, 30, 0, false, 'S0000000', false, ''); } catch(e) { return false; }" class="btnMore">

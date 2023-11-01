@@ -23,7 +23,6 @@
         width: calc(100% - 30px) !important;
     }
 
-    /* 2212 비회원 회원가입 버튼 커스텀 */
     #contents .member_check_product {
         display: none;
     }
@@ -42,7 +41,6 @@
     	opacity: 0.7;
     }
 </style>
-
 
 <script type="text/javascript">
 $(function() {
@@ -74,6 +72,12 @@ function hover(event, element) {
 </head>
 <body>
 <%@ include file="layout/header.jsp" %>
+
+<%
+
+
+
+%>
 
 <div id="container" style="font-family:Pretendard Medium">
     <div id="contents" role="main" data-product="SW19 6am EAU DE PARFUM (50ml)" data-product-code="13" data-cat-code="49" class="xans-element- xans-product xans-product-detail ">

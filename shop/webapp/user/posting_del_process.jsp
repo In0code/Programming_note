@@ -37,7 +37,7 @@ MultipartRequest mr = new MultipartRequest( request, saveDir.getAbsolutePath() ,
 String rcode= mr.getParameter("rcode");
 System.out.println(rcode+"del");
 try{
-	 uDAO.deleteReivew(Integer.parseInt(rcode));
+	 uDAO.updateCancle(Integer.parseInt(rcode));
 	
 
 	
