@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import admin.vo.BoardRangeVO;
 import admin.vo.ProductManageVO;
 import admin.vo.UserReviewVO;
 import common.dao.DbConnection;
@@ -31,7 +32,7 @@ public class UserReviewDAO {
 	
 	
 	
-	public List<SummaryVO> selectAllReview(String id) throws SQLException {
+	public List<SummaryVO> selectAllReview(String id,BoardRangeVO brVO) throws SQLException {
 		
 		List<SummaryVO> list = new ArrayList<SummaryVO>();
 		
@@ -48,11 +49,43 @@ public class UserReviewDAO {
 			
 			StringBuilder selectAllReview = new StringBuilder();
 
-			selectAllReview.append(" select  m.name, r.REV_CONT, r.star , to_char(r.rev_date,'yyyy-MM-dd') as REV_DATE , r.r_view, r.rcode ,c.cat_name from member m, review r,goods g, category c where m.id=r.id and g.gcode=r.gcode and c.cat_code = g.cat_code and m.id= ? ");
+			selectAllReview.append("select  name, REV_CONT, star ,  REV_DATE , r_view, rcode ,cat_name from (select row_number() over(order by rcode desc) rnum , m.name, r.REV_CONT, r.star , to_char(r.rev_date,'yyyy-MM-dd') as REV_DATE , r.r_view, r.rcode ,c.cat_name  from member m, review r,goods g, category c where m.id=r.id and g.gcode=r.gcode and c.cat_code = g.cat_code and m.id= ? and r.cancle not in ('Y')");
+			
+			
+			
+			
+			if(brVO.getKeyword() != null && !"".equals(brVO.getKeyword() )&& !"null".equals(brVO.getKeyword())) {
+				String field="r.REV_CONT";
+				if("1".equals(brVO.getField())) {
+					field="r.REV_CONT";
+				}//end if
+				if("2".equals(brVO.getField())) {
+					field="c.cat_name";
+				}//end if
+//				if("2".equals(brVO.getField())) {
+//					field="c.cat_name ";
+//				}//end if
+//				
+				selectAllReview.append("and ").append(field).append(" like '%'||?||'%' ");
+			}//end if
+
+			selectAllReview.append(")	where rnum between ? and ?					");
 			
 			pstmt=con.prepareStatement(selectAllReview.toString());
+		//5. 바인드 변수 값 설정
+			int bindCnt=1;
+			 pstmt.setString(bindCnt++, id);
+			if(brVO.getKeyword() != null && !"".equals(brVO.getKeyword() )&& !"null".equals(brVO.getKeyword())) {
+			pstmt.setString(bindCnt++, brVO.getKeyword());	
+			}//end if
 			
-			pstmt.setString(1, id);
+			//pstmt.setString(1, id);
+			pstmt.setInt(bindCnt++, brVO.getStartNum());
+			pstmt.setInt(bindCnt++, brVO.getEndNum());
+			
+			
+
+			
 			
 			rs=pstmt.executeQuery();
 			SummaryVO sVO= null;
@@ -159,7 +192,7 @@ public void updateReivew ( String review,int star,int rcode,String img) throws S
 
 }
 
-public void deleteReivew (int rcode) throws SQLException {
+public void updateCancle (int rcode) throws SQLException {
 	
 	
 	
@@ -175,7 +208,7 @@ public void deleteReivew (int rcode) throws SQLException {
 	try {
 		con=db.getConn("jdbc/dbcp");
 		
-		String deleteReivew = "delete from review where rcode=? ";
+		String deleteReivew = "update review set CANCLE = 'Y' where rcode=? ";
 
 		
 		
@@ -183,7 +216,8 @@ public void deleteReivew (int rcode) throws SQLException {
 		
 		pstmt.setInt(1, rcode);
 		
-		pstmt.executeQuery();
+		int cnt=pstmt.executeUpdate();
+		System.out.println(cnt+"건 변경되었습니다.");
 	
 	}finally {
 		db.dbClose(null, pstmt, con);
@@ -232,6 +266,36 @@ public ProductManageVO selectproductImg(String gcode) throws SQLException {
 	}
 	
 	return pmVO;
+}
+
+public void insertReview(String fileName,String gcode, String id)throws SQLException {
+	
+	
+	DbConnection db= DbConnection.getInstance();
+	Connection con = null;
+	PreparedStatement pstmt=null;
+	
+try {
+		
+		con=db.getConn("jdbc/dbcp");
+		
+		String insertReview = " select main_img , gname from goods where gcode=? ";
+
+		
+		
+		pstmt=con.prepareStatement(insertReview);
+		
+		pstmt.setString(1, fileName);
+		pstmt.setString(2, gcode);
+		pstmt.setString(3, id);
+		
+		pstmt.executeQuery();
+		
+		
+	}finally {
+		db.dbClose(null, pstmt, con);
+		
+	}
 }
 	
 	

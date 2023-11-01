@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import admin.vo.BoardRangeVO;
 import admin.vo.OrderVO;
 import common.dao.DbConnection;
 import user.vo.CartVO;
@@ -26,7 +27,7 @@ public class CartDAO {
 		return bkDAO;
 	}//getInstance
 
-	public List<CartVO> selectAllList(String userId) throws SQLException{
+	public List<CartVO> selectAllCartList(String id,BoardRangeVO brVO) throws SQLException{
 		CartVO bkVO=null;
 		List<CartVO> list= new ArrayList<CartVO>();
 		
@@ -41,22 +42,35 @@ public class CartDAO {
 		//3. Connection 얻기
 			con=db.getConn("jdbc/dbcp");
 		//4. 쿼리문 생성 객체 얻기
-			StringBuilder selectAllOrder=new StringBuilder();
-			selectAllOrder
-			.append("	select g.IMG1, g.GNAME, g.PRICE, bl.AMOUNT	")
-			.append("	from BUCKET_LIST bl ,UORDER u ,GOODS g	")
-			.append("	where (u.id=bl.id and g.GCODE = bl.GCODE) and u.id= ?	");
+			StringBuilder selectAllCartList=new StringBuilder();
+			selectAllCartList
+			.append("	select MAIN_IMG,gname,price, AMOUNT, id, gcode , bcode	")
+			.append("	from(select row_number() over(order by bcode ) rnum,	")
+			.append("	g.MAIN_IMG, g.gname, g.price,bl.AMOUNT, bl.id ,bl.GCODE, bl.bcode	")
+			.append("	from goods g, BUCKET_LIST bl	")
+			.append("	where  g.gcode = bl.gcode and bl.id= ?	");
 			
-			pstmt=con.prepareStatement(selectAllOrder.toString());
+			boolean flag = false;
+			if(brVO.getStartNum() != 0) {
+				selectAllCartList.append(")	WHERE RNUM BETWEEN ? AND ?	");
+				flag = true;
+			}//end if
 			
-			pstmt.setString(1, userId);
+			pstmt=con.prepareStatement(selectAllCartList.toString());
+		//5. 바인드 변수 값 설정
+			pstmt.setString(1, id);
+			
+			if(flag) {
+				pstmt.setInt(2, brVO.getStartNum());
+				pstmt.setInt(3, brVO.getEndNum());
+			}//end if
 		//5. 바인드 변수 값 설정
 		//6. 쿼리문 실행 후 값 얻기
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				bkVO=new CartVO();
-				bkVO.setImg(rs.getString("IMG1"));
-				bkVO.setProductName(rs.getString("GNAME"));
+				bkVO.setImg(rs.getString("MAIN_IMG"));
+				bkVO.setGname(rs.getString("GNAME"));
 				bkVO.setPrice(rs.getInt("PRICE"));
 				bkVO.setAmount(rs.getInt("AMOUNT"));
 				list.add(bkVO);
@@ -72,6 +86,7 @@ public int intsertAddCart(String id, int gcode)throws SQLException {
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
+		CartVO cVO=new CartVO();
 		int rowCnt = 0;
 		
 		DbConnection db = DbConnection.getInstance();
@@ -79,12 +94,16 @@ public int intsertAddCart(String id, int gcode)throws SQLException {
 			// 2. 커넥션 얻기
 			con=db.getConn("jdbc/dbcp");
 			// 3. 쿼리문 생성 객체 얻기
-			String intsertWhisList = "insert into WISHLIST (WCODE, ID, GCODE) values(wish_seq.nextval, ? , ? )";
+			StringBuilder intsertAddCart=new StringBuilder();
+			intsertAddCart
+			.append("	insert into BUCKET_LIST (ADD_DATE, GCODE, ID, AMOUNT, BCODE)	")
+			.append("	values(sysdate, ? , ? , ? ,cart_seq.nextval )	");
 			
-			pstmt = con.prepareStatement(intsertWhisList);
+			pstmt = con.prepareStatement(intsertAddCart.toString());
 			
-			pstmt.setString(1, id);
-			pstmt.setInt(2, gcode);
+			pstmt.setInt(1, gcode);
+			pstmt.setString(2, id);
+			pstmt.setInt(3, cVO.getAmount());
 			
 			// 5. 쿼리문 실행 결과 얻기
 			rowCnt = pstmt.executeUpdate();

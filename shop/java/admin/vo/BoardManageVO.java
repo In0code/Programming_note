@@ -1,18 +1,17 @@
 package admin.vo;
 
 public class BoardManageVO {
-	String gname, title, rev_cont, img, rev_date, cancle, id, cat_name; 
+	String gname, rev_cont, img, rev_date, cancle, id, cat_name; 
 	int star, r_view, rcode;
 	
 	public BoardManageVO() {
 		super();
 	}
-	
 
-	public BoardManageVO(String title, String gname, String rev_cont, String img, String rev_date, String id, int star, int r_view) {
+	public BoardManageVO(String gname, String cat_name, String rev_cont, String img, String rev_date, String id, int star, int r_view) {
 		super();
-		this.title = title;
 		this.gname = gname;
+		this.cat_name = cat_name;
 		this.rev_cont = rev_cont;
 		this.img = img;
 		this.rev_date = rev_date;
@@ -21,11 +20,10 @@ public class BoardManageVO {
 		this.r_view = r_view;
 	}
 
-	public BoardManageVO(int rcode, String cat_name, String gname, String title, String id, String rev_date, int star) {
+	public BoardManageVO(int rcode, String cat_name, String gname, String id, String rev_date, int star) {
 		super();
 		this.cat_name = cat_name;
 		this.gname = gname;
-		this.title = title;
 		this.rev_date = rev_date;
 		this.id = id;
 		this.star = star;
@@ -36,7 +34,6 @@ public class BoardManageVO {
 			String id, String cat_name, int star, int r_view, int rcode) {
 		super();
 		this.gname = gname;
-		this.title = title;
 		this.rev_cont = rev_cont;
 		this.img = img;
 		this.rev_date = rev_date;
@@ -62,14 +59,6 @@ public class BoardManageVO {
 
 	public void setCat_name(String cat_name) {
 		this.cat_name = cat_name;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
 	}
 
 	public String getRev_cont() {
@@ -138,9 +127,9 @@ public class BoardManageVO {
 
 	@Override
 	public String toString() {
-		return "BoardManageVO [gname=" + gname + ", title=" + title + ", rev_cont=" + rev_cont + ", img=" + img
-				+ ", rev_date=" + rev_date + ", cancle=" + cancle + ", id=" + id + ", cat_name=" + cat_name + ", star="
-				+ star + ", r_view=" + r_view + ", rcode=" + rcode + "]";
+		return "BoardManageVO [gname=" + gname + ", rev_cont=" + rev_cont + ", img=" + img + ", rev_date=" + rev_date
+				+ ", cancle=" + cancle + ", id=" + id + ", cat_name=" + cat_name + ", star=" + star + ", r_view="
+				+ r_view + ", rcode=" + rcode + "]";
 	}
 
 }

@@ -144,11 +144,11 @@ public class BoardManageDAO {
 			con = db.getConn("jdbc/dbcp");
 			StringBuilder selectReview = new StringBuilder();
 			selectReview
-			.append("	select no, rcode, cat_name, gname, title, id, rev_date, star	")
-			.append("	from (select row_number() over(order by rev_date desc) no,  	")
-			.append(" 	r.rcode, c.cat_name, g.gname, r.title, r.id, r.rev_date, r.star	")
-			.append("	from review r, goods g, category c 								")
-			.append("	where r.gcode = g.gcode and g.cat_code = c.cat_code				");
+			.append("	select no, rcode, cat_name, gname, id, rev_date, star		")
+			.append("	from (select row_number() over(order by rev_date desc) no,  ")
+			.append(" 	r.rcode, c.cat_name, g.gname, r.id, r.rev_date, r.star		")
+			.append("	from review r, goods g, category c 							")
+			.append("	where r.gcode = g.gcode and g.cat_code = c.cat_code			");
 			
 			if(keyword!=null && !"".equals(keyword) && !"null".equals(keyword)) {
 				String field = "id";
@@ -160,13 +160,13 @@ public class BoardManageDAO {
 				}
 				
 				if("2".equals(brVO.getCategory())) {
-					category = "바디케어";
+					category = "Body Care";
 				}else if("3".equals(brVO.getCategory())) {
-					category = "핸드케어";
+					category = "Hand Care";
 				}else if("4".equals(brVO.getCategory())) {
-					category = "홈프래그런스";
+					category = "Home Fragrance";
 				}else if("5".equals(brVO.getCategory())) {
-					category = "향수";
+					category = "Perfume";
 				}
 				
 				selectReview.append("and ").append(field).append(" like '%'||?||'%'	");
@@ -199,8 +199,8 @@ public class BoardManageDAO {
 			
 			while(rs.next()) {
 				bmVO = new BoardManageVO(rs.getInt("rcode"), rs.getString("cat_name"),
-										 rs.getString("gname"), rs.getString("title"), 
-										 rs.getString("id"), rs.getString("rev_date"), rs.getInt("star"));
+										 rs.getString("gname"), rs.getString("id"), 
+										 rs.getString("rev_date"), rs.getInt("star"));
 				list.add(bmVO);
 			}
 			
@@ -230,9 +230,10 @@ public class BoardManageDAO {
 			
 			StringBuilder selectReview = new StringBuilder();
 			selectReview
-			.append("	select id, g.gname, title, rev_cont, star, img,				")
-			.append("	to_char(rev_date,'yyyy-mm-dd') rev_date, r_view				")
-			.append("	from review r, goods g where r.gcode = g.gcode and rcode = ?");
+			.append("	select id, g.gname, c.cat_name, rev_cont, star, img,			 ")
+			.append("	to_char(rev_date,'yyyy-mm-dd') rev_date, r_view					 ")
+			.append("	from review r, goods g, category c 								 ")
+			.append("	where r.gcode = g.gcode and g.cat_code = c.cat_code and rcode = ?");
 			
 			pstmt = con.prepareStatement(selectReview.toString());
 			
@@ -241,10 +242,10 @@ public class BoardManageDAO {
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				bmVO = new BoardManageVO(rs.getString("title"), rs.getString("gname"),
-											rs.getString("rev_cont"),rs.getString("img"),
-											rs.getString("rev_date"),rs.getString("id"),
-											rs.getInt("star"),rs.getInt("r_view"));
+				bmVO = new BoardManageVO(rs.getString("gname"), rs.getString("cat_name"),
+										 rs.getString("rev_cont"), rs.getString("img"), 
+										 rs.getString("rev_date"), rs.getString("id"),
+										 rs.getInt("star"),rs.getInt("r_view"));
 			}
 			
 		}finally {

@@ -77,6 +77,7 @@ public class WishListDAO {
 				wlVO.setImg(rs.getString("MAIN_IMG"));
 				wlVO.setGname(rs.getString("gname"));
 				wlVO.setPrice(rs.getInt("price"));
+				wlVO.setGcode(rs.getString("gcode"));
 				
 				list.add(wlVO);
 			}//end while
