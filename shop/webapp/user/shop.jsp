@@ -1,5 +1,11 @@
+<%@page import="user.vo.ProductVO"%>
+<%@page import="java.util.List"%>
+<%@page import="java.sql.SQLException"%>
+<%@page import="user.dao.ProductDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <jsp:include page="../cdn/cdn.jsp"/>
 <!DOCTYPE html>
 <html>
@@ -27,6 +33,24 @@
 	width: 100%; height: auto; display: block; margin: 20px auto 0;
 }
 
+.xans-product-headcategory.title h3 {
+    position: absolute;
+    top: 30px;
+    left: 35px;
+    line-height: 1.4;
+    font-size: 16px;
+    font-weight: normal;
+    color: #212121;
+}
+
+#contents {
+	position: relative;
+}
+
+a:hover {
+	color: black;
+}
+
 </style>
 <script type="text/javascript">
 $(function() {
@@ -38,6 +62,30 @@ $(function() {
 </head>
 <body>
 <%@ include file="layout/header.jsp"%>
+<%
+	ProductDAO pDAO = ProductDAO.getInstantce();
+	String category = request.getParameter("category");
+	List<ProductVO> productList = null;
+
+	try{
+		if(category == null){
+			productList = null;
+			productList = pDAO.selectAllProducts();
+		}
+		
+		if(category != null){
+			productList = null;
+			productList = pDAO.selectCateProducts(category);
+		}
+		
+		pageContext.setAttribute("productList", productList);
+		
+	}catch(SQLException se){
+		se.printStackTrace();
+	}
+	
+%>
+
 
 <div id="container">
      <div id="contents" role="main">
@@ -48,17 +96,16 @@ $(function() {
 </div>
 
 <div class="xans-element- xans-product xans-product-headcategory title ">
-	<h2 class="hFamily_PD">
-		<div id="pageTitle">All Products</div>
-	</h2>
+	<div id="pageTitle">
+		<h2 class="hFamily_PD" style="margin-bottom:30px">
+			${ empty param.category ? 'All Products' : productList.get(0).getCat_name() }		
+		</h2>
+	</div>
+	<c:if test="${ not empty param.category }">
 	<h3 class="hFamily_PD">
-        <!-- <span tit="All Products"><a href="/product/list.html?cate_no=48">All Products &gt;</a></span> -->
-        <!--span class="displaynone"></span>
-        <span class="displaynone"><a href=""> &gt;</a></span>
-        <span class="displaynone"><a href=""> &gt;</a></span>
-        <span class="displaynone"><a href=""> &gt;</a></span>
-        <span class=""><a href="/category/all-products/48/">All Products &gt;</a></span>-->
+        <span><a href="http://localhost/prj_web_shopping/user/shop.jsp">All Products &gt;</a></span>
     </h3>
+    </c:if>
 <div class="clear"></div>
 <p class="banner"></p>
 
@@ -74,28 +121,21 @@ $(function() {
 	
 <div class="product_area">
         <div class="xans-element- xans-product xans-product-listnormal ec-base-product product"><!--
-                $count = 30
-                    ※ 상품진열갯수를 설정하는 변수입니다. 설정하지 않을 경우, 최대 200개의 상품이 진열 됩니다.
-                    ※ 진열된 상품이 많으면, 쇼핑몰에 부하가 발생할 수 있습니다.
-				$moreview = yes
-                $cache = no
-                $basket_result = /product/add_basket.html
-                $basket_option = /product/basket_option.html
-            -->
-            
 <!--     @@@     상품 진열     @@@       -->
 <ul class="prdList grid3">
 <!-- li가 하나의 상품임 -->
 
+<!-- 상품 시작 -->
+<c:forEach var="product" items="${ productList }">
 <!-- product 1 시작 -->
 <li id="productId_1" class="xans-record-">
     <div class="prdList__item">
     		<!-- 대표 사진 -->
             <div class="thumbnail">
             	  <!-- 사진 눌렀을 때 이동할 상품 페이지 -->
-                  <a href="../user/product_detail.jsp?productId=perfume01">
-                      <img class="hI hImg orgImg hImgover" src="//sw19official.com/web/product/medium/202309/4b9b535eb0e7b015b45944a86c995269.jpg" id="eListPrdImage104_1" alt="SW19 MINI DISCOVERY SET">
-                      <img class="hoverImg" src="//sw19official.com/web/product/extra/big/202309/2abe48472c2f1196c0fce34106502aa5.jpg" id="eListPrdImage104_1" alt="SW19 MINI DISCOVERY SET">
+                  <a href="http://localhost/prj_web_shopping/user/product_detail.jsp?gcode=${ product.gcode }">
+                      <img class="hI hImg orgImg hImgover" src="http://localhost/prj_web_shopping/upload/goods/${ product.main_img }" id="img${ product.gcode }" alt="Cherie ${ product.gname }">
+                      <img class="hoverImg" src="http://localhost/prj_web_shopping/upload/goods/${ product.img1 }" id="img${ product.gcode }" alt="Cherie ${ product.gname }">
                         &nbsp;<!--img class="hI hImg orgImg" src="//sw19official.com/web/product/medium/202309/4b9b535eb0e7b015b45944a86c995269.jpg" id="eListPrdImage104_1" alt="SW19 MINI DISCOVERY SET"><img class="hoverImg" src="//sw19official.com/web/product/tiny/202309/451ea41391969b890543f550968841d0.jpg" id="eListPrdImage104_1" alt="SW19 MINI DISCOVERY SET"-->
                         &nbsp;                            
                   </a>
@@ -103,71 +143,32 @@ $(function() {
             
             <!-- 상품명/가격 -->
             <div class="description">
-                <strong class="name hFamily_PD"><a href="../product/mini_discovery_set.jsp" class="">
+                <strong class="name hFamily_PD"><a href="../product/mini_discovery_set.jsp">
                 <span class="title displaynone">
                 	<span style="font-size:16px;color:#212121;">상품명</span> :
                 </span> 
-                	<span style="font-size:16px;color:#212121;">Chérie MINI DISCOVERY SET</span></a>
+                	<span style="font-size:16px;color:#212121;">${ product.gname }</span></a>
                 </strong>
                 <ul class="xans-element- xans-product xans-product-listitem spec">
                 	<li class=" xans-record-">
                       <strong class="title displaynone">
                       	<span style="font-size:14px;color:#414141;">판매가</span> :
                       </strong> 
-                      <span style="font-size:14px;color:#414141;font-family:Pretendard">30,000원</span>
+                      <span style="font-size:14px;color:#414141;font-family:Pretendard">
+                      	<fmt:formatNumber value="${ product.price }" pattern="#,###,###"/>원
+                      </span>
                       <span id="span_product_tax_type_text" style=""> </span>                                
                     </li>
 				</ul>
-				<div class="icon"></div>
+<!-- 				<div class="icon"></div>
                 <div class="iconNew"><img src="/web/upload/icon_202206091627347200.png" class="icon_img" alt="New">
                 	<span>NEW!</span>
-				</div>
-                <!-- <div class="cart"><img src="//img.echosting.cafe24.com/design/skin/admin/ko_KR/btn_list_cart.gif" onclick="category_add_basket('104','48', '1', 'A0000', false, '1', 'P00000EA', 'A', 'F', '0');" alt="장바구니 담기" class="ec-admin-icon cart"><p><i class="icon-basket"></i><span>Cart</span></p></div> -->
+				</div> -->
          	</div>
     </div>
 </li>
 <!-- product 1 끝 -->
-
-<li id="productId_2" class="xans-record-">
-    <div class="prdList__item">
-    		<!-- 대표 사진 -->
-            <div class="thumbnail">
-                  <a href="../user/product_detail.jsp?productId=perfume02">
-                      <img class="hI hImg orgImg hImgover" src="//sw19official.com/web/product/medium/202302/fc4eb08576b7572250259b7bc052d29f.png" id="eListPrdImage104_1" alt="SW19 MINI DISCOVERY SET">
-                      <img class="hoverImg" src="//sw19official.com/web/product/extra/big/202208/f41071144616ae375ef54722259c530d.png" id="eListPrdImage104_1" alt="SW19 MINI DISCOVERY SET">
-                        &nbsp;<!--img class="hI hImg orgImg" src="//sw19official.com/web/product/medium/202309/4b9b535eb0e7b015b45944a86c995269.jpg" id="eListPrdImage104_1" alt="SW19 MINI DISCOVERY SET"><img class="hoverImg" src="//sw19official.com/web/product/tiny/202309/451ea41391969b890543f550968841d0.jpg" id="eListPrdImage104_1" alt="SW19 MINI DISCOVERY SET"-->
-                        &nbsp;                            
-                  </a>
-                  <div class="icon__box">
-                       <span class="wish"></span>
-                  </div>
-                  <span class="benefit"></span>
-            </div>
-            
-            <!-- 상품명/가격 -->
-            <div class="description">
-                <strong class="name hFamily_PD"><a href="../product/6am_perfume.jsp" class="">
-                <span class="title displaynone">
-                	<span style="font-size:16px;color:#212121;">상품명</span> :
-                </span> 
-                	<span style="font-size:16px;color:#212121;">Chérie 6am EAU DE PARFUM (50ml)</span></a>
-                </strong>
-                <ul class="xans-element- xans-product xans-product-listitem spec">
-                	<li class=" xans-record-">
-                      <strong class="title displaynone">
-                      	<span style="font-size:14px;color:#414141;">판매가</span> :
-                      </strong> 
-                      <span style="font-size:14px;color:#414141;">89,000원</span>
-                      <span id="span_product_tax_type_text" style=""> </span>                                
-                    </li>
-				</ul>
-				<div class="icon"></div>
-                <!-- <div class="iconNew"><img src="/web/upload/icon_202206091627347200.png" class="icon_img" alt="New">
-                	<span>NEW!</span></div> -->
-                <!-- <div class="cart"><img src="//img.echosting.cafe24.com/design/skin/admin/ko_KR/btn_list_cart.gif" onclick="category_add_basket('104','48', '1', 'A0000', false, '1', 'P00000EA', 'A', 'F', '0');" alt="장바구니 담기" class="ec-admin-icon cart"><p><i class="icon-basket"></i><span>Cart</span></p></div> -->
-         </div>
-    </div>
-</li>
+</c:forEach>
 </ul>
 </div>
 

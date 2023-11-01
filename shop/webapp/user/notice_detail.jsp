@@ -1,3 +1,6 @@
+<%@page import="java.sql.SQLException"%>
+<%@page import="admin.vo.NoticeVO"%>
+<%@page import="admin.dao.NoticeDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <jsp:include page="../cdn/cdn.jsp"/>
@@ -125,23 +128,53 @@ $(function() {
 <input id="bdf_del_url" name="bdf_del_url" value="/exec/front/Board/del/1" type="hidden"  />
 <input id="bdf_action_type" name="bdf_action_type" value="" type="hidden"  />
 
+<%
+NoticeDAO nDAO = NoticeDAO.getInstance();
+String title = "";
+String context = "";
+String date = "";
+String editDate = "";
+String image = "";
+int view = -1;
+
+try {
+	int ncode = Integer.parseInt(request.getParameter("ncode"));
+	NoticeVO nVO = nDAO.selectOneNotice(ncode);
+	
+	title = nVO.getNoticeTitle();
+	context = nVO.getNoticeText();
+	date = nVO.getNoticeDate();
+	view = nVO.getViewNum();
+	editDate = nVO.getEditDate();
+	image = nVO.getImage();
+	
+	pageContext.setAttribute("editDate", editDate);
+	pageContext.setAttribute("image", image);
+	
+} catch(SQLException se) {
+	se.printStackTrace();
+} catch(NumberFormatException nfe) {
+	nfe.printStackTrace();
+}
+%>
+
 <!-- 게시글 전체 영역 -->
 <div class="xans-element- xans-board xans-board-read-1002 xans-board-read xans-board-1002">
 <!-- 제목 영역 -->
 <div class="board_top ">
 	<ul>
 		<!-- 제목 -->
-		<li class="subject" style="font-size:18px">애프터 블로우 10월 한글날 배송 안내 (10/6 - 10/9)</li>
+		<li class="subject" style="font-size:18px"><%=title %></li>
 		
 		<li class="name" style="font-size:15px">
 			<!-- <span style="margin-right:20px">작성자</span> <span style="color:gray;">Afterblow | </span> --> 
 			<!-- 작성일 -->
 			<span style="color:gray;">
-				<span style="color:#353535">DATE&nbsp;</span> 2023-10-04 &nbsp;|&nbsp; 
+				<span style="color:#353535">DATE&nbsp;</span><%=date %><%=editDate == null?"":"("+editDate+")" %>&nbsp;|&nbsp; 
 			</span>
 			<!-- 조회수 -->
 			<span style="color:gray;">
-				<span style="color:#353535">HIT&nbsp;</span> 124
+				<span style="color:#353535">HIT&nbsp;</span><%=view %>
 			</span>
 		</li>
 <!-- 		<li><hr></li>
@@ -158,21 +191,22 @@ $(function() {
 </div>
 <!-- 제목 영역 끝 -->
 
-<!-- 본문 영역 -->
+<!-- 본문 사진 영역 -->
 <div class="detail">
 	<div class="fr-view fr-view-article">
-		<p>
-			<img src="/web/upload/NNEditor/20231004/AB_notice.jpg" data-result="success" 
-			data-name="AB_notice.jpg" data-size="1000px/1442px" data-filesize="638,22 kB" data-error="" class="fr-fic fr-dib"><br></p><p><br>
+		<p style="text-align: center;margin-right: 10px;">
+			<img src="http://localhost/prj_web_shopping/upload/notice/<%=image %>" onerror="this.style.display='none'">
 		</p>
 	</div>
+	<div style="font-size:20px; text-align:left">
+		<span><%=context%></span>
+	</div>
 </div>
-<!-- 본문 영역 끝 -->
-
+<!-- 본문 글 영역 끝 -->
 <!-- 하단 영역 -->
 <div class="ec-base-button xans-element- xans-product xans-product-listmore more ">
 	<span>
-		<a href="http://localhost/cherie_ysy_private/view/notice.jsp" class="btnMore">목록</a>   
+		<a href="http://localhost/prj_web_shopping/user/notice.jsp" class="btnMore">목록</a>   
 	</span>
 </div>
 <!-- 하단 영역 끝 --> 

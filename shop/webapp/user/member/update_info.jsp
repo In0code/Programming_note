@@ -21,8 +21,25 @@ href="https://afterblow-scent.com/ind-script/optimizer_user.php?filename=tZRbTkQ
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&amp;display=swap" rel="stylesheet" />
 <style type="text/css">
+#Header {
+    position: relative;
+    width: 100%;
+    font-size: 16px;
+    padding: 30px;
+    background: #fff;
+    border-bottom: 1px solid #fff;
+    z-index: 99;
+    z-index: 99;
+}
+#Footer {
+    position: relative;
+    padding: 100px 0 120px 0;
+    margin-top: 100px;
+    border-top: 1px solid #fff;
+    background: #fff;
+    z-index: 90;
+}
 </style>
-
 <script type="text/javascript">
 $(function() {
 
@@ -105,7 +122,7 @@ try{
 <%@ include file="../layout/header.jsp"%>
 <div id="contents">
 		<div class="titleArea">
-			<h2>회원 정보 수정</h2>
+			<h2><big>회원 정보 수정</big></h2>
 		</div>
 
 		<h3 class="displaynone ">기본정보</h3>

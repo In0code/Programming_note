@@ -85,10 +85,10 @@ function checkNull(){
 		<h6 style="font-weight: bold">로그인</h6><br>
 		<form action="login_process.jsp" method="post" name="frm" id="frm">
 		<fieldset>
-			<input type='text' id="id" name="id" class="inputForm" placeholder="회원 아이디">
+			<input type='text' id="id" name="id" class="inputForm" placeholder="회원 아이디" style="height:40px"/>
 		</fieldset>
 		<fieldset>
-			<input type='password' id="pw" name=pass class="inputForm"  placeholder="비밀번호">
+			<input type='password' id="pw" name=pass class="inputForm"  placeholder="비밀번호" style="height:40px"/>
 		</fieldset>		
 		<!-- 로그인 버튼  -->
 		<div>

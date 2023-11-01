@@ -9,7 +9,7 @@
     <%
     if("GET".equals(request.getMethod().toUpperCase())){  //HTTP 요청 메소드가 "GET"인지 확인
     	response.sendRedirect("mypage.jsp");						//조건이 만족되면, 이 부분은 사용자의 브라우저를 통해 "mypage.jsp" 페이지로 리다이렉션함. 
-    	return;																		//즉, GET 요청이 들어오면 사용자를 마이페이지로 보내는 역할.
+    	return;																			//GET 요청이 들어오면 사용자를 마이페이지로 보내는 역할.
     }//end if
     %>
     
@@ -32,7 +32,7 @@ $(function() {
 </head>
 
 <body>
-<jsp:useBean id="lVO" class="member.vo.LoginVO" scope="session"/>
+<jsp:useBean id="lVO" class="member.vo.LoginVO" scope="page"/>
 <jsp:setProperty property="*" name="lVO"/>
 <%
 //암호화

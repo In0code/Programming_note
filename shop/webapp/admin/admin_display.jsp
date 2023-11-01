@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ page info=""%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<jsp:include page="../cdn/admin_cdn.jsp"/>
 <!DOCTYPE html>
 <html>
 <head>

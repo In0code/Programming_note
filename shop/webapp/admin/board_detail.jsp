@@ -8,9 +8,11 @@
     pageEncoding="UTF-8"%>
 <%@ page info=""%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:if test="${ empty adminId }">
-	<c:redirect url="login.jsp"/>
-</c:if>
+<%
+	if(request.getParameter("rcode") == null){
+		response.sendRedirect("boardManagement.jsp");
+	}
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -135,15 +137,17 @@ function boardDelete(rcode){
 			<!-- 리스트 시작 -->
 			<table id="order_list" class="table tableList">
 				<tr>
+					<th style="background-color: #F7F7F7">상품명</th>
+					<td colspan="8" style="padding-left:20px"><c:out value="${ review.gname }"/></td>
+				</tr>
+				<tr>
 					<th style="background-color: #F7F7F7">제목</th>
-					<td colspan="5" style="padding-left:20px"><c:out value="${ review.title }"/></td>
+					<td colspan="8" style="padding-left:20px"><c:out value="${ review.title }"/></td>
 				</tr>
 				<tr>
 					<th style="background-color: #F7F7F7">작성자</th>
-					<td colspan="5" style="padding-left:20px"><c:out value="${ review.id }"/></td>
-				</tr>
-				<tr>
-					<th style="background-color: #F7F7F7">작성일</th>
+					<td style="padding-left:20px; width:280px"><c:out value="${ review.id }"/></td>
+					<th style="background-color: #F7F7F7; width: 100px">작성일</th>
 					<td style="width:160px; padding-left:20px"><c:out value="${ review.rev_date }"/></td>
 					<th style="width:100px; background-color: #F7F7F7">조회수</th>
 					<td style="width:110px; padding-left:20px"><c:out value="${ review.r_view }"/></td>
@@ -155,7 +159,14 @@ function boardDelete(rcode){
 					</td>
 				</tr>
 				<tr>
-					<td colspan="6" style="border:none; padding: 10px 0px 0px 58px;">
+					<c:if test="${ review.img ne '0' }">
+						<td colspan="8" style="border:none; padding: 10px 58px 10px 58px;">
+						<img src="http://localhost/prj_web_shopping/upload/review/${ review.img }" width="300px" alt="img"/>
+					</td>
+					</c:if>
+				</tr>
+				<tr>
+					<td colspan="8" style="border:none; padding: 10px 58px 10px 58px;">
 					<span style="font-size:18px; text-align:left;">${ review.rev_cont }</span>
 					</td>
 				</tr>

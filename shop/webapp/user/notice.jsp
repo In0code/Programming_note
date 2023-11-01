@@ -1,5 +1,14 @@
+<%@page import="admin.vo.BoardRangeVO"%>
+<%@page import="common.dao.BoardDAO"%>
+<%@page import="common.util.BoardUtilVO"%>
+<%@page import="common.util.BoardUtil"%>
+<%@page import="java.sql.SQLException"%>
+<%@page import="admin.vo.NoticeVO"%>
+<%@page import="admin.dao.NoticeDAO"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="../cdn/cdn.jsp"/>
 <!DOCTYPE html>
 <html>
@@ -145,6 +154,10 @@ input[type=text],input[type=password] {
     color: #353535;
 }
 
+.pagenationDiv > a, span{
+padding-right: 15px;
+font-size: 18px;
+}
 </style>
 
 
@@ -191,22 +204,76 @@ $(function() {
                 			
                 			<!-- tbody(게시글 목록) -->
 							<tbody class="xans-element- xans-board xans-board-list-1002 xans-board-list xans-board-1002 center">
+							<%
+							BoardDAO bDAO = BoardDAO.getInstance();
+							BoardRangeVO brVO = new BoardRangeVO();
+
+							brVO.setTableName("NOTICE");
+
+							int totalCount = bDAO.totalCount(brVO);
+
+							int pageScale = 10;
+
+							int totalPage = (int)Math.ceil(totalCount / (double)pageScale); //페이지 수 가져오기
+
+							String tempPage = request.getParameter("currentPage"); //현재 페이지 가져오기
+							int currentPage = 1;
+							if(tempPage != null) {
+								currentPage = Integer.parseInt(tempPage);
+							}
+
+							pageContext.setAttribute("totalPage", totalPage);
+							pageContext.setAttribute("currentPage", currentPage);
+
+							//5.시작 번호
+							int startNum = currentPage*pageScale-pageScale+1;
+							pageContext.setAttribute("startNum", startNum);
+
+							//6.끝 번호
+							int endNum = startNum+pageScale-1;
+
+							//Dynamic Query에 의해서 구해진 시작번호와 끝번호를 VO에 넣는다.
+							brVO.setStartNum(startNum);
+							brVO.setEndNum(endNum);
 							
+							try{
+								NoticeDAO nDAO = NoticeDAO.getInstance();
+								List<NoticeVO> list = null;
+								
+								if(brVO != null) {
+							    	list = nDAO.selectNotice(brVO);
+								}
+
+							    String id = (String)session.getAttribute("sesId");
+							    
+							    pageContext.setAttribute("noticeList", list);
+							    
+							 }catch (SQLException se) {
+							    se.printStackTrace();
+							 }//end catch
+							%>
 							<!-- 게시글 시작 -->
+							<c:if test="${empty noticeList }">
+								<tr>
+									<td colspan="4" style="text-align: center;">게시물이 없습니다.</td>
+								</tr>
+							</c:if>
+							<c:forEach var="notice" items="${noticeList}" varStatus="i">
 							<tr style="background-color:#FFFFFF; color:#555555;" class="xans-record-">
-								<td> 번호</td>
+								<td><c:out value="${startNum + i.index}"/></td>
                     			<td class="displaynone"></td>
                     			<td class="subject left txtBreak">
                         			<!-- 제목 -->
-                        			<a href="http://localhost/cherie_ysy_private/view/notice_detail.jsp">
-                        				Chérie 10월 한글날 배송 안내 (10/6 - 10/9) 
+                        			<a href="http://localhost/prj_web_shopping/user/notice_detail.jsp?ncode=${notice.ncode}">
+                        				<c:out value="${notice.noticeTitle}"/>
                         			</a>                     
                         		</td>
                         		<!-- 작성자 -->
                     			<td>관리자</td>
                     			<!-- 작성일 -->
-                    			<td class="">2023-10-04</td>
+                    			<td class=""><c:out value="${notice.noticeDate}"/></td>
                 			</tr>
+                			</c:forEach>
                 			<!-- 게시글 끝 -->
                 			
 							</tbody>
@@ -244,7 +311,7 @@ $(function() {
 	<!-- 하단 검색 영역 끝 -->
 
             <!-- 페이지 네이션 -->
-            <div class="xans-element- xans-product xans-product-reviewpaging ec-base-paginate typeList">
+            <!-- <div class="xans-element- xans-product xans-product-reviewpaging ec-base-paginate typeList">
             	<a href="#none" class="first">첫 페이지</a>
 				<a href="#none">이전 페이지</a>
 				<ol>
@@ -256,6 +323,17 @@ $(function() {
                 </ol>
 				<a href="?page_4=2#use_review">다음 페이지</a>
 				<a href="?page_4=228#use_review" class="last">마지막 페이지</a>
+			</div> -->
+			<div class="pagenationDiv" style="width: 100%;margin: 0px auto;text-align: center;">
+ 				<%
+ 					BoardUtil util = BoardUtil.getInstance();
+ 					BoardUtilVO buVO = new BoardUtilVO();
+ 					buVO.setUrl("notice.jsp");
+ 					buVO.setCurrentPage(currentPage);
+ 					buVO.setTotalPage(totalPage);
+ 					
+ 					out.print(util.pageNation(buVO));
+ 				%>
 			</div>
 
 </div>

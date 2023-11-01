@@ -8,25 +8,32 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
  <style type="text/css">
 /* 왼쪽, 오른쪽 바깥여백을 auto로 주면 중앙정렬된다. */
 #wrap {
 	width: 530px;
 	margin-left: auto;
 	margin-right: auto;
+	margin-top:80px;
 	text-align: center;
 }
 
 /* 각 행의 간격을 조절합니다. */
 table tr {
-	margin-bottom: 10px;
+	margin-bottom: 1px;
 }
 
 /* 입력 폼과 버튼의 간격을 조절합니다. */
 table td input, table td select, table td button { 
-	margin-bottom: 5px;
+	margin-bottom: 15px;
 }
+#sJoin{
+	margin-bottom:50px;
+	margin-top:30px;
+	font-weight: bold;
+	font-size: 15px
+}
+
 </style>
 <script type="text/javascript">
 $(function(){
@@ -115,59 +122,59 @@ function compare_result() {
 <body>
 <%@ include file="../layout/header.jsp"%>
 <div id="wrap">
-<br> <br> <b><font size="3" color="gray">회원가입</font></b> <br><br>
-
+<div id="sJoin">회원가입</div>
 <form action="register_process.jsp" name="frm" id="frm" method="post">
 	<table>
 		<tr>
-			<td id="title">아이디</td>
+			<td id="title" style="font-size:15px; padding:5px 20px;">아이디</td>
 			<td>
-			<input type="text" name="id" id="id" maxlength="16"> 
+			<input type="text" name="id" id="id" maxlength="16" style="height:35px"> 
 			<input type="button"  value="중복확인" id="btnDup"  class="btn btn-secondary btn-sm" > 
 			<input type="hidden" name="idDupFlag" id="idDupFlag"/>
 			</td>
 		</tr>
 
 		<tr>
-			<td id="title">비밀번호</td>
+			<td id="title" style="font-size:15px; padding:5px 20px;">비밀번호</td>
 			<td>
-			<input type="password" id="pass" name="pass" maxlength="15">
+			<input type="password" id="pass" name="pass" maxlength="15" style="height:35px">
 			</td>
 		</tr>
 
 		<tr>
-			<td id="title">비밀번호 확인</td>
-			<td><input type="password" id="pass2" name="pass2" maxlength="15">
+			<td id="title" style="font-size:15px; padding:5px 20px;">비밀번호 확인</td>
+			<td><input type="password" id="pass2" name="pass2" maxlength="15" style="height:35px">
 			<span id="s_result" style="font-size: 9px;"></span></td>
 		</tr>
 
 		<tr>
-			<td id="title">이름</td>
-			<td><input type="text" id="name" name="name" maxlength="10"></td>
+			<td id="title" style="font-size:15px; padding:5px 20px;">이름</td>
+			<td><input type="text" id="name" name="name" maxlength="10" style="height:35px"></td>
 		</tr>
 
 		<tr>
-			<td id="title">이메일</td>
-			<td><input type="text" id="email" name="email" maxlength="30"></td>
+			<td id="title" style="font-size:15px; padding:5px 20px;">이메일</td>
+			<td><input type="text" id="email" name="email" maxlength="30" style="height:35px"></td>
 		</tr>
 
 		<tr>
-			<td id="title">휴대전화</td>
-			<td><input type="text" id="phone" name="phone" maxlength="11" placeholder="' - ' 없이 입력"/></td>
+			<td id="title" style="font-size:15px; padding:5px 20px;">휴대전화</td>
+			<td><input type="text" id="phone" name="phone" maxlength="11" style="height:35px" placeholder="' - ' 없이 입력"/></td>
 		</tr>
 				
 		<tr>
-			<td id="title">주소</td>
+			<td id="title" style="font-size:15px; padding:5px 20px;">주소</td>
 			<td>
-			<input type="text" id="zipcode" name="zipcode" placeholder="우편번호" readonly="readonly">
+			<input type="text" id="zipcode" name="zipcode" placeholder="우편번호" readonly="readonly" style="height:35px">
 			<input type="button" id="btnZipcode" class="btn btn-secondary btn-sm" value="우편번호 찾기"><br>
-			<input type="text" id="addr" name="addr" placeholder="주소" readonly="readonly" style="width:318px"><br>
-			<input type="text" id="detailAddr" name="detailAddr" placeholder="상세주소" style="width:318px">
+			<input type="text" id="addr" name="addr" placeholder="주소" readonly="readonly" style="width:318px; height:35px"><br>
+			<input type="text" id="detailAddr" name="detailAddr" placeholder="상세주소" style="width:318px; height:35px">
 			</td>
 		</tr>
 	</table>
 		<div class="ec-base-button gBottom">
-			<input type="button" value="회원가입" id="btn" class="btnSubmits sizeM btn" style="color: white;"/>
+			<input type="button" value="회원가입" id="btn" class="btnSubmits sizeM btn" 
+			style="font-size:15px; padding:5px; color: white; width:450px; margin-right:20px; margin-bottom:100px; margin-top:-30px "/>
 		</div>
 	</form>
 </div>

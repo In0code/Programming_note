@@ -194,23 +194,23 @@ body.search_active .headSearchBtn_magnifier {
 					</li>
 					<li class="headCategory">
 						<!-- 이동 링크 설정 -->
-						<a href="../user/shop.jsp">SHOP</a>
+						<a href="http://localhost/prj_web_shopping/user/shop.jsp">SHOP</a>
 						<div class="xans-element- xans-layout xans-layout-category navigation__category menu">
 							<ul>
 								<li class="xans-record-">
-									<a href="../user/shop.jsp">All Products</a>
+									<a href="http://localhost/prj_web_shopping/user/shop.jsp">All Products</a>
 								</li>
 								<li class="xans-record-">
-									<a href="../user/shop.jsp">Perfume</a>
+									<a href="http://localhost/prj_web_shopping/user/shop.jsp?category=PF">Perfume</a>
 								</li>
 								<li class="xans-record-">
-									<a href="../user/shop.jsp">Home Fragrance</a>
+									<a href="http://localhost/prj_web_shopping/user/shop.jsp?category=HF">Home Fragrance</a>
 								</li>
 								<li class="xans-record-">
-									<a href="../user/shop.jsp">Body Care</a>
+									<a href="http://localhost/prj_web_shopping/user/shop.jsp?category=BC">Body Care</a>
 								</li>
 								<li class="xans-record-">
-									<a href="../user/shop.jsp">Hand Care</a>
+									<a href="http://localhost/prj_web_shopping/user/shop.jsp?category=HC">Hand Care</a>
 								</li>
 							</ul>
 						</div>

@@ -14,9 +14,29 @@
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="https://afterblow-scent.com/ind-script/optimizer.php?filename=nc1LCoAwDIThfXHrOYLeqC3xAU2mpCno7RW8gHQ7zMdPB4RpWY2qYbcoZNzQLTPl1mgzqFOGCHR6h5n-_DmHhtL9hIaEaxB299FoiTfbGPWYCg9S1FBO5ZCi6td_AA&type=css&k=37c9481ac0212340e132f81eba4d1049fee7f18e&t=1681776733" />
 <link rel="stylesheet" type="text/css" href="https://afterblow-scent.com/ind-script/optimizer_user.php?filename=tZRbTkQhDIbfB19dRxPjQkzGDRROPTQHKOGizu7tXHQBAm9cP8oP-cBLJCBneqVSAT8aFRvkC3K3gZ3xLQaoG5mNKu8J6sHpFVyt8IY7vUt-0vYz_JsSZeuBIF6qlwwW02FFjkFoltyziRStbvQ8UmPAi_SmhVV2N7aTGCXNJN4HZhLJnbRDp84rqE0ktLmh_qI9hSXcXPSbuSUZZ9w5YaMlSaNdgbW9tblf-I8s34tyCEsC1lVu0DUbNeQwBfIySEGrtzQ3-a0ISyeozNH944zYVSRX8Z9V0pnTPpXuJH0qgCXl0Uf2hNvw3R8SMpWwOH-F_QA&type=css&k=6d772c65d1f33705cdd1d1e541979b835f286a4d&t=1641537240&user=T" />
-
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&amp;display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&amp;display=swap" rel="stylesheet" />
 <style type="text/css">
+#Header {
+    position: relative;
+    width: 100%;
+    font-size: 16px;
+    padding:30px ;
+    background: #fff;
+    border-bottom: 1px solid #fff;
+    margin-bottom:50px;
+    z-index: 99;
+    z-index: 99;
+}
 
+#Footer {
+    position: relative;
+    padding: 100px 0 120px 0;
+    border-top: 1px solid #fff;
+    background: #fff;
+    z-index: 90;
+}
 </style>
 <script type="text/javascript">
 	$(function() {
@@ -47,13 +67,13 @@
 					String name=uVO.getName();
 					pageContext.setAttribute("name", name);
 					%>
-					<c:out value="${ name }"/>님
+					<big><b><c:out value="${ name }"/></b></big><big>님</big>
 					</c:otherwise>
 					</c:choose>
 				</li>
-				<li class="right"><a href="/myshop/index.html" class="select">마이페이지</a>
-					<span> </span> <a href="/myshop/order/list.html">주문내역조회</a> <span>
-				</span> <a href="/order/basket.html">장바구니</a></li>
+				<li class="right"><a href="../member/mypage.jsp" class="select">마이페이지</a>
+					<span> </span> <a href="../order_table.jsp">주문내역조회</a> <span>
+				</span> <a href="../cart.jsp">장바구니</a></li>
 			</ul>
 		</div>
 
@@ -77,26 +97,26 @@
 			<div class="state">
 				<ul class="order">
 
-					<li><a href="/myshop/order/list.html?order_status=shipped_standby">
+					<li><a href="../order_table.jsp"">
 							<p class="title">배송준비중</p> <strong><span
 								id="xans_myshop_orderstate_shppied_standby_count">0</span></strong>
 					</a></li>
-					<li><a href="/myshop/order/list.html?order_status=shipped_begin">
+					<li><a href="../order_table.jsp"">
 							<p class="title">배송중</p> <strong><span
 								id="xans_myshop_orderstate_shppied_begin_count">0</span></strong>
 					</a></li>
-					<li><a href="/myshop/order/list.html?order_status=shipped_complate">
+					<li><a href="../order_table.jsp"">
 							<p class="title">배송완료</p> <strong><span
 								id="xans_myshop_orderstate_shppied_complate_count">0</span></strong>
 					</a></li>
 					<li class="right"><a
-						href="/myshop/order/list.html?order_status=order_cancel">
+						href="../order_table.jsp"">
 							<p class="title">취소</p> <span
 							id="xans_myshop_orderstate_order_cancel_count">0</span>
-					</a> <a href="/myshop/order/list.html?order_status=order_exchange">
+					</a> <a href="../order_table.jsp"">
 							<p class="title">교환</p> <span
 							id="xans_myshop_orderstate_order_exchange_count">0</span>
-					</a> <a href="/myshop/order/list.html?order_status=order_return">
+					</a> <a href="../order_table.jsp"">
 							<p class="title">반품</p> <span
 							id="xans_myshop_orderstate_order_return_count">0</span>
 					</a></li>
@@ -107,7 +127,7 @@
 		<div id="myshopMain"
 			class="xans-element- xans-myshop xans-myshop-main ">
 			<ul>
-				<li><a href="/myshop/order/list.html"> <span class="icon">
+				<li><a href="../order_table.jsp"> <span class="icon">
 					</span>
 						<h1>Order</h1>
 						<h2>주문내역 조회</h2>
@@ -123,7 +143,7 @@
 							고객님의 개인정보를<br>관리하는 공간입니다.
 						</h3>
 				</a></li>
-				<li><a href="/myshop/wish_list.html"> <span class="icon">
+				<li><a href="../wishList.jsp"> <span class="icon">
 					</span>
 						<h1>Wishlist</h1>
 						<h2>관심 상품</h2>
@@ -134,7 +154,7 @@
 			</ul>
 			<ul>
     <li>
-        <a href="/myshop/board_list.html">
+        <a href="../posting.jsp">
             <span class="icon">　</span>    
             <h1>Board</h1>
             <h2>게시물 관리</h2>
@@ -142,11 +162,19 @@
         </a>
     </li>
     <li>
-        <a href="/order/basket.html">
+        <a href="../cart.jsp">
             <span class="icon">　</span>    
             <h1>Cart</h1>
             <h2>장바구니</h2>
             <h3>장바구니에 담으신<br>상품의 목록을 보여드립니다.</h3>
+        </a>
+    </li>
+   <li>
+        <a href="../faq.jsp">
+            <span class="icon">　</span>    
+            <h1>FAQ</h1>
+            <h2>자주 묻는 질문</h2>
+            <h3>고객님께서 자주 묻는<br>질문의 목록을 보여드립니다.</h3>
         </a>
     </li>
 </ul>

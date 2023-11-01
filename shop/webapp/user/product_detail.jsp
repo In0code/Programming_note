@@ -37,6 +37,10 @@
         display: block !important;
         width: 100%;
     }
+    
+    hr {
+    	opacity: 0.7;
+    }
 </style>
 
 

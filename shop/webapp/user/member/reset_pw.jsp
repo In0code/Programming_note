@@ -4,7 +4,6 @@
 <%@page import="java.sql.SQLException"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>	
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <% 
 request.setCharacterEncoding("UTF-8");
@@ -107,7 +106,7 @@ function compare_result() {
 			</div>
 		</div>
 		<div class="ec-base-button gBlank20">
-			<input type="button" id="btn" name="btn"  value="확인" class="btnSubmitFix sizeM " style="color:white;" onclick="upCheck()"/>
+			<input type="button" id="btn" name="btn"  value="확인" class="btnSubmitFix sizeM " style="color:white;" />
 			<input type="button" id="btn2" name="btn2" value="취소" class="btnEmFix sizeM "/>
 		</div>
 	</div>

@@ -143,16 +143,16 @@ text-align: center;
 			</tr>
 		</thead>
 		<tbody class="xans-element- xans-board xans-board-list-1002 xans-board-list xans-board-1002 center">
-			<tr onclick="detail(12345)">
+			<tr>
 				<td>2023-10-10<br>[203949-394494]</td>
 				<td>image</td>
-				<td class="subject left txtBreak">product information</td>
+				<td class="subject left txtBreak"><a href="order_detail.jsp?ordno=">product information</a></td>
 				<td>2</td>
 				<td>135,000원</td>
 				<td>배송완료</td>
 				<td>-</td>
 			</tr>
-			<tr onclick="detail(12345)">
+			<tr>
 				<td>2023-10-10<br>[203949-394494]</td>
 				<td>image</td>
 				<td class="subject left txtBreak">product information</td>
@@ -165,12 +165,12 @@ text-align: center;
 	</table>
 </div>
 	</div>
-	<div class="loc" style="text-align: center;">
-		<a href="#prev">PREV</a>
+	<div class="loc" style="text-align: center;font-size: 16px;">
+		<a href="#prev" style="padding-left: 10px;">PREV</a>
 		<c:forEach var="num" begin="1" end="5" step="1">
-		<a href="#page=${num}"><c:out value="${num}"/></a>
+		<a href="#page=${num}" style="padding-left: 10px;"><c:out value="${num}"/></a>
 		</c:forEach>
-		<a href="#next">NEXT</a>
+		<a href="#next" style="padding-left: 10px;">NEXT</a>
 	</div>
 </div>
 <!-- footer -->

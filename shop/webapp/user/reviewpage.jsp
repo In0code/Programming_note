@@ -77,9 +77,54 @@
 .star-rating label:hover ~ label {
   color:#fc0;
 }
+input[type="file"] {
+     height: 50px; 
+   
+}
 </style>
 <script type="text/javascript">
 $(function(){
+	
+	   $("#btnSave").click(function(){
+		   
+		   var frm=$("#frm")[0];
+		   
+		   var formData= new FormData(frm);
+		   
+		   $.ajax({
+			  url:"reviewpage_upload_process.jsp",
+			  type:"post",
+			  processData:false,
+			  contentType:false,
+			  data: formData,
+			  async:false,
+			  dataType:"json",
+			  error:function(xhr) {
+	 			 
+	 			 console.log(xhr.status);
+			  },
+			  success:function(jsonObj){
+				 
+			  	  $("#frm").submit();
+				  
+				  }
+		   });//ajax
+	   })//click
+	   
+	   $('#reviewImg').change(function(){
+		 	
+		 	  
+		 	  var file=event.target.files[0];
+		 	  var reader=new FileReader( );
+		 	  reader.onload=function(e){
+		 		  $("#previewProfile").attr("src",e.target.result);
+		 	  }
+		 	  
+		 	  reader.readAsDataURL(file);
+		  
+		   });//change
+	   
+	   
 	$('#review').keyup(function (e) {
 		let content = $("#review").val();
 	    
@@ -102,15 +147,15 @@ $(function(){
 </script>
 
 </head>
-<jsp:useBean id="urVO" class="admin.vo.UserReviewVO" scope="page"/><!-- string party_no2="양승연"+"이동원"+"이승우"+"임태균"+"김인영" --> 
-<jsp:setProperty property="*" name="urVO"/>
+<jsp:useBean id="pmVO" class="admin.vo.ProductManageVO" scope="page"/><!-- string party_no2="양승연"+"이동원"+"이승우"+"임태균"+"김인영" --> 
+<jsp:setProperty property="*" name="pmVO"/>
 <%
 UserReviewDAO uDAO= UserReviewDAO.getInstance();
 
 try{
-	String main_img = uDAO.selectproductImg("바디워시 BIGALICO 500ml");
+	pmVO = uDAO.selectproductImg("BC0001");//상품클릭 시 받을 값 ,gcode?
 	
-	pageContext.setAttribute("main_img", main_img);
+	pageContext.setAttribute("goods", pmVO);
 }catch (SQLException se) {
 	se.printStackTrace();
 }//end catch
@@ -122,7 +167,7 @@ try{
 
 <!-- <section class="mypage-cont" style="  position:relative; top:10px;left:0px; font-family: musinsa;"> -->
 		
-            <form action="" id="frm" name="frm" method="post" style="position:relative; left:30px" enctype="multipart/form-data">
+            <form action="info_frm_process.jsp" id="frm" name="frm" method="post" style="position:relative; left:30px" enctype="multipart/form-data">
                 <input type="hidden" name="tmpcode" value="1697704836038">
                 <input type="hidden" name="imageCount" value="0">
                 <input type="hidden" name="opt_kind_cd" id="optKindCode" value="BEAUTY">
@@ -133,7 +178,7 @@ try{
     </header>
 
     <ul class="n-info-txt">
-    	<br/>
+    	
         <li>작성하신 후기는 Cherie 및 Cherie 글로벌 이용자에게 공개됩니다. </li> 
         <li>
             아래에 해당할 경우 일부 후기는 조건에 따라 비노출 처리 됩니다.
@@ -147,6 +192,25 @@ try{
             <li>원활한 서비스 이용을 위해 후기 도용 시 일부 Cherie 서비스 이용에 제한이 발생될 수 있습니다.</li>
         
     </ul>
+    <!--  사진업로드 -->
+<input type="file" name="reviewImg" id="reviewImg" class="inputBox" style=" margin-left: 1600px; position: absolute; top:490px">
+				<span id="imgResult"></span>
+				
+				<label style="position:absolute; left:1430px; font-size:20px; font-family: musinsa;">리뷰사진</label>
+				<div style="border: 1px solid #AAAAAA; width:260px; height:286px; position:absolute; top:245px;left:1335px"></div> 
+
+			<img id="previewProfile" src="../upload/review/img_background.png" style="width:250px; height:275px;  position:absolute; top:250px;left:1340px"/>
+							
+
+                <div class="my-review-write" id="reviewWrap" style="max-width: 1850px">
+                <span id="imgResult"></span>
+                
+                <img id="previewProfile" src="" style="width:100px;"/>
+                
+                
+                
+                
+
 
 
                 <div class="my-review-write" id="reviewWrap" style="max-width: 1850px">
@@ -154,13 +218,13 @@ try{
                     <div class="n-prd-row"  >
                   
                         <a href="/app/goods/2027866" class="img-block">
-                            <img src="../upload/goods/${main_img}" />
+                            <img src="../upload/goods/${goods.mainImg}" />
                              
                         </a>
                       
                         <ul class="info">
                        <!--  <li class="name"><a href="/app/goods/2027866">레플리카 바이 더 파이어플레이스 EDT 100ML</a></li> -->
-                            <li class="name">레플리카 바이 더 파이어플레이스 EDT 100ML</li>
+                            <li class="name"><%=pmVO.getGoodsName() %></li>
                             
                             
                         </ul>
@@ -232,6 +296,7 @@ try{
                     <div class="n-btn-group">
                         <button type="button" class="n-btn btn-accent" id="btnSave">등록</button>
                     </div>
+                </div>
                 </div>
             </form>
 

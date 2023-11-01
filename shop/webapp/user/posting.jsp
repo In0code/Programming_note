@@ -141,15 +141,15 @@ try{
 
 			<tr>
                 <td><span class="txtNum"><c:out value="${i.count}"/></span></td>
-                <td><span class="txtNum"><a href="posting_control.jsp?rcode=${review.rcode }" 
+                <td><span class="txtNum"><a href="posting_detail.jsp?rcode=${review.rcode }" 
 	onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.category}" /></a></span></td>
-                <td><span class="txtNum">     <a href="posting_control.jsp?rcode=${review.rcode }" 
+                <td><span class="txtNum">     <a href="posting_detail.jsp?rcode=${review.rcode }" 
 	onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.review}" /></a>  </span></td>
-                <td><span class="txtNum"><a href="posting_control.jsp?rcode=${review.rcode }" 
+                <td><span class="txtNum"><a href="posting_detail.jsp?rcode=${review.rcode }" 
 	onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.name}" /></a></span></td>
-                <td><span class="txtNum"><a href="posting_control.jsp?rcode=${review.rcode }" 
+                <td><span class="txtNum"><a href="posting_detail.jsp?rcode=${review.rcode }" 
 	onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.reviewDate}" /></a></span></td>
-                <td><span class="txtNum"><a href="posting_control.jsp?rcode=${review.rcode }" 
+                <td><span class="txtNum"><a href="posting_detail.jsp?rcode=${review.rcode }" 
 	onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.view}" /></a></span></td>
                 
                 

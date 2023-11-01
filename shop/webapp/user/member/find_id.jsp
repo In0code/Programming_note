@@ -9,7 +9,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     
 <style type="text/css">
-#wrap { display: flex; justify-content: center; align-items: center; margin-top: 100px; margin-bottom: 100px; }
+#wrap { display: flex; justify-content: center; align-items: center; margin-top: 140px; margin-bottom: 100px; margin-right:90px;}
 
 .form-search input[type="text"] {
 width: 100%;
@@ -21,14 +21,16 @@ margin-bottom: 10px;
 .btnSearch input[type="button"] {
 padding: 10px 40px;
 font-size: 12px;
-margin-left: 120px;
+margin-left: 109px;
 margin-bottom: 20px;
+width:196px;
 }
 
 .search-title h3 {
 font-size: 15px;
-margin-left: 120px;
-margin-bottom: 20px;
+margin-left: 150px;
+margin-bottom: 30px;
+font-weight: bold;
 }
 
 .form-search {
@@ -46,6 +48,7 @@ margin-bottom: 5px;
 display: flex;
 align-items: center;
 margin-bottom: 10px;
+margin-right: 20px;
 }
 
 .form-search .input-group label {
@@ -116,12 +119,12 @@ function checkNull(){
             <section class="form-search">
                 <div class="input-group">
                     <label for="name">이름</label>
-                    <input type="text" id="name" name="name" class="btn-name" placeholder="이름을 입력하세요" maxlength="10">
+                    <input type="text" id="name" name="name" class="btn-name" placeholder="이름을 입력하세요" maxlength="10" style="height:35px">
                 </div>
 
                 <div class="input-group">
                     <label for="phone">휴대폰번호</label>
-                    <input type="text" id="phone"  name="phone" class="btn-phone" placeholder="휴대폰번호를 '-'없이 입력" maxlength="11" >
+                    <input type="text" id="phone"  name="phone" class="btn-phone" placeholder="휴대폰번호를 '-'없이 입력" maxlength="11" style="height:35px">
                 </div>
             </section>
             <div class="btnSearch">

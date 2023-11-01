@@ -127,7 +127,7 @@ int totalCount=bDAO.totalCount(brVO);
 int pageScale=10; // 한 화면에 보여줄 게시물의 수
 int totalPage=0; // 총 페이지 수
 
-totalPage=(int)Math.ceil(totalCount/(double)pageScale);
+totalPage=((int)Math.ceil(totalCount/(double)pageScale)-1);
 
 String tempPage=request.getParameter("currentPage");
 int currentPage=1;
@@ -238,7 +238,7 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 			</div>
 		</div>
 		
-		<c:if test="${ not empty orderList }">
+		<c:if test="${ not empty recallList }">
 		<!-- 페이지네이션 -->
 		<div class="pagenationDiv">
 			<div class="pagination">
