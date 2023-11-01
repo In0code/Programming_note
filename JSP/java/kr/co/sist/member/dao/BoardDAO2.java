@@ -53,7 +53,6 @@ public class BoardDAO2 {
 
 			pstmt = con.prepareStatement(selectCnt.toString());
 			// 5.
-
 			// 6.
 			rs = pstmt.executeQuery();
 
@@ -129,13 +128,11 @@ public class BoardDAO2 {
 
 	public BoardListVO selectBoardDetail(int num) throws SQLException {
 		BoardListVO blVO = null;
-
 		DbConnection db = DbConnection.getInstance();
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-
 		try {
 			// 1.
 			// 2.
@@ -150,7 +147,6 @@ public class BoardDAO2 {
 			pstmt = con.prepareStatement(selectCnt.toString());
 			// 5.
 			pstmt.setInt(1, num);
-
 			// 6.
 			rs = pstmt.executeQuery();
 
@@ -162,12 +158,10 @@ public class BoardDAO2 {
 				blVO.setContent(rs.getString("content"));
 				blVO.setInput_date(rs.getDate("input_date"));
 			} // end if
-
 		} finally {
 			// 7.
 			db.dbClose(rs, pstmt, con);
 		} // end finally
-
 		return blVO;
 	}// totalCount
 
@@ -185,8 +179,11 @@ public class BoardDAO2 {
 			con = db.getConn("jdbc/dbcp");
 			// 3.
 			StringBuilder selectReply = new StringBuilder();
-			selectReply.append("	select num, content, writer, input_date	").append("	from reply	")
-					.append("	where num = ?	").append("	order by input_date desc	");
+			selectReply
+			.append("	select reply_num, num, content, writer, input_date	")
+			.append("	from reply	")
+			.append("	where num = ?	")
+			.append("	order by input_date desc	");
 
 			pstmt = con.prepareStatement(selectReply.toString());
 			// 4.
@@ -201,6 +198,7 @@ public class BoardDAO2 {
 				rVO.setContent(rs.getString("content"));
 				rVO.setInput_date(rs.getDate("input_date"));
 				rVO.setWriter(rs.getString("writer"));
+				rVO.setReply_num(rs.getInt("reply_num"));
 
 				list.add(rVO);
 			} // end while
@@ -210,9 +208,34 @@ public class BoardDAO2 {
 			db.dbClose(rs, pstmt, con);
 
 		} // end finally
-
 		return list;
-
 	}// selectList
+	
+	public int deleteReply( int num ) throws SQLException {
+		int removeCnt = 0;
+		DbConnection db = DbConnection.getInstance();
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			// 1.
+			// 2.
+			// 3.
+			con = db.getConn("jdbc/dbcp");
+			// 4.
+			StringBuilder selectCnt = new StringBuilder();
+			selectCnt.append("delete from reply where reply_num = ? 	");
+
+			pstmt = con.prepareStatement(selectCnt.toString());
+			// 5.
+			pstmt.setInt( 1, num );
+			// 6.
+			removeCnt=pstmt.executeUpdate();
+		} finally {
+			// 7.
+			db.dbClose(null , pstmt, con);
+		} // end finally
+		return removeCnt;
+	}// deleteReply
 
 }// class
