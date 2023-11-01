@@ -134,7 +134,7 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 			<table class="table" id="table" style="border: 1px solid #E5E4E4;">
 				<tr style="border: 1px solid #E5E4E4; border-bottom: 1px solid #919191;">
 					<td  style="width:10px; color: #929492">
-						<input type="checkbox" style="border: 1px solid #929492 ; width: 15px; height: 15px"/>
+						<input type="hidden" style="border: 1px solid #929492 ; width: 15px; height: 15px"/>
 					</td>
 					<td style="width:100px; color: #929492;padding: 1vh;">이미지</td>
 					<td style="width:350px; padding: 1vh;color: #929492; ">상품정보</td>
@@ -150,43 +150,20 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 				</c:if>
 				
 					<c:forEach var="wish" items="${ wishList }" varStatus="i">
-					 <tr style="border-bottom: 1px solid #E5E4E4;" >
-					<td style="padding: 3vh;"><input type="checkbox" class="check" name="check"  value="${ wish.wcode }" style="border: 1px solid #929492 ; width: 15px; "></td> 
-					<td style="padding: 3vh;"><img src="../upload/goods/"${ wish.img }/></td>
-					<td style="padding-top: 3vh;"><c:out value="${ wish.gname }"/></td>
-					<td style="padding: 3vh;"><c:out value="${ wish.price }"/></td>
-					<td style="padding: 3vh;"><c:out value="<%= deliveryPrice %>"/></td>
-				 	<td style="padding: 3vh;"><c:out value="${ wish.price + deliveryPrice }"/></td> 
-				 	<td ><input type="button" id="deleteBtn" name="deleteBtn" style="width:30px"/></td>
-				 	<td><input type="button" id="deleteBtn" name="deleteBtn"/></td>
-				 	<td><input type="button" id="deleteBtn" name="deleteBtn"/></td>
-					</tr> 
-					
-					<%-- <tr>
-						<td style="min-height:10px"></td>
-						<td style="min-height:10px"></td>
-						<td style="min-height:10px"></td>
-						<td style="min-height:10px"></td>
-						<td style="min-height:10px"></td>
-						<td style="min-height:10px"></td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" class="check" name="check"  value="${ wish.wcode }" style="border: 1px solid #929492 ; width: 15px;"></td>
-						<td rowspan="3"  style="min-height:10px"><img src="../upload/goods/"${ wish.img }/></td>
-						<td rowspan="3" style="min-height:10px"><c:out value="${ wish.gname }"/></td>
-						<td rowspan="3" style="min-height:10px"><c:out value="${ wish.price }"/></td>
-						<td style="min-height:10px"><c:out value="<%= deliveryPrice %>"/></td>
-						<td style="min-height:10px"><c:out value="${ wish.price + deliveryPrice }"/></td>
-					</tr>
-					<tr>
-						<td style="min-height:10px"></td>
-						<td style="min-height:10px"></td>
-						<td style="min-height:10px"></td>
-						<td style="min-height:10px"></td>
-						<td style="min-height:10px"></td>
-						<td style="min-height:10px"></td>
-					</tr> --%>
-				</c:forEach>
+					  <tr style="border-bottom: 1px solid #E5E4E4;" >
+						<td style="padding: 3vh;"><input type="checkbox" class="check" name="check"  value="${ wish.wcode }" style="border: 1px solid #929492 ; width: 15px; "></td> 
+						<td style="padding: 3vh;"><img src="../upload/goods/"${ wish.img }/></td>
+						<td style="padding-top: 3vh;"><c:out value="${ wish.gname }"/></td>
+						<td style="padding: 3vh;"><c:out value="${ wish.price }"/></td>
+						<td style="padding: 3vh;"><c:out value="<%= deliveryPrice %>"/></td>
+					 	<td style="padding: 3vh;"><c:out value="${ wish.price + deliveryPrice }"/></td> 
+						<td>
+							<input type="button" value="주문하기" id="orderBtn" name="orderBtn" style="width:90px; height:30px ;background-color: white;border : 1px solid #929492;"/><br/>
+					 		<input type="button" value="장바구니담기" id="addCartBtn" name="addCartBtn" style="width:90px; height:30px ;background-color: white;border : 1px solid #929492;"/><br/>
+					 		<input type="button" value="x삭제" id="deleteBtn" name="deleteBtn" style="width:90px; height:30px ;background-color: white; border : 1px solid #929492;"/>
+					 	</td>
+					 </tr>
+					</c:forEach>
 				</table>
 		</div>
 				<div class="xans-element- xans-order xans-order-totalorder ec-base-button 100per">
