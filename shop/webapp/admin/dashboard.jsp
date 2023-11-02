@@ -199,6 +199,20 @@ tbody{
 			location.href="logout.jsp";
 		});
 	});
+	
+	function getDate(num){
+		var currentDate = new Date();
+
+		currentDate.setDate(currentDate.getDate() - num);
+
+		var year = currentDate.getFullYear();
+		var month = String(currentDate.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 1을 더하고 두 자리로 포맷팅
+		var day = String(currentDate.getDate()).padStart(2, '0'); // 날짜를 두 자리로 포맷팅
+
+		var date = month + "/" + day;
+		
+		return date;
+	}
 </script>
 </head>
 <body>
@@ -454,10 +468,6 @@ tbody{
 
 <!-- 차트 -->
 <script type="text/javascript">
-var date = new Date();
-var month = date.getMonth() + 1;
-var day = date.getDate();
-var nowDate = month+"/"+day;
 
 var context = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(context, {
@@ -465,11 +475,11 @@ var myChart = new Chart(context, {
   data: { // 차트에 들어갈 데이터
       labels: [
           //x 축
-          month+"/"+(day-4),
-          month+"/"+(day-3),
-          month+"/"+(day-2),
-          month+"/"+(day-1), 
-          nowDate
+		  getDate(4),
+		  getDate(3),
+		  getDate(2),
+		  getDate(1),
+          getDate(0)
       ],
       datasets: [
           { //데이터

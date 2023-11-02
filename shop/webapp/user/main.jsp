@@ -27,7 +27,7 @@
 			<main id="contents" role="main">
 			
 				<!-- 슬라이더 -->
-				<div id="carouselExampleIndicators" class="carousel slide">
+				<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
       				<div class="carousel-indicators">
         				<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" aria-label="Slide 1"  class="active" aria-current="true"></button>
         				<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -101,8 +101,8 @@
 					<ul class="proRight">
 						<!-- 상품 이미지 -->
 						<li class="proBox">
-							<a href="#void">
-								<img src="http://192.168.10.136/prj_web_shopping/common/images/main_img1.jpg" alt="">
+							<a href="product_detail.jsp?gcode=PF0007">
+								<img src="http://192.168.10.136/prj_web_shopping/common/images/perfume1-2.png" alt="">
 							</a>
 						</li>
 						<li>
@@ -110,9 +110,7 @@
 							<div class="text_align">
 								<!-- 작은 로고 -->
 								<div class="proLmg">
-									<a href="#void">
 										<img src="http://192.168.10.136/prj_web_shopping/common/images/main_sub_logo.jpg" alt="">
-									</a>
 								</div>
 									<ul class="proText">
 										<li>
@@ -133,7 +131,7 @@
 										</li>
 									</ul>
 									<div class="proBtn">
-										<a href="#void">
+										<a href="product_detail.jsp?gcode=PF0007">
 											Discover More
 										</a>
 									</div>
@@ -150,8 +148,7 @@
 							<div class="text_table">
 								<div class="text_align">
 									<div class="proLmg">
-										<a href="#void">
-											<img src="http://192.168.10.136/prj_web_shopping/common/images/main_sub_logo.jpg" alt=""></a>
+											<img src="http://192.168.10.136/prj_web_shopping/common/images/main_sub_logo.jpg" alt="">
 									</div>
 									<ul class="proText">
 										<li>
@@ -190,9 +187,7 @@
 							<div class="text_table">
 								<div class="text_align">
 									<div class="proLmg">
-										<a href="#void">
 											<img src="http://192.168.10.136/prj_web_shopping/common/images/main_sub_logo.jpg" alt="">
-										</a>
 									</div>
 									<ul class="proText">
 										<li><p class="large_txt">
@@ -229,9 +224,7 @@
 							<div class="text_table">
 								<div class="text_align">
 									<div class="proLmg">
-										<a href="#void">
 											<img src="http://192.168.10.136/prj_web_shopping/common/images/main_sub_logo.jpg" alt="">
-										</a>
 									</div>
 									<ul class="proText">
 										<li>
@@ -259,7 +252,7 @@
 							</div>
 						</li>
 					</ul>
-					<ul class="proRight">
+					<ul class="proRight" style="margin: 20px 0px 30px">
 						<li class="proBox">
 							<a href="#void">
 								<img src="http://192.168.10.136/prj_web_shopping/common/images/main_img5.jpg" alt=""></a>
@@ -303,99 +296,24 @@
 				</div>
 
 				<div class="insideBom">
-					<div class="bg_color"></div>
-					<div class="bg_index">
-						<h2 class="hImg">
-							<img src="/design/kr/3ab10e2f92b02.png">
-						</h2>
-						<ul>
-							<li><a target="_blank"
-								href="https://www.google.com/maps/@51.4390411,-0.2060724,3a,75y,177.6h,112.58t/data=!3m8!1e1!3m6!1sAF1QipNVOoAsKrqSsZsIzMvSN9i6Erg6gUBjSqRKqOCr!2e10!3e11!6shttps:%2F%2Flh5.googleusercontent.com%2Fp%2FAF1QipNVOoAsKrqSsZsIzMvSN9i6Erg6gUBjSqRKqOCr%3Dw203-h100-k-no-pi-0-ya49.77087-ro-0-fo100!7i8704!8i4352">
-								Experience Chérie</a></li>
-							<li><a
-								href="https://earth.google.com/static/9.3.118.1/app_min.html#search/Wimbledon+park/@51.4359333,-0.2101811,17.90890063a,628.90019534d,35y,287.91253015h,45t,0r/data=CnkaTxJJCiUweDQ4NzYwZjQ4ZmIyZTc2NTk6MHg4Yzc1NjBjODI2YTA5YzVhGWFekanMt0lAIQdgXts258q_Kg5XaW1ibGVkb24gcGFyaxgCIAEiJgokCX4y68BKLkpAEbFMe-6RLUpAGQqtfG7mlxNAIUJkXamOihNA">
-								Chérie in Google Earth</a></li>
-						</ul>
-						<p class="RTMB">(by Google Maps Street View)</p>
-					</div>
+    				<div class="bg_color"></div>
+    				<div class="bg_index">
+        			<h2 class="hImg hImgover"><img src="/design/kr/3ab10e2f92b02.png"></h2>
+        			<ul>
+        			<li>
+        				<a target="_blank" href="https://www.google.com/maps/@51.4390411,-0.2060724,3a,75y,177.6h,112.58t/data=!3m8!1e1!3m6!1sAF1QipNVOoAsKrqSsZsIzMvSN9i6Erg6gUBjSqRKqOCr!2e10!3e11!6shttps:%2F%2Flh5.googleusercontent.com%2Fp%2FAF1QipNVOoAsKrqSsZsIzMvSN9i6Erg6gUBjSqRKqOCr%3Dw203-h100-k-no-pi-0-ya49.77087-ro-0-fo100!7i8704!8i4352">
+        					Experience Chérie
+        				</a>
+        			</li>
+            		<li>
+            			<a href="https://earth.google.com/static/9.3.118.1/app_min.html#search/Wimbledon+park/@51.4359333,-0.2101811,17.90890063a,628.90019534d,35y,287.91253015h,45t,0r/data=CnkaTxJJCiUweDQ4NzYwZjQ4ZmIyZTc2NTk6MHg4Yzc1NjBjODI2YTA5YzVhGWFekanMt0lAIQdgXts258q_Kg5XaW1ibGVkb24gcGFyaxgCIAEiJgokCX4y68BKLkpAEbFMe-6RLUpAGQqtfG7mlxNAIUJkXamOihNA">
+            				Chérie in Google Earth
+            			</a>
+            		</li>
+        			</ul><p class="RTMB">(by Google Maps Street View)</p>
+    				</div>
 				</div>
-
-				<section
-					class="xans-element- xans-custom xans-custom-moduleedit-8 xans-custom-moduleedit xans-custom-8 snsItem displaynone ">
-					<div class="mainTitle">
-						<h2>Instagram</h2>
-						<a href="#none" target="_blank" class="btnSns">follow us</a>
-					</div>
-					<ul class="snsItem-wrapper">
-						<li class="snsItem-item"><a href="#none" target="_blank">
-								<picture>
-								<source
-									srcset="//img.echosting.cafe24.com/skin/skin_ko_KR/main/img_sns_widget1.webp"
-									type="image/webp">
-								<img
-									src="//img.echosting.cafe24.com/skin/skin_ko_KR/main/img_sns_widget1.jpg"
-									alt="sns image" loading="lazy" width="100%" height="100%">
-								</source>
-								</picture>
-						</a></li>
-						<li class="snsItem-item"><a href="#none" target="_blank">
-								<picture>
-								<source
-									srcset="//img.echosting.cafe24.com/skin/skin_ko_KR/main/img_sns_widget2.webp"
-									type="image/webp">
-								<img
-									src="//img.echosting.cafe24.com/skin/skin_ko_KR/main/img_sns_widget2.jpg"
-									alt="sns image" loading="lazy" width="100%" height="100%">
-								</source>
-								</picture>
-						</a></li>
-						<li class="snsItem-item"><a href="#none" target="_blank">
-								<picture>
-								<source
-									srcset="//img.echosting.cafe24.com/skin/skin_ko_KR/main/img_sns_widget3.webp"
-									type="image/webp">
-								<img
-									src="//img.echosting.cafe24.com/skin/skin_ko_KR/main/img_sns_widget3.jpg"
-									alt="sns image" loading="lazy" width="100%" height="100%">
-								</source>
-								</picture>
-						</a></li>
-						<li class="snsItem-item"><a href="#none" target="_blank">
-								<picture>
-								<source
-									srcset="//img.echosting.cafe24.com/skin/skin_ko_KR/main/img_sns_widget4.webp"
-									type="image/webp">
-								<img
-									src="//img.echosting.cafe24.com/skin/skin_ko_KR/main/img_sns_widget4.jpg"
-									alt="sns image" loading="lazy" width="100%" height="100%">
-								</source>
-								</picture>
-						</a></li>
-						<li class="snsItem-item"><a href="#none" target="_blank">
-								<picture>
-								<source
-									srcset="//img.echosting.cafe24.com/skin/skin_ko_KR/main/img_sns_widget5.webp"
-									type="image/webp">
-								<img
-									src="//img.echosting.cafe24.com/skin/skin_ko_KR/main/img_sns_widget5.jpg"
-									alt="sns image" loading="lazy" width="100%" height="100%">
-								</source>
-								</picture>
-						</a></li>
-						<li class="snsItem-item"><a href="#none" target="_blank">
-								<picture>
-								<source
-									srcset="//img.echosting.cafe24.com/skin/skin_ko_KR/main/img_sns_widget6.webp"
-									type="image/webp">
-								<img
-									src="//img.echosting.cafe24.com/skin/skin_ko_KR/main/img_sns_widget6.jpg"
-									alt="sns image" loading="lazy" width="100%" height="100%">
-								</source>
-								</picture>
-						</a></li>
-					</ul>
-				</section>
-				<section class="collection displaynone"></section>
+				
 			</main>
 			<hr class="layout">
 		</div>

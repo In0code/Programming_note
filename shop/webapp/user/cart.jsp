@@ -164,14 +164,79 @@ $(function() {
 	  $("#btnSubmit").click(function() {
 	    window.location.href = "주문하기 페이지 URL";
 	  });////click
-
-	  $(".addCartBtn").click(function() {
-	    alert("장바구니에 상품이 담겼습니다.");
-	  });//click
-	  $(".deleteBtn").click(function() {
-		    alert("상품이 삭제되었습니다.");
-		  });//click
-	});
+		  
+	});//ready
+	
+	function deleteCart(gcode) {
+		    
+	 	$.ajax({
+		    url: "cartDelete_process.jsp",
+		    type: "get",
+		    data: "gcode="+gcode,
+		    dataType: "text",
+		    error: function(xhr) {
+	        alert("죄송합니다. 서버에 문제가 발생하였습니다. 잠시 후에 다시 시도해주세요.");
+		         console.log(xhr.status);
+	        },
+	        success: function(data) {
+		         alert("상품이 삭제되었습니다.");
+	             location.reload();
+	       }//success
+       });//ajax
+	}//deleteWish
+			
+	function stockCheck(pm) {
+		var quantity = parseInt($("#quantity").val());
+		
+		if(pm == "p"){
+			if(quantity >= ${ product.quantity }) {
+				alert("구매 가능 수량을 초과하였습니다.");
+				$("#quantity").val(${ product.quantity });
+				return;
+			}
+			
+			if(quantity < 1) {
+				alert("최소 주문 수량은 1개 입니다.");
+				$("#quantity").val(1);
+				return;
+			}
+			
+			$("#quantity").val(++quantity);
+		}
+		
+		if(pm == "m") {
+			if(quantity > ${ product.quantity }) {
+				alert("구매 가능 수량을 초과하였습니다.");
+				$("#quantity").val(${ product.quantity });
+				return;
+			}
+			
+			if(quantity <= 1) {
+				alert("최소 주문 수량은 1개 입니다.");
+				$("#quantity").val(1);
+				return;
+			}
+			
+			$("#quantity").val(--quantity);
+		}
+		
+		if(pm == null){
+			if(quantity > ${ product.quantity } ){
+				alert("구매 가능 수량을 초과하였습니다.");
+				$("#quantity").val(${ product.quantity });
+				return;
+			}
+			
+			if(quantity < 1){
+				alert("최소 주문 수량은 1개 입니다.");
+				$("#quantity").val(1);
+				return;
+			}
+		}
+		
+		$("#bottomQuantity").html("("+quantity+"개)");
+		totalPrice();
+	}//stockCheck
 </script>
 
 </head>  
@@ -249,21 +314,23 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 						<td  style=" vertical-align: middle;"><img src="../upload/goods/${ cart.img }"  style="width: 100px"/></td>
 						<td style=" vertical-align: middle;"><c:out value="${ cart.gname }"/></td>
 						<td style=" vertical-align: middle;"><c:out value="${ cart.price }"/></td>
-						<td class="qty">
-                        <span class="">
-                            <span class="ec-base-qty"><input id="quantity_id_0" name="quantity_name_0" size="2" value="1" type="text"><a href="javascript:;" class="up" onclick="Basket.addQuantityShortcut('quantity_id_0', 0);">
-                            <img src="../common/images/icon/btn_quantity_up.gif" alt="수량증가"></a>
-                            <a href="javascript:;" class="down" onclick="Basket.outQuantityShortcut('quantity_id_0', 0);"><img src="//img.echosting.cafe24.com/skin/base/common/btn_quantity_down.gif" alt="수량감소"></a></span>
-                            <a href="javascript:;" class="btnNormal gBlank5" onclick="Basket.modifyQuantity()">변경</a>
-                        </span>
-                        <span class="displaynone">1</span>
-                    </td>
+						<td>
+                           <!-- 수량 -->
+                          <span class="quantity">
+                             <input id="quantity" name="quantity_opt[]" style="" value="1" type="text"/>                                            
+                               <!-- + 버튼 -->
+                               <a href="javascript:stockCheck('p');" class="up QuantityUp">수량증가</a>
+                                            
+                               <!-- - 버튼 -->
+                               <a href="javascript:stockCheck('m');" class="down QuantityDown">수량감소</a>
+                           </span>
+                        </td>
 						<td style=" vertical-align: middle;"><c:out value="<%= deliveryPrice %>"/></td>
 					 	<td style=" vertical-align: middle;"><c:out value="${ cart.price + deliveryPrice }"/></td> 
 						<td>
-							<input type="button" value="주문하기" id="orderBtn${ cart.gcode }" class="orderBtn"name="orderBtn" style="width:90px; height:30px ;background-color: white;border : 1px solid #E5E4E4;"/><br/>
-					 		<input type="button" value="장바구니담기" id="addCartBtn${ cart.gcode }"class="addCartBtn" name="addCartBtn" style="width:90px; height:30px ;background-color: white;border : 1px solid  #E5E4E4;"/><br/>
-					 		<input type="button" value="x삭제" id="deleteBtn${ cart.gcode }"class="deleteBtn" name="deleteBtn" style="width:90px; height:30px ;background-color: white; border : 1px solid  #E5E4E4;"/>
+					 		<input type="hidden" value="x삭제" name="dd" style="width:90px; height:40px ;"/><br/><br/>
+					 		<input type="button" value="x삭제" class="deleteBtn" name="deleteBtn" onclick="deleteCart('${cart.gcode}')" style="width:90px; height:35px ;background-color: white; border : 1px solid  #E5E4E4;"/><br/>
+					 		<input type="hidden" value="x삭제" name="dt" style="width:90px; height:30px ;"/>
 					 	</td>
 					 </tr>
 					</c:forEach>

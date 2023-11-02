@@ -14,10 +14,9 @@ if(request.getParameter("gcode") == null){
 String gcode = request.getParameter("gcode");
 
 GoodsDAO gDAO = GoodsDAO.getInstantce();
-GoodsVO gVO = null;
 
 try{
-	gVO = gDAO.selectProductDetail(gcode);
+	GoodsVO gVO = gDAO.selectProductDetail(gcode);
 	
 	pageContext.setAttribute("product", gVO);
 	
@@ -166,6 +165,42 @@ function totalPrice(){
 		}
 	});
 }
+
+function addCart(gcode) {
+	
+    $.ajax({
+        url: "cartAdd_process.jsp",
+        type: "get",
+        data: "gcode="+gcode,
+        dataType: "text",
+        error: function(xhr) {
+            alert("죄송합니다. 서버에 문제가 발생하였습니다. 잠시 후에 다시 시도해주세요.");
+            console.log(xhr.status);
+        },
+        success: function(data) {
+                alert("상품이 추가되었습니다.");
+                location.reload();
+        }//success
+    });//ajax
+}//addCart
+
+function addWishList(gcode) {
+
+    $.ajax({
+        url: "wishListAdd_process.jsp",
+        type: "get",
+        data: "gcode="+gcode,
+        dataType: "text",
+        error: function(xhr) {
+            alert("죄송합니다. 서버에 문제가 발생하였습니다. 잠시 후에 다시 시도해주세요.");
+            console.log(xhr.status);
+        },
+        success: function(data) {
+                alert("상품이 추가되었습니다.");
+                location.reload();
+        }//success
+    });//ajax
+}//addCart
 </script>
 
 </head>
@@ -470,9 +505,9 @@ function totalPrice(){
                         	<a href="buy.jsp" class="btn gFlex2 actionBuy " onclick="">
                         		<span id="actionBuy" style="font-size:16px">구매하기</span>
                         	</a>
-                        	<input type="button" value="장바구니" class="btn gFlex2 actionCart " style="font-family:Pretendard Medium" onclick="" id="actionCart">
+                        	<input type="button" value="장바구니" class="btn gFlex2 actionCart " style="font-family:Pretendard Medium" onclick="addCart('${product.gcode}')" id="actionCart">
                         		장바구니
-                        	<button type="button" class="btn actionCart " onclick="" id="actionWish">
+                        	<button type="button" class="btn actionCart " onclick="addWishList('${product.gcode}')" id="actionWish">
                         		<img style="width:20px" id="wish_img" src="http://192.168.10.136/prj_web_shopping/common/images/icon/heart.png"/>
                         	</button>
                         	<a href="/member/login.html" class="btn gFlex2 actionBuy member_check_product">
