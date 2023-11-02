@@ -1,6 +1,31 @@
+<%@page import="user.vo.GoodsVO"%>
+<%@page import="java.sql.SQLException"%>
+<%@page import="user.dao.GoodsDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <jsp:include page="../cdn/cdn.jsp"/>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%
+if(request.getParameter("gcode") == null){
+	response.sendRedirect("shop.jsp");
+	return;
+}
+
+String gcode = request.getParameter("gcode");
+
+GoodsDAO gDAO = GoodsDAO.getInstantce();
+GoodsVO gVO = null;
+
+try{
+	gVO = gDAO.selectProductDetail(gcode);
+	
+	pageContext.setAttribute("product", gVO);
+	
+}catch(SQLException se){
+	se.printStackTrace();
+}
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,40 +84,100 @@ $(function() {
         } else {
             $("#wish_img").attr("src", "http://localhost/cherie_ysy_private/common/images/icon/heart.png");
         }
-	});	
+	});
+	
+	$("#quantity").keyup(function(){
+		stockCheck();
+	});
+	
 });//ready
-
 
 function hover(event, element) {
     $("#bigImg").attr("src", element.src);
 }
 
+function stockCheck(pm) {
+	var quantity = parseInt($("#quantity").val());
+	
+	if(pm == "p"){
+		if(quantity >= ${ product.quantity }) {
+			alert("구매 가능 수량을 초과하였습니다.");
+			$("#quantity").val(${ product.quantity });
+			return;
+		}
+		
+		if(quantity < 1) {
+			alert("최소 주문 수량은 1개 입니다.");
+			$("#quantity").val(1);
+			return;
+		}
+		
+		$("#quantity").val(++quantity);
+	}
+	
+	if(pm == "m") {
+		if(quantity > ${ product.quantity }) {
+			alert("구매 가능 수량을 초과하였습니다.");
+			$("#quantity").val(${ product.quantity });
+			return;
+		}
+		
+		if(quantity <= 1) {
+			alert("최소 주문 수량은 1개 입니다.");
+			$("#quantity").val(1);
+			return;
+		}
+		
+		$("#quantity").val(--quantity);
+	}
+	
+	if(pm == null){
+		if(quantity > ${ product.quantity } ){
+			alert("구매 가능 수량을 초과하였습니다.");
+			$("#quantity").val(${ product.quantity });
+			return;
+		}
+		
+		if(quantity < 1){
+			alert("최소 주문 수량은 1개 입니다.");
+			$("#quantity").val(1);
+			return;
+		}
+	}
+	
+	$("#bottomQuantity").html("("+quantity+"개)");
+	totalPrice();
+}
+
+function totalPrice(){
+	var json = {quantity : $("#quantity").val(), price : ${ product.price }};
+	
+	$.ajax({
+		url : "total_price.jsp",
+		type : "post",
+		data : json,
+		dataType : "text",
+		error : function(xhr){
+			console.log(xhr);
+		},
+		success : function(total){
+			$("#totalDiv").html(total+"원");
+			$("#bottomTotal").html("<strong><em>"+total+"원 </em></strong>");
+		}
+	});
+}
 </script>
 
 </head>
 <body>
 <%@ include file="layout/header.jsp" %>
 
-<%
-
-
-
-%>
-
 <div id="container" style="font-family:Pretendard Medium">
-    <div id="contents" role="main" data-product="SW19 6am EAU DE PARFUM (50ml)" data-product-code="13" data-cat-code="49" class="xans-element- xans-product xans-product-detail ">
+     <div id="contents" role="main" data-product="SW19 6am EAU DE PARFUM (50ml)" data-product-code="13" data-cat-code="49" class="xans-element- xans-product xans-product-detail ">
 		<div class="xans-element- xans-product xans-product-headcategory path "><span>현재 위치</span>
-		<ol>
-			<li><a href="/">홈</a></li>
-        	<li class=""><a href="/category/perfume/49/">Perfume</a></li>
-        	<li class="displaynone"><a href=""></a></li>
-        	<li class="displaynone"><a href=""></a></li>
-        	<li class="displaynone"><strong><a href=""></a></strong></li>
-   	 	</ol>
-	</div>
+	</div> 
 
 <div class="xans-element- xans-product xans-product-detail">
-
 <!-- 상품 디테일 / 이미지 -->
 <div class="detailArea">
     <div class="xans-element- xans-product xans-product-image imgArea">
@@ -100,12 +185,8 @@ function hover(event, element) {
             <div class="prdImg">
             	  <!-- 썸네일 이미지 -->
                   <div class="thumbnail">
-                        <a href="/product/image_zoom2.html?product_no=13&cate_no=49&display_group=1" alt="P000000N" 
-                        onclick="window.open(this.href, 'image_zoom2', 'toolbar=no,scrollbars=auto,resizable=yes,width=450,height=693,left=0,top=0', this);return false;">
-                            <img id="bigImg" src="//sw19official.com/web/product/big/202302/503ac8142330ac25c0f650eb7cf196c3.png" alt="Chérie 6am EAU DE PARFUM (50ml)" class="BigImage ">                        
-                        </a>
-                        <div id="zoom_wrap">
-                        </div>
+                         <img id="bigImg" src="http://localhost/prj_web_shopping/upload/goods/${ product.main_img }" 
+                         alt="${ product.gname }" class="BigImage ">                        
                   </div>
             </div>
             
@@ -114,50 +195,42 @@ function hover(event, element) {
                 <div class="inner">
                       <ul class="list">
 						 <li class="xans-record-">
-							<img id="imgList1" onmouseover="hover(event, this)" src="//sw19official.com/web/product/small/202302/ed6149f1194281efc9a430e1b3ed92f9.png"  class="ThumbImage" alt="" />
+							<img id="imgList1" onmouseover="hover(event, this)" src="http://localhost/prj_web_shopping/upload/goods/${ product.main_img }"  class="ThumbImage" alt="" />
 						 </li>
                          <li class="xans-record-">
-                         	<img id="imgList2" onmouseover="hover(event, this)" src="//sw19official.com/web/product/extra/small/202208/f41071144616ae375ef54722259c530d.png"  class="ThumbImage" alt="" />
+                         	<img id="imgList2" onmouseover="hover(event, this)" src="http://localhost/prj_web_shopping/upload/goods/${ product.img1 }"  class="ThumbImage" alt="" />
                          </li>
 						<li class="xans-record-">
-							<img id="imgList3" onmouseover="hover(event, this)" src="//sw19official.com/web/product/extra/small/202208/48aee1fbe453066d9eec732321603206.png"  class="ThumbImage" alt="" />
+							<img id="imgList3" onmouseover="hover(event, this)" src="http://localhost/prj_web_shopping/upload/goods/${ product.img2 }"  class="ThumbImage" alt="" />
 						</li>
 						<li class="xans-record-">
-							<img id="imgList4" onmouseover="hover(event, this)" src="//sw19official.com/web/product/extra/small/202208/569b0d54a958ab7b5a36019807f3a5a8.png"  class="ThumbImage" alt="" />
+							<img id="imgList4" onmouseover="hover(event, this)" src="http://localhost/prj_web_shopping/upload/goods/${ product.img3 }"  class="ThumbImage" alt="" />
 						</li>
                       </ul>
 				</div>
-				<button type="button" class="prev">
-					<i aria-hidden="true" class="icon icoArrowLeft"></i>이전
-				</button>
-				<button type="button" class="next">
-					<i aria-hidden="true" class="icon icoArrowRight"></i>다음
-				</button>
 			</div>
 		</div>
 		
 		<!-- 모바일 -->
 		<div class="RTMB ">
              <p class="prdImg">
-                  <a href="#none" id="prdDetailImg" data-param="?product_no=13&cate_no=49&display_group=1" class="thumbnail">
-                      <img src="//sw19official.com/web/product/big/202302/503ac8142330ac25c0f650eb7cf196c3.png" class="bigImage" alt="SW19 6am EAU DE PARFUM (50ml)">                    
-                  </a>
+                    <img src="http://localhost/prj_web_shopping/upload/goods/${ product.main_img }" class="bigImage" alt="${ product.gname }">                    
              </p>
              <div class="xans-element- xans-product xans-product-mobileimage prdImg xans-record-">
 				 <ul>
 					<li data-param="?product_no=13&cate_no=49&display_group=1">
                          <p class="thumbnail">
-                              <img src="//sw19official.com/web/product/big/202302/503ac8142330ac25c0f650eb7cf196c3.png" class="ThumbImage" alt="SW19 6am EAU DE PARFUM (50ml)">                            
+                              <img src="http://localhost/prj_web_shopping/upload/goods/${ product.main_img }" class="ThumbImage" alt="${ product.gname }">                            
                          </p>
                     </li>
                     <li style='display:none' data-param="?product_no=13&cate_no=49&display_group=1">
-                    	<img src="//sw19official.com/web/product/extra/big/202208/f41071144616ae375ef54722259c530d.png"  class="ThumbImage" alt="" />
+                    	<img src="http://localhost/prj_web_shopping/upload/goods/${ product.img1 }"  class="ThumbImage" alt="" />
                     </li>
                     <li style='display:none' data-param="?product_no=13&cate_no=49&display_group=1">
-                    	<img src="//sw19official.com/web/product/extra/big/202208/48aee1fbe453066d9eec732321603206.png"  class="ThumbImage" alt="" />
+                    	<img src="http://localhost/prj_web_shopping/upload/goods/${ product.img2 }"  class="ThumbImage" alt="" />
                     </li>
                     <li style='display:none' data-param="?product_no=13&cate_no=49&display_group=1">
-                    	<img src="//sw19official.com/web/product/extra/big/202208/569b0d54a958ab7b5a36019807f3a5a8.png"  class="ThumbImage" alt="" />
+                    	<img src="http://localhost/prj_web_shopping/upload/goods/${ product.img3 }"  class="ThumbImage" alt="" />
                     </li>                    
                    </ul>
 			 </div>
@@ -171,22 +244,22 @@ function hover(event, element) {
             <div class="headingArea">
                 <h1 class="hFamily_PD">
                 	<!-- 상품명 -->
-                	Chérie 6am EAU DE PARFUM (50ml) 
-                	<span class="icon">       </span>
+                	${ product.gname } 
+                	<span class="icon"></span>
 				</h1>
                 
                 <!-- 상품 가격 -->
                 <div class="detailPrice ">
                     <strong class="sale">
-                    	<span id="span_product_price_text" class="ProductPrice ">89000</span>
-                    	<input id="product_price" name="product_price" value="89000" type="hidden"/>
+                    	<span id="span_product_price_text" class="ProductPrice ">
+                    		<fmt:formatNumber value="${ product.price }" pattern="#,###,###"/>원
+                    	</span>
+                    	<input id="product_price" name="product_price" value="${ product.price }" type="hidden"/>
                     </strong>
                     <span id="span_product_price_text"></span> 
-                    <!-- 
-                    <span class="soldOut"></span>
-                    <button type="button" class="btnRestockSms displaynone" onclick="">재입고 알림 SMS</button>
-                    <button type="button" class="btnRestockMail displaynone" onclick="">재입고 알림 메일</button> 
-                    -->
+                     
+<!--                <span class="btnRestockSms">Sold Out
+                    </span> -->
                 </div>
             </div>
 	
@@ -194,18 +267,13 @@ function hover(event, element) {
             <div class="detailSimple">
             	<p><strong>
             		<span style="color: rgb(68, 68, 68);">
-            			“The scent of enchanted grass created by spellbound forest spirits”<br>
-            			Just before the sunrise, the mist of Wimbledon forest drifts along and 
-            			greets you as you take a stroll. 
-            			Feel the 6AM scent of the Wimbledon forest’s glistening morning dew and moist soil.
+            			${ product.eng_tmi }
             		</span>
             		</strong>
             	</p>
 				<p><br></p>
 				<p>
-					“숲의 정령이 만들어낸 중독적인 묘약, 신비로운 풀의 향취”<br>
-					세상의 아침이 시작되기 전, 윔블던의 숲을 산책하는 당신에게 푸른 안개가 바람에 실려와 인사를 합니다. 
-					이슬 머금은 잔디와 촉촉한 흙내음을 품은 윔블던의 새벽 6시를 느껴보세요.
+					${ product.tmi }
 				</p>
 				<hr>
 				
@@ -217,9 +285,9 @@ function hover(event, element) {
 						</strong>
 					</span>
 					<span style="color: rgb(153, 153, 153);"><br>
-						<span style="font-size: 9px;"> - Top : Bergamot, Grapefruit, Anise Seeds </span><br>
-						<span style="font-size: 9px;"> - Heart : Cardamom, Clary Sage, Basil </span><br>
-						<span style="font-size: 9px;"> - Base : Wormwood, Cedarwood, Musk </span><br><br>
+						<span style="font-size: 9px;"> - Top : ${ product.top } </span><br>
+						<span style="font-size: 9px;"> - Heart : ${ product.heart } </span><br>
+						<span style="font-size: 9px;"> - Base : ${ product.base } </span><br><br>
 						
 						<span style="font-size: 9px;">
 							<strong>PERFUMER</strong>
@@ -231,14 +299,11 @@ function hover(event, element) {
 						<br>
             		</span>
             		<span style="font-size: 8px; color: rgb(153, 153, 153);">
-            			Alcohol, Fragrance, Water, BHT, Denatonium benzoate,         
-        				Limonene, Hydroxycitronellal, Citronellol, Butylphenyl Methylpropional, Geraniol
+            			${ product.ing }
         			</span>
         		</p>
-        		
 <p><br></p>
 <p><br></p>
-
 		<!-- 부가 정보 -->
 		<p> <span style="font-size: 8px; color: rgb(0, 0, 0);">
         		※ 상품 구매 시, 시향 가능한 샘플 키트가 함께 제공됩니다.(품절 시 제공불가)
@@ -328,9 +393,9 @@ function hover(event, element) {
                         	<!-- 설명 아래 상품명 / 상품수 / 가격 영역 -->
 							<caption>상품 목록</caption>
                             <colgroup>
-								<col style="width:200px;">
+								<col style="width:190px;">
 								<col style="width:auto;">
-								<col style="width:35px;">
+								<col style="width:90px;">
 							</colgroup>
 							<thead>
 								<tr>
@@ -342,18 +407,23 @@ function hover(event, element) {
                             
 							<tbody class="">
 								<tr><!-- 상품명 -->
-									<td>Chérie 6am EAU DE PARFUM (50ml)</td>
+									<td>${ product.gname }</td>
                                     <td>
                                     	<!-- 수량 -->
                                         <span class="quantity">
                                             <input id="quantity" name="quantity_opt[]" style="" value="1" type="text"/>                                            
-                                            <a href="javascript:;" class="up QuantityUp">수량증가</a>
-                                            <a href="javascript:;" class="down QuantityDown">수량감소</a>
+                                            <!-- + 버튼 -->
+                                            <a href="javascript:stockCheck('p');" class="up QuantityUp">수량증가</a>
+                                            
+                                            <!-- - 버튼 -->
+                                            <a href="javascript:stockCheck('m');" class="down QuantityDown">수량감소</a>
                                         </span>
                                     </td>
                                     <!-- 총 가격 -->
                                     <td class="right">
-										<span class="quantity_price">89000</span> 
+                                    <div id="totalDiv" class="quantity_price">
+											<fmt:formatNumber value="${ product.price }" pattern="#,###,###"/>원
+									</div>
 										<span class="mileage displaynone">
 											(<img src="" alt="">  <span class="mileage_price"></span>)
 										</span>
@@ -372,29 +442,6 @@ function hover(event, element) {
 									</td>
 								</tr>
 							</tbody>
-							<!-- 옵션선택 또는 세트상품 선택시 상품이 추가되는 영역입니다. 쇼핑몰 화면에는 아래와 같은 마크업구조로 표시됩니다. 삭제시 기능이 정상동작 하지 않습니다. -->
-							<tbody><!-- tr>
-                                    <td>
-                                        <p class="product">
-                                            $상품명<br />
-                                            <span>$옵션</span>
-                                        </p>
-                                    </td>
-                                    <td>
-                                        <span class="quantity">
-                                            <input type="text" class="quantity_opt" />
-                                            &nbsp;<a href="javascript:;" class="up eProductQuantityUpClass"><img src="//img.echosting.cafe24.com/skin/base_ko_KR/product/btn_count_up.gif" alt="수량증가" /></a>
-                                            <a href="javascript:;" class="down eProductQuantityDownClass"><img src="//img.echosting.cafe24.com/skin/base_ko_KR/product/btn_count_down.gif" alt="수량감소" /></a>
-                                        </span>
-                                        <a href="#none"><img src="//img.echosting.cafe24.com/design/skin/default/product/btn_price_delete.gif" alt="삭제" class="option_box_del" /></a>
-                                    </td>
-                                    <td class="right">
-                                        <span>$가격</span>
-                                        <span class="mileage">(<img src="//img.echosting.cafe24.com/design/skin/admin/ko_KR/product/ico_pay_point.gif" /> &nbsp;<span class="mileage_price">$적립금</span>)</span>
-                                    </td>
-                                </tr -->
-                           </tbody>
-						<!-- // 옵션선택 또는 세트상품 선택시 상품이 추가되는 영역입니다. 쇼핑몰 화면에는 아래와 같은 마크업구조로 표시됩니다. 삭제시 기능이 정상동작 하지 않습니다. -->
 						</table>
 					</div>
 					<!-- 상품명 / 수량 / 가격 영역 끝 -->
@@ -402,10 +449,13 @@ function hover(event, element) {
 					<!-- 총 상품 금액 -->
                     <div id="totalPrice" class="totalPrice">
                         <strong class="title">총 상품금액
-                        	<span class="qty total"> (0개)</span>
+                        	<span class="qty total" id="bottomQuantity"> (1개)
+                        	</span>
                         </strong>
-                        <span class="total">
-                        	<strong><em>0</em></strong>
+                        <span class="total" id="bottomTotal">
+                        	<strong><em>
+                        		<fmt:formatNumber value="${ product.price }" pattern="#,###,###"/>원
+                        	</em></strong>
                         </span>
                     </div>
 
@@ -468,7 +518,7 @@ function hover(event, element) {
 	<div id="prdDetail" class="productDetail on">
         <div>
         	<!-- 상세 이미지 링크 -->
-        	<img src="http://localhost/prj_web_shopping/common/images/6am_detail_img.png" 
+        	<img src="http://localhost/prj_web_shopping/upload/goods/${ product.detail_img }"
         		style="display: block; vertical-align: top; margin: 0px auto; 
         		text-align: center;" result="success" name="copy-1660612914-5BKOR5D206AM_WEB.png"
 				size="1201px/1783px" filesize="2,94 MB" error=""><br>

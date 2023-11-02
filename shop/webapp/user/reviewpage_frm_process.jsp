@@ -1,7 +1,10 @@
+<%@page import="java.sql.SQLException"%>
+<%@page import="admin.dao.UserReviewDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ page info="" %>
+    <%@ page info="기상청 RSS" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%request.setCharacterEncoding("UTF-8"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +25,32 @@ $(function(){
 </script>
 
 </head>
+<jsp:useBean id="sVO" class="user.vo.SummaryVO" scope="page"></jsp:useBean> 
+<jsp:setProperty property="*" name="sVO"/>
 <body>
+<%
 
+UserReviewDAO uDAO = UserReviewDAO.getInstance(); 
+String review=sVO.getReview();
+String gcode="BC0001";
+String id="tuna5127";
+int star = sVO.getStar();
+int rcode = sVO.getRcode();
+System.out.println("+++++"+request.getParameter("reviewImg")+"-------");
+try{
+	if(rcode!=0){
+		uDAO.updateReivew2(review, star, rcode);
+	} else if (rcode==0) {
+		rcode=uDAO.selectSeqRcode();
+		uDAO.insertNoImgReview(gcode, review, id, rcode,star);
+	}
+	
+
+}catch (SQLException se){
+	se.printStackTrace();
+}
+
+%>
 </body>
+<span>리뷰 등록 완료</span>
 </html>

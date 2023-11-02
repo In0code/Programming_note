@@ -87,7 +87,27 @@ $(function(){
 	
 	   $("#btnSave").click(function(){
 		   
-		   var frm=$("#frm")[0];
+		  $("#frm").submit();
+		
+	   })//click
+	   
+	   $('#reviewImg').change(function(){
+		 	
+		 	  
+		 	  var file=event.target.files[0];
+		 	  var reader=new FileReader( );
+		 	  reader.onload=function(e){
+		 		  $("#previewProfile").attr("src",e.target.result);
+		 	  }
+		 	  
+		 	  reader.readAsDataURL(file);
+		 	  alert("파일 선택 후 이미지 업로드 버튼을 눌러주세요.")
+		  
+		   });//change
+	   
+	   $("#btnImgSubmit").click(function(){
+		   //alert($("#reviewImg").val());
+   var frm=$("#frm")[0];
 		   
 		   var formData= new FormData(frm);
 		   
@@ -101,30 +121,26 @@ $(function(){
 			  dataType:"json",
 			  error:function(xhr) {
 	 			 
+	 			 $("#imgSuccess").html("업로드 실패");
+	 			 alert(xhr.status);
 	 			 console.log(xhr.status);
 			  },
 			  success:function(jsonObj){
-				 
-			  	  $("#frm").submit();
-				  
+				  var msg="";
+				  if(jsonObj.uploadFlag){
+    				  msg= "이미지 업로드 완료";
+    			  } else {
+    				  msg="이미지 업로드 실패";
+    				  alert ("파일을 선택하여 이미지를 첨부해주세요.");
+    			  }
+    			  
+				  $("#imgSuccess").html(msg);
+				  $("#rcode").val(jsonObj.SeqRcode);
 				  }
 		   });//ajax
 	   })//click
-	   
-	   $('#reviewImg').change(function(){
-		 	
-		 	  
-		 	  var file=event.target.files[0];
-		 	  var reader=new FileReader( );
-		 	  reader.onload=function(e){
-		 		  $("#previewProfile").attr("src",e.target.result);
-		 	  }
-		 	  
-		 	  reader.readAsDataURL(file);
-		  
-		   });//change
-	   
-	   
+			   
+		   
 	$('#review').keyup(function (e) {
 		let content = $("#review").val();
 	    
@@ -167,11 +183,9 @@ try{
 
 <!-- <section class="mypage-cont" style="  position:relative; top:10px;left:0px; font-family: musinsa;"> -->
 		
-            <form action="info_frm_process.jsp" id="frm" name="frm" method="post" style="position:relative; left:30px" enctype="multipart/form-data">
-                <input type="hidden" name="tmpcode" value="1697704836038">
-                <input type="hidden" name="imageCount" value="0">
-                <input type="hidden" name="opt_kind_cd" id="optKindCode" value="BEAUTY">
-
+   <form action="reviewpage_frm_process.jsp" id="frm" name="frm" method="post" style="position:relative; left:30px" >
+            
+<input type="hidden"  id="rcode" name="rcode">
                 
     <header class="n-section-title">
         <h1 class="tit">후기 작성</h1>
@@ -193,7 +207,9 @@ try{
         
     </ul>
     <!--  사진업로드 -->
-<input type="file" name="reviewImg" id="reviewImg" class="inputBox" style=" margin-left: 1600px; position: absolute; top:490px">
+     <button type="button" class="n-btn btn-accent" id="btnImgSubmit" style="position: absolute; top: 490px; left:1600px;  width:20px;">이미지 업로드</button>
+     <span id="imgSuccess" style="position: absolute; top: 500px; left:1705px;"></span>
+<input type="file" name="reviewImg" id="reviewImg" class="inputBox" style=" margin-left: 1600px; position: absolute; top:445px; ">
 				<span id="imgResult"></span>
 				
 				<label style="position:absolute; left:1430px; font-size:20px; font-family: musinsa;">리뷰사진</label>

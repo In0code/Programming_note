@@ -92,7 +92,7 @@ BoardRangeVO brVO=new BoardRangeVO();
 
 String field=request.getParameter("field");
 System.out.println(field+"=====");
-String keyword=request.getParameter("keyword1");
+String keyword=request.getParameter("keyword");
 System.out.println(keyword+"=====");
 brVO.setTableName("REVIEW");
 
@@ -103,7 +103,7 @@ int totalCount=bDAO.totalCount(brVO);
 int pageScale=10; // 한 화면에 보여줄 게시물의 수
 int totalPage=0; // 총 페이지 수
 
-totalPage=((int)Math.ceil(totalCount/(double)pageScale))-1;
+totalPage=((int)Math.ceil(totalCount/(double)pageScale))-2;
 
 
 String tempPage=request.getParameter("currentPage");
@@ -114,6 +114,7 @@ if(tempPage != null){
 
 int startNum=currentPage*pageScale-pageScale+1;
 pageContext.setAttribute("startNum", startNum);
+
 
 //끝페이지 번호 구하기
 int endNum=startNum+pageScale-1;
@@ -136,17 +137,14 @@ try{
 
 <script type="text/javascript">
 $(function(){
-	/* $("#btn").click(function(){
-		window.open("posting_control.jsp" , "", "width=513, height=710, top=50, left=50");
-	});
-	 */
+
 	
 	$("#btnSearch").click(function(){
 		chkNull();
 		
 	});
 	
-	$("#keyword1").keyup(function(evt) {
+	$("#keyword").keyup(function(evt) {
 		if(evt.which == 13){
 			chkNull();
 		}//end if
@@ -155,9 +153,9 @@ $(function(){
 	
 });//ready
 
-//$("#keyword").val();
+
 function chkNull(){
-	var keyword =  $("#keyword1").val();
+	var keyword =  $("#keyword").val();
 
 	if(keyword.trim()==""){
 		alert("검색 키워드를 입력해주세요. k : '"+keyword+"'");
@@ -201,10 +199,7 @@ function chkNull(){
 <form id="frmSearch"  action="posting.jsp?field=${param.field}&keyword=${param.keyword}" >
 <div class="xans-element- xans-myshop xans-myshop-boardpackage "><div class="board_top">
         
-<!-- <form id="boardSearchForm" name="" action="/myshop/board_list.html" method="get" target="" enctype="multipart/form-data" > -->
-<!-- <input id="board_no" name="board_no" value="" type="hidden"  />
-<input id="page" name="page" value="1" type="hidden"  />
-<input id="board_sort" name="board_sort" value="" type="hidden"  /><div class="xans-element- xans-myshop xans-myshop-boardlistsearch "> --><fieldset class="boardSearch">
+<fieldset class="boardSearch">	
         <p><select id="field" name="field"  >
 <option value="1">내용</option>
 <option value="2">카테고리</option>
@@ -212,8 +207,8 @@ function chkNull(){
 
 
 </select> 
-<input id="keyword1" name="keyword1"  style="height:27px" class="inputTypeText" placeholder="내용을 입력해주세요"
-	 value="${param.keyword1}" type="text"  />
+<input id="keyword" name="keyword"  style="height:27px" class="inputTypeText" placeholder="내용을 입력해주세요"
+	 value="${param.keyword}" type="text"  />
 <input type="text" style="display: none"	> 
 <input type="button" id="btnSearch" name="btnSearch" class="btnNormalFix" style="height:27px" value="search">
  </p>
@@ -223,11 +218,11 @@ function chkNull(){
 </form>        
 <div class="xans-element- xans-myshop xans-myshop-boardlist ec-base-table typeList gBorder gBlank10">
 
-<table border="1" summary="">
+<table border="1" summary="" style="table-layout:fixed">
 <caption>게시물 관리 목록</caption>
         <colgroup class="xans-element- xans-board xans-board-listheader-1002 xans-board-listheader xans-board-1002 "><col style="width:70px;"/>
 <col style="width:140px;"/>
-<col style="width:auto;"/>
+<col style="width:400px;"/>
 <col style="width:140px;"/>
 <col style="width:140px;"/>
 <col style="width:50px;"/>
@@ -251,13 +246,13 @@ function chkNull(){
       
 <c:forEach var="review" items="${reviewList}" varStatus="i">
 
-			<tr>
-                <td><span class="txtNum"><c:out value="${i.count}"/></span></td>
+			<tr style="text-align: center">
+                <td ><span class="txtNum"><c:out value="<%=startNum++ %>"/></span></td>
                 <td><span class="txtNum"><a href="posting_detail.jsp?rcode=${review.rcode }" 
 	onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.category}" /></a></span></td>
-                <td><span class="txtNum">     <a href="posting_detail.jsp?rcode=${review.rcode }" 
+                <td style="overflow:hidden; white-space:nowrap; text-overflow:ellipsis; "><span class="txtNum">     <a href="posting_detail.jsp?rcode=${review.rcode }" 
 	onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.review}" /></a>  </span></td>
-                <td><span class="txtNum"><a href="posting_detail.jsp?rcode=${review.rcode }" 
+                <td ><span class="txtNum"><a href="posting_detail.jsp?rcode=${review.rcode }" 
 	onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.name}" /></a></span></td>
                 <td><span class="txtNum"><a href="posting_detail.jsp?rcode=${review.rcode }" 
 	onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.reviewDate}" /></a></span></td>

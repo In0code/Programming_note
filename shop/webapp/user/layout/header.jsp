@@ -166,7 +166,7 @@ body.search_active .headSearchBtn_magnifier {
 				<div class="xans-element- xans-layout xans-layout-searchheader headSearchBox ">
 					<div class="searchbar">
 						<fieldset>
-							<input id="keyword" name="keyword" fw-filter="" fw-label="검색어"
+							<input id="keyword1" name="keyword1" fw-filter="" fw-label="검색어"
 								fw-msg="" class="inputTypeText" placeholder=""
 								onmousedown="SEARCH_BANNER.clickSearchForm(this)" value=""
 								type="text" />

@@ -1,3 +1,4 @@
+<%@page import="user.vo.ClientOrderPageVO"%>
 <%@page import="org.json.simple.JSONArray"%>
 <%@page import="org.json.simple.JSONObject"%>
 <%@page import="user.dao.ClientOrderDAO"%>
@@ -16,7 +17,10 @@ if(!"o".equals(flag) || !"r".equals(flag)) {
 JSONObject jsonObj = new JSONObject();
 jsonObj.put("dataFlag", false);
 
-List<ClientOrderVO> list = ClientOrderDAO.getInstance().selectAllOrder("test", flag);
+ClientOrderPageVO copVO = new ClientOrderPageVO();
+copVO.setId("test");
+
+List<ClientOrderVO> list = ClientOrderDAO.getInstance().selectAllOrder(copVO);
 JSONArray jsonArr = new JSONArray();
 JSONObject jsonTemp = new JSONObject();
 

@@ -11,6 +11,7 @@
     pageEncoding="UTF-8"%>
 <%@ page info=""%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -112,49 +113,63 @@ function chkNull() {
 </head>
 <body>
 <%
-BoardDAO bDAO=BoardDAO.getInstance();
-BoardRangeVO brVO=new BoardRangeVO();
+OrderProcessDAO opDAO = OrderProcessDAO.getInstance();
+BoardRangeVO brVO = new BoardRangeVO();
 
-String field=request.getParameter("field");
-String keyword=request.getParameter("keyword");
+opDAO.selectRecallAllOrder(brVO);
 
+String field = request.getParameter("field");
+String keyword = request.getParameter("keyword");
+
+/* 페이지가 최초 호출 시에는 field나 keyword가 없다. 
+검색을 하지 않는 경우에도 값이 없다. */
 brVO.setField(field);
 brVO.setKeyword(keyword);
-brVO.setTableName("UORDER");
+//brVO.setTableName("uorder");
 
-int totalCount=bDAO.totalCount(brVO);
+//1.총 레코드의 수 
+int totalCount = opDAO.recallTotalCount(brVO);
 
-int pageScale=10; // 한 화면에 보여줄 게시물의 수
-int totalPage=0; // 총 페이지 수
+//2.한 화면에 보여줄 게시물의 수
+int pageScale = 10;
 
-totalPage=((int)Math.ceil(totalCount/(double)pageScale)-1);
+//3.총 페이지 수
+//int totalPage = totalCount/pageScale;
 
-String tempPage=request.getParameter("currentPage");
-int currentPage=1;
+//총 레코드 수 나누기 한 화면에 보여줄 게시물의 수를 했을 때
+//나머지가 있다면(0이 아니라면) 한 화면에 보여줄 게시물의 수를 초과한 것이므로
+//총 페이지 수를 하나 늘림
+//Math 사용 - 올림
+int totalPage = (int)Math.ceil(totalCount/(double)pageScale);
+
+//4.현재 페이지 번호 구하기
+String tempPage = request.getParameter("currentPage");
+int currentPage = 1; //최초 페이지는 1번째 페이지가 보임
 if(tempPage != null){
-	currentPage=Integer.parseInt(tempPage);
+	currentPage = Integer.parseInt(tempPage);
 }//end if
-
-int startNum=currentPage*pageScale-pageScale+1;
-pageContext.setAttribute("startNum", startNum);
-
-//끝페이지 번호 구하기
-int endNum=startNum+pageScale-1;
-
-brVO.setStartNum(startNum);
-brVO.setEndNum(endNum); 
 
 int deliveryPrice=2500;
 
-try{
-	OrderProcessDAO opDAO=OrderProcessDAO.getInstance();
-List<RecallVO> list=opDAO.selectRecallAllOrder(brVO);
+//5.시작 번호
+int startNum = currentPage*pageScale-pageScale+1;
+pageContext.setAttribute("startNum", startNum);
 
-pageContext.setAttribute("recallList", list);
-pageContext.setAttribute("deliveryPrice", deliveryPrice);
+//6.끝 번호
+int endNum = startNum+pageScale-1;
+
+//Dynamic Query에 의해서 구해진 시작번호와 끝번호를 VO에 넣는다.
+brVO.setStartNum(startNum);
+brVO.setEndNum(endNum);
+
+try{
+	List<RecallVO> recallList = opDAO.selectRecallAllOrder(brVO);
+	pageContext.setAttribute("recallList", recallList);
+	pageContext.setAttribute("deliveryPrice", deliveryPrice);
+	
 }catch(SQLException se){
 	se.printStackTrace();
-}//end catch
+}
 %>
 
 
@@ -219,8 +234,8 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 				<td><c:out value="${ recall.orderNum }"/></td>
 				<td><c:out value="${ recall.productName }"/></td>
 				<td><c:out value="${ recall.quantity }"/></td>
-				<td><c:out value="${ recall.price }"/></td>
-				<td><c:out value="<%= deliveryPrice %>"/></td>
+				<td><fmt:formatNumber value="${ recall.price }" pattern='#,###,###' /></td>
+				<td><fmt:formatNumber value="<%= deliveryPrice %>" pattern='#,###,###'/></td>
 				<td>
 	              <select name="statuslist" id="statuslist">
 	                <option value="C0"${ recall.orderStatus eq 'C0'? " selected='selected'" : "" }  >교환신청 </option>
@@ -230,7 +245,8 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 	            </select>  
 				</td>
 				<td><c:out value="${ recall.userName }"/></td>
-			 	<td><c:out value="${ recall.price + deliveryPrice }"/></td> 
+			 	<c:set var="totalAmount" value="${recall.price * recall.quantity  + deliveryPrice}" />
+			 	<td><fmt:formatNumber value="${totalAmount}" pattern='#,###,###'/></td> 
 				<td><c:out value="${ recall.recallDate }"/></td>
 				</tr>
 				</c:forEach>

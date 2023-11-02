@@ -113,47 +113,46 @@ $(function(){
 		  $("#btnSubmit").click(function() {
 		    window.location.href = "주문하기 페이지 URL";
 		  });//click
-		  /* $(".addCartBtn").click(function() {
-			        var gcode = $(this).attr('data-gcode');
-			        alert ( "장바구니에 상품 추가 : "+gcode)
-			    
-		            $.ajax({
-		                url: "wish_process.jsp",
-		                type: "POST",
-		                data:{ gcode : gcode },
-		                error: function(xhr) {
-		                    alert("죄송합니다. 서버에 문제가 발생하였습니다. 잠시 후에 다시 시도해주세요.");
-		                },
-		                success: function(data) {
-		                        alert("장바구니에 상품이 추가되었습니다.");
-		                        location.reload();
-		                }//success
-		            });//ajax
-			  });//click */
 			  
-		  $(".deleteBtn").click(function(){
-			    alert("상품이 삭제되었습니다.");
-			  });//click
-	   
 	});//ready
 	
-	function bucket(gcode) {
+	function addCart(gcode) {
         alert ( "장바구니에 상품 추가 : "+gcode);
     
         $.ajax({
-            url: "wish_process.jsp",
+            url: "wishAddCart_process.jsp",
             type: "POST",
             data: "gcode="+gcode,
             dataType: "text",
             error: function(xhr) {
                 alert("죄송합니다. 서버에 문제가 발생하였습니다. 잠시 후에 다시 시도해주세요.");
+                console.log(xhr.status);
             },
             success: function(data) {
                     alert("장바구니에 상품이 추가되었습니다." + data);
                     location.reload();
             }//success
         });//ajax
-	}
+	}//addCart
+	
+	function deleteWish(gcode) {
+        alert ( "장바구니에 상품 삭제 : "+gcode);
+    
+        $.ajax({
+            url: "wishDelete_process.jsp",
+            type: "POST",
+            data: "gcode="+gcode,
+            dataType: "text",
+            error: function(xhr) {
+                alert("죄송합니다. 서버에 문제가 발생하였습니다. 잠시 후에 다시 시도해주세요.");
+                console.log(xhr.status);
+            },
+            success: function(data) {
+                    alert("상품이 삭제되었습니다." + data);
+                    location.reload();
+            }//success
+        });//ajax
+	}//deleteWish
 
 	function chkNull(){
 		//
@@ -249,9 +248,9 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 						<td style=" vertical-align: middle;"><c:out value="<%= deliveryPrice %>"/></td>
 					 	<td style=" vertical-align: middle;"><c:out value="${ wish.price + deliveryPrice }"/></td> 
 						<td>
-							<input type="button" value="주문하기" id="orderBtn${ wish.gcode }" class="orderBtn" name="orderBtn" style="width:90px; height:30px ;background-color: white;border : 1px solid  #E5E4E4;"/><br/>
-					 		<input type="button" value="장바구니담기" data-gcode="${ wish.gcode }" <%-- id="addCartBtn${ wish.gcode }" --%> class="addCartBtn" name="addCartBtn" onclick="bucket('${wish.gcode}')" style="width:90px; height:30px ;background-color: white;border : 1px solid  #E5E4E4;"/><br/>
-					 		<input type="button" value="x삭제" id="deleteBtn${ wish.gcode }" class="deleteBtn" name="deleteBtn" style="width:90px; height:30px ;background-color: white; border : 1px solid  #E5E4E4;"/>
+							<input type="button" value="주문하기"  class="orderBtn" name="orderBtn"onclick="addOrder('${wish.gcode}')" style="width:90px; height:30px ;background-color: white;border : 1px solid  #E5E4E4;"/><br/>
+					 		<input type="button" value="장바구니담기"  class="addCartBtn" name="addCartBtn" id="addCartBtn${wish.gcode}" onclick="addCart('${wish.gcode}')" style="width:90px; height:30px ;background-color: white;border : 1px solid  #E5E4E4;"/><br/>
+					 		<input type="button" value="x삭제" class="deleteBtn" name="deleteBtn" id="deleteBtn${wish.gcode}" onclick="deleteWish('${wish.gcode}')"style="width:90px; height:30px ;background-color: white; border : 1px solid  #E5E4E4;"/>
 					 	</td>
 					 </tr>
 					</c:forEach>
