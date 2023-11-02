@@ -1,7 +1,7 @@
 package user.vo;
 
 public class GoodsVO {
-	String gcode, gname, main_img, img1, img2, img3, input_date, cat_code, cat_name, tmi, eng_tmi, top, heart, base, ing;
+	String gcode, gname, main_img, img1, img2, img3, input_date, cat_code, cat_name, tmi, eng_tmi, top, heart, base, ing, detail_img;
 	int price, quantity, total_buy;
 	
 	public GoodsVO() {
@@ -19,10 +19,28 @@ public class GoodsVO {
 		this.price = price;
 		this.quantity = quantity;
 	}
+			
+	public GoodsVO(String gcode, String gname, String main_img, String img1, String img2, String img3, String detail_img,
+			String top, String heart, String base, String ing, int price, int quantity) {
+		super();
+		this.gcode = gcode;
+		this.gname = gname;
+		this.main_img = main_img;
+		this.img1 = img1;
+		this.img2 = img2;
+		this.img3 = img3;
+		this.detail_img = detail_img;
+		this.top = top;
+		this.heart = heart;
+		this.base = base;
+		this.ing = ing;
+		this.price = price;
+		this.quantity = quantity;
+	}
 
 	public GoodsVO(String gcode, String gname, String main_img, String img1, String img2, String img3,
-			String input_date, String cat_code, String tmi, String eng_tmi, String top, String heart, String base,
-			String ing, int price, int quantity, int total_buy) {
+			String input_date, String cat_code, String cat_name, String tmi, String eng_tmi, String top, String heart,
+			String base, String ing, String detail_img, int price, int quantity, int total_buy) {
 		super();
 		this.gcode = gcode;
 		this.gname = gname;
@@ -32,17 +50,27 @@ public class GoodsVO {
 		this.img3 = img3;
 		this.input_date = input_date;
 		this.cat_code = cat_code;
+		this.cat_name = cat_name;
 		this.tmi = tmi;
 		this.eng_tmi = eng_tmi;
 		this.top = top;
 		this.heart = heart;
 		this.base = base;
 		this.ing = ing;
+		this.detail_img = detail_img;
 		this.price = price;
 		this.quantity = quantity;
 		this.total_buy = total_buy;
 	}
-	
+
+	public String getDetail_img() {
+		return detail_img;
+	}
+
+	public void setDetail_img(String detail_img) {
+		this.detail_img = detail_img;
+	}
+
 	public String getCat_name() {
 		return cat_name;
 	}
@@ -189,10 +217,10 @@ public class GoodsVO {
 
 	@Override
 	public String toString() {
-		return "ProductVO [gcode=" + gcode + ", gname=" + gname + ", main_img=" + main_img + ", img1=" + img1
-				+ ", img2=" + img2 + ", img3=" + img3 + ", input_date=" + input_date + ", cat_code=" + cat_code
-				+ ", cat_name=" + cat_name + ", tmi=" + tmi + ", eng_tmi=" + eng_tmi + ", top=" + top + ", heart="
-				+ heart + ", base=" + base + ", ing=" + ing + ", price=" + price + ", quantity=" + quantity
+		return "GoodsVO [gcode=" + gcode + ", gname=" + gname + ", main_img=" + main_img + ", img1=" + img1 + ", img2="
+				+ img2 + ", img3=" + img3 + ", input_date=" + input_date + ", cat_code=" + cat_code + ", cat_name="
+				+ cat_name + ", tmi=" + tmi + ", eng_tmi=" + eng_tmi + ", top=" + top + ", heart=" + heart + ", base="
+				+ base + ", ing=" + ing + ", detail_img=" + detail_img + ", price=" + price + ", quantity=" + quantity
 				+ ", total_buy=" + total_buy + "]";
 	}
 

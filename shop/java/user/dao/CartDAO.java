@@ -11,6 +11,7 @@ import admin.vo.BoardRangeVO;
 import admin.vo.OrderVO;
 import common.dao.DbConnection;
 import user.vo.CartVO;
+import user.vo.WishListVO;
 
 public class CartDAO {
 
@@ -82,7 +83,7 @@ public class CartDAO {
 		return list;
 	}//selectAllList
 	
-public int intsertAddCart(String id, int gcode)throws SQLException {
+public int intsertAddCart(String id, String gcode)throws SQLException {
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -101,9 +102,11 @@ public int intsertAddCart(String id, int gcode)throws SQLException {
 			
 			pstmt = con.prepareStatement(intsertAddCart.toString());
 			
-			pstmt.setInt(1, gcode);
+			pstmt.setString(1, gcode);
 			pstmt.setString(2, id);
 			pstmt.setInt(3, cVO.getAmount());
+			
+			System.out.println(intsertAddCart);
 			
 			// 5. 쿼리문 실행 결과 얻기
 			rowCnt = pstmt.executeUpdate();

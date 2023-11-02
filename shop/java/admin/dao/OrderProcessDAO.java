@@ -37,6 +37,106 @@ public class OrderProcessDAO {
 		return opDAO;
 	}//getInstance
 	
+	public int orderTotalCount(BoardRangeVO brVO) throws SQLException{
+		int totalCnt = 0;
+		String keyword = brVO.getKeyword();
+		
+		DbConnection db = DbConnection.getInstance();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = db.getConn("jdbc/dbcp");
+
+			StringBuilder selectCount = new StringBuilder();
+			selectCount
+			.append("	select count(*) CNT		")
+			.append("	from UORDER u, GOODS g, ORDER_DETAIL od, MEMBER m	")
+			.append("	where  m.id=u.id and od.gcode=g.gcode and u.ordno=od.ordno 	")
+			.append("	and ( DLVY_PRO not in ('C0','CF','R0','RF'))	");
+			
+			
+			
+			if(keyword!=null && !"".equals(keyword) && !"null".equals(keyword)) {
+				String field="m.id";
+				if("1".equals(brVO.getField())) {
+					field="m.name";
+				}//end if
+				if("2".equals(brVO.getField())) {
+					field="u.ORDNO";
+				}//end if
+				
+				selectCount.append(" and ").append(field).append(" like '%'||?||'%'");					
+			}//end if
+			
+			pstmt = con.prepareStatement(selectCount.toString());
+			
+			if(keyword!=null && !"".equals(keyword) && !"null".equals(keyword)) {
+				pstmt.setString(1, keyword);
+			}//end if
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				totalCnt = rs.getInt("CNT");
+			}//end if
+		} finally {
+			db.dbClose(rs, pstmt, con);
+		}//end finally
+		return totalCnt;
+	}//orderTotalCount
+	
+	public int recallTotalCount(BoardRangeVO brVO) throws SQLException{
+		int totalCnt = 0;
+		String keyword = brVO.getKeyword();
+		
+		DbConnection db = DbConnection.getInstance();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = db.getConn("jdbc/dbcp");
+			
+			StringBuilder selectCount = new StringBuilder();
+			selectCount
+			.append("	select count(*) CNT		")
+			.append("	from UORDER u, GOODS g, ORDER_DETAIL od, MEMBER m	")
+			.append("	where  m.id=u.id and od.gcode=g.gcode and u.ordno=od.ordno  	")
+			.append("	and DLVY_PRO not in ('D0','DF','DR','PF') 	");
+			
+			
+			
+			if(keyword!=null && !"".equals(keyword) && !"null".equals(keyword)) {
+				String field="m.id";
+				if("1".equals(brVO.getField())) {
+					field="m.name";
+				}//end if
+				if("2".equals(brVO.getField())) {
+					field="u.ORDNO";
+				}//end if
+				
+				selectCount.append(" and ").append(field).append(" like '%'||?||'%'");					
+			}//end if
+			
+			pstmt = con.prepareStatement(selectCount.toString());
+			
+			if(keyword!=null && !"".equals(keyword) && !"null".equals(keyword)) {
+				pstmt.setString(1, keyword);
+			}//end if
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				totalCnt = rs.getInt("CNT");
+			}//end if
+		} finally {
+			db.dbClose(rs, pstmt, con);
+		}//end finally
+		return totalCnt;
+	}//recallTotalCount
+	
 	/**
 	 * 전체 주문 조회해서 조회된 정보를 넣어주기 위한 일
 	 * @return list
@@ -44,7 +144,6 @@ public class OrderProcessDAO {
 	 */
 	public List<OrderVO> selectAllOrder(BoardRangeVO brVO) throws SQLException{
 		
-		String keyword = brVO.getKeyword();
 		OrderVO oVO=null;
 		List<OrderVO> list= new ArrayList<OrderVO>();
 		
