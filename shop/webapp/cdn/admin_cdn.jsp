@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page info=""%>
 <title>Chérie Admin</title>
 <link rel="icon" href="../common/images/favicon.png"/>
 <!-- bootstrap -->
@@ -8,4 +7,4 @@
 <!-- jQuery CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <!-- table css -->
-<link rel="stylesheet" type="text/css" href="http://localhost/prj_web_shopping/cdn/table_design.css"/>
+<link rel="stylesheet" type="text/css" href="http://localhost/prj_web_shopping/cdn/table.css"/>
