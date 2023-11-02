@@ -29,7 +29,7 @@ public class BoardDAO {
 	 * @throws SQLException
 	 */
 	public int totalCount(BoardRangeVO brVO) throws SQLException {
-		int totalCnt = -1;
+		int totalCnt = 0;
 		String keyword = brVO.getKeyword();
 		
 		DbConnection db = DbConnection.getInstance();
