@@ -95,7 +95,7 @@ public class WishListDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	public int intsertWhisList(int gcode)throws SQLException {
+	public int intsertWishList(String id,String gcode)throws SQLException {
 		WishListPageVO wpVO=new WishListPageVO();
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -110,8 +110,8 @@ public class WishListDAO {
 
 			pstmt = con.prepareStatement(intsertWhisList);
 			
-			pstmt.setString(1, wpVO.getId());
-			pstmt.setInt(2, gcode);
+			pstmt.setString(1, id);
+			pstmt.setString(2, gcode);
 			
 			// 5. 쿼리문 실행 결과 얻기
 			rowCnt = pstmt.executeUpdate();
@@ -120,7 +120,7 @@ public class WishListDAO {
 			db.dbClose(null, pstmt, con);
 		} // end finally
 		return rowCnt;
-	}//intsertWhisList
+	}//intsertWishList
 	
 	
 	/**
@@ -146,7 +146,6 @@ public class WishListDAO {
 			
 			cnt = pstmt.executeUpdate();
 			
-			System.out.println(deleteWishList);
 			
 		}finally {
 			db.dbClose(null, pstmt, con);

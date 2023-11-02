@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JOptionPane;
-
 import admin.vo.BoardRangeVO;
 import admin.vo.OrderVO;
 import admin.vo.RecallVO;

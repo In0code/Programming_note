@@ -55,13 +55,13 @@ public class BoardManageDAO {
 				}
 				
 				if("2".equals(brVO.getCategory())) {
-					category = "바디케어";
+					category = "Body Care";
 				}else if("3".equals(brVO.getCategory())) {
-					category = "핸드케어";
+					category = "Hand Care";
 				}else if("4".equals(brVO.getCategory())) {
-					category = "홈프래그런스";
+					category = "Home Fragrance";
 				}else if("5".equals(brVO.getCategory())) {
-					category = "향수";
+					category = "Perfume";
 				}
 				
 				selectCount.append(" and ").append(field).append(" like '%'||?||'%'");					

@@ -74,6 +74,7 @@ public class CartDAO {
 				bkVO.setGname(rs.getString("GNAME"));
 				bkVO.setPrice(rs.getInt("PRICE"));
 				bkVO.setAmount(rs.getInt("AMOUNT"));
+				bkVO.setGcode(rs.getString("gcode"));
 				list.add(bkVO);
 			}//end while
 		}finally {
@@ -117,14 +118,38 @@ public int intsertAddCart(String id, String gcode)throws SQLException {
 		return rowCnt;
 	}//intsertAddCart
 
+/**
+ * 선택한 장바구니 삭제
+ * @param wcode
+ * @return
+ * @throws SQLException
+ */
+public int deleteCart( String id, String gcode) throws SQLException {
+	DbConnection db = DbConnection.getInstance();
+	Connection con = null;
+	PreparedStatement pstmt = null;
+	int cnt = 0;
+	try {
+		con = db.getConn("jdbc/dbcp");
+		
+		String deleteCart="delete from BUCKET_LIST where gcode = ? and id= ? ";
+		
+		pstmt = con.prepareStatement(deleteCart);
+		
+		pstmt.setString(1, gcode);
+		pstmt.setString(2, id);
+		
+		cnt = pstmt.executeUpdate();
+		
+		
+	}finally {
+		db.dbClose(null, pstmt, con);
+	}//end finally
+	return cnt;
+}//deleteWishList
+
 
 	/*
-	 * public int deleteList(String[]) throws SQLException{
-	 * 
-	 * 
-	 * 
-	 * }//deleteList
-	 * 
 	 * public int deleteList(String) throws SQLException{ 
 	 * List<BucketVO> list=new ArrayList<BucketVO>();
 	 * 
