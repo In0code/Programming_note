@@ -14,6 +14,7 @@ import admin.vo.BoardManageVO;
 import admin.vo.BoardRangeVO;
 import admin.vo.ProductManageVO;
 import common.dao.DbConnection;
+import user.vo.SummaryVO;
 
 public class ProductDAO {
 	private static ProductDAO pDAO;
@@ -163,4 +164,56 @@ public class ProductDAO {
 		
 		return list;
 	}
+	
+public ProductManageVO selectOneProduct(int gcode) throws SQLException {
+		
+		
+	ProductManageVO pVO= null;
+		
+		DbConnection db= DbConnection.getInstance();
+		Connection con = null;
+		PreparedStatement pstmt=null;
+		ResultSet rs= null;
+		
+		
+		
+		
+		try {
+			con=db.getConn("jdbc/dbcp");
+			
+			String selectAllReview = "select GNAME, MAIN_IMG , IMG1, IMG2, IMG3, TMI, PRICE, QUANTITY,ENG_TMI,TOP,HEART,BASE,ING,DETAIL_IMG  from GOODS where gcode=? ";
+
+			
+			
+			pstmt=con.prepareStatement(selectAllReview);
+			
+			pstmt.setInt(1, gcode);
+			
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				pVO= new ProductManageVO();
+				pVO.setGoodsName(rs.getString("gname")); 
+				pVO.setMainImg(rs.getString("MAIN_IMG"));
+				pVO.setImg1(rs.getString("IMG1"));
+				pVO.setImg2(rs.getString("IMG2"));
+				pVO.setImg3(rs.getString("IMG3"));
+				pVO.setTmi(rs.getString("TMI"));
+				pVO.setPrice(rs.getInt("PRICE"));
+				pVO.setQuantity(rs.getInt("QUANTITY"));
+				pVO.setEngTmi(rs.getString("ENG_TMI"));
+				pVO.setTop(rs.getString("TOP"));
+				pVO.setHeart(rs.getString("HEART"));
+				pVO.setBase(rs.getString("BASE"));
+				pVO.setIng(rs.getString("ING"));
+				pVO.setDetailImg(rs.getString("DETAIL_IMG "));
+				
+				
+			
+			}
+		}finally {
+			db.dbClose(rs, pstmt, con);
+			
+		}
+		return pVO;
+	}//selectOneReview
 }

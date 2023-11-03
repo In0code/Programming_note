@@ -97,7 +97,6 @@ public class WishListDAO {
 	 * @throws SQLException
 	 */
 	public int intsertWishList(String id,String gcode)throws SQLException {
-		WishListPageVO wpVO=new WishListPageVO();
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		int rowCnt = 0;

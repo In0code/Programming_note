@@ -46,9 +46,8 @@ public class DashboardDAO {
 			StringBuilder selectSalesStatus = new StringBuilder();
 
 			selectSalesStatus
-			.append(" select count(*) as cnt from uorder 									  ")
-			.append(" where ord_date >= ADD_MONTHS(SYSDATE, -3) and dlvy_pro like '%'||?||'%' ")
-			.append(" group by dlvy_pro  													  ");
+			.append(" select count(*) cnt from order_detail o, uorder u									  ")
+			.append(" where o.ordno = u.ordno and ord_date >= ADD_MONTHS(SYSDATE, -3) and dlvy_pro like ? ");
 			
 			pstmt = con.prepareStatement(selectSalesStatus.toString());
 			pstmt.setString(1, status);
@@ -291,8 +290,8 @@ public class DashboardDAO {
 			
 			selectVisitSale
 			.append("	select to_char(ord_date,'yyyy-mm-dd') ord_date, count(*) cnt		     ")
-			.append("	from uorder																 ")
-			.append("   where to_char(ord_date,'yyyy-mm-dd') = ? and dlvy_pro not in ('R0','RF') ")
+			.append("	from uorder u, order_detail o											 ")
+			.append("   where o.ordno = u.ordno and to_char(ord_date,'yyyy-mm-dd') = ? and dlvy_pro not in ('R0','RF') ")
 			.append("	group by to_char(ord_date,'yyyy-mm-dd')									 ");
 			
 			pstmt = con.prepareStatement(selectVisitSale.toString()); 

@@ -2,24 +2,24 @@ package user.vo;
 
 public class BuyingCartVO {
 	
-	private String productCode;
+	private String gcode;
 	private int amount, price;
 	
 	public BuyingCartVO() {
 	}
 
-	public BuyingCartVO(String productCode, int amount, int price) {
-		this.productCode = productCode;
+	public BuyingCartVO(String gcode, int amount, int price) {
+		this.gcode = gcode;
 		this.amount = amount;
 		this.price = price;
 	}
 
-	public String getProductCode() {
-		return productCode;
+	public String getGcode() {
+		return gcode;
 	}
 
-	public void setProductCode(String productCode) {
-		this.productCode = productCode;
+	public void setGcode(String gcode) {
+		this.gcode = gcode;
 	}
 
 	public int getAmount() {
@@ -40,6 +40,6 @@ public class BuyingCartVO {
 
 	@Override
 	public String toString() {
-		return "BuyingCartVO [productCode=" + productCode + ", amount=" + amount + ", price=" + price + "]";
+		return "BuyingCartVO [gcode=" + gcode + ", amount=" + amount + ", price=" + price + "]";
 	}
 }

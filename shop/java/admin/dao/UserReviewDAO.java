@@ -9,7 +9,6 @@ import java.util.List;
 
 import admin.vo.BoardRangeVO;
 import admin.vo.ProductManageVO;
-import admin.vo.UserReviewVO;
 import common.dao.DbConnection;
 import user.vo.SummaryVO;
 
@@ -447,7 +446,7 @@ public void updateReivew2 ( String review,int star,int rcode) throws SQLExceptio
 	try {
 		con=db.getConn("jdbc/dbcp");
 		
-		String updateReivew2 = " update  review set REV_CONT = ? , STAR = ? ,CANCLE='Y' where  rcode=? ";
+		String updateReivew2 = " update  review set REV_CONT = ? , STAR = ? ,CANCLE='N' where  rcode=? ";
 		/*, IMG = ?*/
 
 		
