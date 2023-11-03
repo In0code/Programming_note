@@ -33,6 +33,16 @@ table td input, table td select, table td button {
 	font-weight: bold;
 	font-size: 15px
 }
+#s_result {
+    display: inline-block;
+    width: 100%;
+    text-align: left;
+    position: absolute;
+    top: 182;
+    left: 320;
+    margin-top: 2px; /* 상단 여백을 조절합니다. 필요에 따라 조절하세요. */
+    margin-left: 5px; /* 좌측 여백을 조절합니다. 필요에 따라 조절하세요. */
+}
 
 </style>
 <script type="text/javascript">
@@ -40,7 +50,7 @@ $(function(){
 	//$("#idDupFlag").val(0);
 	$("#btnDup").click(function(){
 		var id=$("#id").val();
-		window.open("id_check.jsp?id="+id,"id_check","width=512,height=313,top="
+		window.open("id_check.jsp?id="+id,"id_check","width=512,height=320,top="
 	            +( window.screenY+150)+",left="+( window.screenX+900));	
 	}); 
 	
@@ -50,13 +60,14 @@ $(function(){
 	
 	 $("#id").on('input', function() {
 	        var id = $(this).val();
-	        var regex = /^[a-zA-Z0-9]*$/; // 영문자와 숫자만 허용
+	        var regex = /^[a-z0-9]*$/; // 영문(소문자)과 숫자만 허용
 	        if (!regex.test(id)) {
-	            alert("영문자와 숫자만 입력 가능합니다.");
+	            alert("영문(소문자)과 숫자만 입력 가능합니다.");
 	            $(this).val(""); // 입력한 값 비움
 	            return;
 	        }
 	    });
+	 
 	
 	$("#btn").click(function(){
         // 필수 입력 필드가 비어있는지 확인
@@ -144,7 +155,7 @@ function compare_result() {
 		<tr>
 			<td id="title" style="font-size:15px; padding:5px 20px;">비밀번호 확인</td>
 			<td><input type="password" id="pass2" name="pass2" maxlength="15" style="height:35px">
-			<span id="s_result" style="font-size: 9px;"></span></td>
+			<span id="s_result" style="font-size: 9px"></span></td>
 		</tr>
 
 		<tr>

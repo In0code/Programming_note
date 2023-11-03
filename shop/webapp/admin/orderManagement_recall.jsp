@@ -1,11 +1,12 @@
-<%@page import="common.util.BoardUtil"%>
 <%@page import="common.util.BoardUtilVO"%>
+<%@page import="common.util.BoardUtil"%>
+<%@page import="admin.vo.RecallVO"%>
 <%@page import="admin.vo.BoardRangeVO"%>
-<%@page import="java.sql.SQLException"%>
-<%@page import="admin.dao.OrderProcessDAO"%>
 <%@page import="common.dao.BoardDAO"%>
+<%@page import="java.sql.SQLException"%>
 <%@page import="admin.vo.OrderVO"%>
 <%@page import="java.util.List"%>
+<%@page import="admin.dao.OrderProcessDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page info=""%>
@@ -15,13 +16,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>주문관리-주문</title>
+<title>주문관리-교환/반품</title>
 <jsp:include page="../cdn/admin_cdn.jsp"/>
 <%
-		////////////// 관리자 주문관리 ( 주문 ) - 인영 ////////////
+		////////////// 관리자 주문관리 ( 교환/ 반품 ) - 인영 ////////////
 %>
-
-
 <style type="text/css">
 body{
  margin: 0px;
@@ -67,8 +66,6 @@ $(function() {
 		}//end if
 	});//keyup
 	
-
-
 	$("#btnChange").click(function(){
 		 var selectedOrders = [];
 		    // 클래스명이 'check'인 체크박스를 모두 선택
@@ -99,14 +96,15 @@ $(function() {
 	    });//click
 	});//ready
 
-
 function chkNull() {
 	var keyword = $("#keyword").val();
 	if(keyword.trim() == ""){
 		alert("검색 키워드를 입력해주세요.");
 		return;
 	}//end if
+	
 	//글자 수 제한
+	
 	//모두 통과했으면 submit
 	$("#frmSearch").submit();
 }//chkNull
@@ -118,7 +116,7 @@ function chkNull() {
 OrderProcessDAO opDAO = OrderProcessDAO.getInstance();
 BoardRangeVO brVO = new BoardRangeVO();
 
-opDAO.selectAllOrder(brVO);
+opDAO.selectRecallAllOrder(brVO);
 
 String field = request.getParameter("field");
 String keyword = request.getParameter("keyword");
@@ -127,12 +125,10 @@ String keyword = request.getParameter("keyword");
 검색을 하지 않는 경우에도 값이 없다. */
 brVO.setField(field);
 brVO.setKeyword(keyword);
-/* brVO.setTableName("uorder"); */
+//brVO.setTableName("uorder");
 
 //1.총 레코드의 수 
-int totalCount = opDAO.orderTotalCount(brVO);
-
-System.out.print(totalCount);
+int totalCount = opDAO.recallTotalCount(brVO);
 
 //2.한 화면에 보여줄 게시물의 수
 int pageScale = 10;
@@ -167,8 +163,8 @@ brVO.setStartNum(startNum);
 brVO.setEndNum(endNum);
 
 try{
-	List<OrderVO> orderList = opDAO.selectAllOrder(brVO);
-	pageContext.setAttribute("orderList", orderList);
+	List<RecallVO> recallList = opDAO.selectRecallAllOrder(brVO);
+	pageContext.setAttribute("recallList", recallList);
 	pageContext.setAttribute("dlvyPrice", dlvyPrice);
 	
 }catch(SQLException se){
@@ -187,7 +183,7 @@ try{
 	<div id="rightBody">
 		<!-- 타이틀  -->
 		<div class="text" id="mainTitle">		
-			<strong>주문 리스트</strong>
+			<strong>교환/반품 리스트</strong>
 		</div>
 		
 		<!-- 검색 -->
@@ -211,62 +207,60 @@ try{
 			<table id="order_list" class="table tableList">
 				<tr id="top_title">
 					<!-- 컬럼 사이즈 -->
-					<th style="width:70px"></th>
-					<th style="width:50px">No</th>
+				<th style="width:70px"></th>
+				<th style="width:50px">No</th>
 					<th style="width:200px">주문일시</th>
-					<th id="ordNo" name="ordNo"  style="width:80px">주문번호</th>
+					<th id="ordNo" style="width:80px">주문번호</th>
 					<th style="width:200px">상품명</th>
 					<th style="width:50px">수량</th>
 					<th style="width:100px">가격정보</th>
 					<th style="width:100px">배송비</th>
-					<th style="width:100px">주문상태</th>
+					<th style="width:100px">총 처리상태</th>
 					<th style="width:100px">주문자명</th>
-					<th style="width:150px">총주문액</th>
+					<th style="width:100px">총 주문액</th>
+					<th style="width:200px">교환/반품 일시</th>
 				</tr>
-				
-				
-				<c:if test="${ empty orderList }">
+				<c:if test="${ empty recallList }">
 				<tr>
-				<td colspan="11" style="text-align: center;">회원정보가 존재하지 않습니다</td>
+				<td colspan="12" style="text-align: center;">회원정보가 존재하지 않습니다</td>
 				</tr>
 				</c:if>
 				
-				
-				<c:forEach var="order" items="${ orderList }" varStatus="i">
+				<c:forEach var="recall" items="${ recallList }" varStatus="i">
 				<tr>
-				<td><input type="checkbox" class="check" name="check"  value="${ order.ordno }"></td> 
+				 <td><input type="checkbox" class="check" name="check"  value="${ recall.ordno }"></td> 
 				 <td><c:out value="<%=startNum++ %>"/></td> 
-				<td><c:out value="${ order.ord_date }"/></td>
-				<td><c:out value="${ order.ordno }"/></td>
-				<td><c:out value="${ order.gname }"/></td>
-				<td><c:out value="${ order.amount }"/></td>
-				<td><fmt:formatNumber value="${ order.price }" pattern='#,###,###'/></td>
+				<td><c:out value="${ recall.ord_date }"/></td>
+				<td><c:out value="${ recall.ordno }"/></td>
+				<td><c:out value="${ recall.gname }"/></td>
+				<td><c:out value="${ recall.amount }"/></td>
+				<td><fmt:formatNumber value="${ recall.price }" pattern='#,###,###' /></td>
 				<td><fmt:formatNumber value="<%= dlvyPrice %>" pattern='#,###,###'/></td>
 				<td>
-				 <select name="statuslist" id="statuslist">
-                <option value="PF"${ order.dlvy_pro eq 'PF'? " selected='selected'" : "" }  >결제완료 </option>
-                <option value="D0"${ order.dlvy_pro eq 'D0'? " selected='selected'" : "" }  >배송중</option>
-                <option value="DR"${ order.dlvy_pro eq 'DR'? " selected='selected'" : "" }  >배송준비</option>
-                <option value="DF"${ order.dlvy_pro eq 'DF'? " selected='selected'" : "" }  >배송완료 </option>
-            </select>  
+	              <select name="statuslist" id="statuslist">
+	                <option value="C0"${ recall.dlvy_pro eq 'C0'? " selected='selected'" : "" }  >교환신청 </option>
+	                <option value="CF"${ recall.dlvy_pro eq 'CF'? " selected='selected'" : "" }  >교환완료</option>
+	                <option value="R0"${ recall.dlvy_pro eq 'R0'? " selected='selected'" : "" } >반품신청 </option>
+	                <option value="RF"${ recall.dlvy_pro eq 'RF'? " selected='selected'" : "" } >반품완료</option>
+	            </select>  
 				</td>
-				<td><c:out value="${ order.name }"/></td>
-				<c:set var="totalAmount" value="${order.price * order.amount  + dlvyPrice}" />
-			 	<td><fmt:formatNumber value="${totalAmount}"  pattern='#,###,###'/></td> 
+				<td><c:out value="${ recall.name }"/></td>
+			 	<c:set var="totalAmount" value="${recall.price * recall.amount  + dlvyPrice}" />
+			 	<td><fmt:formatNumber value="${totalAmount}" pattern='#,###,###'/></td> 
+				<td><c:out value="${ recall.recall_date }"/></td>
 				</tr>
-			</c:forEach>
+				</c:forEach>
 			</table>
 			</div>
 		</div>
 		
-		
-		<c:if test="${ not empty orderList }">
+		<c:if test="${ not empty recallList }">
 		<!-- 페이지네이션 -->
 		<div class="pagenationDiv">
 			<div class="pagination">
  			<%
  			BoardUtil util=BoardUtil.getInstance();
-			BoardUtilVO buVO=new BoardUtilVO("orderManagement_order.jsp",keyword,field,currentPage,totalPage);
+			BoardUtilVO buVO=new BoardUtilVO("orderManagement_recall.jsp",keyword,field,currentPage,totalPage);
 			out.println(util.pageNation(buVO));
  			%>
 			</div>
@@ -274,10 +268,9 @@ try{
 		</c:if>
 		
 		<input type="button" class="btn" id="btnChange" value="변경"/>
-		
 		<%
 			if(request.getParameter("keyword") != null) {
-			out.print("<a href='orderManagement_order.jsp'><input type='button' id='btnList' value='목록' style='left:1060px; top:683px'/></a>");
+			out.print("<a href='orderManagement_recall.jsp'><input type='button' id='btnList' value='목록' style='left:1060px; top:683px'/></a>");
 			}
 		%>
 	</div>

@@ -1,3 +1,4 @@
+<%@page import="admin.vo.OrderVO"%>
 <%@page import="org.json.simple.JSONValue"%>
 <%@page import="java.io.BufferedReader"%>
 <%@page import="org.json.simple.JSONArray"%>
@@ -27,10 +28,14 @@ try {
 
     for (Object obj : jsonArr) {
         JSONObject jsonObj = (JSONObject) obj;
-        int orderNo = Integer.parseInt(jsonObj.get("orderNo").toString());
+        int ordno = Integer.parseInt(jsonObj.get("ordno").toString());
         String newStatus = (String) jsonObj.get("newStatus");
 
-        int updatedRows = opDAO.updateShippingProgress(orderNo, newStatus);
+        OrderVO oVO=new OrderVO();
+        oVO.setOrdno(ordno);
+        oVO.setDlvy_pro(newStatus);
+        
+        int updatedRows = opDAO.updateShippingProgress(oVO);
 
         if (updatedRows > 0) {
             // 성공

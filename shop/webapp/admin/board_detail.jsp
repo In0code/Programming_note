@@ -159,7 +159,7 @@ function boardDelete(rcode){
 					</td>
 				</tr>
 				<tr>
-					<c:if test="${ review.img ne '0' }">
+					<c:if test="${ not empty review.img }">
 						<td colspan="8" style="border:none; padding: 10px 58px 10px 58px;">
 						<img src="http://localhost/prj_web_shopping/upload/review/${ review.img }" width="300px" alt="img"/>
 					</td>

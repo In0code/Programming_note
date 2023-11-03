@@ -32,7 +32,7 @@ $(function() {
 </head>
 
 <body>
-<jsp:useBean id="lVO" class="member.vo.LoginVO" scope="page"/>
+<jsp:useBean id="lVO" class="member.vo.LoginVO" scope="session"/>
 <jsp:setProperty property="*" name="lVO"/>
 <%
 //암호화

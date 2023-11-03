@@ -1,3 +1,5 @@
+<%@page import="kr.co.sist.util.cipher.DataEncrypt"%>
+<%@page import="java.util.Random"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!-- 프로젝트용 CDN -->
@@ -97,10 +99,20 @@ font-family: Roboto, "Noto Sans KR", "malgun gothic", 맑은고딕, NanumGothic,
 border: 1px solid #333;
 }
 </style>
+<%
+//String id = (String)session.getAttribute("sesId");
+String id = "test";
+int randNum = new Random().nextInt(1000);
+String paymentFlag = DataEncrypt.messageDigest("MD5", id.concat(String.valueOf(randNum)));
+
+session.setAttribute("paymentFlag", paymentFlag);
+%>
 <script type="text/javascript">
 	$(function() {
 		let flag;
 		$("#card").click(function() {
+			document.getElementById("card").classList.remove("btn-outline-danger");
+			document.getElementById("card").classList.add("btn-outline-primary");
 			document.getElementById("card").classList.add("active");
 			flag = 1;
 	    });
@@ -108,14 +120,15 @@ border: 1px solid #333;
 		$("#buyBtn").click(function() {
 			if (flag !== 1) {
 				alert("결제 방법을 선택해주세요.");
+				document.getElementById("card").classList.add("btn-outline-danger");
 				return;
 			}
 			
-			let inputList = [$("input[name='name']").val(), $("input[name='zipcode']").val(), $("input[name='addr1']").val(),
-				$("input[name='addr2']").val(), $("input[name='cell']").val(), $("input[name='email']").val()];
+			let inputList = [$("input[name='receiver']").val(), $("input[name='zipcode']").val(), $("input[name='sido']").val(),
+				$("input[name='addr']").val(), $("input[name='phone']").val(), $("input[name='email']").val()];
 			
-			let msg = $("#inputGroupSelect03 option:selected").val();
-			let check = $("#flexCheckDefault").is(":checked");
+			let msg = $("#selMsg option:selected").val() == 0 ? 0 : $("#selMsg option:selected").text();
+			let check = $("#chk").is(":checked");
 			
 			for(var i = 0; i < inputList.length; i++) {
 				if(inputList[i] === "") {
@@ -124,7 +137,23 @@ border: 1px solid #333;
 				}
 			}
 			
-			location.href = "insert_card.jsp";
+			/* $("#nameFrm").val($("#name").val());
+			$("#zipcodeFrm").val($("#zipcode").val());
+		    $("#addr1Frm").val($("#addr1").val());
+		    $("#addr2Frm").val($("#addr2").val());
+		    $("#cellFrm").val($("#phone").val());
+		    $("#emailFrm").val($("#email").val());
+		    $("#amountFrm").val($("#amount").val());
+		    $("#productCodeFrm").val($("#productName").val());
+		    $("#totalPriceFrm").val($("#price").val());
+		    $("#chk").val($("#chk:checked").val());
+		    $("#flag").val($("#flag").val()); */
+			
+			$("#msg").val(msg);
+		    $("#chkHid").val(check);
+		    $("#flag").val("${sessionScope.paymentFlag}");
+		    
+		    $("#frm").submit();
 		});
 	});
 </script>
@@ -138,8 +167,8 @@ border: 1px solid #333;
 <div id="buyTitle">
 주문 / 결제
 </div>
+<form method="post" id="frm" action="insert_card.jsp">
 	<div class="title">
-	<form method="post" id="dlvrFrm">
 	<table>
 	<tr>
 		<td id="tdLabel1" class="tdLabel">
@@ -147,7 +176,7 @@ border: 1px solid #333;
 		</td>
 		<td>
 			<div class="input-group mb-3" id="dlvrInput">
-		     	<input type="text" name="name" class="form-control" aria-label="Username" aria-describedby="inputGroup-sizing-lg">
+		     	<input type="text" name="receiver" class="form-control" aria-label="Username" aria-describedby="inputGroup-sizing-lg">
 		    </div>
 	    </td>
 	</tr>
@@ -165,14 +194,14 @@ border: 1px solid #333;
 	<tr>
 		<td colspan="2">
 			<div class="input-group mb-3">
-		     	<input type="text" name="addr1" class="form-control" placeholder="기본주소" aria-label="Username" aria-describedby="basic-addon1">
+		     	<input type="text" name="sido" class="form-control" placeholder="기본주소" aria-label="Username" aria-describedby="basic-addon1">
 		    </div>
 	    </td>
 	</tr>
 	<tr>
 		<td colspan="2">
 			<div class="input-group mb-3">
-		     	<input type="text" name="addr2" class="form-control" placeholder="상세주소" aria-label="Username" aria-describedby="basic-addon1">
+		     	<input type="text" name="addr" class="form-control" placeholder="상세주소" aria-label="Username" aria-describedby="basic-addon1">
 		    </div>
 	    </td>
 	</tr>
@@ -182,7 +211,7 @@ border: 1px solid #333;
 		</td>
 		<td>
 			<div class="input-group mb-3">
-		     	<input type="text" name="cell" class="form-control" placeholder="010-0000-0000" aria-label="Username" aria-describedby="basic-addon1">
+		     	<input type="text" name="phone" class="form-control" placeholder="010-0000-0000" aria-label="Username" aria-describedby="basic-addon1">
 		    </div>
 	    </td>
 	</tr>
@@ -198,7 +227,7 @@ border: 1px solid #333;
 	</tr>
 	</table>
 	<div class="input-group mb-3">
-	  <select class="form-select" name="msg" id="inputGroupSelect03" aria-label="Example select with button addon" style="font-size: 12px;">
+	  <select class="form-select" name="selMsg" id="selMsg" aria-label="Example select with button addon" style="font-size: 12px;">
 	    <option value="0" selected>-- 메시지 선택 (선택사항) --</option>
 	    <option value="1">문앞에 놓고 가주세요.</option>
 	    <option value="2">경비실에 맡겨 주세요.</option>
@@ -206,10 +235,9 @@ border: 1px solid #333;
 	  </select>
 	</div>
 	<div class="form-check" style="margin-bottom: 0px;">
-	  <input class="form-check-input" name="chk" type="checkbox" value="" id="flexCheckDefault" style="border: 1px solid #333; min-width: 17px;min-height: 17px;">
+	  <input class="form-check-input" name="chk" type="checkbox" value="" id="chk" style="border: 1px solid #333; min-width: 17px;min-height: 17px;">
 	  <label class="form-check-label" for="flexCheckDefault" style="padding: 0px;padding-top: 2px; margin: 0px;font-size: 12px;">기본 배송지로 저장</label>
 	</div>
-	</form>
 </div>
 <div class="title">
 	<div class="secTitle"> 
@@ -220,6 +248,8 @@ border: 1px solid #333;
 	<p>상품명 외 1개</p>
 	<p>수량 1개</p>
 	<p>320,000원</p>
+	<input type="hidden" name="gcode" value="productCode">
+    <input type="hidden" name="amount" value="1">
 	</div>
 </div>
 	<div style="background: #EBEDF0;width: 500px; height: 50px;margin: 0px auto;padding-top: 10px;">
@@ -248,7 +278,7 @@ border: 1px solid #333;
 	결제수단 선택
 	</div>
 	<div class="list-group" style="padding: 10px;">
-      <input id="card" name="card" type="button" class="list-group-item list-group-item-action" aria-current="true" value="신용카드">
+      <input id="card" name="card" type="button" class="btn btn-outline-primary" value="신용카드">
     </div>
     <div style="height: 50px;padding-left: 0px;padding-right: 0px;margin-top: 50px;position: relative;">
     	<a href="#void" id="buyBtn" style="position: absolute;bottom: 0px;">
@@ -256,6 +286,10 @@ border: 1px solid #333;
     	</a>
     </div>
 </div>
+<input type="hidden" id="msg" name="msg">
+<input type="hidden" id="chkHid" name="chkHid">
+<input type="hidden" id="flag" name="flag">
+</form>
 </div>
 <div>
 <!-- footer -->

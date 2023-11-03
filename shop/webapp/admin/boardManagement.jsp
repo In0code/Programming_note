@@ -104,7 +104,6 @@ function boardDetail(rcode){
 	
 	//1.총 레코드의 수 
 	int totalCount = bmDAO.totalCount(brVO);
-	System.out.println(totalCount);
 	
 	//2.한 화면에 보여줄 게시물의 수
 	int pageScale = 10;

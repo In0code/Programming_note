@@ -9,12 +9,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="icon" href="http://192.168.0.70/jsp_prj/common/main/favicon-32x32.png">
 <!-- jQuery CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <style type="text/css">
 #wrap{ width:502px; height:303px; margin:0px auto;}
-#idDup{width: 502px; height: 303px; background: #FFFFFF url( images/id_background.png) no-repeat;}
+#idDup{width: 502px; height: 303px; background: #FFFFFF url( ../member/images/id_background.png ) no-repeat;}
 #idDiv{ position: absolute; top:100px; left:80px; width:300px; }
 #idResult{ position: absolute; top:200px; left:80px}
 </style>
@@ -33,9 +32,9 @@ $(function(){
 	   
 	   $("#id").on('input', function() {
            var id = $(this).val();
-           var regex = /^[a-zA-Z0-9]*$/; // 영문자와 숫자만 허용
+           var regex = /^[a-z0-9]*$/; // 영문(소문자)와 숫자만 허용
            if (!regex.test(id)) {
-               alert("영문자와 숫자만 입력 가능합니다.");
+               alert("영문(소문자)과 숫자만 입력 가능합니다.");
                $(this).val(""); // 입력한 값 비움
                return;
            }

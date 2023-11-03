@@ -1,8 +1,32 @@
+<%@page import="user.vo.AddrVO"%>
+<%@page import="java.sql.SQLException"%>
+<%@page import="user.dao.BuyDAO"%>
+<%@page import="user.vo.BuyPaymentVO"%>
+<%@page import="user.vo.BuyInfoVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!-- 프로젝트용 CDN -->
 <jsp:include page="../cdn/cdn.jsp"/>
 <!DOCTYPE html>
+<%
+request.setCharacterEncoding("UTF-8");
+
+String flag = request.getParameter("flag");
+String sesFlag = (String)session.getAttribute("paymentFlag");
+
+boolean reject = false;
+try{
+	reject = !flag.equals(sesFlag) ? true:false;
+	
+} catch(NullPointerException npe) {
+	reject = true;
+}
+
+if(reject) {
+	response.sendRedirect("member/login.jsp");
+	return;
+}
+%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -73,15 +97,86 @@ height: 60px;
 				return;
 			}
 		}
-			alert("DB 저장 작업");
-
-			$("#hid").click();
+		
+		let cardNum = arrNum[0];
+		for(var i = 1; i < arrNum.length; i++) {
+			cardNum += "-"+arrNum[i];
+		}
+		
+		alert(cardNum);
+		
+		var query = "cardNum="+cardNum+"ordno="+ordno+"gcode="+gcode;
+		$.ajax({
+			url:"insert_card_process.jsp",
+			type:"get",
+			data:"cardNum="+cardNum+"ordno="+ordno;
+			dataType:"text",
+			error: function(xhr) {
+				console.log(xhr.status);
+				$("#hidFail").click();
+			},
+			success: function(json) {
+				alert(json);
+				$("#hidSuccess").click();
+			}
+		});
 	}
 </script>
 <body>
 <!-- header -->
 <div>
 <%@ include file="layout/header.jsp" %>
+
+<jsp:useBean id="JspBiVO" class="user.vo.BuyInfoVO" scope="page"/>
+<jsp:setProperty property="*" name="JspBiVO"/>
+
+<%
+BuyInfoVO biVO = (BuyInfoVO)pageContext.getAttribute("JspBiVO");
+BuyDAO bDAO = BuyDAO.getInstance();
+
+if("true".equals(request.getParameter("chkHid"))) {
+	AddrVO aVO = new AddrVO(biVO.getId(), biVO.getZipcode(), biVO.getSido(), biVO.getAddr());
+	bDAO.updateAddr(aVO);
+}
+
+System.out.println(biVO);
+
+try{
+	String ordno = bDAO.insertDelivery(biVO);
+	
+	pageContext.setAttribute("ordno", ordno);
+	
+} catch(SQLException se) {
+	se.printStackTrace();
+}
+
+/* String name = request.getParameter("name");
+String zipcode = request.getParameter("zipcode");
+String addr1 = request.getParameter("addr1");
+String addr2 = request.getParameter("addr2");
+String cell = request.getParameter("phone");
+String email = request.getParameter("email");
+String amount = request.getParameter("amount");
+String productCode = request.getParameter("productCode");
+String totalPrice = request.getParameter("price");
+String msgHid = request.getParameter("msg");
+String chkHid = request.getParameter("chkHid");
+String flag = request.getParameter("flag"); */
+
+
+/* System.out.println("name : "+name);
+System.out.println("zipcode : "+zipcode);
+System.out.println("addr1 : "+addr1);
+System.out.println("addr2 : "+addr2);
+System.out.println("cell : "+cell);
+System.out.println("email : "+email);
+System.out.println("amount : "+amount);
+System.out.println("productCode : "+productCode);
+System.out.println("totalPrice : "+totalPrice);
+System.out.println("msgHid : "+msgHid);
+System.out.println("chkHid : "+chkHid);
+System.out.println("flag : "+flag); */
+%>
 </div>
 <div style="margin-top: 70px;margin-bottom: 300px;">
 	<div class="body shadow p-3 mb-5 bg-body rounded">
@@ -104,7 +199,8 @@ height: 60px;
 		<div id="divPurchase" class="divInput">
 			<input id="purchase" type="button" class="btn btn-outline-success cardNum" value="결제" style="width: 100px;">
 			<!-- Button trigger modal(Modal button) -->
-			<input id="hid" type="hidden" class="btn btn-outline-success cardNum" data-bs-toggle="modal" data-bs-target="#modal" value="결제" style="width: 100px;">
+			<input id="hidSuccess" type="hidden" class="btn btn-outline-success cardNum" data-bs-toggle="modal" data-bs-target="modalSuccess">
+			<input id="hidFail" type="hidden" class="btn btn-outline-success cardNum" data-bs-toggle="modal" data-bs-target="modalFail">
 		</div>
 	</form>
 <!-- Form tag End -->
@@ -112,15 +208,30 @@ height: 60px;
 </div>
 <div>
 <!-- Modal  -->
-<div class="modal fade" id="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="modalSuccess" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">결제 완료</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <input id="btnOrdered" type="button" class="btn-close" data-bs-dismiss="modal" value="주문내역">
       </div>
       <div class="modal-body">
         <p>결제가 완료되었습니다.<br>상품을 구매해주셔서 감사합니다.</p>
+      </div>
+      <div class="modal-footer">
+        <input id="btnMain" type="button" class="btn btn-primary" value="메인 화면" style="width: 100px;">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="modalFail" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">결제 오류</h5>
+      </div>
+      <div class="modal-body">
+        <p>결제가 실패!<br>다시 시도 해주세요!</p>
       </div>
       <div class="modal-footer">
         <input id="btn" type="button" class="btn btn-primary" value="확인" style="width: 100px;">

@@ -5,6 +5,13 @@
 	function searchLayerToggle() {
 		$('body').toggleClass('search_active');
 	}
+	
+	$(function(){
+		$("#searchIcon").click(function() {
+			if("#")
+			$("#searchBarForm").submit();
+		});
+	});
 </script>
 
 <style>
@@ -22,7 +29,7 @@
 
 .headSearch {
 	position: fixed;
-	top: 50%;
+	top: 40%;
 	transform: translateY(-50%);
 	left: 0;
 	width: 100%;
@@ -160,19 +167,19 @@ body.search_active .headSearchBtn_magnifier {
 <!-- 검색 상세  -->
 		<div class="headSearchBg"></div>
 		<div class="headSearch">
-			<form id="searchBarForm" name="" action="/product/search.html"
+			<form id="searchBarForm" name="" action="search.jsp"
 				method="get" target="_self" enctype="multipart/form-data">
-				<input id="banner_action" name="banner_action" value="" type="hidden" />
+				<!-- <input id="banner_action" name="banner_action" value="" type="hidden" /> -->
 				<div class="xans-element- xans-layout xans-layout-searchheader headSearchBox ">
 					<div class="searchbar">
 						<fieldset>
-							<input id="keyword1" name="keyword1" fw-filter="" fw-label="검색어"
-								fw-msg="" class="inputTypeText" placeholder=""
+							<input id="searchKeyword" name="searchKeyword" fw-label="검색어"
+								class="inputTypeText" placeholder=""
 								onmousedown="SEARCH_BANNER.clickSearchForm(this)" value=""
-								type="text" />
-								<span class="search_button" onclick="SEARCH_BANNER.submitSearchBanner(this); return false;">
+								type="text" style="font-family: Pretendard Medium"/>
+								<button class="search_button" id="searchIcon">
 									<img src="http://192.168.10.136/prj_web_shopping/common/images/icon/search.png" width="30px"/>
-								</span>
+								</button>
 						</fieldset>
 					</div>
 					<div class="xans-element- xans-search xans-search-hotkeyword displaynone">
@@ -260,7 +267,7 @@ body.search_active .headSearchBtn_magnifier {
 						<% 
 						}else{ 
 						%>
-					 		<a href="http://localhost/prj_web_shopping/user/member/login.jsp">Logout</a>
+					 		<a href="http://localhost/prj_web_shopping/user/member/logout.jsp">Logout</a>
 				 		<% } %>
 					</li>
 						
