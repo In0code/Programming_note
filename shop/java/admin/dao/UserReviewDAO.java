@@ -49,18 +49,16 @@ public class UserReviewDAO {
 			
 			StringBuilder selectAllReview = new StringBuilder();
 
-			selectAllReview.append("select  name, REV_CONT, star ,  REV_DATE , r_view, rcode ,cat_name from (select row_number() over(order by rcode desc) rnum , m.name, r.REV_CONT, r.star , to_char(r.rev_date,'yyyy-MM-dd') as REV_DATE , r.r_view, r.rcode ,c.cat_name  from member m, review r,goods g, category c where m.id=r.id and g.gcode=r.gcode and c.cat_code = g.cat_code and m.id= ? and r.cancle not in ('Y')");
+			selectAllReview.append("select  name, REV_CONT, star ,  REV_DATE , r_view, rcode ,gname from (select row_number() over(order by rcode desc) rnum , m.name, r.REV_CONT, r.star , to_char(r.rev_date,'yyyy-MM-dd') as REV_DATE , r.r_view, r.rcode ,g.gname  from member m, review r,goods g, category c where m.id=r.id and g.gcode=r.gcode and c.cat_code = g.cat_code and m.id= ? and r.cancle not in ('Y')");
 			
 			
 			
 			
 			if(brVO.getKeyword() != null && !"".equals(brVO.getKeyword() )&& !"null".equals(brVO.getKeyword())) {
 				String field="r.REV_CONT";
-				if("1".equals(brVO.getField())) {
-					field="r.REV_CONT";
-				}//end if
+			
 				if("2".equals(brVO.getField())) {
-					field="c.cat_name";
+					field="g.gname";
 				}//end if
 //				if("2".equals(brVO.getField())) {
 //					field="c.cat_name ";
@@ -92,7 +90,7 @@ public class UserReviewDAO {
 			while(rs.next()) {
 				sVO= new SummaryVO();
 				sVO.setName(rs.getString("name"));
-				sVO.setCategory(rs.getString("cat_name"));
+				sVO.setGname(rs.getString("gname"));
 				sVO.setReview(rs.getString("REV_CONT"));
 				sVO.setReviewDate(rs.getString("REV_DATE"));
 				sVO.setView(rs.getInt("r_view"));
@@ -125,7 +123,7 @@ public SummaryVO selectOneReview(int rcode) throws SQLException {
 		try {
 			con=db.getConn("jdbc/dbcp");
 			
-			String selectAllReview = "select distinct m.name, r.REV_CONT,  r.star, r.rcode from member m, review r, category c where m.id=r.id   and r.rcode= ? ";
+			String selectAllReview = "select distinct r.img , to_char(r.rev_date,'yyyy-MM-dd') as REV_DATE ,m.name, m.id, r.REV_CONT,  r.star, r.rcode, c.cat_name, g.gname from member m, review r, category c, goods g where m.id=r.id and  r.gcode = g.gcode and g.cat_code=c.cat_code   and r.rcode= ? ";
 
 			
 			
@@ -136,17 +134,23 @@ public SummaryVO selectOneReview(int rcode) throws SQLException {
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				sVO= new SummaryVO();
+				sVO.setId(rs.getString("id"));
+				sVO.setGname(rs.getString("gname"));
+				sVO.setCategory(rs.getString("cat_name"));
+				sVO.setReviewDate(rs.getString("rev_date"));
+				sVO.setImg(rs.getString("img"));
 				sVO.setName(rs.getString("name"));
 				sVO.setReview(rs.getString("REV_CONT"));
 				sVO.setRcode(rs.getInt("rcode"));
 				sVO.setStar(rs.getInt("star"));
+				
 			
 			}
 		}finally {
 			db.dbClose(rs, pstmt, con);
 			
 		}
-		
+		System.out.println(sVO+"000000000000000000");
 		return sVO;
 	}//selectOneReview
 /*SummaryVO sVO*/
@@ -500,8 +504,8 @@ try {
 }
 
 //-----------------------totalcount--------------------//
-public int reviewTotalCount(BoardRangeVO brVO,String id) throws SQLException{
-	int totalCnt = 0;
+public int postingTotalCount(BoardRangeVO brVO,String id) throws SQLException{
+	int totalCnt = 1;
 	String keyword = brVO.getKeyword();
 	
 	DbConnection db = DbConnection.getInstance();
@@ -521,9 +525,7 @@ public int reviewTotalCount(BoardRangeVO brVO,String id) throws SQLException{
 		
 		if(keyword!=null && !"".equals(keyword) && !"null".equals(keyword)) {
 			String field="r.rev_cont";
-			if("1".equals(brVO.getField())) {
-				field="r.rev_cont";
-			}//end if
+
 			if("2".equals(brVO.getField())) {
 				field="c.cat_name";
 			}//end if
@@ -546,8 +548,52 @@ public int reviewTotalCount(BoardRangeVO brVO,String id) throws SQLException{
 	} finally {
 		db.dbClose(rs, pstmt, con);
 	}//end finally
+	System.out.println(totalCnt);
 	return totalCnt;
-}//reviewTotalCount
+}//postingTotalCount
 	
+public int productReviewTotalCount(BoardRangeVO brVO,String gcode) throws SQLException{
+	int totalCnt = 1;
+	String keyword = brVO.getKeyword();
 	
+	DbConnection db = DbConnection.getInstance();
+	Connection con = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+	try {
+		con = db.getConn("jdbc/dbcp");
+
+		StringBuilder selectCount = new StringBuilder();
+		selectCount
+		.append("	select count(*) CNT		")
+		.append("	from review r , goods g , member m 	")
+		.append("	 where m.id=r.id and g.gcode=r.gcode and r.CANCLE not in  ('Y') and g.gcode=?	");
+		
+		
+		if(keyword!=null && !"".equals(keyword) && !"null".equals(keyword)) {
+			String field="m.id";
+			if("2".equals(brVO.getField())) {
+				field="r.rev_cont";
+			}//end if
+			selectCount.append(" and ").append(field).append(" like '%'||?||'%'");					
+		}//end if
+		
+		pstmt = con.prepareStatement(selectCount.toString());
+		int bindCnt=1;
+		 pstmt.setString(bindCnt++, gcode);
+		if(keyword!=null && !"".equals(keyword) && !"null".equals(keyword)) {
+			pstmt.setString(2, keyword);
+		}//end if
+		
+		rs = pstmt.executeQuery();
+		
+		if(rs.next()) {
+			totalCnt = rs.getInt("CNT");
+		}//end if
+	} finally {
+		db.dbClose(rs, pstmt, con);
+	}//end finally
+	System.out.println(totalCnt);
+	return totalCnt;
+}//reviewTotalCount	
 }

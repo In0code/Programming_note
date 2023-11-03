@@ -85,7 +85,7 @@ public class CartDAO {
 		return list;
 	}//selectAllList
 	
-public int intsertAddCart(String id, String gcode)throws SQLException {
+public int intsertAddCart(String id, String gcode, int amount)throws SQLException {
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -106,7 +106,7 @@ public int intsertAddCart(String id, String gcode)throws SQLException {
 			
 			pstmt.setString(1, gcode);
 			pstmt.setString(2, id);
-			pstmt.setInt(3, cVO.getAmount());
+			pstmt.setInt(3, amount);
 			
 			System.out.println(intsertAddCart);
 			
