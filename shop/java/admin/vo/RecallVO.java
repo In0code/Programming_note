@@ -2,13 +2,13 @@ package admin.vo;
 
 public class RecallVO {
 
-	private String name, ord_date, recall_date ,gname ,dlvy_pro;
-	private int ordno ,amount ,price ; 
+	private String name, ord_date, recall_date ,gname ,dlvy_pro, ordno ,ord_dno;
+	private int amount ,price ; 
 	public RecallVO() {
 		super();
 	}
-	public RecallVO(String name, String ord_date, String recall_date, String gname, String dlvy_pro, int ordno,
-			int amount, int price) {
+	public RecallVO(String name, String ord_date, String recall_date, String gname, String dlvy_pro, String ordno,
+			String ord_dno, int amount, int price) {
 		super();
 		this.name = name;
 		this.ord_date = ord_date;
@@ -16,6 +16,7 @@ public class RecallVO {
 		this.gname = gname;
 		this.dlvy_pro = dlvy_pro;
 		this.ordno = ordno;
+		this.ord_dno = ord_dno;
 		this.amount = amount;
 		this.price = price;
 	}
@@ -49,11 +50,17 @@ public class RecallVO {
 	public void setDlvy_pro(String dlvy_pro) {
 		this.dlvy_pro = dlvy_pro;
 	}
-	public int getOrdno() {
+	public String getOrdno() {
 		return ordno;
 	}
-	public void setOrdno(int ordno) {
+	public void setOrdno(String ordno) {
 		this.ordno = ordno;
+	}
+	public String getOrd_dno() {
+		return ord_dno;
+	}
+	public void setOrd_dno(String ord_dno) {
+		this.ord_dno = ord_dno;
 	}
 	public int getAmount() {
 		return amount;
@@ -70,7 +77,8 @@ public class RecallVO {
 	@Override
 	public String toString() {
 		return "RecallVO [name=" + name + ", ord_date=" + ord_date + ", recall_date=" + recall_date + ", gname=" + gname
-				+ ", dlvy_pro=" + dlvy_pro + ", ordno=" + ordno + ", amount=" + amount + ", price=" + price + "]";
+				+ ", dlvy_pro=" + dlvy_pro + ", ordno=" + ordno + ", ord_dno=" + ord_dno + ", amount=" + amount
+				+ ", price=" + price + "]";
 	}
 	
 	
