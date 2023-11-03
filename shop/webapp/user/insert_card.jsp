@@ -75,63 +75,13 @@ padding-left: 33px;
 height: 60px;
 }
 </style>
-<script type="text/javascript">
-	$(function() {
-		$("#purchase").click(function() {
-			check();
-	    });
-		
-		$("#btn").click(function() {
-			alert("주문관리로 이동");
-	    });
-	});
-	
-	function check() {
-		let arrId = [ "c1", "c2", "c3", "c4", "c5" ];
-		let arrNum = [ $("#c1").val(), $("#c2").val(), $("#c3").val(), $("#c4").val(), $("#c5").val() ];
-		
-		for(var i = 0; i < arrNum.length; i++) {
-				document.getElementById(arrId[i]).classList.remove("is-invalid"); //재입력했을 때 중복되어서 나타지 않기 위해서 지운다.
-			if(arrNum[i].length === 0) {
-				document.getElementById(arrId[i]).classList.add("is-invalid");
-				return;
-			}
-		}
-		
-		let cardNum = arrNum[0];
-		for(var i = 1; i < arrNum.length; i++) {
-			cardNum += "-"+arrNum[i];
-		}
-		
-		alert(cardNum);
-		
-		var query = "cardNum="+cardNum+"ordno="+ordno+"gcode="+gcode;
-		$.ajax({
-			url:"insert_card_process.jsp",
-			type:"get",
-			data:"cardNum="+cardNum+"ordno="+ordno;
-			dataType:"text",
-			error: function(xhr) {
-				console.log(xhr.status);
-				$("#hidFail").click();
-			},
-			success: function(json) {
-				alert(json);
-				$("#hidSuccess").click();
-			}
-		});
-	}
-</script>
-<body>
-<!-- header -->
-<div>
-<%@ include file="layout/header.jsp" %>
-
 <jsp:useBean id="JspBiVO" class="user.vo.BuyInfoVO" scope="page"/>
 <jsp:setProperty property="*" name="JspBiVO"/>
-
 <%
 BuyInfoVO biVO = (BuyInfoVO)pageContext.getAttribute("JspBiVO");
+biVO.setId("test");
+biVO.setGcode(request.getParameterValues("gcode"));
+
 BuyDAO bDAO = BuyDAO.getInstance();
 
 if("true".equals(request.getParameter("chkHid"))) {
@@ -143,14 +93,15 @@ System.out.println(biVO);
 
 try{
 	String ordno = bDAO.insertDelivery(biVO);
-	
 	pageContext.setAttribute("ordno", ordno);
+	
 	
 } catch(SQLException se) {
 	se.printStackTrace();
 }
 
-/* String name = request.getParameter("name");
+
+	/* String name = request.getParameter("name");
 String zipcode = request.getParameter("zipcode");
 String addr1 = request.getParameter("addr1");
 String addr2 = request.getParameter("addr2");
@@ -177,6 +128,53 @@ System.out.println("msgHid : "+msgHid);
 System.out.println("chkHid : "+chkHid);
 System.out.println("flag : "+flag); */
 %>
+<script type="text/javascript">
+	$(function() {
+		$("#purchase").click(function() {
+			check();
+	    });
+		
+		$("#btn").click(function() {
+			alert("주문관리로 이동");
+	    });
+	});
+	
+	function check() {
+		let arrId = [ "c1", "c2", "c3", "c4", "c5" ];
+		let arrNum = [ $("#c1").val(), $("#c2").val(), $("#c3").val(), $("#c4").val(), $("#c5").val() ];
+		
+		for(var i = 0; i < arrNum.length; i++) {
+				document.getElementById(arrId[i]).classList.remove("is-invalid"); //재입력했을 때 중복되어서 나타지 않기 위해서 지운다.
+			if(arrNum[i].length === 0) {
+				document.getElementById(arrId[i]).classList.add("is-invalid");
+				return;
+			}
+		}
+		
+		let cardNum = $("#c1").val()+"-"+$("#c2").val()+"-"+$("#c3").val()+"-"+$("#c4").val();
+		
+		var query = "cardNum="+cardNum+"&ordno=${ordno}&gcode=${param.gcode}";
+		alert(query);
+		$.ajax({
+			url:"insert_card_process.jsp",
+			type:"get",
+			data:query,
+			dataType:"json",
+			error: function(xhr) {
+				console.log(xhr.status);
+				$("#hidFail").trigger('click'); 
+			},
+			success: function(json) {
+				$("#hidSuccess")).trigger('click'); 
+			}
+		});
+	}
+</script>
+<body>
+<!-- header -->
+<div>
+<%@ include file="layout/header.jsp" %>
+
 </div>
 <div style="margin-top: 70px;margin-bottom: 300px;">
 	<div class="body shadow p-3 mb-5 bg-body rounded">
@@ -199,8 +197,8 @@ System.out.println("flag : "+flag); */
 		<div id="divPurchase" class="divInput">
 			<input id="purchase" type="button" class="btn btn-outline-success cardNum" value="결제" style="width: 100px;">
 			<!-- Button trigger modal(Modal button) -->
-			<input id="hidSuccess" type="hidden" class="btn btn-outline-success cardNum" data-bs-toggle="modal" data-bs-target="modalSuccess">
-			<input id="hidFail" type="hidden" class="btn btn-outline-success cardNum" data-bs-toggle="modal" data-bs-target="modalFail">
+			<input id="hidSuccess" type="hidden" class="btn btn-outline-success cardNum" data-bs-toggle="modalSuccess" data-bs-target="modalSuccess">
+			<input id="hidFail" type="hidden" class="btn btn-outline-success cardNum" data-bs-toggle="modalFail" data-bs-target="modalFail">
 		</div>
 	</form>
 <!-- Form tag End -->

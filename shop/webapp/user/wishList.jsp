@@ -116,7 +116,7 @@ $(function(){
 			  
 	});//ready
 	
-	function addCart(gcode) {
+	/* function addCart(gcode) {
         $.ajax({
             url: "wishAddCart_process.jsp",
             type: "get",
@@ -131,7 +131,7 @@ $(function(){
                     location.reload();
             }//success
         });//ajax
-	}//addCart
+	}//addCart */
 	
 	function deleteWish(wcode) {
     
@@ -217,9 +217,9 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 <div id="pageTitle" style="font-family:Pretendard Medium;">관심상품</div><br>
 <div id="container" style="font-family:Pretendard Medium;">
 	<div id="contents">
-		<div class="table-container">
+		<div class="table-container" >
 				<form id="tableFrm">
-			<table class="table" id="table" style="border: 1px solid #E5E4E4;">
+			<table class="table" id="table" style="border: 1px solid #E5E4E4; text-align: center;">
 				<tr style="border: 1px solid #E5E4E4; border-bottom: 1px solid #919191;">
 					<td  style="width:10px; color: #929492">
 						<input type="hidden" style="border: 1px solid #929492 ; width: 15px; height: 15px"/>
@@ -245,9 +245,9 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 						<td style=" vertical-align: middle;"><c:out value="<%= deliveryPrice %>"/></td>
 					 	<td style=" vertical-align: middle;"><c:out value="${ wish.price + deliveryPrice }"/></td> 
 						<td>
-							<input type="hidden" value="x삭제" name="dd" style="width:90px; height:40px ;"/><br/>
-					 		<input type="button" value="장바구니담기"  class="addCartBtn" name="addCartBtn"  onclick="addCart('${wish.gcode}')" style="width:90px; height:30px ;background-color: white;border : 1px solid  #E5E4E4;"/><br/>
-					 		<input type="button" value="x삭제" class="deleteBtn" name="deleteBtn" onclick="deleteWish('${wish.wcode}')"style="width:90px; height:30px ;background-color: white; border : 1px solid  #E5E4E4;"/>
+							<input type="hidden" value="x삭제" name="dd" style="width:90px; height:50px ;"/><br/>
+					 		<%-- <input type="button" value="장바구니담기"  class="addCartBtn" name="addCartBtn"  onclick="addCart('${wish.gcode}')" style="width:90px; height:30px ;background-color: white;border : 1px solid  #E5E4E4;"/><br/> --%>
+					 		<input type="button" value="x삭제" class="deleteBtn" name="deleteBtn" onclick="deleteWish('${wish.wcode}')"style="width:90px; height:40px ;background-color: white; border : 1px solid  #E5E4E4;"/>
 					 	</td>
 					 </tr>
 					</c:forEach>

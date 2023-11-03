@@ -1,7 +1,11 @@
+<%@page import="java.sql.SQLException"%>
+<%@page import="user.dao.BuyDAO"%>
+<%@page import="user.vo.BuyingGoodsVO"%>
 <%@page import="kr.co.sist.util.cipher.DataEncrypt"%>
 <%@page import="java.util.Random"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!-- 프로젝트용 CDN -->
 <%@ include file="../cdn/cdn.jsp"%>
 <!DOCTYPE html>
@@ -51,6 +55,7 @@ border-right: 3px solid #EBEDF0;
 }
 #dg{
 height: 90px;
+margin-left: 10px;
 }
 #dg > p{
 padding-left: 85px;
@@ -106,6 +111,27 @@ int randNum = new Random().nextInt(1000);
 String paymentFlag = DataEncrypt.messageDigest("MD5", id.concat(String.valueOf(randNum)));
 
 session.setAttribute("paymentFlag", paymentFlag);
+
+int flag = "d".equals(request.getParameter("flag")) ? 1 : 2;
+System.out.println("buy.jsp flag : "+flag);
+String gcode = request.getParameter("gcode");
+
+int totalAmountPrice = 0;
+if(flag == 1) {
+	BuyingGoodsVO bgVO = BuyDAO.getInstance().selectBuyingGoods(gcode);
+	bgVO.setAmount(Integer.parseInt(request.getParameter("amount")));
+	
+	System.out.println(bgVO);
+	totalAmountPrice = bgVO.getPrice() * bgVO.getAmount(); 
+	
+	pageContext.setAttribute("bgVO", bgVO);
+	pageContext.setAttribute("totalAmountPrice", totalAmountPrice);
+}
+
+if(flag == 2) {
+	
+}
+
 %>
 <script type="text/javascript">
 	$(function() {
@@ -186,7 +212,7 @@ session.setAttribute("paymentFlag", paymentFlag);
 		</td>
 		<td>
 			<div class="input-group mb-3">
-		     	<input value="12345" type="text" name="zipcode" class="form-control" placeholder="우편번호" aria-label="Disabled input example" disabled readonly aria-describedby="button-addon2">
+		     	<input value="12345" type="text" name="zipcode" class="form-control" placeholder="우편번호" aria-label="Disabled input example" readonly aria-describedby="button-addon2">
 	      		<input class="btn btn-outline-secondary" type="button" id="button-addon2 btnAddr" value="주소검색"/>
 		    </div>
 	    </td>
@@ -244,11 +270,11 @@ session.setAttribute("paymentFlag", paymentFlag);
 	주문상품
 	</div>
 	<div id="dg">
-	<img src="https://duciel.co.kr/web/product/extra/small/20220615/1df408698c77921b06cf98c1d173ecf6.jpg" class="rounded float-start" alt="상품명" width="70px" height="70">
-	<p>상품명 외 1개</p>
-	<p>수량 1개</p>
-	<p>320,000원</p>
-	<input type="hidden" name="gcode" value="productCode">
+	<img src="http://localhost/prj_web_shopping/upload/goods/${ bgVO.img }" class="rounded float-start" alt="상품명" width="70px" height="70">
+	<p>${ bgVO.gname }</p>
+	<p>수량 <fmt:formatNumber value="${ bgVO.amount }" pattern="#,###"/>개</p>
+	<p><fmt:formatNumber value="${ bgVO.price * bgVO.amount }" pattern="#,###,###"/>원</p>
+	<input type="hidden" name="gcode" value="${param.gcode }">
     <input type="hidden" name="amount" value="1">
 	</div>
 </div>
@@ -262,12 +288,12 @@ session.setAttribute("paymentFlag", paymentFlag);
 	결제 정보
 	</div>
 	<div style="padding-left: 15px;padding-right: 10px;">
-		<p><span style="float: left;">주문상품</span><span style="float: right;">320,000원</span><br></p>
+		<p><span style="float: left;">주문상품</span><span style="float: right;"><fmt:formatNumber value="${ totalAmountPrice }" pattern="#,###,###"/>원</span><br></p>
 		<p><span style="float: left;">배송비</span><span style="float: right;">+2,500원</span><br></p>
 		<p><span style="float: left;">할인/부가결제</span><span style="float: right;color: red;">-0원</span><br></p>
 	</div>
 	<div class="secTitle" style="border: 0px;margin-top: 12px;background: #E2EDF8;color: #0080FF;height: 40px;">
-		<p><span style="float: left;">최종 결제 금액</span><span style="float: right;">322,500원</span></p>
+		<p><span style="float: left;">최종 결제 금액</span><span style="float: right;"><fmt:formatNumber value="${ totalAmountPrice + 2500 }" pattern="#,###,###"/>원</span></p>
 	</div>
 </div>
 <div class="title" style="padding-left: 0px;padding-right: 0px;border-bottom: 3px solid #EBEDF0;">
@@ -282,13 +308,14 @@ session.setAttribute("paymentFlag", paymentFlag);
     </div>
     <div style="height: 50px;padding-left: 0px;padding-right: 0px;margin-top: 50px;position: relative;">
     	<a href="#void" id="buyBtn" style="position: absolute;bottom: 0px;">
-    	322,500원 결제하기
+    	<fmt:formatNumber value="${ totalAmountPrice + 2500 }" pattern="#,###,###"/>원 결제하기
     	</a>
     </div>
 </div>
 <input type="hidden" id="msg" name="msg">
 <input type="hidden" id="chkHid" name="chkHid">
 <input type="hidden" id="flag" name="flag">
+<input type="hidden" id="total" name="total">
 </form>
 </div>
 <div>

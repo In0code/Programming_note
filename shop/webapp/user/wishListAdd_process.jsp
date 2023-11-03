@@ -11,9 +11,8 @@ try{
 	String gcode=request.getParameter("gcode");
 	String id="tuna5127";
 	
-	System.out.println( gcode+" / "+id);
 
-	 wlDAO.deleteWishList(id, gcode);
+	 wlDAO.intsertWishList(id, gcode);
 	
 }catch(SQLException se){
 	se.printStackTrace();

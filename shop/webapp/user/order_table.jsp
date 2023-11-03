@@ -87,8 +87,7 @@ min-height: 30px;
 #sec{
 }
 #txtDiv{
-padding: 10px;
-padding-top: 50px;
+padding: 20px 0px 20px 10px;
 }
 #thr{
 }
@@ -203,7 +202,7 @@ text-align: center;
 
 <div id="txtDiv">
 		<ul type="circle">
-			<li>상품정보를 클릭하면 상세한 내용을 확인 가능합니다.</li>
+			<li>주문정보를 클릭하시면 해당 주문에 대한 상세내역을 확인하실수 있습니다.</li>
 			<li>취소/교환/반품 신청은 배송완료일 기준 7일까지 가능합니다. </li>
 		</ul>
 </div>

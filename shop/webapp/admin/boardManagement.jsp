@@ -12,6 +12,63 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
+<%
+	BoardManageDAO bmDAO = BoardManageDAO.getInstance();
+	BoardRangeVO brVO = new BoardRangeVO();
+
+	String field = request.getParameter("field");
+	String keyword = request.getParameter("keyword");
+	String category = request.getParameter("category");
+	
+	/* 페이지가 최초 호출 시에는 field나 keyword가 없다. 
+	검색을 하지 않는 경우에도 값이 없다. */
+	brVO.setField(field);
+	brVO.setKeyword(keyword);
+	brVO.setCategory(category);
+	
+	//1.총 레코드의 수 
+	int totalCount = bmDAO.totalCount(brVO);
+	
+	//2.한 화면에 보여줄 게시물의 수
+	int pageScale = 10;
+	
+	//3.총 페이지 수
+	//int totalPage = totalCount/pageScale;
+	
+	//총 레코드 수 나누기 한 화면에 보여줄 게시물의 수를 했을 때
+	//나머지가 있다면(0이 아니라면) 한 화면에 보여줄 게시물의 수를 초과한 것이므로
+	//총 페이지 수를 하나 늘림
+	//Math 사용 - 올림
+	int totalPage = (int)Math.ceil(totalCount/(double)pageScale);
+	
+	//4.현재 페이지 번호 구하기
+	String tempPage = request.getParameter("currentPage");
+	int currentPage = 1; //최초 페이지는 1번째 페이지가 보임
+	if(tempPage != null){
+		currentPage = Integer.parseInt(tempPage);
+	}//end if
+	
+	//5.시작 번호
+	int startNum = currentPage*pageScale-pageScale+1;
+	pageContext.setAttribute("startNum", startNum);
+	
+	//6.끝 번호
+	int endNum = startNum+pageScale-1;
+	
+	//Dynamic Query에 의해서 구해진 시작번호와 끝번호를 VO에 넣는다.
+	brVO.setStartNum(startNum);
+	brVO.setEndNum(endNum);
+	
+	try{
+		List<BoardManageVO> reviewList = bmDAO.selectAllReview(brVO);
+		List<String> categoryList = bmDAO.selectCategory();
+		pageContext.setAttribute("reviewList", reviewList);
+		pageContext.setAttribute("category", categoryList);
+		
+	}catch(SQLException se){
+		se.printStackTrace();
+	}
+%>
 <head>
 <meta charset="UTF-8">
 <jsp:include page="../cdn/admin_cdn.jsp"/>
@@ -86,63 +143,7 @@ function boardDetail(rcode){
 </script>
 </head>
 <body>
-<%
-	BoardManageDAO bmDAO = BoardManageDAO.getInstance();
-	BoardRangeVO brVO = new BoardRangeVO();
 
-	String field = request.getParameter("field");
-	String keyword = request.getParameter("keyword");
-	String category = request.getParameter("category");
-	
-	/* 페이지가 최초 호출 시에는 field나 keyword가 없다. 
-	검색을 하지 않는 경우에도 값이 없다. */
-	brVO.setField(field);
-	brVO.setKeyword(keyword);
-	brVO.setCategory(category);
-	
-	//1.총 레코드의 수 
-	int totalCount = bmDAO.totalCount(brVO);
-	
-	//2.한 화면에 보여줄 게시물의 수
-	int pageScale = 10;
-	
-	//3.총 페이지 수
-	//int totalPage = totalCount/pageScale;
-	
-	//총 레코드 수 나누기 한 화면에 보여줄 게시물의 수를 했을 때
-	//나머지가 있다면(0이 아니라면) 한 화면에 보여줄 게시물의 수를 초과한 것이므로
-	//총 페이지 수를 하나 늘림
-	//Math 사용 - 올림
-	int totalPage = (int)Math.ceil(totalCount/(double)pageScale);
-	
-	//4.현재 페이지 번호 구하기
-	String tempPage = request.getParameter("currentPage");
-	int currentPage = 1; //최초 페이지는 1번째 페이지가 보임
-	if(tempPage != null){
-		currentPage = Integer.parseInt(tempPage);
-	}//end if
-	
-	//5.시작 번호
-	int startNum = currentPage*pageScale-pageScale+1;
-	pageContext.setAttribute("startNum", startNum);
-	
-	//6.끝 번호
-	int endNum = startNum+pageScale-1;
-	
-	//Dynamic Query에 의해서 구해진 시작번호와 끝번호를 VO에 넣는다.
-	brVO.setStartNum(startNum);
-	brVO.setEndNum(endNum);
-	
-	try{
-		List<BoardManageVO> reviewList = bmDAO.selectAllReview(brVO);
-		List<String> categoryList = bmDAO.selectCategory();
-		pageContext.setAttribute("reviewList", reviewList);
-		pageContext.setAttribute("category", categoryList);
-		
-	}catch(SQLException se){
-		se.printStackTrace();
-	}
-%>
 
 <%@ include file="sidebar.jsp" %>
 <div id="right">

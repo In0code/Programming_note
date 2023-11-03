@@ -205,13 +205,23 @@ function productDetail(gcode){
 					<tr onclick="productDetail(${ product.goodsCode })">
 						<td>${ startNum + i.index }</td>
 						<td><img src="http://localhost/prj_web_shopping/upload/goods/${ product.mainImg }" style="width:35px"/></td>
-						<td>${ product.goodsCode }</td>
-						<td>${ product.goodsName }</td>
-						<td>${ product.categoryName }</td>
-						<td>${ product.inputDate }</td>
-						<td>${ product.price }</td>
-						<td>${ product.quantity }</td>
-						<td>${ product.cancle }</td>
+					 <td><a href="item_managing_detail?gname=${product.goodsCode }" 
+   onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${ product.goodsCode }" /></a></td> 
+						<td><a href="item_managing_detail?gname=${product.goodsCode }" 
+   onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${ product.goodsName }" /></a></td>
+						<td><a href="item_managing_detail?gname=${product.goodsCode }" 
+   onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${ product.categoryName }" /></a></td>
+						<td><a href="item_managing_detail?gname=${product.goodsCode }" 
+   onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${ product.inputDate }" /></a></td>
+						<td><a href="item_managing_detail?gname=${product.goodsCode }" 
+   onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${ product.price }" /></a></td>
+						<td><a href="item_managing_detail?gname=${product.goodsCode }" 
+   onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${ product.quantity }" /></a></td>
+   						<td><a href="item_managing_detail?gname=${product.goodsCode }" 
+   onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${ product.cancle }" /></a></td>
+   
+   
+		
 					</tr>
 					</c:forEach>
 				</tbody>
@@ -236,6 +246,8 @@ function productDetail(gcode){
 			out.print("<a href='admin_itemmanaging2.jsp'><input type='button' id='btnList' value='목록'/></a>");
 		%>
 	</div>
+	<input style="position: absolute; top: 830px; left: 1700px; padding:10px"type="button" id="addProduct" name="addProduct" value="상품 새로 등록하기">
 </div>	
 </body>
+</html>
 </html>

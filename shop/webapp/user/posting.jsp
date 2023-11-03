@@ -247,7 +247,7 @@ function chkNull(){
 <c:forEach var="review" items="${reviewList}" varStatus="i">
 
          <tr style="text-align:  center;">
-                <td><span class="txtNum"><c:out value="${i.count}"/></span></td>
+                <td><span class="txtNum"><c:out value="<%=startNum++ %>"/></span></td>
                 <td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis; "><span class="txtNum" style="font-size: 10px;"><a href="posting_detail.jsp?rcode=${review.rcode }" 
    onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.gname}" /></a></span></td>
                 <td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;"><span class="txtNum">     <a href="posting_detail.jsp?rcode=${review.rcode }" 

@@ -33,7 +33,7 @@ $(function(){
 UserReviewDAO uDAO = UserReviewDAO.getInstance(); 
 String review=sVO.getReview();
 String gcode="BC0001";
-String id="inyoung";
+String id="tuna5127";
 int star = sVO.getStar();
 int rcode = sVO.getRcode();
 System.out.println("+++++"+request.getParameter("reviewImg")+"-------");
