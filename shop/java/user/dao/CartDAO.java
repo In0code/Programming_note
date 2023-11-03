@@ -75,6 +75,7 @@ public class CartDAO {
 				bkVO.setPrice(rs.getInt("PRICE"));
 				bkVO.setAmount(rs.getInt("AMOUNT"));
 				bkVO.setGcode(rs.getString("gcode"));
+				bkVO.setBcode(rs.getString("bcode"));
 				list.add(bkVO);
 			}//end while
 		}finally {
@@ -124,7 +125,7 @@ public int intsertAddCart(String id, String gcode)throws SQLException {
  * @return
  * @throws SQLException
  */
-public int deleteCart( String id, String gcode) throws SQLException {
+public int deleteCart( String id, String bcode) throws SQLException {
 	DbConnection db = DbConnection.getInstance();
 	Connection con = null;
 	PreparedStatement pstmt = null;
@@ -132,11 +133,11 @@ public int deleteCart( String id, String gcode) throws SQLException {
 	try {
 		con = db.getConn("jdbc/dbcp");
 		
-		String deleteCart="delete from BUCKET_LIST where gcode = ? and id= ? ";
+		String deleteCart="delete from BUCKET_LIST where bcode = ? and id= ? ";
 		
 		pstmt = con.prepareStatement(deleteCart);
 		
-		pstmt.setString(1, gcode);
+		pstmt.setString(1, bcode);
 		pstmt.setString(2, id);
 		
 		cnt = pstmt.executeUpdate();
@@ -150,12 +151,6 @@ public int deleteCart( String id, String gcode) throws SQLException {
 
 
 	/*
-	 * public int deleteList(String) throws SQLException{ 
-	 * List<BucketVO> list=new ArrayList<BucketVO>();
-	 * 
-	 * 
-	 * 
-	 * }//deleteList
 	 * 
 	 * public int changeAmount(String[]) throws SQLException{ 
 	 * List<BucketVO> list=new ArrayList<BucketVO>();

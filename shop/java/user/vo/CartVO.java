@@ -2,19 +2,19 @@ package user.vo;
 
 public class CartVO {
 
-	private String img ,gname,gcode ;
-	private int price ,amount,bcode ;
+	private String img ,gname,gcode,bcode ;
+	private int price ,amount ;
 	public CartVO() {
 		super();
 	}
-	public CartVO(String img, String gname, String gcode, int price, int amount, int bcode) {
+	public CartVO(String img, String gname, String gcode, String bcode, int price, int amount) {
 		super();
 		this.img = img;
 		this.gname = gname;
 		this.gcode = gcode;
+		this.bcode = bcode;
 		this.price = price;
 		this.amount = amount;
-		this.bcode = bcode;
 	}
 	public String getImg() {
 		return img;
@@ -34,6 +34,12 @@ public class CartVO {
 	public void setGcode(String gcode) {
 		this.gcode = gcode;
 	}
+	public String getBcode() {
+		return bcode;
+	}
+	public void setBcode(String bcode) {
+		this.bcode = bcode;
+	}
 	public int getPrice() {
 		return price;
 	}
@@ -46,18 +52,11 @@ public class CartVO {
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
-	public int getBcode() {
-		return bcode;
-	}
-	public void setBcode(int bcode) {
-		this.bcode = bcode;
-	}
 	@Override
 	public String toString() {
-		return "CartVO [img=" + img + ", gname=" + gname + ", gcode=" + gcode + ", price=" + price + ", amount="
-				+ amount + ", bcode=" + bcode + "]";
+		return "CartVO [img=" + img + ", gname=" + gname + ", gcode=" + gcode + ", bcode=" + bcode + ", price=" + price
+				+ ", amount=" + amount + "]";
 	}
-	
 	
 	
 }

@@ -1,8 +1,8 @@
 package admin.vo;
 
 public class BoardManageVO {
-	String gname, rev_cont, img, rev_date, cancle, id, cat_name; 
-	int star, r_view, rcode;
+	private String gname, rev_cont, img, rev_date, cancle, id, cat_name; 
+	private int star, r_view, rcode;
 	
 	public BoardManageVO() {
 		super();

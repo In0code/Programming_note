@@ -2,7 +2,7 @@ package user.vo;
 
 public class SummaryVO {
 
-		private String category,review, name,reviewDate,img;
+		private String category,review, name,reviewDate,img,id;
 		
 		private int view, rcode, star;
 		
@@ -62,6 +62,16 @@ public class SummaryVO {
 		}
 
 
+		public String getId() {
+			return id;
+		}
+
+
+		public void setId(String id) {
+			this.id = id;
+		}
+
+
 		public int getView() {
 			return view;
 		}
@@ -95,22 +105,27 @@ public class SummaryVO {
 		@Override
 		public String toString() {
 			return "SummaryVO [category=" + category + ", review=" + review + ", name=" + name + ", reviewDate="
-					+ reviewDate + ", img=" + img + ", view=" + view + ", rcode=" + rcode + ", star=" + star + "]";
+					+ reviewDate + ", img=" + img + ", id=" + id + ", view=" + view + ", rcode=" + rcode + ", star="
+					+ star + "]";
 		}
 
 
-		public SummaryVO(String category, String review, String name, String reviewDate, String img, int view,
-				int rcode, int star) {
+		public SummaryVO(String category, String review, String name, String reviewDate, String img, String id,
+				int view, int rcode, int star) {
 			super();
 			this.category = category;
 			this.review = review;
 			this.name = name;
 			this.reviewDate = reviewDate;
 			this.img = img;
+			this.id = id;
 			this.view = view;
 			this.rcode = rcode;
 			this.star = star;
 		}
+
+
+		
 		
 		
 		

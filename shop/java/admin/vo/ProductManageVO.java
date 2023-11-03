@@ -2,13 +2,105 @@ package admin.vo;
 
 public class ProductManageVO {
 
-	
-	
-	private String mainImg, img1,img2,img3,goodsCode,goodsName,categoryName,inputDate;
-	private int price,quantity;
+	private String mainImg, img1,img2,img3,goodsCode,goodsName,categoryName,inputDate,
+	cancle, tmi, totalBuy, categoryCode, engTmi, top, heart, base, ing, detailImg;
+	private int price, quantity;
 	
 	public ProductManageVO() {
 		
+	}
+	
+	public ProductManageVO(String mainImg, String goodsCode, String goodsName, String categoryName, String inputDate,
+			String cancle, int price, int quantity) {
+		super();
+		this.mainImg = mainImg;
+		this.goodsCode = goodsCode;
+		this.goodsName = goodsName;
+		this.categoryName = categoryName;
+		this.inputDate = inputDate;
+		this.cancle = cancle;
+		this.price = price;
+		this.quantity = quantity;
+	}
+
+	public String getCancle() {
+		return cancle;
+	}
+
+	public void setCancle(String cancle) {
+		this.cancle = cancle;
+	}
+
+	public String getTmi() {
+		return tmi;
+	}
+
+	public void setTmi(String tmi) {
+		this.tmi = tmi;
+	}
+
+	public String getTotalBuy() {
+		return totalBuy;
+	}
+
+	public void setTotalBuy(String totalBuy) {
+		this.totalBuy = totalBuy;
+	}
+
+	public String getCategoryCode() {
+		return categoryCode;
+	}
+
+	public void setCategoryCode(String categoryCode) {
+		this.categoryCode = categoryCode;
+	}
+
+	public String getEngTmi() {
+		return engTmi;
+	}
+
+	public void setEngTmi(String engTmi) {
+		this.engTmi = engTmi;
+	}
+
+	public String getTop() {
+		return top;
+	}
+
+	public void setTop(String top) {
+		this.top = top;
+	}
+
+	public String getHeart() {
+		return heart;
+	}
+
+	public void setHeart(String heart) {
+		this.heart = heart;
+	}
+
+	public String getBase() {
+		return base;
+	}
+
+	public void setBase(String base) {
+		this.base = base;
+	}
+
+	public String getIng() {
+		return ing;
+	}
+
+	public void setIng(String ing) {
+		this.ing = ing;
+	}
+
+	public String getDetailImg() {
+		return detailImg;
+	}
+
+	public void setDetailImg(String detailImg) {
+		this.detailImg = detailImg;
 	}
 
 	public String getMainImg() {
@@ -112,13 +204,6 @@ public class ProductManageVO {
 		this.price = price;
 		this.quantity = quantity;
 	}
-
-	
-
-
-		
-	
-	
 
 	 
 }

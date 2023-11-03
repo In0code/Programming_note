@@ -233,7 +233,8 @@ public void updateCancle (int rcode) throws SQLException {
 
 
 
-public List<SummaryVO> selectAllReview2(String id,BoardRangeVO brVO) throws SQLException {
+//----------------------------------리뷰 상세----------------------------------------
+public List<SummaryVO> selectAllReview2(BoardRangeVO brVO,String gcode) throws SQLException {
 	
 	List<SummaryVO> list = new ArrayList<SummaryVO>();
 	
@@ -248,37 +249,38 @@ public List<SummaryVO> selectAllReview2(String id,BoardRangeVO brVO) throws SQLE
 	try {
 		con=db.getConn("jdbc/dbcp");
 		
-		StringBuilder selectAllReview = new StringBuilder();
+		StringBuilder selectAllReview2 = new StringBuilder();
 
-		selectAllReview.append("      select  name, REV_CONT, star ,  REV_DATE , r_view, rcode ,cat_name from  " )
-		.append(" ( select row_number() over(order by rcode desc) rnum , m.name, r.REV_CONT, r.star , to_char(r.rev_date,'yyyy-MM-dd') as REV_DATE , r.r_view, r.rcode ,c.cat_name  ")
-		.append("from member m, review r,goods g, category c where m.id=r.id and g.gcode=r.gcode and c.cat_code = g.cat_code  and r.cancle not in ('Y')) order by rev_date desc ");
+		selectAllReview2.append("      select  name, REV_CONT, star ,  REV_DATE , r_view, rcode ,id from  " )
+		.append("  ( select row_number() over(order by rcode desc) rnum, m.id, m.name, r.REV_CONT, r.star , to_char(r.rev_date,'yyyy-MM-dd') as REV_DATE , r.r_view, r.rcode ,c.cat_name  ")
+		.append("	from member m, review r,goods g, category c where m.id=r.id and g.gcode=r.gcode and c.cat_code = g.cat_code and  r.gcode=? and r.cancle not in ('Y')   ");
 				
+		 
+		
 		
 		
 		
 		
 if(brVO.getKeyword() != null && !"".equals(brVO.getKeyword() )&& !"null".equals(brVO.getKeyword())) {
-		String field="r.REV_CONT";
+		String field="m.id";
 		if("1".equals(brVO.getField())) {
-			field="r.REV_CONT";
+			field="m.id";
 		}//end if
 		if("2".equals(brVO.getField())) {
-			field="c.cat_name";
+			field="r.rev_cont";
 		}//end if
-			if("2".equals(brVO.getField())) {
-				field="c.cat_name ";
-			}//end if
 		
-		selectAllReview.append("and upper(").append(field).append(") like upper('%'||?||'%') ");
+		
+		selectAllReview2.append("and upper(").append(field).append(") like upper('%'||?||'%') ");
 	}//end if
 
-		selectAllReview.append(")	where rnum between ? and ?					");
+selectAllReview2.append(") 	where rnum between ? and ?		order by rev_date desc			");
 		
-		pstmt=con.prepareStatement(selectAllReview.toString());
+		pstmt=con.prepareStatement(selectAllReview2.toString());
 	//5. 바인드 변수 값 설정
 		int bindCnt=1;
-		 pstmt.setString(bindCnt++, id);
+		pstmt.setString(bindCnt++, gcode);
+		// pstmt.setString(bindCnt++, id);
 		if(brVO.getKeyword() != null && !"".equals(brVO.getKeyword() )&& !"null".equals(brVO.getKeyword())) {
 		pstmt.setString(bindCnt++, brVO.getKeyword());	
 		}//end if
@@ -295,13 +297,13 @@ if(brVO.getKeyword() != null && !"".equals(brVO.getKeyword() )&& !"null".equals(
 		SummaryVO sVO= null;
 		while(rs.next()) {
 			sVO= new SummaryVO();
-			sVO.setName(rs.getString("name"));
-			sVO.setCategory(rs.getString("cat_name"));
+			sVO.setId(rs.getString("id"));
 			sVO.setReview(rs.getString("REV_CONT"));
 			sVO.setReviewDate(rs.getString("REV_DATE"));
 			sVO.setView(rs.getInt("r_view"));
+			sVO.setStar(rs.getInt("star"));			
 			sVO.setRcode(rs.getInt("rcode"));
-			sVO.setStar(rs.getInt("star"));
+
 			list.add(sVO);
 		}
 	}finally {
@@ -310,11 +312,16 @@ if(brVO.getKeyword() != null && !"".equals(brVO.getKeyword() )&& !"null".equals(
 	}
 	
 	return list;
-}//selectAllReview
+}//selectAllReview2
 
 
 
-//--------------------------------------------리뷰작성----------------------------------------------
+
+
+
+
+
+//--------------------------------------------리뷰 작성----------------------------------------------
 public ProductManageVO selectproductImg(String gcode) throws SQLException {
 	
 	
@@ -491,6 +498,56 @@ try {
 	}
 	System.out.println("insert"+review+rcode+id+star+gcode);
 }
+
+//-----------------------totalcount--------------------//
+public int reviewTotalCount(BoardRangeVO brVO,String id) throws SQLException{
+	int totalCnt = 0;
+	String keyword = brVO.getKeyword();
+	
+	DbConnection db = DbConnection.getInstance();
+	Connection con = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+	try {
+		con = db.getConn("jdbc/dbcp");
+
+		StringBuilder selectCount = new StringBuilder();
+		selectCount
+		.append("	select count(*) CNT		")
+		.append("	from review r , goods g , category c, member m	")
+		.append("	 where m.id=r.id and g.gcode=r.gcode and c.cat_code=g.cat_code and r.CANCLE not in  ('Y') and m.id=?	");
+		
+		
+		
+		if(keyword!=null && !"".equals(keyword) && !"null".equals(keyword)) {
+			String field="r.rev_cont";
+			if("1".equals(brVO.getField())) {
+				field="r.rev_cont";
+			}//end if
+			if("2".equals(brVO.getField())) {
+				field="c.cat_name";
+			}//end if
+			
+			selectCount.append(" and ").append(field).append(" like '%'||?||'%'");					
+		}//end if
+		
+		pstmt = con.prepareStatement(selectCount.toString());
+		int bindCnt=1;
+		 pstmt.setString(bindCnt++, id);
+		if(keyword!=null && !"".equals(keyword) && !"null".equals(keyword)) {
+			pstmt.setString(2, keyword);
+		}//end if
+		
+		rs = pstmt.executeQuery();
+		
+		if(rs.next()) {
+			totalCnt = rs.getInt("CNT");
+		}//end if
+	} finally {
+		db.dbClose(rs, pstmt, con);
+	}//end finally
+	return totalCnt;
+}//reviewTotalCount
 	
 	
 }

@@ -79,6 +79,7 @@ public class WishListDAO {
 				wlVO.setPrice(rs.getInt("price"));
 				wlVO.setGcode(rs.getString("gcode"));
 				wlVO.setId(rs.getString("id"));
+				wlVO.setWcode(rs.getString("wcode"));
 				
 				list.add(wlVO);
 			}//end while
@@ -129,7 +130,7 @@ public class WishListDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	public int deleteWishList( String id, String gcode) throws SQLException {
+	public int deleteWishList( String id, String wcode) throws SQLException {
 		DbConnection db = DbConnection.getInstance();
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -137,11 +138,11 @@ public class WishListDAO {
 		try {
 			con = db.getConn("jdbc/dbcp");
 			
-			String deleteWishList="delete from WISHLIST where gcode = ? and id= ? ";
+			String deleteWishList="delete from WISHLIST where wcode = ? and id= ? ";
 			
 			pstmt = con.prepareStatement(deleteWishList);
 			
-			pstmt.setString(1, gcode);
+			pstmt.setString(1, wcode);
 			pstmt.setString(2, id);
 			
 			cnt = pstmt.executeUpdate();

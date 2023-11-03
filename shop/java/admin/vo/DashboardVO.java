@@ -2,8 +2,8 @@ package admin.vo;
 
 public class DashboardVO {
 	
-	String gname, date;
-	int amount, sales, signCnt, visitCnt, ordCnt;
+	private String gname, date;
+	private int amount, sales, signCnt, visitCnt, ordCnt;
 	
 	public DashboardVO() {
 		super();
