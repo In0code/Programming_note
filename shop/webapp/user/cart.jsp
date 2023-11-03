@@ -101,7 +101,7 @@ a {
 a:hover {
    color: #333;
 }
-.ec-base-qty {
+/* .ec-base-qty {
     position: relative;
     display: inline-block;
     width: 50px;
@@ -152,7 +152,7 @@ a:hover {
     position: static;
     left: auto;
     top: auto;
-}
+} */
 
 </style>
 
@@ -185,7 +185,7 @@ $(function() {
        });//ajax
 	}//deleteWish
 			
-	function stockCheck(pm) {
+/* 	function stockCheck(pm) {
 		var quantity = parseInt($("#quantity").val());
 		
 		if(pm == "p"){
@@ -236,7 +236,7 @@ $(function() {
 		
 		$("#bottomQuantity").html("("+quantity+"개)");
 		totalPrice();
-	}//stockCheck
+	}//stockCheck */
 </script>
 
 </head>  
@@ -314,17 +314,24 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 						<td  style=" vertical-align: middle;"><img src="../upload/goods/${ cart.img }"  style="width: 100px"/></td>
 						<td style=" vertical-align: middle;"><c:out value="${ cart.gname }"/></td>
 						<td style=" vertical-align: middle;"><c:out value="${ cart.price }"/></td>
-						<td>
-                           <!-- 수량 -->
+						<!-- <td>
+                           수량
                           <span class="quantity">
                              <input id="quantity" name="quantity_opt[]" style="" value="1" type="text"/>                                            
-                               <!-- + 버튼 -->
+                               + 버튼
                                <a href="javascript:stockCheck('p');" class="up QuantityUp">수량증가</a>
                                             
-                               <!-- - 버튼 -->
+                               - 버튼
                                <a href="javascript:stockCheck('m');" class="down QuantityDown">수량감소</a>
                            </span>
-                        </td>
+                        </td> -->
+						<td style=" vertical-align: middle;">
+							<select>
+							<% %>
+								<option>1</option><option>2</option><option>3</option><option>4</option>
+								<option>5</option><option>6</option><option>7</option><option>8</option>
+							</select>
+						</td>
 						<td style=" vertical-align: middle;"><c:out value="<%= deliveryPrice %>"/></td>
 					 	<td style=" vertical-align: middle;"><c:out value="${ cart.price + deliveryPrice }"/></td> 
 						<td>

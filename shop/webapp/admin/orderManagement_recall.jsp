@@ -70,9 +70,9 @@ $(function() {
 		 var selectedOrders = [];
 		    // 클래스명이 'check'인 체크박스를 모두 선택
 		    $("input.check:checked").each(function(){
-		        var ordno = $(this).val();
+		        var ord_dno = $(this).val();
 		        var newStatus = $(this).closest("tr").find("select[name=statuslist]").val();
-		        selectedOrders.push({ ordno: ordno, newStatus: newStatus });
+		        selectedOrders.push({ ord_dno: ord_dno, newStatus: newStatus });
 		    });//end each
 		    
 		    if (selectedOrders.length > 0) {
@@ -80,7 +80,6 @@ $(function() {
 	                url: "order_process.jsp",
 	                type: "POST",
 	                data: JSON.stringify(selectedOrders),
-	                contentType: "application/json; charset=UTF-8",
 	                dataType: "text",
 	                error: function(xhr) {
 	                    alert("죄송합니다. 서버에 문제가 발생하였습니다. 잠시 후에 다시 시도해주세요.");
@@ -228,7 +227,7 @@ try{
 				
 				<c:forEach var="recall" items="${ recallList }" varStatus="i">
 				<tr>
-				 <td><input type="checkbox" class="check" name="check"  value="${ recall.ordno }"></td> 
+				 <td><input type="checkbox" class="check" name="check"  value="${ recall.ord_dno }"></td> 
 				 <td><c:out value="<%=startNum++ %>"/></td> 
 				<td><c:out value="${ recall.ord_date }"/></td>
 				<td><c:out value="${ recall.ordno }"/></td>

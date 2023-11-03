@@ -67,15 +67,13 @@ $(function() {
 		}//end if
 	});//keyup
 	
-
-
 	$("#btnChange").click(function(){
 		 var selectedOrders = [];
 		    // 클래스명이 'check'인 체크박스를 모두 선택
 		    $("input.check:checked").each(function(){
-		        var ordno = $(this).val();
+		        var ord_dno = $(this).val();
 		        var newStatus = $(this).closest("tr").find("select[name=statuslist]").val();
-		        selectedOrders.push({ ordno: ordno, newStatus: newStatus });
+		        selectedOrders.push({ ord_dno: ord_dno, newStatus: newStatus });
 		    });//end each
 		    
 		    if (selectedOrders.length > 0) {
@@ -83,7 +81,6 @@ $(function() {
 	                url: "order_process.jsp",
 	                type: "POST",
 	                data: JSON.stringify(selectedOrders),
-	                contentType: "application/json; charset=UTF-8",
 	                dataType: "text",
 	                error: function(xhr) {
 	                    alert("죄송합니다. 서버에 문제가 발생하였습니다. 잠시 후에 다시 시도해주세요.");
@@ -99,7 +96,7 @@ $(function() {
 	    });//click
 	});//ready
 
-
+	
 function chkNull() {
 	var keyword = $("#keyword").val();
 	if(keyword.trim() == ""){
@@ -205,6 +202,7 @@ try{
 		</form>
 		</div>
 		
+		<form id="checkFrm">
 		<div id="background_box">
 			<div style="margin: 10px; text-align: center;">
 			<!-- 리스트 시작 -->
@@ -231,10 +229,10 @@ try{
 				</tr>
 				</c:if>
 				
-				
 				<c:forEach var="order" items="${ orderList }" varStatus="i">
+				
 				<tr>
-				<td><input type="checkbox" class="check" name="check"  value="${ order.ordno }"></td> 
+				<td><input type="checkbox" class="check" name="check" id="check" value="${ order.ord_dno }"></td> 
 				 <td><c:out value="<%=startNum++ %>"/></td> 
 				<td><c:out value="${ order.ord_date }"/></td>
 				<td><c:out value="${ order.ordno }"/></td>
@@ -254,11 +252,12 @@ try{
 				<c:set var="totalAmount" value="${order.price * order.amount  + dlvyPrice}" />
 			 	<td><fmt:formatNumber value="${totalAmount}"  pattern='#,###,###'/></td> 
 				</tr>
+			
 			</c:forEach>
 			</table>
 			</div>
 		</div>
-		
+		</form>
 		
 		<c:if test="${ not empty orderList }">
 		<!-- 페이지네이션 -->
@@ -273,7 +272,7 @@ try{
 		</div>
 		</c:if>
 		
-		<input type="button" class="btn" id="btnChange" value="변경"/>
+		<input type="button" class="btn" id="btnChange"  value="변경"/>
 		
 		<%
 			if(request.getParameter("keyword") != null) {

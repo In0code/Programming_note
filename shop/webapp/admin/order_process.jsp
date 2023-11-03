@@ -28,14 +28,11 @@ try {
 
     for (Object obj : jsonArr) {
         JSONObject jsonObj = (JSONObject) obj;
-        int ordno = Integer.parseInt(jsonObj.get("ordno").toString());
+        String ord_dno = (String)jsonObj.get("ord_dno").toString();
         String newStatus = (String) jsonObj.get("newStatus");
 
-        OrderVO oVO=new OrderVO();
-        oVO.setOrdno(ordno);
-        oVO.setDlvy_pro(newStatus);
         
-        int updatedRows = opDAO.updateShippingProgress(oVO);
+        int updatedRows = opDAO.updateShippingProgress(newStatus,ord_dno);
 
         if (updatedRows > 0) {
             // 성공

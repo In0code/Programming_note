@@ -201,7 +201,7 @@ $(function() {
         <ul>
           <li><a href="orderManagement_order.jsp?no=3">&ensp;&ensp;주문</a>
           </li>
-          <li><a href="orderManagement_edit.jsp?no=3">&ensp;&ensp;교환/반품</a>
+          <li><a href="orderManagement_recall.jsp?no=3">&ensp;&ensp;교환/반품</a>
           </li>
         </ul>
       </li>
