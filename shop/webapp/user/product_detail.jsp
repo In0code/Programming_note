@@ -14,12 +14,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
-if(request.getParameter("gcode") == null){
-	response.sendRedirect("shop.jsp");
-	return;
-}
+//if(request.getParameter("gcode") == null){
+	//response.sendRedirect("shop.jsp");
+	//return;
+//}
 
-String gcode = request.getParameter("gcode");
+String gcode = "PF0007";//request.getParameter("gcode");
 
 GoodsDAO gDAO = GoodsDAO.getInstantce();
 GoodsVO gVO = null;
@@ -35,7 +35,6 @@ try{
 
 
 UserReviewDAO uDAO= UserReviewDAO.getInstance();
-BoardDAO bDAO=BoardDAO.getInstance();
 BoardRangeVO brVO=new BoardRangeVO();
 
 String field=request.getParameter("field");
@@ -46,8 +45,8 @@ brVO.setTableName("REVIEW");
 
 brVO.setField(field);
 brVO.setKeyword(keyword);
-int totalCount=bDAO.totalCount(brVO);
-
+int totalCount=uDAO.productReviewTotalCount(brVO, gcode);
+pageContext.setAttribute("totalCount", totalCount);
 int pageScale=10; // 한 화면에 보여줄 게시물의 수
 int totalPage=0; // 총 페이지 수
 
@@ -80,15 +79,7 @@ try{
 	se.printStackTrace();
 }//end catch
 %>
-<%
 
-
-
-
-
-
-
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -189,7 +180,9 @@ $(function() {
 	$("#review-title").click(function() {
 		$("#product-review-read").toggle();
 	});
-	
+	$("#pageNation").change(function(){
+		window.scrollTo({top:1000, left:0, behavior:'auto'})
+	})
 	$("#actionWish").click(function() {
         // 현재 이미지의 src 속성을 가져옴
         var currentSrc = $("#wish_img").attr("src");
@@ -306,6 +299,45 @@ function totalPrice(){
 	
 	
 }
+
+function addCart(gcode) {
+	
+	queryString="gcode="+gcode+"&amount="+$("#quantity").val();
+	
+    $.ajax({
+        url: "cartAdd_process.jsp",
+        type: "get",
+        data: queryString,
+        dataType: "text",
+        error: function(xhr) {
+            alert("죄송합니다. 서버에 문제가 발생하였습니다. 잠시 후에 다시 시도해주세요.");
+            console.log(xhr.status);
+        },
+        success: function(data) {
+                alert("상품이 추가되었습니다.");
+                location.reload();
+        }//success
+    });//ajax
+}//addCart
+function addWishList(gcode) {
+	
+	queryString="gcode="+gcode+"&amount="+$("#quantity").val();
+	
+    $.ajax({
+        url: "wishListAdd_process.jsp",
+        type: "get",
+        data: queryString,
+        dataType: "text",
+        error: function(xhr) {
+            alert("죄송합니다. 서버에 문제가 발생하였습니다. 잠시 후에 다시 시도해주세요.");
+            console.log(xhr.status);
+        },
+        success: function(data) {
+                alert("상품이 추가되었습니다.");
+                location.reload();
+        }//success
+    });//ajax
+}//addCart
 </script>
 
 </head>
@@ -610,9 +642,9 @@ function totalPrice(){
                         	<a href="buy.jsp" class="btn gFlex2 actionBuy " onclick="">
                         		<span id="actionBuy" style="font-size:16px">구매하기</span>
                         	</a>
-                        	<input type="button" value="장바구니" class="btn gFlex2 actionCart " style="font-family:Pretendard Medium" onclick="" id="actionCart">
+                        	<input type="button" value="장바구니" class="btn gFlex2 actionCart " onclick="addCart('${product.gcode}')" style="font-family:Pretendard Medium"  id="actionCart">
                         		장바구니
-                        	<button type="button" class="btn actionCart " onclick="" id="actionWish">
+                        	<button type="button" class="btn actionCart " onclick="addWishList('${product.gcode}')" id="actionWish">
                         		<img style="width:20px" id="wish_img" src="http://192.168.10.136/prj_web_shopping/common/images/icon/heart.png"/>
                         	</button>
                         	<a href="/member/login.html" class="btn gFlex2 actionBuy member_check_product">
@@ -642,12 +674,12 @@ function totalPrice(){
 			<li class="tab1 open selected">
 				<a href="#prdDetail">Information</a>
 			</li>
-            <li class="tab2 ">
+           <li class="tab2 ">
             	<a href="#prdReview">Reviews 
             		<!-- 리뷰 개수 -->
-            		<span class="br1138">1138</span>
+            		<span class="br1138"><%=totalCount %></span>
             	</a>
-            </li>
+            </li> 
         </ul>
 	</div>
 </div>
@@ -669,7 +701,7 @@ function totalPrice(){
 		       
         <div class="title">
         
-            <h2>Reviews <span class="br1138">1138</span></h2>
+            <h2>Reviews <span class="br1138"><%=totalCount %></span></h2>
             	
             	<!-- 리뷰 개수 -->
             	
@@ -698,7 +730,7 @@ function totalPrice(){
             	<a name="use_review"></a>
 				<p class="noAccess displaynone">글읽기 권한이 없습니다.</p>
 				<div class="ec-base-table typeList ecBase">
-                    <table border="1" class="">
+                    <table border="1" class="" style="table-layout:fixed">
 						<caption>상품사용후기</caption>
                         	<colgroup>
 								<col style="width:70px;" class="RW">
@@ -744,23 +776,22 @@ function totalPrice(){
                                 </td>
                             </tr> -->
 							       <c:if test="${ empty reviewList}">
-       <p class="message" style="width:1220px;position: absolute; top:180px">작성한 게시물이 없습니다.</p>
+       <p class="message" style="width:1220px; height: 100px ;position: absolute; top:1350px">작성한 게시물이 없습니다.</p>
        </c:if>
       
 <c:forEach var="review" items="${reviewList}" varStatus="i">
 
 			<tr class="xans-record-" style="text-align: center">
                 <td  class="RW"><span class="txtNum"><c:out value="<%=startNum++ %>"/></span></td>
-                <td style=" margin:0px 5px 0px 5px; color:black; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; "><span class="txtNum"><a href="posting_detail.jsp?rcode=${review.rcode }" 
-	onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.review}" /></a><!-- HIT 이미지 -->
-                                	<img src="http://img.echosting.cafe24.com/design/skin/admin/ko_KR/ico_hit.gif"  alt="HIT" class="ec-common-rwd-image" /></span></td>
-                <td ><span class="txtNum">     <a href="posting_detail.jsp?rcode=${review.rcode }" 
+                <td style=" margin:0px 5px 0px 5px; color:black; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; "><span class="txtNum" ><a href="product_detail_review.jsp?rcode=${review.rcode }" 
+	onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.review}" /></a></span><!-- HIT 이미지 -->
+                <td ><span class="txtNum">     <a href="product_detail_review.jsp?rcode=${review.rcode }" 
 	onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.id}" /></a>  </span></td>
-                <td ><span class="txtNum"><a href="posting_detail.jsp?rcode=${review.rcode }" 
+                <td ><span class="txtNum"><a href="product_detail_review.jsp?rcode=${review.rcode }" 
 	onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.reviewDate}" /></a></span></td>
-                <td><span class="txtNum"><a href="posting_detail.jsp?rcode=${review.rcode }" 
+                <td><span class="txtNum"><a href="product_detail_review.jsp?rcode=${review.rcode }" 
 	onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.view}" /></a></span></td>
-                <td><span class="txtNum"><a href="posting_detail.jsp?rcode=${review.rcode }" 
+                <td><span class="txtNum"><a href="product_detail_review.jsp?rcode=${review.rcode }" 
 	onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.star}" /></a></span></td>
                 
                 
@@ -791,17 +822,17 @@ function totalPrice(){
 					</table>
 				</div>
 			</div>
-         //
+         
             <!-- 페이지 네이션 -->
-            <div id="pageNation" >
+            <div id="pageNation" style="position:relative; top: -750px ; left:-130px " >
    <c:if test="${ not empty reviewList }">
       <!-- 페이지네이션 -->
       <div class="pagenationDiv" style="text-align: center;">
-         <div class="pagination" >
+         <div class="pagination" id="pageNation" >
           <%
           BoardUtil util=BoardUtil.getInstance();
-         BoardUtilVO buVO=new BoardUtilVO("product_detail.jsp?gcode="+gcode,keyword,field,currentPage,totalPage);
-         out.println(util.pageNation(buVO));
+         BoardUtilVO buVO=new BoardUtilVO("product_detail.jsp",keyword,field,currentPage,totalPage,gcode);
+         out.println(util.pageNationProduct(buVO));
           %>
          </div>
       </div>

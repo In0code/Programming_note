@@ -10,11 +10,11 @@
 CartDAO cDAO=CartDAO.getInstance();
 try{
 	String gcode=request.getParameter("gcode");
+	int amount=Integer.parseInt(request.getParameter("amount"));
 	String id="tuna5127";
 	
-	System.out.println( gcode+" / "+id);
 
-	cDAO.intsertAddCart(id, gcode);
+	cDAO.intsertAddCart(id, gcode,amount);
 	
 }catch(SQLException se){
 	se.printStackTrace();

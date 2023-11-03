@@ -98,7 +98,7 @@ brVO.setTableName("REVIEW");
 
 brVO.setField(field);
 brVO.setKeyword(keyword);
-int totalCount=uDAO.reviewTotalCount(brVO,id);
+int totalCount=uDAO.postingTotalCount(brVO, id);
 //
 //
 
@@ -211,7 +211,7 @@ function chkNull(){
 
 </select> 
 <input id="keyword" name="keyword"  style="height:27px" class="inputTypeText" placeholder="내용을 입력해주세요"
-	 value="${param.keyword}" type="text"  />
+	 value="${param.keyword eq null ? '내용을 입력해주세요' : param.keyword }" type="text"  /><%-- ${review.star eq 2 ? "checked='checked'" : "" } --%>
 <input type="text" style="display: none"	placeholder="내용을 입력해주세요"> 
 <input type="button" id="btnSearch" name="btnSearch" class="btnNormalFix" style="height:27px" value="search">
  </p>
@@ -221,7 +221,7 @@ function chkNull(){
 </form>        
 <div class="xans-element- xans-myshop xans-myshop-boardlist ec-base-table typeList gBorder gBlank10">
 
-<table border="1" summary="" style="table-layout:fixed">
+<table border="1" summary="" style="table-layout:fixed" >
 <caption>게시물 관리 목록</caption>
         <colgroup class="xans-element- xans-board xans-board-listheader-1002 xans-board-listheader xans-board-1002 "><col style="width:70px;"/>
 <col style="width:140px;"/>
@@ -233,7 +233,7 @@ function chkNull(){
 <thead>
 <tr style="text-align: center">
 <th scope="col" style="padding:10px;">NO.</th>
-                <th scope="col">CATEGORY</th>
+                <th scope="col">ProductName</th>
                 <th scope="col">SUBJECT</th>
                 <th scope="col">NAME</th>
                 <th scope="col">DATE</th>
@@ -246,11 +246,11 @@ function chkNull(){
       
 <c:forEach var="review" items="${reviewList}" varStatus="i">
 
-         <tr>
+         <tr style="text-align:  center;">
                 <td><span class="txtNum"><c:out value="${i.count}"/></span></td>
-                <td><span class="txtNum"><a href="posting_detail.jsp?rcode=${review.rcode }" 
-   onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.category}" /></a></span></td>
-                <td><span class="txtNum">     <a href="posting_detail.jsp?rcode=${review.rcode }" 
+                <td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis; "><span class="txtNum" style="font-size: 10px;"><a href="posting_detail.jsp?rcode=${review.rcode }" 
+   onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.gname}" /></a></span></td>
+                <td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;"><span class="txtNum">     <a href="posting_detail.jsp?rcode=${review.rcode }" 
    onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.review}" /></a>  </span></td>
                 <td><span class="txtNum"><a href="posting_detail.jsp?rcode=${review.rcode }" 
    onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.name}" /></a></span></td>

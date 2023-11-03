@@ -101,58 +101,6 @@ a {
 a:hover {
    color: #333;
 }
-/* .ec-base-qty {
-    position: relative;
-    display: inline-block;
-    width: 50px;
-    margin: 0 1px 0 0;
-    text-align: left;
-}
-
-.ec-base-qty input[type="text"] {
-    width: 22px;
-    height: 23px;
-    padding: 0 0 0 5px;
-    line-height: 25px;
-    border: 1px solid #d4d8d9;
-    border-radius: 3px 0 0 3px;
-}
-
-.ec-base-qty .up {
-    position: absolute;
-    left: 27px;
-    top: 0;
-}
-
-.ec-base-qty .down {
-    position: absolute;
-    left: 27px;
-    bottom: 0;
-}
-
-.ec-base-qty .qtyUp {
-    position: absolute;
-    left: 27px;
-    top: 0;
-}
-
-.ec-base-qty .qtyDown {
-    position: absolute;
-    left: 27px;
-    bottom: 0;
-}
-
-.ec-base-qty .qtyUp .up {
-    position: static;
-    left: auto;
-    top: auto;
-}
-
-.ec-base-qty .qtyDown .down {
-    position: static;
-    left: auto;
-    top: auto;
-} */
 
 </style>
 
@@ -185,13 +133,14 @@ $(function() {
        });//ajax
 	}//deleteWish
 			
-/* 	function stockCheck(pm) {
-		var quantity = parseInt($("#quantity").val());
+ 	function stockCheck(pm,id) {
+		//var id=$("#quantity")+id
+		var quantity = parseInt($("#id").val());
 		
 		if(pm == "p"){
-			if(quantity >= ${ product.quantity }) {
+			if(quantity >= 10) {
 				alert("구매 가능 수량을 초과하였습니다.");
-				$("#quantity").val(${ product.quantity });
+			//	$("#quantity").val(${ product.quantity });
 				return;
 			}
 			
@@ -205,9 +154,9 @@ $(function() {
 		}
 		
 		if(pm == "m") {
-			if(quantity > ${ product.quantity }) {
+			if(quantity > 10) {
 				alert("구매 가능 수량을 초과하였습니다.");
-				$("#quantity").val(${ product.quantity });
+				//$("#quantity").val(${ cart.amount });
 				return;
 			}
 			
@@ -221,9 +170,9 @@ $(function() {
 		}
 		
 		if(pm == null){
-			if(quantity > ${ product.quantity } ){
+			if(quantity > 10 ){
 				alert("구매 가능 수량을 초과하였습니다.");
-				$("#quantity").val(${ product.quantity });
+				/* $("#quantity").val(${ cart.amount }); */
 				return;
 			}
 			
@@ -234,9 +183,64 @@ $(function() {
 			}
 		}
 		
-		$("#bottomQuantity").html("("+quantity+"개)");
-		totalPrice();
-	}//stockCheck */
+	}//stockCheck   
+	
+	function plus(bcode){
+		if($("#quantity"+bcode).val() >= 10) {
+			alert("구매 가능 수량을 초과하였습니다.");
+		//	$("#quantity").val(${ product.quantity });
+			return;
+		}
+		
+		if($("#quantity"+bcode).val() < 1) {
+			alert("최소 주문 수량은 1개 입니다.");
+			$("#quantity"+bcode).val(1);
+			return;
+		}
+		var queryString="bcode="+bcode+"&amount="+$("#quantity"+bcode).val();
+		$.ajax({
+			url : "cart_amount_process2.jsp",
+			type : "get",
+			data : queryString,
+			dataType : "text",
+			error : function(xhr){
+				alert("다시");
+			},
+			success : function(data){
+				$("#quantity"+bcode).val( data );
+			}//success
+			
+		});//ajax
+			
+	}//plus
+	
+	function minus(bcode){
+		if($("#quantity"+bcode).val() >= 10) {
+			alert("구매 가능 수량을 초과하였습니다.");
+			return;
+		}
+		
+		if($("#quantity"+bcode).val() < 1) {
+			alert("최소 주문 수량은 1개 입니다.");
+			$("#quantity"+bcode).val(1);
+			return;
+		}
+		var queryString="bcode="+bcode+"&amount="+$("#quantity"+bcode).val();
+		$.ajax({
+			url : "cart_amount_process.jsp",
+			type : "get",
+			data : queryString,
+			dataType : "text",
+			error : function(xhr){
+				alert("다시");
+			},
+			success : function(data){
+				$("#quantity"+bcode).val( data );
+			}//success
+			
+		});//ajax
+			
+	}//plus
 </script>
 
 </head>  
@@ -289,7 +293,8 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 <div id="container" style="font-family:Pretendard Medium;">
 	<div id="contents">
 		<div class="table-container">
-			<table class="table" id="table" style="border: 1px solid #E5E4E4;">
+			 <div id="totalProducts" >
+			<table class="table" id="table" style="border: 1px solid #E5E4E4; background-color: #FFFFFF; text-align: center;">
 				<tr style="border: 1px solid #E5E4E4; border-bottom: 1px solid #919191;">
 					<td  style="width:10px; color: #929492">
 						<input type="hidden" style="width: 45px;"/>
@@ -308,40 +313,35 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 					</tr>
 				</c:if>
 				
+						
 					<c:forEach var="cart" items="${ cartList }" varStatus="i">
 					  <tr style="border-bottom: 1px solid #E5E4E4;" >
 						<td style=" vertical-align: middle;"><input type="checkbox" class="check" name="check"  value="${ cart.bcode }" style="border: 1px solid #929492 ; width: 15px; "></td> 
 						<td  style=" vertical-align: middle;"><img src="../upload/goods/${ cart.img }"  style="width: 100px"/></td>
-						<td style=" vertical-align: middle;"><c:out value="${ cart.gname }"/></td>
+						<td style=" vertical-align: middle;"><a href="product_detail.jsp?gcode=${ cart.gcode }"><c:out value="${ cart.gname }"/></a></td>
 						<td style=" vertical-align: middle;"><c:out value="${ cart.price }"/></td>
-						<!-- <td>
-                           수량
-                          <span class="quantity">
-                             <input id="quantity" name="quantity_opt[]" style="" value="1" type="text"/>                                            
-                               + 버튼
-                               <a href="javascript:stockCheck('p');" class="up QuantityUp">수량증가</a>
+						 <td style="width:20px">
+                          <!--  수량 -->
+                          <span id="amountSet"  class="quantity">
+                             <input id="quantity${ cart.bcode }" name="quantity_opt[]" style="" value="${ cart.amount }" type="text"/>                                            
+                             <!--   + 버튼 -->
+                               <a href="#void" onclick="plus('${ cart.bcode }')" class="up QuantityUp">수량증가</a>
                                             
-                               - 버튼
-                               <a href="javascript:stockCheck('m');" class="down QuantityDown">수량감소</a>
+                             <!--   - 버튼 -->
+                               <a href="#void" onclick="minus('${ cart.bcode }')" class="down QuantityDown">수량감소</a>
                            </span>
-                        </td> -->
-						<td style=" vertical-align: middle;">
-							<select>
-							<% %>
-								<option>1</option><option>2</option><option>3</option><option>4</option>
-								<option>5</option><option>6</option><option>7</option><option>8</option>
-							</select>
-						</td>
+                        </td> 
 						<td style=" vertical-align: middle;"><c:out value="<%= deliveryPrice %>"/></td>
 					 	<td style=" vertical-align: middle;"><c:out value="${ cart.price + deliveryPrice }"/></td> 
-						<td>
-					 		<input type="hidden" value="x삭제" name="dd" style="width:90px; height:40px ;"/><br/><br/>
+						<td> 
 					 		<input type="button" value="x삭제" class="deleteBtn" name="deleteBtn" onclick="deleteCart('${cart.bcode}')" style="width:90px; height:35px ;background-color: white; border : 1px solid  #E5E4E4;"/><br/>
 					 		<input type="hidden" value="x삭제" name="dt" style="width:90px; height:30px ;"/>
 					 	</td>
 					 </tr>
 					</c:forEach>
 				</table>
+					</div>
+				
 		</div>
 		<div class="move">
 		
