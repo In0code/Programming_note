@@ -35,6 +35,12 @@ public class OrderProcessDAO {
 		return opDAO;
 	}//getInstance
 	
+	/**
+	 * 주문 리스트의 총 레코드 수
+	 * @param brVO
+	 * @return
+	 * @throws SQLException
+	 */
 	public int orderTotalCount(BoardRangeVO brVO) throws SQLException{
 		int totalCnt = 0;
 		String keyword = brVO.getKeyword();
@@ -85,6 +91,12 @@ public class OrderProcessDAO {
 		return totalCnt;
 	}//orderTotalCount
 	
+	/**
+	 * 교환/반품 리스트의 총 레코드 수
+	 * @param brVO
+	 * @return
+	 * @throws SQLException
+	 */
 	public int recallTotalCount(BoardRangeVO brVO) throws SQLException{
 		int totalCnt = 0;
 		String keyword = brVO.getKeyword();
@@ -158,9 +170,9 @@ public class OrderProcessDAO {
 		//4. 쿼리문 생성 객체 얻기
 			StringBuilder selectAllOrder=new StringBuilder();
 			selectAllOrder
-			.append("	select ORD_DATE, ORDNO,id, GNAME, AMOUNT, PRICE, DLVY_PRO, NAME	")
+			.append("	select ORD_DATE, ORDNO,id, GNAME, AMOUNT, PRICE, DLVY_PRO, NAME ,ORD_DNO	")
 			.append("	from (select row_number() over(order by ORD_DATE desc) rnum,	")
-			.append("	u.ORD_DATE, u.ORDNO,m.id ,g.GNAME, od.AMOUNT, g.PRICE, u.DLVY_PRO, m.NAME	")
+			.append("	u.ORD_DATE, u.ORDNO,m.id ,g.GNAME, od.AMOUNT, g.PRICE, u.DLVY_PRO, m.NAME, od.ORD_DNO	")
 			.append("	from UORDER u, GOODS g, MEMBER m, ORDER_DETAIL od	")
 			.append("	where m.id=u.id and od.gcode=g.gcode and u.ordno=od.ordno	")
 			.append("	and ( DLVY_PRO in ('D0','DF','DR','PF' ) )	");
@@ -194,13 +206,14 @@ public class OrderProcessDAO {
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				oVO=new OrderVO();
-				oVO.setDate(rs.getString("ORD_DATE"));
-				oVO.setOrderNo(rs.getInt("ORDNO"));
-				oVO.setProductName(rs.getString("GNAME"));
+				oVO.setOrd_date(rs.getString("ORD_DATE"));
+				oVO.setOrdno(rs.getInt("ORDNO"));
+				oVO.setGname(rs.getString("GNAME"));
 				oVO.setAmount(rs.getInt("AMOUNT"));
 				oVO.setPrice(rs.getInt("PRICE"));
-				oVO.setOrderStatus(rs.getString("DLVY_PRO"));
-				oVO.setUserName(rs.getString("NAME"));
+				oVO.setDlvy_pro(rs.getString("DLVY_PRO"));
+				oVO.setName(rs.getString("NAME"));
+				oVO.setOrd_dno(rs.getInt("ORD_DNO"));
 				list.add(oVO);
 				
 			}//end while
@@ -219,7 +232,7 @@ public class OrderProcessDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	public int updateShippingProgress(int orderNo, String dlvyPro) throws SQLException{
+	public int updateShippingProgress(OrderVO oVO) throws SQLException{
 		
 		DbConnection db=DbConnection.getInstance();
 		
@@ -237,14 +250,14 @@ public class OrderProcessDAO {
 			updateShipPro
 			.append("	update UORDER	")
 			.append("	set  DLVY_PRO=	? ")
-			.append("	where ORDNO= ?  ");
+			.append("	where ORDNO= ? and  ORD_DNO = ? ");
 			
 			pstmt=con.prepareStatement(updateShipPro.toString());
 			
-			OrderVO oVO=new OrderVO();
 			//5.
-			pstmt.setString(1, dlvyPro );
-			pstmt.setInt(2, orderNo );
+			pstmt.setString(1, oVO.getDlvy_pro() );
+			pstmt.setInt(2, oVO.getOrdno() );
+			pstmt.setInt(2, oVO.getOrd_dno() );
 			
 			//6.
 			rowCntShipUpdate=pstmt.executeUpdate();
@@ -314,14 +327,14 @@ public class OrderProcessDAO {
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				rVO=new RecallVO();
-				rVO.setDate(rs.getString("ORD_DATE"));
-				rVO.setOrderNum(rs.getInt("ORDNO"));
-				rVO.setProductName(rs.getString("GNAME"));
-				rVO.setQuantity(rs.getInt("AMOUNT"));
+				rVO.setOrd_date(rs.getString("ORD_DATE"));
+				rVO.setOrdno(rs.getInt("ORDNO"));
+				rVO.setGname(rs.getString("GNAME"));
+				rVO.setAmount(rs.getInt("AMOUNT"));
 				rVO.setPrice(rs.getInt("PRICE"));
-				rVO.setOrderStatus(rs.getString("DLVY_PRO"));
-				rVO.setUserName(rs.getString("NAME"));
-				rVO.setRecallDate(rs.getString("RECALL_DATE"));
+				rVO.setDlvy_pro(rs.getString("DLVY_PRO"));
+				rVO.setName(rs.getString("NAME"));
+				rVO.setRecall_date(rs.getString("RECALL_DATE"));
 				list.add(rVO);
 			}//end while
 		}finally {

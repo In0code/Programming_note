@@ -2,15 +2,24 @@ package user.vo;
 
 public class AddrVO {
 	
-	private String zipcode, sido, addr;
+	private String id, zipcode, sido, addr;
 
 	public AddrVO() {
 	}
 
-	public AddrVO(String zipcode, String sido, String addr) {
+	public AddrVO(String id, String zipcode, String sido, String addr) {
+		this.id = id;
 		this.zipcode = zipcode;
 		this.sido = sido;
 		this.addr = addr;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getZipcode() {
@@ -39,6 +48,6 @@ public class AddrVO {
 
 	@Override
 	public String toString() {
-		return "AddrVO [zipcode=" + zipcode + ", sido=" + sido + ", addr=" + addr + "]";
+		return "AddrVO [id=" + id + ", zipcode=" + zipcode + ", sido=" + sido + ", addr=" + addr + "]";
 	}
 }

@@ -2,65 +2,64 @@ package admin.vo;
 
 public class RecallVO {
 
-	private String userName,date,recallDate,productName ,orderStatus;
-	private int orderNum,quantity,price,totalPrice; 
+	private String name, ord_date, recall_date ,gname ,dlvy_pro;
+	private int ordno ,amount ,price ; 
 	public RecallVO() {
 		super();
 	}
-	public RecallVO(String userName, String date, String recallDate, String productName, String orderStatus,
-			int orderNum, int quantity, int price, int totalPrice) {
+	public RecallVO(String name, String ord_date, String recall_date, String gname, String dlvy_pro, int ordno,
+			int amount, int price) {
 		super();
-		this.userName = userName;
-		this.date = date;
-		this.recallDate = recallDate;
-		this.productName = productName;
-		this.orderStatus = orderStatus;
-		this.orderNum = orderNum;
-		this.quantity = quantity;
+		this.name = name;
+		this.ord_date = ord_date;
+		this.recall_date = recall_date;
+		this.gname = gname;
+		this.dlvy_pro = dlvy_pro;
+		this.ordno = ordno;
+		this.amount = amount;
 		this.price = price;
-		this.totalPrice = totalPrice;
 	}
-	public String getUserName() {
-		return userName;
+	public String getName() {
+		return name;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setName(String name) {
+		this.name = name;
 	}
-	public String getDate() {
-		return date;
+	public String getOrd_date() {
+		return ord_date;
 	}
-	public void setDate(String date) {
-		this.date = date;
+	public void setOrd_date(String ord_date) {
+		this.ord_date = ord_date;
 	}
-	public String getRecallDate() {
-		return recallDate;
+	public String getRecall_date() {
+		return recall_date;
 	}
-	public void setRecallDate(String recallDate) {
-		this.recallDate = recallDate;
+	public void setRecall_date(String recall_date) {
+		this.recall_date = recall_date;
 	}
-	public String getProductName() {
-		return productName;
+	public String getGname() {
+		return gname;
 	}
-	public void setProductName(String productName) {
-		this.productName = productName;
+	public void setGname(String gname) {
+		this.gname = gname;
 	}
-	public String getOrderStatus() {
-		return orderStatus;
+	public String getDlvy_pro() {
+		return dlvy_pro;
 	}
-	public void setOrderStatus(String orderStatus) {
-		this.orderStatus = orderStatus;
+	public void setDlvy_pro(String dlvy_pro) {
+		this.dlvy_pro = dlvy_pro;
 	}
-	public int getOrderNum() {
-		return orderNum;
+	public int getOrdno() {
+		return ordno;
 	}
-	public void setOrderNum(int orderNum) {
-		this.orderNum = orderNum;
+	public void setOrdno(int ordno) {
+		this.ordno = ordno;
 	}
-	public int getQuantity() {
-		return quantity;
+	public int getAmount() {
+		return amount;
 	}
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
+	public void setAmount(int amount) {
+		this.amount = amount;
 	}
 	public int getPrice() {
 		return price;
@@ -68,20 +67,11 @@ public class RecallVO {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	public int getTotalPrice() {
-		return totalPrice;
-	}
-	public void setTotalPrice(int totalPrice) {
-		this.totalPrice = totalPrice;
-	}
 	@Override
 	public String toString() {
-		return "RecallVO [userName=" + userName + ", date=" + date + ", recallDate=" + recallDate + ", productName="
-				+ productName + ", orderStatus=" + orderStatus + ", orderNum=" + orderNum + ", quantity=" + quantity
-				+ ", price=" + price + ", totalPrice=" + totalPrice + "]";
+		return "RecallVO [name=" + name + ", ord_date=" + ord_date + ", recall_date=" + recall_date + ", gname=" + gname
+				+ ", dlvy_pro=" + dlvy_pro + ", ordno=" + ordno + ", amount=" + amount + ", price=" + price + "]";
 	}
-
-	
 	
 	
 }

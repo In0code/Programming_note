@@ -43,7 +43,7 @@ public class BoardManageDAO {
 			selectCount
 			.append("	select count(*) CNT		")
 			.append("	from review r, goods g, category c	")
-			.append("	where r.gcode = g.gcode and g.cat_code = c.cat_code		");
+			.append("	where r.gcode = g.gcode and g.cat_code = c.cat_code	and r.cancle != 'Y'	");
 			
 			if(keyword!=null && !"".equals(keyword) && !"null".equals(keyword)) {
 				String field = "id";
@@ -148,7 +148,7 @@ public class BoardManageDAO {
 			.append("	from (select row_number() over(order by rev_date desc) no,  ")
 			.append(" 	r.rcode, c.cat_name, g.gname, r.id, r.rev_date, r.star		")
 			.append("	from review r, goods g, category c 							")
-			.append("	where r.gcode = g.gcode and g.cat_code = c.cat_code			");
+			.append("	where r.gcode = g.gcode and g.cat_code = c.cat_code and r.cancle != 'Y'	");
 			
 			if(keyword!=null && !"".equals(keyword) && !"null".equals(keyword)) {
 				String field = "id";

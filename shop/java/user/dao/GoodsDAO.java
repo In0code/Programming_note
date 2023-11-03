@@ -116,6 +116,82 @@ public class GoodsDAO {
 		return list;
 	}
 	
+	public List<GoodsVO> selectKeywordProducts(String keyword) throws SQLException{
+		List<GoodsVO> list = new ArrayList<GoodsVO>();
+		
+		DbConnection db = DbConnection.getInstance();
+		Connection con = null;
+		ResultSet rs = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = db.getConn("jdbc/dbcp");
+			
+			StringBuilder selectKeywordPro = new StringBuilder();
+			selectKeywordPro
+			.append("	select gcode, gname, c.cat_code, cat_name, main_img, img1, price, quantity	")
+			.append("	from goods g, category c 													")
+			.append("	where cancle != 'Y' and g.cat_code = c.cat_code and 						")
+			.append("   (g.gname like upper('%'||?||'%') or g.gname like lower('%'||?||'%'))        ")
+			.append("   order by gcode desc															");
+			
+			pstmt = con.prepareStatement(selectKeywordPro.toString());
+			
+			pstmt.setString(1, keyword);
+			pstmt.setString(2, keyword);
+			
+			rs = pstmt.executeQuery();
+			
+			GoodsVO pVO = null;
+			while(rs.next()) {
+				pVO = new GoodsVO(rs.getString("gcode"), rs.getString("gname"),
+						rs.getString("cat_code"), rs.getString("cat_name"),
+						rs.getString("main_img"), rs.getString("img1"),
+						rs.getInt("price"),  rs.getInt("quantity"));
+				list.add(pVO);
+			}
+			
+			
+		}finally {
+			db.dbClose(rs, pstmt, con);
+		}
+		
+		return list;
+	}
+	
+	public int selectKeywordCnt(String keyword) throws SQLException{
+		int cnt = 0;
+		
+		DbConnection db = DbConnection.getInstance();
+		ResultSet rs = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = db.getConn("jdbc/dbcp");
+			
+			StringBuilder selectCnt = new StringBuilder();
+			selectCnt
+			.append("	select count(*) cnt								 ")
+			.append("	from(select gcode from goods g 					 ")
+			.append("	where cancle != 'Y' and (g.gname like upper('%'||?||'%') or g.gname like lower('%'||?||'%')))");
+			
+			pstmt = con.prepareStatement(selectCnt.toString());
+			
+			pstmt.setString(1, keyword);
+			pstmt.setString(2, keyword);
+			
+			rs = pstmt.executeQuery();
+			
+			cnt = rs.next() ? rs.getInt("cnt") : 0;
+			
+		}finally {
+			db.dbClose(rs, pstmt, con);
+		}
+		
+		return cnt;
+	}
+	
 	/**
 	 * 상품 디테일
 	 * @param gcode 상품코드

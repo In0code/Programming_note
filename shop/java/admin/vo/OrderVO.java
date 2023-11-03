@@ -2,51 +2,52 @@ package admin.vo;
 
 public class OrderVO {
 
-	private String date,productName,userName,orderStatus;
-	private int orderNo,amount,price; 
+	private String ord_date,gname,name,dlvy_pro;
+	private int ordno,amount,price ,ord_dno; 
 	public OrderVO() {
 		super();
 	}
-	public OrderVO(String date, String productName, String userName, String orderStatus, int orderNo, int amount,
-			int price) {
+	public OrderVO(String ord_date, String gname, String name, String dlvy_pro, int ordno, int amount, int price,
+			int ord_dno) {
 		super();
-		this.date = date;
-		this.productName = productName;
-		this.userName = userName;
-		this.orderStatus = orderStatus;
-		this.orderNo = orderNo;
+		this.ord_date = ord_date;
+		this.gname = gname;
+		this.name = name;
+		this.dlvy_pro = dlvy_pro;
+		this.ordno = ordno;
 		this.amount = amount;
 		this.price = price;
+		this.ord_dno = ord_dno;
 	}
-	public String getDate() {
-		return date;
+	public String getOrd_date() {
+		return ord_date;
 	}
-	public void setDate(String date) {
-		this.date = date;
+	public void setOrd_date(String ord_date) {
+		this.ord_date = ord_date;
 	}
-	public String getProductName() {
-		return productName;
+	public String getGname() {
+		return gname;
 	}
-	public void setProductName(String productName) {
-		this.productName = productName;
+	public void setGname(String gname) {
+		this.gname = gname;
 	}
-	public String getUserName() {
-		return userName;
+	public String getName() {
+		return name;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setName(String name) {
+		this.name = name;
 	}
-	public String getOrderStatus() {
-		return orderStatus;
+	public String getDlvy_pro() {
+		return dlvy_pro;
 	}
-	public void setOrderStatus(String orderStatus) {
-		this.orderStatus = orderStatus;
+	public void setDlvy_pro(String dlvy_pro) {
+		this.dlvy_pro = dlvy_pro;
 	}
-	public int getOrderNo() {
-		return orderNo;
+	public int getOrdno() {
+		return ordno;
 	}
-	public void setOrderNo(int orderNo) {
-		this.orderNo = orderNo;
+	public void setOrdno(int ordno) {
+		this.ordno = ordno;
 	}
 	public int getAmount() {
 		return amount;
@@ -60,12 +61,17 @@ public class OrderVO {
 	public void setPrice(int price) {
 		this.price = price;
 	}
+	public int getOrd_dno() {
+		return ord_dno;
+	}
+	public void setOrd_dno(int ord_dno) {
+		this.ord_dno = ord_dno;
+	}
 	@Override
 	public String toString() {
-		return "OrderVO [date=" + date + ", productName=" + productName + ", userName=" + userName + ", orderStatus="
-				+ orderStatus + ", orderNo=" + orderNo + ", amount=" + amount + ", price=" + price + "]";
+		return "OrderVO [ord_date=" + ord_date + ", gname=" + gname + ", name=" + name + ", dlvy_pro=" + dlvy_pro
+				+ ", ordno=" + ordno + ", amount=" + amount + ", price=" + price + ", ord_dno=" + ord_dno + "]";
 	}
-	
-	
+
 	
 }
