@@ -19,16 +19,30 @@ request.setCharacterEncoding("UTF-8");
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&amp;display=swap" rel="stylesheet"/>
 <style type="text/css">
+#Header {
+    position: relative;
+    width: 100%;
+    font-size: 16px;
+    padding: 0px 33px 100px;
+    background: #fff;
+    border-bottom: 0px solid #fff;
+ }
+ #Footer {
+    position: relative;
+    padding: 0px 0px 120px 0;
+    margin-top: 100px;
+    border-top:0px solid #fff;
+    background: #fff;
+ }
 </style>
-
 <script type="text/javascript">
 $(function(){
 	
 	$("#pass").on('input', function() {
         var id = $(this).val();
-        var regex = /^[a-zA-Z0-9]*$/; // 영문자와 숫자만 허용
+        var regex = /^[a-z0-9]*$/; // 영문자와 숫자만 허용
         if (!regex.test(id)) {
-            alert("영문자와 숫자만 입력 가능합니다.");
+            alert("영문(소문자)과 숫자만 입력 가능합니다.");
             $(this).val(""); // 입력한 값 비움
             return;
         }
@@ -48,6 +62,10 @@ $(function(){
 
 $("#pass, #pass2").on('input', function() {
 	compare_result();
+});
+
+$("#btn2").click(function(){
+    location.href = "http://localhost/prj_web_shopping/user/member/login.jsp";
 });
 		
 });//ready
@@ -92,11 +110,11 @@ function compare_result() {
 		<ul class="ec-base-desc gSmall" style="margin-bottom:20px; margin-right:20px">
 					<li>
                          <label for="pass"><strong>새 비밀번호</strong></label>
-                        <input type="text" id=pass name="pass" maxlength="15">
+                        <input type="password" id=pass name="pass" maxlength="15">
 					</li>	
                      <li>
                          <label for="pass2"><strong>새 비밀번호 확인</strong></label>
-                        <input type="text" id=pass2 name="pass2" maxlength="15">
+                        <input type="password" id=pass2 name="pass2" maxlength="15">
                         <br>
                         <span id="s_result" style="font-size: 8px;"></span>
                     </li> 

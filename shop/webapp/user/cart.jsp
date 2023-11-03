@@ -167,12 +167,12 @@ $(function() {
 		  
 	});//ready
 	
-	function deleteCart(gcode) {
+	function deleteCart(bcode) {
 		    
 	 	$.ajax({
 		    url: "cartDelete_process.jsp",
 		    type: "get",
-		    data: "gcode="+gcode,
+		    data: "bcode="+bcode,
 		    dataType: "text",
 		    error: function(xhr) {
 	        alert("죄송합니다. 서버에 문제가 발생하였습니다. 잠시 후에 다시 시도해주세요.");
@@ -310,7 +310,7 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 				
 					<c:forEach var="cart" items="${ cartList }" varStatus="i">
 					  <tr style="border-bottom: 1px solid #E5E4E4;" >
-						<td style=" vertical-align: middle;"><input type="checkbox" class="check" name="check"  value="${ wish.wcode }" style="border: 1px solid #929492 ; width: 15px; "></td> 
+						<td style=" vertical-align: middle;"><input type="checkbox" class="check" name="check"  value="${ cart.bcode }" style="border: 1px solid #929492 ; width: 15px; "></td> 
 						<td  style=" vertical-align: middle;"><img src="../upload/goods/${ cart.img }"  style="width: 100px"/></td>
 						<td style=" vertical-align: middle;"><c:out value="${ cart.gname }"/></td>
 						<td style=" vertical-align: middle;"><c:out value="${ cart.price }"/></td>
@@ -336,7 +336,7 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 					 	<td style=" vertical-align: middle;"><c:out value="${ cart.price + deliveryPrice }"/></td> 
 						<td>
 					 		<input type="hidden" value="x삭제" name="dd" style="width:90px; height:40px ;"/><br/><br/>
-					 		<input type="button" value="x삭제" class="deleteBtn" name="deleteBtn" onclick="deleteCart('${cart.gcode}')" style="width:90px; height:35px ;background-color: white; border : 1px solid  #E5E4E4;"/><br/>
+					 		<input type="button" value="x삭제" class="deleteBtn" name="deleteBtn" onclick="deleteCart('${cart.bcode}')" style="width:90px; height:35px ;background-color: white; border : 1px solid  #E5E4E4;"/><br/>
 					 		<input type="hidden" value="x삭제" name="dt" style="width:90px; height:30px ;"/>
 					 	</td>
 					 </tr>

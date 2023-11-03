@@ -193,7 +193,7 @@ body.search_active .headSearchBtn_magnifier {
 			</form>
 		</div>
 
-		<header id="header">
+		<header id="header" style="margin-top: 10px; padding: 0 60px">
 			<div class="inner" style="font-family:'MADE Voyager PERSONAL_USE'">
 				<ul class="headLeft">
 					<li class="xans-element- xans-layout xans-layout-multishoplist">

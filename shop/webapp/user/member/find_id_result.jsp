@@ -12,8 +12,22 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&amp;display=swap" rel="stylesheet" />
 <style type="text/css">
+#Header {
+    position: relative;
+    width: 100%;
+    font-size: 16px;
+    padding: 0px 33px 100px;
+    background: #fff;
+    border-bottom: 0px solid #fff;
+ }
+ #Footer {
+    position: relative;
+    padding: 0px 0px 120px 0;
+    margin-top: 100px;
+    border-top:0px solid #fff;
+    background: #fff;
+ }
 </style>
-
 <script type="text/javascript">
 	$(function() {
 

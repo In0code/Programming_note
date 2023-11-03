@@ -8,12 +8,12 @@
 
 WishListDAO wlDAO=WishListDAO.getInstance();
 try{
-	String gcode=request.getParameter("gcode");
+	String wcode=request.getParameter("wcode");
 	String id="tuna5127";
 	
-	System.out.println( gcode+" / "+id);
+	System.out.println( wcode+" / "+id);
 
-	 wlDAO.deleteWishList(id, gcode);
+	 wlDAO.deleteWishList(id, wcode);
 	
 }catch(SQLException se){
 	se.printStackTrace();

@@ -133,12 +133,12 @@ $(function(){
         });//ajax
 	}//addCart
 	
-	function deleteWish(gcode) {
+	function deleteWish(wcode) {
     
         $.ajax({
             url: "wishDelete_process.jsp",
             type: "get",
-            data: "gcode="+gcode,
+            data: "wcode="+wcode,
             dataType: "text",
             error: function(xhr) {
                 alert("죄송합니다. 서버에 문제가 발생하였습니다. 잠시 후에 다시 시도해주세요.");
@@ -225,7 +225,7 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 						<input type="hidden" style="border: 1px solid #929492 ; width: 15px; height: 15px"/>
 					</td>
 					<td style="width:100px; color: #929492; vertical-align: middle;">이미지</td>
-					<td style="width:350px;color: #929492;vertical-align: middle; ">상품정보</td>
+					<td style="width:350px;color: #929492;vertical-align: middle; "><a href="product_detail.jsp">상품정보</a></td>
 					<td style="width:200px;color: #929492; vertical-align: middle;">판매가</td>
 					<td style="width:100px;color: #929492;vertical-align: middle;">배송비</td>
 					<td style="width:100px ;color: #929492;vertical-align: middle;">합계</td>
@@ -247,7 +247,7 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 						<td>
 							<input type="hidden" value="x삭제" name="dd" style="width:90px; height:40px ;"/><br/>
 					 		<input type="button" value="장바구니담기"  class="addCartBtn" name="addCartBtn"  onclick="addCart('${wish.gcode}')" style="width:90px; height:30px ;background-color: white;border : 1px solid  #E5E4E4;"/><br/>
-					 		<input type="button" value="x삭제" class="deleteBtn" name="deleteBtn" onclick="deleteWish('${wish.gcode}')"style="width:90px; height:30px ;background-color: white; border : 1px solid  #E5E4E4;"/>
+					 		<input type="button" value="x삭제" class="deleteBtn" name="deleteBtn" onclick="deleteWish('${wish.wcode}')"style="width:90px; height:30px ;background-color: white; border : 1px solid  #E5E4E4;"/>
 					 	</td>
 					 </tr>
 					</c:forEach>

@@ -228,7 +228,8 @@ try{
 			</div>
 		</div>
 		</c:if> 
-		<% if(request.getParameter("keyword") != null && !"null".equals(request.getParameter("keyword"))) 
+		<% 
+			if(request.getParameter("keyword") != null && !"null".equals(request.getParameter("keyword"))) 
 			out.print("<a href='member_list.jsp'><input type='button' id='btnList' value='목록'/></a>");
 		%>
 	</div>

@@ -1,3 +1,10 @@
+<%@page import="common.util.BoardUtilVO"%>
+<%@page import="common.util.BoardUtil"%>
+<%@page import="admin.vo.BoardRangeVO"%>
+<%@page import="common.dao.BoardDAO"%>
+<%@page import="admin.dao.UserReviewDAO"%>
+<%@page import="user.vo.SummaryVO"%>
+<%@page import="java.util.List"%>
 <%@page import="user.vo.GoodsVO"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="user.dao.GoodsDAO"%>
@@ -5,6 +12,7 @@
     pageEncoding="UTF-8"%>
 <jsp:include page="../cdn/cdn.jsp"/>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 if(request.getParameter("gcode") == null){
 	response.sendRedirect("shop.jsp");
@@ -14,15 +22,71 @@ if(request.getParameter("gcode") == null){
 String gcode = request.getParameter("gcode");
 
 GoodsDAO gDAO = GoodsDAO.getInstantce();
+GoodsVO gVO = null;
 
 try{
-	GoodsVO gVO = gDAO.selectProductDetail(gcode);
+	gVO = gDAO.selectProductDetail(gcode);
 	
 	pageContext.setAttribute("product", gVO);
 	
 }catch(SQLException se){
 	se.printStackTrace();
 }
+
+
+UserReviewDAO uDAO= UserReviewDAO.getInstance();
+BoardDAO bDAO=BoardDAO.getInstance();
+BoardRangeVO brVO=new BoardRangeVO();
+
+String field=request.getParameter("field");
+System.out.println(field+"=====");
+String keyword=request.getParameter("keyword");
+System.out.println(keyword+"=====");
+brVO.setTableName("REVIEW");
+
+brVO.setField(field);
+brVO.setKeyword(keyword);
+int totalCount=bDAO.totalCount(brVO);
+
+int pageScale=10; // 한 화면에 보여줄 게시물의 수
+int totalPage=0; // 총 페이지 수
+
+totalPage=(int)Math.ceil(totalCount/(double)pageScale);
+
+
+String tempPage=request.getParameter("currentPage");
+int currentPage=1;
+if(tempPage != null){
+	currentPage=Integer.parseInt(tempPage);
+}//end if
+
+int startNum=currentPage*pageScale-pageScale+1;
+pageContext.setAttribute("startNum", startNum);
+
+
+//끝페이지 번호 구하기
+int endNum=startNum+pageScale-1;
+
+brVO.setStartNum(startNum);
+brVO.setEndNum(endNum); 
+//mDAO.
+
+
+try{
+	List<SummaryVO> list = uDAO.selectAllReview2( brVO,gcode);
+	
+	pageContext.setAttribute("reviewList", list);
+}catch (SQLException se) {
+	se.printStackTrace();
+}//end catch
+%>
+<%
+
+
+
+
+
+
 
 %>
 <!DOCTYPE html>
@@ -64,6 +128,59 @@ try{
     hr {
     	opacity: 0.7;
     }
+    .pagenationDiv{
+	position: absolute;
+	top: 775px;
+	width: 1480px;
+	text-align: center;
+}
+
+.pagination {
+  display: inline-block;
+}
+
+.pagination a{
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+  background-color: white;
+}
+
+.pagination span{
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+  background-color: white;
+}
+
+.pagination a.active {
+  background-color: black;
+  color: white;
+  border: 1px solid #333;
+}
+
+.pagination span.active {
+  background-color: black;
+  color: white;
+  border: 1px solid #333;
+}
+
+.pagination a:hover:not(.active) {background-color: #ddd;}
+
+a {
+	text-decoration: none;
+	color: #333;
+}
+
+a:hover {
+	color: #333;
+}
 </style>
 
 <script type="text/javascript">
@@ -89,7 +206,29 @@ $(function() {
 		stockCheck();
 	});
 	
+	$("#btnSearch").click(function(){
+		chkNull();
+		
+	});
+	
+	$("#keyword").keyup(function(evt) {
+		if(evt.which == 13){
+			chkNull();
+		}//end if
+	});//keyup
+	
 });//ready
+function chkNull(){
+	var keyword =  $("#keyword").val();
+
+	if(keyword.trim()==""){
+		alert("검색 키워드를 입력해주세요. k : '"+keyword+"'");
+		return;
+	}//end if
+	
+	//모두 통과했으면 submit
+	$("#frmSearch").submit();
+}//chkNull
 
 function hover(event, element) {
     $("#bigImg").attr("src", element.src);
@@ -164,43 +303,9 @@ function totalPrice(){
 			$("#bottomTotal").html("<strong><em>"+total+"원 </em></strong>");
 		}
 	});
-}
-
-function addCart(gcode) {
 	
-    $.ajax({
-        url: "cartAdd_process.jsp",
-        type: "get",
-        data: "gcode="+gcode,
-        dataType: "text",
-        error: function(xhr) {
-            alert("죄송합니다. 서버에 문제가 발생하였습니다. 잠시 후에 다시 시도해주세요.");
-            console.log(xhr.status);
-        },
-        success: function(data) {
-                alert("상품이 추가되었습니다.");
-                location.reload();
-        }//success
-    });//ajax
-}//addCart
-
-function addWishList(gcode) {
-
-    $.ajax({
-        url: "wishListAdd_process.jsp",
-        type: "get",
-        data: "gcode="+gcode,
-        dataType: "text",
-        error: function(xhr) {
-            alert("죄송합니다. 서버에 문제가 발생하였습니다. 잠시 후에 다시 시도해주세요.");
-            console.log(xhr.status);
-        },
-        success: function(data) {
-                alert("상품이 추가되었습니다.");
-                location.reload();
-        }//success
-    });//ajax
-}//addCart
+	
+}
 </script>
 
 </head>
@@ -505,9 +610,9 @@ function addWishList(gcode) {
                         	<a href="buy.jsp" class="btn gFlex2 actionBuy " onclick="">
                         		<span id="actionBuy" style="font-size:16px">구매하기</span>
                         	</a>
-                        	<input type="button" value="장바구니" class="btn gFlex2 actionCart " style="font-family:Pretendard Medium" onclick="addCart('${product.gcode}')" id="actionCart">
+                        	<input type="button" value="장바구니" class="btn gFlex2 actionCart " style="font-family:Pretendard Medium" onclick="" id="actionCart">
                         		장바구니
-                        	<button type="button" class="btn actionCart " onclick="addWishList('${product.gcode}')" id="actionWish">
+                        	<button type="button" class="btn actionCart " onclick="" id="actionWish">
                         		<img style="width:20px" id="wish_img" src="http://192.168.10.136/prj_web_shopping/common/images/icon/heart.png"/>
                         	</button>
                         	<a href="/member/login.html" class="btn gFlex2 actionBuy member_check_product">
@@ -559,14 +664,32 @@ function addWishList(gcode) {
 				size="1201px/1783px" filesize="2,94 MB" error=""><br>
 		</div>
     </div>
-    
-    <!-- 리뷰 -->
+
 	<div id="prdReview" class="prdReview  ">
+		       
         <div class="title">
-            <h2>Reviews 
+        
+            <h2>Reviews <span class="br1138">1138</span></h2>
+            	
             	<!-- 리뷰 개수 -->
-            	<span class="br1138">1138</span>
-			</h2>
+            	
+            	<form id="frmSearch"  action="product_detail.jsp?field=${param.field}&keyword=${param.keyword}&gcode=${product.gcode}" >
+        <select id="field" name="field"  >
+<option value="1">작성자</option>
+<option value="2">내용</option>
+
+
+
+
+    <!-- 리뷰 -->
+    </select> 
+<input id="keyword" name="keyword"  style="height:27px" class="inputTypeText" placeholder="내용을 입력해주세요"
+	 value="${param.keyword}" type="text"  />
+<input type="text" style="display: none"	> 
+<input type="button" id="btnSearch" name="btnSearch" class="btnNormalFix" style="height:27px; padding:3px" value="search">
+ </form>
+		
+			
         </div>
         
         <!-- 리뷰 테이블 -->
@@ -596,40 +719,63 @@ function addWishList(gcode) {
                             </tr>
                         </thead>
                             
-                        <!-- 리뷰 상세 -->
+                    <!--     리뷰 상세
 						<tbody class="center">
 							<tr class="xans-record-">
 								<td class="RW"> 리뷰 번호 </td>
                                 <td class="subject left txtBreak"> 
-                                	<!-- 리뷰 제목 / 상세 링크 -->
+                                	리뷰 제목 / 상세 링크
                                 	<span id="review-title" style="margin:0px 5px 0px 5px; color:black;">제목 영역</span>
                                 	
-                                	<!-- HIT 이미지 -->
-                                	<img src="http://img.echosting.cafe24.com/design/skin/admin/ko_KR/ico_hit.gif"  alt="HIT" class="ec-common-rwd-image" />
+                                	
                                 </td>
-                                <!-- 작성자 -->
+                                작성자
                                 <td> 작성자 영역 </td>
                                 
-                                <!-- 작성일 -->
+                                작성일
                                 <td> 작성일 영역 </td>
                                 
-                                <!-- 조회수 -->
+                                조회수
                                 <td> 조회수 영역 </td>
                                 
-                                <!-- 별점 -->
+                                별점
                                 <td>
                                 	<img src="//img.echosting.cafe24.com/skin/skin/board/icon-star-rating5.svg" alt="5점">
                                 </td>
-                            </tr>
+                            </tr> -->
+							       <c:if test="${ empty reviewList}">
+       <p class="message" style="width:1220px;position: absolute; top:180px">작성한 게시물이 없습니다.</p>
+       </c:if>
+      
+<c:forEach var="review" items="${reviewList}" varStatus="i">
+
+			<tr class="xans-record-" style="text-align: center">
+                <td  class="RW"><span class="txtNum"><c:out value="<%=startNum++ %>"/></span></td>
+                <td style=" margin:0px 5px 0px 5px; color:black; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; "><span class="txtNum"><a href="posting_detail.jsp?rcode=${review.rcode }" 
+	onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.review}" /></a><!-- HIT 이미지 -->
+                                	<img src="http://img.echosting.cafe24.com/design/skin/admin/ko_KR/ico_hit.gif"  alt="HIT" class="ec-common-rwd-image" /></span></td>
+                <td ><span class="txtNum">     <a href="posting_detail.jsp?rcode=${review.rcode }" 
+	onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.id}" /></a>  </span></td>
+                <td ><span class="txtNum"><a href="posting_detail.jsp?rcode=${review.rcode }" 
+	onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.reviewDate}" /></a></span></td>
+                <td><span class="txtNum"><a href="posting_detail.jsp?rcode=${review.rcode }" 
+	onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.view}" /></a></span></td>
+                <td><span class="txtNum"><a href="posting_detail.jsp?rcode=${review.rcode }" 
+	onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.star}" /></a></span></td>
+                
+                
+            </tr>
+            </c:forEach>
+							
                             
                             <!-- 리뷰 클릭시 상세보기 -->
-                            <tr id="product-review-read" style="">
+                           <!--  <tr id="product-review-read" style="">
                             	<td colspan="6">
                             	<div class="view">
                             		<div id="ec-ucc-media-box-11247"></div>
                             			<p class="attach"></p>
                             			<p></p>
-                            			<!-- 리뷰 내용 -->
+                            			리뷰 내용
                             			<div class="fr-view fr-view-article">
                             				<p>항상 쓰는제품입니다~</p>
                             				<p>너무 좋아요</p>
@@ -639,28 +785,28 @@ function addWishList(gcode) {
                             		</div>
                             	</td>
                             </tr>
-                            <!-- 상세보기 영역 -->
+                            상세보기 영역 -->
                             
 						</tbody>
 					</table>
 				</div>
 			</div>
-            
+         //
             <!-- 페이지 네이션 -->
-            <div class="xans-element- xans-product xans-product-reviewpaging ec-base-paginate typeList">
-            	<a href="#none" class="first">첫 페이지</a>
-				<a href="#none">이전 페이지</a>
-				<ol>
-					<li class="xans-record-"><a href="?page_4=1#use_review" class="this">1</a></li>
-                    <li class="xans-record-"><a href="?page_4=2#use_review" class="other">2</a></li>
-                    <li class="xans-record-"><a href="?page_4=3#use_review" class="other">3</a></li>
-                    <li class="xans-record-"><a href="?page_4=4#use_review" class="other">4</a></li>
-                    <li class="xans-record-"><a href="?page_4=5#use_review" class="other">5</a></li>
-                </ol>
-				<a href="?page_4=2#use_review">다음 페이지</a>
-				<a href="?page_4=228#use_review" class="last">마지막 페이지</a>
-			</div>
-        </div>
+            <div id="pageNation" >
+   <c:if test="${ not empty reviewList }">
+      <!-- 페이지네이션 -->
+      <div class="pagenationDiv" style="text-align: center;">
+         <div class="pagination" >
+          <%
+          BoardUtil util=BoardUtil.getInstance();
+         BoardUtilVO buVO=new BoardUtilVO("product_detail.jsp?gcode="+gcode,keyword,field,currentPage,totalPage);
+         out.println(util.pageNation(buVO));
+          %>
+         </div>
+      </div>
+      </c:if>
+      </div> 
         <!-- 리뷰 테이블 끝 -->
     </div>
     <!-- 리뷰 끝 -->

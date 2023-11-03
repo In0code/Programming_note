@@ -15,7 +15,7 @@
 width: 100%;
 box-sizing: border-box;
 padding: 5px;
-margin-bottom: 10px;
+margin-bottom: 15px;
 }
 
 .btnSearch input[type="button"] {
@@ -24,11 +24,13 @@ font-size: 12px;
 margin-left: 109px;
 margin-bottom: 20px;
 width:196px;
+background-color: gainsboro;
+border: none;
 }
 
 .search-title h3 {
 font-size: 15px;
-margin-left: 150px;
+margin-left: 158px;
 margin-bottom: 30px;
 font-weight: bold;
 }

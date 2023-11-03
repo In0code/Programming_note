@@ -50,7 +50,7 @@ $(function(){
 	//$("#idDupFlag").val(0);
 	$("#btnDup").click(function(){
 		var id=$("#id").val();
-		window.open("id_check.jsp?id="+id,"id_check","width=512,height=320,top="
+		window.open("id_check.jsp?id="+id,"id_check","width=510,height=320,top="
 	            +( window.screenY+150)+",left="+( window.screenX+900));	
 	}); 
 	
@@ -96,6 +96,12 @@ $(function(){
 			alert('비밀번호가 일치하지 않습니다.');
 			return; 
 		}
+		
+		// 아이디와 비밀번호가 같은지 확인
+	    if (id === pass) {
+	        alert('아이디와 비밀번호는 같을 수 없습니다');
+	        return;
+	    }
 		
         // 입력값에 대한 유효성 검증을 통과했을 때
         $("#frm").submit();

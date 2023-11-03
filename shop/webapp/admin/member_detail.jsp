@@ -91,7 +91,7 @@ input:focus {outline:none;}
 #delbtn{
 margin-left:857px; 
 margin-top:-60px;
-background-color:#939393;
+background-color:#504f4f;
 color: #fff;
 border:none;
 width:130px
@@ -112,21 +112,21 @@ $(function() {
 });//ready
 
 function memberDelete( id ) {
-	if(confirm("이 회원을 탈퇴처리 하시겠습니까?")){
+	if(confirm("이 회원을 탈퇴 처리하시겠습니까?")){
 		$.ajax({
 			url: "member_delete.jsp",
 			type: "get",
 			data: "id="+id,
 			dataType:"json",
 			error: function( xhr ){
-				alert("서버에서 문제가 발생하였습니다.<br>잠시 후에 다시 시도해주세요");
+				alert(" 서버에서 문제가 발생하였습니다.\n 잠시 후에 다시 시도해 주세요");
 				location.href="member_list.jsp";
 			},
-			success: function( jsonObj ){
+			success: function( jsonObj ) {
 				if( jsonObj.result ){
-					alert("탈퇴 처리 되었습니다.")
+					alert("탈퇴 처리되었습니다.")
 				}else{
-					alert("서버에서 문제가 발생하였습니다.<br>잠시 후에 다시 시도해주세요");
+					alert(" 서버에서 문제가 발생하였습니다.\n 잠시 후에 다시 시도해 주세요");
 				}
 				location.href="member_list.jsp";
 			}//success

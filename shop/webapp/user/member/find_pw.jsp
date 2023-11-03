@@ -32,6 +32,8 @@
             margin-left: 109px;
             margin-bottom: 20px;
             width:196px;
+            background-color: gainsboro;
+			border: none;
         }
 
         .search-title h3 {

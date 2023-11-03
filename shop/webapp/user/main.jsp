@@ -23,7 +23,7 @@
 <body>
 	<div id="wrap">
 	<%@ include file="layout/header.jsp"%>
-		<div id="container" style="font-family:Pretendard Medium">
+		<div id="container" style="font-family:Pretendard Medium; margin-top:10px">
 			<main id="contents" role="main">
 			
 				<!-- 슬라이더 -->
@@ -298,7 +298,7 @@
 				<div class="insideBom">
     				<div class="bg_color"></div>
     				<div class="bg_index">
-        			<h2 class="hImg hImgover"><img src="/design/kr/3ab10e2f92b02.png"></h2>
+        			<h2 class="hImg hImgover"><img src="http://localhost/prj_web_shopping/common/images/map_logo.png"></h2>
         			<ul>
         			<li>
         				<a target="_blank" href="https://www.google.com/maps/@51.4390411,-0.2060724,3a,75y,177.6h,112.58t/data=!3m8!1e1!3m6!1sAF1QipNVOoAsKrqSsZsIzMvSN9i6Erg6gUBjSqRKqOCr!2e10!3e11!6shttps:%2F%2Flh5.googleusercontent.com%2Fp%2FAF1QipNVOoAsKrqSsZsIzMvSN9i6Erg6gUBjSqRKqOCr%3Dw203-h100-k-no-pi-0-ya49.77087-ro-0-fo100!7i8704!8i4352">

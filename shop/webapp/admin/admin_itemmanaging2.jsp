@@ -1,3 +1,5 @@
+<%@page import="admin.vo.ProductManageVO"%>
+<%@page import="admin.dao.ProductDAO"%>
 <%@page import="common.util.BoardUtilVO"%>
 <%@page import="common.util.BoardUtil"%>
 <%@page import="java.util.List"%>
@@ -79,29 +81,27 @@ function chkNull() {
 	$("#frmSearch").submit();
 }
 
-function boardDetail(rcode){
-	$("#rcode").val(rcode);
+function productDetail(gcode){
+	$("#gcode").val(gcode);
 	$("#frmDetail").submit();
 }
 </script>
 </head>
 <body>
 <%
-	BoardManageDAO bmDAO = BoardManageDAO.getInstance();
+	ProductDAO pDAO = ProductDAO.getInstance();
 	BoardRangeVO brVO = new BoardRangeVO();
-
+	
 	String field = request.getParameter("field");
 	String keyword = request.getParameter("keyword");
-	String category = request.getParameter("category");
 	
 	/* 페이지가 최초 호출 시에는 field나 keyword가 없다. 
 	검색을 하지 않는 경우에도 값이 없다. */
 	brVO.setField(field);
 	brVO.setKeyword(keyword);
-	brVO.setCategory(category);
 	
 	//1.총 레코드의 수 
-	int totalCount = bmDAO.totalCount(brVO);
+	int totalCount = pDAO.totalCount(brVO);
 	
 	//2.한 화면에 보여줄 게시물의 수
 	int pageScale = 10;
@@ -134,10 +134,8 @@ function boardDetail(rcode){
 	brVO.setEndNum(endNum);
 	
 	try{
-		List<BoardManageVO> reviewList = bmDAO.selectAllReview(brVO);
-		List<String> categoryList = bmDAO.selectCategory();
-		pageContext.setAttribute("reviewList", reviewList);
-		pageContext.setAttribute("category", categoryList);
+		List<ProductManageVO> productList = pDAO.selectAllProduct(brVO);
+		pageContext.setAttribute("productList", productList);
 		
 	}catch(SQLException se){
 		se.printStackTrace();
@@ -153,21 +151,15 @@ function boardDetail(rcode){
 	<div id="rightBody">
 		<!-- 타이틀  -->
 		<div class="text" id="mainTitle">		
-			<strong>리뷰 리스트</strong>
+			<strong>상품 리스트</strong>
 		</div>
 		
 		<!-- 검색 -->
 		<div class="searchDiv">
 		<form id="frmSearch">
-			<select class="searchCat" id="category" name="category">
-					<option value="1">전체</option>
-				<c:forEach var="cat" items="${ category }" varStatus="i">
-					<option value="${ i.count+1 }"${ param.category eq (i.count+1).toString() ? " selected='selected'" : "" }>${ cat }</option>
-				</c:forEach>
-			</select>
 			<select class="searchList" id="field" name="field">
-				<option value="1"${ param.field eq "1" ? " selected='selected'" : "" }>아이디</option>
-				<option value="2"${ param.field eq "2" ? " selected='selected'" : "" }>상품명</option>
+				<option value="1"${ param.field eq "1" ? " selected='selected'" : "" }>상품명</option>
+				<option value="2"${ param.field eq "2" ? " selected='selected'" : "" }>상품코드</option>
 				<option value="3"${ param.field eq "3" ? " selected='selected'" : "" }>카테고리명</option>
 			</select>
 			<input type="text" class="textBox" id="keyword" name="keyword" placeholder="내용을 입력해주세요"
@@ -176,9 +168,9 @@ function boardDetail(rcode){
 		</form>
 		</div>
 		
-		<!-- 리뷰 상세보기 페이지로 -->
-		<form id="frmDetail" action="board_detail.jsp">
-			<input type="hidden" id="rcode" name="rcode"/>
+		<!-- 상품 상세보기 페이지로 -->
+		<form id="frmDetail" action="product_detail.jsp">
+			<input type="hidden" id="gcode" name="gcode"/>
 		</form>
 		
 		<div id="background_box">
@@ -189,35 +181,37 @@ function boardDetail(rcode){
 				<tr id="top_title">
 					<!-- 컬럼 사이즈 -->
 					<th style="width:100px">No</th>
-					<th style="width:200px">카테고리명</th>
+					<th style="width:200px">이미지</th>
+					<th style="width:180px">상품코드</th>
 					<th style="width:300px">상품명</th>
-					<th style="width:200px">작성자</th>
-					<th style="width:200px">작성일</th>
-					<th style="width:180px">평점</th>
+					<th style="width:200px">카테고리</th>
+					<th style="width:200px">등록일</th>
+					<th style="width:150px">판매가</th>
+					<th style="width:150px">재고</th>
+					<th style="width:100px">비고</th>
 				</tr>
 				</thead>
 				
 				<tbody>
 					<!-- list가 존재하지 않을 경우 -->
-					<c:if test="${ empty reviewList }">
+					<c:if test="${ empty productList }">
 					<tr>
-						<td colspan="6" style="text-align: center;"> 
-							리뷰가 존재하지 않습니다. </td>
+						<td colspan="9" style="text-align: center;"> 
+							상품이 존재하지 않습니다. </td>
 					</tr>
 					</c:if>
 				
-					<c:forEach var="review" items="${ reviewList }" varStatus="i">
-					<tr onclick="boardDetail(${ review.rcode })">
+					<c:forEach var="product" items="${ productList }" varStatus="i">
+					<tr onclick="productDetail(${ product.goodsCode })">
 						<td>${ startNum + i.index }</td>
-						<td>${ review.cat_name }</td>
-						<td>${ review.gname }</td>
-						<td>${ review.id }</td>
-						<td>${ review.rev_date }</td>
-						<td style="color:#FF923A">
-						<c:forEach var="star" begin="1" end="${ review.star }">
-							<img src="../common/images/star.png" style="width:16px"/>
-						</c:forEach>
-						</td>
+						<td><img src="http://localhost/prj_web_shopping/upload/goods/${ product.mainImg }" style="width:35px"/></td>
+						<td>${ product.goodsCode }</td>
+						<td>${ product.goodsName }</td>
+						<td>${ product.categoryName }</td>
+						<td>${ product.inputDate }</td>
+						<td>${ product.price }</td>
+						<td>${ product.quantity }</td>
+						<td>${ product.cancle }</td>
 					</tr>
 					</c:forEach>
 				</tbody>
@@ -225,21 +219,21 @@ function boardDetail(rcode){
 			</div>
 		</div>
 		
-		<c:if test="${ not empty reviewList }">
+		<c:if test="${ not empty productList }">
 		<!-- 페이지네이션 -->
 		<div class="pagenationDiv">
 			<div class="pagination">
  				<%
  					BoardUtil util = BoardUtil.getInstance();
- 					BoardUtilVO buVO = new BoardUtilVO("boardManagement.jsp", keyword, field, currentPage, totalPage, category);
- 					out.println(util.pageNationBM(buVO));
+ 					BoardUtilVO buVO = new BoardUtilVO("admin_itemmanaging2.jsp", keyword, field, currentPage, totalPage);
+ 					out.println(util.pageNation(buVO));
  				%>
 			</div>
 		</div>
 		</c:if>
 		
 		<% if(request.getParameter("keyword") != null && !"null".equals(request.getParameter("keyword"))) 
-			out.print("<a href='boardManagement.jsp'><input type='button' id='btnList' value='목록'/></a>");
+			out.print("<a href='admin_itemmanaging2.jsp'><input type='button' id='btnList' value='목록'/></a>");
 		%>
 	</div>
 </div>	

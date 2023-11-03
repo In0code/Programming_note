@@ -9,12 +9,12 @@
 
 CartDAO cDAO=CartDAO.getInstance();
 try{
-	String gcode=request.getParameter("gcode");
+	String bcode=request.getParameter("bcode");
 	String id="tuna5127";
 	
-	System.out.println( gcode+" / "+id);
+	System.out.println( bcode+" / "+id);
 
-	cDAO.deleteCart(id, gcode);
+	cDAO.deleteCart(id, bcode);
 	
 }catch(SQLException se){
 	se.printStackTrace();

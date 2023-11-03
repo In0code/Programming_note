@@ -89,7 +89,7 @@ a:hover {
 UserReviewDAO uDAO= UserReviewDAO.getInstance();
 BoardDAO bDAO=BoardDAO.getInstance();
 BoardRangeVO brVO=new BoardRangeVO();
-
+String id ="tuna5127";
 String field=request.getParameter("field");
 System.out.println(field+"=====");
 String keyword=request.getParameter("keyword");
@@ -98,12 +98,15 @@ brVO.setTableName("REVIEW");
 
 brVO.setField(field);
 brVO.setKeyword(keyword);
-int totalCount=bDAO.totalCount(brVO);
+int totalCount=uDAO.reviewTotalCount(brVO,id);
+//
+//
+
 
 int pageScale=10; // 한 화면에 보여줄 게시물의 수
 int totalPage=0; // 총 페이지 수
 
-totalPage=((int)Math.ceil(totalCount/(double)pageScale))-2;
+totalPage=(int)Math.ceil(totalCount/(double)pageScale);
 
 
 String tempPage=request.getParameter("currentPage");
@@ -209,7 +212,7 @@ function chkNull(){
 </select> 
 <input id="keyword" name="keyword"  style="height:27px" class="inputTypeText" placeholder="내용을 입력해주세요"
 	 value="${param.keyword}" type="text"  />
-<input type="text" style="display: none"	> 
+<input type="text" style="display: none"	placeholder="내용을 입력해주세요"> 
 <input type="button" id="btnSearch" name="btnSearch" class="btnNormalFix" style="height:27px" value="search">
  </p>
     </fieldset>
@@ -237,31 +240,32 @@ function chkNull(){
                 <th scope="col">HIT</th>
 </tr>
 </thead>
-            
-     
-
-       <c:if test="${ empty reviewList}">
+               <c:if test="${ empty reviewList}">
        <p class="message" style="width:1220px;position: absolute; top:180px">작성한 게시물이 없습니다.</p>
        </c:if>
       
 <c:forEach var="review" items="${reviewList}" varStatus="i">
 
-			<tr style="text-align: center">
-                <td ><span class="txtNum"><c:out value="<%=startNum++ %>"/></span></td>
+         <tr>
+                <td><span class="txtNum"><c:out value="${i.count}"/></span></td>
                 <td><span class="txtNum"><a href="posting_detail.jsp?rcode=${review.rcode }" 
-	onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.category}" /></a></span></td>
-                <td style="overflow:hidden; white-space:nowrap; text-overflow:ellipsis; "><span class="txtNum">     <a href="posting_detail.jsp?rcode=${review.rcode }" 
-	onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.review}" /></a>  </span></td>
-                <td ><span class="txtNum"><a href="posting_detail.jsp?rcode=${review.rcode }" 
-	onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.name}" /></a></span></td>
+   onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.category}" /></a></span></td>
+                <td><span class="txtNum">     <a href="posting_detail.jsp?rcode=${review.rcode }" 
+   onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.review}" /></a>  </span></td>
                 <td><span class="txtNum"><a href="posting_detail.jsp?rcode=${review.rcode }" 
-	onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.reviewDate}" /></a></span></td>
+   onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.name}" /></a></span></td>
                 <td><span class="txtNum"><a href="posting_detail.jsp?rcode=${review.rcode }" 
-	onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.view}" /></a></span></td>
+   onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.reviewDate}" /></a></span></td>
+                <td><span class="txtNum"><a href="posting_detail.jsp?rcode=${review.rcode }" 
+   onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.view}" /></a></span></td>
                 
                 
             </tr>
             </c:forEach>
+            
+     
+
+
             
            
 
@@ -269,7 +273,7 @@ function chkNull(){
 </table>
 
 
-</div><div id="pageNation" style="position: absolute; top: -120px; left: 210px">
+</div><div id="pageNation" style="position: absolute; top: -80px; left: 210px">
    <c:if test="${ not empty reviewList }">
       <!-- 페이지네이션 -->
       <div class="pagenationDiv" style="text-align: center;">

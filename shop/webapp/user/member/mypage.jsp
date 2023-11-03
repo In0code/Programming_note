@@ -13,30 +13,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="https://afterblow-scent.com/ind-script/optimizer.php?filename=nc1LCoAwDIThfXHrOYLeqC3xAU2mpCno7RW8gHQ7zMdPB4RpWY2qYbcoZNzQLTPl1mgzqFOGCHR6h5n-_DmHhtL9hIaEaxB299FoiTfbGPWYCg9S1FBO5ZCi6td_AA&type=css&k=37c9481ac0212340e132f81eba4d1049fee7f18e&t=1681776733" />
-<link rel="stylesheet" type="text/css" href="https://afterblow-scent.com/ind-script/optimizer_user.php?filename=tZRbTkQhDIbfB19dRxPjQkzGDRROPTQHKOGizu7tXHQBAm9cP8oP-cBLJCBneqVSAT8aFRvkC3K3gZ3xLQaoG5mNKu8J6sHpFVyt8IY7vUt-0vYz_JsSZeuBIF6qlwwW02FFjkFoltyziRStbvQ8UmPAi_SmhVV2N7aTGCXNJN4HZhLJnbRDp84rqE0ktLmh_qI9hSXcXPSbuSUZZ9w5YaMlSaNdgbW9tblf-I8s34tyCEsC1lVu0DUbNeQwBfIySEGrtzQ3-a0ISyeozNH944zYVSRX8Z9V0pnTPpXuJH0qgCXl0Uf2hNvw3R8SMpWwOH-F_QA&type=css&k=6d772c65d1f33705cdd1d1e541979b835f286a4d&t=1641537240&user=T" />
+<link rel="stylesheet" type="text/css" href="http://localhost/prj_web_shopping/user/member/mypage.css" />
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&amp;display=swap" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&amp;display=swap" rel="stylesheet" />
 <style type="text/css">
-#Header {
-    position: relative;
-    width: 100%;
-    font-size: 16px;
-    padding:30px ;
-    background: #fff;
-    border-bottom: 1px solid #fff;
-    margin-bottom:50px;
-    z-index: 99;
-    z-index: 99;
-}
-
-#Footer {
-    position: relative;
-    padding: 100px 0 120px 0;
-    border-top: 1px solid #fff;
-    background: #fff;
-    z-index: 90;
-}
 </style>
 <script type="text/javascript">
 	$(function() {
@@ -48,7 +29,7 @@
 <body>
 	<%@ include file="../layout/header.jsp"%>
 
-	<div id="contents">
+	<div id="contents" style="margin-top: 100px">
 		<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.5.1.min.js"></script>
 
 		<div class="PageTop">

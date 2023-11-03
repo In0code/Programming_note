@@ -6,11 +6,66 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="https://afterblow-scent.com/ind-script/optimizer.php?filename=nc1LCoAwDIThfXHrOYLeqC3xAU2mpCno7RW8gHQ7zMdPB4RpWY2qYbcoZNzQLTPl1mgzqFOGCHR6h5n-_DmHhtL9hIaEaxB299FoiTfbGPWYCg9S1FBO5ZCi6td_AA&type=css&k=37c9481ac0212340e132f81eba4d1049fee7f18e&t=1681776733" />
+<link rel="stylesheet" type="text/css" href="http://localhost/prj_web_shopping/user/member/mypage.css" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&amp;display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&amp;display=swap" rel="stylesheet" />
 <title>주문내역</title>
 </head>
 <style type="text/css">
+
+.pagenationDiv{
+	position: absolute;
+	top: 1030px;
+	width: 95%;
+	text-align: center;
+}
+
+.pagination {
+  display: inline-block;
+}
+
+.pagination a{
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+  background-color: white;
+}
+
+.pagination span{
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+  background-color: white;
+}
+
+.pagination a.active {
+  background-color: black;
+  color: white;
+  border: 1px solid #333;
+}
+
+.pagination span.active {
+  background-color: black;
+  color: white;
+  border: 1px solid #333;
+}
+
+.pagination a:hover:not(.active) {background-color: #ddd;}
 .ec-base-table.typeList table {
     border-top: 1px solid #d7d5d5;
+    border-bottom: 1px solid #d7d5d5;
+}
+
+.ec-base-table.typeList.gBorder tbody td {
+    border-color: #d7d5d5;
 }
 
 .ec-base-table table {
@@ -38,8 +93,12 @@ padding-top: 50px;
 #thr{
 }
 .loc{
-margin: 0px auto;
-width: 60%;
+    position: relative;
+    margin: 0 auto;
+    width: 95%;
+    max-width: 1200px;
+    min-height: 700px;
+    padding: 0 15px;
 }
 span{
 
@@ -47,6 +106,19 @@ span{
 th, td{
 text-align: center;
 }
+
+.nav-link{
+	color: #858585;
+}
+
+.nav-link.active, .nav-link:hover  {
+	color: black;
+}
+
+.active {
+	color: black;
+}
+
 </style>
 <script type="text/javascript">
 	$(function() {
@@ -94,31 +166,53 @@ text-align: center;
 <body>
 <!-- header -->
 <%@ include file="layout/header.jsp"%>
-<div id="fst" class="loc">
-<span style="font-weight: bold;padding-left: 10px;">아무개님</span>
-<span style="margin-left: calc(100% - 300px);"><a href="member/mypage.jsp">마이페이지</a> | <a href=""><strong>주문내역조회</strong></a> | <a href="cart.jsp">장바구니</a></span>
-</div>
-<div id="sec" class="loc">
-	<div id="txtDiv">
+<div id="sec" class="loc" style="margin-bottom: 200px">
+		<div class="PageTop" style="margin-top:100px">
+			<ul>
+				<li class="xans-element- xans-layout xans-layout-statelogon left ">
+					<span class="xans-member-var-name"></span>
+<%-- 					<c:choose>
+					<c:when test="${ empty sesId }">
+					<a href="login.jsp"></a>
+					</c:when>
+					<c:otherwise> --%>
+					<%
+
+					%>
+					<big><b><c:out value="농담곰"/></b></big><big>님</big>
+<%-- 					</c:otherwise>
+					</c:choose> --%>
+				</li>
+				<li class="right"><a href="../member/mypage.jsp">마이페이지</a>
+					<span> </span> <a href="../order_table.jsp" class="select">주문내역조회</a> <span>
+				</span> <a href="../cart.jsp">장바구니</a></li>
+			</ul>
+		</div>
+	<div id="thr">
+
+ <ul class="nav nav-tabs" id="pills-tab" role="tablist"> 
+      <li class="nav-item" role="presentation">
+        <a class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" aria-current="page" href="#" role="tab" aria-controls="pills-home" aria-selected="true">
+        	주문내역조회</a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" href="#" aria-controls="pills-profile" aria-selected="false">
+        	교환/반품조회</a>
+      </li>
+    </ul>
+
+<div id="txtDiv">
 		<ul type="circle">
 			<li>상품정보를 클릭하면 상세한 내용을 확인 가능합니다.</li>
 			<li>취소/교환/반품 신청은 배송완료일 기준 7일까지 가능합니다. </li>
 		</ul>
-	</div>
-	<div id="thr">
-	<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-  <li class="nav-item" role="presentation">
-    <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">주문내역조회</button>
-  </li>
-  <li class="nav-item" role="presentation">
-    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">교환/반품조회</button>
-  </li>
-</ul>
+</div>
+
 <div class="tab-content" id="pills-tabContent" style="padding-left: 10px;padding-bottom: 10px;">
 <!-- 주문내역조회 클릭 시 나오는 부분 -->
-  <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0"><strong>주문 상품 정보</strong></div>
+  <div class="tab-pane show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0"><strong>주문 상품 정보</strong></div>
 <!-- 교환/반품조회 클릭 시 나오는 부분 -->
-  <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0"><strong>교환/반품 상품 정보</strong></div>
+  <div class="tab-pane " id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0"><strong>교환/반품 상품 정보</strong></div>
 </div>
 <div class="ec-base-table typeList gBorder pad">
 	<table  border="1" summary="" style="text-align:center; font-size:13px">
@@ -161,16 +255,90 @@ text-align: center;
 				<td>배송완료</td>
 				<td>-</td>
 			</tr>
+						<tr>
+				<td>2023-10-10<br>[203949-394494]</td>
+				<td>image</td>
+				<td class="subject left txtBreak">product information</td>
+				<td>2</td>
+				<td>135,000원</td>
+				<td>배송완료</td>
+				<td>-</td>
+			</tr>
+						<tr>
+				<td>2023-10-10<br>[203949-394494]</td>
+				<td>image</td>
+				<td class="subject left txtBreak">product information</td>
+				<td>2</td>
+				<td>135,000원</td>
+				<td>배송완료</td>
+				<td>-</td>
+			</tr>
+						<tr>
+				<td>2023-10-10<br>[203949-394494]</td>
+				<td>image</td>
+				<td class="subject left txtBreak">product information</td>
+				<td>2</td>
+				<td>135,000원</td>
+				<td>배송완료</td>
+				<td>-</td>
+			</tr>
+						<tr>
+				<td>2023-10-10<br>[203949-394494]</td>
+				<td>image</td>
+				<td class="subject left txtBreak">product information</td>
+				<td>2</td>
+				<td>135,000원</td>
+				<td>배송완료</td>
+				<td>-</td>
+			</tr>
+						<tr>
+				<td>2023-10-10<br>[203949-394494]</td>
+				<td>image</td>
+				<td class="subject left txtBreak">product information</td>
+				<td>2</td>
+				<td>135,000원</td>
+				<td>배송완료</td>
+				<td>-</td>
+			</tr>
+						<tr>
+				<td>2023-10-10<br>[203949-394494]</td>
+				<td>image</td>
+				<td class="subject left txtBreak">product information</td>
+				<td>2</td>
+				<td>135,000원</td>
+				<td>배송완료</td>
+				<td>-</td>
+			</tr>
+						<tr>
+				<td>2023-10-10<br>[203949-394494]</td>
+				<td>image</td>
+				<td class="subject left txtBreak">product information</td>
+				<td>2</td>
+				<td>135,000원</td>
+				<td>배송완료</td>
+				<td>-</td>
+			</tr>
+						<tr>
+				<td>2023-10-10<br>[203949-394494]</td>
+				<td>image</td>
+				<td class="subject left txtBreak">product information</td>
+				<td>2</td>
+				<td>135,000원</td>
+				<td>배송완료</td>
+				<td>-</td>
+			</tr>
 		</tbody>
 	</table>
 </div>
 	</div>
-	<div class="loc" style="text-align: center;font-size: 16px;">
-		<a href="#prev" style="padding-left: 10px;">PREV</a>
-		<c:forEach var="num" begin="1" end="5" step="1">
-		<a href="#page=${num}" style="padding-left: 10px;"><c:out value="${num}"/></a>
-		</c:forEach>
-		<a href="#next" style="padding-left: 10px;">NEXT</a>
+	<div class="pagenationDiv">
+		<div class="pagination">
+		<span>&laquo;</span>
+		<span class='active'>1</span>
+		<a href='boardManagement.jsp?currentPage=2&category=null&keyword=null&field=null'>2</a>
+		<a href='boardManagement.jsp?currentPage=3&category=null&keyword=null&field=null'>3</a>
+		<a href = 'boardManagement.jsp?currentPage=4&category=null&keyword=null&field=null'>&raquo;</a>
+		</div>
 	</div>
 </div>
 <!-- footer -->
