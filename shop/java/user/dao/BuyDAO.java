@@ -217,7 +217,7 @@ public class BuyDAO {
 		
 		try {
 			con = db.getConn("jdbc/dbcp");
-			String query = "SELECT GNAME, PRICE, MAIN_IMG FROM GOODS WHERE GCODE=?";
+			String query = "SELECT GCODE GNAME, PRICE, MAIN_IMG FROM GOODS WHERE GCODE=?";
 			
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, gcode);
@@ -225,7 +225,7 @@ public class BuyDAO {
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				bgVO = new BuyingGoodsVO(rs.getString("GNAME"), rs.getString("MAIN_IMG"), rs.getInt("PRICE"), 0);
+				bgVO = new BuyingGoodsVO(rs.getString("GCODE"), rs.getString("GNAME"), rs.getString("MAIN_IMG"), rs.getInt("PRICE"), 0);
 			}
 			
 		} finally {

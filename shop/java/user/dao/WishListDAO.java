@@ -154,9 +154,4 @@ public class WishListDAO {
 	}//deleteWishList
 	
 	
-	
-	
-	
-	
-	
 }//class

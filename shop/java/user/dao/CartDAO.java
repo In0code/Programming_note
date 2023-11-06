@@ -108,8 +108,6 @@ public int intsertAddCart(String id, String gcode, int amount)throws SQLExceptio
 			pstmt.setString(2, id);
 			pstmt.setInt(3, amount);
 			
-			System.out.println(intsertAddCart);
-			
 			// 5. 쿼리문 실행 결과 얻기
 			rowCnt = pstmt.executeUpdate();
 		} finally {
@@ -149,15 +147,5 @@ public int deleteCart( String id, String bcode) throws SQLException {
 	return cnt;
 }//deleteWishList
 
-
-	/*
-	 * 
-	 * public int changeAmount(String[]) throws SQLException{ 
-	 * List<BucketVO> list=new ArrayList<BucketVO>();
-	 * 
-	 * 
-	 * 
-	 * }//changeAmount
-	 */	
 	
 }//class
