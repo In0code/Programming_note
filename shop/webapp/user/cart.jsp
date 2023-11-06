@@ -106,14 +106,15 @@ a:hover {
 
 <script type="text/javascript">
 $(function() {
-	  $("#btnBlack").click(function() {
-	    window.location.href = "주문하기 페이지 URL";
-	  });//click
-	  $("#btnSubmit").click(function() {
-	    window.location.href = "주문하기 페이지 URL";
-	  });////click
+	$("#btnBlack").click(function() {
+		location.href = "buy.jsp?where=cart&full=y"
+	});//click
+	  
+	$("#btnSubmit").click(function() {
+		$("#buyFrm").submit();
+	});////click
 		  
-	});//ready
+});//ready
 	
 	function deleteCart(bcode) {
 		    
@@ -294,6 +295,7 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 	<div id="contents">
 		<div class="table-container">
 			 <div id="totalProducts" >
+			 <form id="buyFrm" name="buyFrm" method="get" action="buy.jsp?where=cart&full=n">
 			<table class="table" id="table" style="border: 1px solid #E5E4E4; background-color: #FFFFFF; text-align: center;">
 				<tr style="border: 1px solid #E5E4E4; border-bottom: 1px solid #919191;">
 					<td  style="width:10px; color: #929492">
@@ -340,6 +342,7 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 					 </tr>
 					</c:forEach>
 				</table>
+				</form>
 					</div>
 				
 		</div>

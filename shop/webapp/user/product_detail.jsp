@@ -61,6 +61,7 @@ if(tempPage != null){
 
 int startNum=currentPage*pageScale-pageScale+1;
 pageContext.setAttribute("startNum", startNum);
+pageContext.setAttribute("currentPage", currentPage);
 
 
 //끝페이지 번호 구하기
@@ -176,13 +177,18 @@ a:hover {
 
 <script type="text/javascript">
 $(function() {
-	$("#product-review-read").hide();
-	$("#review-title").click(function() {
-		$("#product-review-read").toggle();
-	});
-	$("#pageNation").change(function(){
+	/* $("#pageNation").change(function(){
 		window.scrollTo({top:1000, left:0, behavior:'auto'})
-	})
+	}); */
+	
+	if (${ currentPage } >= 2) {
+		window.scrollTo({top:3000, left:0, behavior:'auto'});
+	}
+	
+	if(${ not empty param.keyword }) {
+		window.scrollTo({top:3000, left:0, behavior:'auto'});
+	}
+	
 	$("#actionWish").click(function() {
         // 현재 이미지의 src 속성을 가져옴
         var currentSrc = $("#wish_img").attr("src");
@@ -215,7 +221,7 @@ function chkNull(){
 	var keyword =  $("#keyword").val();
 
 	if(keyword.trim()==""){
-		alert("검색 키워드를 입력해주세요. k : '"+keyword+"'");
+		alert("검색 키워드를 입력해주세요.");
 		return;
 	}//end if
 	
@@ -339,7 +345,7 @@ function addWishList(gcode) {
 
 function moveToBuy(gcode) {
 	   var amount = $("#quantity").val();
-	   location.href = "buy.jsp?gcode="+gcode+"&amount="+amount;
+	   location.href = "buy.jsp?where=pd&gcode="+gcode+"&amount="+amount;
 	}
 </script>
 
@@ -642,7 +648,7 @@ function moveToBuy(gcode) {
                 <div class="xans-element- xans-layout xans-layout-statelogoff ">
                 	<div id="" class="xans-element- xans-product xans-product-action productAction ">
                 		<div class="ec-base-button gColumn ">
-                        	<a class="btn gFlex2 actionBuy " onclick="moveToBut('${product.gcode}')">
+                        	<a class="btn gFlex2 actionBuy " onclick="moveToBuy('${product.gcode}')">
                         		<span id="actionBuy" style="font-size:16px">구매하기</span>
                         	</a>
                         	<input type="button" value="장바구니" class="btn gFlex2 actionCart " onclick="addCart('${product.gcode}')" style="font-family:Pretendard Medium"  id="actionCart">
@@ -690,7 +696,7 @@ function moveToBuy(gcode) {
 <!-- 상세 이미지 / 리뷰 -->
 <div class="xans-element- xans-product xans-product-additional">
 	<!-- 상품 상세 이미지 -->
-	<div id="prdDetail" class="productDetail on">
+	<div id="prdDetail" class="productDetail on" style="margin: 0px 0px 0px">
         <div>
         	<!-- 상세 이미지 링크 -->
         	<img src="http://localhost/prj_web_shopping/upload/goods/${ product.detail_img }"
@@ -700,30 +706,22 @@ function moveToBuy(gcode) {
 		</div>
     </div>
 
-	<div id="prdReview" class="prdReview  ">
-		       
+	<div id="prdReview" class="prdReview">
         <div class="title">
-        
             <h2>Reviews <span class="br1138"><%=totalCount %></span></h2>
-            	
             	<!-- 리뷰 개수 -->
-            	
             	<form id="frmSearch"  action="product_detail.jsp?field=${param.field}&keyword=${param.keyword}&gcode=${product.gcode}" >
-        <select id="field" name="field"  >
-<option value="1">작성자</option>
-<option value="2">내용</option>
-
-
-
+        			<select id="field" name="field"  >
+						<option value="1" ${ param.field eq "1" ? " selected='selected'" : "" }>작성자</option>
+						<option value="2"${ param.field eq "2" ? " selected='selected'" : "" }>내용</option>
+    				</select> 
 
     <!-- 리뷰 -->
-    </select> 
 <input id="keyword" name="keyword"  style="height:27px" class="inputTypeText" placeholder="내용을 입력해주세요"
-	 value="${param.keyword}" type="text"  />
+	 value="${ param.keyword ne 'null' ? param.keyword : ''}" type="text"  />
 <input type="text" style="display: none"	> 
 <input type="button" id="btnSearch" name="btnSearch" class="btnNormalFix" style="height:27px; padding:3px" value="search">
  </form>
-		
 			
         </div>
         
@@ -778,9 +776,13 @@ function moveToBuy(gcode) {
                                 	<img src="//img.echosting.cafe24.com/skin/skin/board/icon-star-rating5.svg" alt="5점">
                                 </td>
                             </tr> -->
-							       <c:if test="${ empty reviewList}">
-       <p class="message" style="width:1220px; height: 100px ;position: absolute; top:1350px">작성한 게시물이 없습니다.</p>
-       </c:if>
+							 <c:if test="${ empty reviewList}">
+							 	<tr>
+							       	<td class="message" colspan="6" style="height: 100px">작성한 게시물이 없습니다.</td>
+							   </tr>
+							       	<!-- 
+       <p class="message" style="width:1220px; height: 100px ;position: absolute; top:1350px">작성한 게시물이 없습니다.</p> -->
+      						 </c:if>
       
 <c:forEach var="review" items="${reviewList}" varStatus="i">
 
@@ -796,42 +798,19 @@ function moveToBuy(gcode) {
 	onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.view}" /></a></span></td>
                 <td><span class="txtNum"><a href="product_detail_review.jsp?rcode=${review.rcode }" 
 	onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.star}" /></a></span></td>
-                
-                
             </tr>
             </c:forEach>
-							
-                            
-                            <!-- 리뷰 클릭시 상세보기 -->
-                           <!--  <tr id="product-review-read" style="">
-                            	<td colspan="6">
-                            	<div class="view">
-                            		<div id="ec-ucc-media-box-11247"></div>
-                            			<p class="attach"></p>
-                            			<p></p>
-                            			리뷰 내용
-                            			<div class="fr-view fr-view-article">
-                            				<p>항상 쓰는제품입니다~</p>
-                            				<p>너무 좋아요</p>
-                            				<br>
-                            			</div>
-                            			<p></p>
-                            		</div>
-                            	</td>
-                            </tr>
-                            상세보기 영역 -->
-                            
 						</tbody>
 					</table>
 				</div>
 			</div>
          
             <!-- 페이지 네이션 -->
-            <div id="pageNation" style="position:relative; top: -750px ; left:-130px " >
+   <div id="pageNation" style="position:relative; top: -750px; left:-130px; margin-top: 30px" >
    <c:if test="${ not empty reviewList }">
       <!-- 페이지네이션 -->
       <div class="pagenationDiv" style="text-align: center;">
-         <div class="pagination" id="pageNation" >
+         <div class="pagination" >
           <%
           BoardUtil util=BoardUtil.getInstance();
          BoardUtilVO buVO=new BoardUtilVO("product_detail.jsp",keyword,field,currentPage,totalPage,gcode);
@@ -845,7 +824,7 @@ function moveToBuy(gcode) {
     </div>
     <!-- 리뷰 끝 -->
     
-    <ul class="prdFaq clearfix grid3">
+    <ul class="prdFaq clearfix grid3" style="margin-top: 160px">
 		<li>
             <h2><strong>배송 안내</strong></h2>
             <ul class="info delivery">

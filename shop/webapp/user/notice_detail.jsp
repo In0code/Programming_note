@@ -206,7 +206,7 @@ try {
 <!-- 하단 영역 -->
 <div class="ec-base-button xans-element- xans-product xans-product-listmore more ">
 	<span>
-		<a href="http://localhost/prj_web_shopping/user/notice.jsp" class="btnMore">목록</a>   
+		<a href="javascript:history.back()" class="btnMore">목록</a>   
 	</span>
 </div>
 <!-- 하단 영역 끝 --> 

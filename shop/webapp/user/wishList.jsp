@@ -107,12 +107,14 @@ $(function(){
 	 $("#btn").click(function(){
 		   $("#frm").submit();
 	   });//click
-	   $("#btnBlack").click(function() {
-		    window.location.href = "주문하기 페이지 URL";
-		  });////click
-		  $("#btnSubmit").click(function() {
-		    window.location.href = "주문하기 페이지 URL";
-		  });//click
+
+		$("#btnBlack").click(function() {
+			location.hrref = "buy.jsp?where=wish&full=y"
+		});////click
+		  
+		$("#btnSubmit").click(function() {
+			$("#tableFrm").submit();
+		});//click
 			  
 	});//ready
 	
@@ -160,6 +162,7 @@ $(function(){
 		$("#id").val(id);
 		$("#hidFrm").submit();
 	};
+	
 </script>
 
 </head>
@@ -218,7 +221,7 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 <div id="container" style="font-family:Pretendard Medium;">
 	<div id="contents">
 		<div class="table-container" >
-				<form id="tableFrm">
+				<form id="tableFrm" name="tableFrm" method="get" action="buy.jsp?where=wish&full=n">
 			<table class="table" id="table" style="border: 1px solid #E5E4E4; text-align: center;">
 				<tr style="border: 1px solid #E5E4E4; border-bottom: 1px solid #919191;">
 					<td  style="width:10px; color: #929492">
@@ -238,7 +241,7 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 				</c:if>
 					<c:forEach var="wish" items="${ wishList }" varStatus="i">
 					  <tr style="border-bottom: 1px solid #E5E4E4;" >
-						<td style=" vertical-align: middle;"><input type="checkbox" class="check" name="check"  value="${ wish.wcode }" style="border: 1px solid #929492 ; width: 15px; "></td> 
+						<td style=" vertical-align: middle;"><input type="checkbox" class="check" name="check"  value="${ wish.gcode }" style="border: 1px solid #929492 ; width: 15px; "></td> 
 						<td  style=" vertical-align: middle;"><img src="../upload/goods/${ wish.img }"  style="width: 100px"/></td>
 						<td style=" vertical-align: middle;"><a href="product_detail.jsp?gcode=${ wish.gcode }"><c:out value="${ wish.gname }"/></a></td>
 						<td style=" vertical-align: middle;"><c:out value="${ wish.price }"/></td>
@@ -257,8 +260,8 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 		<div class="move">
 		
 				<div class="xans-element- xans-order xans-order-totalorder ec-base-button 100per">
-					<a href="" class="btnBlack" id="btnBlack">전체상품주문</a>
-		     		<a href="" class="btnSubmit" id="btnSubmit">선택상품주문</a> 
+					<a class="btnBlack" id="btnBlack">전체상품주문</a>
+		     		<a class="btnSubmit" id="btnSubmit">선택상품주문</a> 
 				</div>
 		
           <c:if test="${ not empty wishList }">

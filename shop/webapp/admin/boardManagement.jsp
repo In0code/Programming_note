@@ -126,7 +126,7 @@ $(function() {
 function chkNull() {
 	var keyword = $("#keyword").val();
 	if(keyword.trim() == ""){
-		alert("검색 키워드를 입력해주세요.");
+		alert("검색어를 입력해주세요.");
 		return;
 	}//end if
 	

@@ -9,6 +9,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+	request.setCharacterEncoding("UTF-8");
+%>
 <jsp:include page="../cdn/cdn.jsp"/>
 <!DOCTYPE html>
 <html>
@@ -28,7 +31,7 @@
     margin: 0 auto;
     width: 95%;
     max-width: 1200px;
-    min-height: 700px;
+    min-height: 100px;
 }
 
 .ec-base-table.typeList table {
@@ -154,18 +157,84 @@ input[type=text],input[type=password] {
     color: #353535;
 }
 
-.pagenationDiv > a, span{
-padding-right: 15px;
-font-size: 18px;
+.pagenationDiv{
+	position: absolute;
+	width: 1480px;
+	text-align: center;
+}
+
+.pagination {
+  display: inline-block;
+}
+
+.pagination a{
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+  background-color: white;
+}
+
+.pagination span{
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+  background-color: white;
+}
+
+.pagination a.active {
+  background-color: black;
+  color: white;
+  border: 1px solid #333;
+}
+
+.pagination span.active {
+  background-color: black;
+  color: white;
+  border: 1px solid #333;
+}
+
+.pagination a:hover:not(.active) {background-color: #ddd;}
+
+a {
+	text-decoration: none;
+	color: #333;
+}
+
+a:hover {
+	color: #333;
 }
 </style>
 
 
+
+
 <script type="text/javascript">
 $(function() {
+	$("#searchBtn").click(function() {
+		chkNull();
+	});
 	
+	$("#searchInput").keyup(function(evt){
+		if(evt.which == 13) chkNull();
+	});
 	
 });//ready
+
+function chkNull() {
+	var keyword = $("#searchInput").val();
+	if(keyword.trim() == "") {
+		alert("검색어를 입력해주세요.");
+		return;
+	}
+	$("#boardSearchForm").submit();
+}
+
 </script>
 
 </head>
@@ -176,7 +245,7 @@ $(function() {
 <div id="wrap" style="font-family:Pretendard Medium;">    
 	<div id="wrap_inner">     
 		<div id="container">
-			<div id="contents">
+			<div id="contents" style="margin-bottom: 30px">
 				<div class="xans-element- xans-board xans-board-listpackage-1002 xans-board-listpackage xans-board-1002 ">
 					<div class="boardSort">
                 		<span class="xans-element- xans-board xans-board-replysort-1002 xans-board-replysort xans-board-1002 "></span>
@@ -207,12 +276,15 @@ $(function() {
 							<%
 							BoardDAO bDAO = BoardDAO.getInstance();
 							BoardRangeVO brVO = new BoardRangeVO();
+							String keyword = request.getParameter("keyword");
+							String field = request.getParameter("field");
+							
+							brVO.setKeyword(keyword);
+							brVO.setField(field);
 
-							brVO.setTableName("NOTICE");
+							int totalCount = bDAO.totalCountNotice(brVO);
 
-							int totalCount = bDAO.totalCount(brVO);
-
-							int pageScale = 10;
+							int pageScale = 15;
 
 							int totalPage = (int)Math.ceil(totalCount / (double)pageScale); //페이지 수 가져오기
 
@@ -285,24 +357,20 @@ $(function() {
     
     <!-- 하단 검색 영역 -->
     <div class="board_footer">
-		<form id="boardSearchForm" name="" action="/board/notice/1" method="get" target="_top" enctype="multipart/form-data">
-			<input id="board_no" name="board_no" value="1" type="hidden">
-			<input id="page" name="page" value="1" type="hidden">
-			<input id="board_sort" name="board_sort" value="" type="hidden">
+		<form id="boardSearchForm" method="get" target="_top" enctype="multipart/form-data">
 			<div class="xans-element- xans-board xans-board-search-1002 xans-board-search xans-board-1002 ">
 				<fieldset class="boardSearch">
 					<legend>게시물 검색</legend>
 					<p class="category displaynone"></p>
 						<p>
-						<select id="search_key" name="search_key" style="font-family:Pretendard Medium" fw-filter="" fw-label="" fw-msg="">
-							<option value="subject">제목</option>
-							<option value="content">내용</option>
+						<select id="search_key" name="field" style="font-family:Pretendard Medium" fw-filter="" fw-label="" fw-msg="">
+							<option value="subject"${ param.field eq "subject" ? "selected='selected'" : ""}>제목</option>
+							<option value="content"${ param.field eq "content" ? "selected='selected'" : ""}>내용</option>
 						</select> 
-						<input id="search" name="search" fw-filter="" fw-label="" fw-msg="" class="inputTypeText" 
-								placeholder="" value="" type="text" style="padding: 13px; font-family:Pretendard Medium"> 
-						<a href="#none" class="btnNormalFix" onclick="BOARD.form_submit('boardSearchForm');" style="border:0; padding:10px">
-							SEARCH
-						</a>
+						<input id="searchInput" name="keyword" class="inputTypeText" 
+								placeholder="" type="text" style="padding: 13px; font-family:Pretendard Medium"
+								value="${ param.keyword ne 'null' ? param.keyword : '' }"> 
+						<input type="button" class="btnNormalFix" id="searchBtn" value="SEARCH" style="border:0; padding:10px"/>
 						</p>
 				</fieldset>
 			</div>
@@ -324,10 +392,19 @@ $(function() {
 				<a href="?page_4=2#use_review">다음 페이지</a>
 				<a href="?page_4=228#use_review" class="last">마지막 페이지</a>
 			</div> -->
+
+</div>
+</div>
+</div>
+</div>
+</div>
 			<div class="pagenationDiv" style="width: 100%;margin: 0px auto;text-align: center;">
+			<div class="pagination">
  				<%
  					BoardUtil util = BoardUtil.getInstance();
  					BoardUtilVO buVO = new BoardUtilVO();
+					buVO.setKeyword(keyword);
+					buVO.setField(field);
  					buVO.setUrl("notice.jsp");
  					buVO.setCurrentPage(currentPage);
  					buVO.setTotalPage(totalPage);
@@ -335,12 +412,9 @@ $(function() {
  					out.print(util.pageNation(buVO));
  				%>
 			</div>
-
-</div>
-</div>
-</div>
-</div>
-</div>
+			</div>
+			
+			<p style="height:100px"></p>
 
 <%@ include file="layout/footer.jsp"%>
 </body>

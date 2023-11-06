@@ -142,10 +142,11 @@ System.out.println("flag : "+flag); */
 	function check() {
 		let arrId = [ "c1", "c2", "c3", "c4", "c5" ];
 		let arrNum = [ $("#c1").val(), $("#c2").val(), $("#c3").val(), $("#c4").val(), $("#c5").val() ];
+		var validNum = /[0-9]{3}/;
 		
-		for(var i = 0; i < arrNum.length; i++) {
+		for(var i = 0; i < arrNum.length-1; i++) {
 				document.getElementById(arrId[i]).classList.remove("is-invalid"); //재입력했을 때 중복되어서 나타지 않기 위해서 지운다.
-			if(arrNum[i].length === 0) {
+			if(arrNum[i].length === 0 || !validNum.test(arrNum[i])) {
 				document.getElementById(arrId[i]).classList.add("is-invalid");
 				return;
 			}
