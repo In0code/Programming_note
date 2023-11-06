@@ -9,7 +9,7 @@
 <%@page import="common.dao.BoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ page info="관심상품" %>
+    <%@ page info="사용자 / 관심상품 / 메인 페이지 - 인영" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="../cdn/cdn.jsp"/>
 <!DOCTYPE html>
@@ -118,7 +118,7 @@ $(function(){
 			  
 	});//ready
 	
-	/* function addCart(gcode) {
+	 function addCart(gcode) {
         $.ajax({
             url: "wishAddCart_process.jsp",
             type: "get",
@@ -133,7 +133,7 @@ $(function(){
                     location.reload();
             }//success
         });//ajax
-	}//addCart */
+	}//addCart 
 	
 	function deleteWish(wcode) {
     
@@ -249,8 +249,8 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 					 	<td style=" vertical-align: middle;"><c:out value="${ wish.price + deliveryPrice }"/></td> 
 						<td>
 							<input type="hidden" value="x삭제" name="dd" style="width:90px; height:50px ;"/><br/>
-					 		<%-- <input type="button" value="장바구니담기"  class="addCartBtn" name="addCartBtn"  onclick="addCart('${wish.gcode}')" style="width:90px; height:30px ;background-color: white;border : 1px solid  #E5E4E4;"/><br/> --%>
-					 		<input type="button" value="x삭제" class="deleteBtn" name="deleteBtn" onclick="deleteWish('${wish.wcode}')"style="width:90px; height:40px ;background-color: white; border : 1px solid  #E5E4E4;"/>
+					 		<input type="button" value="장바구니담기"  class="addCartBtn" name="addCartBtn"  onclick="addCart('${wish.gcode}')" style="width:90px; height:30px ;background-color: white;border : 1px solid  #E5E4E4;"/><br/>
+					 		<input type="button" value="x삭제" class="deleteBtn" name="deleteBtn" onclick="deleteWish('${wish.wcode}')"style="width:90px; height:30px ;background-color: white; border : 1px solid  #E5E4E4;"/>
 					 	</td>
 					 </tr>
 					</c:forEach>

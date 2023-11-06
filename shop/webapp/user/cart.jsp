@@ -11,16 +11,13 @@
 <%@page import="common.dao.BoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ page info="관심상품" %>
+    <%@ page info="사용자 / 장바구니 / 메인 페이지 - 인영" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="../cdn/cdn.jsp"/>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<%
-		////////////// 사용자 장바구니  - 인영 ////////////
-%>
 <style type="text/css">
 
 #pageTitle {
@@ -200,7 +197,7 @@ $(function() {
 		}
 		var queryString="bcode="+bcode+"&amount="+$("#quantity"+bcode).val();
 		$.ajax({
-			url : "cart_amount_process2.jsp",
+			url : "cart_amount_plus.jsp",
 			type : "get",
 			data : queryString,
 			dataType : "text",
@@ -228,7 +225,7 @@ $(function() {
 		}
 		var queryString="bcode="+bcode+"&amount="+$("#quantity"+bcode).val();
 		$.ajax({
-			url : "cart_amount_process.jsp",
+			url : "cart_amount_minus.jsp",
 			type : "get",
 			data : queryString,
 			dataType : "text",
