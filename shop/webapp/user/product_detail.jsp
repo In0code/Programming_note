@@ -321,7 +321,12 @@ function addCart(gcode) {
         },
         success: function(data) {
                 alert("상품이 추가되었습니다.");
-                location.reload();
+                if (confirm("장바구니 페이지로 이동하시겠습니까?")) {
+                    // 사용자가 확인을 누른 경우
+                    window.location.href = "cart.jsp"; 
+                } else {
+                    location.reload();
+                }//end else
         }//success
     });//ajax
 }//addCart
@@ -338,7 +343,12 @@ function addWishList(gcode) {
         },
         success: function(data) {
                 alert("상품이 추가되었습니다.");
-                location.reload();
+                if (confirm("관심상품 페이지로 이동하시겠습니까?")) {
+                    // 사용자가 확인을 누른 경우
+                    window.location.href = "wishList.jsp"; 
+                } else {
+                    location.reload();
+                }//end else
         }//success
     });//ajax
 }//addCart

@@ -98,6 +98,17 @@ a {
 a:hover {
    color: #333;
 }
+.table {
+    background-color: white;
+}
+
+.table thead {
+    background-color: white; 
+}
+
+.table tbody td {
+    background-color: white; 
+}
 
 </style>
 
@@ -298,7 +309,7 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 					<td  style="width:10px; color: #929492">
 						<input type="hidden" style="width: 45px;"/>
 					</td>
-					<td style="width:100px; color: #929492; vertical-align: middle;">이미지</td>
+					<td style="width:100px; font : #929492; vertical-align: middle;">이미지</td>
 					<td style="width:350px;color: #929492;vertical-align: middle; ">상품정보</td>
 					<td style="width:250px;color: #929492; vertical-align: middle;">판매가</td>
 					<td style="width:100px;color: #929492; vertical-align: middle;">수량</td>
