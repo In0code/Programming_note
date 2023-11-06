@@ -91,8 +91,6 @@ public class BuyDAO {
 				.append("	VALUES('").append(ord_dno).append("','").append(ordno).append("',").append(biVO.getAmount()[i])
 				.append(",'").append(biVO.getGcode()[i]).append("')");
 				
-				System.out.println(insertDelivery);
-				
 				pstmt = con.prepareStatement(insertDelivery.toString());
 				
 				pstmt.executeUpdate();
@@ -166,13 +164,15 @@ public class BuyDAO {
 ////////////////////////////////////////////////////////////////////////			
 			insertPaymentInfo.append("INSERT INTO PAYMENT(ORDNO, NUM) VALUES(?, ?)");
 			pstmt = con.prepareStatement(insertPaymentInfo.toString());
-			System.out.println(bpVO.getOrdno()+" / "+num);
+			
+			System.out.println("ordno : "+bpVO.getOrdno()+" / "+num);
+			
 			pstmt.setString(1, bpVO.getOrdno());
 			pstmt.setInt(2, Integer.parseInt(num));
 			
 			result += pstmt.executeUpdate();
 			
-			System.out.println(result);
+			System.out.println("addr insert flag : "+result);
 			
 			if(result == 2) {
 				con.commit();
@@ -217,12 +217,14 @@ public class BuyDAO {
 		
 		try {
 			con = db.getConn("jdbc/dbcp");
-			String query = "SELECT GCODE GNAME, PRICE, MAIN_IMG FROM GOODS WHERE GCODE=?";
+			String query = "SELECT GCODE, GNAME, PRICE, MAIN_IMG FROM GOODS WHERE GCODE=?";
 			
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, gcode);
 			
 			rs = pstmt.executeQuery();
+			
+			System.out.println(gcode);
 			
 			if(rs.next()) {
 				bgVO = new BuyingGoodsVO(rs.getString("GCODE"), rs.getString("GNAME"), rs.getString("MAIN_IMG"), rs.getInt("PRICE"), 0);
@@ -306,6 +308,7 @@ public class BuyDAO {
 				makeOrdno = "SELECT "+colm+" FROM (SELECT LPAD("+colm+",8,0) "+colm+" FROM "+table+" ORDER BY "+colm+" DESC) WHERE ROWNUM=1";
 			}
 			
+			System.out.println("makePK : "+makeOrdno);
 			pstmt = con.prepareStatement(makeOrdno);
 			
 			rs = pstmt.executeQuery();
@@ -393,7 +396,9 @@ public class BuyDAO {
 			StringBuilder update = new StringBuilder();
 			
 			for(int i = 0; i < biVO.getGcode().length; i++) {
-				update.append("UPDATE GOODS SET TOTAL_BUY=(TOTAL_BUY+1), QUANTITY=(QUANTITY-1) WHERE GCODE='").append(biVO.getGcode()).append("'");
+				update.append("UPDATE GOODS SET TOTAL_BUY=(TOTAL_BUY+1), QUANTITY=(QUANTITY-1) WHERE GCODE='").append(biVO.getGcode()[i]).append("'");
+				
+				System.out.println(update.toString());
 				
 				pstmt = con.prepareStatement(update.toString());
 				pstmt.executeUpdate();

@@ -149,7 +149,6 @@ public SummaryVO selectOneReview(int rcode) throws SQLException {
 			db.dbClose(rs, pstmt, con);
 			
 		}
-		System.out.println(sVO+"000000000000000000");
 		return sVO;
 	}//selectOneReview
 /*SummaryVO sVO*/
