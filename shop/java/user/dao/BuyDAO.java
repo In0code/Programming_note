@@ -186,14 +186,28 @@ public class BuyDAO {
 		return result;
 	}
 	
-	public List<BuyingCartVO> selectBucketGoods(String id) throws SQLException {
-		List<BuyingCartVO> list = new ArrayList<BuyingCartVO>();
+	public List<BuyingGoodsVO> selectCartGoods(String id) throws SQLException {
+		List<BuyingGoodsVO> list = new ArrayList<BuyingGoodsVO>();
 		
 		
 		return list;
 	}
 	
-	public BuyingGoodsVO selectBuyingGoods(String gcode) throws SQLException {
+	public List<BuyingGoodsVO> selectWishGoods(String id) throws SQLException {
+		List<BuyingGoodsVO> list = new ArrayList<BuyingGoodsVO>();
+		
+		
+		return list;
+	}
+	
+	public List<BuyingGoodsVO> selectGoods(String[] gcodes) throws SQLException {
+		List<BuyingGoodsVO> list = new ArrayList<BuyingGoodsVO>();
+		
+		
+		return list;
+	}
+	
+	public BuyingGoodsVO selectDetailGoods(String gcode) throws SQLException {
 		BuyingGoodsVO bgVO = null;
 		
 		DbConnection db = DbConnection.getInstance();

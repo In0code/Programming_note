@@ -28,6 +28,7 @@ public class NoticeDAO {
 	
 	public List<NoticeVO> selectNotice(BoardRangeVO brVO) throws SQLException {
 		List<NoticeVO> list = new ArrayList<NoticeVO>();
+		String keyword = brVO.getKeyword();
 		
 		DbConnection db = DbConnection.getInstance();
 		Connection con = null;
@@ -41,19 +42,30 @@ public class NoticeDAO {
 			selectNotice.append("	SELECT NCODE, NOT_TITLE, NOT_TEXT, TO_CHAR(NOT_DATE, 'YYYY-MM-DD HH24:MI') INPUT_DATE, VIEW_NUM, EDIT_DATE	")
 			.append("	FROM (SELECT (ROW_NUMBER() OVER(ORDER BY NOT_DATE DESC)) RNUM,	")
 			.append("	NCODE, ID, NOT_TITLE, NOT_TEXT, NOT_DATE, VIEW_NUM, EDIT_DATE	")
-			.append("	FROM NOTICE WHERE DEL_FLAG NOT IN ('Y'))	");
+			.append("	FROM NOTICE WHERE DEL_FLAG NOT IN ('Y')	");
+			
+			if(!"".equals(keyword) && !"null".equals(keyword) && keyword != null) {
+				String field = "not_title";
+				if("content".equals(brVO.getField())) field = "not_text";
+				selectNotice.append(" and ").append(field).append(" like '%'||?||'%' ");
+			}
 			
 			boolean flag = false;
 			if(brVO.getStartNum() != 0) {
-				selectNotice.append("	WHERE RNUM BETWEEN ? AND ?	");
+				selectNotice.append("	) WHERE RNUM BETWEEN ? AND ?	");
 				flag = true;
 			}
 			
 			pstmt = con.prepareStatement(selectNotice.toString());
+			
+			int bind = 1;
+			if(!"".equals(keyword) && !"null".equals(keyword) && keyword != null) {
+				pstmt.setString(bind++, keyword);
+			}
 
 			if(flag) {
-				pstmt.setInt(1, brVO.getStartNum());
-				pstmt.setInt(2, brVO.getEndNum());
+				pstmt.setInt(bind++, brVO.getStartNum());
+				pstmt.setInt(bind++, brVO.getEndNum());
 			}
 			
 			rs = pstmt.executeQuery();

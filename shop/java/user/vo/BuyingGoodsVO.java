@@ -2,17 +2,26 @@ package user.vo;
 
 public class BuyingGoodsVO {
 	
-	private String gname, img;
+	private String gcode, gname, img;
 	private int price, amount;
 	
 	public BuyingGoodsVO() {
 	}
 
-	public BuyingGoodsVO(String gname, String img, int price, int amount) {
+	public BuyingGoodsVO(String gcode, String gname, String img, int price, int amount) {
+		this.gcode = gcode;
 		this.gname = gname;
 		this.img = img;
 		this.price = price;
 		this.amount = amount;
+	}
+
+	public String getGcode() {
+		return gcode;
+	}
+
+	public void setGcode(String gcode) {
+		this.gcode = gcode;
 	}
 
 	public String getGname() {
@@ -49,6 +58,7 @@ public class BuyingGoodsVO {
 
 	@Override
 	public String toString() {
-		return "BuyingGoodsVO [gname=" + gname + ", img=" + img + ", price=" + price + ", amount=" + amount + "]";
+		return "BuyingGoodsVO [gcode=" + gcode + ", gname=" + gname + ", img=" + img + ", price=" + price + ", amount="
+				+ amount + "]";
 	}
 }
