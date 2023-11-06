@@ -9,7 +9,7 @@
 WishListDAO wlDAO=WishListDAO.getInstance();
 try{
 	String wcode=request.getParameter("wcode");
-	String id="tuna5127";
+	String id=(String)session.getAttribute("sesId");
 	
 	System.out.println( wcode+" / "+id);
 

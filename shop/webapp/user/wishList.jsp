@@ -208,7 +208,7 @@ try{
 WishListDAO wlDAO=WishListDAO.getInstance();
 String id=(String)session.getAttribute("sesId");
 
-List<WishListVO> list=wlDAO.selectAllWishList("tuna5127", brVO);
+List<WishListVO> list=wlDAO.selectAllWishList(id, brVO);
 
 pageContext.setAttribute("wishList", list);
 pageContext.setAttribute("deliveryPrice", deliveryPrice);

@@ -10,8 +10,8 @@
 CartDAO cDAO=CartDAO.getInstance();
 try{
 	String gcode=request.getParameter("gcode");
+	String id=(String)session.getAttribute("sesId");
 	int amount=Integer.parseInt(request.getParameter("amount"));
-	String id="tuna5127";
 	
 
 	cDAO.intsertAddCart(id, gcode,amount);

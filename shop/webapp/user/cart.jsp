@@ -1,3 +1,4 @@
+<%@page import="member.vo.UserVO"%>
 <%@page import="user.vo.CartVO"%>
 <%@page import="user.dao.CartDAO"%>
 <%@page import="common.util.BoardUtilVO"%>
@@ -18,6 +19,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="https://afterblow-scent.com/ind-script/optimizer.php?filename=nc1LCoAwDIThfXHrOYLeqC3xAU2mpCno7RW8gHQ7zMdPB4RpWY2qYbcoZNzQLTPl1mgzqFOGCHR6h5n-_DmHhtL9hIaEaxB299FoiTfbGPWYCg9S1FBO5ZCi6td_AA&type=css&k=37c9481ac0212340e132f81eba4d1049fee7f18e&t=1681776733" />
+<link rel="stylesheet" type="text/css" href="http://localhost/prj_web_shopping/user/member/mypage.css" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&amp;display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&amp;display=swap" rel="stylesheet" />
 <style type="text/css">
 
 #pageTitle {
@@ -278,7 +284,7 @@ try{
 CartDAO cDAO=CartDAO.getInstance();
 String id=(String)session.getAttribute("sesId");
 
-List<CartVO> list=cDAO.selectAllCartList("test", brVO);
+List<CartVO> list=cDAO.selectAllCartList(id, brVO);
 
 pageContext.setAttribute("cartList", list);
 pageContext.setAttribute("deliveryPrice", deliveryPrice);
@@ -286,16 +292,42 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 	se.printStackTrace();
 }//end catch
 %>
-
-<div id="pageTitle" style="font-family:Pretendard Medium;">장바구니</div><br>
 <div id="container" style="font-family:Pretendard Medium;">
+
 	<div id="contents">
-		<div class="table-container">
-			 <div id="totalProducts" >
+	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.5.1.min.js"></script>
+
+		<div class="PageTop">
+			<ul>
+				<li class="xans-element- xans-layout xans-layout-statelogon left ">
+					<span class="xans-member-var-name"></span>
+					<c:choose>
+					<c:when test="${ empty sesId }">
+					<a href="login.jsp"></a>
+					</c:when>
+					<c:otherwise>
+					<%
+					UserVO uVO=(UserVO)session.getAttribute("userData");
+					//DataDecrypt dd=new DataDecrypt("a12345678901234567");
+					//String name=dd.decryption(uVO.getName());
+					String name=uVO.getName();
+					pageContext.setAttribute("name", name);
+					%>
+					<big><b><c:out value="${ name }"/></b></big><big>님</big>
+					</c:otherwise>
+					</c:choose>
+				</li>
+				<li class="right"><a href="member/mypage.jsp" >마이페이지</a>
+					<span> </span> <a href="order_table.jsp">주문내역조회</a> <span>
+				</span> <a href="cart.jsp" class="select">장바구니</a></li>
+			</ul>
+		</div>
+		<div class="table-container" >
+			 <div id="totalProducts">
 			 <form id="buyFrm" name="buyFrm" method="get" action="buy.jsp?where=cart&full=n">
 			<table class="table" id="table" style="border: 1px solid #E5E4E4; background-color: #FFFFFF; text-align: center;">
 				<tr style="border: 1px solid #E5E4E4; border-bottom: 1px solid #919191;">
-					<td  style="width:10px; color: #929492">
+					<td  style="width:30px; color: #929492">
 						<input type="hidden" style="width: 45px;"/>
 					</td>
 					<td style="width:100px; font : #929492; vertical-align: middle;">이미지</td>
@@ -303,7 +335,7 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 					<td style="width:250px;color: #929492; vertical-align: middle;">판매가</td>
 					<td style="width:100px;color: #929492; vertical-align: middle;">수량</td>
 					<td style="width:100px ;color: #929492;vertical-align: middle;">합계</td>
-					<td style="width:10px; color: #929492;vertical-align: middle;"> 선택</td>
+					<td style="width:40px; color: #929492;vertical-align: middle;"> 선택</td>
 				</tr>
 				<c:if test="${ empty cartList }">
 					<tr>
@@ -314,14 +346,14 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 						
 					<c:forEach var="cart" items="${ cartList }" varStatus="i">
 					  <tr style="border-bottom: 1px solid #E5E4E4;" >
-						<td style=" vertical-align: middle;"><input type="checkbox" class="check" name="check"  value="${ cart.bcode }" style="border: 1px solid #929492 ; width: 15px; "></td> 
+						<td style=" vertical-align: middle;"><input type="checkbox" class="check" name="check"  value="${ cart.bcode }" style="border: 1px solid #929492 ; width: 15px; pa "></td> 
 						<td  style=" vertical-align: middle;"><img src="../upload/goods/${ cart.img }"  style="width: 100px"/></td>
 						<td style=" vertical-align: middle;"><a href="product_detail.jsp?gcode=${ cart.gcode }"><c:out value="${ cart.gname }"/></a></td>
 						<td style=" vertical-align: middle;"><c:out value="${ cart.price }"/></td>
 						 <td style="width:20px">
                           <!--  수량 -->
                            <span id="amountSet"  class="quantity">
-                          <input type="text" id="quantity${ cart.bcode }" name="quantity_opt[]" value="${ cart.amount }" type="text"/>
+                          <input type="text" id="quantity${ cart.bcode }" name="quantity_opt[]" value="${ cart.amount }" type="text" readonly="readonly"/>
 							 <!--   + 버튼 -->
 							<a href="#void" onclick="plus('${ cart.bcode }', ${ cart.price })" class="up QuantityUp">수량증가</a>
 							<!--   - 버튼 -->

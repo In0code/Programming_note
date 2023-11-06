@@ -11,7 +11,7 @@ CartDAO cDAO=CartDAO.getInstance();
 
 try{
 	String gcode=request.getParameter("gcode");
-	String id="tuna5127";
+	String id=(String)session.getAttribute("sesId");
 
 	 cDAO.intsertAddCart(id, gcode,1); 
 }catch(SQLException se){

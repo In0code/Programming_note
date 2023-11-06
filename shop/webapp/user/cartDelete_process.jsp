@@ -10,9 +10,7 @@
 CartDAO cDAO=CartDAO.getInstance();
 try{
 	String bcode=request.getParameter("bcode");
-	String id="tuna5127";
-	
-	System.out.println( bcode+" / "+id);
+	String id=(String)session.getAttribute("sesId");
 
 	cDAO.deleteCart(id, bcode);
 	

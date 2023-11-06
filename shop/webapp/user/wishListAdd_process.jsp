@@ -9,9 +9,7 @@
 WishListDAO wlDAO=WishListDAO.getInstance();
 try{
 	String gcode=request.getParameter("gcode");
-	String id="tuna5127";
-	
-
+	String id=(String)session.getAttribute("sesId");
 	 wlDAO.intsertWishList(id, gcode);
 	
 }catch(SQLException se){

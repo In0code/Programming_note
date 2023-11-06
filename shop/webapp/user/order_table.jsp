@@ -182,9 +182,9 @@ text-align: center;
 <%-- 					</c:otherwise>
 					</c:choose> --%>
 				</li>
-				<li class="right"><a href="../member/mypage.jsp">마이페이지</a>
-					<span> </span> <a href="../order_table.jsp" class="select">주문내역조회</a> <span>
-				</span> <a href="../cart.jsp">장바구니</a></li>
+				<li class="right"><a href="member/mypage.jsp">마이페이지</a>
+					<span> </span> <a href="order_table.jsp" class="select">주문내역조회</a> <span>
+				</span> <a href="cart.jsp">장바구니</a></li>
 			</ul>
 		</div>
 	<div id="thr">
