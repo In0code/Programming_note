@@ -17,7 +17,7 @@
 <body>
 <%@ include file="layout/header.jsp"%>
 <div id="pageTitle">Stores</div>
-<img src="../common/images/stores.png" style="width:100%"/>
+<img src="http://192.168.10.136/prj_web_shopping/common/images/stores.png" style="width:100%"/>
 <%@ include file="layout/footer.jsp" %>
 </body>
 </html>

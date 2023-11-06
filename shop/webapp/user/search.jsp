@@ -148,18 +148,15 @@ h3 {
 <script type="text/javascript">
 $(function() {
 	$("#searchBtn").click(function(){
-		 var searchKeyword = $("#searchKeyword").val().replace(/ /g, '');
-		    if (searchKeyword == "") {
-		        alert("검색어를 입력해주세요.");
-		        return;
-		    }
-		 $("#searchForm").submit();
-	});
-	
-	
+		 var searchKeyword = $("#searchKeyword").val();
+	        if (!searchKeyword || searchKeyword.trim() === "") {
+	        	return;
+	        }//end if
+	            $("#searchForm").submit();
+	        
+	});//click
 });//ready
 </script>
-
 </head>
 <body>
 <%@ include file="layout/header.jsp"%>
@@ -170,14 +167,14 @@ $(function() {
 	int cnt = 0;
 
 	try{
-		if(searchKeyword != null){
+		if(searchKeyword != null && !searchKeyword.trim().isEmpty()){
+			
 			productList = gDAO.selectKeywordProducts(searchKeyword);
 			cnt = gDAO.selectKeywordCnt(searchKeyword);
 			pageContext.setAttribute("keyword", searchKeyword);
 			pageContext.setAttribute("productList", productList);
 			pageContext.setAttribute("cnt", cnt);
 		}
-		
 		
 	}catch(SQLException se){
 		se.printStackTrace();

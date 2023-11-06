@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="https://afterblow-scent.com/ind-script/optimizer.php?filename=nc1LCoAwDIThfXHrOYLeqC3xAU2mpCno7RW8gHQ7zMdPB4RpWY2qYbcoZNzQLTPl1mgzqFOGCHR6h5n-_DmHhtL9hIaEaxB299FoiTfbGPWYCg9S1FBO5ZCi6td_AA&type=css&k=37c9481ac0212340e132f81eba4d1049fee7f18e&t=1681776733"  />
-<link rel="stylesheet" type="text/css" href="https://afterblow-scent.com/ind-script/optimizer_user.php?filename=tdRJbkMhDADQfei257BU9SY9gQHnYxUwwtDh9iHtVw4QYMmgZzDGECQRkDNdqSrgtVG1Ub6hdBvZmdBSBPVkPCkfGfST8zs4VUjieyRIlCxVuHL2hr2ppD22l7HhFZ6iI_5Kb2BR2f3FcZKS5JXi_8RKkdxlDOjSeYfaRGLjsoMOFLe4pY7qcFtyXPDgjI22ZBrtDtb21taW8EOWn015iFsSPHa5CfdOeWrIcQnyNqmgHbc0RUrf8onGAtXJI55d-oyRRm9mDVI-ApfC-ViqO8lfA2DJZfaRA6GfvvvZhIwSVhfu2A0&type=css&k=78f0afff0ea37d2d20206f5724686713838e28ef&t=1641537240&user=T"  />
+<link rel="stylesheet" type="text/css" href="http://localhost/prj_web_shopping/user/member/id_pw.css" />
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&amp;display=swap" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&amp;display=swap" rel="stylesheet" />
@@ -19,6 +19,7 @@
     padding: 0px 33px 100px;
     background: #fff;
     border-bottom: 0px solid #fff;
+    margin-bottom:130px;
  }
  #Footer {
     position: relative;
@@ -27,6 +28,14 @@
     border-top:0px solid #fff;
     background: #fff;
  }
+ .ec-base-box {
+    padding: 20px;
+    margin-left: 350px;
+    margin-right: 350px;
+    border: 1px solid #ccc;
+}
+ 
+ 
 </style>
 <script type="text/javascript">
 	$(function() {

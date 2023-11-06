@@ -71,7 +71,6 @@ brVO.setStartNum(startNum);
 brVO.setEndNum(endNum); 
 //mDAO.
 
-
 try{
 	List<SummaryVO> list = uDAO.selectAllReview2( brVO,gcode);
 	

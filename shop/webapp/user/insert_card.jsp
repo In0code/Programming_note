@@ -82,6 +82,11 @@ BuyInfoVO biVO = (BuyInfoVO)pageContext.getAttribute("JspBiVO");
 biVO.setId("test");
 biVO.setGcode(request.getParameterValues("gcode"));
 
+System.out.println(biVO);
+for(int i = 0; i < biVO.getAmount().length; i++) {
+	System.out.println("gcode : "+biVO.getGcode()[i]+" / amount : "+biVO.getAmount()[i]);
+}
+
 BuyDAO bDAO = BuyDAO.getInstance();
 
 if("true".equals(request.getParameter("chkHid"))) {
@@ -89,10 +94,10 @@ if("true".equals(request.getParameter("chkHid"))) {
 	bDAO.updateAddr(aVO);
 }
 
-System.out.println(biVO);
 
 try{
 	String ordno = bDAO.insertDelivery(biVO);
+	System.out.println("ordno(insert_card) : "+ordno);
 	pageContext.setAttribute("ordno", ordno);
 	
 	
@@ -135,14 +140,23 @@ System.out.println("flag : "+flag); */
 	    });
 		
 		$("#btn").click(function() {
-			alert("주문관리로 이동");
+			location.href = "http://localhost/prj_web_shopping/user/product_detail.jsp?gcode=${param.gcode}";
 	    });
+		
+		$("#btnMain").click(function() {
+			location.href = "order_table.jsp";
+		});
+		
+		$("#btnOrdered").click(function() {
+			location.href = "shop.jsp";
+		});
 	});
 	
 	function check() {
 		let arrId = [ "c1", "c2", "c3", "c4", "c5" ];
 		let arrNum = [ $("#c1").val(), $("#c2").val(), $("#c3").val(), $("#c4").val(), $("#c5").val() ];
-		var validNum = /[0-9]{3}/;
+		var validNum = /[0-9]{4}/;
+		var validCVC = /[0-9]{3}/;
 		
 		for(var i = 0; i < arrNum.length-1; i++) {
 				document.getElementById(arrId[i]).classList.remove("is-invalid"); //재입력했을 때 중복되어서 나타지 않기 위해서 지운다.
@@ -150,6 +164,11 @@ System.out.println("flag : "+flag); */
 				document.getElementById(arrId[i]).classList.add("is-invalid");
 				return;
 			}
+		}
+		
+		if(!validCVC.test($("#c5").val())) {
+			document.getElementById("c5").classList.add("is-invalid");
+			return;
 		}
 		
 		let cardNum = $("#c1").val()+"-"+$("#c2").val()+"-"+$("#c3").val()+"-"+$("#c4").val();
@@ -163,10 +182,15 @@ System.out.println("flag : "+flag); */
 			dataType:"json",
 			error: function(xhr) {
 				console.log(xhr.status);
-				$("#hidFail").trigger('click'); 
+				$("#hidFail").trigger("click"); 
 			},
 			success: function(json) {
-				$("#hidSuccess")).trigger('click'); 
+				alert(json);
+				if(json.flag) {
+					$("#hidSuccess").click(); 
+				} else {
+					$("#hidFail").click(); 
+				}
 			}
 		});
 	}
@@ -198,8 +222,8 @@ System.out.println("flag : "+flag); */
 		<div id="divPurchase" class="divInput">
 			<input id="purchase" type="button" class="btn btn-outline-success cardNum" value="결제" style="width: 100px;">
 			<!-- Button trigger modal(Modal button) -->
-			<input id="hidSuccess" type="hidden" class="btn btn-outline-success cardNum" data-bs-toggle="modalSuccess" data-bs-target="modalSuccess">
-			<input id="hidFail" type="hidden" class="btn btn-outline-success cardNum" data-bs-toggle="modalFail" data-bs-target="modalFail">
+			<input id="hidSuccess" type="hidden" class="btn btn-outline-success cardNum" data-bs-toggle="modal" data-bs-target="#modalSuccess">
+			<input id="hidFail" type="hidden" class="btn btn-outline-success cardNum" data-bs-toggle="modal" data-bs-target="#modalFail">
 		</div>
 	</form>
 <!-- Form tag End -->
@@ -212,7 +236,7 @@ System.out.println("flag : "+flag); */
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">결제 완료</h5>
-        <input id="btnOrdered" type="button" class="btn-close" data-bs-dismiss="modal" value="주문내역">
+        <input id="btnOrdered" type="button" class="btn-close" data-bs-dismiss="modal">
       </div>
       <div class="modal-body">
         <p>결제가 완료되었습니다.<br>상품을 구매해주셔서 감사합니다.</p>

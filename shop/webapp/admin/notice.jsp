@@ -14,12 +14,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<!-- bootstrap -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<!-- jQuery CDN -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-
+<jsp:include page="../cdn/admin_cdn.jsp"/>
 <!-- 임태균 scriptlet 작업장 시작 -->
 <%
 BoardDAO bDAO = BoardDAO.getInstance();
@@ -75,22 +70,19 @@ body{
 	padding-right: 15px;
 	background: #FFFFFF;
 }
+
 #rightBody{
 	width: 100%; min-height: 500px;float: right;
-	padding: 20px;
+	padding: 40px;
 	padding-left: 56px;
 	background: #EEEEEE;
 	position: relative;
 }
 
-/* 인영 style 시작*/
-#mainTitle{
-	font-size:25px;
-	color: #333;
-	position: absolute;
-	left : 90px;
-	padding-top: 10px;
-} 
+td {
+	cursor: pointer;
+}
+
 /* #background_box{
 overflow: auto;
 background-color:  #FFFFFF;
@@ -122,11 +114,19 @@ padding-right: 20px;
 }
 #btnAdd{
 position: absolute; 
-  left: 1340px;
-  width: 120px;
+  left: 1360px;
+  font-size:20px;
+}
+.btnCss {
+  position: relative;
+  height: 60px;
+  width: 135px;
+  background-color: #FFFFFF;
+  border: 1px solid #BEBEBE;
   font-size:20px;
   border-radius: 10px;
 }
+
 .divCircle {
   background-color : #FFFFFF;
   /* min-width: 1000px; */
@@ -143,6 +143,10 @@ position: absolute;
 }
 .ulCenter > li{
   float: left;
+}
+
+td {
+	cursor: pointer;
 }
 /* 태균이가 만든거 끝 */
 </style>
@@ -203,8 +207,9 @@ try{
 	<div class="text" id="mainTitle">
 		<strong>공지사항</strong>
 	</div>
-<div id="background_box" style="top:90px;">
-<table class="table tableList" id="order_list">
+<div id="background_box">
+<div style="margin: 10px; text-align: center;">
+<table class="table tableList">
     <thead>
         <tr id="top_title" style="text-align: center;">
             <th id="num">No.</th>
@@ -233,6 +238,7 @@ try{
     </tbody>
 </table>
 </div>
+</div>
 <div>
 <!-- 페이지 이동 -->
 <c:if test="${not empty noticeList}">
@@ -249,7 +255,7 @@ try{
  					out.print(util.pageNation(buVO));
  				%>
 			</div>
-<input type="button" class="btn btn-outline-success input" value="등록" id="btnAdd" />
+<input type="button" class="btnCss" value="등록" id="btnAdd" />
 		</div>
 </c:if>
 </div>

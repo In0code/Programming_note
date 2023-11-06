@@ -11,6 +11,7 @@
 <head>
 <!-- jQuery CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<jsp:include page="../cdn/admin_cdn.jsp"/>
 <meta charset="UTF-8">
 <style type="text/css">
 body{
@@ -105,6 +106,18 @@ position: absolute;
   padding: 0px;
 }
 
+td {
+	text-align: left;
+}
+
+th {
+	height:50px;
+	font-size:18.5px;
+	background-color: #FAFAFA;
+	vertical-align: middle;
+	width: 165px;
+}
+
 </style>
 <!-- 태균이가 만든거 끝-->
 <script type="text/javascript">
@@ -179,31 +192,34 @@ try {
 		<input id="btnLogout" type="button" class="btn btn-outline-dark" value="로그아웃" style="margin-right: 20px">
 	</div>
 	<div id="rightBody">
-		<div class="text" id="mainTitle">
-			<a href="notice.jsp?no=5" style="text-decoration: none;color: #222;"><strong>&lt; 공지사항</strong></a>
+		<div class="text" id="mainTitle">	
+			<a href="javascript:history.back()">	
+				<img src="../common/images/back.png" style="width:27px"/>
+				<strong>공지사항</strong>
+			</a>
 		</div>
-		<div id="background_box"> <!-- 각자 원하는데로 사용 -->
+<div id="background_box"> <!-- 각자 원하는데로 사용 -->
 <!-- 여기부터가 코딩하는 div 영역 --><!-- 여기부터가 코딩하는 div 영역 --><!-- 여기부터가 코딩하는 div 영역 --><!-- 여기부터가 코딩하는 div 영역 --><!-- 여기부터가 코딩하는 div 영역 -->
 <div style="margin: 10px; text-align: center;">
-<table class="table tableList" id="order_list">
-	<tr style="border-bottom: 2px solid #A5A5A5;">
-		<td style="background: #F1F1F1;max-width: 50px;"><strong>제목</strong></td>
-		<td colspan="6" style="text-align: left;"><%=title %></td>
+<table class="table tableList" id="boardList">
+	<tr>
+		<th style="background: #F7F7F7;max-width: 100px;">제목</th>
+		<td colspan="6" style="padding-left:20px"><%=title %></td>
 	</tr>
-	<tr style="border-bottom: 2px solid #A5A5A5;">
-		<td style="background: #F1F1F1;max-width: 50px;"><strong>작성자</strong></td>
-		<td>관리자</td>
-		<td style="background: #F1F1F1;max-width: 50px;"><strong>작성일</strong></td>
-		<td><%=date %><%=editDate == null?"":"("+editDate+")" %></td>
-		<td style="background: #F1F1F1;max-width: 50px;"><strong>조회수</strong></td>
-		<td><%=view %></td>
+	<tr>
+		<th style="background: #F7F7F7;max-width: 100px;">작성자</th>
+		<td style="padding-left:20px; width:180px">관리자</td>
+		<th style="background: #F7F7F7;max-width: 100px;">작성일</th>
+		<td style="width:190px; padding-left:20px"><%=date %><%=editDate == null?"":"("+editDate+")" %></td>
+		<th style="width:100px; background-color: #F7F7F7">조회수</th>
+		<td style="width:120px; padding-left:20px"><%=view %></td>
 	</tr>
 </table>
 <div style="width: 100%;">
 	<div style="text-align: center;margin-right: 10px;">
 		<img src="http://localhost/prj_web_shopping/upload/notice/<%=image %>" onerror="this.style.display='none'">
 	</div>
-	<div style="font-size:20px; text-align:left">
+	<div style="border:none; padding: 10px 58px 10px 58px; font-size: 18px; text-align:left">
 		<span><%=context%></span>
 	</div>
 </div>

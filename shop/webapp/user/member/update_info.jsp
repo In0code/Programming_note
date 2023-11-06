@@ -13,10 +13,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="http://localhost/prj_web_shopping/user/member/mypage.css" />
 <link rel="stylesheet" type="text/css"
 href="https://afterblow-scent.com/ind-script/optimizer.php?filename=nc1LCoAwDIThfXHrOYLeqC3xAU2mpCno7RW8gHQ7zMdPB4RpWY2qYbcoZNzQLTPl1mgzqFOGCHR6h5n-_DmHhtL9hIaEaxB299FoiTfbGPWYCg9S1FBO5ZCi6td_AA&type=css&k=37c9481ac0212340e132f81eba4d1049fee7f18e&t=1681776733" />
-<link rel="stylesheet" type="text/css"
-href="https://afterblow-scent.com/ind-script/optimizer_user.php?filename=tZRbTkQhDIbfB19dRxPjQkzGDRROPTQHKOGizu7tXHQBAm9cP8oP-cBLJCBneqVSAT8aFRvkC3K3gZ3xLQaoG5mNKu8J6sHpFVyt8IY7vUt-0vYz_JsSZeuBIF6qlwwW02FFjkFoltyziRStbvQ8UmPAi_SmhVV2N7aTGCXNJN4HZhLJnbRDp84rqE0ktLmh_qI9hSXcXPSbuSUZZ9w5YaMlSaNdgbW9tblf-I8s34tyCEsC1lVu0DUbNeQwBfIySEGrtzQ3-a0ISyeozNH944zYVSRX8Z9V0pnTPpXuJH0qgCXl0Uf2hNvw3R8SMpWwOH-F_QA&type=css&k=6d772c65d1f33705cdd1d1e541979b835f286a4d&t=1641537240&user=T" />
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&amp;display=swap" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&amp;display=swap" rel="stylesheet" />
@@ -39,9 +38,24 @@ href="https://afterblow-scent.com/ind-script/optimizer_user.php?filename=tZRbTkQ
     background: #fff;
     z-index: 90;
 }
+
+th {
+	font-size: 16px;
+}
+
 </style>
 <script type="text/javascript">
 $(function() {
+	
+	$("#pass").on('input', function() {
+        var id = $(this).val();
+        var regex = /^[a-z0-9]*$/; // 영문자와 숫자만 허용
+        if (!regex.test(id)) {
+            alert("영문(소문자)과 숫자만 입력 가능합니다.");
+            $(this).val(""); // 입력한 값 비움
+            return;
+        }
+    });
 
 	$("#btnZipcode").click(function(){
 		searchZipcode();
@@ -49,6 +63,7 @@ $(function() {
 	
 	$("#btn").click(function(){
         // 필수 입력 필드가 비어있는지 확인
+         var id = $("#id").val();
         var pass = $("#pass").val();
         var pass2 = $("#pass2").val();
         var email = $("#email").val();
@@ -67,6 +82,12 @@ $(function() {
 			alert('비밀번호가 일치하지 않습니다.');
 			return; 
 		}
+		
+		// 아이디와 비밀번호가 같은지 확인
+	    if (id === pass) {
+	        alert('아이디와 비밀번호는 같을 수 없습니다');
+	        return;
+	    }
 		
         // 입력값에 대한 유효성 검증을 통과했을 때, 정보수정 처리
         $("#frm").submit();
@@ -138,20 +159,20 @@ try{
 					<tr>
 						<th scope="row">아이디</th>
 						<td><input id="id" name="id" value="${ member.id }" class="inputTypeText"  type="text" readonly="readonly" />
-							<p class="info" style="font-size:6px">(영문 소문자/숫자, 4~16자)</p></td>
+							<p class="info" style="font-size:5px">(영문 소문자/숫자, 4~16자)</p></td>
 					</tr>
 					<tr>
 						<th scope="row">비밀번호</th>
 						<td>
 								<input id="pass" name="pass"  maxlength="16" value="" type="password">
-							<p class="info" style="font-size:6px">(영문 소문자/숫자 조합, 4자~16자)</p>
+							<p class="info" style="font-size:5px">(영문 소문자/숫자 조합, 4자~16자)</p>
 						</td>
 					</tr>
 					<tr class="">
 						<th scope="row">비밀번호 확인</th>
 						<td>
 						<input id="pass2" name="pass2"   maxlength="16" value="" type="password">
-						<span id="s_result" style="font-size: 9px;"></span>
+						<span id="s_result" style="font-size: 8px;"></span>
 						</td>
 					</tr>
 

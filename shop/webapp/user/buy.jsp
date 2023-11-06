@@ -132,25 +132,27 @@ if("pd".equals(where)) { //상품 상세 페이지에서 왔을 떄
 	
 	pageContext.setAttribute("list", bgVO);
 	pageContext.setAttribute("totalAmountPrice", totalAmountPrice);
-}
-
-if("y".equals(request.getParameter("full"))) {
-	List<BuyingGoodsVO> list = new ArrayList<BuyingGoodsVO>();
 	
-	if("cart".equals(where)) {
-		list = bDAO.selectCartGoods(id);
+} else{
+	if("y".equals(request.getParameter("full"))) {
+		List<BuyingGoodsVO> list = new ArrayList<BuyingGoodsVO>();
+		
+		if("cart".equals(where)) {
+			list = bDAO.selectCartGoods(id);
+		} else {
+			list = bDAO.selectWishGoods(id);
+		}
+		
+		pageContext.setAttribute("list", list);
 	} else {
-		list = bDAO.selectWishGoods(id);
+		String[] goodsArr = request.getParameterValues("check");
+		List<BuyingGoodsVO> list = bDAO.selectGoods(goodsArr);
+		pageContext.setAttribute("list", list);
 	}
-	
-	pageContext.setAttribute("list", list);
-} else {
-	String[] goodsArr = request.getParameterValues("check");
-	List<BuyingGoodsVO> list = bDAO.selectGoods(goodsArr);
-	pageContext.setAttribute("list", list);
 }
 
 %>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
 	$(function() {
 		let flag;
@@ -172,8 +174,8 @@ if("y".equals(request.getParameter("full"))) {
 				return;
 			}
 			
-			let inputList = [$("#receiver").val(), $("#zipcode").val(), $("#sido").val(),
-				$("#addr").val(), $("#phone").val(), $("#email").val()];
+			let inputList = [$("#receiverInput").val(), $("#zipcodeInput").val(), $("#sidoInput").val(),
+				$("#addrInput").val(), $("#phoneInput").val(), $("#emailInput").val()];
 			
 			let msg = $("#selMsg option:selected").val() == 0 ? 0 : $("#selMsg option:selected").text();
 			let check = $("#chk").is(":checked");
@@ -185,17 +187,15 @@ if("y".equals(request.getParameter("full"))) {
 				}
 			}
 			
-			/* $("#nameFrm").val($("#name").val());
-			$("#zipcodeFrm").val($("#zipcode").val());
-		    $("#addr1Frm").val($("#addr1").val());
-		    $("#addr2Frm").val($("#addr2").val());
-		    $("#cellFrm").val($("#phone").val());
-		    $("#emailFrm").val($("#email").val());
-		    $("#amountFrm").val($("#amount").val());
-		    $("#productCodeFrm").val($("#productName").val());
-		    $("#totalPriceFrm").val($("#price").val());
-		    $("#chk").val($("#chk:checked").val());
-		    $("#flag").val($("#flag").val()); */
+			$("#receiver").val(inputList[0]);
+			$("#zipcode").val(inputList[1]);
+			$("#sido").val(inputList[2]);
+			$("#addr").val(inputList[3]);
+			$("#phone").val(inputList[4]);
+			$("#email").val(inputList[5]);
+			
+			$("#gcode").val("${list.gcode}");
+			$("#amount").val("${list.amount}");
 			
 			$("#msg").val(msg);
 		    $("#chkHid").val(check);
@@ -209,21 +209,46 @@ function valided() {
 	var validTxt = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;	//(알파벳,숫자)@(알파벳,숫자).(알파벳,숫자)
 	var validCell = /^010-[0-9]{4}-[0-9]{4}$/;
 	
-	var email = $("#email").val();
-	if(!validTxt.test(email){ 
+	var email = $("#emailInput").val();
+	if(!validTxt.test(email)){ 
 		alert("이메일 주소가 올바르지 않습니다."); 
-		$("#email").focus();
+		$("#emailInput").focus();
 		 
 		return true;
 	 }
 
-	var cell = $("#phone").val();
-	if(!validTxt.test(email){ 
+	var cell = $("#phoneInput").val();
+	if(!validCell.test(cell)){ 
 		alert("전화번호가 올바르지 않습니다."); 
-		$("#phone").focus();
+		$("#phoneInput").focus();
 		 
 		return true;
 	 }
+}
+
+function searchAddr() {
+    new daum.Postcode({
+        oncomplete: function(data) {
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+            // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+            var addr = ''; // 주소 변수
+
+            //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                addr = data.roadAddress;
+            } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                addr = data.jibunAddress;
+            }
+
+            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            document.getElementById('zipcodeInput').value = data.zonecode;
+            document.getElementById("sidoInput").value = addr;
+            // 커서를 상세주소 필드로 이동한다.
+            document.getElementById("addrInput").focus();
+        }
+    }).open();
 }
 </script>
 </head>
@@ -236,7 +261,7 @@ function valided() {
 <div id="buyTitle">
 주문 / 결제
 </div>
-<form method="post" id="frm" action="insert_card.jsp">
+
 	<div class="title">
 	<table>
 	<tr>
@@ -245,7 +270,7 @@ function valided() {
 		</td>
 		<td>
 			<div class="input-group mb-3" id="dlvrInput">
-		     	<input type="text" id="receiver" name="receiver" class="form-control" aria-label="Username" aria-describedby="inputGroup-sizing-lg">
+		     	<input type="text" id="receiverInput" name="receiverInput" class="form-control" aria-label="Username" aria-describedby="inputGroup-sizing-lg">
 		    </div>
 	    </td>
 	</tr>
@@ -255,22 +280,22 @@ function valided() {
 		</td>
 		<td>
 			<div class="input-group mb-3">
-		     	<input value="12345" type="text" id="zipcode" name="zipcode" class="form-control" placeholder="우편번호" aria-label="Disabled input example" readonly aria-describedby="button-addon2">
-	      		<input class="btn btn-outline-secondary" type="button" id="button-addon2 btnAddr" value="주소검색"/>
+		     	<input value="우편번호 검색" type="text" id="zipcodeInput" name="zipcodeInput" class="form-control" placeholder="우편번호" aria-label="Disabled input example" readonly aria-describedby="button-addon2">
+	      		<input class="btn btn-outline-secondary" type="button" id="button-addon2 btnAddr" value="주소검색" onclick="searchAddr()"/>
 		    </div>
 	    </td>
 	</tr>
 	<tr>
 		<td colspan="2">
 			<div class="input-group mb-3">
-		     	<input type="text" id="sido" name="sido" class="form-control" placeholder="기본주소" aria-label="Username" aria-describedby="basic-addon1">
+		     	<input type="text" id="sidoInput" name="sidoInput" class="form-control" placeholder="기본주소" aria-label="Username" aria-describedby="basic-addon1">
 		    </div>
 	    </td>
 	</tr>
 	<tr>
 		<td colspan="2">
 			<div class="input-group mb-3">
-		     	<input type="text" id="addr" name="addr" class="form-control" placeholder="상세주소" aria-label="Username" aria-describedby="basic-addon1">
+		     	<input type="text" id="addrInput" name="addrInput" class="form-control" placeholder="상세주소" aria-label="Username" aria-describedby="basic-addon1">
 		    </div>
 	    </td>
 	</tr>
@@ -280,7 +305,7 @@ function valided() {
 		</td>
 		<td>
 			<div class="input-group mb-3">
-		     	<input type="text" id="phone" name="phone" class="form-control" placeholder="010-0000-0000" aria-label="Username" aria-describedby="basic-addon1">
+		     	<input type="text" id="phoneInput" name="phoneInput" class="form-control" placeholder="010-0000-0000" aria-label="Username" aria-describedby="basic-addon1">
 		    </div>
 	    </td>
 	</tr>
@@ -290,7 +315,7 @@ function valided() {
 		</td>
 		<td>
 			<div class="input-group mb-3">
-		      <input id="email" type="text" name="email" class="form-control" placeholder="example@domain.com" aria-label="Username">
+		      <input id="emailInput" type="text" name="emailInput" class="form-control" placeholder="example@domain.com" aria-label="Username">
 	    	</div>
 	    </td>
 	</tr>
@@ -308,18 +333,19 @@ function valided() {
 	  <label class="form-check-label" for="flexCheckDefault" style="padding: 0px;padding-top: 2px; margin: 0px;font-size: 12px;">기본 배송지로 저장</label>
 	</div>
 </div>
+
 <div class="title">
 	<div class="secTitle"> 
 	주문상품
 	</div>
 	<!-- for start list로 한 개이든 여러 개이든 돌려서 채운다 -->
 	<div id="dg">
-	<img src="http://localhost/prj_web_shopping/upload/goods/${ bgVO.img }" class="rounded float-start" alt="상품명" width="70px" height="70">
-	<p>${ bgVO.gname }</p>
-	<p>수량 <fmt:formatNumber value="${ bgVO.amount }" pattern="#,###"/>개</p>
-	<p><fmt:formatNumber value="${ bgVO.price * bgVO.amount }" pattern="#,###,###"/>원</p>
+	<img src="http://localhost/prj_web_shopping/upload/goods/${ list.img }" class="rounded float-start" alt="상품명" width="70px" height="70">
+	<p>${ list.gname }</p>
+	<p>수량 <fmt:formatNumber value="${ list.amount }" pattern="#,###"/>개</p>
+	<p><fmt:formatNumber value="${ list.price * list.amount }" pattern="#,###,###"/>원</p>
 	<input type="hidden" name="gcode" value="${param.gcode }">
-    <input type="hidden" name="amount" value="${ bgVO.amount }">
+    <input type="hidden" name="amount" value="${ list.amount }">
 	</div>
 	<!-- for end -->
 </div>
@@ -352,15 +378,23 @@ function valided() {
       <input id="card" name="card" type="button" class="btn btn-outline-primary" value="신용카드">
     </div>
     <div style="height: 50px;padding-left: 0px;padding-right: 0px;margin-top: 50px;position: relative;">
-    	<a id="buyBtn" style="position: absolute;bottom: 0px;">
+    	<a id="buyBtn" style="position: absolute;bottom: 0px;cursor: pointer;">
     	<fmt:formatNumber value="${ totalAmountPrice + 2500 }" pattern="#,###,###"/>원 결제하기
     	</a>
     </div>
 </div>
-<input type="hidden" id="msg" name="msg">
-<input type="hidden" id="chkHid" name="chkHid">
-<input type="hidden" id="flag" name="flag">
-<input type="hidden" id="total" name="total">
+<form method="get" id="frm" action="insert_card.jsp">
+	<input type="hidden" id="msg" name="msg">
+	<input type="hidden" id="chkHid" name="chkHid">
+	<input type="hidden" id="flag" name="flag">
+	<input type="hidden" id="receiver" name="receiver">
+	<input type="hidden" id="zipcode" name="zipcode">
+	<input type="hidden" id="sido" name="sido">
+	<input type="hidden" id="addr" name="addr">
+	<input type="hidden" id="phone" name="phone">
+	<input type="hidden" id="email" name="email">
+	<input type="hidden" id="gcode" name="gcode">
+	<input type="hidden" id="amount" name="amount">
 </form>
 </div>
 <div>

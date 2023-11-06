@@ -449,8 +449,11 @@ $(function() {
 		<input id="btnLogout" type="button" class="btn btn-outline-dark" value="로그아웃" style="margin-right: 20px">
 	</div>
 	<div id="rightBody">
-		<div class="text" id="mainTitle">
-			<a href="notice.jsp?no=5" style="text-decoration: none;color: #222;"><strong>&lt; 공지사항</strong></a>
+		<div class="text" id="mainTitle">	
+			<a href="javascript:history.back()">	
+				<img src="../common/images/back.png" style="width:27px"/>
+				<strong>공지사항</strong>
+			</a>
 		</div>
 		<div id="background_box"> <!-- 각자 원하는데로 사용 -->
 <!-- 여기부터가 코딩하는 div 영역 --><!-- 여기부터가 코딩하는 div 영역 --><!-- 여기부터가 코딩하는 div 영역 --><!-- 여기부터가 코딩하는 div 영역 --><!-- 여기부터가 코딩하는 div 영역 -->

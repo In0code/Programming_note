@@ -6,12 +6,17 @@
 		$('body').toggleClass('search_active');
 	}
 	
-	$(function(){
-		$("#searchIcon").click(function() {
-			if("#")
+$(function(){
+	$("#searchIcon").click(function() {
+		var searchKeyword = $("#searchKeyword").val();
+        if (!searchKeyword || searchKeyword.trim() === "") {
+            alert("검색어를 입력해주세요");
+       	  	return;
+       }//end if
 			$("#searchBarForm").submit();
-		});
-	});
+        
+	});//click
+});//ready
 </script>
 
 <style>

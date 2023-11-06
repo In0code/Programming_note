@@ -16,11 +16,11 @@ System.out.println(bpVO);
 
 BuyDAO bDAO = BuyDAO.getInstance();
 int temp = bDAO.insertPriceInfo(bpVO);
-
+System.out.println("process : "+temp);
 if(temp != 0) {
 	json.put("flag", true);
 } else {
 	bDAO.deletePayProcess(bpVO.getOrdno());
 }
-out.println(json.toJSONString());
+out.print(json.toJSONString());
 %>

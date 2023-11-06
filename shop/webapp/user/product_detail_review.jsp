@@ -8,8 +8,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="icon" href="http://192.168.10.142/jsp_prj/common/main/favicon.png">
+<title>Chérie</title>
+<link rel="icon" href="http://localhost/cherie_ysy_private/common/images/favicon.png"/>
 <!-- bootstrap CDN-->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <!-- jQuery CDN -->
@@ -56,8 +56,6 @@ try{
 	sVO = uDAO.selectOneReview(Integer.parseInt(rcode==null?"0":rcode));
 	
 	pageContext.setAttribute("review", sVO);
-
-	
 	
 }catch (SQLException se) {
 	se.printStackTrace();
@@ -73,20 +71,19 @@ $(function(){
 
 </head>
 
-<body>
-<div id="wrap" style="font-family:pretendard; font-size: 16px">
-<div id="div" >
-<img src="../common/images/icon/check-circle.svg" style="margin-left: 5px; ">&ensp;사진 보기
-<div style="border: 0px solid #333; width:260px; height:250px; margin-left: 5px; padding:10px" onclick="onclick=document.all.file.click()" >
+<body style="width:510px; height:720px">
+<div id="wrap" style="font-family:pretendard; font-size: 16px;">
+<div id="div" style="margin: 5px 0px 0px 13px">
 
-<img src="../upload/review/${review.img eq null ? 'img_null.png' : review.img}" style="position:absolute; top:30px; left:10px; width:260px; height:250px;"> 
+<div style="border: 1px solid #AAAAAA; position:absolute; top:32px; left:5px; width: 270px; height:262px; margin-left:13px"><!-- ><img src="../upload/review/img_background.png" style=" width: 265px; height:255px; "> --></div>
+<img src="../common/images/icon/check-circle.svg" style="margin-left: 13px; margin-right:5px; padding-bottom: 2px ">사진
+<div style="border: 0px solid #333; width:260px; height:250px; margin-left: 13px; padding:10px" onclick="onclick=document.all.file.click()" >
 
-<div  style="border: 1px solid #AAAAAA; position:absolute; top:25px; left:5px; width:270px;  width: 270px; height:260px;"><!-- ><img src="../upload/review/img_background.png" style=" width: 265px; height:255px; "> --></div>
-
+<img src="../upload/review/${review.img eq null ? 'img_null.png' : review.img}" style="position:absolute; top:37px; left:10px; width:260px; height:250px; margin-left: 13px"> 
  </div>
 <br>
 <br>
-<div style="border:0px solid #333; width:220px ; height: 260px; position: absolute; top:25px ; left:285px ;" >
+<div style="border:0px solid #333; width:220px ; height: 260px; position: absolute; top:30px ; left:285px; margin-left: 13px" >
 <div style="padding: 5px; color:#AAAAAA">
 <div>상품명 : <span><%=sVO.getGname() %></span></div>
 <br>
@@ -103,16 +100,16 @@ $(function(){
 <input type="button" id="b" value="bbb"> -->
 <input type="hidden" name="rcode" value="<%= rcode %>"/>
 <!-- 상품 만족도 -->
- <img src="../common/images/icon/check-circle.svg" style="margin-left: 5px; position: absolute; top: 300px"><div style="margin-left: 15px; position: absolute; top: 295px">&ensp;상품 만족도</div>
+<div style="margin-top:10px">
+ <img src="../common/images/icon/check-circle.svg" style="margin-left: 5px; margin-right:5px; position: absolute; top: 313px">
+ <div style="margin-left: 15px; position: absolute; top: 310px; padding-left:9px">상품 만족도</div>
 <div style="border: 1px solid #333; margin-left: 5px; width:502px; height:150px; text-align: center" >
 <div style=" margin-top: 10px"><strong ><c:out value="${review.name}" /></strong>님 상품은 어떠셨나요?</div><br>
-<div  style= "border: 0px; position:absolute; top:350px; left:200px" class="star-rating" >
+<div style= "border: 0px; position:absolute; top:375px; left:210px;" class="star-rating" >
 
   <input type="radio" id="5-stars" name="star" value="5" ${review.star eq 5 ? "checked='checked'" : "" } onclick="return(false);"/>
   
   <label for="5-stars" class="star" >&#9733;</label>
-
-
   
   <input type="radio" id="4-stars" name="star" value="4" ${review.star eq 4 ? "checked='checked'" : "" } onclick="return(false);"/>
   <label for="4-stars" class="star">&#9733; </label>
@@ -179,20 +176,20 @@ $(function(){
 <c:when test="${review.star eq 5 }">
 <c:set var="text" value="최고에요"/>
 
-
-
 </c:when>
 </c:choose>
 </c:catch>
-<div style="color:#FF923A"><c:out value="${text}" /></div>  
+<div style="color:#FF923A; margin:0px auto"><c:out value="${text}" /></div>  
 </div>
 <div></div>
 <br/>
+</div>
 <!-- 리뷰 작성 -->
 
-<div class="form-group col-12" style=" margin-left: 5px;" >
-<img src="../common/images/icon/check-circle.svg" style="margin-left: 5px;">&ensp;리뷰 내용
-  <div class="textLengthWrap">
+<div class="form-group col-12" style="margin-left: 5px;" >
+  <div class="textLengthWrap" style="margin-bottom: 5px">
+<img src="../common/images/icon/check-circle.svg" style="margin: 0px 1px 3px 5px;">
+	<span>리뷰 내용</span>
   </div>
   <div style="border:1px solid #333; width:502px; height:180px;  resize: none;"  id="review" ><c:out value="${review.review}" /></div>
  <%--  <textarea style="width:502px; height:180px; resize: none;" maxlength="200" name="review" id="review" readonly="readonly"><c:out value="${review.review}" />
