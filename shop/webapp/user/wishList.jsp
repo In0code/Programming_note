@@ -16,9 +16,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<%
-		////////////// 사용자 관심상품  - 인영 ////////////
-%>
 <style type="text/css">
 
 #pageTitle {
@@ -48,7 +45,7 @@ background-color:  #FFFFFF;
 height: 56px; width: 500px;
 padding: 16px 16px 16px 16px;
 }
-.pagenationDiv{
+/* .pagenationDiv{
    top: 575px;
    text-align: center;
     margin-top: 10px; 
@@ -99,7 +96,7 @@ a {
 a:hover {
    color: #333;
 }
-
+ */
 </style>
 
 <script type="text/javascript">
@@ -129,8 +126,7 @@ $(function(){
                 console.log(xhr.status);
             },
             success: function(data) {
-                    alert("장바구니에 상품이 추가되었습니다.");
-                    if (confirm("장바구니 페이지로 이동하시겠습니까?")) {
+                    if (confirm("장바구니에 상품이 추가되었습니다.\n\n장바구니 페이지로 이동하시겠습니까?")) {
                         // 사용자가 확인을 누른 경우
                         window.location.href = "cart.jsp"; 
                     } else {
@@ -269,7 +265,7 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 		     		<a class="btnSubmit" id="btnSubmit">선택상품주문</a> 
 				</div>
 		
-          <c:if test="${ not empty wishList }">
+         <%--  <c:if test="${ not empty wishList }">
 		<!-- 페이지네이션 -->
 		<div class="pagenationDiv">
 			<div class="pagination">
@@ -280,7 +276,7 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
  			%>
 			</div>
 		</div>
-		</c:if>
+		</c:if> --%>
 </div>
 </div>
 <%@ include file="layout/footer.jsp"%>

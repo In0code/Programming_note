@@ -147,7 +147,7 @@ $(function() {
 		var quantity = parseInt($("#id").val());
 		
 		if(pm == "p"){
-			if(quantity >= 10) {
+			if(quantity >= 50) {
 				alert("구매 가능 수량을 초과하였습니다.");
 			//	$("#quantity").val(${ product.quantity });
 				return;
@@ -163,7 +163,7 @@ $(function() {
 		}
 		
 		if(pm == "m") {
-			if(quantity > 10) {
+			if(quantity > 50) {
 				alert("구매 가능 수량을 초과하였습니다.");
 				//$("#quantity").val(${ cart.amount });
 				return;
@@ -194,62 +194,51 @@ $(function() {
 		
 	}//stockCheck   
 	
-	function plus(bcode){
-		if($("#quantity"+bcode).val() >= 10) {
-			alert("구매 가능 수량을 초과하였습니다.");
-		//	$("#quantity").val(${ product.quantity });
-			return;
-		}
-		
-		if($("#quantity"+bcode).val() < 1) {
-			alert("최소 주문 수량은 1개 입니다.");
-			$("#quantity"+bcode).val(1);
-			return;
-		}
-		var queryString="bcode="+bcode+"&amount="+$("#quantity"+bcode).val();
-		$.ajax({
-			url : "cart_amount_plus.jsp",
-			type : "get",
-			data : queryString,
-			dataType : "text",
-			error : function(xhr){
-				alert("다시");
-			},
-			success : function(data){
-				$("#quantity"+bcode).val( data );
-			}//success
-			
-		});//ajax
-			
-	}//plus
-	
-	function minus(bcode){
-		if($("#quantity"+bcode).val() >= 10) {
-			alert("구매 가능 수량을 초과하였습니다.");
-			return;
-		}
-		
-		if($("#quantity"+bcode).val() < 1) {
-			alert("최소 주문 수량은 1개 입니다.");
-			$("#quantity"+bcode).val(1);
-			return;
-		}
-		var queryString="bcode="+bcode+"&amount="+$("#quantity"+bcode).val();
-		$.ajax({
-			url : "cart_amount_minus.jsp",
-			type : "get",
-			data : queryString,
-			dataType : "text",
-			error : function(xhr){
-				alert("다시");
-			},
-			success : function(data){
-				$("#quantity"+bcode).val( data );
-			}//success
-			
-		});//ajax
-			
-	}//plus
+	function plus(bcode, price) {
+	    var quantityField = $("#quantity" + bcode);
+	    var newQuantity = parseInt(quantityField.val());
+
+	    if (newQuantity >= 50) {
+	        alert("구매 가능 수량을 초과하였습니다.");
+	        return;
+	    }
+
+	    if (newQuantity < 1) {
+	        alert("최소 주문 수량은 1개 입니다.");
+	        return;
+	    }
+
+	    // 수량 증가
+	    newQuantity++;
+	    quantityField.val(newQuantity);
+
+	    // 총 가격 업데이트
+	    var totalField = $("#total" + bcode);
+	    totalField.html(price * newQuantity);
+	}
+
+	function minus(bcode, price) {
+	    var quantityField = $("#quantity" + bcode);
+	    var newQuantity = parseInt(quantityField.val());
+
+	    if (newQuantity >= 50) {
+	        alert("구매 가능 수량을 초과하였습니다.");
+	        return;
+	    }
+
+	    if (newQuantity <= 1) {
+	        alert("최소 주문 수량은 1개 입니다.");
+	        return;
+	    }
+
+	    // 수량 감소
+	    newQuantity--;
+	    quantityField.val(newQuantity);
+
+	    // 총 가격 업데이트
+	    var totalField = $("#total" + bcode);
+	    totalField.html(price * newQuantity);
+	}
 </script>
 
 </head>  
@@ -289,7 +278,7 @@ try{
 CartDAO cDAO=CartDAO.getInstance();
 String id=(String)session.getAttribute("sesId");
 
-List<CartVO> list=cDAO.selectAllCartList("tuna5127", brVO);
+List<CartVO> list=cDAO.selectAllCartList("test", brVO);
 
 pageContext.setAttribute("cartList", list);
 pageContext.setAttribute("deliveryPrice", deliveryPrice);
@@ -313,7 +302,6 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 					<td style="width:350px;color: #929492;vertical-align: middle; ">상품정보</td>
 					<td style="width:250px;color: #929492; vertical-align: middle;">판매가</td>
 					<td style="width:100px;color: #929492; vertical-align: middle;">수량</td>
-					<td style="width:100px;color: #929492;vertical-align: middle;">배송비</td>
 					<td style="width:100px ;color: #929492;vertical-align: middle;">합계</td>
 					<td style="width:10px; color: #929492;vertical-align: middle;"> 선택</td>
 				</tr>
@@ -332,17 +320,17 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 						<td style=" vertical-align: middle;"><c:out value="${ cart.price }"/></td>
 						 <td style="width:20px">
                           <!--  수량 -->
-                          <span id="amountSet"  class="quantity">
-                             <input id="quantity${ cart.bcode }" name="quantity_opt[]" style="" value="${ cart.amount }" type="text"/>                                            
-                             <!--   + 버튼 -->
-                               <a href="#void" onclick="plus('${ cart.bcode }')" class="up QuantityUp">수량증가</a>
-                                            
-                             <!--   - 버튼 -->
-                               <a href="#void" onclick="minus('${ cart.bcode }')" class="down QuantityDown">수량감소</a>
-                           </span>
+                           <span id="amountSet"  class="quantity">
+                          <input type="text" id="quantity${ cart.bcode }" name="quantity_opt[]" value="${ cart.amount }" type="text"/>
+							 <!--   + 버튼 -->
+							<a href="#void" onclick="plus('${ cart.bcode }', ${ cart.price })" class="up QuantityUp">수량증가</a>
+							<!--   - 버튼 -->
+							<a href="#void" onclick="minus('${ cart.bcode }', ${ cart.price })" class="down QuantityDown">수량감소</a>
+							</span>
                         </td> 
-						<td style=" vertical-align: middle;"><c:out value="<%= deliveryPrice %>"/></td>
-					 	<td style=" vertical-align: middle;"><c:out value="${ cart.price + deliveryPrice }"/></td> 
+					 	<td style=" vertical-align: middle;">
+							<span id="total${ cart.bcode }">${ cart.price * cart.amount }</span>
+					 	</td> 
 						<td> 
 					 		<input type="button" value="x삭제" class="deleteBtn" name="deleteBtn" onclick="deleteCart('${cart.bcode}')" style="width:90px; height:35px ;background-color: white; border : 1px solid  #E5E4E4;"/><br/>
 					 		<input type="hidden" value="x삭제" name="dt" style="width:90px; height:30px ;"/>
@@ -361,7 +349,7 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 		     		<a href="" class="btnSubmit" id="btnSubmit">선택상품주문</a> 
 				</div>
 		
-          <c:if test="${ not empty cartList }">
+        <%--   <c:if test="${ not empty cartList }">
 		<!-- 페이지네이션 -->
 		<div class="pagenationDiv">
 			<div class="pagination">
@@ -372,7 +360,7 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
  			%>
 			</div>
 		</div>
-		</c:if>
+		</c:if> --%>
 </div>
 </div>
 <%@ include file="layout/footer.jsp"%>
