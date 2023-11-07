@@ -128,7 +128,7 @@ public class WishListDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	public int deleteWishList( String id, String wcode) throws SQLException {
+	public int deleteWishList( String id, String gcode) throws SQLException {
 		DbConnection db = DbConnection.getInstance();
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -136,11 +136,11 @@ public class WishListDAO {
 		try {
 			con = db.getConn("jdbc/dbcp");
 			
-			String deleteWishList="delete from WISHLIST where wcode = ? and id= ? ";
+			String deleteWishList="delete from WISHLIST where gcode = ? and id= ? ";
 			
 			pstmt = con.prepareStatement(deleteWishList);
 			
-			pstmt.setString(1, wcode);
+			pstmt.setString(1, gcode);
 			pstmt.setString(2, id);
 			
 			cnt = pstmt.executeUpdate();
