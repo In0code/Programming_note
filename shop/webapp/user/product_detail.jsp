@@ -328,6 +328,7 @@ function addCart(gcode) {
         }//success
     });//ajax
 }//addCart
+
 function addWishList(gcode) {
 	
     $.ajax({

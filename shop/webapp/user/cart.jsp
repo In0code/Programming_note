@@ -14,6 +14,7 @@
     pageEncoding="UTF-8"%>
     <%@ page info="사용자 / 장바구니 / 메인 페이지 - 인영" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <jsp:include page="../cdn/cdn.jsp"/>
 <!DOCTYPE html>
 <html>
@@ -53,7 +54,7 @@ background-color:  #FFFFFF;
 height: 56px; width: 500px;
 padding: 16px 16px 16px 16px;
 }
-.pagenationDiv{
+/* .pagenationDiv{
    top: 575px;
    text-align: center;
     margin-top: 10px; 
@@ -103,7 +104,7 @@ a {
 
 a:hover {
    color: #333;
-}
+} */
 .table {
     background-color: white;
 }
@@ -157,46 +158,46 @@ $(function() {
 				alert("구매 가능 수량을 초과하였습니다.");
 			//	$("#quantity").val(${ product.quantity });
 				return;
-			}
+			}//end if
 			
 			if(quantity < 1) {
 				alert("최소 주문 수량은 1개 입니다.");
 				$("#quantity").val(1);
 				return;
-			}
+			}//end if
 			
 			$("#quantity").val(++quantity);
-		}
+		}//end if
 		
 		if(pm == "m") {
 			if(quantity > 50) {
 				alert("구매 가능 수량을 초과하였습니다.");
 				//$("#quantity").val(${ cart.amount });
 				return;
-			}
+			}//end if
 			
 			if(quantity <= 1) {
 				alert("최소 주문 수량은 1개 입니다.");
 				$("#quantity").val(1);
 				return;
-			}
+			}//end if
 			
 			$("#quantity").val(--quantity);
-		}
+		}//end if
 		
 		if(pm == null){
 			if(quantity > 10 ){
 				alert("구매 가능 수량을 초과하였습니다.");
 				/* $("#quantity").val(${ cart.amount }); */
 				return;
-			}
+			}//end if
 			
 			if(quantity < 1){
 				alert("최소 주문 수량은 1개 입니다.");
 				$("#quantity").val(1);
 				return;
-			}
-		}
+			}//end if
+		}//end if
 		
 	}//stockCheck   
 	
@@ -207,12 +208,12 @@ $(function() {
 	    if (newQuantity >= 50) {
 	        alert("구매 가능 수량을 초과하였습니다.");
 	        return;
-	    }
+	    }//end if
 
 	    if (newQuantity < 1) {
 	        alert("최소 주문 수량은 1개 입니다.");
 	        return;
-	    }
+	    }//end if
 
 	    // 수량 증가
 	    newQuantity++;
@@ -221,7 +222,7 @@ $(function() {
 	    // 총 가격 업데이트
 	    var totalField = $("#total" + bcode);
 	    totalField.html(price * newQuantity);
-	}
+	}//plus
 
 	function minus(bcode, price) {
 	    var quantityField = $("#quantity" + bcode);
@@ -230,12 +231,12 @@ $(function() {
 	    if (newQuantity >= 50) {
 	        alert("구매 가능 수량을 초과하였습니다.");
 	        return;
-	    }
+	    }//end if
 
 	    if (newQuantity <= 1) {
 	        alert("최소 주문 수량은 1개 입니다.");
 	        return;
-	    }
+	    }//end if
 
 	    // 수량 감소
 	    newQuantity--;
@@ -244,7 +245,7 @@ $(function() {
 	    // 총 가격 업데이트
 	    var totalField = $("#total" + bcode);
 	    totalField.html(price * newQuantity);
-	}
+	}//minus
 </script>
 
 </head>  
@@ -327,9 +328,7 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 			 <form id="buyFrm" name="buyFrm" method="get" action="buy.jsp?where=cart&full=n">
 			<table class="table" id="table" style="border: 1px solid #E5E4E4; background-color: #FFFFFF; text-align: center;">
 				<tr style="border: 1px solid #E5E4E4; border-bottom: 1px solid #919191;">
-					<td  style="width:30px; color: #929492">
-						<input type="hidden" style="width: 45px;"/>
-					</td>
+					<td  style="width:30px; color: #929492"><input type="hidden" style="width: 45px;"/></td>
 					<td style="width:100px; font : #929492; vertical-align: middle;">이미지</td>
 					<td style="width:350px;color: #929492;vertical-align: middle; ">상품정보</td>
 					<td style="width:250px;color: #929492; vertical-align: middle;">판매가</td>
@@ -346,11 +345,12 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 						
 					<c:forEach var="cart" items="${ cartList }" varStatus="i">
 					  <tr style="border-bottom: 1px solid #E5E4E4;" >
-						<td style=" vertical-align: middle;"><input type="checkbox" class="check" name="check"  value="${ cart.bcode }" style="border: 1px solid #929492 ; width: 15px; pa "></td> 
+						<td style=" vertical-align: middle;"><input type="checkbox" class="check" name="check"  value="${ cart.bcode }" 
+							style="border: 1px solid #929492 ; width: 15px; pa "></td> 
 						<td  style=" vertical-align: middle;"><img src="../upload/goods/${ cart.img }"  style="width: 100px"/></td>
 						<td style=" vertical-align: middle;"><a href="product_detail.jsp?gcode=${ cart.gcode }"><c:out value="${ cart.gname }"/></a></td>
 						<td style=" vertical-align: middle;"><c:out value="${ cart.price }"/></td>
-						 <td style="width:20px">
+						<td style="width:20px">
                           <!--  수량 -->
                            <span id="amountSet"  class="quantity">
                           <input type="text" id="quantity${ cart.bcode }" name="quantity_opt[]" value="${ cart.amount }" type="text" readonly="readonly"/>
@@ -360,18 +360,21 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 							<a href="#void" onclick="minus('${ cart.bcode }', ${ cart.price })" class="down QuantityDown">수량감소</a>
 							</span>
                         </td> 
-					 	<td style=" vertical-align: middle;">
-							<span id="total${ cart.bcode }">${ cart.price * cart.amount }</span>
+                        <!-- 총 가격 -->
+					 	<td style=" vertical-align: middle;" id="total${ cart.bcode }">
+							<fmt:formatNumber value="${ cart.price * cart.amount }" pattern='#,###,###'/>
 					 	</td> 
 						<td> 
-					 		<input type="button" value="x삭제" class="deleteBtn" name="deleteBtn" onclick="deleteCart('${cart.bcode}')" style="width:90px; height:35px ;background-color: white; border : 1px solid  #E5E4E4;"/><br/>
-					 		<input type="hidden" value="x삭제" name="dt" style="width:90px; height:30px ;"/>
+							<!-- 삭제버튼 -->
+					 		<input type="button" value="x삭제" class="deleteBtn" name="deleteBtn" onclick="deleteCart('${cart.bcode}')"
+					 			 style="width:90px; height:35px ;background-color: white; border : 1px solid  #E5E4E4;"/><br/>
+					 		<input type="hidden" style="width:90px; height:30px ;"/>
 					 	</td>
-					 </tr>
-					</c:forEach>
-				</table>
-				</form>
-					</div>
+					</tr>
+				</c:forEach>
+			</table>
+		</form>
+	</div>
 				
 		</div>
 		<div class="move">
