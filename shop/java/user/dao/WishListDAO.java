@@ -154,4 +154,40 @@ public class WishListDAO {
 	}//deleteWishList
 	
 	
+	public List<WishListVO> getGcode() throws SQLException {
+		List<WishListVO> list=new ArrayList<WishListVO>();
+		WishListVO wlVO=null;
+		DbConnection db=DbConnection.getInstance();
+		
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+		//1. JNDI 사용 객체 생성
+		//2. DataSource 얻기
+		//3. Connection 얻기
+			con=db.getConn("jdbc/dbcp");
+		//4. 쿼리문 생성 객체 얻기
+			String selectAllWishList="select GCODE FROM BUCKET_LIST";
+			
+			
+			pstmt=con.prepareStatement(selectAllWishList.toString());
+		//5. 바인드 변수 값 설정
+			
+		//6. 쿼리문 실행 후 값 얻기
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				wlVO=new WishListVO();
+				wlVO.setGcode(rs.getString("gcode"));
+				
+				list.add(wlVO);
+			}//end while
+		}finally {
+			//7. 연결 끊기
+			db.dbClose(rs, pstmt, con);
+		}//end finally
+		return list;
+	}//getGcode
+	
+	
 }//class
