@@ -130,32 +130,7 @@ public class ProductDAO {
 				list.add(pVO);
 			}
 		
-			/* BufferedReader br = null;
-			StringBuilder info= new StringBuilder();
-			
-				 
-				 try {
-					 Clob clob= rs.getClob("TMI");
-					 
-					 
-					 if(clob!=null) {
-						 
-						 br = new BufferedReader(rs.getClob("TMI").getCharacterStream());//CLOB 이용
-						 
-						 String temp="";
-					while((temp=br.readLine())!=null) {
-						 info.append(temp);
-					 }//end while
-					
-					if(br!=null) {
-						br.close();
-					}
-					 }//end if
-				} catch (IOException e) {
-					e.printStackTrace();
-				}//end  catch
-				// pVO.setTmi(info.toString());
-			}//end if*/
+		
 				
 		}finally {
 			db.dbClose(rs, pstmt, con);
@@ -163,9 +138,9 @@ public class ProductDAO {
 		}
 		
 		return list;
-	}
+	}//selectAllProduct
 	
-public ProductManageVO selectOneProduct(int gcode) throws SQLException {
+public ProductManageVO selectOneProduct(String gcode) throws SQLException {
 		
 		
 	ProductManageVO pVO= null;
@@ -187,7 +162,7 @@ public ProductManageVO selectOneProduct(int gcode) throws SQLException {
 			
 			pstmt=con.prepareStatement(selectAllReview);
 			
-			pstmt.setInt(1, gcode);
+			pstmt.setString(1, gcode);
 			
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
@@ -205,7 +180,7 @@ public ProductManageVO selectOneProduct(int gcode) throws SQLException {
 				pVO.setHeart(rs.getString("HEART"));
 				pVO.setBase(rs.getString("BASE"));
 				pVO.setIng(rs.getString("ING"));
-				pVO.setDetailImg(rs.getString("DETAIL_IMG "));
+				pVO.setDetailImg(rs.getString("DETAIL_IMG"));
 				
 				
 			
@@ -215,5 +190,362 @@ public ProductManageVO selectOneProduct(int gcode) throws SQLException {
 			
 		}
 		return pVO;
-	}//selectOneReview
+	}//selectOneProduct
+
+//public void updateImg (String gcode,String mainImg, String img1 , String img2, String img3, String detailImg) throws SQLException {
+//	
+//	
+//	
+//	
+//	DbConnection db= DbConnection.getInstance();
+//	Connection con = null;
+//	PreparedStatement pstmt=null;
+//	
+//	
+//	
+//	
+//	
+//	try {
+//		con=db.getConn("jdbc/dbcp");
+//		
+//		String deleteReivew = " update goods set main_img = ? , img1=? , img2=? , img3=? , detail_img=? where gcode=? ";
+//
+//		
+//		
+//		pstmt=con.prepareStatement(deleteReivew);
+//		
+//		pstmt.setString(1, mainImg);
+//		pstmt.setString(2, img1);
+//		pstmt.setString(3, img2);
+//		pstmt.setString(4, img3);
+//		pstmt.setString(5, detailImg);
+//		pstmt.setString(6, gcode);
+//		
+//		int cnt=pstmt.executeUpdate();
+//		System.out.println(cnt+"건 변경되었습니다.");
+//	
+//	}finally {
+//		db.dbClose(null, pstmt, con);
+//		
+//	}
+	
+//}
+
+//--------------------------------------이미지 수정-------------------------------------
+public void updateMainImg (String gcode,String mainImg) throws SQLException {
+	
+	
+	
+	
+	DbConnection db= DbConnection.getInstance();
+	Connection con = null;
+	PreparedStatement pstmt=null;
+	
+	
+	
+	
+	
+	try {
+		con=db.getConn("jdbc/dbcp");
+		
+		String deleteReivew = " update goods set main_img = ?  where gcode=? ";
+
+		
+		
+		pstmt=con.prepareStatement(deleteReivew);
+		
+		pstmt.setString(1, mainImg);
+		
+		pstmt.setString(2, gcode);
+		
+		int cnt=pstmt.executeUpdate();
+		System.out.println("mainImg"+cnt+"건 변경되었습니다.");
+	
+	}finally {
+		db.dbClose(null, pstmt, con);
+		
+	}
+	
+
+}//updateMainImg
+public void updateImg1 (String gcode,String Img1) throws SQLException {
+	
+	
+	
+	
+	DbConnection db= DbConnection.getInstance();
+	Connection con = null;
+	PreparedStatement pstmt=null;
+	
+	
+	
+	
+	
+	try {
+		con=db.getConn("jdbc/dbcp");
+		
+		String deleteReivew = " update goods set img1 = ?  where gcode=? ";
+
+		
+		
+		pstmt=con.prepareStatement(deleteReivew);
+		
+		pstmt.setString(1, Img1);
+		
+		pstmt.setString(2, gcode);
+		
+		int cnt=pstmt.executeUpdate();
+		System.out.println("img1"+cnt+"건 변경되었습니다.");
+	
+	}finally {
+		db.dbClose(null, pstmt, con);
+		
+	}
+	
+
+}//updateImg1
+
+public void updateImg2 (String gcode,String Img2) throws SQLException {
+	
+	
+	
+	
+	DbConnection db= DbConnection.getInstance();
+	Connection con = null;
+	PreparedStatement pstmt=null;
+	
+	
+	
+	
+	
+	try {
+		con=db.getConn("jdbc/dbcp");
+		
+		String deleteReivew = " update goods set img2 = ?  where gcode=? ";
+
+		
+		
+		pstmt=con.prepareStatement(deleteReivew);
+		
+		pstmt.setString(1, Img2);
+		
+		pstmt.setString(2, gcode);
+		
+		int cnt=pstmt.executeUpdate();
+		System.out.println("img2"+cnt+"건 변경되었습니다.");
+	
+	}finally {
+		db.dbClose(null, pstmt, con);
+		
+	}
+	
+
+}//updateImg2
+
+public void updateImg3 (String gcode,String Img3) throws SQLException {
+	
+	
+	
+	
+	DbConnection db= DbConnection.getInstance();
+	Connection con = null;
+	PreparedStatement pstmt=null;
+	
+	
+	
+	
+	
+	try {
+		con=db.getConn("jdbc/dbcp");
+		
+		String deleteReivew = " update goods set img3 = ?  where gcode=? ";
+
+		
+		
+		pstmt=con.prepareStatement(deleteReivew);
+		
+		pstmt.setString(1, Img3);
+		
+		pstmt.setString(2, gcode);
+		
+		int cnt=pstmt.executeUpdate();
+		System.out.println("img3"+cnt+"건 변경되었습니다.");
+	
+	}finally {
+		db.dbClose(null, pstmt, con);
+		
+	}
+	
+
+}//updateImg3
+
+public void updateDetail (String gcode,String detailImg) throws SQLException {
+	
+	
+	
+	
+	DbConnection db= DbConnection.getInstance();
+	Connection con = null;
+	PreparedStatement pstmt=null;
+	
+	
+	
+	
+	
+	try {
+		con=db.getConn("jdbc/dbcp");
+		
+		String deleteReivew = " update goods set detail_img = ?  where gcode=? ";
+
+		
+		
+		pstmt=con.prepareStatement(deleteReivew);
+		
+		pstmt.setString(1, detailImg);
+		
+		pstmt.setString(2, gcode);
+		
+		int cnt=pstmt.executeUpdate();
+		System.out.println("img3"+cnt+"건 변경되었습니다.");
+	
+	}finally {
+		db.dbClose(null, pstmt, con);
+		
+	}
+	
+
+}//updateDetail
+
+///-------------------------------상품 수정---------------------------------
+
+public void updateInfo (String gcode,ProductManageVO pVO) throws SQLException {
+	
+	
+	
+	
+	DbConnection db= DbConnection.getInstance();
+	Connection con = null;
+	PreparedStatement pstmt=null;
+	
+	
+	
+	
+	
+	try {
+		con=db.getConn("jdbc/dbcp");
+		
+		String deleteReivew = " update goods set GCODE = ? , GNAME=? , TMI=? , ENG_TMI=? , PRICE=?, QUANTITY=?, top= ? , heart=? , base=?, ing=? where gcode=? ";
+
+		
+		
+		pstmt=con.prepareStatement(deleteReivew);
+		
+		
+		pstmt.setString(1, pVO.getGoodsCode());
+		pstmt.setString(2, pVO.getGoodsName());
+		pstmt.setString(3, pVO.getTmi());
+		pstmt.setString(4, pVO.getEngTmi());
+		pstmt.setInt(5, pVO.getPrice());
+		pstmt.setInt(6, pVO.getQuantity());
+		pstmt.setString(7, pVO.getTop());
+		pstmt.setString(8, pVO.getHeart());
+		pstmt.setString(9, pVO.getBase());
+		pstmt.setString(10, pVO.getIng());
+		
+		pstmt.setString(11, gcode);
+		
+		int cnt=pstmt.executeUpdate();
+		System.out.println("info"+cnt+"건 변경되었습니다.");
+	
+	}finally {
+		db.dbClose(null, pstmt, con);
+		
+	}
+
+
+}
+
+public void updateCancle (String gcode) throws SQLException {
+	
+	
+	
+	
+	DbConnection db= DbConnection.getInstance();
+	Connection con = null;
+	PreparedStatement pstmt=null;
+	
+	
+	
+	
+	
+	try {
+		con=db.getConn("jdbc/dbcp");
+		
+		String deleteReivew = " update goods set CANCLE = 'Y' where gcode=? ";
+
+		
+		
+		pstmt=con.prepareStatement(deleteReivew);
+		
+		
+
+		
+		pstmt.setString(1, gcode);
+		
+		int cnt=pstmt.executeUpdate();
+		System.out.println(cnt+"건 변경되었습니다.");
+	
+	}finally {
+		db.dbClose(null, pstmt, con);
+		
+	}
+
+
+}//updateCancle
+
+public void insertinfo(ProductManageVO pVO)throws SQLException {
+	
+	
+	DbConnection db= DbConnection.getInstance();
+	Connection con = null;
+	PreparedStatement pstmt=null;
+	
+try {
+		
+		con=db.getConn("jdbc/dbcp");
+		
+		String insertReview = "insert into goods (GCODE, GNAME, CANCLE, MAIN_IMG, IMG1, IMG2, IMG3, TMI, PRICE, QUANTITY, INPUT_DATE, CAT_CODE, ENG_TMI, TOP, HEART, BASE, ING, DETAIL_IMG)  values(?,?,'Y',?,?,?,?,?,?,?,sysdate,?,?,?,?,?,?,?) ";
+
+		
+		
+		pstmt=con.prepareStatement(insertReview);
+		
+		pstmt.setString(1, pVO.getGoodsCode());
+		pstmt.setString(2, pVO.getGoodsName());
+		pstmt.setString(3, pVO.getMainImg());
+		pstmt.setString(4, pVO.getImg1());
+		pstmt.setString(5, pVO.getImg2());
+		pstmt.setString(6, pVO.getImg3());
+		pstmt.setString(7, pVO.getTmi());
+		pstmt.setInt(8, pVO.getPrice());
+		pstmt.setInt(9,pVO.getQuantity() );
+		pstmt.setString(10, pVO.getCategoryCode());
+		pstmt.setString(11, pVO.getEngTmi());
+		pstmt.setString(12, pVO.getTop());
+		pstmt.setString(13, pVO.getHeart());
+		pstmt.setString(14, pVO.getBase());
+		pstmt.setString(15, pVO.getIng());
+		pstmt.setString(16, pVO.getDetailImg());
+		
+		pstmt.executeQuery();
+		
+		
+	}finally {
+		db.dbClose(null, pstmt, con);
+		
+	}
+	
+}//insertImg
+
+
 }

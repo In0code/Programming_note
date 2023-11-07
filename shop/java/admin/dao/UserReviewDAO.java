@@ -196,7 +196,46 @@ public void updateReivew ( String review,int star,int rcode,String img) throws S
 
 }//updateReivew
 
+public void updateReivew3 ( String review,int star,int rcode) throws SQLException {
+	
+	
+	
+	
+	DbConnection db= DbConnection.getInstance();
+	Connection con = null;
+	PreparedStatement pstmt=null;
+	
+	
+	
+	
+	try {
+		con=db.getConn("jdbc/dbcp");
+		
+		String updateReivew = " update  review set REV_CONT = ? , STAR = ?  where  rcode=? ";
+		/*, IMG = ?*/
 
+		
+		
+		pstmt=con.prepareStatement(updateReivew);
+		
+		pstmt.setString(1, review);
+		pstmt.setInt(2,star);
+		/*pstmt.setString(3, sVO.getReview());*/
+		
+		pstmt.setInt(3, rcode);
+		
+		int cnt=pstmt.executeUpdate();
+		System.out.println(cnt+"건 변경");
+		System.out.println(updateReivew+ " / "+review+" / " + star+" / "+ rcode );
+		
+		
+	}finally {
+		db.dbClose(null, pstmt, con);
+		
+	}
+	
+
+}//updateReivew3
 
 public void updateCancle (int rcode) throws SQLException {
 	
@@ -594,4 +633,29 @@ public int productReviewTotalCount(BoardRangeVO brVO,String gcode) throws SQLExc
 	System.out.println(totalCnt);
 	return totalCnt;
 }//reviewTotalCount	
+
+
+public int updateView(int rcode) throws SQLException {
+	int cnt = 0;
+	DbConnection db = DbConnection.getInstance();
+	Connection con = null;
+	PreparedStatement pstmt = null;
+	
+	try {
+		con = db.getConn("jdbc/dbcp");
+		
+		pstmt = con.prepareStatement(" update review set r_view = r_view + 1 where rcode = ? ");
+		
+		pstmt.setInt(1, rcode);
+		
+		cnt = pstmt.executeUpdate();
+		
+	}finally {
+		db.dbClose(null, pstmt, con);
+	}
+	
+	return cnt;
+}
+
+
 }

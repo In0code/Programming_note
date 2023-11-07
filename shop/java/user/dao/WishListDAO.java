@@ -9,7 +9,6 @@ import java.util.List;
 
 import admin.vo.BoardRangeVO;
 import common.dao.DbConnection;
-import user.vo.WishListPageVO;
 import user.vo.WishListVO;
 
 public class WishListDAO {
@@ -154,9 +153,9 @@ public class WishListDAO {
 	}//deleteWishList
 	
 	
-	public List<WishListVO> getGcode() throws SQLException {
-		List<WishListVO> list=new ArrayList<WishListVO>();
-		WishListVO wlVO=null;
+	public boolean getGcode(String id, String gcode) throws SQLException {
+		boolean resultGcode = false;
+		
 		DbConnection db=DbConnection.getInstance();
 		
 		Connection con=null;
@@ -168,25 +167,22 @@ public class WishListDAO {
 		//3. Connection 얻기
 			con=db.getConn("jdbc/dbcp");
 		//4. 쿼리문 생성 객체 얻기
-			String selectAllWishList="select GCODE FROM BUCKET_LIST";
+			String getGcode="select GCODE FROM BUCKET_LIST WHERE ID = ? and gcode = ?";
 			
-			
-			pstmt=con.prepareStatement(selectAllWishList.toString());
+			pstmt=con.prepareStatement(getGcode);
 		//5. 바인드 변수 값 설정
+			pstmt.setString(1, id);
+			pstmt.setString(2, gcode);
 			
 		//6. 쿼리문 실행 후 값 얻기
 			rs=pstmt.executeQuery();
-			while(rs.next()) {
-				wlVO=new WishListVO();
-				wlVO.setGcode(rs.getString("gcode"));
-				
-				list.add(wlVO);
-			}//end while
+
+			resultGcode = rs.next(); // 조회 결과가 있으면 true, 없으면 false
 		}finally {
 			//7. 연결 끊기
 			db.dbClose(rs, pstmt, con);
 		}//end finally
-		return list;
+		return resultGcode;
 	}//getGcode
 	
 	
