@@ -41,6 +41,9 @@ request.setCharacterEncoding("UTF-8");
     margin-right: 360px;
     border: 1px solid #ccc;
 }
+.ec-base-box.typeThin{
+	font-family : 'Pretendard Medium';
+}
 </style>
 <script type="text/javascript">
 $(function(){
@@ -84,7 +87,7 @@ function compare_result() {
 
 	if (pw1 === pw2 && pw1 !== "" && pw2 !== "") {
 		$s_result.text("비밀번호가 일치합니다.");
-		$s_result.css("color", "blue");
+		$s_result.css("color", "teal");
 		return true;
 	}
 

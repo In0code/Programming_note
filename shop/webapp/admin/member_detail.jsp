@@ -194,9 +194,9 @@ try{
     <input type="text" id="zipcode" name="zipcode" value="<c:out value="${ member.zipcode }"/>"  
     readonly="readonly" style="border:none">
     <input type="text" id="addr" name="addr" value="<c:out value="${ member.addr }"/>" 
-    readonly="readonly" style="border:none ">
+    readonly="readonly" style="border:none; width:370px">
     <input type="text" id="detailAddr" name="detailAddr" value="<c:out value="${ member.detailAddr }"/>" 
-    readonly="readonly" style="border:none">
+    readonly="readonly" style="border:none; width:300px">
     </td>
     
   </tr>

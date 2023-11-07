@@ -80,7 +80,7 @@ $(function() {
 <%-- <jsp:useBean id="pVO" class="admin.vo.ProductManageVO" scope="page"></jsp:useBean> 
 <jsp:setProperty property="*" name="pVO"/> --%>
 <%
-
+//
 File uploadDir = new File("C:/Users/user/git/prj_online_store/prj_web_shopping/src/main/webapp/upload/goods");
 int maxSize=1024*1024*30;
 MultipartRequest mr = new MultipartRequest( request, uploadDir.getAbsolutePath() , maxSize , "UTF-8" , new DefaultFileRenamePolicy() ) ;
@@ -103,7 +103,7 @@ pVO.setBase(mr.getParameter("base"));
 pVO.setIng(mr.getParameter("ing"));
 pVO.setDetailImg(mr.getParameter("detailImg"));
 
-
+//
 
 try{
 	pDAO.insertinfo(pVO);

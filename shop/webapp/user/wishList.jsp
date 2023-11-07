@@ -13,6 +13,9 @@
     <%@ page info="사용자 / 관심상품 / 메인 페이지 - 인영" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+     <c:if test="${ empty sesId }">
+    <c:redirect url="member/login.jsp"/>
+    </c:if> 
 <jsp:include page="../cdn/cdn.jsp"/>
 <!DOCTYPE html>
 <html>

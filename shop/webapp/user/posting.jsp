@@ -89,7 +89,7 @@ a:hover {
 UserReviewDAO uDAO= UserReviewDAO.getInstance();
 BoardDAO bDAO=BoardDAO.getInstance();
 BoardRangeVO brVO=new BoardRangeVO();
-String id ="tuna5127";
+String id =(String)session.getAttribute("sesId");
 String field=request.getParameter("field");
 System.out.println(field+"=====");
 String keyword=request.getParameter("keyword");
@@ -128,13 +128,12 @@ brVO.setEndNum(endNum);
 
 
 try{
-	List<SummaryVO> list = uDAO.selectAllReview("tuna5127", brVO);
+	List<SummaryVO> list = uDAO.selectAllReview(id, brVO);
 	
 	pageContext.setAttribute("reviewList", list);
 }catch (SQLException se) {
 	se.printStackTrace();
 }//end catch
-
 
 %>
 
@@ -211,7 +210,8 @@ function chkNull(){
 
 </select> 
 <input id="keyword" name="keyword"  style="height:27px" class="inputTypeText" placeholder="내용을 입력해주세요"
-	 value="${param.keyword eq null ? '내용을 입력해주세요' : param.keyword }" type="text"  /><%-- ${review.star eq 2 ? "checked='checked'" : "" } --%>
+	 value="${param.keyword eq null or empty param.keyword or param.keyword eq 'null'  ? '' : param.keyword }" type="text"  /><%-- ${review.star eq 2 ? "checked='checked'" : "" } --%>
+	 <input type="hidden">
 <input type="text" style="display: none"	placeholder="내용을 입력해주세요"> 
 <input type="button" id="btnSearch" name="btnSearch" class="btnNormalFix" style="height:27px" value="search">
  </p>

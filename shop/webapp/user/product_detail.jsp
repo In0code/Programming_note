@@ -327,7 +327,6 @@ function addCart(gcode) {
 
 function wishHeart(){
 	var gcode = $("#getGcode").val();
-	alert(gcode);
     $.ajax({
         url: "wishListHeart_process.jsp",
         type: "get",

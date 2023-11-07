@@ -77,7 +77,10 @@
     width: 100%;
     margin-left: 330px;
 }
-    </style>
+#frm{
+	font-family : 'Pretendard Medium';
+}
+</style>
 
 <script type="text/javascript">
 $(function(){

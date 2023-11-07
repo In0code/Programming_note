@@ -7,7 +7,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
  <style type="text/css">
 /* 왼쪽, 오른쪽 바깥여백을 auto로 주면 중앙정렬된다. */
 #wrap {
@@ -31,15 +30,11 @@ table td input, table td select, table td button {
 	margin-bottom:50px;
 	margin-top:30px;
 	font-weight: bold;
-	font-size: 15px
+	font-size: 20px;
+	
 }
 #s_result {
-    display: inline-block;
     width: 100%;
-    text-align: left;
-    position: absolute;
-    top: 182;
-    left: 320;
     margin-top: 2px; /* 상단 여백을 조절합니다. 필요에 따라 조절하세요. */
     margin-left: 5px; /* 좌측 여백을 조절합니다. 필요에 따라 조절하세요. */
 }
@@ -53,13 +48,23 @@ input {
 }
 
 .joinBtn {
-	background-color: #414141;
-	border: 0px;
+	background-color: black;
+	border: 1px solid black;
+	color: white; 
+}
+
+.joinBtn:hover {
+	background-color: white;
+	transition: background-color 0.5s;
+	border: 1px solid black;
+	color: black;
 }
 
 .zipBtn {
 	background-color: white;
 	border: 1px solid #BCBCBC;
+	padding: 6px;
+	margin-left: 3px;
 }
 
 </style>
@@ -74,12 +79,12 @@ $(function(){
 	        var id = $(this).val();
 	        var regex = /^[a-z0-9]*$/; // 영문(소문자)과 숫자만 허용
 	        if (!regex.test(id)) {
-	        	$("#idResult").html("<td></td><td colspan='2' style='height:25px'>아이디는 4~16자의 영문 소문자, 숫자만 사용 가능합니다.</td>");
+	        	$("#idResult").html("<td></td><td colspan='2'>아이디는 4~16자의 영문 소문자, 숫자만 사용 가능합니다.</td>");
 	            return;
 	        }
 	        
 	        if(id == null || id == ""){
-	        	$("#idResult").html("<td></td><td colspan='2' style='height:25px'>아이디는 필수 입력 사항입니다.</td>");
+	        	$("#idResult").html("<td></td><td colspan='2'>아이디는 필수 입력 사항입니다.</td>");
 	        	return;
 	        }
 	        
@@ -95,10 +100,11 @@ $(function(){
 	        		success: function(jsonObj){
 	        			if(jsonObj.result){
 	        				$("#idDupFlag").val(0);
-	        				$("#idResult").html("<td></td><td colspan='2' style='height:25px'>사용할 수 없는 아이디입니다. 다른 아이디를 입력해 주세요.</td>");
+	        				$("#idResult").html("<td></td><td colspan='2'>사용할 수 없는 아이디입니다. 다른 아이디를 입력해 주세요.</td>");
+	        				$("#idResult").css("color", "red");
 	        			}else{
 	        				$("#idDupFlag").val(1);
-	        				$("#idResult").html("<td></td><td colspan='2' style='height:25px'>사용 가능한 아이디입니다.</td>");
+	        				$("#idResult").html("");
 	        			}
 	        		}
 	        	});
@@ -159,12 +165,12 @@ function compare_result() {
 	var $s_result = $("#s_result");
 
 	if (pw1 === pw2 && pw1 !== "" && pw2 !== "") {
-		$s_result.text("비밀번호가 일치합니다.");
+		$s_result.html("<td></td><td colspan='2'>비밀번호가 일치합니다.</td>");
 		$s_result.css("color", "teal");
 		return true;
 	}
 
-	$s_result.text("비밀번호가 일치하지 않습니다.");
+	$("#s_result").html("<td></td><td colspan='2'>비밀번호가 일치하지 않습니다.</td>");
 	$s_result.css("color", "red");
 	return false;
 }
@@ -189,7 +195,6 @@ function compare_result() {
 		</tr>
 		
 		<tr id="idResult" style="font-size: 13px;">
-
 		</tr>
 
 		<tr>
@@ -202,7 +207,9 @@ function compare_result() {
 		<tr>
 			<td id="title" class="title" style="font-size:15px; padding:15px 20px;">비밀번호 확인</td>
 			<td><input type="password" id="pass2" name="pass2" maxlength="15" style="height:35px">
-			<span id="s_result" style="font-size: 9px"></span></td>
+		</tr>
+		
+		<tr id="s_result" style="font-size: 13px">
 		</tr>
 
 		<tr>
@@ -223,7 +230,7 @@ function compare_result() {
 		<tr>
 			<td id="title" class="title" style="font-size:15px; padding:15px 20px;">주소</td>
 			<td>
-			<input type="text" id="zipcode" name="zipcode" placeholder="우편번호" readonly="readonly" style="height:35px; width:220px">
+			<input type="text" id="zipcode" name="zipcode" placeholder="우편번호" readonly="readonly" style="height:35px; width:243px">
 			<input type="button" id="btnZipcode" style="font-family:Pretendard Medium; width:100px" class="zipBtn" value="우편번호 찾기"><br>
 			<input type="text" id="addr" name="addr" placeholder="주소" readonly="readonly" style="width:318px; height:35px"><br>
 			<input type="text" id="detailAddr" name="detailAddr" placeholder="상세주소" style="width:318px; height:35px">
@@ -231,8 +238,8 @@ function compare_result() {
 		</tr>
 	</table>
 		<div class="ec-base-button gBottom" >
-			<input type="button" value="회원가입" id="btn" class="joinBtn" 
-			style="font-size:15px; padding:15px; color: white; width:220px; margin-right:20px; margin-bottom:100px; margin-top:-30px; font-family:Pretendard Medium"/>
+			<input type="button" value="회원가입" id="btn" class="joinBtn"
+			style="font-size:15px; padding:15px; width:220px; margin-right:20px; margin-bottom:100px; margin-top:-30px; font-family:Pretendard Medium"/>
 		</div>
 	</form>
 </div>

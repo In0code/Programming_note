@@ -37,6 +37,11 @@
 	margin-left: 330px; /* footer를 가운데로 이동하는데 필요한 스타일 */
 }
 
+#login{
+	font-family : 'Pretendard Medium';
+}
+
+
 
 </style>
 <script type="text/javascript">

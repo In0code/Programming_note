@@ -53,6 +53,10 @@ td {
 
 <script type="text/javascript">
 $(function() {
+	
+/* 	$("#addProduct").click(function(){
+		
+	});// click */
 	$("#btnLogout").click(function() {
 		location.href="logout.jsp";
 	});
@@ -139,7 +143,7 @@ function productDetail(gcode){
 		
 	}catch(SQLException se){
 		se.printStackTrace();
-	}
+	}//
 %>
 
 <%@ include file="sidebar.jsp" %>
@@ -205,20 +209,20 @@ function productDetail(gcode){
 					<tr onclick="productDetail(${ product.goodsCode })">
 						<td>${ startNum + i.index }</td>
 						<td><img src="http://localhost/prj_web_shopping/upload/goods/${ product.mainImg }" style="width:35px"/></td>
-					 <td><a href="item_managing_detail?gname=${product.goodsCode }" 
-   onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${ product.goodsCode }" /></a></td> 
-						<td><a href="item_managing_detail?gname=${product.goodsCode }" 
-   onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${ product.goodsName }" /></a></td>
-						<td><a href="item_managing_detail?gname=${product.goodsCode }" 
-   onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${ product.categoryName }" /></a></td>
-						<td><a href="item_managing_detail?gname=${product.goodsCode }" 
-   onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${ product.inputDate }" /></a></td>
-						<td><a href="item_managing_detail?gname=${product.goodsCode }" 
-   onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${ product.price }" /></a></td>
-						<td><a href="item_managing_detail?gname=${product.goodsCode }" 
-   onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${ product.quantity }" /></a></td>
-   						<td><a href="item_managing_detail?gname=${product.goodsCode }" 
-   onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${ product.cancle }" /></a></td>
+					 <td><a href="item_managing_detail.jsp?gcode=${product.goodsCode }" 
+   onclick="window.open(this.href, '', 'width=1650 , height=900, top=120, left=650'); return false;"><c:out value="${ product.goodsCode }" /></a></td> 
+						<td><a href="item_managing_detail.jsp?gcode=${product.goodsCode }" 
+   onclick="window.open(this.href, '', 'width=1650 , height=900, top=120, left=650'); return false;"><c:out value="${ product.goodsName }" /></a></td>
+						<td><a href="item_managing_detail.jsp?gcode=${product.goodsCode }" 
+   onclick="window.open(this.href, '', 'width=1650 , height=900, top=120, left=650'); return false;"><c:out value="${ product.categoryName }" /></a></td>
+						<td><a href="item_managing_detail.jsp?gcode=${product.goodsCode }" 
+   onclick="window.open(this.href, '', 'width=1650 , height=900, top=120, left=650'); return false;"><c:out value="${ product.inputDate }" /></a></td>
+						<td><a href="item_managing_detail.jsp?gcode=${product.goodsCode }" 
+   onclick="window.open(this.href, '', 'width=1650 , height=900, top=120, left=650'); return false;"><c:out value="${ product.price }" /></a></td>
+						<td><a href="item_managing_detail.jsp?gcode=${product.goodsCode }" 
+   onclick="window.open(this.href, '', 'width=1650 , height=900, top=120, left=650'); return false;"><c:out value="${ product.quantity }" /></a></td>
+   						<td><a href="item_managing_detail.jsp?gcode=${product.goodsCode }" 
+   onclick="window.open(this.href, '', 'width=1650 , height=900, top=120, left=650'); return false;"><c:out value="${ product.cancle }" /></a></td>
    
    
 		
@@ -243,10 +247,10 @@ function productDetail(gcode){
 		</c:if>
 		
 		<% if(request.getParameter("keyword") != null && !"null".equals(request.getParameter("keyword"))) 
-			out.print("<a href='admin_itemmanaging2.jsp'><input type='button' id='btnList' value='목록'/></a>");
-		%>
+			out.print("<a href='admin_itemmanaging2.jsp'><input type='button' id='btnList' style='left:1250px' value='목록'/></a>");
+		%>  
 	</div>
-	<input style="position: absolute; top: 830px; left: 1700px; padding:10px"type="button" id="addProduct" name="addProduct" value="상품 새로 등록하기">
+	<input style="position: absolute; top: 830px; left: 1700px; padding:10px"type="button" id="addProduct" name="addProduct" value="상품 새로 등록하기" class="btn btn-outline-secondary" onclick="location.href='item_add.jsp'">
 </div>	
 </body>
 </html>

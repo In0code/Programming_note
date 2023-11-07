@@ -34,6 +34,9 @@
     margin-right: 350px;
     border: 1px solid #ccc;
 }
+.ec-base-box.typeThin{
+	font-family : 'Pretendard Medium';
+}
  
  
 </style>

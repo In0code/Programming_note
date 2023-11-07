@@ -15,6 +15,9 @@
     <%@ page info="사용자 / 장바구니 / 메인 페이지 - 인영" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
       <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+       <c:if test="${ empty sesId }">
+    <c:redirect url="member/login.jsp"/>
+    </c:if> 
 <jsp:include page="../cdn/cdn.jsp"/>
 <!DOCTYPE html>
 <html>
@@ -296,7 +299,8 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 				</tr>
 				<c:if test="${ empty cartList }">
 					<tr>
-					<td colspan="7" style="text-align: center; padding:100px">회원정보가 존재하지 않습니다</td>
+					<td colspan="7" style="text-align: center; padding:100px">상품정보가 존재하지 않습니다</td>
+					
 					</tr>
 				</c:if>
 				

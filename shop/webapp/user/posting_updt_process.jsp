@@ -29,7 +29,7 @@ $(function() {
 <body>
 
 <%
-
+////
 UserReviewDAO uDAO = UserReviewDAO.getInstance();
 try {
 File saveDir = new File("C:/Users/user/git/prj_online_store/prj_web_shopping/src/main/webapp/upload");

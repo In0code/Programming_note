@@ -19,7 +19,7 @@ String img2Name=mr.getFilesystemName("img2");
 String img3Name=mr.getFilesystemName("img3");
 String detailImgName=mr.getFilesystemName("detailImg");
 String[] fileName={mainImgName,img1Name,img2Name,img3Name,detailImgName};
-String gcode="BC0001";//mr.getParameter("gcode");
+String gcode="BC0001";//mr.getParameter("gcode");//
 int blockSize=1024*1024*5;
 if(mainImgName!=null) {
 	pDAO.updateMainImg(gcode, mainImgName);
@@ -36,7 +36,7 @@ if (img3Name!=null) {
 if (detailImgName!=null) {
 	pDAO.updateDetail(gcode, detailImgName);
 }
-
+//
 JSONObject json = new JSONObject();
 json.put("mainImgName", mainImgName);
 json.put("img1Name", img1Name);
