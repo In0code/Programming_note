@@ -8,16 +8,12 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 CartDAO cDAO=CartDAO.getInstance();
-WishListDAO wlDAO=WishListDAO.getInstance();
 boolean flag = false;
-
 try{
 	String gcode=request.getParameter("gcode");
 	String id=(String)session.getAttribute("sesId");
-
 	 
-	 flag= wlDAO.getGcode(id,gcode);
-	 System.out.println(flag);
+	 flag= cDAO.getGcode(id,gcode);
 	 
 	 if(flag){
 		 System.out.println("이미 장바구니 존재하는 상품입니다.");

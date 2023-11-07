@@ -119,7 +119,7 @@ if(cookies != null){
 
 <div class="form-signin w-100 m-auto">
   <form id="adminLoginFrm" method="post" action="login_process.jsp">
-    <img class="mb-4" src="http://192.168.10.136/cherie_ysy_private/common/images/admin_login_img.png" alt="" width="249" height="101" style="margin-left:20px">
+    <img class="mb-4" src="http://localhost/prj_web_shopping/common/images/admin_login_img.png" alt="" width="249" height="101" style="margin-left:20px">
     <h1 class="h3 mb-3 fw-normal"></h1>
 
     <div class="form-floating">

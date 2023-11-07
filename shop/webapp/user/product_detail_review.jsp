@@ -54,7 +54,7 @@ String rcode=request.getParameter("rcode");
 
 try{
 	sVO = uDAO.selectOneReview(Integer.parseInt(rcode==null?"0":rcode));
-	uDAO.updateView(Integer.parseInt(rcode));
+	/* uDAO.updateView(Integer.parseInt(rcode)); */
 	
 	pageContext.setAttribute("review", sVO);
 	

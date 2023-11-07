@@ -11,7 +11,7 @@
  <style type="text/css">
 /* 왼쪽, 오른쪽 바깥여백을 auto로 주면 중앙정렬된다. */
 #wrap {
-	width: 530px;
+	width: 700px;
 	margin-left: auto;
 	margin-right: auto;
 	margin-top:80px;
@@ -25,7 +25,7 @@ table tr {
 
 /* 입력 폼과 버튼의 간격을 조절합니다. */
 table td input, table td select, table td button { 
-	margin-bottom: 15px;
+	margin: 6 0 6 0;
 }
 #sJoin{
 	margin-bottom:50px;
@@ -44,16 +44,28 @@ table td input, table td select, table td button {
     margin-left: 5px; /* 좌측 여백을 조절합니다. 필요에 따라 조절하세요. */
 }
 
+input {
+	width: 350px;
+}
+
+.title {
+	width: 160px;
+}
+
+.joinBtn {
+	background-color: #414141;
+	border: 0px;
+}
+
+.zipBtn {
+	background-color: white;
+	border: 1px solid #BCBCBC;
+}
+
 </style>
 <script type="text/javascript">
 $(function(){
 	//$("#idDupFlag").val(0);
-	$("#btnDup").click(function(){
-		var id=$("#id").val();
-		window.open("id_check.jsp?id="+id,"id_check","width=510,height=320,top="
-	            +( window.screenY+150)+",left="+( window.screenX+900));	
-	}); 
-	
 	$("#btnZipcode").click(function(){
 		searchZipcode();
 	});
@@ -62,13 +74,37 @@ $(function(){
 	        var id = $(this).val();
 	        var regex = /^[a-z0-9]*$/; // 영문(소문자)과 숫자만 허용
 	        if (!regex.test(id)) {
-	            alert("영문(소문자)과 숫자만 입력 가능합니다.");
-	            $(this).val(""); // 입력한 값 비움
+	        	$("#idResult").html("<td></td><td colspan='2' style='height:25px'>아이디는 4~16자의 영문 소문자, 숫자만 사용 가능합니다.</td>");
 	            return;
+	        }
+	        
+	        if(id == null || id == ""){
+	        	$("#idResult").html("<td></td><td colspan='2' style='height:25px'>아이디는 필수 입력 사항입니다.</td>");
+	        	return;
+	        }
+	        
+	        if(id.length > 3) {
+	        	$.ajax({
+	        		url : "id_check2.jsp",
+	        		type : "get",
+	        		data : "id="+id,
+	        		dataType : "json",
+	        		error: function(xhr){
+	        			console.log(xhr.status);
+	        		},
+	        		success: function(jsonObj){
+	        			if(jsonObj.result){
+	        				$("#idDupFlag").val(0);
+	        				$("#idResult").html("<td></td><td colspan='2' style='height:25px'>사용할 수 없는 아이디입니다. 다른 아이디를 입력해 주세요.</td>");
+	        			}else{
+	        				$("#idDupFlag").val(1);
+	        				$("#idResult").html("<td></td><td colspan='2' style='height:25px'>사용 가능한 아이디입니다.</td>");
+	        			}
+	        		}
+	        	});
 	        }
 	    });
 	 
-	
 	$("#btn").click(function(){
         // 필수 입력 필드가 비어있는지 확인
         var id = $("#id").val();
@@ -138,60 +174,65 @@ function compare_result() {
 </head>
 <body>
 <%@ include file="../layout/header.jsp"%>
-<div id="wrap">
+<div id="wrap" style="font-family:Pretendard Medium">
 <div id="sJoin">회원가입</div>
 <form action="register_process.jsp" name="frm" id="frm" method="post">
 	<table>
 		<tr>
-			<td id="title" style="font-size:15px; padding:5px 20px;">아이디</td>
-			<td>
-			<input type="text" name="id" id="id" maxlength="16" style="height:35px"> 
-			<input type="button"  value="중복확인" id="btnDup"  class="btn btn-secondary btn-sm" > 
+			<td id="title" class="title" style="font-size:15px; padding:15px 20px;">아이디</td>
+			<td style="font-size: 13px;">
+			<input type="text" name="id" id="id" maxlength="16" style="height:35px; margin-right: 3px"> 
+			<!-- <input type="button"  value="중복확인" id="btnDup"  class="btn btn-secondary btn-sm" >  -->
+			<span style="margin-bottom:3px">(영문소문자/숫자, 4~16자)</span>
 			<input type="hidden" name="idDupFlag" id="idDupFlag"/>
 			</td>
 		</tr>
+		
+		<tr id="idResult" style="font-size: 13px;">
+
+		</tr>
 
 		<tr>
-			<td id="title" style="font-size:15px; padding:5px 20px;">비밀번호</td>
+			<td id="title" class="title" style="font-size:15px; padding:15px 20px;">비밀번호</td>
 			<td>
 			<input type="password" id="pass" name="pass" maxlength="15" style="height:35px">
 			</td>
 		</tr>
 
 		<tr>
-			<td id="title" style="font-size:15px; padding:5px 20px;">비밀번호 확인</td>
+			<td id="title" class="title" style="font-size:15px; padding:15px 20px;">비밀번호 확인</td>
 			<td><input type="password" id="pass2" name="pass2" maxlength="15" style="height:35px">
 			<span id="s_result" style="font-size: 9px"></span></td>
 		</tr>
 
 		<tr>
-			<td id="title" style="font-size:15px; padding:5px 20px;">이름</td>
+			<td id="title" class="title" style="font-size:15px; padding:15px 20px;">이름</td>
 			<td><input type="text" id="name" name="name" maxlength="10" style="height:35px"></td>
 		</tr>
 
 		<tr>
-			<td id="title" style="font-size:15px; padding:5px 20px;">이메일</td>
+			<td id="title" class="title" style="font-size:15px; padding:15px 20px;">이메일</td>
 			<td><input type="text" id="email" name="email" maxlength="30" style="height:35px"></td>
 		</tr>
 
 		<tr>
-			<td id="title" style="font-size:15px; padding:5px 20px;">휴대전화</td>
+			<td id="title" class="title" style="font-size:15px; padding:15px 20px;">휴대전화</td>
 			<td><input type="text" id="phone" name="phone" maxlength="11" style="height:35px" placeholder="' - ' 없이 입력"/></td>
 		</tr>
 				
 		<tr>
-			<td id="title" style="font-size:15px; padding:5px 20px;">주소</td>
+			<td id="title" class="title" style="font-size:15px; padding:15px 20px;">주소</td>
 			<td>
-			<input type="text" id="zipcode" name="zipcode" placeholder="우편번호" readonly="readonly" style="height:35px">
-			<input type="button" id="btnZipcode" class="btn btn-secondary btn-sm" value="우편번호 찾기"><br>
+			<input type="text" id="zipcode" name="zipcode" placeholder="우편번호" readonly="readonly" style="height:35px; width:220px">
+			<input type="button" id="btnZipcode" style="font-family:Pretendard Medium; width:100px" class="zipBtn" value="우편번호 찾기"><br>
 			<input type="text" id="addr" name="addr" placeholder="주소" readonly="readonly" style="width:318px; height:35px"><br>
 			<input type="text" id="detailAddr" name="detailAddr" placeholder="상세주소" style="width:318px; height:35px">
 			</td>
 		</tr>
 	</table>
-		<div class="ec-base-button gBottom">
-			<input type="button" value="회원가입" id="btn" class="btnSubmits sizeM btn" 
-			style="font-size:15px; padding:5px; color: white; width:450px; margin-right:20px; margin-bottom:100px; margin-top:-30px "/>
+		<div class="ec-base-button gBottom" >
+			<input type="button" value="회원가입" id="btn" class="joinBtn" 
+			style="font-size:15px; padding:15px; color: white; width:220px; margin-right:20px; margin-bottom:100px; margin-top:-30px; font-family:Pretendard Medium"/>
 		</div>
 	</form>
 </div>

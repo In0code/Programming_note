@@ -19,8 +19,16 @@ jsonObj.put("dataFlag", false);
 
 ClientOrderPageVO copVO = new ClientOrderPageVO();
 copVO.setId("test");
+copVO.setStartNum(Integer.parseInt(request.getParameter("startNum")));
+copVO.setEndNum(Integer.parseInt(request.getParameter("endNum")));
 
-List<ClientOrderVO> list = ClientOrderDAO.getInstance().selectAllOrder(copVO);
+List<ClientOrderVO> list = null;
+if("o".equals(flag)) {
+	list = ClientOrderDAO.getInstance().selectAllOrder(copVO);
+} else {
+	list = ClientOrderDAO.getInstance().selectAllRecall(copVO);
+}
+
 JSONArray jsonArr = new JSONArray();
 JSONObject jsonTemp = new JSONObject();
 
@@ -42,6 +50,8 @@ if(jsonArr.size() > 0) {
 
 jsonObj.put("dataSize", jsonArr.size());
 jsonObj.put("data", jsonArr);
+
+
 
 out.print(jsonObj.toJSONString());
 %>

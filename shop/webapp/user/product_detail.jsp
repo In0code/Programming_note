@@ -9,7 +9,7 @@
 <%@page import="java.sql.SQLException"%>
 <%@page import="user.dao.GoodsDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <jsp:include page="../cdn/cdn.jsp"/>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -168,6 +168,10 @@ a {
 a:hover {
 	color: #333;
 }
+
+.txtNum {
+	font-size:13px
+}
 </style>
 
 <script type="text/javascript">
@@ -310,12 +314,24 @@ function addCart(gcode) {
             console.log(xhr.status);
         },
         success: function(data) {
-                if (confirm("장바구니에 상품이 추가되었습니다.\n\n장바구니 페이지로 이동하시겠습니까?")) {
+        	if(data === 'true'){
+        		alert("이미 장바구니에 존재하는 상품입니다.");
+                if (confirm("장바구니 페이지로 이동하시겠습니까?")) {
+                    window.location.href = "cart.jsp"; 
+                } else {
+                    location.reload();
+                }//end else
+                	
+        	}else{
+        		alert("장바구니에 상품이 추가되었습니다.");
+                if (confirm("장바구니 페이지로 이동하시겠습니까?")) {
                     // 사용자가 확인을 누른 경우
                     window.location.href = "cart.jsp"; 
                 } else {
                     location.reload();
                 }//end else
+        		
+        	}//end else
         }//success
     });//ajax
 }//addCart
@@ -332,12 +348,24 @@ function addWishList(gcode) {
             console.log(xhr.status);
         },
         success: function(data) {
-                if (confirm("관심상품에 상품이 추가되었습니다.\n\n관심상품 페이지로 이동하시겠습니까?")) {
+        	if(data === 'true'){
+        		alert("이미 관심상품에 존재하는 상품입니다.");
+                if (confirm("관심상품 페이지로 이동하시겠습니까?")) {
+                    window.location.href = "wishList.jsp"; 
+                } else {
+                    location.reload();
+                }//end else
+                	
+        	}else{
+        		alert("관심상품에 상품이 추가되었습니다.");
+                if (confirm("관심상품 페이지로 이동하시겠습니까?")) {
                     // 사용자가 확인을 누른 경우
                     window.location.href = "wishList.jsp"; 
                 } else {
                     location.reload();
                 }//end else
+        		
+        	}//end else
         }//success
     });//ajax
 }//addCart
@@ -349,7 +377,7 @@ function moveToBuy(gcode) {
 	
 function viewPlus(rcode, view) {
 	
-/* 	$.ajax({
+ 	$.ajax({
 		url: "update_view_process.jsp",
 		type: "get",
 		data: "rcode="+rcode,
@@ -362,10 +390,8 @@ function viewPlus(rcode, view) {
 				$("#view" + rcode).html(view+1);
 			}
 		}
-	}); */
-	
-	$("#view" + rcode).html(view+1);
-	
+	}); 
+
 }
 </script>
 
@@ -755,21 +781,21 @@ function viewPlus(rcode, view) {
                     <table border="1" class="" style="table-layout:fixed">
 						<caption>상품사용후기</caption>
                         	<colgroup>
-								<col style="width:70px;" class="RW">
+								<col style="width:80px;" class="RW">
 								<col style="width:auto">
-								<col style="width:100px;">
-								<col style="width:100px;">
-								<col style="width:80px;">
-								<col style="width:80px;">
+								<col style="width:110px;">
+								<col style="width:110px;">
+								<col style="width:90px;">
+								<col style="width:90px;">
 							</colgroup>
 						<thead style="text-align:center">
 							<tr>
-								<th scope="col" class="RW">번호</th>
-                                <th scope="col">제목</th>
-                                <th scope="col">작성자</th>
-                                <th scope="col">작성일</th>
-                                <th scope="col">조회</th>
-                                <th scope="col">평점</th>
+								<th scope="col" class="RW" style="font-size: 13px">번호</th>
+                                <th scope="col" style="font-size: 13px">제목</th>
+                                <th scope="col" style="font-size: 13px">작성자</th>
+                                <th scope="col" style="font-size: 13px">작성일</th>
+                                <th scope="col" style="font-size: 13px">조회</th>
+                                <th scope="col" style="font-size: 13px">평점</th>
                             </tr>
                         </thead>
 							 <c:if test="${ empty reviewList}">
@@ -784,13 +810,14 @@ function viewPlus(rcode, view) {
 
 			<tr class="xans-record-" style="text-align: center" onclick="viewPlus(${ review.rcode }, ${ review.view })">
                 <td  class="RW"><span class="txtNum"><c:out value="<%=startNum++ %>"/></span></td>
-                <td style=" margin:0px 5px 0px 5px; color:black; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; ">
-                <span class="txtNum" >
+                <td style=" margin:0px 5px 0px 5px; color:black; text-align: left; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; ">
+                <span class="txtNum">
                 <a href="product_detail_review.jsp?rcode=${review.rcode }" 
 					onclick="window.open(this.href, '', 'width=540 , height=745, top=120, left=650'); return false;">
 					<c:out value="${review.review}" />
 				</a>
 				</span>
+				</td>
 				
                 <td >
                 <span class="txtNum">     

@@ -79,7 +79,6 @@ $(function(){
             },
             success: function(data) {
             	if(data === 'true'){
-            		alert(data);
             		alert("이미 장바구니에 존재하는 상품입니다.");
                     if (confirm("장바구니 페이지로 이동하시겠습니까?")) {
                         window.location.href = "cart.jsp"; 
