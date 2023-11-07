@@ -100,12 +100,12 @@ $(function(){
         });//ajax
 	}//addCart 
 	
-	function deleteWish(wcode) {
+	function deleteWish(gcode) {
     
         $.ajax({
             url: "wishDelete_process.jsp",
             type: "get",
-            data: "wcode="+wcode,
+            data: "gcode="+gcode,
             dataType: "text",
             error: function(xhr) {
                 alert("죄송합니다. 서버에 문제가 발생하였습니다. 잠시 후에 다시 시도해주세요.");
@@ -196,7 +196,7 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 				</tr>
 				<c:if test="${ empty wishList }">
 					<tr>
-					<td colspan="7" style="text-align: center; padding:100px">회원정보가 존재하지 않습니다</td>
+					<td colspan="7" style="text-align: center; padding:100px">상품 정보가 존재하지 않습니다</td>
 					</tr>
 				</c:if>
 					<c:forEach var="wish" items="${ wishList }" varStatus="i">
@@ -218,7 +218,7 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 							<input type="hidden" style="width:90px; height:50px ;"/><br/>
 					 		<input type="button" value="장바구니담기"  class="addCartBtn" name="addCartBtn"  onclick="addCart('${wish.gcode}')" 
 					 			style="width:90px; height:30px ;background-color: white;border : 1px solid  #E5E4E4;"/><br/>
-					 		<input type="button" value="x삭제" class="deleteBtn" name="deleteBtn" onclick="deleteWish('${wish.wcode}')"
+					 		<input type="button" value="x삭제" class="deleteBtn" name="deleteBtn" onclick="deleteWish('${wish.gcode}')"
 					 			style="width:90px; height:30px ;background-color: white; border : 1px solid  #E5E4E4;"/>
 					 	</td>
 					 </tr>

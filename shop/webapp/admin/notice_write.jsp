@@ -4,7 +4,9 @@
     pageEncoding="UTF-8"%>
 <%@ page info="공지사항 작성 화면, 등록/수정은 화면이 모두 같다."%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<c:if test="${ empty sesId }">
+    <c:redirect url="login.jsp"/>
+    </c:if> 
 <!DOCTYPE html>
 <html>
 <head>

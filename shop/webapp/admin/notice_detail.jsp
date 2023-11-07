@@ -6,6 +6,9 @@
     pageEncoding="UTF-8"%>
 <%@ page info="공지사항 상세한 내용을 표시하고 수정/삭제가 가능한 화면"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:if test="${ empty sesId }">
+    <c:redirect url="login.jsp"/>
+    </c:if> 
 <!DOCTYPE html>
 <html>
 <head>

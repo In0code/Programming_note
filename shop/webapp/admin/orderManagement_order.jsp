@@ -210,7 +210,7 @@ try{
 					<th style="width:50px">No</th>
 					<th style="width:200px">주문일시</th>
 					<th id="ordNo" name="ordNo"  style="width:80px">주문번호</th>
-					<th style="width:200px">상품명</th>
+					<th style="width:300px">상품명</th>
 					<th style="width:50px">수량</th>
 					<th style="width:100px">가격정보</th>
 					<th style="width:100px">배송비</th>

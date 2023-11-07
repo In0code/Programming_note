@@ -184,18 +184,7 @@ $(function() {
 		window.scrollTo({top:3000, left:0, behavior:'auto'});
 	} 
 */
-	
-	$("#actionWish").click(function() {
-        // 현재 이미지의 src 속성을 가져옴
-        var currentSrc = $("#wish_img").attr("src");
-        
-        // 이미지1을 클릭한 경우 이미지2로, 이미지2를 클릭한 경우 이미지1로 변경
-        if (currentSrc == "http://localhost/cherie_ysy_private/common/images/icon/heart.png") {
-            $("#wish_img").attr("src", "http://localhost/cherie_ysy_private/common/images/icon/hearts.png");
-        } else {
-            $("#wish_img").attr("src", "http://localhost/cherie_ysy_private/common/images/icon/heart.png");
-        }
-	});
+	wishHeart();
 	
 	$("#quantity").keyup(function(){
 		stockCheck();
@@ -336,8 +325,38 @@ function addCart(gcode) {
     });//ajax
 }//addCart
 
+function wishHeart(){
+	var gcode = $("#getGcode").val();
+	alert(gcode);
+    $.ajax({
+        url: "wishListHeart_process.jsp",
+        type: "get",
+        data: "gcode="+gcode,
+        dataType: "text",
+        error: function(xhr) {
+            alert("죄송합니다. 서버에 문제가 발생하였습니다. 잠시 후에 다시 시도해주세요.");
+            console.log(xhr.status);
+        },
+        success: function(data) {
+        	if(data === 'true'){
+        		 $("#wish_img").attr("src", "http://localhost/prj_web_shopping/common/images/icon/hearts.png");
+        	}else{
+        		 $("#wish_img").attr("src", "http://localhost/prj_web_shopping/common/images/icon/heart.png");
+                }//end else
+        }//success
+    });//ajax
+}//wishHeart
+
 function addWishList(gcode) {
-	
+	 // 현재 이미지의 src 속성을 가져옴
+    var currentSrc = $("#wish_img").attr("src");
+    
+    // 이미지1을 클릭한 경우 이미지2로, 이미지2를 클릭한 경우 이미지1로 변경
+    if (currentSrc == "http://localhost/prj_web_shopping/common/images/icon/heart.png") {
+        $("#wish_img").attr("src", "http://localhost/prj_web_shopping/common/images/icon/hearts.png");
+    } else {
+        $("#wish_img").attr("src", "http://localhost/prj_web_shopping/common/images/icon/heart.png");
+    }
     $.ajax({
         url: "wishListAdd_process.jsp",
         type: "get",
@@ -349,26 +368,20 @@ function addWishList(gcode) {
         },
         success: function(data) {
         	if(data === 'true'){
-        		alert("이미 관심상품에 존재하는 상품입니다.");
-                if (confirm("관심상품 페이지로 이동하시겠습니까?")) {
-                    window.location.href = "wishList.jsp"; 
-                } else {
-                    location.reload();
-                }//end else
-                	
+        		alert("관심상품 리스트에서 상품이 삭제되었습니다.");
         	}else{
-        		alert("관심상품에 상품이 추가되었습니다.");
+        		alert("관심상품 리스트에서 상품이 추가되었습니다.");
                 if (confirm("관심상품 페이지로 이동하시겠습니까?")) {
                     // 사용자가 확인을 누른 경우
                     window.location.href = "wishList.jsp"; 
-                } else {
-                    location.reload();
                 }//end else
         		
         	}//end else
         }//success
     });//ajax
 }//addCart
+
+
 
 function moveToBuy(gcode) {
 	   var amount = $("#quantity").val();
@@ -850,6 +863,7 @@ function viewPlus(rcode, view) {
 					</table>
 				</div>
 			</div>
+			<input type="hidden" id="getGcode" value="${ product.gcode }"/>
          
             <!-- 페이지 네이션 -->
    <div id="pageNation" style="position:relative; top: -750px; left:-130px; margin-top: 30px" >

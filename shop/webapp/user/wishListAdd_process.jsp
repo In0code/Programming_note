@@ -13,9 +13,8 @@ try{
 	String id=(String)session.getAttribute("sesId");
 	
 	flag= wlDAO.getGcode(id,gcode);
-	 
 	 if(flag){
-		 System.out.println("이미 장바구니 존재하는 상품입니다.");
+		 wlDAO.deleteWishList(id, gcode);
 	 }else{
 	 wlDAO.intsertWishList(id, gcode);
 	 }//end else

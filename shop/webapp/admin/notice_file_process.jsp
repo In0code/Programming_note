@@ -5,7 +5,7 @@
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@page import="java.io.File"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ page info="사진 업로드 하는 jsp"%>
 <%
 File saveDir = new File("C:/Users/user/git/prj_online_store/prj_web_shopping/src/main/webapp/upload/notice");
