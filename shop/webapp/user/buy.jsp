@@ -9,6 +9,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- 프로젝트용 CDN -->
 <%@ include file="../cdn/cdn.jsp"%>
 <!DOCTYPE html>
@@ -131,24 +132,43 @@ if("pd".equals(where)) { //상품 상세 페이지에서 왔을 떄
 	totalAmountPrice = bgVO.getPrice() * bgVO.getAmount(); 
 	
 	pageContext.setAttribute("list", bgVO);
-	pageContext.setAttribute("totalAmountPrice", totalAmountPrice);
 	
 } else{
+	List<BuyingGoodsVO> list = null;
+	
 	if("y".equals(request.getParameter("full"))) {
-		List<BuyingGoodsVO> list = new ArrayList<BuyingGoodsVO>();
+		list = new ArrayList<BuyingGoodsVO>();
 		
 		if("cart".equals(where)) {
-			list = bDAO.selectCartGoods(id);
+			list = bDAO.selectAllCartGoods(id);
 		} else {
-			list = bDAO.selectWishGoods(id);
+			list = bDAO.selectAllWishGoods(id);
 		}
 		
-		pageContext.setAttribute("list", list);
 	} else {
 		String[] goodsArr = request.getParameterValues("check");
-		List<BuyingGoodsVO> list = bDAO.selectGoods(goodsArr);
-		pageContext.setAttribute("list", list);
+		
+		System.out.println("goodsArr 반복문 : "+goodsArr);
+		for(String str : goodsArr) {
+			System.out.print(str+", ");
+		}
+		System.out.println();
+		
+		if("cart".equals(where)) {
+			list = bDAO.selectCartGoods(goodsArr);
+		} else {
+			list = bDAO.selectWishGoods(goodsArr);
+		}
+		
+		System.out.println("BuyingGoodsVO list : "+list);
 	}
+	
+	for(int i = 0; i < list.size(); i++) {
+		totalAmountPrice += list.get(i).getPrice() * list.get(i).getAmount();
+	}
+	
+	pageContext.setAttribute("list", list);
+	pageContext.setAttribute("totalAmountPrice", totalAmountPrice);
 }
 
 %>
@@ -194,8 +214,6 @@ if("pd".equals(where)) { //상품 상세 페이지에서 왔을 떄
 			$("#phone").val(inputList[4]);
 			$("#email").val(inputList[5]);
 			
-			$("#gcode").val("${list.gcode}");
-			$("#amount").val("${list.amount}");
 			
 			$("#msg").val(msg);
 		    $("#chkHid").val(check);
@@ -335,19 +353,32 @@ function searchAddr() {
 </div>
 
 <div class="title">
+<form method="get" id="frm" action="insert_card.jsp">
 	<div class="secTitle"> 
 	주문상품
 	</div>
 	<!-- for start list로 한 개이든 여러 개이든 돌려서 채운다 -->
-	<div id="dg">
-	<img src="http://localhost/prj_web_shopping/upload/goods/${ list.img }" class="rounded float-start" alt="상품명" width="70px" height="70">
-	<p>${ list.gname }</p>
-	<p>수량 <fmt:formatNumber value="${ list.amount }" pattern="#,###"/>개</p>
-	<p><fmt:formatNumber value="${ list.price * list.amount }" pattern="#,###,###"/>원</p>
-	<input type="hidden" name="gcode" value="${param.gcode }">
-    <input type="hidden" name="amount" value="${ list.amount }">
-	</div>
+	<c:forEach var="goods" items="${list}" varStatus="i">
+		<div id="dg">
+		<img src="http://localhost/prj_web_shopping/upload/goods/${ goods.img }" class="rounded float-start" alt="상품명" width="70px" height="70">
+		<p>${ goods.gname }</p>
+		<p>수량 <fmt:formatNumber value="${ goods.amount }" pattern="#,###"/>개</p>
+		<p><fmt:formatNumber value="${ goods.price * goods.amount }" pattern="#,###,###"/>원</p>
+		<input type="hidden" name="gcode" value="${goods.gcode }">
+	    <input type="hidden" name="amount" value="${ goods.amount }">
+		</div>
+	</c:forEach>
 	<!-- for end -->
+	<input type="hidden" id="msg" name="msg">
+	<input type="hidden" id="chkHid" name="chkHid">
+	<input type="hidden" id="flag" name="flag">
+	<input type="hidden" id="receiver" name="receiver">
+	<input type="hidden" id="zipcode" name="zipcode">
+	<input type="hidden" id="sido" name="sido">
+	<input type="hidden" id="addr" name="addr">
+	<input type="hidden" id="phone" name="phone">
+	<input type="hidden" id="email" name="email">
+</form>
 </div>
 	<div style="background: #EBEDF0;width: 500px; height: 50px;margin: 0px auto;padding-top: 10px;">
 	<span style="margin: 10px;margin-top:0px; float: left;">배송비</span>
@@ -383,19 +414,7 @@ function searchAddr() {
     	</a>
     </div>
 </div>
-<form method="get" id="frm" action="insert_card.jsp">
-	<input type="hidden" id="msg" name="msg">
-	<input type="hidden" id="chkHid" name="chkHid">
-	<input type="hidden" id="flag" name="flag">
-	<input type="hidden" id="receiver" name="receiver">
-	<input type="hidden" id="zipcode" name="zipcode">
-	<input type="hidden" id="sido" name="sido">
-	<input type="hidden" id="addr" name="addr">
-	<input type="hidden" id="phone" name="phone">
-	<input type="hidden" id="email" name="email">
-	<input type="hidden" id="gcode" name="gcode">
-	<input type="hidden" id="amount" name="amount">
-</form>
+
 </div>
 <div>
 <!-- footer -->

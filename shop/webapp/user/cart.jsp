@@ -14,7 +14,7 @@
     pageEncoding="UTF-8"%>
     <%@ page info="사용자 / 장바구니 / 메인 페이지 - 인영" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+      <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <jsp:include page="../cdn/cdn.jsp"/>
 <!DOCTYPE html>
 <html>
@@ -54,57 +54,6 @@ background-color:  #FFFFFF;
 height: 56px; width: 500px;
 padding: 16px 16px 16px 16px;
 }
-/* .pagenationDiv{
-   top: 575px;
-   text-align: center;
-    margin-top: 10px; 
-}
-
-.pagination {
-  display: inline-block;
-}
-pagination a{
-  color: black;
-  float: left;
-  padding: 8px 16px;
-  text-decoration: none;
-  transition: background-color .3s;
-  border: 1px solid #ddd;
-  background-color: white;
-}
-
-.pagination span{
-  color: black;
-  float: left;
-  padding: 8px 16px;
-  text-decoration: none;
-  transition: background-color .3s;
-  border: 1px solid #ddd;
-  background-color: white;
-}
-
-.pagination a.active {
-  background-color: black;
-  color: white;
-  border: 1px solid #333;
-}
-
-.pagination span.active {
-  background-color: black;
-  color: white;
-  border: 1px solid #333;
-}
-
-.pagination a:hover:not(.active) {background-color: #ddd;}
-
-a {
-   text-decoration: none;
-   color: #333;
-}
-
-a:hover {
-   color: #333;
-} */
 .table {
     background-color: white;
 }
@@ -126,6 +75,7 @@ $(function() {
 	});//click
 	  
 	$("#btnSubmit").click(function() {
+		$("#full").val("n");
 		$("#buyFrm").submit();
 	});////click
 		  
@@ -201,6 +151,10 @@ $(function() {
 		
 	}//stockCheck   
 	
+	function formatNumber(number) {
+	    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+	}//formatNumber
+	
 	function plus(bcode, price) {
 	    var quantityField = $("#quantity" + bcode);
 	    var newQuantity = parseInt(quantityField.val());
@@ -221,7 +175,8 @@ $(function() {
 
 	    // 총 가격 업데이트
 	    var totalField = $("#total" + bcode);
-	    totalField.html(price * newQuantity);
+	    var total = price * newQuantity;
+	    totalField.html(formatNumber(total));
 	}//plus
 
 	function minus(bcode, price) {
@@ -244,7 +199,8 @@ $(function() {
 
 	    // 총 가격 업데이트
 	    var totalField = $("#total" + bcode);
-	    totalField.html(price * newQuantity);
+	    var total = price * newQuantity;
+	    totalField.html(formatNumber(total));
 	}//minus
 </script>
 
@@ -298,7 +254,7 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 	<div id="contents">
 	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.5.1.min.js"></script>
 
-		<div class="PageTop">
+		<div class="PageTop" style="margin-top: 100px">
 			<ul>
 				<li class="xans-element- xans-layout xans-layout-statelogon left ">
 					<span class="xans-member-var-name"></span>
@@ -325,10 +281,12 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 		</div>
 		<div class="table-container" >
 			 <div id="totalProducts">
-			 <form id="buyFrm" name="buyFrm" method="get" action="buy.jsp?where=cart&full=n">
+			 <form id="buyFrm" name="buyFrm" method="get" action="buy.jsp">
 			<table class="table" id="table" style="border: 1px solid #E5E4E4; background-color: #FFFFFF; text-align: center;">
 				<tr style="border: 1px solid #E5E4E4; border-bottom: 1px solid #919191;">
-					<td  style="width:30px; color: #929492"><input type="hidden" style="width: 45px;"/></td>
+					<td  style="width:30px; color: #929492">
+						<input type="hidden" style="width: 45px;"/>
+					</td>
 					<td style="width:100px; font : #929492; vertical-align: middle;">이미지</td>
 					<td style="width:350px;color: #929492;vertical-align: middle; ">상품정보</td>
 					<td style="width:250px;color: #929492; vertical-align: middle;">판매가</td>
@@ -345,12 +303,11 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 						
 					<c:forEach var="cart" items="${ cartList }" varStatus="i">
 					  <tr style="border-bottom: 1px solid #E5E4E4;" >
-						<td style=" vertical-align: middle;"><input type="checkbox" class="check" name="check"  value="${ cart.bcode }" 
-							style="border: 1px solid #929492 ; width: 15px; pa "></td> 
+						<td style=" vertical-align: middle;"><input type="checkbox" class="check" name="check"  value="${ cart.bcode }" style="border: 1px solid #929492 ; width: 15px; pa "></td> 
 						<td  style=" vertical-align: middle;"><img src="../upload/goods/${ cart.img }"  style="width: 100px"/></td>
 						<td style=" vertical-align: middle;"><a href="product_detail.jsp?gcode=${ cart.gcode }"><c:out value="${ cart.gname }"/></a></td>
-						<td style=" vertical-align: middle;"><c:out value="${ cart.price }"/></td>
-						<td style="width:20px">
+						<td style=" vertical-align: middle;"><fmt:formatNumber value="${ cart.price }" pattern="#,###,###"/></td>
+						 <td style="width:20px">
                           <!--  수량 -->
                            <span id="amountSet"  class="quantity">
                           <input type="text" id="quantity${ cart.bcode }" name="quantity_opt[]" value="${ cart.amount }" type="text" readonly="readonly"/>
@@ -362,40 +319,29 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
                         </td> 
                         <!-- 총 가격 -->
 					 	<td style=" vertical-align: middle;" id="total${ cart.bcode }">
-							<fmt:formatNumber value="${ cart.price * cart.amount }" pattern='#,###,###'/>
+					 	<fmt:formatNumber value="${cart.price * cart.amount}" pattern='#,###,###'/>
 					 	</td> 
 						<td> 
-							<!-- 삭제버튼 -->
-					 		<input type="button" value="x삭제" class="deleteBtn" name="deleteBtn" onclick="deleteCart('${cart.bcode}')"
-					 			 style="width:90px; height:35px ;background-color: white; border : 1px solid  #E5E4E4;"/><br/>
-					 		<input type="hidden" style="width:90px; height:30px ;"/>
+							<!-- 삭제 버튼 -->
+					 		<input type="button" value="x삭제" class="deleteBtn" name="deleteBtn" onclick="deleteCart('${cart.bcode}')" style="width:90px; height:35px ;background-color: white; border : 1px solid  #E5E4E4;"/><br/>
+					 		<input type="hidden"  style="width:90px; height:30px ;"/>
 					 	</td>
-					</tr>
-				</c:forEach>
-			</table>
-		</form>
-	</div>
+					 </tr>
+					</c:forEach>
+				</table>
+				<input type="hidden" name="where" value="cart">
+				<input type="hidden" id="full" name="full" value="">
+				</form>
+					</div>
 				
 		</div>
 		<div class="move">
 		
 				<div class="xans-element- xans-order xans-order-totalorder ec-base-button 100per">
-					<a href="" class="btnBlack" id="btnBlack">전체상품주문</a>
-		     		<a href="" class="btnSubmit" id="btnSubmit">선택상품주문</a> 
+					<a class="btnBlack" id="btnBlack">전체상품주문</a>
+		     		<a class="btnSubmit" id="btnSubmit">선택상품주문</a> 
 				</div>
 		
-        <%--   <c:if test="${ not empty cartList }">
-		<!-- 페이지네이션 -->
-		<div class="pagenationDiv">
-			<div class="pagination">
- 			<%
- 			BoardUtil util=BoardUtil.getInstance();
-			BoardUtilVO buVO=new BoardUtilVO("cart.jsp","","",currentPage,totalPage);
-			out.println(util.pageNation(buVO));
- 			%>
-			</div>
-		</div>
-		</c:if> --%>
 </div>
 </div>
 <%@ include file="layout/footer.jsp"%>

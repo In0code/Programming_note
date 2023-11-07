@@ -14,12 +14,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
-//if(request.getParameter("gcode") == null){
-	//response.sendRedirect("shop.jsp");
-	//return;
-//}
+if(request.getParameter("gcode") == null){
+	response.sendRedirect("shop.jsp");
+	return;
+}
 
-String gcode = "PF0007";//request.getParameter("gcode");
+String gcode = request.getParameter("gcode");
 
 GoodsDAO gDAO = GoodsDAO.getInstantce();
 GoodsVO gVO = null;
@@ -38,9 +38,7 @@ UserReviewDAO uDAO= UserReviewDAO.getInstance();
 BoardRangeVO brVO=new BoardRangeVO();
 
 String field=request.getParameter("field");
-System.out.println(field+"=====");
 String keyword=request.getParameter("keyword");
-System.out.println(keyword+"=====");
 brVO.setTableName("REVIEW");
 
 brVO.setField(field);
@@ -51,7 +49,6 @@ int pageScale=10; // 한 화면에 보여줄 게시물의 수
 int totalPage=0; // 총 페이지 수
 
 totalPage=(int)Math.ceil(totalCount/(double)pageScale);
-
 
 String tempPage=request.getParameter("currentPage");
 int currentPage=1;
@@ -176,17 +173,13 @@ a:hover {
 
 <script type="text/javascript">
 $(function() {
-	/* $("#pageNation").change(function(){
-		window.scrollTo({top:1000, left:0, behavior:'auto'})
-	}); */
-	
-	if (${ currentPage } >= 2) {
+/* 	if (${ currentPage } >= 2) {
 		window.scrollTo({top:3000, left:0, behavior:'auto'});
 	}
 	
 	if(${ not empty param.keyword }) {
 		window.scrollTo({top:3000, left:0, behavior:'auto'});
-	}
+	} */
 	
 	$("#actionWish").click(function() {
         // 현재 이미지의 src 속성을 가져옴
@@ -328,7 +321,6 @@ function addCart(gcode) {
         }//success
     });//ajax
 }//addCart
-
 function addWishList(gcode) {
 	
     $.ajax({
@@ -718,7 +710,7 @@ function moveToBuy(gcode) {
         <div class="title">
             <h2>Reviews <span class="br1138"><%=totalCount %></span></h2>
             	<!-- 리뷰 개수 -->
-            	<form id="frmSearch"  action="product_detail.jsp?field=${param.field}&keyword=${param.keyword}&gcode=${product.gcode}" >
+            	<form id="frmSearch"  action="product_detail.jsp?#prdReview" >
         			<select id="field" name="field"  >
 						<option value="1" ${ param.field eq "1" ? " selected='selected'" : "" }>작성자</option>
 						<option value="2"${ param.field eq "2" ? " selected='selected'" : "" }>내용</option>
@@ -728,6 +720,7 @@ function moveToBuy(gcode) {
 <input id="keyword" name="keyword"  style="height:27px" class="inputTypeText" placeholder="내용을 입력해주세요"
 	 value="${ param.keyword ne 'null' ? param.keyword : ''}" type="text"  />
 <input type="text" style="display: none"	> 
+<input type="hidden" name="gcode" value="${ product.gcode }"/>
 <input type="button" id="btnSearch" name="btnSearch" class="btnNormalFix" style="height:27px; padding:3px" value="search">
  </form>
 			
@@ -797,15 +790,15 @@ function moveToBuy(gcode) {
 			<tr class="xans-record-" style="text-align: center">
                 <td  class="RW"><span class="txtNum"><c:out value="<%=startNum++ %>"/></span></td>
                 <td style=" margin:0px 5px 0px 5px; color:black; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; "><span class="txtNum" ><a href="product_detail_review.jsp?rcode=${review.rcode }" 
-	onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.review}" /></a></span><!-- HIT 이미지 -->
+	onclick="window.open(this.href, '', 'width=540 , height=745, top=120, left=650'); return false;"><c:out value="${review.review}" /></a></span><!-- HIT 이미지 -->
                 <td ><span class="txtNum">     <a href="product_detail_review.jsp?rcode=${review.rcode }" 
-	onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.id}" /></a>  </span></td>
+	onclick="window.open(this.href, '', 'width=540 , height=745, top=120, left=650'); return false;"><c:out value="${review.id}" /></a>  </span></td>
                 <td ><span class="txtNum"><a href="product_detail_review.jsp?rcode=${review.rcode }" 
-	onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.reviewDate}" /></a></span></td>
+	onclick="window.open(this.href, '', 'width=540 , height=745, top=120, left=650'); return false;"><c:out value="${review.reviewDate}" /></a></span></td>
                 <td><span class="txtNum"><a href="product_detail_review.jsp?rcode=${review.rcode }" 
-	onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.view}" /></a></span></td>
+	onclick="window.open(this.href, '', 'width=540 , height=745, top=120, left=650'); return false;"><c:out value="${review.view}" /></a></span></td>
                 <td><span class="txtNum"><a href="product_detail_review.jsp?rcode=${review.rcode }" 
-	onclick="window.open(this.href, '', 'width=530 , height=710, top=120, left=650'); return false;"><c:out value="${review.star}" /></a></span></td>
+	onclick="window.open(this.href, '', 'width=540 , height=745, top=120, left=650'); return false;"><c:out value="${review.star}" /></a></span></td>
             </tr>
             </c:forEach>
 						</tbody>
@@ -864,6 +857,7 @@ function moveToBuy(gcode) {
   <!-- 상세이미지 / 리뷰 끝 -->
  </div>
  <!-- 전체 -->
+</div>
 </div>
 
 <%@ include file="layout/footer.jsp"%>

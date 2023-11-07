@@ -49,7 +49,7 @@
 <%
 
 UserReviewDAO uDAO= UserReviewDAO.getInstance();
-String rcode="141"; //request.getParameter("rcode");
+String rcode=request.getParameter("rcode");
 //System.out.println(rcode);
 
 try{
@@ -83,7 +83,7 @@ $(function(){
  </div>
 <br>
 <br>
-<div style="border:0px solid #333; width:220px ; height: 260px; position: absolute; top:30px ; left:285px; margin-left: 13px" >
+<div style="border:0px solid #333; width:220px ; height: 260px; position: absolute; top:60px ; left:285px; margin-left: 13px" >
 <div style="padding: 5px; color:#AAAAAA">
 <div>상품명 : <span><%=sVO.getGname() %></span></div>
 <br>
@@ -191,7 +191,7 @@ $(function(){
 <img src="../common/images/icon/check-circle.svg" style="margin: 0px 1px 3px 5px;">
 	<span>리뷰 내용</span>
   </div>
-  <div style="border:1px solid #333; width:502px; height:180px;  resize: none;"  id="review" ><c:out value="${review.review}" /></div>
+  <div style="border:1px solid #333; width:502px; height:180px; padding: 5px 0px 0px 5px; resize: none;"  id="review" ><c:out value="${review.review}" /></div>
  <%--  <textarea style="width:502px; height:180px; resize: none;" maxlength="200" name="review" id="review" readonly="readonly"><c:out value="${review.review}" />
   </textarea>	 --%>
    

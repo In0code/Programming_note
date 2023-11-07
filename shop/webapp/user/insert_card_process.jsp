@@ -7,16 +7,13 @@
 <jsp:useBean id="VO" class="user.vo.BuyPaymentVO" scope="page"/>
 <jsp:setProperty property="*" name="VO"/>
 <%
-
 JSONObject json = new JSONObject();
 json.put("flag", false);
 
 BuyPaymentVO bpVO = (BuyPaymentVO)pageContext.getAttribute("VO");
-System.out.println(bpVO);
 
 BuyDAO bDAO = BuyDAO.getInstance();
 int temp = bDAO.insertPriceInfo(bpVO);
-System.out.println("process : "+temp);
 if(temp != 0) {
 	json.put("flag", true);
 } else {

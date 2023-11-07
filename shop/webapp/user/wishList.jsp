@@ -11,6 +11,7 @@
     pageEncoding="UTF-8"%>
     <%@ page info="사용자 / 관심상품 / 메인 페이지 - 인영" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <jsp:include page="../cdn/cdn.jsp"/>
 <!DOCTYPE html>
 <html>
@@ -45,58 +46,6 @@ background-color:  #FFFFFF;
 height: 56px; width: 500px;
 padding: 16px 16px 16px 16px;
 }
-/* .pagenationDiv{
-   top: 575px;
-   text-align: center;
-    margin-top: 10px; 
-}
-
-.pagination {
-  display: inline-block;
-}
-pagination a{
-  color: black;
-  float: left;
-  padding: 8px 16px;
-  text-decoration: none;
-  transition: background-color .3s;
-  border: 1px solid #ddd;
-  background-color: white;
-}
-
-.pagination span{
-  color: black;
-  float: left;
-  padding: 8px 16px;
-  text-decoration: none;
-  transition: background-color .3s;
-  border: 1px solid #ddd;
-  background-color: white;
-}
-
-.pagination a.active {
-  background-color: black;
-  color: white;
-  border: 1px solid #333;
-}
-
-.pagination span.active {
-  background-color: black;
-  color: white;
-  border: 1px solid #333;
-}
-
-.pagination a:hover:not(.active) {background-color: #ddd;}
-
-a {
-   text-decoration: none;
-   color: #333;
-}
-
-a:hover {
-   color: #333;
-}
- */
 </style>
 
 <script type="text/javascript">
@@ -110,12 +59,14 @@ $(function(){
 		});////click
 		  
 		$("#btnSubmit").click(function() {
-			$("#tableFrm").submit();
-		});//click
+			$("#full").val("n");
+			$("#buyFrm").submit();
+		});////click
 			  
 	});//ready
 	
 	 function addCart(gcode) {
+		
         $.ajax({
             url: "wishAddCart_process.jsp",
             type: "get",
@@ -173,11 +124,6 @@ $(function(){
 BoardDAO bDAO=BoardDAO.getInstance();
 BoardRangeVO brVO=new BoardRangeVO();
 
-//String field=request.getParameter("field");
-//String keyword=request.getParameter("keyword");
-
-//brVO.setField(field);
-//brVO.setKeyword(keyword);
 brVO.setTableName("WISHLIST");
 
 int totalCount=bDAO.totalCount(brVO);
@@ -242,20 +188,31 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 				</c:if>
 					<c:forEach var="wish" items="${ wishList }" varStatus="i">
 					  <tr style="border-bottom: 1px solid #E5E4E4;" >
-						<td style=" vertical-align: middle;"><input type="checkbox" class="check" name="check"  value="${ wish.gcode }" style="border: 1px solid #929492 ; width: 15px; "></td> 
+						<td style=" vertical-align: middle;"><input type="checkbox" class="check" name="check"  value="${ wish.gcode }" 
+							style="border: 1px solid #929492 ; width: 15px; "></td>
+						<!-- 상품사진 --> 
 						<td  style=" vertical-align: middle;"><img src="../upload/goods/${ wish.img }"  style="width: 100px"/></td>
+						<!-- 상품 이름 -->
 						<td style=" vertical-align: middle;"><a href="product_detail.jsp?gcode=${ wish.gcode }"><c:out value="${ wish.gname }"/></a></td>
-						<td style=" vertical-align: middle;"><c:out value="${ wish.price }"/></td>
-						<td style=" vertical-align: middle;"><c:out value="<%= deliveryPrice %>"/></td>
-					 	<td style=" vertical-align: middle;"><c:out value="${ wish.price + deliveryPrice }"/></td> 
+						<!-- 상품가격 -->
+						<td style=" vertical-align: middle;"><fmt:formatNumber value="${ wish.price }" pattern="#,###,###"/></td>
+						<!-- 배송비 -->
+						<td style=" vertical-align: middle;"><fmt:formatNumber value="<%= deliveryPrice %>" pattern="#,###,###"/></td>
+						<!-- 총 금액 -->
+					 	<td style=" vertical-align: middle;"><fmt:formatNumber value="${ wish.price + deliveryPrice }" pattern="#,###,###"/></td>
+					 	<!-- 장바구니 담기 / 삭제하기 버튼 --> 
 						<td>
-							<input type="hidden" value="x삭제" name="dd" style="width:90px; height:50px ;"/><br/>
-					 		<input type="button" value="장바구니담기"  class="addCartBtn" name="addCartBtn"  onclick="addCart('${wish.gcode}')" style="width:90px; height:30px ;background-color: white;border : 1px solid  #E5E4E4;"/><br/>
-					 		<input type="button" value="x삭제" class="deleteBtn" name="deleteBtn" onclick="deleteWish('${wish.wcode}')"style="width:90px; height:30px ;background-color: white; border : 1px solid  #E5E4E4;"/>
+							<input type="hidden" style="width:90px; height:50px ;"/><br/>
+					 		<input type="button" value="장바구니담기"  class="addCartBtn" name="addCartBtn"  onclick="addCart('${wish.gcode}')" 
+					 			style="width:90px; height:30px ;background-color: white;border : 1px solid  #E5E4E4;"/><br/>
+					 		<input type="button" value="x삭제" class="deleteBtn" name="deleteBtn" onclick="deleteWish('${wish.wcode}')"
+					 			style="width:90px; height:30px ;background-color: white; border : 1px solid  #E5E4E4;"/>
 					 	</td>
 					 </tr>
 					</c:forEach>
 				</table>
+				<input type="hidden" name="where" value="wish">
+				<input type="hidden" id="full" name="full" value="">
 				</form>
 		</div>
 		<div class="move">
@@ -265,18 +222,6 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 		     		<a class="btnSubmit" id="btnSubmit">선택상품주문</a> 
 				</div>
 		
-         <%--  <c:if test="${ not empty wishList }">
-		<!-- 페이지네이션 -->
-		<div class="pagenationDiv">
-			<div class="pagination">
- 			<%
- 			BoardUtil util=BoardUtil.getInstance();
-			BoardUtilVO buVO=new BoardUtilVO("wishList.jsp","","",currentPage,totalPage);
-			out.println(util.pageNation(buVO));
- 			%>
-			</div>
-		</div>
-		</c:if> --%>
 </div>
 </div>
 <%@ include file="layout/footer.jsp"%>

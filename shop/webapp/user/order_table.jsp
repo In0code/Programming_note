@@ -1,7 +1,19 @@
+<%@page import="java.util.List"%>
+<%@page import="common.util.BoardUtilVO"%>
+<%@page import="common.util.BoardUtil"%>
+<%@page import="admin.vo.BoardRangeVO"%>
+<%@page import="common.dao.BoardDAO"%>
+<%@page import="user.vo.ClientOrderPageVO"%>
+<%@page import="user.vo.ClientOrderVO"%>
+<%@page import="user.dao.ClientOrderDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../cdn/cdn.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+String id = "test";
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -119,6 +131,39 @@ text-align: center;
 }
 
 </style>
+<%
+BoardDAO bDAO = BoardDAO.getInstance();
+BoardRangeVO brVO = new BoardRangeVO();
+
+brVO.setTableName("UORDER");
+
+int totalCount = bDAO.totalCount(brVO);
+
+int pageScale = 10;
+
+int totalPage = (int)Math.ceil(totalCount / (double)pageScale); //페이지 수 가져오기
+
+String tempPage = request.getParameter("currentPage"); //현재 페이지 가져오기
+int currentPage = 1;
+if(tempPage != null) {
+	currentPage = Integer.parseInt(tempPage);
+}
+
+pageContext.setAttribute("totalPage", totalPage);
+pageContext.setAttribute("currentPage", currentPage);
+
+//5.시작 번호
+int startNum = currentPage*pageScale-pageScale+1;
+pageContext.setAttribute("startNum", startNum);
+
+//6.끝 번호
+int endNum = startNum+pageScale-1;
+
+//Dynamic Query에 의해서 구해진 시작번호와 끝번호를 VO에 넣는다.
+brVO.setStartNum(startNum);
+brVO.setEndNum(endNum);
+// pagenation end
+%>
 <script type="text/javascript">
 	$(function() {
 		$("#pills-home").click(function() {
@@ -236,6 +281,7 @@ text-align: center;
 			</tr>
 		</thead>
 		<tbody class="xans-element- xans-board xans-board-list-1002 xans-board-list xans-board-1002 center">
+		<%-- <c:forEach var="" items="" varStatus=""> --%>
 			<tr>
 				<td>2023-10-10<br>[203949-394494]</td>
 				<td>image</td>
@@ -245,100 +291,31 @@ text-align: center;
 				<td>배송완료</td>
 				<td>-</td>
 			</tr>
-			<tr>
-				<td>2023-10-10<br>[203949-394494]</td>
-				<td>image</td>
-				<td class="subject left txtBreak">product information</td>
-				<td>2</td>
-				<td>135,000원</td>
-				<td>배송완료</td>
-				<td>-</td>
-			</tr>
-						<tr>
-				<td>2023-10-10<br>[203949-394494]</td>
-				<td>image</td>
-				<td class="subject left txtBreak">product information</td>
-				<td>2</td>
-				<td>135,000원</td>
-				<td>배송완료</td>
-				<td>-</td>
-			</tr>
-						<tr>
-				<td>2023-10-10<br>[203949-394494]</td>
-				<td>image</td>
-				<td class="subject left txtBreak">product information</td>
-				<td>2</td>
-				<td>135,000원</td>
-				<td>배송완료</td>
-				<td>-</td>
-			</tr>
-						<tr>
-				<td>2023-10-10<br>[203949-394494]</td>
-				<td>image</td>
-				<td class="subject left txtBreak">product information</td>
-				<td>2</td>
-				<td>135,000원</td>
-				<td>배송완료</td>
-				<td>-</td>
-			</tr>
-						<tr>
-				<td>2023-10-10<br>[203949-394494]</td>
-				<td>image</td>
-				<td class="subject left txtBreak">product information</td>
-				<td>2</td>
-				<td>135,000원</td>
-				<td>배송완료</td>
-				<td>-</td>
-			</tr>
-						<tr>
-				<td>2023-10-10<br>[203949-394494]</td>
-				<td>image</td>
-				<td class="subject left txtBreak">product information</td>
-				<td>2</td>
-				<td>135,000원</td>
-				<td>배송완료</td>
-				<td>-</td>
-			</tr>
-						<tr>
-				<td>2023-10-10<br>[203949-394494]</td>
-				<td>image</td>
-				<td class="subject left txtBreak">product information</td>
-				<td>2</td>
-				<td>135,000원</td>
-				<td>배송완료</td>
-				<td>-</td>
-			</tr>
-						<tr>
-				<td>2023-10-10<br>[203949-394494]</td>
-				<td>image</td>
-				<td class="subject left txtBreak">product information</td>
-				<td>2</td>
-				<td>135,000원</td>
-				<td>배송완료</td>
-				<td>-</td>
-			</tr>
-						<tr>
-				<td>2023-10-10<br>[203949-394494]</td>
-				<td>image</td>
-				<td class="subject left txtBreak">product information</td>
-				<td>2</td>
-				<td>135,000원</td>
-				<td>배송완료</td>
-				<td>-</td>
-			</tr>
+		<%-- </c:forEach> --%>
 		</tbody>
 	</table>
 </div>
 	</div>
-	<div class="pagenationDiv">
-		<div class="pagination">
-		<span>&laquo;</span>
-		<span class='active'>1</span>
-		<a href='boardManagement.jsp?currentPage=2&category=null&keyword=null&field=null'>2</a>
-		<a href='boardManagement.jsp?currentPage=3&category=null&keyword=null&field=null'>3</a>
-		<a href = 'boardManagement.jsp?currentPage=4&category=null&keyword=null&field=null'>&raquo;</a>
+	<div>
+<!-- 페이지 이동 -->
+<c:if test="${not empty noticeList}">
+<!-- 페이지네이션 -->
+		<div class="pagenationDiv">
+			<div class="pagination">
+ 				<%
+ 					BoardUtil util = BoardUtil.getInstance();
+ 					BoardUtilVO buVO = new BoardUtilVO();
+ 					buVO.setUrl("order_table.jsp");
+ 					buVO.setCurrentPage(currentPage);
+ 					buVO.setTotalPage(totalPage);
+ 					
+ 					out.print(util.pageNation(buVO));
+ 				%>
+			</div>
+<input type="button" class="btnCss" value="등록" id="btnAdd" />
 		</div>
-	</div>
+</c:if>
+</div>
 </div>
 <!-- footer -->
 <%@ include file="layout/footer.jsp" %>
