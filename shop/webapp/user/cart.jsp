@@ -276,7 +276,7 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 				</li>
 				<li class="right"><a href="member/mypage.jsp" >마이페이지</a>
 					<span> </span> <a href="order_table.jsp">주문내역조회</a> <span>
-				</span> <a href="cart.jsp" class="select">장바구니</a></li>
+				</span> <a href="cart.jsp" class="select" style="font-size: 14px;height: 22px">장바구니</a></li>
 			</ul>
 		</div>
 		<div class="table-container" >

@@ -1,3 +1,4 @@
+<%@page import="user.vo.GcodeVO"%>
 <%@page import="common.util.BoardUtilVO"%>
 <%@page import="common.util.BoardUtil"%>
 <%@page import="java.sql.SQLException"%>
@@ -8,7 +9,7 @@
 <%@page import="admin.vo.BoardRangeVO"%>
 <%@page import="common.dao.BoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
     <%@ page info="사용자 / 관심상품 / 메인 페이지 - 인영" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -77,12 +78,25 @@ $(function(){
                 console.log(xhr.status);
             },
             success: function(data) {
-                    if (confirm("장바구니에 상품이 추가되었습니다.\n\n장바구니 페이지로 이동하시겠습니까?")) {
+            	if(data === 'true'){
+            		alert(data);
+            		alert("이미 장바구니에 존재하는 상품입니다.");
+                    if (confirm("장바구니 페이지로 이동하시겠습니까?")) {
+                        window.location.href = "cart.jsp"; 
+                    } else {
+                        location.reload();
+                    }//end else
+                    	
+            	}else{
+            		alert("장바구니에 상품이 추가되었습니다.");
+                    if (confirm("장바구니 페이지로 이동하시겠습니까?")) {
                         // 사용자가 확인을 누른 경우
                         window.location.href = "cart.jsp"; 
                     } else {
                         location.reload();
                     }//end else
+            		
+            	}//end else
             }//success
         });//ajax
 	}//addCart 
@@ -156,8 +170,8 @@ String id=(String)session.getAttribute("sesId");
 
 List<WishListVO> list=wlDAO.selectAllWishList(id, brVO);
 
+
 pageContext.setAttribute("wishList", list);
-pageContext.setAttribute("deliveryPrice", deliveryPrice);
 pageContext.setAttribute("deliveryPrice", deliveryPrice);
 }catch(SQLException se){
 	se.printStackTrace();

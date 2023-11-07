@@ -60,7 +60,6 @@ int startNum=currentPage*pageScale-pageScale+1;
 pageContext.setAttribute("startNum", startNum);
 pageContext.setAttribute("currentPage", currentPage);
 
-
 //끝페이지 번호 구하기
 int endNum=startNum+pageScale-1;
 
@@ -179,7 +178,8 @@ $(function() {
 	
 	if(${ not empty param.keyword }) {
 		window.scrollTo({top:3000, left:0, behavior:'auto'});
-	} */
+	} 
+*/
 	
 	$("#actionWish").click(function() {
         // 현재 이미지의 src 속성을 가져옴
@@ -294,8 +294,6 @@ function totalPrice(){
 			$("#bottomTotal").html("<strong><em>"+total+"원 </em></strong>");
 		}
 	});
-	
-	
 }
 
 function addCart(gcode) {
@@ -321,6 +319,7 @@ function addCart(gcode) {
         }//success
     });//ajax
 }//addCart
+
 function addWishList(gcode) {
 	
     $.ajax({
@@ -347,6 +346,27 @@ function moveToBuy(gcode) {
 	   var amount = $("#quantity").val();
 	   location.href = "buy.jsp?where=pd&gcode="+gcode+"&amount="+amount;
 	}
+	
+function viewPlus(rcode, view) {
+	
+/* 	$.ajax({
+		url: "update_view_process.jsp",
+		type: "get",
+		data: "rcode="+rcode,
+		dataType: "json",
+		error: function(xhr){
+			console.log(xhr.status);
+		},
+		success: function(jsonObj){
+			if(jsonObj.result){
+				$("#view" + rcode).html(view+1);
+			}
+		}
+	}); */
+	
+	$("#view" + rcode).html(view+1);
+	
+}
 </script>
 
 </head>
@@ -752,31 +772,6 @@ function moveToBuy(gcode) {
                                 <th scope="col">평점</th>
                             </tr>
                         </thead>
-                            
-                    <!--     리뷰 상세
-						<tbody class="center">
-							<tr class="xans-record-">
-								<td class="RW"> 리뷰 번호 </td>
-                                <td class="subject left txtBreak"> 
-                                	리뷰 제목 / 상세 링크
-                                	<span id="review-title" style="margin:0px 5px 0px 5px; color:black;">제목 영역</span>
-                                	
-                                	
-                                </td>
-                                작성자
-                                <td> 작성자 영역 </td>
-                                
-                                작성일
-                                <td> 작성일 영역 </td>
-                                
-                                조회수
-                                <td> 조회수 영역 </td>
-                                
-                                별점
-                                <td>
-                                	<img src="//img.echosting.cafe24.com/skin/skin/board/icon-star-rating5.svg" alt="5점">
-                                </td>
-                            </tr> -->
 							 <c:if test="${ empty reviewList}">
 							 	<tr>
 							       	<td class="message" colspan="6" style="height: 100px">작성한 게시물이 없습니다.</td>
@@ -787,18 +782,41 @@ function moveToBuy(gcode) {
       
 <c:forEach var="review" items="${reviewList}" varStatus="i">
 
-			<tr class="xans-record-" style="text-align: center">
+			<tr class="xans-record-" style="text-align: center" onclick="viewPlus(${ review.rcode }, ${ review.view })">
                 <td  class="RW"><span class="txtNum"><c:out value="<%=startNum++ %>"/></span></td>
-                <td style=" margin:0px 5px 0px 5px; color:black; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; "><span class="txtNum" ><a href="product_detail_review.jsp?rcode=${review.rcode }" 
-	onclick="window.open(this.href, '', 'width=540 , height=745, top=120, left=650'); return false;"><c:out value="${review.review}" /></a></span><!-- HIT 이미지 -->
-                <td ><span class="txtNum">     <a href="product_detail_review.jsp?rcode=${review.rcode }" 
-	onclick="window.open(this.href, '', 'width=540 , height=745, top=120, left=650'); return false;"><c:out value="${review.id}" /></a>  </span></td>
-                <td ><span class="txtNum"><a href="product_detail_review.jsp?rcode=${review.rcode }" 
-	onclick="window.open(this.href, '', 'width=540 , height=745, top=120, left=650'); return false;"><c:out value="${review.reviewDate}" /></a></span></td>
-                <td><span class="txtNum"><a href="product_detail_review.jsp?rcode=${review.rcode }" 
-	onclick="window.open(this.href, '', 'width=540 , height=745, top=120, left=650'); return false;"><c:out value="${review.view}" /></a></span></td>
-                <td><span class="txtNum"><a href="product_detail_review.jsp?rcode=${review.rcode }" 
-	onclick="window.open(this.href, '', 'width=540 , height=745, top=120, left=650'); return false;"><c:out value="${review.star}" /></a></span></td>
+                <td style=" margin:0px 5px 0px 5px; color:black; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; ">
+                <span class="txtNum" >
+                <a href="product_detail_review.jsp?rcode=${review.rcode }" 
+					onclick="window.open(this.href, '', 'width=540 , height=745, top=120, left=650'); return false;">
+					<c:out value="${review.review}" />
+				</a>
+				</span>
+				
+                <td >
+                <span class="txtNum">     
+                <a href="product_detail_review.jsp?rcode=${review.rcode }" 
+					onclick="window.open(this.href, '', 'width=540 , height=745, top=120, left=650'); return false;">
+					<c:out value="${review.id}" /></a>  
+					</span>
+				</td>
+				
+                <td >
+                <span class="txtNum"><a href="product_detail_review.jsp?rcode=${review.rcode }" 
+					onclick="window.open(this.href, '', 'width=540 , height=745, top=120, left=650'); return false;">
+					<c:out value="${review.reviewDate}" /></a></span>
+				</td>
+				
+                <td>
+                <span class="txtNum"><a href="product_detail_review.jsp?rcode=${review.rcode }" 
+					onclick="window.open(this.href, '', 'width=540 , height=745, top=120, left=650'); return false;">
+					<span id="view${reveiw.rcode }"><c:out value="${review.view}" /></span></a></span>
+				</td>
+				
+                <td>
+                <span class="txtNum"><a href="product_detail_review.jsp?rcode=${review.rcode }" 
+					onclick="window.open(this.href, '', 'width=540 , height=745, top=120, left=650'); return false;">
+					<c:out value="${review.star}" /></a></span>
+				</td>
             </tr>
             </c:forEach>
 						</tbody>

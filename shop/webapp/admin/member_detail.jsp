@@ -55,7 +55,7 @@ body{
 overflow: auto;
 background-color:  #FFFFFF;
 color:  #333333;
-height: 150%; width: 80%;
+height: 150%; width: 100%;
 position: absolute;
 top: 100px; left: 60px;
 outline:  1px;

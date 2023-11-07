@@ -47,7 +47,7 @@ System.out.println(review);
 		 if (rcodeParam != null && !rcodeParam.isEmpty() ) {
 		        int rcode = Integer.parseInt(rcodeParam);
 		     
-		        uDAO.updateReivew(review,star,rcode,"첨부X");
+		        uDAO.updateReivew3(review,star,rcode);
 	 } 
 		 } 
 	 boolean flag=false;
