@@ -1,5 +1,6 @@
 package user.dao;
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -39,7 +40,6 @@ public class BuyDAO {
 		PreparedStatement pstmt = null;
 		
 		ordno = makePK("UORDER", "ORDNO");
-		
 		
 		try {
 			con = db.getConn("jdbc/dbcp");
@@ -82,13 +82,12 @@ public class BuyDAO {
 			insertDelivery.delete(0, insertDelivery.length());
 			pstmt.close();
 			
-			String ord_dno = "";
+			int ord_dno = Integer.parseInt(makePK("ORDER_DETAIL", "ORD_DNO"));
 			for(int i = 0; i < biVO.getGcode().length; i++) {
-				ord_dno = makePK("ORDER_DETAIL", "ORD_DNO");
 				
 				insertDelivery
 				.append("	INSERT INTO ORDER_DETAIL(ORD_DNO, ORDNO, AMOUNT, GCODE)	")
-				.append("	VALUES('").append(ord_dno).append("','").append(ordno).append("',").append(biVO.getAmount()[i])
+				.append("	VALUES('").append(String.valueOf(ord_dno)).append("','").append(ordno).append("',").append(biVO.getAmount()[i])
 				.append(",'").append(biVO.getGcode()[i]).append("')");
 				
 				pstmt = con.prepareStatement(insertDelivery.toString());
@@ -97,6 +96,8 @@ public class BuyDAO {
 				
 				insertDelivery.delete(0, insertDelivery.length());
 				pstmt.close();
+				
+				ord_dno++;
 			}
 			
 			flag++;
@@ -115,8 +116,6 @@ public class BuyDAO {
 			flag++;
 			
 			pstmt.close();
-			
-			System.out.println(flag);
 			
 			if(flag == 4) {
 				con.commit();
@@ -165,14 +164,10 @@ public class BuyDAO {
 			insertPaymentInfo.append("INSERT INTO PAYMENT(ORDNO, NUM) VALUES(?, ?)");
 			pstmt = con.prepareStatement(insertPaymentInfo.toString());
 			
-			System.out.println("ordno : "+bpVO.getOrdno()+" / "+num);
-			
 			pstmt.setString(1, bpVO.getOrdno());
 			pstmt.setInt(2, Integer.parseInt(num));
 			
 			result += pstmt.executeUpdate();
-			
-			System.out.println("addr insert flag : "+result);
 			
 			if(result == 2) {
 				con.commit();
@@ -186,23 +181,105 @@ public class BuyDAO {
 		return result;
 	}
 	
-	public List<BuyingGoodsVO> selectCartGoods(String id) throws SQLException {
+	public List<BuyingGoodsVO> selectAllCartGoods(String id) throws SQLException {
+		List<BuyingGoodsVO> list = new ArrayList<BuyingGoodsVO>();
+		
+		DbConnection db = DbConnection.getInstance();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = db.getConn("jdbc/dbcp");
+			String allCart = "SELECT GCODE, ID, AMOUNT, BCODE FROM BUCKET_LIST WHERE ID=?";
+			
+			pstmt = con.prepareStatement(allCart);
+			pstmt.setString(1, id);
+			
+			rs = pstmt.executeQuery();
+			
+			BuyingGoodsVO bgVO = null;
+			while(rs.next()) {
+				bgVO = new BuyingGoodsVO(rs.getString("GCODE"), rs.getString(""), rs.getString(""), rs.getInt(""), rs.getInt("AMOUNT"));
+			}
+			
+		} finally {
+			db.dbClose(rs, pstmt, con);
+		}
+		
+		
+		return list;
+	}
+	
+	public List<BuyingGoodsVO> selectAllWishGoods(String id) throws SQLException {
 		List<BuyingGoodsVO> list = new ArrayList<BuyingGoodsVO>();
 		
 		
 		return list;
 	}
 	
-	public List<BuyingGoodsVO> selectWishGoods(String id) throws SQLException {
+	public List<BuyingGoodsVO> selectWishGoods(String[] gcodes) throws SQLException {
 		List<BuyingGoodsVO> list = new ArrayList<BuyingGoodsVO>();
 		
+		DbConnection db = DbConnection.getInstance();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = db.getConn("jdbc/dbcp");
+			String goods = "SELECT G.GCODE, G.GNAME, G.PRICE, G.MAIN_IMG FROM WISHLIST W, GOODS G WHERE W.GCODE=G.GCODE AND W.WCODE=?";
+			
+			BuyingGoodsVO bgVO = null;
+			for(String code : gcodes) {
+				pstmt = con.prepareStatement(goods);
+				pstmt.setString(1, code);
+				
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					bgVO = new BuyingGoodsVO(rs.getString("GCODE"), rs.getString("GNAME"), rs.getString("MAIN_IMG"), rs.getInt("PRICE"), 1);
+					list.add(bgVO);
+				}
+				
+				pstmt.close();
+			}
+			
+		} finally {
+			db.dbClose(rs, pstmt, con);
+		}
 		
 		return list;
 	}
 	
-	public List<BuyingGoodsVO> selectGoods(String[] gcodes) throws SQLException {
+	public List<BuyingGoodsVO> selectCartGoods(String[] gcodes) throws SQLException {
 		List<BuyingGoodsVO> list = new ArrayList<BuyingGoodsVO>();
 		
+		DbConnection db = DbConnection.getInstance();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = db.getConn("jdbc/dbcp");
+			String goods = "SELECT G.GCODE, G.GNAME, G.PRICE, G.MAIN_IMG, B.AMOUNT FROM BUCKET_LIST B, GOODS G WHERE B.GCODE=G.GCODE AND B.BCODE=?";
+			
+			BuyingGoodsVO bgVO = null;
+			for(String code : gcodes) {
+				pstmt = con.prepareStatement(goods);
+				pstmt.setString(1, code);
+				
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					bgVO = new BuyingGoodsVO(rs.getString("GCODE"), rs.getString("GNAME"), rs.getString("MAIN_IMG"), rs.getInt("PRICE"), rs.getInt("AMOUNT"));
+					list.add(bgVO);
+				}
+				
+				pstmt.close();
+			}
+			
+		} finally {
+			db.dbClose(rs, pstmt, con);
+		}
 		
 		return list;
 	}
@@ -223,8 +300,6 @@ public class BuyDAO {
 			pstmt.setString(1, gcode);
 			
 			rs = pstmt.executeQuery();
-			
-			System.out.println(gcode);
 			
 			if(rs.next()) {
 				bgVO = new BuyingGoodsVO(rs.getString("GCODE"), rs.getString("GNAME"), rs.getString("MAIN_IMG"), rs.getInt("PRICE"), 0);
@@ -290,7 +365,7 @@ public class BuyDAO {
 	}
 	
 	public String makePK(String table, String colm) throws SQLException {
-		int result = 0;
+		String result = "";
 		boolean flag = "NUM".equals(colm.toUpperCase()) ? true : false;
 		
 		DbConnection db = DbConnection.getInstance();
@@ -303,38 +378,36 @@ public class BuyDAO {
 			String makeOrdno = "";
 			
 			if(flag) {
-				makeOrdno = "SELECT "+colm+" FROM (SELECT "+colm+" FROM "+table+" ORDER BY "+colm+" DESC) WHERE ROWNUM=1";
+				makeOrdno = "SELECT "+colm+"+1 "+colm+" FROM (SELECT "+colm+" FROM "+table+" ORDER BY "+colm+" DESC) WHERE ROWNUM=1";
 			} else {
 				makeOrdno = "SELECT "+colm+" FROM (SELECT LPAD("+colm+",8,0) "+colm+" FROM "+table+" ORDER BY "+colm+" DESC) WHERE ROWNUM=1";
 			}
 			
-			System.out.println("makePK : "+makeOrdno);
 			pstmt = con.prepareStatement(makeOrdno);
 			
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				String temp = "";
-				if(flag) {
-					temp = rs.getString(colm);
-				} else {
-					temp = rs.getString(colm);
-				}
-
 				try {
-					result = Integer.parseInt(temp)+1;
-					
+					if(flag) {
+						result = String.valueOf(rs.getInt(colm));
+					} else {
+						result = String.valueOf(Integer.parseInt(rs.getString(colm))+1);
+					}
+
 				} catch (NumberFormatException e) {
-					result = -1;
+					result = "숫자 아님";
 				} catch (NullPointerException ne) {
 				}
+					
+			} else {
+				result = "0";
 			}
 			
 		} finally {
 			db.dbClose(rs, pstmt, con);
 		}
-		
-		return String.valueOf(result);
+		return result;
 	}
 	
 	public void deletePayProcess(String ordno) throws SQLException {
@@ -397,8 +470,6 @@ public class BuyDAO {
 			
 			for(int i = 0; i < biVO.getGcode().length; i++) {
 				update.append("UPDATE GOODS SET TOTAL_BUY=(TOTAL_BUY+1), QUANTITY=(QUANTITY-1) WHERE GCODE='").append(biVO.getGcode()[i]).append("'");
-				
-				System.out.println(update.toString());
 				
 				pstmt = con.prepareStatement(update.toString());
 				pstmt.executeUpdate();
