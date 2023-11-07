@@ -12,7 +12,6 @@ import common.dao.DbConnection;
 import user.vo.AddrVO;
 import user.vo.BuyInfoVO;
 import user.vo.BuyPaymentVO;
-import user.vo.BuyingCartVO;
 import user.vo.BuyingGoodsVO;
 import user.vo.FillOrderInfoVO;
 
@@ -191,7 +190,7 @@ public class BuyDAO {
 		
 		try {
 			con = db.getConn("jdbc/dbcp");
-			String allCart = "SELECT GCODE, ID, AMOUNT, BCODE FROM BUCKET_LIST WHERE ID=?";
+			String allCart = "SELECT G.GCODE, G.GNAME, G.MAIN_IMG, G.PRICE, B.AMOUNT FROM BUCKET_LIST B, GOODS G WHERE B.GCODE=G.GCODE AND ID=?";
 			
 			pstmt = con.prepareStatement(allCart);
 			pstmt.setString(1, id);
@@ -200,7 +199,8 @@ public class BuyDAO {
 			
 			BuyingGoodsVO bgVO = null;
 			while(rs.next()) {
-				bgVO = new BuyingGoodsVO(rs.getString("GCODE"), rs.getString(""), rs.getString(""), rs.getInt(""), rs.getInt("AMOUNT"));
+				bgVO = new BuyingGoodsVO(rs.getString("GCODE"), rs.getString("GNAME"), rs.getString("MAIN_IMG"), rs.getInt("PRICE"), rs.getInt("AMOUNT"));
+				list.add(bgVO);
 			}
 			
 		} finally {
@@ -213,6 +213,30 @@ public class BuyDAO {
 	
 	public List<BuyingGoodsVO> selectAllWishGoods(String id) throws SQLException {
 		List<BuyingGoodsVO> list = new ArrayList<BuyingGoodsVO>();
+		
+		DbConnection db = DbConnection.getInstance();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = db.getConn("jdbc/dbcp");
+			String allCart = "SELECT G.GCODE, G.GNAME, G.MAIN_IMG, G.PRICE FROM WISHLIST W, GOODS G WHERE W.GCODE=G.GCODE AND ID=?";
+			
+			pstmt = con.prepareStatement(allCart);
+			pstmt.setString(1, id);
+			
+			rs = pstmt.executeQuery();
+			
+			BuyingGoodsVO bgVO = null;
+			while(rs.next()) {
+				bgVO = new BuyingGoodsVO(rs.getString("GCODE"), rs.getString("GNAME"), rs.getString("MAIN_IMG"), rs.getInt("PRICE"), 1);
+				list.add(bgVO);
+			}
+			
+		} finally {
+			db.dbClose(rs, pstmt, con);
+		}
 		
 		
 		return list;

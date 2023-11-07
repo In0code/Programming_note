@@ -145,35 +145,37 @@ public class CartDAO {
 		return cnt;
 	}// deleteWishList
 	
-	/**
-	 * 주문 리스트의 총 레코드 수
-	 * 
-	 * @param brVO
-	 * @return
-	 * @throws SQLException
-	 *//*
-		 * public int cartTotalCount(String id, BoardRangeVO brVO) throws SQLException{
-		 * int totalCnt = 0;
-		 * 
-		 * DbConnection db = DbConnection.getInstance(); Connection con = null;
-		 * PreparedStatement pstmt = null; ResultSet rs = null;
-		 * 
-		 * try { con = db.getConn("jdbc/dbcp");
-		 * 
-		 * StringBuilder selectCount = new StringBuilder(); selectCount
-		 * .append("	select count(*) CNT		")
-		 * .append("	from goods g, BUCKET_LIST bl	")
-		 * .append("	where  g.gcode = bl.gcode and bl.id= ?	");
-		 * 
-		 * pstmt = con.prepareStatement(selectCount.toString());
-		 * 
-		 * pstmt.setString(1, id);
-		 * 
-		 * rs = pstmt.executeQuery();
-		 * 
-		 * if(rs.next()) { totalCnt = rs.getInt("CNT"); }//end if } finally {
-		 * db.dbClose(rs, pstmt, con); }//end finally return totalCnt;
-		 * }//orderTotalCount
-		 */
+	public boolean getGcode(String id, String gcode) throws SQLException {
+		boolean resultGcode = false;
+		
+		DbConnection db=DbConnection.getInstance();
+		
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+		//1. JNDI 사용 객체 생성
+		//2. DataSource 얻기
+		//3. Connection 얻기
+			con=db.getConn("jdbc/dbcp");
+		//4. 쿼리문 생성 객체 얻기
+			String getGcode="select GCODE FROM BUCKET_LIST WHERE ID = ? and gcode = ?";
+			
+			pstmt=con.prepareStatement(getGcode);
+		//5. 바인드 변수 값 설정
+			pstmt.setString(1, id);
+			pstmt.setString(2, gcode);
+			
+		//6. 쿼리문 실행 후 값 얻기
+			rs=pstmt.executeQuery();
+
+			resultGcode = rs.next(); // 조회 결과가 있으면 true, 없으면 false
+		}finally {
+			//7. 연결 끊기
+			db.dbClose(rs, pstmt, con);
+		}//end finally
+		return resultGcode;
+	}//getGcode
+	
 
 }// class

@@ -167,7 +167,7 @@ public class WishListDAO {
 		//3. Connection 얻기
 			con=db.getConn("jdbc/dbcp");
 		//4. 쿼리문 생성 객체 얻기
-			String getGcode="select GCODE FROM BUCKET_LIST WHERE ID = ? and gcode = ?";
+			String getGcode="select GCODE FROM WISHLIST WHERE ID = ? and gcode = ?";
 			
 			pstmt=con.prepareStatement(getGcode);
 		//5. 바인드 변수 값 설정
@@ -184,6 +184,5 @@ public class WishListDAO {
 		}//end finally
 		return resultGcode;
 	}//getGcode
-	
 	
 }//class

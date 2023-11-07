@@ -585,7 +585,6 @@ public int postingTotalCount(BoardRangeVO brVO,String id) throws SQLException{
 	} finally {
 		db.dbClose(rs, pstmt, con);
 	}//end finally
-	System.out.println(totalCnt);
 	return totalCnt;
 }//postingTotalCount
 	
@@ -630,7 +629,6 @@ public int productReviewTotalCount(BoardRangeVO brVO,String gcode) throws SQLExc
 	} finally {
 		db.dbClose(rs, pstmt, con);
 	}//end finally
-	System.out.println(totalCnt);
 	return totalCnt;
 }//reviewTotalCount	
 
