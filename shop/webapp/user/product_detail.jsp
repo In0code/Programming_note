@@ -335,17 +335,27 @@ function wishHeart(){
         url: "wishListHeart_process.jsp",
         type: "get",
         data: "gcode="+gcode,
-        dataType: "text",
+        dataType: "json",
         error: function(xhr) {
             alert("죄송합니다. 서버에 문제가 발생하였습니다. 잠시 후에 다시 시도해주세요.");
             console.log(xhr.status);
         }, 
         success: function(data) { //조회 결과가 있으면 true, 없으면 false
-        	if(data){ // 장바구니에 이미 상품이 있으면
+        	if(!data.idFlag){ // false면 로그인 안함
+        		 $("#wish_img").attr("src", "http://localhost/prj_web_shopping/common/images/icon/heart.png");
+        	}else{ // 로그인 했으면 (true이면)
+	        	if(data.flag){// true면 이미 관심상품에 상품이 있음. 
+        		 $("#wish_img").attr("src", "http://localhost/prj_web_shopping/common/images/icon/hearts.png");
+	        	}else{//false면 관심상품에 추가된 상품이 없음
+        		 $("#wish_img").attr("src", "http://localhost/prj_web_shopping/common/images/icon/heart.png");
+	        		
+	        	}//end else	
+        	}//end else
+        	/* if(data){ // 장바구니에 이미 상품이 있으면
         		 $("#wish_img").attr("src", "http://localhost/prj_web_shopping/common/images/icon/hearts.png");
         	}else{ // 없으면
         		 $("#wish_img").attr("src", "http://localhost/prj_web_shopping/common/images/icon/heart.png");
-                }//end else
+                }//end else */
         }//success
     });//ajax
 }//wishHeart
