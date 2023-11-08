@@ -1,3 +1,4 @@
+<%@page import="org.json.simple.JSONObject"%>
 <%@page import="user.dao.WishListDAO"%>
 <%@page import="java.sql.SQLException"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -8,20 +9,26 @@
 
 WishListDAO wlDAO=WishListDAO.getInstance();
 boolean flag = false;
+boolean idFlag = false;
+JSONObject jsonObj=new JSONObject();
+
 try{
 	String gcode=request.getParameter("gcode");
 	String id=(String)session.getAttribute("sesId");
 	
-	flag= wlDAO.getGcode(id,gcode);
-	 if(flag){
-		 wlDAO.deleteWishList(id, gcode);
-	 }else{
-	 wlDAO.intsertWishList(id, gcode);
-	 }//end else
-	
+	if(id != null && !"".equals(id)){
+		idFlag=true;
+		flag= wlDAO.getGcode(id,gcode);
+		 if(flag){
+			 wlDAO.deleteWishList(id, gcode);
+		 }else{
+		 wlDAO.intsertWishList(id, gcode);
+		 }//end else
+	}//end if
+	jsonObj.put("flag", flag);
+	jsonObj.put("idFlag", idFlag);
 }catch(SQLException se){
 	se.printStackTrace();
 }//end catch
-
+out.print(jsonObj.toJSONString());
 %>
-<%= flag %>

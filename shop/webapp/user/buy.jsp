@@ -12,6 +12,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- 프로젝트용 CDN -->
 <%@ include file="../cdn/cdn.jsp"%>
+<c:if test="${ empty sesId }">
+	<c:redirect url="member/login.jsp"/>
+</c:if> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -131,7 +134,9 @@ if("pd".equals(where)) { //상품 상세 페이지에서 왔을 떄
 	
 	totalAmountPrice = bgVO.getPrice() * bgVO.getAmount(); 
 	
-	pageContext.setAttribute("list", bgVO);
+	List<BuyingGoodsVO> list = new ArrayList();
+	list.add(bgVO);
+	pageContext.setAttribute("list", list);
 	
 } else{
 	List<BuyingGoodsVO> list = null;
@@ -161,13 +166,13 @@ if("pd".equals(where)) { //상품 상세 페이지에서 왔을 떄
 		}
 		
 		System.out.println("BuyingGoodsVO list : "+list);
+		pageContext.setAttribute("list", list);
 	}
 	
 	for(int i = 0; i < list.size(); i++) {
 		totalAmountPrice += list.get(i).getPrice() * list.get(i).getAmount();
 	}
 	
-	pageContext.setAttribute("list", list);
 	pageContext.setAttribute("totalAmountPrice", totalAmountPrice);
 }
 

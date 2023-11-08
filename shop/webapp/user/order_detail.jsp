@@ -3,7 +3,12 @@
 <%@page import="user.dao.ClientOrderDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../cdn/cdn.jsp"%>
+ <c:if test="${ empty sesId }">
+	<c:redirect url="member/login.jsp"/>
+</c:if> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,17 +71,35 @@ background: #333;
 <script type="text/javascript">
 	$(function() {
 		$("#btn").click(function() {
-			alert("back");
+			location.href = "order_table.jsp";
 		});
 	});
 </script>
 <%
 String ordno = request.getParameter("ordno");
 
-ClientOrderDAO cDAO = ClientOrderDAO.getInstance();
 try {
-	DetailInfoVO diVO = cDAO.selectOneOrder(ordno);
+	DetailInfoVO diVO = ClientOrderDAO.getInstance().selectOneOrder(ordno);
+	
+	boolean flag = false;
+	String txt = "";
+	switch (diVO.getOnProcess()) {
+	case "D0": txt = "배송중"; break;
+	case "DF": txt = "배송완료"; break;
+	case "DR": txt = "배송준비"; break;
+	case "C0": txt = "교환신청"; flag = true; break;
+	case "CF": txt = "교환완료"; flag = true; break;
+	case "R0": txt = "반품신청"; flag = true; break;
+	case "RF": txt = "반품완료"; flag = true; break;
+	case "PF": txt = "결제완료"; break;
+	default: txt = "조치 중"; break;
+	}
+	diVO.setOnProcess(txt);
+	
+	diVO.setTotalPrice(diVO.getAmount() * diVO.getPrice());
+	
 	pageContext.setAttribute("diVO", diVO);
+	pageContext.setAttribute("flag", flag);
 	
 } catch(SQLException se) {
 	se.printStackTrace();
@@ -97,19 +120,19 @@ try {
 	<table border="1" summary="" style="font-size:13px">
 		<tr>
 			<td>주문 번호</td>
-			<td>1234</td>
+			<td>${diVO.orderNum }</td>
 		</tr>
 		<tr>
 			<td>주문 일자</td>
-			<td>2023-10-10 15:45:35</td>
+			<td>${diVO.orderDate }</td>
 		</tr>
 		<tr>
 			<td>주문자</td>
-			<td>농담공탱이밤탱이</td>
+			<td>${diVO.name }</td>
 		</tr>
 		<tr>
 			<td>주문처리상태</td>
-			<td>결제완료</td>
+			<td>${diVO.onProcess }</td>
 		</tr>
 	</table>
 </div>
@@ -118,11 +141,11 @@ try {
 	<table border="1" summary="" style="font-size:13px">
 		<tr>
 			<td style="border-bottom: 1px solid #333;">총 주문금액</td>
-			<td style="border-bottom: 1px solid #333;">120,000원</td>
+			<td style="border-bottom: 1px solid #333;"><fmt:formatNumber value="${diVO.totalPrice }" pattern="#,###,###,###"/>원</td>
 		</tr>
 		<tr style="border: 1px solid #333;border-bottom: 0px;">
 			<td>총 결제금액</td>
-			<td>120,000원</td>
+			<td><fmt:formatNumber value="${diVO.totalPrice + 2500 }" pattern="#,###,###,###"/>원</td>
 		</tr>
 		<tr style="border: 1px solid #333;">
 			<td style="border-bottom: 1px solid #333;">결제수단</td>
@@ -161,16 +184,17 @@ try {
 							<tbody class="xans-element- xans-board xans-board-list-1002 xans-board-list xans-board-1002 center">
 							
 							<tr style="background-color:#FFFFFF; color:#555555;" class="xans-record-">
-								<td>image</td>
-                    			<td class="subject left txtBreak">상품명</td>
-                    			<td>1</td>
-                    			<td>120,000원</td>
+								<td><img alt="${diVO.img }" src="${diVO.img }"></td>
+                    			<td class="subject left txtBreak">${diVO.productName }</td>
+                    			<td>${diVO.amount }</td>
+                    			<td><fmt:formatNumber value="${diVO.price }" pattern="#,###,###,###"/>원</td>
                     			<td>기본배송</td>
-                    			<td>결제완료</td>
-                    			<td>-</td>
+                    			<td>${diVO.onProcess }</td>
+                    			<td>${flag ? "O" : "-" }</td>
                 			</tr>
                 			<tr>
-                				<td colspan="7" style="text-align: right;padding-right: 20px;">상품구매금액 120,000 + 배송비 2,500 = 합계: 120,000원</td>
+                				<td colspan="7" style="text-align: right;padding-right: 20px;">상품구매금액 <fmt:formatNumber value="${diVO.totalPrice }" pattern="#,###,###,###"/> + 배송비 2,500 = 
+                				합계: <fmt:formatNumber value="${diVO.totalPrice + 2500 }" pattern="#,###,###,###"/>원</td>
                 			</tr>
 							</tbody>
 					</table>
@@ -180,19 +204,19 @@ try {
 	<table border="1" summary="" style="font-size:13px">
 		<tr>
 			<td>받으시는 분</td>
-			<td>농담공탱이밤탱이</td>
+			<td>${diVO.name }</td>
 		</tr>
 		<tr>
 			<td>우편번호</td>
-			<td>12345</td>
+			<td>${diVO.zipcode }</td>
 		</tr>
 		<tr>
 			<td>주소</td>
-			<td>서울시 강남구 역삼동 한독빌딩 8층 20003호</td>
+			<td>${diVO.sido } ${diVO.addr }</td>
 		</tr>
 		<tr>
 			<td>휴대전화</td>
-			<td>010-0000-0000</td>
+			<td>${diVO.phone }</td>
 		</tr>
 	</table>
 </div>

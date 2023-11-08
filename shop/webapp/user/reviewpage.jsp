@@ -169,9 +169,11 @@ $(function(){
 UserReviewDAO uDAO= UserReviewDAO.getInstance();
 
 try{
+	
 	pmVO = uDAO.selectproductImg("BC0001");//상품클릭 시 받을 값 ,gcode?
 	
 	pageContext.setAttribute("goods", pmVO);
+	
 }catch (SQLException se) {
 	se.printStackTrace();
 }//end catch
@@ -186,7 +188,7 @@ try{
    <form action="reviewpage_frm_process.jsp" id="frm" name="frm" method="post" style="position:relative; left:30px" >
             
 <input type="hidden"  id="rcode" name="rcode">
-                
+                <input type="hidden"  id="gcode" name="gcode" value="${param.gcode}">
     <header class="n-section-title">
         <h1 class="tit">후기 작성</h1>
     </header>

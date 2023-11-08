@@ -3,6 +3,14 @@
 	 <%@ page info="회원가입 처리" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../../cdn/cdn.jsp" />
+<%
+
+if(request.getParameter("id") == null){
+	response.sendRedirect("http://localhost/prj_web_shopping/user/main.jsp");
+	return;
+}
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +18,7 @@
 <style type="text/css">
 div .joinComplete {
 	/* Font & Text */
-	font-family: Roboto, "Noto Sans KR", "malgun gothic", 맑은고딕, NanumGothic, dotum, 돋움, sans-serif;
+	font-family: "Pretendard Medium", Roboto, "Noto Sans KR", "malgun gothic", 맑은고딕, NanumGothic, dotum, 돋움, sans-serif;
 	font-size: 14px;
 	font-style: normal;
 	font-variant: normal;
@@ -53,7 +61,7 @@ div .joinComplete {
 }
 h3 {
 	/* Font & Text */
-	font-family: Roboto, "Noto Sans KR", "malgun gothic", 맑은고딕, NanumGothic, dotum, 돋움, sans-serif;
+	font-family: "Pretendard Medium", Roboto, "Noto Sans KR", "malgun gothic", 맑은고딕, NanumGothic, dotum, 돋움, sans-serif;
 	font-size: 17px;
 	font-style: normal;
 	font-variant: normal;
@@ -85,7 +93,7 @@ h3 {
 }
 h4 {
 	/* Font & Text */
-	font-family: Roboto, "Noto Sans KR", "malgun gothic", 맑은고딕, NanumGothic, dotum, 돋움, sans-serif;
+	font-family: "Pretendard Medium", Roboto, "Noto Sans KR", "malgun gothic", 맑은고딕, NanumGothic, dotum, 돋움, sans-serif;
 	font-size: 14px;
 	font-style: normal;
 	font-variant: normal;
@@ -149,15 +157,8 @@ h4 {
 }
 p {
 	/* Font & Text */
-	font-family: Roboto, "Noto Sans KR", "malgun gothic", 맑은고딕, NanumGothic, dotum, 돋움, sans-serif;
-	font-size: 14px;
-	font-style: normal;
-	font-variant: normal;
-	font-weight: 400;
-	letter-spacing: normal;
-	line-height: 21px;
-	text-decoration: none solid rgb(33, 33, 33);
-	text-align: center;
+	font-family: "Pretendard Medium", Roboto, "Noto Sans KR", "malgun gothic", 맑은고딕, NanumGothic, dotum, 돋움, sans-serif;
+
 	text-indent: 0px;
 	text-transform: none;
 	vertical-align: baseline;
@@ -192,7 +193,30 @@ p {
 	display: block;
 	clear: none;
 	z-index: auto;
+	
+	
 }
+
+.loBtn {
+	background-color: black;
+	border: 1px solid black;
+	color: white; 
+	font-size:15px; 
+	padding:15px; 
+	width:220px; 
+	margin-right:20px; 
+	margin-bottom:100px; 
+	margin-top:10px; 
+	font-family:"Pretendard Medium"
+}
+
+.loBtn:hover {
+	background-color: white;
+	transition: background-color 0.5s;
+	border: 1px solid black;
+	color: black;
+}
+
 
 </style>
 <script type="text/javascript">
@@ -204,7 +228,7 @@ $(function() {
 <body>
 	<%@ include file="../layout/header.jsp"%>
 
-	<div class="xans-element- xans-member xans-member-joincomplete ">
+	<div class="xans-element- xans-member xans-member-joincomplete " style="margin-bottom:100px">
 		<div class="joinComplete">
 			<h3>회원가입 완료</h3>
 			<h4>회원가입이 완료 되었습니다.</h4>
@@ -235,7 +259,7 @@ $(function() {
 			</div>
 
 			<div class="ec-base-button gColumn">
-				<a href="login.jsp" class="btnSubmit sizeM" style="color:white;">완료</a>
+				<a href="login.jsp" class="loBtn">로그인</a>
 			</div>
 		</div>
 	</div>

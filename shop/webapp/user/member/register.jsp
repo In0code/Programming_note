@@ -51,6 +51,13 @@ input {
 	background-color: black;
 	border: 1px solid black;
 	color: white; 
+	font-size:15px; 
+	padding:15px; 
+	width:220px; 
+	margin-right:20px; 
+	margin-bottom:100px; 
+	margin-top:-30px; 
+	font-family:"Pretendard Medium"
 }
 
 .joinBtn:hover {
@@ -238,8 +245,7 @@ function compare_result() {
 		</tr>
 	</table>
 		<div class="ec-base-button gBottom" >
-			<input type="button" value="회원가입" id="btn" class="joinBtn"
-			style="font-size:15px; padding:15px; width:220px; margin-right:20px; margin-bottom:100px; margin-top:-30px; font-family:Pretendard Medium"/>
+			<input type="button" value="회원가입" id="btn" class="joinBtn"/>
 		</div>
 	</form>
 </div>

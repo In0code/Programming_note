@@ -5,8 +5,12 @@
 <%@page import="user.vo.BuyInfoVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- 프로젝트용 CDN -->
 <jsp:include page="../cdn/cdn.jsp"/>
+<c:if test="${ empty sesId }">
+	<c:redirect url="member/login.jsp"/>
+</c:if> 
 <!DOCTYPE html>
 <%
 request.setCharacterEncoding("UTF-8");
@@ -105,33 +109,6 @@ try{
 	se.printStackTrace();
 }
 
-
-	/* String name = request.getParameter("name");
-String zipcode = request.getParameter("zipcode");
-String addr1 = request.getParameter("addr1");
-String addr2 = request.getParameter("addr2");
-String cell = request.getParameter("phone");
-String email = request.getParameter("email");
-String amount = request.getParameter("amount");
-String productCode = request.getParameter("productCode");
-String totalPrice = request.getParameter("price");
-String msgHid = request.getParameter("msg");
-String chkHid = request.getParameter("chkHid");
-String flag = request.getParameter("flag"); */
-
-
-/* System.out.println("name : "+name);
-System.out.println("zipcode : "+zipcode);
-System.out.println("addr1 : "+addr1);
-System.out.println("addr2 : "+addr2);
-System.out.println("cell : "+cell);
-System.out.println("email : "+email);
-System.out.println("amount : "+amount);
-System.out.println("productCode : "+productCode);
-System.out.println("totalPrice : "+totalPrice);
-System.out.println("msgHid : "+msgHid);
-System.out.println("chkHid : "+chkHid);
-System.out.println("flag : "+flag); */
 %>
 <script type="text/javascript">
 	$(function() {

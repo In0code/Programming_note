@@ -10,9 +10,11 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../cdn/cdn.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+ <c:if test="${ empty sesId }">
+	<c:redirect url="member/login.jsp"/>
+</c:if> 
 <%
-String id = "test";
+String id = "frank";
 %>
 <!DOCTYPE html>
 <html>
@@ -129,7 +131,16 @@ text-align: center;
 .active {
 	color: black;
 }
-
+.ahover:hover {
+	background: #000000;
+	color: #FFFFFF;
+}
+.ahover {
+	border: 1px solid #000000;
+	margin-top: 10px;
+	padding: 5px;
+	height: 15px;
+}
 </style>
 <%
 BoardDAO bDAO = BoardDAO.getInstance();
@@ -158,6 +169,7 @@ pageContext.setAttribute("startNum", startNum);
 
 //6.끝 번호
 int endNum = startNum+pageScale-1;
+pageContext.setAttribute("endNum", endNum);
 
 //Dynamic Query에 의해서 구해진 시작번호와 끝번호를 VO에 넣는다.
 brVO.setStartNum(startNum);
@@ -166,45 +178,152 @@ brVO.setEndNum(endNum);
 %>
 <script type="text/javascript">
 	$(function() {
-		$("#pills-home").click(function() {
+		var pageQuery = "&startNum="+${startNum}+"&endNum="+${endNum};
+		$("#readOrder").click(function() {
 			$.ajax({
 				url:"order_list_process.jsp",
 				type:"get",
-				data:"flag=o",
+				data:"flag=o"+pageQuery,
 				dataType:"json",
 				error: function(xhr) {
 					alert(xhr.status);
 				},
 				success: function(jsonObj) {
-					alert(jsonObj);
+					display(jsonObj);
 				}
 			});
 			
 		});
 		
-		$("#pills-profile").click(function() {
+		$("#readRecall").click(function() {
 			$.ajax({
 				url:"order_list_process.jsp",
 				type:"get",
-				data:"flag=r",
+				data:"flag=r"+pageQuery,
 				dataType:"json",
 				error: function(xhr) {
 					alert(xhr.status);
 				},
 				success: function(jsonObj) {
-					alert(jsonObj);
+					display(jsonObj);
 				}
 			});
 		});
 		
 	});//load end
 	
-	function display(jsonObj) {
+	function display(json) {
+		var data = json.data;
+		var output = "";
+		var txt = "";
+		var status = "";
+		var temp = "";
+		var review = "";
+	
+		for(var i = 0; i < json.dataSize; i++) {
+			review = "";
+			status = data[i].onProcess;
+			switch (status) {
+			case "D0": txt = "배송중"; break;
+			case "DF": txt = "배송완료";
+				review = "<br><a href='reviewpage.jsp?gcode="+data[i].gcode+"' class='ahover'>교환신청</a>"
+				temp = "<a class='ahover' onclick='change("+data[i].ord_dno+")'>교환신청</a><br>";
+				temp += "<a class='ahover' onclick='recall("+data[i].ord_dno+","+data[i].totalPrice+")'>반품신청</a><br>";
+				temp += "<a class='ahover' onclick='cancel("+data[i].ord_dno+","+data[i].totalPrice+")'>주문취소</a>";
+				break;
+			case "DR": txt = "배송준비"; break;
+			case "C0": txt = "교환신청"; temp = "-"; break;
+			case "CF": txt = "교환완료"; temp = "-"; break;
+			case "R0": txt = "반품신청"; temp = "-"; break;
+			case "RF": txt = "반품완료"; temp = "-"; break;
+			case "PF": txt = "결제완료"; 
+				temp = "<a class='ahover' onclick='change("+data[i].ord_dno+")'>교환신청</a><br>";
+				temp += "<a class='ahover' onclick='recall("+data[i].ord_dno+","+data[i].totalPrice+")'>반품신청</a><br>";
+				temp += "<a class='ahover' onclick='cancel("+data[i].ord_dno+","+data[i].totalPrice+")'>주문취소</a>";
+				break;
+			default: txt = "-"; break;
+			}
+			output += "<tr><td>"+data[i].orderDate+"<br>["+data[i].orderNum+"]"+review+"</td>";
+			output += "<td><img src='http://192.168.10.143/prj_web_shopping/upload/goods/"+data[i].img+"' width='100'></td>";
+			output += "<td class='subject left txtBreak'><a href='order_detail.jsp?ordno="+data[i].orderNum+"&price="+data[i].price+"'>"+data[i].productName+"</a></td>";
+			output += "<td>"+data[i].amount+"</td>";
+			output += "<td>"+data[i].totalPrice+"원</td>";
+			
+			output += "<td>"+txt+"</td>";
+			output += "<td>"+temp+"</td></tr>";
+			
+		}
+			
 		
+		console.log(output);
+		$("#output").html(output);
 	}
 	
 	function detail(ordno) {
-		window.location = "order_detail.jsp?ordno="+ordno;
+		window.location = "order_detail.jsp?ordno="+ordno+"&price="+price;
+	}
+	
+	function cancel(ord_dno, price) {
+		alert(ord_dno);
+		$.ajax({
+			url:"order_cancel_process.jsp",
+			type:"get",
+			data:"ord_dno="+ord_dno+"&price="+price,
+			dataType:"json",
+			error: function(xhr) {
+				alert("다시 시도해주세요");
+			},
+			success: function(json) {
+				if(json.flag) {
+					alert("취소신청 완료");
+					location.reload();
+				} else {
+				alert("다시 시도해주세요");
+				}
+			}
+		});
+	}
+	
+	function recall(ord_dno, price) {
+		alert(ord_dno);
+		$.ajax({
+			url:"order_recall_process.jsp",
+			type:"get",
+			data:"ord_dno="+ord_dno+"&price="+price,
+			dataType:"json",
+			error: function(xhr) {
+				alert("다시 시도해주세요");
+			},
+			success: function(json) {
+				if(json.flag) {
+					alert("반품신청 완료");
+					location.reload();
+				} else {
+				alert("다시 시도해주세요");
+				}
+			}
+		});
+	}
+	
+	function change(ord_dno) {
+		alert(ord_dno);
+		$.ajax({
+			url:"order_change_process.jsp",
+			type:"get",
+			data:"ord_dno="+ord_dno,
+			dataType:"json",
+			error: function(xhr) {
+				alert("다시 시도해주세요");
+			},
+			success: function(json) {
+				if(json.flag) {
+					alert("교환신청 완료");
+					location.reload();
+				} else {
+				alert("다시 시도해주세요");
+				}
+			}
+		});
 	}
 </script>
 <body>
@@ -236,11 +355,11 @@ brVO.setEndNum(endNum);
 
  <ul class="nav nav-tabs" id="pills-tab" role="tablist"> 
       <li class="nav-item" role="presentation">
-        <a class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" aria-current="page" href="#" role="tab" aria-controls="pills-home" aria-selected="true">
+        <a class="nav-link active" id="readOrder" data-bs-toggle="pill" data-bs-target="#pills-home" aria-current="page" role="tab" aria-controls="pills-home" aria-selected="true">
         	주문내역조회</a>
       </li>
       <li class="nav-item" role="presentation">
-        <a class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" href="#" aria-controls="pills-profile" aria-selected="false">
+        <a class="nav-link" id="readRecall" data-bs-toggle="pill" data-bs-target="#pills-profile" aria-controls="pills-profile" aria-selected="false">
         	교환/반품조회</a>
       </li>
     </ul>
@@ -254,9 +373,9 @@ brVO.setEndNum(endNum);
 
 <div class="tab-content" id="pills-tabContent" style="padding-left: 10px;padding-bottom: 10px;">
 <!-- 주문내역조회 클릭 시 나오는 부분 -->
-  <div class="tab-pane show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0"><strong>주문 상품 정보</strong></div>
+  <div class="tab-pane show active" id="pills-home" role="tabpanel" aria-labelledby="readOrder" tabindex="0"><strong>주문 상품 정보</strong></div>
 <!-- 교환/반품조회 클릭 시 나오는 부분 -->
-  <div class="tab-pane " id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0"><strong>교환/반품 상품 정보</strong></div>
+  <div class="tab-pane " id="pills-profile" role="tabpanel" aria-labelledby="readRecall" tabindex="0"><strong>교환/반품 상품 정보</strong></div>
 </div>
 <div class="ec-base-table typeList gBorder pad">
 	<table  border="1" summary="" style="text-align:center; font-size:13px">
@@ -277,20 +396,12 @@ brVO.setEndNum(endNum);
 			<th scope="col">수량</th>
 			<th scope="col">상품구매금액</th>
 			<th scope="col">주문처리상태</th>
-			<th scope="col">교환/반품</th>
+			<th scope="col">교환/반품/취소</th>
 			</tr>
 		</thead>
-		<tbody class="xans-element- xans-board xans-board-list-1002 xans-board-list xans-board-1002 center">
+		<tbody id="output" class="xans-element- xans-board xans-board-list-1002 xans-board-list xans-board-1002 center">
 		<%-- <c:forEach var="" items="" varStatus=""> --%>
-			<tr>
-				<td>2023-10-10<br>[203949-394494]</td>
-				<td>image</td>
-				<td class="subject left txtBreak"><a href="order_detail.jsp?ordno=">product information</a></td>
-				<td>2</td>
-				<td>135,000원</td>
-				<td>배송완료</td>
-				<td>-</td>
-			</tr>
+			
 		<%-- </c:forEach> --%>
 		</tbody>
 	</table>

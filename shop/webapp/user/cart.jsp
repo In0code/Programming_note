@@ -283,14 +283,14 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 			</ul>
 		</div>
 		<div class="table-container" >
-			 <div id="totalProducts">
+			 <div id="totalProducts" style="border: 1px solid #E5E4E4; ">
 			 <form id="buyFrm" name="buyFrm" method="get" action="buy.jsp">
-			<table class="table" id="table" style="border: 1px solid #E5E4E4; background-color: #FFFFFF; text-align: center;">
+			<table class="table" id="table" style="background-color: #FFFFFF; text-align: center;">
 				<tr style="border: 1px solid #E5E4E4; border-bottom: 1px solid #919191;">
 					<td  style="width:30px; color: #929492">
 						<input type="hidden" style="width: 45px;"/>
 					</td>
-					<td style="width:100px; font : #929492; vertical-align: middle;">이미지</td>
+					<td style="width:100px; color : #929492; vertical-align: middle;">이미지</td>
 					<td style="width:350px;color: #929492;vertical-align: middle; ">상품정보</td>
 					<td style="width:250px;color: #929492; vertical-align: middle;">판매가</td>
 					<td style="width:100px;color: #929492; vertical-align: middle;">수량</td>
@@ -299,14 +299,16 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 				</tr>
 				<c:if test="${ empty cartList }">
 					<tr>
-					<td colspan="7" style="text-align: center; padding:100px">상품정보가 존재하지 않습니다</td>
+					<td colspan="7">
+						<img src="http://localhost/prj_web_shopping/common/images/nocart.png"/>
+					</td>
 					
 					</tr>
 				</c:if>
 				
 						
 					<c:forEach var="cart" items="${ cartList }" varStatus="i">
-					  <tr style="border-bottom: 1px solid #E5E4E4;" >
+					  <tr style="border-top: 1px solid #E5E4E4;" >
 						<td style=" vertical-align: middle;"><input type="checkbox" class="check" name="check"  value="${ cart.bcode }" style="border: 1px solid #929492 ; width: 15px; pa "></td> 
 						<td  style=" vertical-align: middle;"><img src="../upload/goods/${ cart.img }"  style="width: 100px"/></td>
 						<td style=" vertical-align: middle;"><a href="product_detail.jsp?gcode=${ cart.gcode }"><c:out value="${ cart.gname }"/></a></td>

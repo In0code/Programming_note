@@ -187,10 +187,10 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 				<form id="tableFrm" name="tableFrm" method="get" action="buy.jsp?where=wish&full=n">
 			<table class="table" id="table" style="border: 1px solid #E5E4E4; text-align: center;">
 				<tr style="border: 1px solid #E5E4E4; border-bottom: 1px solid #919191;">
-					<td  style="width:10px; color: #929492">
+					<td  style="width:10px; color: #929492; height: 36px">
 						<input type="hidden" style="border: 1px solid #929492 ; width: 15px; height: 15px"/>
 					</td>
-					<td style="width:100px; color: #929492; vertical-align: middle;">이미지</td>
+					<td style="width:100px; color: #929492; vertical-align: middle; padding:15px">이미지</td>
 					<td style="width:350px;color: #929492;vertical-align: middle; ">상품정보</td>
 					<td style="width:200px;color: #929492; vertical-align: middle;">판매가</td>
 					<td style="width:100px;color: #929492;vertical-align: middle;">배송비</td>
@@ -199,7 +199,7 @@ pageContext.setAttribute("deliveryPrice", deliveryPrice);
 				</tr>
 				<c:if test="${ empty wishList }">
 					<tr>
-					<td colspan="7" style="text-align: center; padding:100px">상품 정보가 존재하지 않습니다</td>
+					<td colspan="7" style="text-align: center; padding:100px">관심상품 내역이 없습니다.</td>
 					</tr>
 				</c:if>
 					<c:forEach var="wish" items="${ wishList }" varStatus="i">

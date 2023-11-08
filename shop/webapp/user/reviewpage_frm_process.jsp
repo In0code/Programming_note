@@ -32,8 +32,8 @@ $(function(){
 
 UserReviewDAO uDAO = UserReviewDAO.getInstance(); 
 String review=sVO.getReview();
-String gcode="BC0001";
-String id="tuna5127";
+String gcode="BC0001";//받는 쥐코드;
+String id=(String)session.getAttribute("sesId");
 int star = sVO.getStar();
 int rcode = sVO.getRcode();
 System.out.println("+++++"+request.getParameter("reviewImg")+"-------");

@@ -75,6 +75,7 @@ $(function(){
 	//
 	
 	$("#btnUpdate").click(function(){
+		
 		document.frm.action="item_managing_update_frm_process.jsp";
 			$("#frm").submit();
 	});
@@ -123,7 +124,6 @@ $(function(){
 				 
 				   $('#img3').change(function(){
 					 	
-					 	  alert("ccc");
 					 	  var file=event.target.files[0];
 					 	  var reader=new FileReader( );
 					 	  reader.onload=function(e){
@@ -185,7 +185,7 @@ $(function(){
 <jsp:useBean id="pVO" class="admin.vo.ProductManageVO" scope="page"></jsp:useBean> 
 <jsp:setProperty property="*" name="pVO"/>
 <% ProductDAO pDAO= ProductDAO.getInstance();
-	String gcode=request.getParameter("gcode");//Integer.parseInt(request.getParameter("gcode"));
+	String gcode=request.getParameter("gcode");
 	try{
 		
 	pVO= pDAO.selectOneProduct(gcode);
@@ -204,6 +204,7 @@ $(function(){
 			<strong>상품 상세 정보</strong>
 		</div>
 		<form action="" id="frm" name="frm" method="post" style="position:relative; left:30px" >
+		<input type="hidden" id="gcode" name="gcode" value="${param.gcode}">
 		<div id="background_box" style="width: 1550px; height:750px; font-family:  pretendard; margin-left: -100px"> <!-- 각자 원하는데로 사용 -->
 	
 		<label style="position: absolute; top: 40px; left: 20px; font-size: 20px">상품명 : </label><textarea  id="goodsName" name="goodsName"  style="position: absolute; top: 43px; left: 90px; height: 30px; width:260px; border-width: 0 0 1px;"  placeholder="추가 정보를 입력해주세요" ><c:out value="${product.goodsName eq 'null' ? '' : product.goodsName}" /></textarea>

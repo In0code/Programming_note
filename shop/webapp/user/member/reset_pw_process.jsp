@@ -7,6 +7,11 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
      <% 
     request.setCharacterEncoding("UTF-8");
+    String method=request.getMethod();
+     if("GET".equals(method)){
+     	response.sendRedirect("register.jsp");
+     	return;
+     }//end if
     %>
 <!DOCTYPE html>
 <html>

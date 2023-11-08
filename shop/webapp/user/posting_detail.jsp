@@ -287,7 +287,7 @@ $(function(){
   </div>
   <textarea style="width:502px; height:180px; resize: none;" maxlength="200" name="review" id="review"><c:out value="${review.review}" />
   </textarea>	
-    <p class="textCount" style="font-size: 10px; position: absolute; top:430px; left: 445px; padding: 3px"><%=reviewSize %> 자</p><p class="textTotal" style="padding: 3px;position: absolute; top:430px; left: 470px;font-size: 10px">/200자</p>
+    <p class="textCount" style="font-size: 10px; position: absolute; top:400px; left: 445px; padding: 3px"><%=reviewSize %> 자</p><p class="textTotal" style="padding: 3px;position: absolute; top:400px; left: 470px;font-size: 10px">/200자</p>
 </div>
 <%-- <div style=" margin-left: 5px;" >
 <textarea  style="width:502px; height:180px;" name="review" id="review"><c:out value="${review.review}" /></textarea>
@@ -299,7 +299,7 @@ $(function(){
 <input type="file" name="file" id="file" style="display:none"/>
 <img src="../common/images/icon/check-circle.svg" style="margin-left: 5px; ">&ensp;동영상/사진 첨부
 <div style="border: 1px solid #333; width:502px; height:180px; margin-left: 5px; " onclick="onclick=document.all.file.click()" >
-<button type="button" style="padding: 5px 10px;  font-size: 15px; position: absolute; left:210px; top:540px;"  class="btn btn-outline-danger" ><img src="../common/images/icon/camera.svg" >&ensp;첨부하기</button>
+<button type="button" style="padding: 5px 10px;  font-size: 15px; position: absolute; left:210px; top:520px;"  class="btn btn-outline-danger" ><img src="../common/images/icon/camera.svg" >&ensp;첨부하기</button>
 
 </div>
 <input type="submit" value="전송" style="padding: 3px 10px; font-size: 10px; position: absolute;

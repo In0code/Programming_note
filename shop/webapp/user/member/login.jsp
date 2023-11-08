@@ -2,6 +2,14 @@
 	pageEncoding="UTF-8"%>
 <%@ page info="로그인"%>
 <jsp:include page="../../cdn/cdn.jsp" />
+<%
+	String id = (String)session.getAttribute("sesId");
+	if(id != null){
+		response.sendRedirect("http://localhost/prj_web_shopping/user/main.jsp");
+		return;
+	}
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +26,7 @@
 }
 
 #login fieldset {
-	margin-bottom: 20px;
+	margin: 10px 0px 10px 0px;
 }
 
 .inputForm{
@@ -41,7 +49,22 @@
 	font-family : 'Pretendard Medium';
 }
 
+.btnCss {
+	background-color: black;
+	border: 1px solid black;
+	color: white; 
+	font-size:15px; 
+	width:220px; 
+	margin : 10px 20px 100px 0px;
+	font-family:"Pretendard Medium"
+}
 
+.btnCss:hover {
+	background-color: white;
+	transition: background-color 0.5s;
+	border: 1px solid black;
+	color: black;
+}
 
 </style>
 <script type="text/javascript">
@@ -66,19 +89,41 @@ $(function(){
 function checkNull(){
 	var id=$("#id").val();
 	var pw=$("#pw").val();
-	
-	if(id.trim() === ""){
-        alert("아이디를 입력하세요.");
-        return;
-    }
-	
-	if(pw.trim() === ""){
-		alert("비밀번호를 입력하세요.");
-		return;
-	}
-	
 
-    $("#frm").submit();
+
+	$("#id").focus();
+	if(id.replace(/ /g,"") == ""){
+	    $("#warningDiv").html("<span style='color:red'>아이디를 입력해주세요.</span>");
+	    $("#id").val("");
+	    return;
+	}
+
+	$("#pw").focus();
+	if(pw.replace(/ /g,"")  ==""){
+	    $("#warningDiv").html("<span style='color:red'>비밀번호를 입력해주세요.</span>");
+	    $("#pw").val("");
+	    return;
+	}
+
+  /*   $("#frm").submit(); */
+    
+    $.ajax({
+    	url : "login_process.jsp",
+    	type : "post",
+    	data : "id="+id+"&pass="+pw,
+    	dataType : "text",
+    	error : function(xhr){
+    		console.log(xhr.status);
+    	},
+    	success : function(flag){
+    		if(flag == 'true'){
+    			location.href = "mypage.jsp";
+    		}else{
+    		    $("#warningDiv").html("<span style='color:red'>아이디 또는 비밀번호를 잘못 입력했습니다.<br>입력하신 내용을 다시 확인해주세요.</span>");
+    		    $("#pw").val("");
+    		}
+    	}
+    });
     
 }//checkNull
 </script>
@@ -90,15 +135,16 @@ function checkNull(){
 		<h6 style="font-weight: bold">로그인</h6><br>
 		<form action="login_process.jsp" method="post" name="frm" id="frm">
 		<fieldset>
-			<input type='text' id="id" name="id" class="inputForm" placeholder="회원 아이디" style="height:40px"/>
+			<input type='text' id="id" name="id" class="inputForm" placeholder="아이디" style="height:40px"/>
 		</fieldset>
 		<fieldset>
-			<input type='password' id="pw" name=pass class="inputForm"  placeholder="비밀번호" style="height:40px"/>
+			<input type='password' id="pw" name="pass" class="inputForm"  placeholder="비밀번호" style="height:40px"/>
 		</fieldset>		
+		<div id="warningDiv"></div>
 		<!-- 로그인 버튼  -->
 		<div>
-			<input type="button" id="btnLogin" class="btn btn-dark" 
-			style="height:40px; width:300px; font-size: 12px" value="로그인하기"/>
+			<input type="button" id="btnLogin" class="btnCss" 
+			style="height:40px; width:300px; font-size: 12px; font-family:Pretendard Medium" value="로그인"/>
 		</div>
 		</form>
 		
