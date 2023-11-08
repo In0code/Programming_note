@@ -2,13 +2,23 @@ package user.vo;
 
 public class SummaryVO {
 
-		private String category,review, name,reviewDate,img,id, gname;
+		private String gcode,category,review, name,reviewDate,img,id, gname;
 		
 		private int view, rcode, star;
 		
 		
 		public SummaryVO () {
 			
+		}
+
+
+		public String getGcode() {
+			return gcode;
+		}
+
+
+		public void setGcode(String gcode) {
+			this.gcode = gcode;
 		}
 
 
@@ -114,15 +124,16 @@ public class SummaryVO {
 
 		@Override
 		public String toString() {
-			return "SummaryVO [category=" + category + ", review=" + review + ", name=" + name + ", reviewDate="
-					+ reviewDate + ", img=" + img + ", id=" + id + ", gname=" + gname + ", view=" + view + ", rcode="
-					+ rcode + ", star=" + star + "]";
+			return "SummaryVO [gcode=" + gcode + ", category=" + category + ", review=" + review + ", name=" + name
+					+ ", reviewDate=" + reviewDate + ", img=" + img + ", id=" + id + ", gname=" + gname + ", view="
+					+ view + ", rcode=" + rcode + ", star=" + star + "]";
 		}
 
 
-		public SummaryVO(String category, String review, String name, String reviewDate, String img, String id,
-				String gname, int view, int rcode, int star) {
+		public SummaryVO(String gcode, String category, String review, String name, String reviewDate, String img,
+				String id, String gname, int view, int rcode, int star) {
 			super();
+			this.gcode = gcode;
 			this.category = category;
 			this.review = review;
 			this.name = name;
@@ -136,11 +147,6 @@ public class SummaryVO {
 		}
 
 
-		
-
-
-		
-		
 		
 		
 		

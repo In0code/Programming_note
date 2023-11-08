@@ -83,7 +83,7 @@ public class DashboardDAO {
 			con = db.getConn("jdbc/dbcp");
 
 			// 판매중
-			pstmt = con.prepareStatement(" select count(*) cnt from goods where quantity <> 0 ");
+			pstmt = con.prepareStatement(" select count(*) cnt from goods where quantity <> 0 and cancle != 'Y'");
 			rs = pstmt.executeQuery();
 			
 			cnt = rs.next() ? rs.getInt("cnt") : 0;
@@ -114,7 +114,7 @@ public class DashboardDAO {
 			con = db.getConn("jdbc/dbcp");
 
 			// 판매중
-			pstmt = con.prepareStatement(" select count(*) cnt from goods where quantity = 0 ");
+			pstmt = con.prepareStatement(" select count(*) cnt from goods where quantity = 0 and cancle != 'Y'");
 			rs = pstmt.executeQuery();
 			
 			cnt = rs.next() ? rs.getInt("cnt") : 0;
@@ -145,7 +145,7 @@ public class DashboardDAO {
 			con = db.getConn("jdbc/dbcp");
 
 			// 판매중
-			pstmt = con.prepareStatement(" select count(*) cnt from goods where quantity between 1 and 10 ");
+			pstmt = con.prepareStatement(" select count(*) cnt from goods where quantity between 1 and 10 and cancle != 'Y'");
 			rs = pstmt.executeQuery();
 			
 			cnt = rs.next() ? rs.getInt("cnt") : 0;

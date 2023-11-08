@@ -11,7 +11,7 @@ import admin.vo.BoardRangeVO;
 import admin.vo.ProductManageVO;
 import common.dao.DbConnection;
 import user.vo.SummaryVO;
-
+//
 public class UserReviewDAO {
 	
 	
@@ -194,7 +194,7 @@ public void updateReivew ( String review,int star,int rcode,String img) throws S
 	}
 	
 
-}//updateReivew
+}//updateReivew//
 
 public void updateReivew3 ( String review,int star,int rcode) throws SQLException {
 	

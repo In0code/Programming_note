@@ -1,22 +1,33 @@
 package user.vo;
 
+
 public class ClientOrderVO {
 	
-	private String orderDate, orderNum, img, productName, onProcess;
+	private String gcode, orderDate, orderNum, orddno, img, productName, onProcess;
 	private int amount, price;
 	
 	public ClientOrderVO() {
 	}
 
-	public ClientOrderVO(String orderDate, String orderNum, String img, String productName, String onProcess,
-			int amount, int price) {
+	public ClientOrderVO(String gcode, String orderDate, String orderNum, String orddno, String img, String productName,
+			String onProcess, int amount, int price) {
+		this.gcode = gcode;
 		this.orderDate = orderDate;
 		this.orderNum = orderNum;
+		this.orddno = orddno;
 		this.img = img;
 		this.productName = productName;
 		this.onProcess = onProcess;
 		this.amount = amount;
 		this.price = price;
+	}
+
+	public String getGcode() {
+		return gcode;
+	}
+
+	public void setGcode(String gcode) {
+		this.gcode = gcode;
 	}
 
 	public String getOrderDate() {
@@ -33,6 +44,14 @@ public class ClientOrderVO {
 
 	public void setOrderNum(String orderNum) {
 		this.orderNum = orderNum;
+	}
+
+	public String getOrddno() {
+		return orddno;
+	}
+
+	public void setOrddno(String orddno) {
+		this.orddno = orddno;
 	}
 
 	public String getImg() {
@@ -77,7 +96,8 @@ public class ClientOrderVO {
 
 	@Override
 	public String toString() {
-		return "ClientOrderVO [orderDate=" + orderDate + ", orderNum=" + orderNum + ", img=" + img + ", productName="
-				+ productName + ", onProcess=" + onProcess + ", amount=" + amount + ", price=" + price + "]";
+		return "ClientOrderVO [gcode=" + gcode + ", orderDate=" + orderDate + ", orderNum=" + orderNum + ", orddno="
+				+ orddno + ", img=" + img + ", productName=" + productName + ", onProcess=" + onProcess + ", amount="
+				+ amount + ", price=" + price + "]";
 	}
 }

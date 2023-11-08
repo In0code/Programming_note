@@ -73,7 +73,7 @@ public class ProductDAO {
 		}
 		return totalCount;
 	}
-	
+//	
 	public List<ProductManageVO> selectAllProduct(BoardRangeVO brVO)throws SQLException {
 		List<ProductManageVO> list = new ArrayList<ProductManageVO>();
 		String keyword = brVO.getKeyword();
@@ -89,8 +89,8 @@ public class ProductDAO {
 			StringBuilder selectAllProduct = new StringBuilder();
 			//쿼리문 작성해야됨.
 			selectAllProduct
-			.append(" select rn, main_img, gcode, gname, cat_name, input_date, price, quantity, cancle    ")
-			.append(" from(select row_number() over(order by input_date desc) rn, main_img, gcode, gname, ")
+			.append(" select  rn, main_img, gcode, gname, cat_name, input_date, price, quantity, cancle    ")
+			.append(" from(select  row_number() over(order by input_date desc) rn, main_img, gcode, gname, ")
 			.append(" cat_name, input_date, price, quantity, cancle	from goods g, category c			  ")
 			.append(" where g.cat_code = c.cat_code													  	  ");
 			
@@ -107,7 +107,7 @@ public class ProductDAO {
 				selectAllProduct.append("and ").append(field).append(" like '%'||?||'%'	");
 			}
 			
-			selectAllProduct.append(" ) where rn between ? and ?	");
+			selectAllProduct.append(" )  where rn between ").append(brVO.getStartNum()).append(" and ").append(brVO.getEndNum()).append(" order by gcode	");
 			pstmt=con.prepareStatement(selectAllProduct.toString());
 			
 			int bindCnt = 1;
@@ -116,8 +116,8 @@ public class ProductDAO {
 				pstmt.setString(bindCnt++, keyword);
 			}
 			
-			pstmt.setInt(bindCnt++, brVO.getStartNum());
-			pstmt.setInt(bindCnt++, brVO.getEndNum());
+//			pstmt.setInt(bindCnt++, brVO.getStartNum());
+//			pstmt.setInt(bindCnt++, brVO.getEndNum());
 			
 			rs=pstmt.executeQuery();
 			
@@ -130,7 +130,7 @@ public class ProductDAO {
 				list.add(pVO);
 			}
 		
-		
+		System.out.println(selectAllProduct);
 				
 		}finally {
 			db.dbClose(rs, pstmt, con);
@@ -139,7 +139,7 @@ public class ProductDAO {
 		
 		return list;
 	}//selectAllProduct
-	
+	//
 public ProductManageVO selectOneProduct(String gcode) throws SQLException {
 		
 		
@@ -248,11 +248,11 @@ public void updateMainImg (String gcode,String mainImg) throws SQLException {
 	try {
 		con=db.getConn("jdbc/dbcp");
 		
-		String deleteReivew = " update goods set main_img = ?  where gcode=? ";
+		String updateMainImg = " update goods set main_img = ?  where gcode=? ";
 
 		
 		
-		pstmt=con.prepareStatement(deleteReivew);
+		pstmt=con.prepareStatement(updateMainImg);
 		
 		pstmt.setString(1, mainImg);
 		
@@ -284,11 +284,11 @@ public void updateImg1 (String gcode,String Img1) throws SQLException {
 	try {
 		con=db.getConn("jdbc/dbcp");
 		
-		String deleteReivew = " update goods set img1 = ?  where gcode=? ";
+		String updateImg1 = " update goods set img1 = ?  where gcode=? ";
 
 		
 		
-		pstmt=con.prepareStatement(deleteReivew);
+		pstmt=con.prepareStatement(updateImg1);
 		
 		pstmt.setString(1, Img1);
 		
@@ -321,11 +321,11 @@ public void updateImg2 (String gcode,String Img2) throws SQLException {
 	try {
 		con=db.getConn("jdbc/dbcp");
 		
-		String deleteReivew = " update goods set img2 = ?  where gcode=? ";
+		String updateImg2 = " update goods set img2 = ?  where gcode=? ";
 
 		
 		
-		pstmt=con.prepareStatement(deleteReivew);
+		pstmt=con.prepareStatement(updateImg2);
 		
 		pstmt.setString(1, Img2);
 		
@@ -358,11 +358,11 @@ public void updateImg3 (String gcode,String Img3) throws SQLException {
 	try {
 		con=db.getConn("jdbc/dbcp");
 		
-		String deleteReivew = " update goods set img3 = ?  where gcode=? ";
+		String updateImg3 = " update goods set img3 = ?  where gcode=? ";
 
 		
 		
-		pstmt=con.prepareStatement(deleteReivew);
+		pstmt=con.prepareStatement(updateImg3);
 		
 		pstmt.setString(1, Img3);
 		
@@ -395,11 +395,11 @@ public void updateDetail (String gcode,String detailImg) throws SQLException {
 	try {
 		con=db.getConn("jdbc/dbcp");
 		
-		String deleteReivew = " update goods set detail_img = ?  where gcode=? ";
+		String updateDetail = " update goods set detail_img = ?  where gcode=? ";
 
 		
 		
-		pstmt=con.prepareStatement(deleteReivew);
+		pstmt=con.prepareStatement(updateDetail);
 		
 		pstmt.setString(1, detailImg);
 		
@@ -434,11 +434,11 @@ public void updateInfo (String gcode,ProductManageVO pVO) throws SQLException {
 	try {
 		con=db.getConn("jdbc/dbcp");
 		
-		String deleteReivew = " update goods set GCODE = ? , GNAME=? , TMI=? , ENG_TMI=? , PRICE=?, QUANTITY=?, top= ? , heart=? , base=?, ing=? where gcode=? ";
+		String updateInfo = " update goods set GCODE = ? , GNAME=? , TMI=? , ENG_TMI=? , PRICE=?, QUANTITY=?, top= ? , heart=? , base=?, ing=? where gcode=? ";
 
 		
 		
-		pstmt=con.prepareStatement(deleteReivew);
+		pstmt=con.prepareStatement(updateInfo);
 		
 		
 		pstmt.setString(1, pVO.getGoodsCode());
@@ -481,11 +481,11 @@ public void updateCancle (String gcode) throws SQLException {
 	try {
 		con=db.getConn("jdbc/dbcp");
 		
-		String deleteReivew = " update goods set CANCLE = 'Y' where gcode=? ";
+		String updateCancle = " update goods set CANCLE = 'Y' where gcode=? ";
 
 		
 		
-		pstmt=con.prepareStatement(deleteReivew);
+		pstmt=con.prepareStatement(updateCancle);
 		
 		
 
@@ -501,7 +501,7 @@ public void updateCancle (String gcode) throws SQLException {
 	}
 
 
-}//updateCancle
+}//updateCancle//
 
 public void insertinfo(ProductManageVO pVO)throws SQLException {
 	
@@ -545,7 +545,9 @@ try {
 		
 	}
 	
-}//insertImg
+}//insertImg//
+
+
 
 
 }

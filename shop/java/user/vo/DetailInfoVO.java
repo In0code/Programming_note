@@ -2,30 +2,28 @@ package user.vo;
 
 public class DetailInfoVO {
 
-	private String orderNum, orderDate, name, onProcess, img, productName, productInfo, zipcode, sido, addr, phone;
+	private String orderNum, orderDate, name, onProcess, img, productName, zipcode, sido, addr, phone;
 	private int totalPrice, amount, price;
 	
 	public DetailInfoVO() {
 	}
 
 	public DetailInfoVO(String orderNum, String orderDate, String name, String onProcess, String img,
-			String productName, String productInfo, String zipcode, String sido, String addr, String phone, int amount,
+			String productName, String zipcode, String sido, String addr, String phone, int totalPrice, int amount,
 			int price) {
-		super();
 		this.orderNum = orderNum;
 		this.orderDate = orderDate;
 		this.name = name;
 		this.onProcess = onProcess;
 		this.img = img;
 		this.productName = productName;
-		this.productInfo = productInfo;
 		this.zipcode = zipcode;
 		this.sido = sido;
 		this.addr = addr;
 		this.phone = phone;
+		this.totalPrice = totalPrice;
 		this.amount = amount;
 		this.price = price;
-		totalPrice = price * amount;
 	}
 
 	public String getOrderNum() {
@@ -74,14 +72,6 @@ public class DetailInfoVO {
 
 	public void setProductName(String productName) {
 		this.productName = productName;
-	}
-
-	public String getProductInfo() {
-		return productInfo;
-	}
-
-	public void setProductInfo(String productInfo) {
-		this.productInfo = productInfo;
 	}
 
 	public String getZipcode() {
@@ -143,8 +133,8 @@ public class DetailInfoVO {
 	@Override
 	public String toString() {
 		return "DetailInfoVO [orderNum=" + orderNum + ", orderDate=" + orderDate + ", name=" + name + ", onProcess="
-				+ onProcess + ", img=" + img + ", productName=" + productName + ", productInfo=" + productInfo
-				+ ", zipcode=" + zipcode + ", sido=" + sido + ", addr=" + addr + ", phone=" + phone + ", totalPrice="
-				+ totalPrice + ", amount=" + amount + ", price=" + price + "]";
+				+ onProcess + ", img=" + img + ", productName=" + productName + ", zipcode=" + zipcode + ", sido="
+				+ sido + ", addr=" + addr + ", phone=" + phone + ", totalPrice=" + totalPrice + ", amount=" + amount
+				+ ", price=" + price + "]";
 	}
 }
