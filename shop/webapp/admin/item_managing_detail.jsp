@@ -67,7 +67,10 @@ border-radius: 9px;
 textarea{   
         resize: none;
     }
-
+button{  background-color: #FFFFFF;
+  border: 1px solid #BEBEBE;
+  font-size:20px;
+  border-radius: 10px;}
 </style>
 <script type="text/javascript">
 $(function(){
@@ -75,7 +78,6 @@ $(function(){
 	//
 	
 	$("#btnUpdate").click(function(){
-		
 		document.frm.action="item_managing_update_frm_process.jsp";
 			$("#frm").submit();
 	});
@@ -236,13 +238,13 @@ $(function(){
 		<div style="position: absolute; top: 280px; left: 1320px; border: 1px solid #333; width: 160px; height: 160px"><img id="previewDetailImg"  src="../upload/goods/${product.detailImg eq null ? 'img_null.png' : product.detailImg }" style="width:160px ;height:160px"></div>
 		<input type="file" id="detailImg" name="detailImg"  class="inputBox" style="position: absolute; top: 460px; left: 1320px;">
 		 
-		<button type="button" class="btn btn-outline-secondary" id="btnImgSubmit" name="btnImgSubmit" style="position: absolute; top: 550px; left:1320px;  width:120px; height: 50px">이미지 업로드</button>
-		<button type="button" class="btn btn-outline-secondary" id="btnUpdate" style="position: absolute; top: 550px; left:1150px;  width:120px; height: 50px">수정</button>
+		<button type="button" id="btnImgSubmit" name="btnImgSubmit" style="position: absolute; top: 550px; left:1320px;  width:150px; height: 50px">이미지 업로드</button>
+		<button type="button" id="btnUpdate" style="position: absolute; top: 550px; left:1150px;  width:120px; height: 50px">수정</button>
 		
 		<div  style="position: absolute; top: 550px; left: 680px; border: 0px solid #333; width: 200px; height: 50px; font-size: 20px"><label>가격 </label>  <input type="text" id="price" name="price" style="width: 120px; heigth: 25px; border-width: 0 0 1px;" value="${product.price eq 0 or product.price eq '0'  ? '' : product.price  }"/></div>
 		<div  style="position: absolute; top: 550px; left:920px; border: 0px solid #333; width: 200px; height: 50px; font-size: 20px"><label>수량 </label>  <input type="text" id="quantity" name="quantity" style="width: 120px; heigth: 25px; border-width: 0 0 1px;" value="${product.quantity  eq 0 or product.quantity eq '0'  ? '' : product.quantity }"/></div>
 		<label style="position: absolute; top: 620px; left:700px;" >ingredient : </label><textarea id="ing" name="ing" style="width: 300px ; height: 80px ; position: absolute; top: 620px; left:790px" placeholder="추가 정보를 입력해주세요"><c:out value="${product.ing eq 'null' ? '' : product.ing}" /></textarea>
-		<button type="button" class="btn btn-outline-secondary" id="btnDelete" name="btnDelete" style="position: absolute; top: 620px; left:1150px;  width:120px; height: 50px">삭제</button>
+		<button type="button" id="btnDelete" name="btnDelete" style="position: absolute; top: 620px; left:1150px;  width:120px; height: 50px">삭제</button>
 		 <span id="imgSuccess" style="position: absolute; top: 620px; left:1320px;"></span>
 </div>
 	</form>	

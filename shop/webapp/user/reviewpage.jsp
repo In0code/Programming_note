@@ -169,8 +169,8 @@ $(function(){
 UserReviewDAO uDAO= UserReviewDAO.getInstance();
 
 try{
-	
-	pmVO = uDAO.selectproductImg("BC0001");//상품클릭 시 받을 값 ,gcode?
+	String gcode=request.getParameter("gcode");
+	pmVO = uDAO.selectproductImg(gcode);//상품클릭 시 받을 값 ,gcode?
 	
 	pageContext.setAttribute("goods", pmVO);
 	

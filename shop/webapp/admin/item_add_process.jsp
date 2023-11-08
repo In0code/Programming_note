@@ -88,10 +88,10 @@ ProductDAO pDAO= ProductDAO.getInstance();
 ProductManageVO pVO= new ProductManageVO();
 pVO.setGoodsCode(mr.getParameter("goodsCode"));
 pVO.setGoodsName(mr.getParameter("goodsName"));
-pVO.setMainImg(mr.getParameter("mainImg"));
-pVO.setImg1(mr.getParameter("img1"));
-pVO.setImg2(mr.getParameter("img2"));
-pVO.setImg3(mr.getParameter("img3"));
+pVO.setMainImg(mr.getFilesystemName("mainImg"));
+pVO.setImg1(mr.getFilesystemName("img1"));
+pVO.setImg2(mr.getFilesystemName("img2"));
+pVO.setImg3(mr.getFilesystemName("img3"));
 pVO.setTmi(mr.getParameter("tmi"));
 pVO.setPrice(Integer.parseInt(mr.getParameter("price")));
 pVO.setQuantity(Integer.parseInt(mr.getParameter("quantity")));
@@ -101,7 +101,7 @@ pVO.setTop(mr.getParameter("top"));
 pVO.setHeart(mr.getParameter("heart"));
 pVO.setBase(mr.getParameter("base"));
 pVO.setIng(mr.getParameter("ing"));
-pVO.setDetailImg(mr.getParameter("detailImg"));
+pVO.setDetailImg(mr.getFilesystemName("detailImg"));
 
 //
 

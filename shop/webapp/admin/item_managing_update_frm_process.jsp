@@ -76,7 +76,6 @@ $(function(){
 <%ProductDAO pDAO= ProductDAO.getInstance();
 String gcode=request.getParameter("goodsCode");//Integer.parseInt(request.getParameter("gcode"));
 try{
-	
 pDAO.updateInfo(gcode, pVO);
 pageContext.setAttribute("product", pVO);
 }catch(SQLException se ) {

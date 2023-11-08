@@ -139,7 +139,6 @@ $(function() {
 
     $("#leftside-navigation .sub-menu > a").click(function(e) {
         e.preventDefault(); // 앵커 태그의 기본 동작 방지
-        
         var subMenu = $(this).next();
         if (subMenu.is(":visible")) {
             subMenu.slideUp();
@@ -170,6 +169,10 @@ $(function() {
   <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm-8 8A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm8 0A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3z"/>
 </svg><!-- <i class="fa fa-table"></i> -->
 <span>&ensp;대시보드</span></a>
+<ul>
+          <li><a href="dashboard.jsp?no=0">&ensp;&ensp;대시보드</a>
+          </li>
+          </ul>
      </li>
       <li class="sub-menu" id="1">
         <a href="member_list.jsp?no=1">
@@ -178,6 +181,10 @@ $(function() {
   <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
 </svg><!-- <i class="fa fa-table"></i> -->
 <span>&ensp;회원 관리</span></a>
+ 		<ul>
+          <li><a href="member_list.jsp?no=1">&ensp;&ensp;회원</a>
+          </li>
+          </ul>
      </li>
      
      
@@ -214,6 +221,10 @@ $(function() {
   <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm-3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
 </svg><!-- <i class="fa fa-bar-chart-o"></i> -->
         <span>&ensp;게시글 관리</span></a>
+        <ul>
+          <li><a href="boardManagement.jsp?no=4">&ensp;&ensp;리뷰</a>
+          </li>
+          </ul>
       </li>
       <li class="sub-menu" id="5">
         <a href="notice.jsp?no=5">
@@ -221,6 +232,10 @@ $(function() {
   <path d="M13 2.5a1.5 1.5 0 0 1 3 0v11a1.5 1.5 0 0 1-3 0v-11zm-1 .724c-2.067.95-4.539 1.481-7 1.656v6.237a25.222 25.222 0 0 1 1.088.085c2.053.204 4.038.668 5.912 1.56V3.224zm-8 7.841V4.934c-.68.027-1.399.043-2.008.053A2.02 2.02 0 0 0 0 7v2c0 1.106.896 1.996 1.994 2.009a68.14 68.14 0 0 1 .496.008 64 64 0 0 1 1.51.048zm1.39 1.081c.285.021.569.047.85.078l.253 1.69a1 1 0 0 1-.983 1.187h-.548a1 1 0 0 1-.916-.599l-1.314-2.48a65.81 65.81 0 0 1 1.692.064c.327.017.65.037.966.06z"/>
 </svg><!-- <i class="fa fa-map-marker"></i> -->
         <span>&ensp;공지사항</span></a>
+        <ul>
+          <li><a href="notice.jsp?no=5">&ensp;&ensp;공지</a>
+          </li>
+        </ul>
       </li>
     </ul>
   </div>

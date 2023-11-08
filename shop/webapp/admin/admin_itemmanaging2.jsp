@@ -185,7 +185,7 @@ function productDetail(gcode){
 				<tr id="top_title">
 					<!-- 컬럼 사이즈 -->
 					<th style="width:100px">No</th>
-					<th style="width:200px">이미지</th>
+					<th style="width:100px">이미지</th>
 					<th style="width:180px">상품코드</th>
 					<th style="width:300px">상품명</th>
 					<th style="width:200px">카테고리</th>
@@ -250,7 +250,7 @@ function productDetail(gcode){
 			out.print("<a href='admin_itemmanaging2.jsp'><input type='button' id='btnList' style='left:1250px' value='목록'/></a>");
 		%>  
 	</div>
-	<input style="position: absolute; top: 830px; left: 1700px; padding:10px"type="button" id="addProduct" name="addProduct" value="상품 새로 등록하기" class="btn btn-outline-secondary" onclick="location.href='item_add.jsp'">
+	<!-- <input style="position: absolute; top: 830px; left: 1700px; padding:10px"type="button" id="addProduct" name="addProduct" value="상품 새로 등록하기" class="btn btn-outline-secondary" onclick="location.href='item_add.jsp'"> -->
 </div>	
 </body>
 </html>

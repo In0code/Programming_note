@@ -178,7 +178,7 @@ brVO.setEndNum(endNum);
 %>
 <script type="text/javascript">
 	$(function() {
-		$("#readRecall").click();
+		$("#readOrder").click();
 		
 		var pageQuery = "&startNum="+${startNum}+"&endNum="+${endNum};
 		$("#readOrder").click(function() {
@@ -255,9 +255,6 @@ brVO.setEndNum(endNum);
 			output += "<td>"+temp+"</td></tr>";
 			
 		}
-			
-		
-		console.log(output);
 		$("#output").html(output);
 	}
 	
