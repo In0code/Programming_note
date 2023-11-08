@@ -10,12 +10,13 @@
 <%@ page info="사용자 주문 내역 JSON으로 만듬"%>
 <%
 String flag = request.getParameter("flag");
+String id = (String)session.getAttribute("sesId");
 
 JSONObject jsonObj = new JSONObject();
 jsonObj.put("dataFlag", false);
 
 ClientOrderPageVO copVO = new ClientOrderPageVO();
-copVO.setId("frank");
+copVO.setId(id);
 copVO.setStartNum(Integer.parseInt(request.getParameter("startNum")));
 copVO.setEndNum(Integer.parseInt(request.getParameter("endNum")));
 

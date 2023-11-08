@@ -128,7 +128,7 @@ try {
 		</tr>
 		<tr>
 			<td>주문자</td>
-			<td>${diVO.name }</td>
+			<td>${userData.name }</td>
 		</tr>
 		<tr>
 			<td>주문처리상태</td>

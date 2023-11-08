@@ -112,15 +112,13 @@ border: 1px solid #333;
 }
 </style>
 <%
-//String id = (String)session.getAttribute("sesId");
-String id = "test";
+String id = (String)session.getAttribute("sesId");
 int randNum = new Random().nextInt(1000);
 String paymentFlag = DataEncrypt.messageDigest("MD5", id.concat(String.valueOf(randNum)));
 
 session.setAttribute("paymentFlag", paymentFlag);
 
 String where = request.getParameter("where");
-System.out.println("buy.jsp where : "+where);
 
 BuyDAO bDAO = BuyDAO.getInstance();
 int totalAmountPrice = 0;
@@ -130,11 +128,9 @@ if("pd".equals(where)) { //상품 상세 페이지에서 왔을 떄
 	BuyingGoodsVO bgVO = bDAO.selectDetailGoods(gcode);
 	bgVO.setAmount(Integer.parseInt(request.getParameter("amount")));
 	
-	System.out.println(bgVO);
-	
 	totalAmountPrice = bgVO.getPrice() * bgVO.getAmount(); 
 	
-	List<BuyingGoodsVO> list = new ArrayList();
+	List<BuyingGoodsVO> list = new ArrayList<BuyingGoodsVO>();
 	list.add(bgVO);
 	pageContext.setAttribute("list", list);
 	
@@ -153,7 +149,6 @@ if("pd".equals(where)) { //상품 상세 페이지에서 왔을 떄
 	} else {
 		String[] goodsArr = request.getParameterValues("check");
 		
-		System.out.println("goodsArr 반복문 : "+goodsArr);
 		for(String str : goodsArr) {
 			System.out.print(str+", ");
 		}
@@ -165,16 +160,15 @@ if("pd".equals(where)) { //상품 상세 페이지에서 왔을 떄
 			list = bDAO.selectWishGoods(goodsArr);
 		}
 		
-		System.out.println("BuyingGoodsVO list : "+list);
-		pageContext.setAttribute("list", list);
 	}
 	
 	for(int i = 0; i < list.size(); i++) {
 		totalAmountPrice += list.get(i).getPrice() * list.get(i).getAmount();
 	}
-	
-	pageContext.setAttribute("totalAmountPrice", totalAmountPrice);
+
+	pageContext.setAttribute("list", list);
 }
+pageContext.setAttribute("totalAmountPrice", totalAmountPrice);
 
 %>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

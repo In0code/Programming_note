@@ -14,7 +14,7 @@
 	<c:redirect url="member/login.jsp"/>
 </c:if> 
 <%
-String id = "frank";
+String id = (String)session.getAttribute("sesId");
 %>
 <!DOCTYPE html>
 <html>
@@ -178,6 +178,8 @@ brVO.setEndNum(endNum);
 %>
 <script type="text/javascript">
 	$(function() {
+		$("#readRecall").click();
+		
 		var pageQuery = "&startNum="+${startNum}+"&endNum="+${endNum};
 		$("#readOrder").click(function() {
 			$.ajax({
@@ -226,7 +228,7 @@ brVO.setEndNum(endNum);
 			switch (status) {
 			case "D0": txt = "배송중"; break;
 			case "DF": txt = "배송완료";
-				review = "<br><a href='reviewpage.jsp?gcode="+data[i].gcode+"' class='ahover'>교환신청</a>"
+				review = "<br><a href='reviewpage.jsp?gcode="+data[i].gcode+"' class='ahover'>리뷰작성</a>"
 				temp = "<a class='ahover' onclick='change("+data[i].ord_dno+")'>교환신청</a><br>";
 				temp += "<a class='ahover' onclick='recall("+data[i].ord_dno+","+data[i].totalPrice+")'>반품신청</a><br>";
 				temp += "<a class='ahover' onclick='cancel("+data[i].ord_dno+","+data[i].totalPrice+")'>주문취소</a>";
@@ -342,7 +344,7 @@ brVO.setEndNum(endNum);
 					<%
 
 					%>
-					<big><b><c:out value="농담곰"/></b></big><big>님</big>
+					<big><b><c:out value="${userData.name }"/></b></big><big>님</big>
 <%-- 					</c:otherwise>
 					</c:choose> --%>
 				</li>

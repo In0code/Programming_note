@@ -18,12 +18,6 @@
 <style type="text/css">
 
 </style>
-<script type="text/javascript">
-$(function(){
-   
-});//ready
-</script>
-
 </head>
 <jsp:useBean id="sVO" class="user.vo.SummaryVO" scope="page"></jsp:useBean> 
 <jsp:setProperty property="*" name="sVO"/>
@@ -36,7 +30,6 @@ String gcode="BC0001";//받는 쥐코드;
 String id=(String)session.getAttribute("sesId");
 int star = sVO.getStar();
 int rcode = sVO.getRcode();
-System.out.println("+++++"+request.getParameter("reviewImg")+"-------");
 try{
 	if(rcode!=0){
 		uDAO.updateReivew2(review, star, rcode);
@@ -51,6 +44,12 @@ try{
 }
 
 %>
+<script type="text/javascript">
+$(function(){
+   alert("리뷰 등록 완료");
+   location.href = "posting.jsp";
+});//ready
+</script>
 </body>
-<span>리뷰 등록 완료</span>
+<!-- <span>리뷰 등록 완료</span> -->
 </html>

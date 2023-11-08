@@ -16,8 +16,8 @@ File uploadDir = new File("C:/Users/user/git/prj_online_store/prj_web_shopping/s
 int maxSize=1024*1024*30;
 MultipartRequest mr = new MultipartRequest(request , uploadDir.getAbsolutePath(), maxSize,"UTF-8",new DefaultFileRenamePolicy());
 String fileName=mr.getFilesystemName("reviewImg");
-String gcode="BC0001";//mr.getParameter("gcode");
-String id="tuna5127"; //session.getId();
+String gcode=mr.getParameter("gcode");
+String id=(String)session.getAttribute("sesId"); //session.getId();
 int SeqRcode=0; 
 File uploadFile= new File(uploadDir.getAbsoluteFile()+"/"+fileName);
 boolean flag=false;
@@ -42,7 +42,6 @@ if(!flag){
 
 }
 	
-System.out.println(flag);//false
 JSONObject json = new JSONObject();
 json.put("fileName", fileName);
 json.put("id",id);

@@ -83,13 +83,8 @@ height: 60px;
 <jsp:setProperty property="*" name="JspBiVO"/>
 <%
 BuyInfoVO biVO = (BuyInfoVO)pageContext.getAttribute("JspBiVO");
-biVO.setId("test");
+biVO.setId((String)session.getAttribute("sesId"));
 biVO.setGcode(request.getParameterValues("gcode"));
-
-System.out.println(biVO);
-for(int i = 0; i < biVO.getAmount().length; i++) {
-	System.out.println("gcode : "+biVO.getGcode()[i]+" / amount : "+biVO.getAmount()[i]);
-}
 
 BuyDAO bDAO = BuyDAO.getInstance();
 
@@ -101,7 +96,6 @@ if("true".equals(request.getParameter("chkHid"))) {
 
 try{
 	String ordno = bDAO.insertDelivery(biVO);
-	System.out.println("ordno(insert_card) : "+ordno);
 	pageContext.setAttribute("ordno", ordno);
 	
 	
@@ -125,7 +119,7 @@ try{
 		});
 		
 		$("#btnOrdered").click(function() {
-			location.href = "shop.jsp";
+			location.href = "order_table.jsp";
 		});
 	});
 	
@@ -151,7 +145,6 @@ try{
 		let cardNum = $("#c1").val()+"-"+$("#c2").val()+"-"+$("#c3").val()+"-"+$("#c4").val();
 		
 		var query = "cardNum="+cardNum+"&ordno=${ordno}&gcode=${param.gcode}";
-		alert(query);
 		$.ajax({
 			url:"insert_card_process.jsp",
 			type:"get",
@@ -159,10 +152,9 @@ try{
 			dataType:"json",
 			error: function(xhr) {
 				console.log(xhr.status);
-				$("#hidFail").trigger("click"); 
+				$("#hidFail").click(); 
 			},
 			success: function(json) {
-				alert(json);
 				if(json.flag) {
 					$("#hidSuccess").click(); 
 				} else {
