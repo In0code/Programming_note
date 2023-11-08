@@ -194,13 +194,17 @@ public class ClientOrderDAO {
 		
 		try {
 			con = db.getConn("jdbc/dbcp");
-			String cancelOrder = "UPDATE ORDER_DETAIL SET DLVY_PRO='NA' WHERE ORD_DNO='"+ord_dno+"'";
+			String cancelOrder = "UPDATE ORDER_DETAIL SET DLVY_PRO='NA'  WHERE ORD_DNO='"+ord_dno+"'";
 			
 			pstmt = con.prepareStatement(cancelOrder);
 			pstmt.executeUpdate();
 			
-			pstmt.close();
+
+			cancelOrder = "UPDATE UORDER SET RECALL_DATE=STSDTAE WHERE ORD_DNO='"+ord_dno+"'";
+			pstmt = con.prepareStatement(cancelOrder);
 			
+			pstmt.close();
+
 			StringBuilder paymentQuery = new StringBuilder();
 			paymentQuery
 			.append("	UPDATE PAYMENT_INFO SET TOTAL_PRICE=TOTAL_PRICE-?	")
