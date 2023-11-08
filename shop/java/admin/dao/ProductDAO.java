@@ -427,7 +427,7 @@ public void updateInfo (String gcode,ProductManageVO pVO) throws SQLException {
 	Connection con = null;
 	PreparedStatement pstmt=null;
 	
-	
+	System.out.println("11111");
 	
 	
 	
@@ -436,7 +436,6 @@ public void updateInfo (String gcode,ProductManageVO pVO) throws SQLException {
 		
 		String updateInfo = " update goods set GCODE = ? , GNAME=? , TMI=? , ENG_TMI=? , PRICE=?, QUANTITY=?, top= ? , heart=? , base=?, ing=? where gcode=? ";
 
-		
 		
 		pstmt=con.prepareStatement(updateInfo);
 		
@@ -453,9 +452,8 @@ public void updateInfo (String gcode,ProductManageVO pVO) throws SQLException {
 		pstmt.setString(10, pVO.getIng());
 		
 		pstmt.setString(11, gcode);
-		
 		int cnt=pstmt.executeUpdate();
-		System.out.println("info"+cnt+"건 변경되었습니다.");
+		System.out.println(pVO.getTop()+"/"+pVO.getHeart()+"/"+pVO.getBase()+"/"+ pVO.getIng());
 	
 	}finally {
 		db.dbClose(null, pstmt, con);
