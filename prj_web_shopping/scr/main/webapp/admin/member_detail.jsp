@@ -211,11 +211,11 @@ try{
   </tr>
   <tr>
     <th scope="row">총 구매건수</th>
-    <td>0</td>
+    <td>3건</td>
   </tr>
   <tr>
     <th scope="row">총 구매금액</th>
-    <td>0</td>
+    <td>445,000원</td>
   </tr>
 </table>
 		</div>

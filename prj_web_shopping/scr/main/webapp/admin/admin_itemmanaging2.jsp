@@ -185,9 +185,9 @@ function productDetail(gcode){
 				<tr id="top_title">
 					<!-- 컬럼 사이즈 -->
 					<th style="width:100px">No</th>
-					<th style="width:100px">이미지</th>
+					<th style="width:50px">이미지</th>
 					<th style="width:180px">상품코드</th>
-					<th style="width:300px">상품명</th>
+					<th style="width:350px">상품명</th>
 					<th style="width:200px">카테고리</th>
 					<th style="width:200px">등록일</th>
 					<th style="width:150px">판매가</th>

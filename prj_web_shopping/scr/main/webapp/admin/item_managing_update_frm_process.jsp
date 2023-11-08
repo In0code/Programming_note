@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Chérie Admin</title>
 <link rel="icon" href="http://192.168.10.142/jsp_prj/common/main/favicon.png">
 <!-- bootstrap CDN-->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -76,14 +76,15 @@ $(function(){
 <%ProductDAO pDAO= ProductDAO.getInstance();
 String gcode=request.getParameter("goodsCode");//Integer.parseInt(request.getParameter("gcode"));
 try{
+	
 pDAO.updateInfo(gcode, pVO);
 pageContext.setAttribute("product", pVO);
 }catch(SQLException se ) {
 	se.printStackTrace();
 }// %>
 <body>
-	<div id="rightBody" style="height: 1000px">
-		<div class="text" id="mainTitle" style="margin-left: -30px">
+	<div id="rightBody" style="height: 895px">
+		<div class="text" id="mainTitle" style="margin-left: -30px; font-family: Pretendard Medium">
 			<strong>상품 상세 정보</strong>
 		</div>
 		<div id="background_box" style="width: 1550px; height:750px; font-family:  pretendard; margin-left: -30px"> <!-- 각자 원하는데로 사용 -->
