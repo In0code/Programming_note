@@ -11,7 +11,7 @@ boolean flag = false;
 try{
 	String gcode=request.getParameter("gcode");
 	String id=(String)session.getAttribute("sesId");
-	
+	 //조회 결과가 있으면 true, 없으면 false
 	flag= wlDAO.getGcode(id,gcode);
 	
 }catch(SQLException se){

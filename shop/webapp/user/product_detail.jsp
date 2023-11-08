@@ -303,18 +303,18 @@ function addCart(gcode) {
             console.log(xhr.status);
         },
         success: function(data) {
-        	if(!data.idFlag){
+        	if(!data.idFlag){  // false면 로그인 안함
         		alert("로그인 후 장바구니를 이용해주세요.");
         		 window.location.href = "member/login.jsp"; 
         	}else{
-	        	if(data.flag){
+	        	if(data.flag){  // true면 이미 장바구니에 상품이 있음. 
 	        		alert("이미 장바구니에 존재하는 상품입니다.");
 	                if (confirm("장바구니 페이지로 이동하시겠습니까?")) {
 	                    window.location.href = "cart.jsp"; 
 	                } else {
 	                    location.reload();
 	                }//end else
-	        	}else{
+	        	}else{   // 로그인 했으면 (true이면)
 	        		alert("장바구니에 상품이 추가되었습니다.");
 	                if (confirm("장바구니 페이지로 이동하시겠습니까?")) {
 	                    // 사용자가 확인을 누른 경우
@@ -339,11 +339,11 @@ function wishHeart(){
         error: function(xhr) {
             alert("죄송합니다. 서버에 문제가 발생하였습니다. 잠시 후에 다시 시도해주세요.");
             console.log(xhr.status);
-        },
-        success: function(data) {
-        	if(data){
+        }, 
+        success: function(data) { //조회 결과가 있으면 true, 없으면 false
+        	if(data){ // 장바구니에 이미 상품이 있으면
         		 $("#wish_img").attr("src", "http://localhost/prj_web_shopping/common/images/icon/hearts.png");
-        	}else{
+        	}else{ // 없으면
         		 $("#wish_img").attr("src", "http://localhost/prj_web_shopping/common/images/icon/heart.png");
                 }//end else
         }//success
@@ -370,13 +370,13 @@ function addWishList(gcode) {
             console.log(xhr.status);
         },
         success: function(data) {
-        	if(!data.idFlag){
+        	if(!data.idFlag){ // false면 로그인 안함
         		alert("로그인 후 관심상품을 이용해주세요.");
         		 window.location.href = "member/login.jsp"; 
-        	}else{
-	        	if(data.flag){
+        	}else{ // 로그인 했으면 (true이면)
+	        	if(data.flag){// true면 이미 관심상품에 상품이 있음. 
 	        		alert("관심상품 리스트에서 상품이 삭제되었습니다."); 
-	        	}else{
+	        	}else{//false면 관심상품에 추가된 상품이 없음
 	        		alert("관심상품으로 등록되었습니다.");
 	                if (confirm("관심상품 페이지로 이동하시겠습니까?")) {
 	                    // 사용자가 확인을 누른 경우
@@ -720,7 +720,7 @@ function viewPlus(rcode, view) {
                         	<input type="button" value="장바구니" class="btn gFlex2 actionCart " onclick="addCart('${product.gcode}')" style="font-family:Pretendard Medium"  id="actionCart">
                         		장바구니
                         	<button type="button" class="btn actionCart " onclick="addWishList('${product.gcode}')" id="actionWish">
-                        		<img style="width:20px" id="wish_img" src="http://192.168.10.136/prj_web_shopping/common/images/icon/heart.png"/>
+                        		<img style="width:20px" id="wish_img" src="http://192.168.10.136/prj_web_shopping/common/images/icon/heart.png"/> 
                         	</button>
                         	<a href="/member/login.html" class="btn gFlex2 actionBuy member_check_product">
                         		<span>회원만 구매 가능합니다.</span>
