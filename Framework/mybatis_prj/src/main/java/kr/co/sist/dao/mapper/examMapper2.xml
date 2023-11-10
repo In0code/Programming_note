@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.sist.exam2">
+
+<!-- 컬럼 하나, 여려 행 조회 :부서번호를 입력받아 사원명을 조회
+	resultType="단일형"-->
+<select id="scmr" resultType="String" parameterType="int">
+select ename
+from emp
+where deptno=#{ deptno }
+</select>
+
+<!-- 컬럼 여러개, 행 하나 조회 : 부서번호를 입력받아 부서명,위치를 조회 
+	기본형 데이터형과 Wrapper class 모두 사용 가능
+	resultType이나 parameterType 에는 TypeAlias에 정의된 alias 사용할 수 있다-->
+<!-- <select id="mcsr" resultType="kr.co.sist.domain.CpDeptDomain" parameterType="Integer"> -->
+<select id="mcsr" resultType="cdd" parameterType="Integer">
+select dname deptName, loc
+from cp_dept
+where deptno=#{ deptno }
+</select>
+
+<!-- 연습문제 : 부서별 사원번호 조회 -->
+<select id="exam" resultType="int" parameterType="int">
+select empno
+from emp
+where deptno=#{deptno}
+
+</select>
+
+<!-- 컬럼 여러개, 여러 행 조회  : 모든 사원 정보를 조회, 조회 컬럼 사원번호, 사원명, 입사일, 연봉 
+	resultType속성만 정의한다. parameterType 속성은 정의하지 않는다.
+	
+	Handler에서는 ss.selectList("아이디");-->
+<select id="mcmr" resultType="ed">
+select empno, ename, hiredate, sal
+from emp
+</select>
+
+
+<!-- < (작다) 조회 -->
+<!-- > (크다) 조회 -->
+<!-- like 조회 -->
+
+<!-- subquery -->
+<!-- union -->
+<!-- join-->
+<!-- subquery + join -->
+<!-- 테이블명이 동적일 때 -->
+
+<!-- Dynamic query : if-->
+<!-- Dynamic query : choose-->
+<!-- Dynamic query : foreach-->
+
+
+</mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.sist.emp">
+<!-- 한 행 조회 -->
+<select id="selectOneEmp" resultType="kr.co.sist.domain.EmpDomain" 
+	parameterType="kr.co.sist.vo.EmpVO">
+	
+	select ename, empno, deptno, job, hiredate, sal
+	from emp
+	where empno =#{ empno } and deptno =#{ deptno }
+</select>
+
+<!-- 여러 행 조회 -->
+<select id="selectDeptEmp" resultType="kr.co.sist.domain.EmpDomain"
+	 parameterType="int">
+	select ename, empno, deptno, job, hiredate, sal
+	from emp
+	where deptno =#{ deptno }
+</select>
+</mapper>

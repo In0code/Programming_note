@@ -8,7 +8,7 @@ public class TestMyBatis {
 	
 	public void addDept() {
 		DeptVO dVO=new DeptVO();
-		dVO.setDeptno(98);
+		dVO.setDeptno(93);
 		dVO.setDname("개발");
 		dVO.setLoc("서울");
 		

@@ -14,7 +14,7 @@ public class MybatisHandler {
 	private static SqlSessionFactory ssf;
 
 	private MybatisHandler() {
-
+		org.apache.ibatis.logging.LogFactory.useLog4JLogging();
 	}// MybatisHandler
 
 	public static MybatisHandler getInstance() {
@@ -44,9 +44,13 @@ public class MybatisHandler {
 		return ss;
 	}//getMyBatisHandler
 	
+	public void closeHandler(SqlSession ss) {
+		if( ss != null) { ss.close(); }
+	}//closeHandler
+	
 	public static void main(String[]  args) {
 		MybatisHandler mbh=MybatisHandler.getInstance();
 		System.out.println(mbh.getMyBatisHandler("kr/co/sist/dao/mybatis-config.xml", false));
-	}
+	}//main
 
 }// class

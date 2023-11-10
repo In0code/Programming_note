@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.sist.exam">
+<!-- 컬럼 하나, 행 하나 조회 : 
+	dept테이블에서 부서번호를 받아 부서명을 조회 -->
+<select id="scsr" resultType="String" parameterType="int">
+select dname
+from dept
+where deptno=#{ deptno }
+</select>
+
+<!-- 컬럼 하나, 여려 행 조회 -->
+<!-- 컬럼 여러개, 행 하나 조회 -->
+<!-- 컬럼 여러개, 여러 행 조회 -->
+
+<!-- < (작다) 조회 -->
+<!-- > (크다) 조회 -->
+<!-- like 조회 -->
+
+<!-- subquery -->
+<!-- union -->
+<!-- join-->
+<!-- subquery + join -->
+<!-- 테이블명이 동적일 때 -->
+
+<!-- Dynamic query : if-->
+<!-- Dynamic query : choose-->
+<!-- Dynamic query : foreach-->
+
+
+</mapper>
