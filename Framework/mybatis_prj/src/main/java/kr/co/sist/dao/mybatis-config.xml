@@ -8,6 +8,9 @@
 	<typeAliases>
 		<typeAlias type="kr.co.sist.domain.EmpDomain" alias="ed"/>
 		<typeAlias type="kr.co.sist.domain.CpDeptDomain" alias="cdd"/>
+		<typeAlias type="kr.co.sist.domain.ZipcodeDomain" alias="zd"/>
+		<typeAlias type="kr.co.sist.domain.JoinDomain" alias="jd"/>
+		
 		<typeAlias type="kr.co.sist.vo.EmpVO" alias="eVO"/>
 	</typeAliases>
 	
@@ -27,5 +30,6 @@
     <mapper resource="kr/co/sist/dao/mapper/selectMapper.xml"/>
     <mapper resource="kr/co/sist/dao/mapper/examMapper.xml"/>
     <mapper resource="kr/co/sist/dao/mapper/examMapper2.xml"/>
+    <mapper resource="kr/co/sist/dao/mapper/examMapper3.xml"/>
   </mappers> 
 </configuration>

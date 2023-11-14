@@ -39,10 +39,39 @@ select empno, ename, hiredate, sal
 from emp
 </select>
 
+<!-- 중복 쿼리문 정의 -->
+<sql id="selectEmp">
+select empno, ename, sal
+from emp
+</sql>
 
-<!-- < (작다) 조회 -->
-<!-- > (크다) 조회 -->
-<!-- like 조회 -->
+<!-- < (작다) 조회 : 입력되는 연봉보다 적은 연봉을 수령하는 사원의 사원번호, 사원명, 연봉을 조회-->
+<select id="lessThan" resultType="ed" parameterType="int">
+<include refid="selectEmp"/>
+<![CDATA[
+where sal < #{ sal }
+order by sal desc
+]]>
+</select>
+
+<!-- > (크다) 조회 : 입력되는 연봉보다 많은 연봉을 수령하는 사원의 사원번호, 사원명, 연봉을 조회
+	> 는 XML 작성규칙에 위배되지 않기때문에 그냥 써도 되고, $gt; 써도 되고,
+	CDATA Section을 열어도 된다-->
+<select id="greaterThan" resultType="ed" parameterType="int">
+<include refid="selectEmp"/>
+<![CDATA[
+where sal > #{ sal }
+order by sal desc
+]]>
+</select>
+
+<!-- like 조회 : 동을 입력받아 동에 해당하는 우편번호, 시도, 구군, 동, 번지를 조회 -->
+<select id="like" resultType="zd" parameterType="String">
+select zipcode, sido, gugun, dong bunji, seq
+from zipcode
+where dong like '%'|| #{ dong } ||'%'
+</select>
+
 
 <!-- subquery -->
 <!-- union -->

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.sist.exam3">
+
+<!-- subquery : car_model 테이블에서 가장 마지막에 입력된 차량부터 10건의 정보를 조회-->
+<select id="subquery" resultType="kr.co.sist.domain.CarDomain" parameterType="kr.co.sist.vo.BoardVO">
+select model, car_img, cc, car_option, price ,hiredate
+from(select model, car_img, cc, car_option, price,
+				hiredate, row_number() over( order by hiredate desc ) rnum
+from   car_model)
+where rnum between #{ startNum } and #{ endNum }
+</select>
+
+<!-- union : 테이블을 위, 아래로 합칠 때 -->
+<select id="union" resultType="ed">
+select empno, ename, job
+from emp
+union all
+select empno, ename, job
+from cp_emp3
+</select>
+
+<!-- resultMap : 조회 컬럼과 setter method를 미리 연결해 두는 것 -->
+<resultMap type="jd" id="jdResult">
+<result property="deptno" column="deptno"/>
+<result property="dname" column="dname"/>
+<result property="empno" column="empno"/>
+<result property="ename" column="ename"/>
+<result property="sal" column="sal" />
+</resultMap>
+
+<!-- join : 태이블을 옆으로 결합할 때 사용-
+	resultMap을 사용할 때에는 resultMap 속성을 사용한다
+	(resultType을 resultMap의 id를 사용하면 error가 발생한다 -->
+	
+<select id="join" resultMap="jdResult" resultType="jd">
+select  d.deptno, d.dname, e.empno, e.ename, e.sal
+from  emp e, dept d
+where e.deptno(+)=d.deptno
+</select>
+
+<resultMap type="kr.co.sist.domain.CarDomain2" id="cdResult">
+<result property="maker" column="MAKER"/>
+<result property="model" column="MODEL"/>
+<result property="price" column="PRICE"/>
+<result property="car_year" column="CAR_YEAR"/>
+<result property="car_option" column="CAR_OPTION"/>
+<result property="hiredate" column="HIREDATE"/>
+</resultMap>
+
+<!-- subquery + join : 입력받은 제조국에 따라 제조사, 모델명, 가격, 연식, 옵션, 입력일을 조회
+	단, 출력은 입력일의 내림차순으로 조회했을 대 4~10 레코드만 출력한다-->
+<select id="subqueryJoin" resultMap="cdResult" parameterType="String">
+select  MAKER,MODEL,PRICE,CAR_YEAR,CAR_OPTION,HIREDATE
+from(select  cc.MAKER, cam.MODEL, cm.PRICE, cm.CAR_YEAR, cm.CAR_OPTION, cm.HIREDATE
+				,row_number() over(order by hiredate desc) rnum
+from   CAR_COUNTRY cc, CAR_MODEL cm, CAR_MAKER cam
+where  cam.MODEL = cm.MODEL and  cam.MAKER = cc.MAKER and cc.COUNTRY=#{ country } )
+where rnum  between 4 and 10
+</select>
+
+
+	
+<!-- 테이블명이 동적일 때  : 바인드 변수는 테이븖명이나 컬럼명에 사용할 수 없다
+	emp 테이블 - 본사정보, cp_emp - 지사정보
+	
+	-바인드 변수가 아닌 쿼리문에 값을 바로 넣어 생성해야한다. #  ->  &
+	-->
+<select id="dollarSign" resultType="ed" parameterType="String"> 
+select empno, sal, deptno, ename, job, hiredate
+from  ${ tableName }
+</select>
+
+
+
+<!-- Dynamic query : if-->
+<!-- Dynamic query : choose-->
+<!-- Dynamic query : foreach-->
+
+
+</mapper>
