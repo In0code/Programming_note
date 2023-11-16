@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.sist.exam4">
+<sql id="selectEmp">
+select empno, ename, deptno
+from emp
+</sql>
+
+<!-- Dynamic query : where  : 동적으로 where를 붙일 때 사용
+	사원테이블에서 부서번호를 입력받아 부서번호가 10번인 경우에는 10번 부서의 사원을 조회하고
+	그렇지 않으면 모든 부서 사원을 조회
+-->
+<select id="dynamicWhere" resultType="ed" parameterType="int">
+<include refid="selectEmp"/>
+<where>
+	<if test="deptno == 10">
+	deptno=#{ deptno }
+	</if>
+</where>
+</select>
+
+
+<!-- Dynamic query : if : board 테이블에서 검색 입력되는 BoardVO keyword의 값이 없다면
+	전체 레코드의 수를 검색하고, keyword에 값이 있다면 해당 값을 가진 레코드의 수를 검색
+-->
+<select id="dynamicIf" resultType="int" parameterType="bVO">
+select count( num ) cnt
+from board
+<where>
+	<if test="keyword neq null and keyword neq ''">
+	<if test="fieldName eq 'content'">
+		content like '%'|| #{ keyword } ||'%'
+	</if>
+	<if test="fieldName eq 'writer'">
+		writer like '%'|| #{ keyword } ||'%'
+	</if>
+	</if>
+</where>
+</select>
+
+<!-- Dynamic query : choose-->
+<select id="dynamicChoose" resultType="ed" parameterType="int">
+<include refid="selectEmp"/>
+where
+<choose>
+	<when test="tempNo eq 1">
+		deptno=10
+	</when>
+	<when test="tempNo eq 2">
+		deptno=20
+	</when>
+	<otherwise>
+		deptno=30
+	</otherwise>
+</choose>
+</select>
+
+<!-- Dynamic query : foreach : 부서번호 하나와 직무 여러 개를 입력 받아 검색-->
+<select id="dynamicForeach" resultType="ed" parameterType="java.util.HashMap">
+select empno, ename, job, deptno
+from emp
+<where>
+deptno=#{ deptno }
+<if test="job_list neq null">
+and job in
+<foreach collection="job_list" index="i" open="(" item="job" separator="," close=")">
+#{ job }
+</foreach>
+</if>
+</where>
+</select>
+
+</mapper>

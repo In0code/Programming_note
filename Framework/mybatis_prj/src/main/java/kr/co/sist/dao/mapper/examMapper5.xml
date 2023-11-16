@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.sist.exam5">
+<!-- web_member 테이블에서 아이디만 조회 -->
+<select id="selectWebMemberId" resultType="String">
+select id
+from web_member
+</select>
+
+<!-- id를 입력받아 web_member 테이블에서 조회 -->
+<select id="selectOneMember" resultType="kr.co.sist.domain.WebMemberDomain" parameterType="String">
+select name, birth, tel, email, gender, zipcode, addr1, addr2, info, input_date, ip
+from web_member
+where id=#{ id }
+</select>
+
+<!-- dynamic query : set
+	입력되는 id에 대한 생일, 휴대폰번호, 이메일, 우편번호, 주소1, 조수2, 소개를 변경
+ -->
+<update id="dynamicSet" parameterType="kr.co.sist.vo.WebMemberVO">
+update web_member
+<set>
+<if test="birthday neq null and birthday neq ''">
+birth=#{ birthday } ,
+</if>
+<if test="cell neq null and cell neq ''">
+tel=#{ cell } ,
+</if>
+<if test="email neq null and email neq ''">
+email=#{ email } ,
+</if>
+<if test="zipcode neq null and zipcode neq ''">
+zipcode=#{ zipcode } ,
+</if>
+<if test="addr1 neq null and addr1 neq ''">
+addr1=#{ addr1 } ,
+</if>
+<if test="addr2 neq null and addr2 neq ''">
+addr2=#{ addr2 } ,
+</if>
+<if test="info neq null and info neq ''">
+info=#{ info }
+</if>
+</set>
+where id=#{ id }
+</update>
+
+</mapper>

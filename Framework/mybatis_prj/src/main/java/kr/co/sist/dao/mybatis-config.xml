@@ -12,6 +12,7 @@
 		<typeAlias type="kr.co.sist.domain.JoinDomain" alias="jd"/>
 		
 		<typeAlias type="kr.co.sist.vo.EmpVO" alias="eVO"/>
+		<typeAlias type="kr.co.sist.vo.BoardVO" alias="bVO"/>
 	</typeAliases>
 	
   <environments default="development">
@@ -31,5 +32,7 @@
     <mapper resource="kr/co/sist/dao/mapper/examMapper.xml"/>
     <mapper resource="kr/co/sist/dao/mapper/examMapper2.xml"/>
     <mapper resource="kr/co/sist/dao/mapper/examMapper3.xml"/>
+    <mapper resource="kr/co/sist/dao/mapper/examMapper4.xml"/>
+    <mapper resource="kr/co/sist/dao/mapper/examMapper5.xml"/>
   </mappers> 
 </configuration>

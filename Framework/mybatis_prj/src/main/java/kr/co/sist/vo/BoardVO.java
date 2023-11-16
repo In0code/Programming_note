@@ -7,4 +7,5 @@ import lombok.Setter;
 @Getter
 public class BoardVO {
 	private int startNum, endNum;
+	private String fieldName, keyword;
 }
