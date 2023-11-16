@@ -34,5 +34,6 @@
     <mapper resource="kr/co/sist/dao/mapper/examMapper3.xml"/>
     <mapper resource="kr/co/sist/dao/mapper/examMapper4.xml"/>
     <mapper resource="kr/co/sist/dao/mapper/examMapper5.xml"/>
+    <mapper resource="kr/co/sist/dao/mapper/examMapper6.xml"/>
   </mappers> 
 </configuration>

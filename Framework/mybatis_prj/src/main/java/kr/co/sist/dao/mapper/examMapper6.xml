@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.sist.exam6">
+
+<!-- insert_proc 사용 : CP_DEPT 테이블에 추가하는 Procedure -->
+<select id="insert_proc" parameterType="kr.co.sist.vo.InsertProcedureVO" statementType="CALLABLE">
+{ 
+	call insert_proc( 
+	#{ deptno, mode=IN, jdbcType=NUMERIC },
+	#{ dname, mode=IN, jdbcType=VARCHAR },
+	#{ loc, mode=IN, jdbcType=VARCHAR },
+	#{ cnt, mode=OUT, jdbcType=NUMERIC },
+	#{ msg, mode=OUT, jdbcType=VARCHAR}
+	) 
+}
+</select>
+
+
+
+<!-- select_proc 사용 : 입력된 부서번호를 사용하여 emp 테이블과 dept 테이블을 join하여 조회 -->
+<resultMap type="hashmap" id="map"/>
+<select id="select_proc" statementType="CALLABLE">
+{ call select_dept_emp( 
+	#{ deptno, mode=IN, jdbcType=NUMERIC },
+	#{ selectData, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=map }
+					)
+}
+</select>
+
+ <resultMap type="hashmap" id="map"/> 
+<select id="select_all_proc" statementType="CALLABLE">
+{ call select_all_emp( 
+	#{ selectData2, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=map }
+					)
+}
+</select>
+
+
+</mapper>
