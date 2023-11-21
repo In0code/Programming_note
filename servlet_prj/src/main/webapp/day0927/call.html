@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title> </title>
+<!-- <link rel="stylesheet" type="text/css" 
+href="http://192.168.10.136/html_prj/common/css/main_v20230906.css"/> -->
+<!-- bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<style type="text/css">
+a {
+	text-decoration: none;
+	color: black;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+</style>
+<!-- jQuery CDN 시작 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<!-- jQeury CDN 끝 -->
+<script type="text/javascript">
+$(function() {
+	$("#jsBtn").click(function() {
+		location.href = "../call_test";
+	});//click
+	
+	$("#getBtn").click(function() { //get
+		$("#getFrm").submit();
+	});//click
+	
+	$("#postBtn").click(function() { //post
+		$("#postFrm").submit();
+	});//click
+	
+});
+</script>
+</head>
+<body>
+<input type="button" id="jsBtn" class="btn btn-outline-primary btn-sm" value="JavaScript GET방식 요청"/><br>
+<a href="../call_test">Link GET방식 요청</a>
+<!-- <form action="http://localhost/servlet_prj/call_test" method="get" id="frm"> -->
+<form action="../call_test" method="get" id="getFrm">
+	<input type="button" id="getBtn" class="btn btn-outline-secondary btn-sm" value="form GET방식 요청"/>
+</form>
+
+<form action="http://192.168.10.136/servlet_prj/call_test" method="post" id="postFrm">
+	<input type="button" id="postBtn" class="btn btn-danger btn-sm" value="form POST방식의 요청"/>
+</form>
+
+</body>
+</html>

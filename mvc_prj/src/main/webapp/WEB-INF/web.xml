@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+  <display-name>mvc_prj</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+  </welcome-file-list>
+  <!-- 보안제약  -->
+  <security-constraint>
+  <web-resource-collection>
+	  <web-resource-name></web-resource-name>
+	  <url-pattern>*.jsp</url-pattern>
+	  <http-method>GET</http-method>
+	  <http-method>POST</http-method>
+  </web-resource-collection>
+  <auth-constraint></auth-constraint>
+  </security-constraint>
+  <!-- 진입점의 설정 -->
+  <servlet>
+  	<servlet-name>mc</servlet-name>
+  	<servlet-class>kr.co.sist.controller.MainController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>mc</servlet-name>
+  	<url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+  
+</web-app>
