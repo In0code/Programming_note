@@ -44,5 +44,33 @@
   	<url-pattern>/life_cycle.do</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+  	<servlet-name>ip</servlet-name>
+  	<servlet-class>day1122.TestInitParam</servlet-class><!--JSP명을 넣을 수 있다  -->
+	<init-param>
+		<param-name>driverName</param-name>
+		<param-value>oracle.jdbc.OracleDriver</param-value>
+	</init-param>  	
+	<init-param>
+		<param-name>url</param-name>
+		<param-value>jdbc:oracle:thin:@localhost:1521:orcl</param-value>
+	</init-param>  	
+	<init-param>
+		<param-name>username</param-name>
+		<param-value>scott</param-value>
+	</init-param>  	
+	<init-param>
+		<param-name>password</param-name>
+		<param-value>tiger</param-value>
+	</init-param>  	
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ip</servlet-name>
+  	<url-pattern>/init_param.do</url-pattern>
+  </servlet-mapping>
   
 </web-app>
+
+
+
+
