@@ -1,0 +1,11 @@
+메인 css
+<link rel="stylesheet" href="https://web.joongna.com/_next/static/css/4faf93b11322cf67.css">
+
+위에 상단 이벤트 css
+<link rel="stylesheet" href="https://web.joongna.com/_next/static/css/e3048584c00a0406.css" data-n-p="">
+
+js
+<link as="script" rel="prefetch" href="https://web.joongna.com/_next/static/chunks/4126-99e7ff6d28dc11d7.js">
+<link as="script" rel="prefetch" href="https://web.joongna.com/_next/static/chunks/6869-4c157c328e76af89.js">
+<link as="script" rel="prefetch" href="https://web.joongna.com/_next/static/chunks/7068-99e7a3a9004c76dc.js">
+
