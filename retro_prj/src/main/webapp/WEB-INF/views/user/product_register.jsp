@@ -5,6 +5,39 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript">
+$(function(){
+	
+});//ready
+
+	function category-1(){
+		$.ajax({
+			type:"get",
+			dataType:"Text",
+			error:fuction(xhr){
+				 console.log( xhr.status );				
+			},
+			success: function( data ){
+				var catagory1="";
+				catagory1+="<div id='category-depth-1'"
+				catagory1+="class='w-1/3 h-full overflow-y-auto border border-solid rounded border-jnGray-300'>"
+				catagory1+="<ul class='flex flex-col border-solid border-jnGray-300'>"
+				catagory1+="<li class='false h-10 p-3' id='category-11'><button>"
+				catagory1+="<p class='truncate break-keep'>여성의류</p>"
+				catagory1+="</button></li>"
+				catagory1+="<li class='false h-10 p-3' id='category-12'><button>"
+				catagory1+="<p class='truncate break-keep'>남성의류</p>"
+				catagory1+="</button></li>"
+				catagory1+="</ul>"
+				catagory1="</div>";
+				
+				$("#output").html(catagory1);
+			}//success
+			
+		});//ajax		
+}
+
+</script>
 <link as="script" rel="prefetch"
 	href="https://web.joongna.com/_next/static/chunks/4126-99e7ff6d28dc11d7.js">
 <link as="script" rel="prefetch"
@@ -110,57 +143,91 @@
 							<div id="category-depth-1"
 								class="w-1/3 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
 								<ul class="flex flex-col border-solid border-jnGray-300">
-									<li class="false h-10 p-3" id="category-2"><button>
+									<li class="false h-10 p-3" id="category-1" onclick="category-1()"><button>
 											<p class="truncate break-keep">패션의류</p>
 										</button></li>
-									<li class="bg-jnGray-200 font-bold h-10 p-3" id="category-3"><button>
+									<li class="false h-10 p-3" id="category-2"><button>
 											<p class="truncate break-keep">패션잡화</p>
 										</button></li>
-									<li class="false h-10 p-3" id="category-6"><button>
+									<li class="false h-10 p-3" id="category-3"><button>
 											<p class="truncate break-keep">모바일/태블릿</p>
 										</button></li>
-									<li class="false h-10 p-3" id="category-8"><button>
+									<li class="false h-10 p-3" id="category-4"><button>
 											<p class="truncate break-keep">노트북/PC</p>
 										</button></li>
-									<li class="false h-10 p-3" id="category-14"><button>
+									<li class="false h-10 p-3" id="category-5"><button>
 											<p class="truncate break-keep">도서/문구</p>
 										</button></li>
 								</ul>
 							</div>
-							<div id="category-depth-2"
+							<div id="output"></div>
+							<!-- <div id="category-depth-1"
 								class="w-1/3 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
 								<ul class="flex flex-col border-solid border-jnGray-300">
-									<li class="false h-10 p-3" id="category-115"><button>
+									<li class="false h-10 p-3" id="category-11"><button>
+											<p class="truncate break-keep">여성의류</p>
+										</button></li>
+									<li class="false h-10 p-3" id="category-12"><button>
+											<p class="truncate break-keep">남성의류</p>
+										</button></li>
+								</ul>
+							</div> -->
+						<%-- 	<div id="category-depth-2"
+								class="w-1/3 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
+								<ul class="flex flex-col border-solid border-jnGray-300">
+									<li class="false h-10 p-3" id="category-21"><button>
 											<p class="truncate break-keep">여성화</p>
 										</button></li>
-									<li class="false h-10 p-3" id="category-116"><button>
+									<li class="false h-10 p-3" id="category-22"><button>
 											<p class="truncate break-keep">남성화</p>
 										</button></li>
-									<li class="false h-10 p-3" id="category-117"><button>
+									<li class="false h-10 p-3" id="category-23"><button>
 											<p class="truncate break-keep">가방</p>
 										</button></li>
 
 								</ul>
 							</div>
-							<div id="category-depth-2"
+							<div id="category-depth-3"
 								class="w-1/3 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
 								<ul class="flex flex-col border-solid border-jnGray-300">
-									<li class="false h-10 p-3" id="category-111"><button>
-											<p class="truncate break-keep">여성의류</p>
+									<li class="false h-10 p-3" id="category-31"><button>
+											<p class="truncate break-keep">스마트폰</p>
 										</button></li>
-									<li class="false h-10 p-3" id="category-112"><button>
-											<p class="truncate break-keep">남성의류</p>
-										</button></li>
-									<li class="false h-10 p-3" id="category-113"><button>
-											<p class="truncate break-keep">교복/체육복/단복</p>
-										</button></li>
-									<li class="false h-10 p-3" id="category-1339"><button>
-											<p class="truncate break-keep">클로젯셰어</p>
+									<li class="false h-10 p-3" id="category-32"><button>
+											<p class="truncate break-keep">테블릿PC</p>
 										</button></li>
 								</ul>
 							</div>
-							<div id="category-depth-3"
-								class="w-1/3 h-full overflow-y-auto border border-solid rounded border-jnGray-300 hidden"></div>
+							<div id="category-depth-4"
+								class="w-1/3 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
+								<ul class="flex flex-col border-solid border-jnGray-300">
+									<li class="false h-10 p-3" id="category-41"><button>
+											<p class="truncate break-keep">노트북</p>
+										</button></li>
+									<li class="false h-10 p-3" id="category-42"><button>
+											<p class="truncate break-keep">모니터</p>
+										</button></li>
+									<li class="false h-10 p-3" id="category-43"><button>
+											<p class="truncate break-keep">데스크탑</p>
+										</button></li>
+								</ul>
+							</div>
+							<div id="category-depth-5"
+								class="w-1/3 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
+								<ul class="flex flex-col border-solid border-jnGray-300">
+									<li class="false h-10 p-3" id="category-51"
+										onclick="${ param.id }"><button>
+											<p class="truncate break-keep">학습 / 교육</p>
+										</button></li>
+									<li class="false h-10 p-3" id="category-52"><button>
+											<p class="truncate break-keep">소설 / 만화책</p>
+										</button></li>
+									<li class="false h-10 p-3" id="category-53"><button>
+											<p class="truncate break-keep">문구 / 사무용품</p>
+										</button></li>
+								</ul>
+							</div> --%>
+
 						</div>
 					</div>
 

@@ -47,10 +47,4 @@ public class MybatisHandler {
 	public void closeHandler(SqlSession ss) {
 		if( ss != null) { ss.close(); }
 	}//closeHandler
-	
-	public static void main(String[]  args) {
-		MybatisHandler mbh=MybatisHandler.getInstance();
-		System.out.println(mbh.getMyBatisHandler("kr/co/sist/dao/mybatis-config.xml", false));
-	}//main
-
 }// class
