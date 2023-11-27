@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="admin.product">
+
+<!-- 모든 상품 조회 -->
+<select id="selectAllProduct" resultType="admin.domain.ProductDomain" parameterType="admin.vo.BoardRangeVO">
+select IMG ,NICKNAME ,NAME, PNAME,PRICE,STATUS,INPUT_DATE   
+from(select p.IMG, m.NICKNAME, c.NAME, p.PNAME, p.PRICE, p.STATUS, p.INPUT_DATE
+			,row_number() over(order by INPUT_DATE desc) rnum  
+from  PRODUCT p, MEMBER m,CATEGORY c
+where p.id = m.id  )
+where rnum between 1 and 10
+</select>
+
+<!-- 검색하여 상품 조회 -->
+<select id="selectSearchProduct" resultType="admin.domain.ProductDomain" parameterType="admin.vo.BoardRangeVO">
+select IMG ,NICKNAME ,NAME, PNAME,PRICE,STATUS,INPUT_DATE   
+from(select p.IMG, m.NICKNAME, c.NAME, p.PNAME, p.PRICE, p.STATUS, p.INPUT_DATE
+			,row_number() over(order by INPUT_DATE desc) rnum  
+from  PRODUCT p, MEMBER m,CATEGORY c
+where p.id = m.id and p.카테고리 = c.카테고리 
+and 카테고리 = ? and m.NICKNAME =#{ nickname })
+where rnum between 1 and 10
+</select>
+
+<!-- 상품 상세 조회 -->
+<select id="" resultType="admin.domain.ProductDetailDomain" parameterType="String">
+
+</select>
+
+</mapper>
