@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- jQuery CDN -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript">
+$(function(){
+   $("#post").click(function(){
+      var frm=document.hidFrm;
+      //요청 URL 설정: 폼객체.action="URL"
+      frm.action="request_post.do";
+      //요청 method 변경: 폼객체.method="GET|POST"
+      frm.method="POST";
+      alert( frm.action+"페이지에"+ frm.method+"방식으로 요청")
+      //전송
+      $("#hidFrm").submit();
+   });//click
+
+   $("#post2").click(function(){
+      var frm=document.hidFrm;
+      //요청 URL 설정: 폼객체.action="URL"
+      frm.action="request_post2.do";
+      //요청 method 변경: 폼객체.method="GET|POST"
+      frm.method="POST";
+      alert( frm.action+"페이지에 "+ frm.method+" 방식으로 요청")
+      //전송
+      $("#hidFrm").submit();
+   });//click
+   
+   $("#req").click(function(){
+      var frm=document.hidFrm;
+      //요청 URL 설정: 폼객체.action="URL"
+      frm.action="request_multi.do";
+      //요청 method 변경: 폼객체.method="GET|POST"
+      var method="GET";
+      if(parseInt(Math.random()*2)==0){
+         method="post";
+      }//end if
+      frm.method=method;
+      
+      if(confirm(frm.action+" 페이지에"+frm.method+"방식으로 요청하시겠습니까?")){
+      //전송
+      $("#hidFrm").submit();
+      }//end if
+   });//click
+});//ready
+</script>
+</head>
+<body>
+<ul>
+
+<li><a href="hello.do">처음페이지</a></li>
+<li><a href="request_get.do">GET요청페이지@RequestMapping</a></li>
+<li><a href="request_get2.do">GET요청페이지@GETMapping</a></li>
+<li><a href="#void" id="post">POST요청페이지@RequestMapping</a></li>
+<li><a href="#void" id="post2">POST요청페이지@POSTMapping</a></li>
+<li><a href="#void" id="req">GET&amp;POST요청페이지@RequestMapping</a></li>
+<li><a href="temp/req.do">가상경로요청</a></li>
+<li><a href="req.do">응답 JSP1 (day1124/req2.jsp를 응답)</a></li>
+<li><a href="day1124/req2.do">응답 JSP2 (day1124/req2.jsp를 응답)</a></li>
+<li><a href="param_frm.do">HttpServletRequest를 사용한 parameter 받기</a></li>
+<li><a href="param_frm.do">단일형을 사용한 parameter 받기</a></li>
+<li><a href="param_frm.do">VO를 사용한 parameter 받기</a></li>
+<li><a href="day1127/param_frm2.do">RequestParam</a></li>
+
+</ul>
+<form name="hidFrm" id="hidFrm">
+</form>
+</body>
+</html>
