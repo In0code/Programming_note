@@ -64,7 +64,7 @@ $(function() {
 	});
 	
 	$("#searchFake").click(function(){
-		if(chkValue($("#option").val()) && chkNull()){
+		if(chkValue($("#fraudField").val()) && chkNull()){
 			$("#frm").submit();
 		}
 	});
@@ -76,14 +76,14 @@ function chkValue(option) {
 	var flag = false;
 	
 	if(option == 'phone' && (searchInfo.length != 11 || /-/.test(searchInfo))){
-		msg = "휴대폰 번호를 다시 한 번 확인해주세요.";
+		msg = "휴대폰 번호를 다시 한 번 확인해주세요. 하이픈 없이 숫자만 입력 가능합니다.";
 		flag = true;
 	}else if(option == 'id' && (searchInfo.length < 5 || searchInfo.length > 30 || !/^[a-zA-Z0-9]+$/.test(searchInfo))){
-		msg = "아이디를 다시 한 번 확인해주세요.";
+		msg = "아이디를 다시 한 번 확인해주세요. 5자 이상의 영문, 숫자만 입력 가능합니다.";
 		flag = true;
 	}else if(option == 'email') {
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(searchInfo)) {
-        	msg = "이메일을 다시 한 번 확인해주세요.";
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(searchInfo) || searchInfo.length < 5) {
+        	msg = "이메일을 다시 한 번 확인해주세요. 이메일 형식으로만 입력 가능합니다.";
         	flag = true;
         }
 	}
@@ -112,11 +112,12 @@ function chkNull() {
 }
 
 function hideFrmValue(val) {
-	$("#fakeField").val(val);
+	$("#fraudField").val(val);
 }
 </script>
 
 </head>
+<c:import url="http://localhost/retro_prj/common/cdn/header.jsp"/>
 <body style="font-family: Pretendard Variable">
 	<main class="relative flex-grow border-b-2"
 		style="min-height: -webkit-fill-available; -webkit-overflow-scrolling: touch">
@@ -124,7 +125,7 @@ function hideFrmValue(val) {
 			class="max-w-[1280px] mx-auto max-w-[1280px] px-4 md:px-8 2xl:px-16 box-content">
 			<h1 class="a11yHidden">RE:TRO 통합 사기 조회</h1>
 			<div class="flex justify-center w-full border-b-2 text-jnblack">
-				<div class="w-full py-10">
+				<div class="w-full py-10" style="padding-top: 0px;">
 					<div class="flex items-center justify-between mt-2 pb-5 text-xl text-jnBlack">
 						<h3 class="text-lg md:text-xl lg:text-2xl 2xl:text-3xl xl:leading-10 font-bold text-heading">
 							RE:TRO 통합 사기 조회
@@ -141,7 +142,7 @@ function hideFrmValue(val) {
 								<input type="button" readonly="readonly" class="relative w-full cursor-default rounded-lg bg-white px-[16px] lg:text-sm py-[12px] text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
 									id="selectBox" aria-haspopup="listbox" aria-expanded="false" style="font-weight:500; padding-left:22px"
 									data-headlessui-state="" value="아이디"/>
-								<input type="hidden" id="fakeField" name="fakeField" value="id"/>
+								<input type="hidden" id="fraudField" name="fraudField" value="id"/>
 									
 									<span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
 									<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" class="w-5 h-5 text-gray-400"
@@ -176,7 +177,7 @@ function hideFrmValue(val) {
 
 							<div class="pt-2 flex gap-2 w-full justify-between align-middle">
 								<div class="w-full">
-									<input id="searchInfo" name="fakeField" type="text" style="font-family:Pretendard Variable"
+									<input id="searchInfo" name="fraudKeyword" type="text" style="font-family:Pretendard Variable"
 										placeholder="영문, 숫자만 입력"
 										class="md:px-5 w-full appearance-none border text-input text-xs lg:text-sm font-body placeholder-body min-h-12 transition duration-200 ease-in-out border-gray-300 focus:shadow focus:bg-white focus:border-primary bg-white px-4 py-[13px] outline-0 rounded-md"
 										autocomplete="off" spellcheck="false" aria-invalid="false">
@@ -194,7 +195,7 @@ function hideFrmValue(val) {
 					</form>
 					
 					<div style="margin-top:10px">
-					<a class="pt-4 text-[13px] font-semibold" href="https://ecrm.police.go.kr/sci/pcc_V3_send">
+					<a class="pt-4 text-[13px] font-semibold" href="https://ecrm.police.go.kr/sci/pcc_V3_send" target="_blank">
 						경찰청 사이버 수사국 바로가기 &gt;
 					</a>
 					</div>
@@ -203,5 +204,6 @@ function hideFrmValue(val) {
 		</div>
 		<div class="Toastify"></div>
 	</main>
+<c:import url="http://localhost/retro_prj/common/cdn/footer.jsp"/>
 </body>
 </html>

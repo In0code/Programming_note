@@ -1,3 +1,4 @@
+<%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page info=""%>
@@ -19,19 +20,37 @@
 
 </head>
 <body>
+<c:import url="http://localhost/retro_prj/common/cdn/header.jsp"/>
 	<main class="relative flex-grow border-b-2"
 		style="min-height: -webkit-fill-available; -webkit-overflow-scrolling: touch">
 		<div
 			class="max-w-[1280px] mx-auto max-w-[1280px] px-4 md:px-8 2xl:px-16 box-content">
 			<div class="flex justify-center text-jnblack border-b-2 border-solid">
-				<div class="py-10 w-full">
+				<div class="py-10 w-full" style="padding-top: 0px;">
 					<div class="flex items-center justify-between mt-2 text-jnBlack text-xl pb-5">
 						<h3 class="text-lg md:text-xl lg:text-2xl 2xl:text-3xl xl:leading-10 font-bold text-heading">
 							RE:TRO 통합 사기 조회</h3>
 					</div>
 					<div class="pt-6 border-y-jnblack border-solid border-t text-[12px] leading-5">
 						<div class="text-[20px] font-bold">
-							<p class="pt-[10px]">${ param.searchInfo }</p>
+							<p class="pt-[10px]">
+								<% 	
+								String keyword = request.getParameter("fraudKeyword").toLowerCase();
+								String field = request.getParameter("fraudField");
+								String tempKey = "";
+								int index = 2;
+								if( keyword!= null && !"".equals(keyword)){
+									if(keyword.length() > 7 && !"email".equals(field)){
+										index = keyword.length()-5;
+									}
+									tempKey = keyword.substring(0,index);
+									for(int i = index; i < keyword.length() ; i++){
+										tempKey = tempKey.concat("*");
+									}
+								}
+								%>
+								<%= tempKey %>
+							</p>
 							<p class="pt-[10px]">피해 사례 조회</p>
 						</div>
 						<div class="font-medium text-right pb-[5px] text-[13px]">
@@ -63,12 +82,12 @@
 							</dd>
 						</dl>
 						<div class="pt-10 flex-col flex gap-5">
-							<a href="javascript:history.back();" style="text-align:center; margin-bottom: 10px" class="w-full py-3 border-jnblack border-[1px] border-solid rounded-md font-bold text-[16px]">
+							<a href="fraud.do" style="text-align:center; margin-bottom: 10px" class="w-full py-3 border-jnblack border-[1px] border-solid rounded-md font-bold text-[16px]">
 							다시 조회하기
 							</a>
 						</div>
 					</div>
-					<a class="pt-4 text-[13px] font-semibold" href="https://ecrm.police.go.kr/sci/pcc_V3_send">
+					<a class="pt-4 text-[13px] font-semibold" href="https://ecrm.police.go.kr/sci/pcc_V3_send" target="_blank">
 						경찰청 사이버 수사국 바로가기 &gt;
 					</a>
 				</div>
@@ -76,7 +95,6 @@
 		</div>
 		<div class="Toastify"></div>
 	</main>
-
-
+<c:import url="http://localhost/retro_prj/common/cdn/footer.jsp"/>
 </body>
 </html>

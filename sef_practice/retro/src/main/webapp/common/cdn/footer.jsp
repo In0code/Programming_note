@@ -8,23 +8,21 @@
 			<div class="pb-3 md:pb-0 col-span-2 lg:col-span-full xl:col-span-2">
 				<div class="me-4 flex flex-col space-y-7 lg:space-y-7.5">
 					<a style="width: 200px; height: 30px"
-						class="inline-flex focus:outline-none relative" href="/"><span
-						style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0; margin: 0; padding: 0; position: absolute; top: 0; left: 0; bottom: 0; right: 0"><img
-							alt="Joonggonara" src="/assets/images/custom-logo.svg"
-							decoding="async" data-nimg="fill"
-							style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; box-sizing: border-box; padding: 0; border: none; margin: auto; display: block; width: 0; height: 0; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%"></span></a>
-					<p
-						class="text-sm font-normal text-[#1D1E1F] leading-6 max-w-[334px] ">
+						class="inline-flex focus:outline-none relative" href="/">
+					<span style="box-sizing: border-box; display: block; overflow: hidden; width: initial; 
+					height: 50px; background: none; opacity: 1; border: 0; margin: 0; padding: 0; position: absolute; top: 0; left: 0; bottom: 0; right: 0">
+					<img alt="RE:TRO" src="http://localhost/retro_prj/common/images/main_logo.png" decoding="async" data-nimg="fill"
+							style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; 
+							box-sizing: border-box; padding: 0; border: none; margin: 0; display: block; width: 140px;"></span></a>
+					<p class="text-sm font-normal text-[#1D1E1F] leading-6 max-w-[334px] ">
 						(주)RE:TRO<br>대표자 : 양승연<br>사업자 등록번호 : 215-19-990908<br>통신판매신고번호
 						: 제2019-서울역삼-0099호<br>호스팅제공자 : SIST웹서비스<br>
 					</p>
 				</div>
 			</div>
 			<div class="pb-3 md:pb-0 undefined">
-				<h4
-					class="text-heading text-sm md:text-base xl:text-lg font-semibold mb-5 2xl:mb-6 3xl:mb-7">Social</h4>
-				<ul
-					class="text-xs lg:text-sm text-body flex flex-col space-y-3 lg:space-y-3.5">
+				<h4 class="text-heading text-sm md:text-base xl:text-lg font-semibold mb-5 2xl:mb-6 3xl:mb-7">Social</h4>
+				<ul class="text-xs lg:text-sm text-body flex flex-col space-y-3 lg:space-y-3.5">
 					<li class="flex items-baseline"><span
 						class="me-3 relative top-0.5 lg:top-1 text-sm lg:text-base"><svg
 								stroke="currentColor" fill="currentColor" stroke-width="0"
@@ -112,29 +110,30 @@
 				회원 간의 상품거래 정보 및 거래에 관여하지 않고, 어떠한 의무와 책임도 부담하지 않습니다.</p>
 		</div>
 	</div>
-	<div
-		class="border-t border-gray-300 pt-5 pb-16 sm:pb-20 md:pb-5 mb-2 sm:mb-0">
-		<div
-			class="flex flex-col-reverse md:flex-row text-center md:justify-between items-center mx-auto max-w-[1280px] px-4 md:px-8 2xl:px-16 box-content">
+	<div class="border-t border-gray-300 pt-5 pb-16 sm:pb-20 md:pb-5 mb-2 sm:mb-0">
+		<div class="flex flex-col-reverse md:flex-row text-center md:justify-between items-center mx-auto max-w-[1280px] px-4 md:px-8 2xl:px-16 box-content">
 			<p class="text-body text-xs lg:text-sm leading-6 p-0 m-0">
 				Copyright ©
 				<!-- -->
 				2023
 				<!-- -->
-				&nbsp;<a
-					class="font-semibold text-gray-700 transition-colors duration-200 ease-in-out hover:text-body"
-					href="https://web.joongna.com">(주)RE:TRO</a>&nbsp; All Rights
+				&nbsp;<a class="font-semibold text-gray-700 transition-colors duration-200 ease-in-out hover:text-body"
+					href="index.html">(주)RE:TRO</a>&nbsp; All Rights
 				Reserved
 			</p>
-			<p
-				class="text-sm font-semibold leading-[19px] text-[#212121] cursor-pointer">
-				<a href="/#siteHeader">Scroll to top</a>
+			<p class="text-sm font-semibold leading-[19px] text-[#212121] cursor-pointer">
+				<div style="cursor:pointer; font-family:Pretendard Variable; font-weight:600; position: relative; left:270px" onclick="scrollToTop()">Scroll to top
 				<svg stroke="currentColor" fill="currentColor" stroke-width="0"
 					viewBox="0 0 1024 1024" class="inline ms-3" height="1em"
 					width="1em" xmlns="http://www.w3.org/2000/svg">
-					<path
-						d="M868 545.5L536.1 163a31.96 31.96 0 0 0-48.3 0L156 545.5a7.97 7.97 0 0 0 6 13.2h81c4.6 0 9-2 12.1-5.5L474 300.9V864c0 4.4 3.6 8 8 8h60c4.4 0 8-3.6 8-8V300.9l218.9 252.3c3 3.5 7.4 5.5 12.1 5.5h81c6.8 0 10.5-8 6-13.2z"></path></svg>
+					<path d="M868 545.5L536.1 163a31.96 31.96 0 0 0-48.3 0L156 545.5a7.97 7.97 0 0 0 6 13.2h81c4.6 0 9-2 12.1-5.5L474 300.9V864c0 4.4 3.6 8 8 8h60c4.4 0 8-3.6 8-8V300.9l218.9 252.3c3 3.5 7.4 5.5 12.1 5.5h81c6.8 0 10.5-8 6-13.2z"></path></svg>
+				</div>
 			</p>
+			<script>
+        		function scrollToTop() {
+            		window.scrollTo({ top: 0, behavior: 'smooth' });
+        		}
+    		</script>
 		</div>
 	</div>
 </footer>

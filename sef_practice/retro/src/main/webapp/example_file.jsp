@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<c:import url="http://localhost/sist/common/cdn/cdn.jsp"/>
+<c:import url="http://localhost/retro_prj/common/cdn/cdn.jsp"/>
 <style type="text/css">
 
 </style>
@@ -19,10 +19,10 @@
 </head>
 <body>
 <!-- header -->
-<c:import url="http://localhost/sist/common/cdn/header.jsp"/>
+<c:import url="http://localhost/retro_prj/common/cdn/header.jsp"/>
 <!-- 메인 홈페이지 화면 -->
-<c:import url="http://localhost/sist/common/cdn/example_main_tag.jsp"/>
+<c:import url="http://localhost/retro_prj/common/cdn/example_main_tag.jsp"/>
 <!-- footer -->
-<c:import url="http://localhost/sist/common/cdn/footer.jsp"/>
+<c:import url="http://localhost/retro_prj/common/cdn/footer.jsp"/>
 </body>
 </html>

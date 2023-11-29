@@ -272,7 +272,7 @@
 				  'background-color': '#FFFFFF'
 			 });
 			$("#category-depth-3").show();
-			$("#category-depth-2, #category-depth-1, #category-depth-4, #category-depth-5,#category-depth-1-1,#category-depth-1-2,#category-depth-2-1,#category-depth-2-2,#category-depth-3-1,#category-depth-3-2,#category-depth-4-1,#category-depth-5-1,#category-depth-5-2").hide();
+			$("#category-depth-2, #category-depth-1, #category-depth-4, #category-depth-5,#category-depth-1-1,#category-depth-1-2,#category-depth-2-1,#category-depth-2-2,#category-depth-3-1,#category-depth-3-2,#category-depth-4-1,#category-depth-5-1,#category-depth-5-2, #category-depth-2-3").hide();
 		});//click
 		
 		/* 스마트폰 클릭하면 동작 */
@@ -552,23 +552,36 @@
 		
 /* --------희망지역 버튼------------- */
 		
-		/* '주소검색' 버튼 */
+		/* '주소검색' 버튼 누르면 동작 */
 		$("#addrSearchBtn").click(function(){
-			var addrSearchBtn=$("#addrSearchBtn").attr('class')
-			if(addrSearchBtn=="h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 text-white bg-jngreen border-jngreen" ){
-				$("#addrSearchBtn").attr('class',"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 border-jnblack text-jnblack bg-white")
-			}else{
-				$("#addrSearchBtn").attr('class',"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 text-white bg-jngreen border-jngreen")
-			}
+			
+			$("#addrSearchBtn").attr('class',"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 text-white bg-jngreen border-jngreen")
+			$("#noAddrBtn").attr('class',"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 border-jnblack text-jnblack bg-white")
 			
 		});//clcick
 		
-		/* '지역 설정 안 함'버튼 */
+		/* '지역 설정 안 함'버튼누르면 동작*/
 		$("#noAddrBtn").click(function(){
-			var addrSearchBtn=$("#addrSearchBtn").attr('class')
-			if(addrSearchBtn=="h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 text-white bg-jngreen border-jngreen" ){
-				$("#addrSearchBtn").attr('class',"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 border-jnblack text-jnblack bg-white")
-			}
+			$("#noAddrBtn").attr('class',"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 text-white bg-jngreen border-jngreen")
+			$("#addrSearchBtn").attr('class',"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 border-jnblack text-jnblack bg-white")
+			
+		});//clcick
+		
+/* --------상품 상태 버튼------------- */
+		
+		/* '중고' 버튼 누르면 동작 */
+		$("#oldProductBtn").click(function(){
+			
+			$("#oldProductBtn").attr('class',"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 text-white bg-jngreen border-jngreen")
+			$("#newProductBtn").attr('class',"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 border-jnblack text-jnblack bg-white")
+			
+		});//clcick
+		
+		/* '새상품'버튼누르면 동작*/
+		$("#newProductBtn").click(function(){
+			$("#newProductBtn").attr('class',"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 text-white bg-jngreen border-jngreen")
+			$("#oldProductBtn").attr('class',"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 border-jnblack text-jnblack bg-white")
+			
 		});//clcick
 		
 		
@@ -929,8 +942,8 @@
         text-base scale-85 origin-top-left -mb-3  w-[117.65%] p-6  h-[60px]
 
         false">
-							<label for="search" class="flex items-center py-0.5 w-2/3"><span>₩</span><input
-								name="productPrice" type="text" inputmode="numeric"
+							<label for="search" class="flex items-center py-0.5 w-2/3"><span>₩</span>
+							<input name="productPrice" type="text" inputmode="numeric" pattern="\d{1,3}(,\d{3})*"
 								class="ml-1 bg-white focus:outline-none h-11 md:h-12 placeholer-jnGray-500 w-2/3 disabled:opacity-100 placeholer-jnGray-500"
 								placeholder="판매가격" value=""></label>
 						</div>
@@ -951,10 +964,10 @@
 						<!-- 상품상태 : 중고 / 새상품 버튼 -->
 						<p class="font-semibold">상품상태</p>
 						<div class="flex gap-3">
-							<button
-								class="h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 text-white bg-jngreen border-jngreen">중고</button>
-							<button
-								class="h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 border-jnblack text-jnblack bg-white">새상품</button>
+							<input type="button" id="oldProductBtn"
+								class="h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 text-white bg-jngreen border-jngreen" value="중고"/>
+							<input type="button" id="newProductBtn"
+								class="h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 border-jnblack text-jnblack bg-white" value="새상품"/>
 						</div>
 						<!-- 배송비 : 새송비 별도 / 배송비 포함 러디오 버튼-->
 						<div>
