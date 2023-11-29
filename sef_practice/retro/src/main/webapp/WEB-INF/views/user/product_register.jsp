@@ -550,6 +550,28 @@
 		});//click
 		
 		
+/* --------희망지역 버튼------------- */
+		
+		/* '주소검색' 버튼 */
+		$("#addrSearchBtn").click(function(){
+			var addrSearchBtn=$("#addrSearchBtn").attr('class')
+			if(addrSearchBtn=="h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 text-white bg-jngreen border-jngreen" ){
+				$("#addrSearchBtn").attr('class',"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 border-jnblack text-jnblack bg-white")
+			}else{
+				$("#addrSearchBtn").attr('class',"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 text-white bg-jngreen border-jngreen")
+			}
+			
+		});//clcick
+		
+		/* '지역 설정 안 함'버튼 */
+		$("#noAddrBtn").click(function(){
+			var addrSearchBtn=$("#addrSearchBtn").attr('class')
+			if(addrSearchBtn=="h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 text-white bg-jngreen border-jngreen" ){
+				$("#addrSearchBtn").attr('class',"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 border-jnblack text-jnblack bg-white")
+			}
+		});//clcick
+		
+		
 	});//ready
 </script>
  <link as="script" rel="prefetch"
@@ -956,9 +978,9 @@
 						<!-- 희망지역 : 주소검색 / 지역 설정 안함 버튼 -->
 						<p class="font-semibold">희망지역</p>
 						<div class="flex gap-3">
-							<input type="button" 
+							<input type="button" id="addrSearchBtn"
 								class="h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 text-white bg-jngreen border-jngreen" value="주소 검색"/>
-							<input type="button" 
+							<input type="button" id="noAddrBtn"
 								class="h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 border-jnblack text-jnblack bg-white"
 								style="width: 130px" value="지역 설정 안 함">
 						</div>
