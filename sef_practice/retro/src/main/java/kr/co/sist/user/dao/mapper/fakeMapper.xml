@@ -8,15 +8,15 @@
 	select count(*) cnt
 	from fake
 	<where>
-		<if test="fakeKeyword neq null and fakeKeyword neq ''">
-			<if test="fakeField eq 'id'">
-			id like #{ fakeKeyword }
+		<if test="fraudKeyword neq null and fraudKeyword neq ''">
+			<if test="fraudField eq 'id'">
+			id like #{ fraudKeyword } and input_date >= ADD_MONTHS(SYSDATE, -3)
 			</if>
-			<if test="fakeField eq 'phone'">
-			phone like #{ fakeKeyword }
+			<if test="fraudField eq 'phone'">
+			phone like #{ fraudKeyword } and input_date >= ADD_MONTHS(SYSDATE, -3)
 			</if>
-			<if test="fakeField eq 'email'">
-			email like #{ fakeKeyword }
+			<if test="fraudField eq 'email'">
+			email like #{ fraudKeyword } and input_date >= ADD_MONTHS(SYSDATE, -3)
 			</if>
 		</if>
 	</where>

@@ -10,10 +10,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ProductController {
 
 	@RequestMapping("/user/product_register.do")
-	public String productManage(HttpServletRequest request, Model model) {
+	public String productRegister(HttpServletRequest request, Model model) {
 		
 		model.addAttribute("method",request.getMethod());
 		
 		return "user/product_register";
-	}//productManage
+	}//productRegister
+	
+	@RequestMapping("/user/product_detail.do")
+	public String productDetail(HttpServletRequest request, Model model) {
+		
+		model.addAttribute("method",request.getMethod());
+		
+		return "user/product_detail";
+	}//productDetail
 }//class

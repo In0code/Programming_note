@@ -17,8 +17,8 @@ public class FakeController {
 	
 	@GetMapping("/result.do")
 	public String searchFake(FakeVO fVO, Model model) {
-		System.out.println("----result");
 		FakeService fs = FakeService.getInstance();
+		fVO.setFraudKeyword(fVO.getFraudKeyword().toLowerCase());
 		int cnt = fs.searchFake(fVO);
 		
 		model.addAttribute("fakeCnt",cnt);
