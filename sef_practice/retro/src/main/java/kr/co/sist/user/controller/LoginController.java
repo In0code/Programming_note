@@ -4,11 +4,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class EventController {
+public class LoginController {
 	
-	@GetMapping("/event.do")
-	public String eventList() {
-		return "user/event";
+	@GetMapping("/user/login_frm.do")
+	public String useLoginfrm() {
+		
+		return "user/login_frm";
 	}
-
 }
