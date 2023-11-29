@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page info=""%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<jsp:include page="../cdn/cdn.jsp"/>
+<c:import url="http://localhost/sist/common/cdn/cdn.jsp"/>
 <link rel="icon" href="http://192.168.10.136/html_prj/common/main/favicon.png" />
 <link rel="stylesheet" href="https://web.joongna.com/_next/static/css/13bd0b4016b44d89.css"/>
 <!-- jQeury CDN -->

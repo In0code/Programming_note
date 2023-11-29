@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
+<c:import url="http://localhost/retro_prj/common/cdn/cdn.jsp"/>
+
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <meta charset="UTF-8">
 <style type="text/css">
@@ -179,8 +182,9 @@
 	href="https://web.joongna.com/_next/static/css/82d769b08f8a03ee.css"
 	data-n-p="">
 </head>
-<%-- <%@ include file="header.jsp" %> --%>
 <body>
+<!-- header -->
+<c:import url="http://localhost/retro_prj/common/cdn/header.jsp"/>
 	<main class="relative flex-grow border-b-2"
 		style="min-height: -webkit-fill-available; -webkit-overflow-scrolling: touch">
 		<div class="mx-auto max-w-[1280px] px-4 md:px-8 2xl:px-16 box-content">
@@ -467,48 +471,45 @@
 										</li>
 								</ul>
 							</div>
-							<!-- 노트북 > 노트북  >  삼성/LG/애플 -->
-							<div id="category-depth-3-3"
+							<!-- 노트북/PC > 노트북  >  삼성/LG/애플 -->
+							<div id="category-depth-4-1"
 								class="w-1/3 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
 								<ul class="flex flex-col border-solid border-jnGray-300">
-									<li class="false h-10 p-3" id="category-331">
+									<li class="false h-10 p-3" id="category-411">
 											<p class="truncate break-keep">삼성</p>
 										</li>
-									<li class="false h-10 p-3" id="category-332">
+									<li class="false h-10 p-3" id="category-412">
 											<p class="truncate break-keep">LG</p>
 										</li>
-									<li class="false h-10 p-3" id="category-333">
+									<li class="false h-10 p-3" id="category-413">
 											<p class="truncate break-keep">애플</p>
 										</li>
 								</ul>
 							</div>
 							<!-- 도서/문구 > 학습/교육 >  학습/참고서, 수험서/자격증, 컴퓨터/인터넷 -->
-							<div id="category-depth-2-1"
+							<div id="category-depth-5-1"
 								class="w-1/3 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
 								<ul class="flex flex-col border-solid border-jnGray-300">
-									<li class="false h-10 p-3" id="category-211">
-											<p class="truncate break-keep">단화/로퍼</p>
+									<li class="false h-10 p-3" id="category-511">
+											<p class="truncate break-keep">학습/참고서</p>
 										</li>
-									<li class="false h-10 p-3" id="category-212">
-											<p class="truncate break-keep">워커/부츠</p>
+									<li class="false h-10 p-3" id="category-512">
+											<p class="truncate break-keep">수험서/자격증</p>
 										</li>
-									<li class="false h-10 p-3" id="category-213">
-											<p class="truncate break-keep">샌들/슬리퍼</p>
+									<li class="false h-10 p-3" id="category-513">
+											<p class="truncate break-keep">컴퓨터/인터넷</p>
 										</li>
 								</ul>
 							</div>
 							<!-- 도서/문구 > 소설/만화책 >   소설책, 만화책 -->
-							<div id="category-depth-2-2"
+							<div id="category-depth-5-2"
 								class="w-1/3 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
 								<ul class="flex flex-col border-solid border-jnGray-300">
-									<li class="false h-10 p-3" id="category-221">
-											<p class="truncate break-keep">단화/로퍼</p>
+									<li class="false h-10 p-3" id="category-521">
+											<p class="truncate break-keep">소설책</p>
 										</li>
-									<li class="false h-10 p-3" id="category-222">
-											<p class="truncate break-keep">워커/부츠</p>
-										</li>
-									<li class="false h-10 p-3" id="category-223">
-											<p class="truncate break-keep">샌들/슬리퍼</p>
+									<li class="false h-10 p-3" id="category-522">
+											<p class="truncate break-keep">만화책</p>
 										</li>
 								</ul>
 							</div>
@@ -606,5 +607,7 @@
 		</div>
 		<div class="Toastify"></div>
 	</main>
+	<!-- footer -->
+<c:import url="http://localhost/retro_prj/common/cdn/footer.jsp"/>
 </body>
 </html>

@@ -16,7 +16,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<jsp:include page="../cdn/admin_cdn.jsp"/> 
+<c:import url="http://localhost/sist/common/cdn/admin_cdn.jsp"/>
 
 <style type="text/css">
 body{
