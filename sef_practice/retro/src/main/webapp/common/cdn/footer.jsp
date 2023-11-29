@@ -1,10 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<footer
-	class="border-b-4 border-heading mt-9 md:mt-11 lg:mt-16 3xl:mt-20 pt-2.5 lg:pt-0 2xl:pt-2">
+<footer class="border-b-4 border-heading mt-9 md:mt-11 lg:mt-16 3xl:mt-20 pt-2.5 lg:pt-0 2xl:pt-2">
 	<div class="mx-auto max-w-[1280px] px-4 md:px-8 2xl:px-16 box-content">
-		<div
-			class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-9 xl:gap-5 pb-9 lg:mb-0.5 2xl:mb-0 3xl:-mb-1 xl:grid-cols-6">
+		<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-9 xl:gap-5 pb-9 lg:mb-0.5 2xl:mb-0 3xl:-mb-1 xl:grid-cols-6">
 			<div class="pb-3 md:pb-0 col-span-2 lg:col-span-full xl:col-span-2">
 				<div class="me-4 flex flex-col space-y-7 lg:space-y-7.5">
 					<a style="width: 200px; height: 30px"
@@ -23,36 +21,29 @@
 			<div class="pb-3 md:pb-0 undefined">
 				<h4 class="text-heading text-sm md:text-base xl:text-lg font-semibold mb-5 2xl:mb-6 3xl:mb-7">Social</h4>
 				<ul class="text-xs lg:text-sm text-body flex flex-col space-y-3 lg:space-y-3.5">
-					<li class="flex items-baseline"><span
-						class="me-3 relative top-0.5 lg:top-1 text-sm lg:text-base"><svg
-								stroke="currentColor" fill="currentColor" stroke-width="0"
-								viewBox="0 0 512 512" height="1em" width="1em"
-								xmlns="http://www.w3.org/2000/svg">
-								<path fill-rule="evenodd"
-									d="M480 257.35c0-123.7-100.3-224-224-224s-224 100.3-224 224c0 111.8 81.9 204.47 189 221.29V322.12h-56.89v-64.77H221V208c0-56.13 33.45-87.16 84.61-87.16 24.51 0 50.15 4.38 50.15 4.38v55.13H327.5c-27.81 0-36.51 17.26-36.51 35v42h62.12l-9.92 64.77H291v156.54c107.1-16.81 189-109.48 189-221.31z"></path></svg></span><a
-						target=""
+					<li class="flex items-baseline">
+					<span class="me-3 relative top-0.5 lg:top-1 text-sm lg:text-base">
+					<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+						<path fill-rule="evenodd" d="M480 257.35c0-123.7-100.3-224-224-224s-224 100.3-224 224c0 111.8 81.9 204.47 189 221.29V322.12h-56.89v-64.77H221V208c0-56.13 33.45-87.16 84.61-87.16 24.51 0 50.15 4.38 50.15 4.38v55.13H327.5c-27.81 0-36.51 17.26-36.51 35v42h62.12l-9.92 64.77H291v156.54c107.1-16.81 189-109.48 189-221.31z"></path></svg></span>
+						<a target=""
 						class="transition-colors duration-200 hover:text-black false"
-						href="https://www.facebook.com/joonggonara.m/">페이스북</a></li>
-					<li class="flex items-baseline"><span
-						class="me-3 relative top-0.5 lg:top-1 text-sm lg:text-base"><svg
-								stroke="currentColor" fill="currentColor" stroke-width="0"
-								viewBox="0 0 512 512" height="1em" width="1em"
-								xmlns="http://www.w3.org/2000/svg">
-								<path
-									d="M508.64 148.79c0-45-33.1-81.2-74-81.2C379.24 65 322.74 64 265 64h-18c-57.6 0-114.2 1-169.6 3.6C36.6 67.6 3.5 104 3.5 149 1 184.59-.06 220.19 0 255.79q-.15 53.4 3.4 106.9c0 45 33.1 81.5 73.9 81.5 58.2 2.7 117.9 3.9 178.6 3.8q91.2.3 178.6-3.8c40.9 0 74-36.5 74-81.5 2.4-35.7 3.5-71.3 3.4-107q.34-53.4-3.26-106.9zM207 353.89v-196.5l145 98.2z"></path></svg></span><a
-						target=""
+						href="https://www.facebook.com/joonggonara.m/">페이스북</a>
+					</li>
+					<li class="flex items-baseline">
+					<span class="me-3 relative top-0.5 lg:top-1 text-sm lg:text-base">
+					<svg stroke="currentColor" fill="currentColor" stroke-width="0"viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+						<path d="M508.64 148.79c0-45-33.1-81.2-74-81.2C379.24 65 322.74 64 265 64h-18c-57.6 0-114.2 1-169.6 3.6C36.6 67.6 3.5 104 3.5 149 1 184.59-.06 220.19 0 255.79q-.15 53.4 3.4 106.9c0 45 33.1 81.5 73.9 81.5 58.2 2.7 117.9 3.9 178.6 3.8q91.2.3 178.6-3.8c40.9 0 74-36.5 74-81.5 2.4-35.7 3.5-71.3 3.4-107q.34-53.4-3.26-106.9zM207 353.89v-196.5l145 98.2z"></path></svg></span>
+						<a target=""
 						class="transition-colors duration-200 hover:text-black false"
-						href="https://www.youtube.com/channel/UCTUQdtrWF8BekcHX-X1SMPw">유튜브</a></li>
-					<li class="flex items-baseline"><span
-						class="me-3 relative top-0.5 lg:top-1 text-sm lg:text-base"><svg
-								stroke="currentColor" fill="currentColor" stroke-width="0"
-								role="img" viewBox="0 0 24 24" height="1em" width="1em"
-								xmlns="http://www.w3.org/2000/svg">
-								<path
-									d="M1.6 0S0 0 0 1.6v20.8S0 24 1.6 24h20.8s1.6 0 1.6-1.6V1.6S24 0 22.4 0zm3.415 5.6h4.78l4.425 6.458V5.6h4.765v12.8h-4.78L9.78 11.943V18.4H5.015Z"></path></svg></span><a
-						target=""
-						class="transition-colors duration-200 hover:text-black false"
-						href="https://cafe.naver.com/joonggonara">카페</a></li>
+						href="https://www.youtube.com/channel/UCTUQdtrWF8BekcHX-X1SMPw">유튜브</a>
+					</li>
+					<li class="flex items-baseline">
+					<span class="me-3 relative top-0.5 lg:top-1 text-sm lg:text-base">
+					<svg stroke="currentColor" fill="currentColor" stroke-width="0" role="img" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+					<path d="M1.6 0S0 0 0 1.6v20.8S0 24 1.6 24h20.8s1.6 0 1.6-1.6V1.6S24 0 22.4 0zm3.415 5.6h4.78l4.425 6.458V5.6h4.765v12.8h-4.78L9.78 11.943V18.4H5.015Z"></path></svg></span>
+					<a target="" class="transition-colors duration-200 hover:text-black false"
+						href="https://cafe.naver.com/joonggonara">카페</a>
+					</li>
 				</ul>
 			</div>
 			<div class="pb-3 md:pb-0 undefined">

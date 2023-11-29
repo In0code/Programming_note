@@ -27,23 +27,7 @@
 	}
 	label{font-weight: bold; font-family:Pretendard Variable}
 	
-	.ul {
-    list-style: none;
-    margin-left: 620px;
-    font-family:Pretendard Variable;
-    font-size:13px
-    
-}
-.li {
-	   list-style: none;
-    margin-left: 200px;
-    font-family:Pretendard Variable;
-    font-size:13px;
-    float: left;
-    text-align:center;
-    padding:8px;
-    margin-right:-140px
-}
+
 a {
   text-decoration: none;
   color: #222222
@@ -63,19 +47,20 @@ $(function(){
 
  <jsp:include page="/common/cdn/header.jsp"/>
 <body>
-<img src="http://localhost/retro_prj/common/images/main_logo.png" style="width:160px; margin-left: 870px; margin-top: 150px "/>
-<div style="text-align: center;  margin-top: 80px" id="LoginWrap">
 
-<label style="margin-left: -410px">아이디</label><br>
-<input type="text" id="loginId" name="id" placeholder="아이디를 입력해주세요" class="inputBox" /> 
+<div style=" font-size: 35px; font-weight: bold; color: #333333; margin-left: 870px; margin-top: 150px; margin-bottom: 30px ">아이디 찾기</div>
+<hr style="border: solid 1px #333333; paddin:20px; width: 450px; margin: 0px auto">
 <br>
-<label style="margin-left: -400px; margin-top: 50px">비밀번호</label><br>
-<input type="text" id="loginPass" name="pass" placeholder="비밀번호를 입력해주세요" class="inputBox" /> 
+<div style="text-align: center">가입 시 등록한 휴대폰 번호와 이메일을 입력하면 <br>아이디의 일부를 알려드립니다.</div>
+<div style="text-align: center;  margin-top: 100px" id="LoginWrap">
+<label style="margin-left: -380px">휴대폰 번호</label><br>
+<input type="text" id="loginId" name="id" placeholder="휴대폰번호를 입력해주세요" class="inputBox" /> 
 <br>
-<input type="button"  style="margin-top:40px; border-radius: 12px; width:450px; height: 50px; font-family:Pretendard Variable;    color:#FFFFFF; background-color:#333333  " id="loginBtn" name="loginBtn" value="로그인" class="btn btn-dark"/>
-<div style="text-align: center; margin-top: 30px" >
-<ul class="ul" ><li class="li"><a href="/join" class="look_link" >가입</a></li><li class="li"> <a href="/join" class="look_link" >아이디 찾기</a></li><li class="li"><a href="/join" class="look_link" >비밀번호 찾기</a></li></ul>
-</div>
+<label style="margin-left: -410px; margin-top: 50px">이메일</label><br>
+<input type="text" id="loginPass" name="pass" placeholder="이메일을 입력해주세요" class="inputBox" /> 
+<br>
+<input type="button"  style="margin-top:40px; border-radius: 12px; width:450px; height: 50px; font-family:Pretendard Variable;    color:#FFFFFF; background-color:#333333  " id="loginBtn" name="loginBtn" value="아이디 찾기" class="btn btn-dark"/>
+
 </div>
 <div style="margin-top:300px"></div>
  <jsp:include page="/common/cdn/footer.jsp"/> 

@@ -12,9 +12,14 @@
 	display: none;
 }
 
-div > ul > li:hover{
+#selectOption > ul > li:hover{
 	background-color: #EEEFF0;
 }
+
+#fakeBtn {
+	cursor: pointer;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -63,7 +68,7 @@ $(function() {
 		$("#selectBox").val(selectTxt);
 	});
 	
-	$("#searchFake").click(function(){
+	$("#fakeBtn").click(function(){
 		if(chkValue($("#fraudField").val()) && chkNull()){
 			$("#frm").submit();
 		}
@@ -119,10 +124,8 @@ function hideFrmValue(val) {
 </head>
 <c:import url="http://localhost/retro_prj/common/cdn/header.jsp"/>
 <body style="font-family: Pretendard Variable">
-	<main class="relative flex-grow border-b-2"
-		style="min-height: -webkit-fill-available; -webkit-overflow-scrolling: touch">
-		<div
-			class="max-w-[1280px] mx-auto max-w-[1280px] px-4 md:px-8 2xl:px-16 box-content">
+	<main class="relative flex-grow border-b-2" style="min-height: -webkit-fill-available; -webkit-overflow-scrolling: touch">
+		<div class="max-w-[1280px] mx-auto max-w-[1280px] px-4 md:px-8 2xl:px-16 box-content" style="margin-bottom:30px">
 			<h1 class="a11yHidden">RE:TRO 통합 사기 조회</h1>
 			<div class="flex justify-center w-full border-b-2 text-jnblack">
 				<div class="w-full py-10" style="padding-top: 0px;">
@@ -183,7 +186,7 @@ function hideFrmValue(val) {
 										autocomplete="off" spellcheck="false" aria-invalid="false">
 									<p class="my-2 text-xs text-rose-500" id="warning"></p>
 								</div>
-								<input type="button" data-variant="smoke" value="조회" id="searchFake"
+								<input type="button" data-variant="smoke" value="조회" id="fakeBtn"
 									class="text-[13px] md:text-sm leading-4 inline-flex items-center transition ease-in-out duration-300 font-semibold font-body text-center justify-center border-0 border-transparent placeholder-white focus-visible:outline-none focus:outline-none rounded-md h-11 md:h-12 px-5 bg-gray-200 text-heading transform-none normal-case hover:bg-gray-300 py-3 w-20">
 								
 							</div>
