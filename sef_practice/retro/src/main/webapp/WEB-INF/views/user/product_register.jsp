@@ -11,14 +11,17 @@
 <style type="text/css">
 #category-depth-1, #category-depth-2, #category-depth-3,
 	#category-depth-4, #category-depth-5,
-	#category-depth-1-1,#category-depth-1-2{
+	#category-depth-1-1,#category-depth-1-2,
+	#category-depth-5-2,#category-depth-5-1,#category-depth-4-1,
+	#category-depth-3-1, #category-depth-3-2, #category-depth-2-3,
+	#category-depth-2-2, #category-depth-2-1 {
 	display: none;
 }
 </style>
 <title>Insert title here</title>
 <script type="text/javascript">
 	$(function() {
-
+/* ---------------패션 의류--------------------- */
 		/* 패션의류 클릭하면 동작 */
 		$("#category-1").click(function() {
 			$(this).css({
@@ -30,55 +33,7 @@
 			
 			$("#category-depth-1").show();
 			
-			$("#category-depth-2, #category-depth-3, #category-depth-4, #category-depth-5,#category-depth-1-1,#category-depth-1-2").hide();
-		});//click
-		
-		/* 패션잡화 클릭하면 동작 */
-		$("#category-2").click(function() {
-			$(this).css({
-				'background-color' : '#E5E4E4'
-			});
-			$("#category-1, #category-3, #category-4, #category-5, #category-1-1").css({
-				  'background-color': '#FFFFFF'
-			 });
-			$("#category-depth-2").show();
-			$("#category-depth-1, #category-depth-3, #category-depth-4, #category-depth-5,#category-depth-1-1,#category-depth-1-2").hide();
-		});//click
-		
-		/* 모바일, 테블릿 클릭하면 동작 */
-		$("#category-3").click(function() {
-			$(this).css({
-				'background-color' : '#E5E4E4'
-			});
-			$("#category-2, #category-1, #category-4, #category-5, #category-1-1").css({
-				  'background-color': '#FFFFFF'
-			 });
-			$("#category-depth-3").show();
-			$("#category-depth-2, #category-depth-1, #category-depth-4, #category-depth-5,#category-depth-1-1,#category-depth-1-2").hide();
-		});//click
-		
-		/* 노트북, PC 클릭하면 동작 */
-		$("#category-4").click(function() {
-			$(this).css({
-				'background-color' : '#E5E4E4'
-			});
-			$("#category-2, #category-3, #category-1, #category-5, #category-1-1").css({
-				  'background-color': '#FFFFFF'
-			 });
-			$("#category-depth-4").show();
-			$("#category-depth-2, #category-depth-3, #category-depth-1, #category-depth-5,#category-depth-1-1,#category-depth-1-2").hide();
-		});//click
-		
-		/* 도서 문구 클릭하면 동작 */
-		$("#category-5").click(function() {
-			$(this).css({
-				'background-color' : '#E5E4E4'
-			});
-			$("#category-2, #category-3, #category-4, #category-1, #category-1-1").css({
-				  'background-color': '#FFFFFF'
-			 });
-			$("#category-depth-5").show();
-			$("#category-depth-2, #category-depth-3, #category-depth-4, #category-depth-1,#category-depth-1-1").hide();
+			$("#category-depth-2, #category-depth-3, #category-depth-4, #category-depth-5,#category-depth-1-1,#category-depth-1-2, #category-depth-2-3,#category-depth-2-2,#category-depth-2-1,#category-depth-3-1,#category-depth-3-2,#category-depth-4-1,#category-depth-5-1,#category-depth-5-2").hide();
 		});//click
 		
 		/* 여성의류 클릭하면 동작 */
@@ -164,7 +119,437 @@
 			  'background-color': '#FFFFFF'
 		 });
 		});//click
+		
+ /* ---------------패션 잡화--------------------- */
+		
+		/* 패션잡화 클릭하면 동작 */
+		$("#category-2").click(function() {
+			$(this).css({
+				'background-color' : '#E5E4E4'
+			});
+			$("#category-1, #category-3, #category-4, #category-5, #category-1-1,#category-21,#category-22,#category-23").css({
+				  'background-color': '#FFFFFF'
+			 });
+			$("#category-depth-2").show();
+			$("#category-depth-1, #category-depth-3, #category-depth-4, #category-depth-5,#category-depth-1-1,#category-depth-1-2,#category-depth-2-1,#category-depth-2-2,#category-depth-2-3,#category-depth-3-1,#category-depth-3-2,#category-depth-4-1,#category-depth-5-1,#category-depth-5-2").hide();
+		});//click
+		
+		/* 여성화 클릭하면 동작 */
+		$("#category-21").click(function() {
+			$(this).css({
+				'background-color' : '#E5E4E4'
+			});
+			$("#category-1, #category-3, #category-4, #category-5, #category-1-1,#category-22,#category-23,#category-211,#category-212,#category-213").css({
+				  'background-color': '#FFFFFF'
+			 });
+			$("#category-depth-2-1").show();
+			$("#category-depth-2-2, #category-depth-2-3").hide();
+		});//click
+		
+		/* 남성화 클릭하면 동작 */
+		$("#category-22").click(function() {
+			$(this).css({
+				'background-color' : '#E5E4E4'
+			});
+			$("#category-1, #category-3, #category-4, #category-5, #category-1-1,#category-21,#category-23,#category-221,#category-222,#category-223").css({
+				  'background-color': '#FFFFFF'
+			 });
+			$("#category-depth-2-2").show();
+			$("#category-depth-2-1, #category-depth-2-3").hide();
+		});//click
+		
+		/* 가방 클릭하면 동작 */
+		$("#category-23").click(function() {
+			$(this).css({
+				'background-color' : '#E5E4E4'
+			});
+			$("#category-1, #category-3, #category-4, #category-5, #category-1-1,#category-21,#category-22,#category-231,#category-232,#category-233").css({
+				  'background-color': '#FFFFFF'
+			 });
+			$("#category-depth-2-3").show();
+			$("#category-depth-2-1, #category-depth-2-2").hide();
+		});//click
+		
+		/* 여성화 > 단화/ 로퍼 클릭되면 동작 */
+		$("#category-211").click(function() {
+			$(this).css({
+				'background-color' : '#E5E4E4'
+			});
+		$("#category-212, #category-213").css({
+			  'background-color': '#FFFFFF'
+		 });
+		});//click
+		
+		/* 여성화 > 워커 / 부츠가 클릭되면 동작 */
+		$("#category-212").click(function() {
+			$(this).css({
+				'background-color' : '#E5E4E4'
+			});
+		$("#category-211, #category-213").css({
+			  'background-color': '#FFFFFF'
+		 });
+		});//click
+		
+		/* 여성화 > 샌들 / 슬리퍼 클릭되면 동작 */
+		$("#category-213").click(function() {
+			$(this).css({
+				'background-color' : '#E5E4E4'
+			});
+		$("#category-212, #category-211").css({
+			  'background-color': '#FFFFFF'
+		 });
+		});//click
+		
+		/* 남성화 > 단화/ 로퍼 클릭되면 동작 */
+		$("#category-221").click(function() {
+			$(this).css({
+				'background-color' : '#E5E4E4'
+			});
+		$("#category-222, #category-223").css({
+			  'background-color': '#FFFFFF'
+		 });
+		});//click
+		
+		/* 남성화 > 워커 / 부츠가 클릭되면 동작 */
+		$("#category-222").click(function() {
+			$(this).css({
+				'background-color' : '#E5E4E4'
+			});
+		$("#category-221, #category-223").css({
+			  'background-color': '#FFFFFF'
+		 });
+		});//click
+		
+		/* 남성화 > 샌들 / 슬리퍼 클릭되면 동작 */
+		$("#category-223").click(function() {
+			$(this).css({
+				'background-color' : '#E5E4E4'
+			});
+		$("#category-222, #category-221").css({
+			  'background-color': '#FFFFFF'
+		 });
+		});//click
+		
+		/* 가방 > 숄더백 클릭되면 동작 */
+		$("#category-231").click(function() {
+			$(this).css({
+				'background-color' : '#E5E4E4'
+			});
+		$("#category-232, #category-233").css({
+			  'background-color': '#FFFFFF'
+		 });
+		});//click
+		
+		/* 가방 > 크로스백가 클릭되면 동작 */
+		$("#category-232").click(function() {
+			$(this).css({
+				'background-color' : '#E5E4E4'
+			});
+		$("#category-231, #category-233").css({
+			  'background-color': '#FFFFFF'
+		 });
+		});//click
+		
+		/* 가방 > 백팩 클릭되면 동작 */
+		$("#category-233").click(function() {
+			$(this).css({
+				'background-color' : '#E5E4E4'
+			});
+		$("#category-232, #category-231").css({
+			  'background-color': '#FFFFFF'
+		 });
+		});//click
+		
+		
+/* ---------------모바일, 테블릿--------------------- */	
 
+		/* 모바일, 테블릿 클릭하면 동작 */
+		$("#category-3").click(function() {
+			$(this).css({
+				'background-color' : '#E5E4E4'
+			});
+			$("#category-2, #category-1, #category-4, #category-5, #category-1-1,#category-31,#category-32").css({
+				  'background-color': '#FFFFFF'
+			 });
+			$("#category-depth-3").show();
+			$("#category-depth-2, #category-depth-1, #category-depth-4, #category-depth-5,#category-depth-1-1,#category-depth-1-2,#category-depth-2-1,#category-depth-2-2,#category-depth-3-1,#category-depth-3-2,#category-depth-4-1,#category-depth-5-1,#category-depth-5-2").hide();
+		});//click
+		
+		/* 스마트폰 클릭하면 동작 */
+		$("#category-31").click(function() {
+			$(this).css({
+				'background-color' : '#E5E4E4'
+			});
+			$("#category-1, #category-2, #category-4, #category-5, #category-1-1,#category-32,#category-311,#category-312,#category-313,#category-314").css({
+				  'background-color': '#FFFFFF'
+			 });
+			$("#category-depth-3-1").show();
+			$("#category-depth-3-2").hide();
+		});//click
+		
+		/* 테블릿PC 클릭하면 동작 */
+		$("#category-32").click(function() {
+			$(this).css({
+				'background-color' : '#E5E4E4'
+			});
+			$("#category-1, #category-2, #category-4, #category-5, #category-1-1,#category-31,#category-321,#category-322,#category-323").css({
+				  'background-color': '#FFFFFF'
+			 });
+			$("#category-depth-3-2").show();
+			$("#category-depth-3-1").hide();
+		});//click
+		
+		/* 스마트폰 > 삼성 클릭되면 동작 */
+		$("#category-311").click(function() {
+			$(this).css({
+				'background-color' : '#E5E4E4'
+			});
+		$("#category-312,#category-313,#category-314").css({
+			  'background-color': '#FFFFFF'
+		 });
+		});//click
+		
+		/* 스마트폰 > LG 클릭되면 동작 */
+		$("#category-312").click(function() {
+			$(this).css({
+				'background-color' : '#E5E4E4'
+			});
+		$("#category-311,#category-313,#category-314").css({
+			  'background-color': '#FFFFFF'
+		 });
+		});//click
+		
+		/* 스마트폰 > 애플 클릭되면 동작 */
+		$("#category-313").click(function() {
+			$(this).css({
+				'background-color' : '#E5E4E4'
+			});
+		$("#category-312 ,#category-311,#category-314").css({
+			  'background-color': '#FFFFFF'
+		 });
+		});//click
+		
+		/* 스마트폰 > 기타 클릭되면 동작 */
+		$("#category-314").click(function() {
+			$(this).css({
+				'background-color' : '#E5E4E4'
+			});
+		$("#category-312 ,#category-313,#category-311").css({
+			  'background-color': '#FFFFFF'
+		 });
+		});//click
+		
+		/* 테블릿PC > 삼성 클릭되면 동작 */
+		$("#category-321").click(function() {
+			$(this).css({
+				'background-color' : '#E5E4E4'
+			});
+		$("#category-322,#category-323").css({
+			  'background-color': '#FFFFFF'
+		 });
+		});//click
+		
+		/* 테블릿PC > 애플 클릭되면 동작 */
+		$("#category-322").click(function() {
+			$(this).css({
+				'background-color' : '#E5E4E4'
+			});
+		$("#category-323 ,#category-321").css({
+			  'background-color': '#FFFFFF'
+		 });
+		});//click
+		
+		/* 테블릿PC > 기타 클릭되면 동작 */
+		$("#category-323").click(function() {
+			$(this).css({
+				'background-color' : '#E5E4E4'
+			});
+		$("#category-322 ,#category-321").css({
+			  'background-color': '#FFFFFF'
+		 });
+		});//click
+		
+		
+/* ---------------노트북, PC--------------------- */
+		
+		/* 노트북, PC 클릭하면 동작 */
+		$("#category-4").click(function() {
+			$(this).css({
+				'background-color' : '#E5E4E4'
+			});
+			$("#category-2, #category-3, #category-1, #category-5, #category-1-1,#category-41,#category-42,#category-43").css({
+				  'background-color': '#FFFFFF'
+			 });
+			$("#category-depth-4").show();
+			$("#category-depth-2, #category-depth-3, #category-depth-1, #category-depth-5,#category-depth-1-1,#category-depth-1-2,#category-depth-3-1,#category-depth-3-2,#category-depth-2-1,#category-depth-2-2,#category-depth-2-3,#category-depth-4-1,#category-depth-5-1,#category-depth-5-2").hide();
+		});//click
+		
+		/* 노트북 클릭하면 동작 */
+		$("#category-41").click(function() {
+			$(this).css({
+				'background-color' : '#E5E4E4'
+			});
+			$("#category-1, #category-3, #category-2, #category-5,#category-42,#category-43,#category-411,#category-412,#category-413").css({
+				  'background-color': '#FFFFFF'
+			 });
+			$("#category-depth-4-1").show();
+			$("").hide();
+		});//click
+		
+		/* 모니터 클릭하면 동작 */
+		$("#category-42").click(function() {
+			$(this).css({
+				'background-color' : '#E5E4E4'
+			});
+			$("#category-1, #category-2, #category-3, #category-5, #category-41,#category-43").css({
+				  'background-color': '#FFFFFF'
+			 });
+			$("#category-depth-4-1").hide();
+		});//click
+		
+		/* 데스크탑 클릭하면 동작 */
+		$("#category-43").click(function() {
+			$(this).css({
+				'background-color' : '#E5E4E4'
+			});
+			$("#category-1, #category-2, #category-3, #category-5,#category-41,#category-42").css({
+				  'background-color': '#FFFFFF'
+			 });
+			$("#category-depth-4-1").hide();
+		});//click
+		
+		/* 노트북 > 삼성 클릭되면 동작 */
+		$("#category-411").click(function() {
+			$(this).css({
+				'background-color' : '#E5E4E4'
+			});
+		$("#category-412,#category-413").css({
+			  'background-color': '#FFFFFF'
+		 });
+		});//click
+		
+		/* 노트북 > LG 클릭되면 동작 */
+		$("#category-412").click(function() {
+			$(this).css({
+				'background-color' : '#E5E4E4'
+			});
+		$("#category-413 ,#category-411").css({
+			  'background-color': '#FFFFFF'
+		 });
+		});//click
+		
+		/* 노트북 > 애플 클릭되면 동작 */
+		$("#category-413").click(function() {
+			$(this).css({
+				'background-color' : '#E5E4E4'
+			});
+		$("#category-412 ,#category-411").css({
+			  'background-color': '#FFFFFF'
+		 });
+		});//click
+		
+		
+/* ---------------도서 , 문구--------------------- */		
+		
+		/* 도서/ 문구 클릭하면 동작 */
+		$("#category-5").click(function() {
+			$(this).css({
+				'background-color' : '#E5E4E4'
+			});
+			$("#category-2, #category-3, #category-4, #category-1, #category-1-1,#category-51,#category-52,#category-53").css({
+				  'background-color': '#FFFFFF'
+			 });
+			$("#category-depth-5").show();
+			$("#category-depth-2, #category-depth-3, #category-depth-4, #category-depth-1,#category-depth-1-1,#category-depth-1-2,#category-depth-2-1,#category-depth-2-2,#category-depth-2-3,#category-depth-3-1,#category-depth-3-2,#category-depth-4-1,#category-depth-5-1,#category-depth-5-2").hide();
+		});//click
+		
+		/* 학습 / 교육 클릭하면 동작 */
+		$("#category-51").click(function() {
+			$(this).css({
+				'background-color' : '#E5E4E4'
+			});
+			$("#category-1, #category-3, #category-2, #category-4,#category-52,#category-53,#category-511,#category-512,#category-513").css({
+				  'background-color': '#FFFFFF'
+			 });
+			$("#category-depth-5-1").show();
+			$("#category-depth-5-2").hide();
+		});//click
+		
+		/* 소설 / 만화책 클릭하면 동작 */
+		$("#category-52").click(function() {
+			$(this).css({
+				'background-color' : '#E5E4E4'
+			});
+			$("#category-1, #category-2, #category-3, #category-4, #category-51,#category-53,#category-521,#category-522").css({
+				  'background-color': '#FFFFFF'
+			 });
+			$("#category-depth-5-2").show();
+			$("#category-depth-5-1").hide();
+		});//click
+		
+		/* 문구 / 사무용품 클릭하면 동작 */
+		$("#category-53").click(function() {
+			$(this).css({
+				'background-color' : '#E5E4E4'
+			});
+			$("#category-1, #category-2, #category-3, #category-4,#category-51,#category-52").css({
+				  'background-color': '#FFFFFF'
+			 });
+			$("#category-depth-5-1,#category-depth-5-2").hide();
+		});//click
+		
+		/* 학습/ 교육 > 학습/참고서 클릭되면 동작 */
+		$("#category-511").click(function() {
+			$(this).css({
+				'background-color' : '#E5E4E4'
+			});
+		$("#category-512,#category-513").css({
+			  'background-color': '#FFFFFF'
+		 });
+		});//click
+		
+		/* 학습/ 교육 > 수험서/자격증 클릭되면 동작 */
+		$("#category-512").click(function() {
+			$(this).css({
+				'background-color' : '#E5E4E4'
+			});
+		$("#category-513 ,#category-511").css({
+			  'background-color': '#FFFFFF'
+		 });
+		});//click
+		
+		/* 학습/ 교육 > 컴퓨터/인터넷 클릭되면 동작 */
+		$("#category-513").click(function() {
+			$(this).css({
+				'background-color' : '#E5E4E4'
+			});
+		$("#category-512 ,#category-511").css({
+			  'background-color': '#FFFFFF'
+		 });
+		});//click
+		
+
+		/* 소설/만화책 > 소설책 클릭되면 동작 */
+		$("#category-521").click(function() {
+			$(this).css({
+				'background-color' : '#E5E4E4'
+			});
+		$("#category-522").css({
+			  'background-color': '#FFFFFF'
+		 });
+		});//click
+		
+		/* 소설/만화책 > 만화책 클릭되면 동작 */
+		$("#category-522").click(function() {
+			$(this).css({
+				'background-color' : '#E5E4E4'
+			});
+		$("#category-521").css({
+			  'background-color': '#FFFFFF'
+		 });
+		});//click
+		
+		
 	});//ready
 </script>
  <link as="script" rel="prefetch"
@@ -351,8 +736,7 @@
 							<div id="category-depth-5"
 								class="w-1/3 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
 								<ul class="flex flex-col border-solid border-jnGray-300">
-									<li class="false h-10 p-3" id="category-51"
-										onclick="${ param.id }">
+									<li class="false h-10 p-3" id="category-51">
 											<p class="truncate break-keep">학습 / 교육</p>
 										</li>
 									<li class="false h-10 p-3" id="category-52">
@@ -527,19 +911,6 @@
 								name="productPrice" type="text" inputmode="numeric"
 								class="ml-1 bg-white focus:outline-none h-11 md:h-12 placeholer-jnGray-500 w-2/3 disabled:opacity-100 placeholer-jnGray-500"
 								placeholder="판매가격" value=""></label>
-							<button
-								class="flex items-center justify-center text-center text-jnGray-900">
-								<svg width="22" height="22" viewBox="0 0 22 22" fill="#FFFFFF"
-									xmlns="http://www.w3.org/2000/svg" class="mr-1 ">
-									<path
-										d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z"
-										stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round"
-										stroke-linejoin="round"></path>
-									<path d="M16 9L10.5 14.5L8 12" stroke="#C2C6CE"
-										stroke-width="1.5" stroke-linecap="round"
-										stroke-linejoin="round"></path></svg>
-								무료나눔
-							</button>
 						</div>
 					</div>
 					<section class="flex flex-col px-5 space-y-5">
@@ -585,12 +956,11 @@
 						<!-- 희망지역 : 주소검색 / 지역 설정 안함 버튼 -->
 						<p class="font-semibold">희망지역</p>
 						<div class="flex gap-3">
-							<button
-								class="h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 text-white bg-jngreen border-jngreen">주소
-								검색</button>
-							<button
+							<input type="button" 
+								class="h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 text-white bg-jngreen border-jngreen" value="주소 검색"/>
+							<input type="button" 
 								class="h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 border-jnblack text-jnblack bg-white"
-								style="width: 130px">지역 설정 안 함</button>
+								style="width: 130px" value="지역 설정 안 함">
 						</div>
 					</section>
 					<section class="w-full px-5 text-sm font-medium mb-7">
