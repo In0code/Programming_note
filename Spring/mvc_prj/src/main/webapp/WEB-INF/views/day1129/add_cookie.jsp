@@ -23,28 +23,7 @@ $(function(){
 
 </head>
 <body>
-<div>
-외부 JSP
-</div>
-<div>
-webapp의 하위에 존재하는 JSP<br/> ( Data를 가지고 있지 않은 JSP )<br/>
-<jsp:include page="/day1128_webapp/include_out.jsp" />
-<hr>
-<c:import url="http://localhost/mvc_prj/day1128_webapp/include_out.jsp"></c:import>
-</div>
-<div>
-WEB-INF의 하위에 존재하는 JSP<br/>( Data를 가지고 있는 JSP)<br/>
-<jsp:include page="/WEB-INF/views/day1128/data_view.jsp" />
-<hr>
-<c:import url="/WEB-INF/views/day1128/data_view.jsp"></c:import>
-</div>
-<div>
-<strong>DO include</strong><br/>
-<!-- jsp뿐만이 아니라 *.do도 include 가능하다 -->
-<jsp:include page="/day1128/use_send_value2.do"/>
-</div>
-<div>
-외부 JSP<%--  <%= msg %> : 액션 태그는 java code가 병합되는 것이 아니므로 변수나 method가 공유되지 않음--%>
-</div>
+쿠키 심기 완료 !!! <br/>
+<a href="../index.html">메인</a>
 </body>
 </html>
