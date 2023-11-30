@@ -8,6 +8,7 @@
 <!-- jQeury CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <!-- 중고나라 CSS -->
+<link rel="stylesheet" href="https://web.joongna.com/_next/static/css/cfda7f90b8340722.css" data-n-p="">
 <link rel="stylesheet" href="https://web.joongna.com/_next/static/css/4faf93b11322cf67.css" data-n-p="">
 <link rel="stylesheet" href="https://web.joongna.com/_next/static/css/e3048584c00a0406.css" data-n-p="">
 <link rel="stylesheet" href="https://web.joongna.com/_next/static/css/13bd0b4016b44d89.css" data-n-p="">

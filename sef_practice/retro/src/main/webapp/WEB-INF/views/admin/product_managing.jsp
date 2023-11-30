@@ -16,7 +16,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<c:import url="http://localhost/sist/common/cdn/admin_cdn.jsp"/>
+<c:import url="http://localhost/retro_prj/common/cdn/admin_cdn.jsp"/>
 
 <style type="text/css">
 body{
@@ -146,7 +146,7 @@ function productDetail(gcode){
 	}// */
 %> 
 
-<%-- <%@ include file="sidebar.jsp" %> --%>
+ <%@ include file="sidebar.jsp" %> 
 <div id="right">
 	<div id="rightHeader" align="right">
 		<span style="font-weight: bold;margin-right: 20px">관리자님</span>
