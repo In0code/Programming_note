@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import kr.co.sist.user.domain.FakeDomain;
 import kr.co.sist.user.service.FakeService;
 import kr.co.sist.user.vo.FakeVO;
 
@@ -12,18 +13,18 @@ public class FakeController {
 	
 	@GetMapping("/fraud.do")
 	public String fakeFrm() {
-		return "user/fakeFrm";
+		return "user/fake/fakeFrm";
 	}
 	
 	@GetMapping("/result.do")
 	public String searchFake(FakeVO fVO, Model model) {
 		FakeService fs = FakeService.getInstance();
 		fVO.setFraudKeyword(fVO.getFraudKeyword().toLowerCase());
-		int cnt = fs.searchFake(fVO);
+		FakeDomain fd = fs.searchFake(fVO);
 		
-		model.addAttribute("fakeCnt",cnt);
+		model.addAttribute("fakeResult",fd);
 		
-		return "user/searchFake";
+		return "user/fake/searchFake";
 	}
 
 }

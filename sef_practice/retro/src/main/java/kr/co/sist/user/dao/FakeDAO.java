@@ -23,8 +23,6 @@ public class FakeDAO {
 	
 	public int searchFake(FakeVO fVO) {
 		int cnt = 0;
-		System.out.println(fVO.getFraudField());
-		System.out.println(fVO.getFraudKeyword());
 		
 		//1.
 		MybatisHandler mbh = MybatisHandler.getInstance();
