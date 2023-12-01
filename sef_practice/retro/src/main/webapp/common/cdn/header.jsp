@@ -1,11 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!-- <body cz-shortcut-listen="true"> -->
-<style type="text/css">
-	#headerList:hover {
-		background-color: white;
-	}
-</style>
 	<div id="__next">
 		<div><!--  class="flex flex-col min-h-screen" -->
 			<header id="siteHeader" class="relative z-20 w-full h-16 sm:h-20 lg:h-36 xl:h-40 max-[480px]:mt-0 mt-[60px] headerThree is-scrolling">

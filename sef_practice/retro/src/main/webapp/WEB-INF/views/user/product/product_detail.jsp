@@ -12,7 +12,7 @@
 <title>Insert title here</title>
 <style type="text/css">
 /* 모달 스타일 */
-.modal-bg {
+.modal-bg , .delModal-bg, .completeModal-bg {
 	display: none;
 	position: fixed;
 	top: 0;
@@ -22,16 +22,7 @@
 	background-color: rgba(0, 0, 0, 0.5); /* 반투명 회색 배경 */
 	z-index: 1000;
 }
-.delModal-bg{
-display: none;
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.5); /* 반투명 회색 배경 */
-	z-index: 1000;
-}
+
 
 .modal {
 	position: fixed;
@@ -44,7 +35,8 @@ display: none;
 	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 	z-index: 1001; /* 모달을 모달 배경 위에 표시 */
 }
- .delModal {
+
+.delModal {
 	position: fixed;
 	top: 50%;
 	left: 50%;
@@ -55,33 +47,82 @@ display: none;
 	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 	border-radius: 10px;
 	z-index: 1001; /* 모달을 모달 배경 위에 표시 */
-} 
+}
+
+.completeModal {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	padding: 5px;
+	width: 400px;
+	background-color: white; /* 흰색 배경 */
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+	border-radius: 10px;
+	z-index: 1001; /* 모달을 모달 배경 위에 표시 */
+}
 </style>
 <script type="text/javascript">
 	$(function() {
-
+		$("#completeCancel").click(function(){
+			var modalBg3 = document.getElementById('completeModalBg');
+			modalBg3.style.display = 'none';
+		});//click
+		$("#delCancel").click(function(){
+			var modalBg2 = document.getElementById('delModalBg');
+			modalBg2.style.display = 'none';
+		});//click
 	});//ready
+
+	/* '상태변경'버튼 클릭 시 모달 나오게 동작 */
 	function openModal() {
 		var modalBg = document.getElementById('modalBg');
 		modalBg.style.display = 'block';
-		// TODO: productId에 따라 상태 변경 폼이나 내용을 동적으로 추가할 수 있습니다.
-	}
+	}//openModal
 
+	/* '상태변경'버튼 클릭 시 모달 나오고, 모달 이외의 배경을 클릭하면 모달이 없어지게 동작 */
 	function closeModal() {
 		var modalBg = document.getElementById('modalBg');
-		modalBg.style.display = 'none';
-	}
 	
+		var modal = $("#myModal");
+		if (modal.is(event.target) || modal.has(event.target).length > 0) {
+            return;
+        }
+
+		modalBg.style.display = 'none';
+	}//closeModal
+
+	/* '상품삭제'버튼 클릭 시 모달 나오게 동작 */
 	function openDelModal() {
 		var modalBg2 = document.getElementById('delModalBg');
-		modalBg.style.display = 'block';
-		// TODO: productId에 따라 상태 변경 폼이나 내용을 동적으로 추가할 수 있습니다.
-	}
+		modalBg2.style.display = 'block';
+	}//openDelModal
 
+	/* '상품삭제'버튼 클릭 시 모달 나오고, 모달 이외의 배경을 클릭하면 모달이 없어지게 동작 */
 	function closeDelModal() {
 		var modalBg2 = document.getElementById('delModalBg');
-		modalBg.style.display = 'none';
-	}
+		var modal2 = $("#delModal");
+		if (modal2.is(event.target) || modal2.has(event.target).length > 0) {
+            return;
+        }
+		modalBg2.style.display = 'none';
+	}//closeDelModal
+	
+	/* '상태변경' 버튼 클릭 후 '판매완료' 클릭 시 모달이 나오게 동작  */
+	function openCompleteModal() {
+		var modalBg3 = document.getElementById('completeModalBg');
+		modalBg3.style.display = 'block';
+	}//openDelModal
+
+	/* '상태변경' 버튼 클릭 후 '판매완료' 클릭 시 모달이 나오고, 모달 이외의 배경을 클릭하면 모달이 없어지게 동작 */
+	function closeCompleteModal() {
+		var modalBg3 = document.getElementById('completeModalBg');
+		var modal3 = $("#completeModal");
+		if (modal3.is(event.target) || modal3.has(event.target).length > 0) {
+            return;
+        }
+		modalBg3.style.display = 'none';
+	}//closeDelModal
 </script>
 
 </head>
@@ -197,39 +238,9 @@ display: none;
 										class="block mt-2 text-lg font-semibold text-heading">배송비
 										별도</span>
 								</div>
-								<div class="flex-1 basis-[33.33%] px-4 border-r border-gray-300">
-									<span>중고나라 페이</span><span
-										class="block mt-2 text-lg font-semibold text-heading">미사용</span>
-								</div>
 								<div class="flex-1 basis-[33.33%] ps-4">
 									<span>제품 상태</span><span
 										class="block mt-2 text-lg font-semibold text-heading">중고</span>
-								</div>
-							</div>
-							<div>
-								<span class="inline-block pb-4 font-semibold text-heading">중고나라
-									거래 혜택</span>
-								<div class="flex pb-2">
-									<span class="inline-block text-gray-400 pe-2">결제</span>
-									<div>
-										<button class="flex items-center">
-											<div class="text-left">
-												<span class="font-semibold">중고나라 페이 첫 결제 혜택</span><span>
-													외 3건</span>
-											</div>
-											<span class="self-center ml-4 text-gray-400">&gt;</span>
-										</button>
-									</div>
-								</div>
-								<div class="flex">
-									<span class="inline-block text-gray-400 pe-2">무이자</span>
-									<div>
-										<a class="font-semibold"
-											href="https://web.joongna.com/event/detail/1107">1만원 이상
-											무이자 할부<span
-											class="self-center ml-4 font-normal text-gray-400">&gt;</span>
-										</a>
-									</div>
 								</div>
 							</div>
 						</div>
@@ -237,6 +248,7 @@ display: none;
 					<div
 						class="flex items-center py-4 border-b border-gray-300 space-s-4">
 						<ul class="flex flex-row justify-around w-full">
+							<!-- '상품 수정' 버튼 -->
 							<li><button class="flex flex-col items-center">
 									<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
 										xmlns="http://www.w3.org/2000/svg">
@@ -248,6 +260,7 @@ display: none;
 											stroke-linejoin="round"></path></svg>
 									<p class="text-sm mt-[6px]">상품수정</p>
 								</button></li>
+							<!-- '상태변경'버튼 -->
 							<li><button class="flex flex-col items-center"
 									onclick="openModal()">
 									<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -261,6 +274,7 @@ display: none;
 											stroke-linejoin="round"></path></svg>
 									<p class="text-sm mt-[6px]">상태변경</p>
 								</button></li>
+							<!-- '상품 삭제' 버튼 -->
 							<li><button class="flex flex-col items-center"
 									onclick="openDelModal()">
 									<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -351,7 +365,10 @@ display: none;
 				</div>
 			</div>
 		</div>
+		
+		<!-- '상태변경' 버튼 클릭 시 나오는 모달 -->
 		<div id="modalBg" class="modal-bg" onclick="closeModal()">
+		
 			<!-- 모달 -->
 			<div id="myModal" class="modal">
 				<!-- 여기에 상태 변경 폼이나 내용을 추가 -->
@@ -366,17 +383,17 @@ display: none;
 								<li
 									class="py-[14px] [&amp;>button]:w-full [&amp;>button]:text-left"><button>판매보류</button></li>
 								<li
-									class="py-[14px] [&amp;>button]:w-full [&amp;>button]:text-left"><button>판매완료</button></li>
+									class="py-[14px] [&amp;>button]:w-full [&amp;>button]:text-left" onclick="openCompleteModal()"><button>판매완료</button></li>
 							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		<!-- '상품 삭제' 버튼 클릭 시 나오는 모달 -->
 		<div id="delModalBg" class="delModal-bg" onclick="closeDelModal()">
 			<!-- 모달 -->
 			<div id="delModal" class="delModal">
-				<!-- 여기에 상태 변경 폼이나 내용을 추가 -->
 				<div
 					class="flex flex-col justify-between bg-white p-5 min-h-[220px] min-[480px]:min-w-[400px]">
 					<div tabindex="0"
@@ -390,10 +407,59 @@ display: none;
 						</div>
 					</div>
 					<div class="flex space-x-2 w-full shrink-0 text text-base h-[52px]">
-						<button data-variant="flat"
+						<button data-variant="flat" id="delCancel"
 							class="md:text-sm inline-flex items-center cursor-pointer transition ease-in-out duration-300 font-semibold font-body text-center justify-center placeholder-white focus-visible:outline-none focus:outline-none rounded-md px-5 md:px-6 lg:px-8 py-4 md:py-3.5 lg:py-4 hover:shadow-cart bg-white border-gray-400 border flex-grow text-[16px] text-black focus-visible:ring hover:bg-white hover:text-black">취소</button>
 						<button data-variant="flat"
 							class="md:text-sm inline-flex items-center cursor-pointer transition ease-in-out duration-300 font-semibold font-body text-center justify-center border-0 border-transparent placeholder-white focus-visible:outline-none focus:outline-none rounded-md text-white px-5 md:px-6 lg:px-8 py-4 md:py-3.5 lg:py-4 hover:text-white hover:shadow-cart bg-jnblack hover:bg-jnblack/90 active:bg-jnblack/90 flex-grow text-[16px] focus-visible:ring">확인</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- '상태변경' 버튼 클릭 후 '판매완료' 클릭 시 나오는 모달  -->
+		<!-- 거래 상대 선택 및 판매 후기 작성 모달 -->
+		<div id="completeModalBg" class="completeModal-bg" onclick="closeCompleteModal()">
+			<!-- 모달 -->
+			<div id="completeModal" class="completeModal">
+				<div
+					class="flex flex-col justify-between bg-white p-5 min-h-[220px] max-h-[500px] max-w-[400px]">
+					<div tabindex="0"
+						class="md:text-lg font-normal text-black text-center overflow-auto flex-auto flex justify-center flex-col outline-none items-center">
+						<div
+							class="w-full flex flex-col items-center justify-center pb-5 text-base leading-5">
+							<p
+								class="block font-semibold text-xl text-center text-jnGray-900">
+								거래한 상대를 선택하고 <br>후기를 작성해보세요.
+							</p>
+							<ul class="w-full mt-4 px-4 overflow-y-scroll">
+								<li class="flex items-center justify-between mb-1"><div
+										class="flex items-center">
+										<img alt="프로파일"
+											src="https://img2.joongna.com/common/Profile/Default/profile_f.png"
+											width="50" height="50" decoding="async" data-nimg="1"
+											class="rounded-full max-w-none h-[50px] mr-3" loading="lazy"
+											style="color: transparent;">
+										<div>
+											<p class="mb-0 text-start">중고나라#8626590</p>
+											<p
+												class="text-start text-sm text-jnGray-700 w-full line-clamp-1">제가
+												아니면 안돼요</p>
+										</div>
+									</div>
+									<label for="1424385_8626376_8626376" class="flex items-end"><input
+										type="radio" id="1424385_8626376_8626376"
+										name="myProductBuyer"
+										class="appearance-none rounded-full w-5 h-5 border-1.5 border-solid border-jnGray-500 transition-all duration-100 ease-linear mx-1.5 cursor-pointer checked:border-6 checked:border-jngreen"
+										value="8626376"></label></li>
+							</ul>
+						</div>
+					</div>
+					<div class="flex space-x-2 w-full shrink-0 text text-base h-[52px]">
+						<button data-variant="flat" id="completeCancel"
+							class="md:text-sm inline-flex items-center cursor-pointer transition ease-in-out duration-300 font-semibold font-body text-center justify-center placeholder-white focus-visible:outline-none focus:outline-none rounded-md px-5 md:px-6 lg:px-8 py-4 md:py-3.5 lg:py-4 hover:shadow-cart bg-white border-gray-400 border flex-1 text-[16px] text-black focus-visible:ring hover:bg-white hover:text-black">취소</button>
+						<button data-variant="flat"
+							class="md:text-sm inline-flex items-center cursor-pointer transition ease-in-out duration-300 font-semibold font-body text-center justify-center border-0 border-transparent placeholder-white focus-visible:outline-none focus:outline-none rounded-md text-white px-5 md:px-6 lg:px-8 py-4 md:py-3.5 lg:py-4 hover:text-white hover:shadow-cart bg-jnblack hover:bg-jnblack/90 active:bg-jnblack/90 flex-1 text-[16px] focus-visible:ring disabled:bg-jnGray-300">후기
+							보내기</button>
 					</div>
 				</div>
 			</div>
