@@ -137,29 +137,26 @@
 				class="items-start block grid-cols-2 pt-5 lg:grid gap-x-10 xl:gap-x-14 pb-14 lg:py-10 lg:pb-14 2xl:pb-20">
 				<div
 					class="carouselWrapper relative product-gallery swiperThumbnail product-gallery-slider sticky top-[200px]   ">
-					<div
-						class="swiper swiper-initialized swiper-horizontal swiper-pointer-events swiper-backface-hidden"
-						dir="ltr">
-						<div class="swiper-wrapper"
-							style="transform: translate3d(0px, 0px, 0px);">
-							<div class="swiper-slide swiper-slide-active"
-								style="width: 612px;">
-								<div
-									class="col-span-1 transition duration-150 ease-in hover:opacity-90 w-full relative pt-[100%]">
-									<img alt="홍대 미대가 그려주는 그림--0" referrerpolicy="no-referrer"
-										src="https://img2.joongna.com/media/original/2023/11/30/1701328187885CXy_Pdlnr.png?impolicy=resizeWatermark3&amp;ftext=zxxxdsdd"
-										decoding="async" data-nimg="fill"
-										class="object-cover w-full h-full rounded-lg top-1/2 left-1/2"
-										loading="lazy"
-										style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
-								</div>
-							</div>
-						</div>
-						<div
-							class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal swiper-pagination-lock">
-							<span
-								class="swiper-pagination-bullet swiper-pagination-bullet-active"></span>
-						</div>
+					<div id="carouselExample" class="carousel slide">
+					  <div class="carousel-inner">
+					    <div class="carousel-item active">
+					      <img src="..." class="d-block w-100" alt="...">
+					    </div>
+					    <div class="carousel-item">
+					      <img src="..." class="d-block w-100" alt="...">
+					    </div>
+					    <div class="carousel-item">
+					      <img src="..." class="d-block w-100" alt="...">
+					    </div>
+					  </div>
+					  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+					    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					    <span class="visually-hidden">Previous</span>
+					  </button>
+					  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+					    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+					    <span class="visually-hidden">Next</span>
+					  </button>
 					</div>
 					<div class="flex items-center w-full absolute top-2/4 z-10 hidden">
 						<button
