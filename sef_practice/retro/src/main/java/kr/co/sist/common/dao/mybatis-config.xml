@@ -27,6 +27,8 @@
   </environments>
   <mappers>
     <mapper resource="kr/co/sist/user/dao/mapper/join/joinMapper.xml"/>
+    <mapper resource="kr/co/sist/user/dao/mapper/mypage/mypageInfoDetailMapper.xml"/>
+    <mapper resource="kr/co/sist/user/dao/mapper/loginMapper.xml"/>
     <mapper resource="kr/co/sist/user/dao/mapper/fakeMapper.xml"/>
   </mappers> 
 </configuration>

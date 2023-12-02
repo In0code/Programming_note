@@ -28,4 +28,15 @@ public class LoginService {
 		return ld;
 		
 	}
+	
+	
+	public LoginDomain selectId(LoginVO lVO) {
+		LoginDomain ld= new LoginDomain();
+		LoginDAO lDAO = LoginDAO.getInstance();
+		
+		ld=lDAO.selectId(lVO);
+		
+		return ld;
+		
+	}
 }

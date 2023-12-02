@@ -43,6 +43,13 @@ public class MybatisHandler {
 		
 		return ss;
 	}//getMyBatisHandler
+
+	public SqlSession getMyBatisHandler(boolean autoCommit) {
+		SqlSession ss=null;
+		ss=myBatisBuilder("kr/co/sist/common/dao/mybatis-config.xml").openSession(autoCommit);
+		
+		return ss;
+	}//getMyBatisHandler
 	
 	public void closeHandler(SqlSession ss) {
 		if( ss != null) { ss.close(); }

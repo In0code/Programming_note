@@ -1,16 +1,14 @@
 package kr.co.sist.user.controller;
 
-import javax.servlet.http.HttpSession;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 
-import org.springframework.ui.Model;
-
+@Controller
 public class BuyController {
 	
-	public String buyPage(HttpSession session, String id, Model model) {
-		
-		
-		
-		
-		return id;
+	@GetMapping("/pay/safe_payment.do")
+	public String payment() {
+		return "pay/safe_payment";
 	}
+	
 }

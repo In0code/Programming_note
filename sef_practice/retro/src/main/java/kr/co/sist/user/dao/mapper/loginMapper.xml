@@ -7,6 +7,16 @@
 	<select id="selectLogin" resultType="ld" parameterType="lVO">
 	select id,nickname 
 	from member
-	where id = #{id} and pass = #{pw}
+	where id = #{id} and pw = #{pw}
+	</select>
+	<select id="selectId" resultType="ld" parameterType="lVO">
+	select (substr(id,1,5)||lpad('*',length(id)-5,'*'))id
+	from member 
+	where phone=#{phone} and email=#{email}
+	</select>
+	<select id="selectRandomPw" resultType="ld" parameterType="lVO">
+	select dbms_random.string('x',8) 
+	from member 
+	where id= #{id} and email= #{email} 
 	</select>
 </mapper>

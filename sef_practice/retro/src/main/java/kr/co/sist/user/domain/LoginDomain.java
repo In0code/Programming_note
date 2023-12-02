@@ -9,5 +9,5 @@ import lombok.ToString;
 @ToString
 public class LoginDomain {
 	
-	private String id,nickname;
-}
+	private String id,nickname,pw;
+} 	
