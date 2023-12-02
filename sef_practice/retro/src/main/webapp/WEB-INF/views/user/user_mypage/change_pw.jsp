@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page info=""%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -7,23 +8,25 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <c:import url="http://localhost/retro_prj/common/cdn/cdn.jsp"/>
+<link rel="stylesheet" href="https://kream.co.kr/_nuxt/css/199727e.css">
 <style type="text/css">
-
+#back:hover{
+	background-color: black;
+	color: white;
+}
 </style>
 <script type="text/javascript">
 	$(function() {
-		$("#pw").keydown(function(keyNum){
-			if(keyNum.keyCode == 13){ 
-				$("#frm").submit()	
-			}
+		$("#back").click(function() {
+			$("#frm").submit();
 		});
-	});
+
+}
 </script>
 </head>
 <body>
 <!-- header -->
 <c:import url="http://localhost/retro_prj/common/cdn/header.jsp"/>
-
 <main class="relative flex-grow border-b-2" style="min-height: -webkit-fill-available; -webkit-overflow-scrolling: touch">
 	<div class="flex mx-auto max-w-[1280px] px-4 md:px-8 2xl:px-16 box-content">
 	
@@ -77,23 +80,26 @@
 				
 				
 			</div>
-			<!-- 코딩 시작 -->
-			<div class="px-0 max-lg:mt-10">
-				
-				<p class="py-12 text-center" style="font-size: 28px;color: #000000;font-weight: bold;padding-bottom: 20px;">비밀번호 입력</p>
-				<div style="text-align: center;">
-					<form id="frm" name="frm" method="post" action="mypage_info.do">
-						<input type="password" id="pw" name="pw" style="margin-bottom: 300px;padding-left: 10px;padding-top: 7px;padding-bottom: 5px;border: 1px solid #D1D1D1;border-radius: 5px;" placeholder="비밀번호 입력">
-						<input type="hidden" name="id" value="user">
-					</form>
-				</div>
-			</div>
-			<!-- 코딩 끝 -->
+<!-- 코딩 시작 -->
+			
+<div data-v-cf6a6ef4="" data-v-8b96a82e="" class="modify" style="text-align: center;">
+	<div>
+		<p style="font-size: 26px;">${flagMsg }</p>
+	</div>
+	<div data-v-cf6a6ef4="" data-v-8b96a82e="" class="modify_btn_box">
+	<form id="frm" method="post" action="user_mypage_frm.do"></form>
+		<input id="back" value="내 정보로 가기" data-v-0a6aebaa="" data-v-cf6a6ef4="" type="button" class="btn outlinegrey medium" slot="button" data-v-8b96a82e="">
+	</div>
+</div>
+<!-- 코딩 끝 -->
 		</div>
 	</div>
 </main>
 
 <!-- footer -->
 <c:import url="http://localhost/retro_prj/common/cdn/footer.jsp"/>
+<!-- 내 정보 css 파일 -->
+<link href="https://kream.co.kr/_nuxt/css/c9eea23.css" rel="stylesheet" type="text/css">
+<link href="https://kream.co.kr/_nuxt/css/2e6b79f.css" rel="stylesheet" type="text/css">
 </body>
 </html>

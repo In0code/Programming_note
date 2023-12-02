@@ -72,9 +72,10 @@
 			<div class="flex flex-col w-full px-5 mt-16 text-center">
 				<a
 					class="items-center justify-center py-4 mb-5 text-base font-semibold text-center transition duration-300 ease-in-out bg-white border border-solid rounded-md cursor-pointer text-jnGray-900 border-jnGray-400 hover:bg-jngreen hover:text-white"
-					href="/product/form?type=regist">상품 추가 등록</a><a
+					href="/product/form?type=regist">상품 추가 등록</a>
+					<a
 					class="items-center justify-center py-4 mb-5 text-base font-semibold text-center transition duration-300 ease-in-out bg-white border border-solid rounded-md cursor-pointer text-jnGray-900 border-jnGray-400 hover:bg-jngreen hover:text-white"
-					href="/product/144023621">상품 등록 확인</a>
+					href="product_detail.do">상품 등록 확인</a>
 			</div>
 		</section>
 	</div>

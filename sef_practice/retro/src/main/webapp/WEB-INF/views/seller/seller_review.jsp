@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<c:import url="http://localhost/retro_prj/common/cdn/cdn.jsp" />
 <title>Insert title here</title>
 <link rel="icon"
 	href="http://192.168.0.70/jsp_prj/common/main/favicon-32x32.png">
@@ -21,25 +22,176 @@
 	data-n-p="" />
 
 <style type="text/css">
+.css-afxwf6 {
+	padding: 32px 20px 24px;
+}
+
+section {
+	display: block;
+}
+
+section {
+	margin: 0px;
+	border: 0px;
+	font-weight: inherit;
+	font-size: inherit;
+	vertical-align: baseline;
+	touch-action: pan-x pan-y;
+}
+
+.css-afxwf6 header {
+	font-size: 18px;
+	font-weight: 600;
+	line-height: 25px;
+	margin-bottom: 20px;
+}
+
+.css-afxwf6 .feedbackList li:not(:last-child) {
+	margin-bottom: 20px;
+}
+
+.css-afxwf6 .feedbackList li {
+	display: flex;
+	-webkit-box-pack: justify;
+	justify-content: space-between;
+	-webkit-box-align: center;
+	align-items: center;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 20px;
+}
+
+p {
+	display: block;
+	margin-block-start: 1em;
+	margin-block-end: 1em;
+	margin-inline-start: 0px;
+	margin-inline-end: 0px;
+}
+
+ul {
+	margin-block-start: 1em;
+	margin-block-end: 1em;
+	margin-inline-start: 0px;
+	margin-inline-end: 0px;
+	padding-inline-start: 40px;
+}
+
+.css-wsqqvh {
+	height: auto;
+	transform: rotate(0deg);
+}
+
+*, :after, :before {
+	box-sizing: border-box;
+}
+
+li {
+	text-align: -webkit-match-parent;
+}
+
+li {
+	margin: 0px;
+	padding: 0px;
+	border: 0px;
+	vertical-align: baseline;
+	touch-action: pan-x pan-y;
+}
+
+p {
+	margin: 0px;
+	padding: 0px;
+	border: 0px;
+	font-size: inherit;
+	vertical-align: baseline;
+	touch-action: pan-x pan-y;
+}
+
+.css-afxwf6 .feedbackList li .feedbackCntWrap p {
+	font-weight: 500;
+	color: rgb(120, 126, 137);
+	margin-left: 2px;
+}
+.css-1mmbpdz header {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 25px;
+}
 header {
-	background: #707070;
-	grid-area: header;
+    display: block;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    font-weight: inherit;
+    font-size: inherit;
+    vertical-align: baseline;
+    touch-action: pan-x pan-y;
+}
+.css-1mmbpdz ul {
+    padding: 20px 0px;
+}
+ul {
+    list-style: none;
+}
+.css-4sj9kq::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    top: 0px;
+    left: 0px;
+}
+.css-ymvmvb .userInfoWrap {
+    display: flex;
+    margin-bottom: 12px;
+    line-height: 20px;
+    color: rgb(20, 19, 19);
+}
+.css-ymvmvb .userInfoWrap p {
+    text-align: left;
+}
+p {
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    font-weight: inherit;
+    font-size: inherit;
+    vertical-align: baseline;
+    touch-action: pan-x pan-y;
+}
+.css-ymvmvb .userInfoWrap span {
+    font-weight: 400;
+    color: rgb(156, 163, 175);
+}
+span {
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    font-size: inherit;
+    vertical-align: baseline;
+    touch-action: pan-x pan-y;
+}
+.css-8ex6zl {
+    width: 100%;
+    padding: 10px 12px;
+    background-color: rgb(241, 244, 246);
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    color: rgb(20, 19, 19);
+    text-align: left;
+    word-break: break-all;
+    cursor: pointer;
 }
 
-footer {
-	background: #707070;
-	grid-area: footer;
+.css-ymvmvb .profileImgWrap > div {
+    border-radius: 100px;
 }
-
-header, footer {
-	padding: 70px;
-	color: white;
-	text-align: center;
-	font-size: 40px;
-}
-hr{
-	height:2px;
-	background-color:black;
+img.css-sxxyvs {
+	max-width:40px;
+	border-radius: inherit;
 }
 </style>
 <script type="text/javascript">
@@ -49,7 +201,6 @@ hr{
 </script>
 
 </head>
-<header>header</header>
 <body>
 	<div class="mx-auto max-w-[1280px] px-4 md:px-8 2xl:px-16 box-content">
 		<div class="w-full flex-grow">
@@ -103,29 +254,161 @@ hr{
 			</div>
 		</div>
 		<div>
-			<section class="likeThis">
-				<strong>이런점이 좋았어요</strong>
+			<section class="css-afxwf6">
+				<header>이런점이 좋았어요</header>
 				<ul class="feedbackList">
-					<li>친절/매너가 좋아요 <span class="feedbackCnt">13</span>
-					</li>
-					<li>응답이 빨라요 <span class="feedbackCnt">13</span>
-					</li>
-					<li>상품 상태가 좋아요 <span class="feedbackCnt">13</span>
-					</li>
-					<li>거래 시간을 잘 지켜요 <span class="feedbackCnt">13</span>
-					</li>
+					<li><p>친절/매너가 좋아요.</p>
+						<div class="feedbackCntWrap">
+							<svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+								xmlns="http://www.w3.org/2000/svg" class="css-wsqqvh">
+								<path
+									d="M2.53333 14C2.53333 11.4227 5.42266 9.33333 7.99999 9.33333C10.5773 9.33333 13.4667 11.4227 13.4667 14M10.6667 4.66667C10.6667 6.13943 9.47275 7.33333 7.99999 7.33333C6.52723 7.33333 5.33333 6.13943 5.33333 4.66667C5.33333 3.19391 6.52723 2 7.99999 2C9.47275 2 10.6667 3.19391 10.6667 4.66667Z"
+									stroke="#9CA3AF" stroke-width="1.25" stroke-linecap="round"
+									stroke-linejoin="round"></path></svg>
+							<p>44</p>
+						</div></li>
+					<li><p>응답이 빨라요.</p>
+						<div class="feedbackCntWrap">
+							<svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+								xmlns="http://www.w3.org/2000/svg" class="css-wsqqvh">
+								<path
+									d="M2.53333 14C2.53333 11.4227 5.42266 9.33333 7.99999 9.33333C10.5773 9.33333 13.4667 11.4227 13.4667 14M10.6667 4.66667C10.6667 6.13943 9.47275 7.33333 7.99999 7.33333C6.52723 7.33333 5.33333 6.13943 5.33333 4.66667C5.33333 3.19391 6.52723 2 7.99999 2C9.47275 2 10.6667 3.19391 10.6667 4.66667Z"
+									stroke="#9CA3AF" stroke-width="1.25" stroke-linecap="round"
+									stroke-linejoin="round"></path></svg>
+							<p>39</p>
+						</div></li>
+					<li><p>상품 상태가 좋아요.</p>
+						<div class="feedbackCntWrap">
+							<svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+								xmlns="http://www.w3.org/2000/svg" class="css-wsqqvh">
+								<path
+									d="M2.53333 14C2.53333 11.4227 5.42266 9.33333 7.99999 9.33333C10.5773 9.33333 13.4667 11.4227 13.4667 14M10.6667 4.66667C10.6667 6.13943 9.47275 7.33333 7.99999 7.33333C6.52723 7.33333 5.33333 6.13943 5.33333 4.66667C5.33333 3.19391 6.52723 2 7.99999 2C9.47275 2 10.6667 3.19391 10.6667 4.66667Z"
+									stroke="#9CA3AF" stroke-width="1.25" stroke-linecap="round"
+									stroke-linejoin="round"></path></svg>
+							<p>41</p>
+						</div></li>
+					<li><p>택배 거래가 수월했어요.(포장, 협조적)</p>
+						<div class="feedbackCntWrap">
+							<svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+								xmlns="http://www.w3.org/2000/svg" class="css-wsqqvh">
+								<path
+									d="M2.53333 14C2.53333 11.4227 5.42266 9.33333 7.99999 9.33333C10.5773 9.33333 13.4667 11.4227 13.4667 14M10.6667 4.66667C10.6667 6.13943 9.47275 7.33333 7.99999 7.33333C6.52723 7.33333 5.33333 6.13943 5.33333 4.66667C5.33333 3.19391 6.52723 2 7.99999 2C9.47275 2 10.6667 3.19391 10.6667 4.66667Z"
+									stroke="#9CA3AF" stroke-width="1.25" stroke-linecap="round"
+									stroke-linejoin="round"></path></svg>
+							<p>34</p>
+						</div></li>
+					<li><p>거래 시간을 잘 지켜요.</p>
+						<div class="feedbackCntWrap">
+							<svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+								xmlns="http://www.w3.org/2000/svg" class="css-wsqqvh">
+								<path
+									d="M2.53333 14C2.53333 11.4227 5.42266 9.33333 7.99999 9.33333C10.5773 9.33333 13.4667 11.4227 13.4667 14M10.6667 4.66667C10.6667 6.13943 9.47275 7.33333 7.99999 7.33333C6.52723 7.33333 5.33333 6.13943 5.33333 4.66667C5.33333 3.19391 6.52723 2 7.99999 2C9.47275 2 10.6667 3.19391 10.6667 4.66667Z"
+									stroke="#9CA3AF" stroke-width="1.25" stroke-linecap="round"
+									stroke-linejoin="round"></path></svg>
+							<p>1</p>
+						</div></li>
 				</ul>
 			</section>
-			<hr/>
-			<section class="likeDetail">
-				<strong>상세한 후기도 있어요 </strong><span class="feedbackDetailCnt">5</span>
-				<ul class="feedbackDetail">
-					
-				</ul>
-			</section>
+			<div class="css-v41fzo"></div>
+			<header>
+				상세한 후기도 있어요<span>16</span>
+			</header>
+			<ul>
+				<li class="css-ymvmvb"><button class="userInfoWrap">
+						<div class="profileImgWrap">
+							<div class="css-4sj9kq">
+								<img
+									src="https://img2.joongna.com/common/Profile/Default/profile_m.png"
+									alt="231130000447955l_중고나라#7750392" width="1000" height="1000"
+									referrerpolicy="no-referrer" class="css-sxxyvs">
+							</div>
+						</div>
+						<div>
+							<p>중고나라#7750392</p>
+							<span class="infoContent">구매자</span> <span>2023-12-01</span>
+						</div>
+					</button>
+					<button class="css-8ex6zl">
+						<p>좋아용</p>
+					</button></li>
+				<li class="css-ymvmvb"><button class="userInfoWrap">
+						<div class="profileImgWrap">
+							<div class="css-4sj9kq">
+								<img
+									src="https://img2.joongna.com/common/Profile/Default/profile_f.png"
+									alt="2310182334301575_용암동이유가" width="1000" height="1000"
+									referrerpolicy="no-referrer" class="css-sxxyvs">
+							</div>
+						</div>
+						<div>
+							<p>용암동이유가</p>
+							<span class="infoContent">구매자</span> <span>2023-10-18</span>
+						</div>
+					</button>
+					<button class="css-8ex6zl">
+						<p>감사해요</p>
+					</button></li>
+				<li class="css-ymvmvb"><button class="userInfoWrap">
+						<div class="profileImgWrap">
+							<div class="css-4sj9kq">
+								<img
+									src="https://img2.joongna.com/common/Profile/Default/profile_m.png"
+									alt="230906052644572X_중고나라#7968506" width="1000" height="1000"
+									referrerpolicy="no-referrer" class="css-sxxyvs">
+							</div>
+						</div>
+						<div>
+							<p>중고나라#7968506</p>
+							<span class="infoContent">구매자</span><span>2023-09-08</span>
+						</div>
+					</button>
+					<button class="css-8ex6zl">
+						<p>
+							의류 잘받았습니다<br>감사합니다^^
+						</p>
+					</button></li>
+				<li class="css-ymvmvb"><button class="userInfoWrap">
+						<div class="profileImgWrap">
+							<div class="css-4sj9kq">
+								<img
+									src="https://img2.joongna.com/common/Profile/Default/profile_m.png"
+									alt="230612121206984A_잘살아보자구유" width="1000" height="1000"
+									referrerpolicy="no-referrer" class="css-sxxyvs">
+							</div>
+						</div>
+						<div>
+							<p>잘살아보자구유</p>
+							<span class="infoContent">구매자</span><span>2023-06-14</span>
+						</div>
+					</button>
+					<button class="css-8ex6zl">
+						<p>
+							좋은 옷으로 보내주셨어요~<br>감사합니다~
+						</p>
+					</button></li>
+				<li class="css-ymvmvb"><button class="userInfoWrap">
+						<div class="profileImgWrap">
+							<div class="css-4sj9kq">
+								<img
+									src="https://img2.joongna.com/common/Profile/Default/profile_m.png"
+									alt="230515204224140x_중고나라#7643623" width="1000" height="1000"
+									referrerpolicy="no-referrer" class="css-sxxyvs">
+							</div>
+						</div>
+						<div>
+							<p>중고나라#7643623</p>
+							<span class="infoContent">구매자</span><span>2023-05-17</span>
+						</div>
+					</button>
+					<button class="css-8ex6zl">
+						<p>포장도 이쁘게 해주시고 다음에 많이 팔아드릴게요</p>
+					</button></li>
+			</ul>
+
 
 		</div>
 	</div>
+	<c:import url="http://localhost/retro_prj/common/cdn/footer.jsp" />
+
 </body>
-<footer>footer</footer>
 </html>

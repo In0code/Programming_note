@@ -10,10 +10,20 @@
 	</ul>
 	<h3 class="mb-2 text-lg font-semibold">내 정보</h3>
 	<ul>
-		<li>정보 수정</li>
+		<li><a href="http://localhost/retro_prj/mypage_enter.do">정보 수정</a></li>
 		<li>1:1 문의</li>
 		
 	</ul>
-	
-	
 </div>
+<style type="text/css">
+a {
+  text-decoration-line: none;
+/*   text-decoration-line: underline; */
+/*   text-decoration-line: overline; */
+/*   text-decoration-line: line-through; */
+/*   text-decoration-line: underline line-through overline; */
+}
+a:visited{
+	color: #858C90;
+}
+</style>

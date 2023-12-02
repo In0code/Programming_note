@@ -7,23 +7,25 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="icon" href="http://192.168.10.143/mvc_prj/common/main/favicon.png">
-<!-- bootstrap -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<!-- jQuery CDN -->
+<!-- jQeury CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <style type="text/css">
 
 </style>
 <script type="text/javascript">
 	$(function() {
-		
+		$("#user_mypage_frm").click(function() {
+			$("#frmMypage").submit();
+		});
 	});
 </script>
 </head>
 <body>
 <div style="text-align: center;font-size: 26px;">
-	<p><a href="mypage1111.do">내 정보</a></p>
+	<p><a href="mypage_enter.do">내 정보</a></p>
+	<form id="frmMypage" action="user_mypage_frm.do" method="post">
+		<p id="user_mypage_frm" style="cursor: pointer;">마이페이지 메인 화면</p>
+	</form>
 </div>
 </body>
 </html>
