@@ -36,4 +36,29 @@ public class CreateJson {
 		return jsonObj;
 	}//createJson
 	
+	
+	public JSONObject createJson2(String name) {
+		JSONObject jsonObj=new JSONObject();
+		
+		String hierachy="평민";
+		String msg="반란 준비중";
+		
+		if("이동원".equals(name)) {
+			hierachy="반장";
+			msg="반을 이끌어 나가느라 힘듬";
+		}else if("홍지성".equals(name) || "김선경".equals(name) || 
+				"홍찬영".equals(name) || "임태균".equals(name)){
+			hierachy="조장";
+			msg="조를 이끌어 나가느라 힘듬";
+		}//end else if
+		
+		jsonObj.put("hierachy", hierachy);
+		jsonObj.put("msg", msg);
+		jsonObj.put("name", name);
+		
+		return jsonObj;
+	}//createJson2
+	
+	
+	
 }//class

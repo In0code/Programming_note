@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.sist.car">
+
+<select id="selectMaker" resultType="String" parameterType="String">
+select maker
+from car_country
+where country=#{ country }
+</select>
+
+<select id="selectModel" resultType="String" parameterType="String">
+select   model
+from   car_maker
+where    maker=#{ maker }
+</select>
+
+<!-- 모델에 대한 보유 차량 조회 : 가장 마지막에 입력된 차량부터 10건을 조회하는데
+all 이면 -->
+<select id="selectCar" resultType="kr.co.sist.domain.CarDomain" parameterType="String">
+select car_year, price, cc, substr(car_option,0,20)||'...' car_option,car_img,
+		to_char(hiredate, 'yyyy-mm-dd hh24:mi') hiredate
+from(select car_year, price, cc, car_option, car_img,
+			hiredate,row_number() over(order by hiredate desc) rnum
+	from car_model
+	<where>
+	<if test="model != 'all'">
+	model=#{ model }
+	</if>
+	</where>
+)
+<where>
+<if test="model != 'all'">
+rnum between 1 and 10
+</if>
+</where>
+</select>
+
+</mapper>
