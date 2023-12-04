@@ -39,4 +39,18 @@ public class LoginService {
 		return ld;
 		
 	}
+	
+	public LoginDomain selectTempPw(LoginVO lVO) {
+		LoginDomain ld= new LoginDomain();
+		LoginDAO lDAO = LoginDAO.getInstance();
+		
+		ld=lDAO.selectTempPw(lVO);
+		
+        	
+		
+		
+		
+		return ld;
+		
+	}
 }

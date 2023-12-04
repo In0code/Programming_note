@@ -30,10 +30,8 @@ public class LoginDAO {
 		LoginDomain ld = new LoginDomain();
 		MybatisHandler mbh= MybatisHandler.getInstance();
 		SqlSession ss= mbh.getMyBatisHandler(configPath, false);
-		System.out.println("11111"+lVO);
 		ld=ss.selectOne("kr.co.sist.login.selectLogin", lVO);
 		
-		System.out.println("222222"+ld);
 		mbh.closeHandler(ss);
 		
 		return ld;
@@ -44,11 +42,35 @@ public LoginDomain selectId(LoginVO lVO)throws PersistenceException {
 		LoginDomain ld = new LoginDomain();
 		MybatisHandler mbh= MybatisHandler.getInstance();
 		SqlSession ss= mbh.getMyBatisHandler(configPath, false);
-		System.out.println("11111"+lVO);
 		ld=ss.selectOne("kr.co.sist.login.selectId", lVO);
-		System.out.println("222222"+ld);
 		mbh.closeHandler(ss);
 		
 		return ld;
 	}
+
+public LoginDomain selectTempPw(LoginVO lVO)throws PersistenceException {
+	
+	LoginDomain ld = new LoginDomain();
+	MybatisHandler mbh= MybatisHandler.getInstance();
+	SqlSession ss= mbh.getMyBatisHandler(configPath, false);
+	ld=ss.selectOne("kr.co.sist.login.selectRandomPw", lVO);
+	if(ld!=null) {
+		String pw = ld.getPw();
+		lVO.setPw(pw);
+		int cnt=ss.update("kr.co.sist.login.updateTempPw", lVO);
+		System.out.println("************************"+cnt);
+		if(cnt == 1) {
+		ss.commit();
+		System.out.println("----------------------------commit");   
+		}
+	}
+	
+
+	
+	mbh.closeHandler(ss);
+	
+	return ld;
+	
+	
+}
 }

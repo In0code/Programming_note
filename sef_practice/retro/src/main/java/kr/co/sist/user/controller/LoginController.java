@@ -46,25 +46,51 @@ public class LoginController {
 	public String findIdFrm() {
 		
 		return "user/login/find_id_frm";
-	}
+	}//findIdFrm
+	
+	@PostMapping("/user/login/find_id_process.do")
+	public String findIdProcess(Model model, LoginVO lVO) {
+		String url="user/login/find_id_frm";
+		LoginService ls =LoginService.getInstance();
+		LoginDomain ld = ls.selectId(lVO);
+		String msg ="등록된 아이디가 없습니다.핸드폰 번호와 이메일을 확인해주세요.";
+		if(ld!=null) {
+			model.addAttribute("id", ld.getId());
+			url="user/login/find_id_success";
+			msg ="";
+		}
+		
+		model.addAttribute("msg", msg);
+		return url;
+	}//findIdProcess
 	
 	@GetMapping("/user/login/find_pw_frm.do")
 	public String findPwFrm() {
 		
 		return "user/login/find_pw_frm";
-	}
+	}//findPwFrm
 	
-	@PostMapping("/user/login/find_id_process.do")
-	public String findIdProcess(Model model, LoginVO lVO) {
-		String url="";
+	
+	@PostMapping("/user/login/find_pw_process.do")
+	public String findPwProcess(Model model, LoginVO lVO) {
+		String url="user/login/find_pw_frm";
+		String msg="입력한 정보가 맞지 않습니다. 아이디와 이메일을 다시 한 번 확인해주세요.";
 		LoginService ls =LoginService.getInstance();
-		LoginDomain ld = ls.selectId(lVO);
+		LoginDomain ld = ls.selectTempPw(lVO);
+		
+		
 		if(ld!=null) {
-			model.addAttribute("id", ld.getId());
-			url="user/login/find_id_success";
+			model.addAttribute("pw", ld.getPw());
+			
+			url="user/login/find_pw_success";
+			msg="";
 		}
+		
+		model.addAttribute("msg", msg);
 		return url;
 	}
+	
+
 
 	@GetMapping("/user/login/find_pw_success.do")
 	public String findpwSuccess() {

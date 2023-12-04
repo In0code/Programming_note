@@ -15,8 +15,12 @@
 	where phone=#{phone} and email=#{email}
 	</select>
 	<select id="selectRandomPw" resultType="ld" parameterType="lVO">
-	select dbms_random.string('x',8) 
+	select dbms_random.string('x',8) pw
 	from member 
 	where id= #{id} and email= #{email} 
 	</select>
+	
+	<update id="updateTempPw"  parameterType="lVO">
+	update member set pw=#{pw} where id =#{id} 
+	</update>
 </mapper>
