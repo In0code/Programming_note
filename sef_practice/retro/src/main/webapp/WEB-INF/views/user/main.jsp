@@ -24,7 +24,7 @@ $(function(){
 </head>
 <body>
 화려한 사용자 메인화면. 동원
-<a href="user/login/login_frm.do">로그인</a><br>
+<a href="login_frm.do">로그인</a><br>
 사용자 아이디 :<c:out value="${sessionScope.id }"/> <br> 
 닉네임 : <c:out value="${sessionScope.nickname }"/>
 </body>

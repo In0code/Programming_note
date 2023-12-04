@@ -555,14 +555,14 @@
 		/* '주소검색' 버튼 누르면 동작 */
 		$("#addrSearchBtn").click(function(){
 			
-			$("#addrSearchBtn").attr('class',"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 text-white bg-jngreen border-jngreen")
+			$(this).attr('class',"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 text-white bg-jngreen border-jngreen")
 			$("#noAddrBtn").attr('class',"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 border-jnblack text-jnblack bg-white")
 			
 		});//clcick
 		
 		/* '지역 설정 안 함'버튼누르면 동작*/
 		$("#noAddrBtn").click(function(){
-			$("#noAddrBtn").attr('class',"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 text-white bg-jngreen border-jngreen")
+			$(this).attr('class',"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 text-white bg-jngreen border-jngreen")
 			$("#addrSearchBtn").attr('class',"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 border-jnblack text-jnblack bg-white")
 			
 		});//clcick
@@ -572,14 +572,14 @@
 		/* '중고' 버튼 누르면 동작 */
 		$("#oldProductBtn").click(function(){
 			
-			$("#oldProductBtn").attr('class',"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 text-white bg-jngreen border-jngreen")
+			$(this).attr('class',"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 text-white bg-jngreen border-jngreen")
 			$("#newProductBtn").attr('class',"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 border-jnblack text-jnblack bg-white")
 			
 		});//clcick
 		
 		/* '새상품'버튼누르면 동작*/
 		$("#newProductBtn").click(function(){
-			$("#newProductBtn").attr('class',"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 text-white bg-jngreen border-jngreen")
+			$(this).attr('class',"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 text-white bg-jngreen border-jngreen")
 			$("#oldProductBtn").attr('class',"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 border-jnblack text-jnblack bg-white")
 			
 		});//clcick

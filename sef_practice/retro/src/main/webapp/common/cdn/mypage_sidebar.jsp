@@ -4,7 +4,7 @@
 	<h2 class="mb-3 text-xl font-semibold">마이 페이지</h2>
 	<h3 class="mb-2 text-lg font-semibold">쇼핑 정보</h3>
 	<ul>
-		<li>구매내역</li>
+		<li onclick="javascript:location.href=''">구매내역</li>
 		<li>판매내역</li>
 		<li>찜 목록</li>
 	</ul>

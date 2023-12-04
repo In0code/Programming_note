@@ -10,6 +10,13 @@
 <c:import url="http://localhost/retro_prj/common/cdn/cdn.jsp" />
 <link rel="stylesheet" href="http://localhost/retro_prj/common/cdn/review_write.css" />
 <style type="text/css">
+.css-1ejdrt9{
+color : #C2C6CE
+}
+.css-k69puj{
+}
+
+
 
 
 </style>
@@ -30,7 +37,7 @@
 		    $("path", "#goodBtn, #sosoBtn").attr('fill', 'white');
 		});//click
 
-		/* '최고에요'버튼 누르면 동작 */
+		/* '좋아요'버튼 누르면 동작 */
 		$("#goodBtn").click(function() {
 		    $("circle", this).attr('fill', '#0DCC5A');
 		    $("path", this).attr('stroke', 'white');
@@ -41,7 +48,7 @@
 		    $("path", "#bestBtn, #sosoBtn").attr('fill', 'white');
 		});//click
 
-		/* '최고에요'버튼 누르면 동작 */
+		/* '아쉬워요'버튼 누르면 동작 */
 		$("#sosoBtn").click(function() {
 		    $("circle", this).attr('fill', '#0DCC5A');
 		    $("path", this).attr('stroke', 'white');
@@ -163,7 +170,7 @@
 										<rect width="32" height="32" fill="white"
 											transform="translate(14.0024 14)"></rect></clipPath></defs></svg>
 								</button>
-								<p class="css-1ejdrt9">최고예요!</p>
+								<p class="css-1ejdrt9" id="bestP">최고예요!</p>
 							</div>
 							<div class="item-wrap ">
 								<button type="button" id="goodBtn">
@@ -187,7 +194,7 @@
 										<rect width="32" height="32" fill="white"
 											transform="translate(14 14)"></rect></clipPath></defs></svg>
 								</button>
-								<p class="css-k69puj">좋아요</p>
+								<p class="css-k69puj" id="goodP">좋아요</p>
 							</div>
 							<div class="item-wrap ">
 								<button type="button" id="sosoBtn">
@@ -211,7 +218,7 @@
 										<rect width="32" height="32" fill="white"
 											transform="translate(14 14)"></rect></clipPath></defs></svg>
 								</button>
-								<p class="css-k69puj">아쉬워요</p>
+								<p class="css-k69puj" id="sosoP">아쉬워요</p>
 							</div>
 						</div>
 					</section>
@@ -255,9 +262,16 @@
 									<p>거래 시간을 잘 지켜요.</p></label></li>
 						</ul>
 					</section>
+				<div style="text-align: right">
+					<textarea id="reviewArea" oninput="javascript:lengthCnt()" placeholder="상세한 리뷰를 작성해주세요.(선택)"
+					style="width:100%; height: 170px; border: 1px solid #DBDFE6; 
+					border-radius: 5px; resize: none; padding:10px; margin-top:10px" ></textarea>
+					<span id="lengthCnt">0</span>/300
+					</div>
+					
 				</div>
 				<div class="css-1nenfkg">
-					<button disabled="" class="css-12uwwjm">후기 등록</button>
+					<input type="button" class="css-12uwwjm" id="reviewBtn" value="후기 등록"/>
 				</div>
 			</main>
 		</div>
