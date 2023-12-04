@@ -8,8 +8,8 @@
 	<!-- Alias 설정 -->
 	<typeAliases>
 		<typeAlias type="kr.co.sist.user.vo.FakeVO" alias="fVO"/>
-		<typeAlias type="kr.co.sist.user.vo.LoginVO" alias="lVO"/>
-		<typeAlias type="kr.co.sist.user.domain.LoginDomain" alias="ld"/>
+		<typeAlias type="kr.co.sist.login.vo.LoginVO" alias="lVO"/>
+		<typeAlias type="kr.co.sist.login.domain.LoginDomain" alias="ld"/>
 	</typeAliases>
 	
 	
@@ -28,7 +28,7 @@
   <mappers>
     <mapper resource="kr/co/sist/user/dao/mapper/join/joinMapper.xml"/>
     <mapper resource="kr/co/sist/user/dao/mapper/mypage/mypageInfoDetailMapper.xml"/>
-    <mapper resource="kr/co/sist/user/dao/mapper/loginMapper.xml"/>
+    <mapper resource="kr/co/sist/login/dao/mapper/loginMapper.xml"/>
     <mapper resource="kr/co/sist/user/dao/mapper/fakeMapper.xml"/>
   </mappers> 
 </configuration>
