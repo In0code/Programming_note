@@ -73,4 +73,17 @@ public LoginDomain selectTempPw(LoginVO lVO)throws PersistenceException {
 	
 	
 }//selectTempPw
+
+
+public LoginDomain selectAdminLogin(LoginVO lVO)throws PersistenceException {
+	
+	LoginDomain ld = new LoginDomain();
+	MybatisHandler mbh= MybatisHandler.getInstance();
+	SqlSession ss= mbh.getMyBatisHandler(configPath, false);
+	ld=ss.selectOne("kr.co.sist.login.selectAdminLogin", lVO);
+	
+	mbh.closeHandler(ss);
+	
+	return ld;
+}//selectLogin
 }

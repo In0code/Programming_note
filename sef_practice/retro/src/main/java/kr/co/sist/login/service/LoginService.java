@@ -19,7 +19,7 @@ public class LoginService {
 		return ls;
 	}
 	
-	public LoginDomain selectLogin(LoginVO lVO) {
+	public LoginDomain Login(LoginVO lVO) {
 		LoginDomain ld= new LoginDomain();
 		LoginDAO lDAO = LoginDAO.getInstance();
 		
@@ -27,10 +27,10 @@ public class LoginService {
 		
 		return ld;
 		
-	}//selectLogin
+	}//Login
 	
 	
-	public LoginDomain selectId(LoginVO lVO) {
+	public LoginDomain searchId(LoginVO lVO) {
 		LoginDomain ld= new LoginDomain();
 		LoginDAO lDAO = LoginDAO.getInstance();
 		
@@ -38,9 +38,9 @@ public class LoginService {
 		
 		return ld;
 		
-	}//selectId
+	}//searchId
 	
-	public LoginDomain selectTempPw(LoginVO lVO) {
+	public LoginDomain searchTempPw(LoginVO lVO) {
 		LoginDomain ld= new LoginDomain();
 		LoginDAO lDAO = LoginDAO.getInstance();
 		
@@ -49,5 +49,15 @@ public class LoginService {
 		
 		return ld;
 		
-	}//selectTempPw
+	}//searchTempPw
+	
+	public LoginDomain adminLogin(LoginVO lVO) {
+		LoginDomain ld= new LoginDomain();
+		LoginDAO lDAO = LoginDAO.getInstance();
+		
+		ld=lDAO.selectAdminLogin(lVO);
+		
+		return ld;
+		
+	}//Login
 }

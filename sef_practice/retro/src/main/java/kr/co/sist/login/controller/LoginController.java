@@ -1,10 +1,14 @@
 package kr.co.sist.login.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import kr.co.sist.login.domain.LoginDomain;
 import kr.co.sist.login.service.LoginService;
@@ -27,7 +31,7 @@ public class LoginController {
 		String msg="계정 정보가 맞지않습니다. 아이디와 비밀번호를 확인해주세요.";
 		
 		LoginService ls = LoginService.getInstance();
-		LoginDomain ld = ls.selectLogin(lVO);
+		LoginDomain ld = ls.Login(lVO);
 		if(ld!=null) {
 			model.addAttribute("id", ld.getId());
 			model.addAttribute("nickname",ld.getNickname());
@@ -51,7 +55,7 @@ public class LoginController {
 	public String findIdProcess(Model model, LoginVO lVO) {
 		String url="user/login/find_id_frm";
 		LoginService ls =LoginService.getInstance();
-		LoginDomain ld = ls.selectId(lVO);
+		LoginDomain ld = ls.searchId(lVO);
 		String msg ="등록된 아이디가 없습니다.핸드폰 번호와 이메일을 확인해주세요.";
 		if(ld!=null) {
 			model.addAttribute("id", ld.getId());
@@ -75,7 +79,7 @@ public class LoginController {
 		String url="user/login/find_pw_frm";
 		String msg="입력한 정보가 맞지 않습니다. 아이디와 이메일을 다시 한 번 확인해주세요.";
 		LoginService ls =LoginService.getInstance();
-		LoginDomain ld = ls.selectTempPw(lVO);
+		LoginDomain ld = ls.searchTempPw(lVO);
 		
 		
 		if(ld!=null) {
@@ -96,7 +100,45 @@ public class LoginController {
 		
 		
 		return "admin/login/admin_login_frm";
-	}//loginfrm
+	}//adminLoginFrm
+	
+	@PostMapping("/admin/login/admin_login_process.do")
+	public String adminloginSuccessProcess(Model model,LoginVO lVO) {
+
+		String url="/admin/login/admin_login_frm";
+		String msg="아이디와 비밀번호를 확인해주세요.";
+		
+		LoginService ls = LoginService.getInstance();
+		LoginDomain ld = ls.adminLogin(lVO);
+		if(ld!=null) {
+			model.addAttribute("id", ld.getId());
+			msg="";
+			url="admin/admin_main";
+		}
+		model.addAttribute("msg", msg);
+		
+		return url;
+		
+		
+	}//loginSuccessProcess
+	
+	@GetMapping("/admin/admin_main.do")
+	public String adminMainfrm() {
+		
+		
+		return "admin/admin_main";
+	}//adminMainfrm
+	
+	@GetMapping("/admin/login/admin_logout_process.do")
+	public String removeAdminSession( SessionStatus ss) {
+		ss.setComplete();
+		
+		
+		
+
+		
+		return "admin/login/admin_login_frm";
+	}//removeAdminSession
 
 	
 

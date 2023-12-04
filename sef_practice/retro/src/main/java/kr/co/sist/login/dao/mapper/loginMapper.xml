@@ -25,4 +25,11 @@
 	<update id="updateTempPw"  parameterType="lVO">
 	update member set pw=#{pw} where id =#{id} 
 	</update>
+	
+		<!-- 로그인  -->
+	<select id="selectAdminLogin" resultType="ld" parameterType="lVO">
+	select id
+	from admin
+	where id = #{id} and pw = #{pw}
+	</select>
 </mapper>
