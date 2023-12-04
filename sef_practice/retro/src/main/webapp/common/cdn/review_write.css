@@ -1,0 +1,327 @@
+@charset "UTF-8";
+.css-17tl8vo .container {
+    flex: 1 1 0%;
+    width: 100%;
+    background: rgb(255, 255, 255);
+    padding-top: 0px;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.css-1vsyufa {
+    height: 100%;
+    overflow: auto;
+}
+
+*, :after, :before {
+    box-sizing: border-box;
+}
+
+div {
+    display: block;
+}
+
+body {
+    font-family: "Pretendard Variable", -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+}
+
+.css-1n52gqv {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.css-1n52gqv .containerStyle {
+    height: calc(100vh - 120px);
+    overflow: auto;
+}
+
+.css-1glkcst {
+    display: flex;
+    align-items: flex-start;
+    padding: 16px 24px 20px;
+    background-color: transparent;
+    border-bottom: 1px solid rgb(241, 244, 246);
+}
+
+.css-1glkcst .product-img-wrap {
+    width: 48px;
+    height: 48px;
+    display: inline-block;
+    padding-top: 0px;
+    margin-right: 12px;
+    border-radius: 8px;
+}
+
+.css-4sj9kq {
+    position: relative;
+    width: 100%;
+    padding-top: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.css-4sj9kq::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    top: 0px;
+    left: 0px;
+}
+
+.css-1glkcst .product-info {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    flex: 1 1 0%;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.css-1glkcst .product-info h2 {
+    font-weight: 400;
+    color: rgb(90, 97, 107);
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-align: left;
+    margin-bottom: 4px;
+}
+
+.css-1glkcst .product-info p {
+    font-weight: 500;
+    color: rgb(20, 19, 19);
+}
+
+.css-1y8gct2 {
+    padding: 25px 20px 32px;
+}
+
+section {
+    display: block;
+}
+
+.css-1y8gct2 h3 {
+    color: rgb(20, 19, 19);
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 28px;
+}
+
+.css-1vhc4hr {
+    width: 100%;
+    padding-top: 28px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.css-1vhc4hr .item-wrap {
+    display: flex;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.css-1vhc4hr .item-wrap button {
+    width: 60px;
+    height: 60px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 50%;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    text-align: center;
+}
+
+.css-wsqqvh {
+    height: auto;
+    transform: rotate(0deg);
+}
+
+.css-1vhc4hr .item-wrap button {
+    width: 60px;
+    height: 60px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 50%;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    text-align: center;
+}
+
+.css-wsqqvh {
+    height: auto;
+    transform: rotate(0deg);
+}
+
+svg:not(:root) {
+    overflow: hidden;
+}
+
+svg[Attributes Style] {
+    width: 60;
+    height: 60;
+    fill: none;
+}
+
+svg:not(:root) {
+    overflow-clip-margin: content-box;
+    overflow: hidden;
+}
+
+button {
+    cursor: pointer;
+    background: none;
+}
+
+g[Attributes Style] {
+    clip-path: url(#clip0_833_149965);
+}
+
+.css-1ejdrt9 {
+    font-size: 16px;
+    font-weight: 500;
+    color: rgb(20, 19, 19);
+    line-height: 22px;
+    margin-top: 16px;
+}
+
+[type=reset], [type=submit], button, html [type=button] {
+    -webkit-appearance: button;
+}
+
+.css-k69puj {
+    font-size: 16px;
+    font-weight: 500;
+    color: rgb(156, 163, 175);
+    line-height: 22px;
+    margin-top: 16px;
+}
+
+section {
+    display: block;
+}
+
+.css-1ovzr4f {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px 22px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    color: rgb(20, 19, 19);
+}
+
+ol, ul {
+    list-style: none;
+}
+
+.css-1ovzr4f li {
+    display: flex;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+
+.css-1ovzr4f li label {
+    display: flex;
+    align-items: flex-end;
+}
+
+.css-1ovzr4f li label input[type="checkbox"] {
+    all: unset;
+}
+
+.css-1ovzr4f li label input {
+    appearance: none;
+    margin-right: 6px;
+    cursor: pointer;
+}
+
+input[type=checkbox], input[type=radio] {
+    box-sizing: border-box;
+    padding: 0;
+}
+
+[role=button], a, area, button, input:not([type=range]), label, select, summary, textarea {
+    touch-action: manipulation;
+}
+
+button, input {
+    overflow: visible;
+}
+
+button, input, optgroup, select, textarea {
+    margin: 0;
+    color: inherit;
+    font-size: inherit;
+    font-family: inherit;
+    line-height: inherit;
+}
+
+.css-1t3in5p {
+    width: 24px;
+    height: auto;
+    transform: rotate(0deg);
+    color: rgb(156, 163, 175) !important;
+}
+
+.css-1nenfkg {
+    padding: 12px 20px;
+    width: 100%;
+    position: sticky;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    z-index: 100;
+    margin-bottom: 0px;
+}
+
+.css-12uwwjm:disabled {
+    background-color: rgb(194, 198, 206);
+    border: 1px solid rgb(194, 198, 206);
+    opacity: 1;
+}
+
+.css-1nenfkg button {
+    border-radius: 4px;
+}
+
+.css-12uwwjm {
+    position: relative;
+    border-radius: 4px;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 500;
+    width: 100%;
+    height: 52px;
+    background-color: rgb(20, 19, 19);
+    color: rgb(255, 255, 255);
+    border: 1px solid rgb(20, 19, 19);
+}
+
+.css-12uwwjm:hover, .css-12uwwjm:active, .css-12uwwjm:disabled {
+    color: rgb(255, 255, 255);
+}

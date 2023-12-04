@@ -9,6 +9,7 @@
 						src="https://img2.joongna.com/common/Profile/Default/profile_f.png"
 						width="60" height="60" decoding="async" data-nimg="1"
 						class="rounded-full w-[48px] h-[48px] lg:w-[60px] lg:h-[60px] box-content border-4 border-white -translate-x-3"
+						style="border: 4px solid #FFFFFF"
 						loading="lazy" style="color: transparent;">
 				</div>
 				<h1 class="mr-2 text-xl font-semibold cursor-pointer lg:text-2xl">중고나라#8626590</h1>

@@ -78,7 +78,8 @@ $(function(){
 <hr style="border: solid 1px #333333; paddin:20px; width: 450px; margin: 0px auto">
 <br>
 <div style="text-align: center">가입 시 등록한 휴대폰 번호와 이메일을 입력하면 <br>아이디의 일부를 알려드립니다.</div>
-<div style="text-align: center;  margin-top: 100px" id="LoginWrap">
+<br><div id="Warn" style="text-align: center; font-weight: bold"><c:out value="${requestScope.msg }"/></div><br>
+<div style="text-align: center; margin-top: 70px" id="LoginWrap">
 <label style="margin-left: -380px">휴대폰 번호</label><br>
 <input type="text" id="phone" name="phone" placeholder="휴대폰번호를 입력해주세요" class="inputBox" maxlength="11" /> 
 <br>

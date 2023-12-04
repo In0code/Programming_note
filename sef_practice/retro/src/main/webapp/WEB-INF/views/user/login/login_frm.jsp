@@ -105,7 +105,7 @@ $(function(){
 <form id="frm" action="login_process.do" method="post">
 <div style="margin: 0px auto; text-align: center">
 <img src="http://localhost/retro_prj/common/images/main_logo.png" style="width:160px; margin-left: 870px; margin-top: 150px "/>
-<br><div id="Warn" style="margin-top: 10px"><c:out value="${requestScope.msg }"/></div><br>
+<br><div id="Warn" style="margin-top: 10px"><c:out value="${requestScope.msg}"/></div><br>
 
 </div>
 <div style="text-align: center;  margin-top: 80px" id="LoginWrap">

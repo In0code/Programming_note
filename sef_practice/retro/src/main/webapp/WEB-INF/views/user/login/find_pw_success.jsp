@@ -52,6 +52,7 @@ $(function(){
 
 
 <div style="text-align: center; margin-top: 200px; font-size: 20px">임시 비밀번호를 생성하였습니다<br>전송받은 임시 비밀번호로 로그인해주세요</div><br>
+<div style="text-align: center; margin-top: 20px; font-size: 25px; font-weight: bold"><c:out value="${requestScope.pw }"/></div>
 <div style="text-align: center;  margin-top: 30px" id="LoginWrap">
 
 

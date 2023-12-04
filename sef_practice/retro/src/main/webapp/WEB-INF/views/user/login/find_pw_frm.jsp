@@ -38,7 +38,9 @@ a:hover { color:#222222 }
 </style>
 <script type="text/javascript">
 $(function(){
-   
+	   $("#findPwBtn").click(function() {
+		   $("#frm").submit();
+	   })
 });//ready
 </script>
 
@@ -47,21 +49,23 @@ $(function(){
 
  <jsp:include page="/common/cdn/header.jsp"/>
 <body>
-
+<form id="frm" action="find_pw_process.do" method="post">
 <div style=" font-size: 35px; font-weight: bold; color: #333333; text-align: center; margin-top: 150px; margin-bottom: 30px ">비밀번호 찾기</div>
 <hr style="border: solid 1px #333333; paddin:20px; width: 450px; margin: 0px auto">
 <br>
 <div style="text-align: center">가입 시 등록한 아이디와 이메일을 입력하면 <br>임시비밀번호를 발급해 드립니다.</div>
-<div style="text-align: center;  margin-top: 100px" id="LoginWrap">
+<div style="text-align: center; margin-top: 10px; font-weight: bold; font-size: 20px"><c:out value="${requestScope.msg }"/></div>
+<div style="text-align: center;  margin-top: 70px" id="LoginWrap">
 <label style="margin-left: -410px">아이디</label><br>
-<input type="text" id="loginId" name="id" placeholder="휴대폰번호를 입력해주세요" class="inputBox" /> 
+<input type="text" id="checkId" name="id" placeholder="아이디를 입력해주세요" class="inputBox" /> 
 <br>
 <label style="margin-left: -410px; margin-top: 50px">이메일</label><br>
-<input type="text" id="loginPass" name="pass" placeholder="이메일을 입력해주세요" class="inputBox" /> 
+<input type="text" id="checkEmail" name="email" placeholder="이메일을 입력해주세요" class="inputBox" /> 
 <br>
-<input type="button"  style="margin-top:40px; border-radius: 12px; width:450px; height: 50px; font-family:Pretendard Variable;    color:#FFFFFF; background-color:#333333  " id="loginBtn" name="loginBtn" value="비밀번호 찾기" class="btn btn-dark"/>
+<input type="button"  style="margin-top:40px; border-radius: 12px; width:450px; height: 50px; font-family:Pretendard Variable;    color:#FFFFFF; background-color:#333333  " id="findPwBtn" name="findPwBtn" value="비밀번호 찾기" class="btn btn-dark"/>
 
 </div>
+</form>
 <div style="margin-top:300px"></div>
  <jsp:include page="/common/cdn/footer.jsp"/> 
 </body>

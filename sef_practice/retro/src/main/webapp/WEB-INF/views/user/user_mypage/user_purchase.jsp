@@ -10,30 +10,60 @@
 <link rel="stylesheet" href="https://kream.co.kr/_nuxt/css/9caa514.css" />
 <c:import url="http://localhost/retro_prj/common/cdn/cdn.jsp" />
 <style type="text/css">
+#orderByList {
+	display : none;
+}
+
 .btnStyle {
-	border: 1px solid black;
+	border-radius: 10px;
+	border: 1px solid #EEEFF0;
 	font-size: 14px;
 	font-weight: 600;
 	width: 70px;
 	padding: 10px;
-	border-radius: 5px;
-
+	margin-left: 30px;
 }
+
+.end-0 {
+    right: 0;
+}
+
 </style>
 
 <script type="text/javascript">
 	$(function() {
-
+		 $(document).on('click', function (event) {
+	         var orderBy = $("#orderBy");
+	         var orderByList = $("#orderByList");
+	         // 클릭된 영역이 selectBox 내부에 속하면 아무 동작하지 않음
+	         if (orderBy.is(event.target) || orderBy.has(event.target).length > 0) {
+	             return;
+	         }
+	         // 클릭된 영역이 selectOption 내부에 속하면 아무 동작하지 않음
+	         if (orderByList.is(event.target) || orderByList.has(event.target).length > 0) {
+	             return;
+	         }
+	         
+	         orderByList.hide();
+	     });
+		
+		
+		$("#orderBy").click(function() {
+			$("#orderByList").toggle();
+		});
+		
 	});//ready
 </script>
 
 </head>
-<body>
-	<main class="relative flex-grow border-b-2" style="min-height: -webkit-fill-available; -webkit-overflow-scrolling: touch">
+<body style="height:auto">
+<c:import url="http://localhost/retro_prj/common/cdn/header.jsp"/>
+	<main class="relative flex-grow border-b-2"
+		style="min-height: -webkit-fill-available; -webkit-overflow-scrolling: touch">
 		<div class="flex mx-auto max-w-[1280px] px-4 md:px-8 2xl:px-16 box-content">
 			<c:import url="http://localhost/retro_prj/common/cdn/mypage_sidebar.jsp" />
 			<div class="w-full flex-grow">
-			<c:import url="http://localhost/retro_prj/common/cdn/mypage_info.jsp" />
+				<c:import url="http://localhost/retro_prj/common/cdn/mypage_info.jsp" />
 				<div class="px-0 max-lg:mt-10">
 					<div class="items-center justify-between block mb-4 md:flex lg:mb-7">
 						<div class="flex-shrink-0 mb-1 text-xs leading-4 text-body md:text-sm pe-4 md:me-6 lg:ps-2 lg:block">
@@ -53,44 +83,62 @@
 							</div>
 							<div class="relative my-2 sm:m-0 lg:ms-0 z-10 min-w-[160px]">
 								<button class="border border-gray-300 text-heading text-xs md:text-sm font-semibold relative w-full py-2 ps-3 pe-10 text-start bg-white rounded-lg shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm cursor-pointer"
-									id="headlessui-listbox-button-:ra:" type="button"
-									aria-haspopup="listbox" aria-expanded="false"
-									data-headlessui-state="">
-									<span class="block truncate">최신순</span> 
+									id="orderBy" type="button" aria-haspopup="listbox" style="border:1px solid #E6E6E6; text-align:left">
+									<span class="block truncate">최신순</span>
 									<span class="absolute inset-y-0 end-0 flex items-center pe-2 pointer-events-none">
-										<svg stroke="currentColor" fill="none" stroke-width="0"
-											viewBox="0 0 24 24" class="w-5 h-5 text-gray-400"
+									<svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 24 24" class="w-5 h-5 text-gray-400"
 											aria-hidden="true" height="1em" width="1em"
 											xmlns="http://www.w3.org/2000/svg">
-											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path>
-										</svg>
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path></svg>
 									</span>
 								</button>
+								<ul class="absolute w-full py-1 mt-1 overflow-auto bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none text-xs md:text-sm"
+									aria-labelledby="headlessui-listbox-button-:ra:"
+									aria-orientation="vertical" id="orderByList" role="listbox" tabindex="0">
+									<li class="text-gray-900 cursor-default select-none relative py-2 ps-10 pe-4"
+										id="headlessui-listbox-option-:r10:" role="option"
+										tabindex="-1" aria-selected="false" data-headlessui-state="">
+										<span class="font-normal block truncate">최신순</span>
+									</li>
+									<li class="text-gray-900  cursor-default select-none relative py-2 ps-10 pe-4"
+										id="headlessui-listbox-option-:r11:" role="option"
+										tabindex="-1" aria-selected="false" data-headlessui-state="">
+										<span class="font-normal block truncate">낮은가격순</span>
+									</li>
+									<li class="text-gray-900 cursor-default select-none relative py-2 ps-10 pe-4"
+										id="headlessui-listbox-option-:r12:" role="option"
+										tabindex="-1" aria-selected="false" data-headlessui-state="">
+										<span class="font-normal block truncate">높은가격순</span>
+									</li>
+								</ul>
 							</div>
 						</div>
 					</div>
 
 					<!-- 구매내역 리스트 -->
-					<div data-v-ef57988c="" data-v-f6a73334=""
-						class="purchase_list bidding bid">
+					<div data-v-ef57988c="" data-v-f6a73334="" class="purchase_list bidding bid">
 						<div data-v-ef57988c="" class="purchase_head">
-							<div data-v-ef57988c="" class="head_status" style="font-size:13px">
-								<div data-v-ef57988c="" class="status_box field_price">
+							<div data-v-ef57988c="" class="head_status" style="font-size: 13px">
+								<div data-v-ef57988c="" class="status_box field_price" style="padding-right: 5px">
 									<span data-v-ef57988c="" class="status_txt">가격</span>
 								</div>
-								<div data-v-ef57988c="" class="status_box">
+								<div data-v-ef57988c="" class="status_box"
+									style="padding-right: 5px">
 									<span data-v-ef57988c="" class="status_txt">구매일</span>
 								</div>
-								<div data-v-ef57988c="" class="status_box">
-									<span data-v-ef57988c="" class="status_txt"></span>
+								<div data-v-ef57988c="" class="status_box"
+									style="padding-right: 10px;">
+									<span data-v-ef57988c="" class="status_txt">상태</span>
 								</div>
 							</div>
 						</div>
+						
+						<!-- 상품 정보 -->
 						<div data-v-ef57988c="">
 							<div data-v-6e1f328e="" data-v-ef57988c="">
-								<div data-v-6e1f328e="" class="purchase_list_display_item"
-									style="background-color: rgb(255, 255, 255);">
+								<div data-v-6e1f328e="" class="purchase_list_display_item" style="background-color: rgb(255, 255, 255);">
 									<div data-v-6e1f328e="" class="purchase_list_product">
+										<input type="hidden" value=""/>
 									
 										<!-- 상품 이미지 -->
 										<div data-v-6e1f328e="" class="list_item_img_wrap">
@@ -100,15 +148,15 @@
 												style="background-color: rgb(255, 255, 255);">
 										</div>
 										<!---->
-										
+
 										<!-- 상품명 -->
 										<div data-v-6e1f328e="" class="list_item_title_wrap">
 											<p data-v-6e1f328e="" class="list_item_title">
-												[KREAM Exclusive] Cosymosy Mini Bird Keyring Marshmallow</p>
+											[KREAM Exclusive] Cosymosy Mini Bird Keyring Marshmallow</p>
 										</div>
 										<!---->
 									</div>
-									
+
 									<div data-v-6e1f328e="" class="list_item_status">
 										<!-- 가격 -->
 										<div data-v-6e1f328e="" class="list_item_column column_secondary">
@@ -117,7 +165,7 @@
 												style="color: rgb(34, 34, 34);">29,500원</p>
 										</div>
 										<!---->
-										
+
 										<!-- 구매일 -->
 										<div data-v-6e1f328e="" class="list_item_column column_last">
 											<p data-v-8016a084="" data-v-6e1f328e=""
@@ -125,25 +173,85 @@
 												style="color: rgb(34, 34, 34);">2023-11-03</p>
 										</div>
 										<!---->
-										
+
+										<!-- 후기 작성 / 구매 취소 -->
 										<div data-v-6e1f328e="" class="list_item_column column_last">
-											<input type="button" class="btnStyle"
-											 value="후기작성"/>
+											<input type="button" class="btnStyle" value="후기작성"
+												style="margin-left: 60px" />
 										</div>
+										<!---->
 									</div>
 								</div>
-								<!---->
+								<!-- 상품 정보 -->
 							</div>
 						</div>
 						<!---->
+						
+						<!-- 상품 정보 -->
+						<div data-v-ef57988c="">
+							<div data-v-6e1f328e="" data-v-ef57988c="">
+								<div data-v-6e1f328e="" class="purchase_list_display_item" style="background-color: rgb(255, 255, 255);">
+									<div data-v-6e1f328e="" class="purchase_list_product">
+										<!-- 상품 이미지 -->
+										<div data-v-6e1f328e="" class="list_item_img_wrap">
+											<img data-v-6e1f328e="" alt="product_image"
+												src="https://kream-phinf.pstatic.net/MjAyMzExMTVfMzYg/MDAxNzAwMDM3NTE4ODY4.FsqG6bk6HOgtB6isNowU1Dokh5Uk6FXjgzoyBQ2OshUg.9nh_39MLoypIGYBJdKibaEiDgAq_hG_V5NyAyn10DJAg.JPEG/a_8ab9b5882971402eb1d7b30f7f19546b.jpg?type=m"
+												class="list_item_img"
+												style="background-color: rgb(255, 255, 255);">
+										</div>
+										<!---->
+
+										<!-- 상품명 -->
+										<div data-v-6e1f328e="" class="list_item_title_wrap">
+											<p data-v-6e1f328e="" class="list_item_title">
+											[KREAM Exclusive] Cosymosy Mini Bird Keyring Marshmallow</p>
+										</div>
+										<!---->
+									</div>
+
+									<div data-v-6e1f328e="" class="list_item_status">
+										<!-- 가격 -->
+										<div data-v-6e1f328e="" class="list_item_column column_secondary">
+											<p data-v-8016a084="" data-v-6e1f328e=""
+												class="secondary_title display_paragraph"
+												style="color: rgb(34, 34, 34);">29,500원</p>
+										</div>
+										<!---->
+
+										<!-- 구매일 -->
+										<div data-v-6e1f328e="" class="list_item_column column_last">
+											<p data-v-8016a084="" data-v-6e1f328e=""
+												class="last_title display_paragraph"
+												style="color: rgb(34, 34, 34);">2023-11-03</p>
+										</div>
+										<!---->
+
+										<!-- 후기 작성 / 구매 취소 -->
+										<div data-v-6e1f328e="" class="list_item_column column_last">
+											<input type="button" class="btnStyle" value="후기작성"
+												style="margin-left: 60px" />
+										</div>
+										<!---->
+									</div>
+								</div>
+								<!-- 상품 정보 -->
+							</div>
+						</div>
+						<!---->
+						
 						<div data-v-ef57988c="" class="v-portal" style="display: none;"></div>
 					</div>
+					
+					
+					
+					
+					
 					<div class="py-8 text-center xl:pt-14"></div>
 				</div>
 			</div>
 		</div>
 		<div class="Toastify"></div>
 	</main>
-
+	<c:import url="http://localhost/retro_prj/common/cdn/footer.jsp"/>
 </body>
 </html>
