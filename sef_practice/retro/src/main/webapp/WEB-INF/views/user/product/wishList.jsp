@@ -20,6 +20,10 @@ $(function(){
 </head>
 <body>
 <c:import url="http://localhost/retro_prj/common/cdn/header.jsp"/>
+<main class="relative flex-grow border-b-2"
+		style="min-height: -webkit-fill-available; -webkit-overflow-scrolling: touch">
+		<div class="mx-auto max-w-[1280px] px-4 md:px-8 2xl:px-16 box-content">
+			<section class="mx-auto w-full max-w-[768px]">
 <div id="pageTitle" style="font-family:Pretendard Medium;">관심상품</div><br>
 <div id="container" style="font-family:Pretendard Medium;">
 	<div id="contents">
@@ -81,6 +85,10 @@ $(function(){
 </div>
 </div>
 </div>
+</section>
+		</div>
+		<div class="Toastify"></div>
+	</main>
 <c:import url="http://localhost/retro_prj/common/cdn/footer.jsp"/>
 </body>
 </html>

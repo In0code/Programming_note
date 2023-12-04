@@ -51,60 +51,55 @@ body {
 
 <script type="text/javascript">
 $(function() {
-    $("#adminId").keydown(function(evt){
-        if(evt.which == 13){
-            checkValue();
-        }//end if
-    });//end keydown
+	  $("#loginBtn").click(function(){
+		  alert("버튼");
+		   checkNull(); 
+		   /* $("#frm").submit(); */
+	   })//click
+	   
+	  $("#id").keydown(function( evt ){
+	        if(evt.which == 13){
+	            checkNull();
+	        }//end if
+	    });//end keydown
 
-    $("#adminPass").keydown(function(evt){
-        if(evt.which == 13){
-            if(checkValue()){
-            	$("#adminLoginFrm").submit();
-            }
-        }//end if
-    });//end keydown
+	    $("#pw").keydown(function( evt ){
+	        if(evt.which == 13){
+	            checkNull();
+	        }//end if
+	    });//end keydown
 
-    $("#loginBtn").click(function(){
-        if(checkValue()){
-	        $("#adminLoginFrm").submit();
-        }
-    });//end click
+	   
+	    function checkNull(){
+	    	alert("check");
+	    	var id=$("#id").val();
+	    	var pass=$("#pw").val();
+
+	    	$("#id").focus();
+	    	if( id.replace(/ /g,"") == ""){
+	    	    $("#Warn").html("<span>아이디와 비밀번호를 입력해주세요</span>");
+	    	    $("#id").val("");
+	    	    return;
+	    	}//end if
+
+	    	$("#pw").focus();
+	    	if( pass.replace(/ /g,"")  ==""){
+	    	    $("#Warn").html("<span>아이디와 비밀번호를 입력해주세요</span>");
+	    	    $("#pw").val("");
+	    	    return;
+	    	}//end if
+
+	    	 	$("#frm").submit();
+	    	}//chkNull
 });//ready
 
-function checkValue(){
-	var id=$("#adminId").val();
-	var pass=$("#adminPass").val();
 
-	$("#adminId").focus();
-	if(id.replace(/ /g,"") == ""){
-	    $("#warginDiv").html("<span style='color:red'>아이디를 입력해주세요.</span>");
-	    $("#adminId").val("");
-	    return;
-	}
-
-	$("#adminPass").focus();
-	if(pass.replace(/ /g,"")  ==""){
-	    $("#warginDiv").html("<span style='color:red'>비밀번호를 입력해주세요.</span>");
-	    $("#adminPass").val("");
-	    return false;
-	}
-	
-	if(!($("#adminId").val() == "admin" && $("#adminPass").val() == "admin123")){
-	    $("#warginDiv").html("<span style='color:red'>아이디 또는 비밀번호를 잘못 입력했습니다.<br>입력하신 내용을 다시 확인해주세요.</span>");
-	    $("#adminPass").val("");
-	    $("#adminPass").focus();
-	    return false;
-    }
-	
-	return true;
-}//chkNull
 </script>
 
 </head>
 <body class="d-flex align-items-center py-4 bg-body-tertiary">
 
-<%
+<%-- <%
 Cookie[] cookies = request.getCookies();
 if(cookies != null){
 	for(Cookie cookie : cookies){
@@ -114,32 +109,27 @@ if(cookies != null){
 		}
 	}
 }
-%>
+%> --%>
 
 <div class="form-signin w-100 m-auto">
-  <form id="Frm" method="post" action="admin_login_process.do">
+  <form id="frm" method="post" action="admin_login_process.do">
     <img class="mb-4" src="http://localhost/retro_prj/common/images/admin_login_img.png" alt="" width="249" height="101" style="margin-left:20px">
     <h1 class="h3 mb-3 fw-normal"></h1>
-
+   
+	<div style="text-align: center"><c:out value="${requestScope.msg }"/></div>
+	 <br>
     <div class="form-floating">
-      <input type="text" class="form-control" name="adminId" id="adminId" placeholder="Id" value="${ adminIdValue }" >
+      <input type="text" class="form-control" name="id" id="id" placeholder="Id" value="${ adminIdValue }" >
       <label for="floatingInput">아이디</label>
     </div>
     
     <div class="form-floating">
-      <input type="password" class="form-control" name="adminPass" id="adminPass" placeholder="Password">
+      <input type="password" class="form-control" name="pw" id="pw" placeholder="Password">
       <label for="floatingPassword">비밀번호</label>
     </div>
+  
     
-    <div class="form-check text-start my-3">
-      <input class="form-check-input" type="checkbox" value="save" id="idSave" name="idSave" ${ not empty adminIdValue ? "checked='checked'" : ""}>
-      <!-- ${ not empty adminIdValue or param.adminId ? " checked='checked'" : "" } -->
-      <label class="form-check-label" for="flexCheckDefault">
-        아이디 저장
-      </label>
-    </div>
-    
-    <div id="warginDiv">
+    <div id="Warn">
     </div>
     <br>
     <input id="loginBtn" class="btn btn-primary w-100 py-2" type="button" style="background-color: #FE8890; border-color: #FE8890" value="로그인">

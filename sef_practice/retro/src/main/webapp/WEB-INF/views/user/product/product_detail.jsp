@@ -72,6 +72,11 @@
 			var modalBg2 = document.getElementById('delModalBg');
 			modalBg2.style.display = 'none';
 		});//click
+		
+		$("#sendComment").click(function(){
+			location.href="../review/user_sales_review.do";
+		});
+		
 	});//ready
 
 	/* '상태변경'버튼 클릭 시 모달 나오게 동작 */
@@ -458,7 +463,7 @@
 					<div class="flex space-x-2 w-full shrink-0 text text-base h-[52px]">
 						<button data-variant="flat" id="completeCancel"
 							class="md:text-sm inline-flex items-center cursor-pointer transition ease-in-out duration-300 font-semibold font-body text-center justify-center placeholder-white focus-visible:outline-none focus:outline-none rounded-md px-5 md:px-6 lg:px-8 py-4 md:py-3.5 lg:py-4 hover:shadow-cart bg-white border-gray-400 border flex-1 text-[16px] text-black focus-visible:ring hover:bg-white hover:text-black">취소</button>
-						<button data-variant="flat"
+						<button data-variant="flat" id="sendComment"
 							class="md:text-sm inline-flex items-center cursor-pointer transition ease-in-out duration-300 font-semibold font-body text-center justify-center border-0 border-transparent placeholder-white focus-visible:outline-none focus:outline-none rounded-md text-white px-5 md:px-6 lg:px-8 py-4 md:py-3.5 lg:py-4 hover:text-white hover:shadow-cart bg-jnblack hover:bg-jnblack/90 active:bg-jnblack/90 flex-1 text-[16px] focus-visible:ring disabled:bg-jnGray-300">후기
 							보내기</button>
 					</div>

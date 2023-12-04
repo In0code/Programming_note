@@ -23,6 +23,10 @@ color : #C2C6CE
 
 <script type="text/javascript">
 	$(function() {
+		
+		$("#reviewBtn").click(function(){
+			$("#hrdFrm").submit();
+		});
 
 /* --------후기 버튼 ( 최고에요, 좋아요, 아쉬워요)------------- */
 		
@@ -35,6 +39,8 @@ color : #C2C6CE
 		    $("circle", "#goodBtn, #sosoBtn").attr('stroke', '#DADEE5');
 		    $("path", "#goodBtn, #sosoBtn").attr('stroke', '#C2C6CE');
 		    $("path", "#goodBtn, #sosoBtn").attr('fill', 'white');
+		    $("#bestCmt").attr('style','color:black');
+		    $("#sosoCmt, #goodCmt").attr('style','color:#9CA3AF');
 		});//click
 
 		/* '좋아요'버튼 누르면 동작 */
@@ -46,6 +52,8 @@ color : #C2C6CE
 		    $("circle", "#bestBtn, #sosoBtn").attr('stroke', '#DADEE5');
 		    $("path", "#bestBtn, #sosoBtn").attr('stroke', '#C2C6CE');
 		    $("path", "#bestBtn, #sosoBtn").attr('fill', 'white');
+		    $("#goodCmt").attr('style','color:black');
+		    $("#sosoCmt, #bestCmt").attr('style','color:#9CA3AF');
 		});//click
 
 		/* '아쉬워요'버튼 누르면 동작 */
@@ -57,6 +65,8 @@ color : #C2C6CE
 		    $("circle", "#bestBtn, #goodBtn").attr('stroke', '#DADEE5');
 		    $("path", "#bestBtn, #goodBtn").attr('stroke', '#C2C6CE');
 		    $("path", "#bestBtn, #goodBtn").attr('fill', 'white');
+		    $("#sosoCmt").attr('style','color:black');
+		    $("#goodCmt, #bestCmt").attr('style','color:#9CA3AF');
 		});//click
 		
 		/* '친절/매너가 좋아요' 체크박스 누르면 동작 */
@@ -96,6 +106,28 @@ color : #C2C6CE
 		});//click
 		
 	});//ready
+	
+	function lengthCnt() {
+		var reviewArea = $("#reviewArea").val();
+		var maxLength = 300;
+		
+		$("#lengthCnt").html(reviewArea.length);
+		
+		if(reviewArea.length > maxLength){
+			var subText = reviewArea.substring(0, maxLength);
+			$("#reviewArea").val(subText);
+			$("#lengthCnt").html(maxLength);
+		}
+	}
+	
+	function comment1(value){
+		$("#comment1").val(value);
+	}
+	
+	function comment2(value){
+		$("#"+value).attr('checked','checked');
+	}
+	
 </script>
 
 </head>
@@ -143,7 +175,7 @@ color : #C2C6CE
 						</div>
 						<div class="css-1vhc4hr">
 							<div class="item-wrap ">
-								<button type="button" id="bestBtn">
+								<button type="button" id="bestBtn" onclick="comment1('best')">
 									<svg width="60" height="60" viewBox="0 0 60 60" fill="none"
 										xmlns="http://www.w3.org/2000/svg" class="css-wsqqvh">
 										<g clip-path="url(#clip0_833_149965)">
@@ -170,10 +202,10 @@ color : #C2C6CE
 										<rect width="32" height="32" fill="white"
 											transform="translate(14.0024 14)"></rect></clipPath></defs></svg>
 								</button>
-								<p class="css-1ejdrt9" id="bestP">최고예요!</p>
+								<p class="css-1ejdrt9" id="bestCmt">최고예요!</p>
 							</div>
 							<div class="item-wrap ">
-								<button type="button" id="goodBtn">
+								<button type="button" id="goodBtn" onclick="comment1('good')">
 									<svg width="60" height="60" viewBox="0 0 60 60" fill="none"
 										xmlns="http://www.w3.org/2000/svg" class="css-wsqqvh">
 										<g clip-path="url(#clip0_13404_51422)">
@@ -194,10 +226,10 @@ color : #C2C6CE
 										<rect width="32" height="32" fill="white"
 											transform="translate(14 14)"></rect></clipPath></defs></svg>
 								</button>
-								<p class="css-k69puj" id="goodP">좋아요</p>
+								<p class="css-k69puj" id="goodCmt">좋아요</p>
 							</div>
 							<div class="item-wrap ">
-								<button type="button" id="sosoBtn">
+								<button type="button" id="sosoBtn" onclick="comment1('soso')">
 									<svg width="60" height="60" viewBox="0 0 60 60" fill="none"
 										xmlns="http://www.w3.org/2000/svg" class="css-nn7eu2">
 										<g clip-path="url(#clip0_13404_51422)">
@@ -218,42 +250,46 @@ color : #C2C6CE
 										<rect width="32" height="32" fill="white"
 											transform="translate(14 14)"></rect></clipPath></defs></svg>
 								</button>
-								<p class="css-k69puj" id="sosoP">아쉬워요</p>
+								<p class="css-k69puj" id="sosoCmt">아쉬워요</p>
 							</div>
 						</div>
 					</section>
+					
+					<form id="hrdFrm">
+					<input type="hidden" id="comment1" name="comment1"/>
+					<!-- 상세 선택 -->					
 					<section>
 						<ul class="css-1ovzr4f">
-							<li><label for="sellerFeedback" id="sellerFeedback"><input
-									type="checkbox" name="review_item"
-									value="2">
+							<li>
+							<label for="sellerFeedback" id="sellerFeedback" onclick="comment2('checkKind')">
+							<input type="checkbox" id="checkKind" name="review_item" value="1">
 								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" 
 										xmlns="http://www.w3.org/2000/svg" class="css-1t3in5p">
 										<path fill-rule="evenodd" clip-rule="evenodd" 
 											d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12ZM16.5303 9.53033C16.8232 9.23744 16.8232 8.76256 16.5303 8.46967C16.2374 8.17678 15.7626 8.17678 15.4697 8.46967L10.5 13.4393L8.53033 11.4697C8.23744 11.1768 7.76256 11.1768 7.46967 11.4697C7.17678 11.7626 7.17678 12.2374 7.46967 12.5303L9.96967 15.0303C10.2626 15.3232 10.7374 15.3232 11.0303 15.0303L16.5303 9.53033Z"
 											fill="#C2C6CE"></path></svg>
 									<p>친절/매너가 좋아요.</p></label></li>
-							<li><label for="replySpeedFeedback" id="replySpeedFeedback"><input
-									type="checkbox"  name="review_item"
-									value="2">
+							<li>
+							<label for="replySpeedFeedback" id="replySpeedFeedback" onclick="comment2('checkSpeed')">
+							<input type="checkbox" id="checkSpeed" name="review_item" value="2">
 								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" 
 										xmlns="http://www.w3.org/2000/svg" class="css-1t3in5p">
 										<path fill-rule="evenodd" clip-rule="evenodd" 
 											d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12ZM16.5303 9.53033C16.8232 9.23744 16.8232 8.76256 16.5303 8.46967C16.2374 8.17678 15.7626 8.17678 15.4697 8.46967L10.5 13.4393L8.53033 11.4697C8.23744 11.1768 7.76256 11.1768 7.46967 11.4697C7.17678 11.7626 7.17678 12.2374 7.46967 12.5303L9.96967 15.0303C10.2626 15.3232 10.7374 15.3232 11.0303 15.0303L16.5303 9.53033Z"
 											fill="#C2C6CE"></path></svg>
 									<p>응답이 빨라요.</p></label></li>
-							<li><label for="descriptionMatchFeedback" id="comfortFeedback"><input
-									type="checkbox" 
-									name="review_item" value="2">
+							<li>
+							<label for="descriptionMatchFeedback" id="comfortFeedback" onclick="comment2('checkComfort')">
+							<input type="checkbox" id="checkcomfort" name="review_item" value="3">
 								<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
 										xmlns="http://www.w3.org/2000/svg" class="css-1t3in5p">
 										<path fill-rule="evenodd" clip-rule="evenodd"
 											d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12ZM16.5303 9.53033C16.8232 9.23744 16.8232 8.76256 16.5303 8.46967C16.2374 8.17678 15.7626 8.17678 15.4697 8.46967L10.5 13.4393L8.53033 11.4697C8.23744 11.1768 7.76256 11.1768 7.46967 11.4697C7.17678 11.7626 7.17678 12.2374 7.46967 12.5303L9.96967 15.0303C10.2626 15.3232 10.7374 15.3232 11.0303 15.0303L16.5303 9.53033Z"
 											fill="#C2C6CE"></path></svg>
 									<p>제가 있는 곳까지 와서 거래했어요.</p></label></li>
-							<li><label for="satisfactionFeedback" id="timeFeedback"><input
-									type="checkbox"  name="review_item"
-									value="2">
+							<li>
+							<label for="satisfactionFeedback" id="timeFeedback" onclick="comment2('checkTime')">
+							<input type="checkbox" id="checkTime" name="review_item" value="4">
 								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" 
 										xmlns="http://www.w3.org/2000/svg" class="css-1t3in5p">
 										<path fill-rule="evenodd" clip-rule="evenodd" 
@@ -268,7 +304,7 @@ color : #C2C6CE
 					border-radius: 5px; resize: none; padding:10px; margin-top:10px" ></textarea>
 					<span id="lengthCnt">0</span>/300
 					</div>
-					
+					</form>
 				</div>
 				<div class="css-1nenfkg">
 					<input type="button" class="css-12uwwjm" id="reviewBtn" value="후기 등록"/>

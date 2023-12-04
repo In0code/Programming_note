@@ -6,7 +6,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 <c:import url="http://localhost/retro_prj/common/cdn/cdn.jsp" />
 <link rel="stylesheet" href="http://localhost/retro_prj/common/cdn/review_write.css" />
 <style type="text/css">
@@ -21,9 +20,74 @@
 			location.href="";
 		});
 		
-		$("#reviewBtn").click(function()){
-			
-		}
+		$("#reviewBtn").click(function(){
+			$("#hrdFrm").submit();
+		});
+		
+		/* '최고에요'버튼 누르면 동작 */
+		$("#bestBtn").click(function() {
+		    $("circle", this).attr('fill', '#0DCC5A');
+		    $("path", this).attr('stroke', 'white');
+		    $("path", this).attr('fill', '#0DCC5A');
+		    $("circle", "#goodBtn, #sosoBtn").attr('fill', 'white');
+		    $("circle", "#goodBtn, #sosoBtn").attr('stroke', '#DADEE5');
+		    $("path", "#goodBtn, #sosoBtn").attr('stroke', '#C2C6CE');
+		    $("path", "#goodBtn, #sosoBtn").attr('fill', 'white');
+		    $("#bestCmt").attr('style','color:black');
+		    $("#sosoCmt, #goodCmt").attr('style','color:#9CA3AF');
+		});
+
+		/* '좋아요'버튼 누르면 동작 */
+		$("#goodBtn").click(function() {
+		    $("circle", this).attr('fill', '#0DCC5A');
+		    $("path", this).attr('stroke', 'white');
+		    $("path", this).attr('fill', '#0DCC5A');
+		    $("circle", "#bestBtn, #sosoBtn").attr('fill', 'white');
+		    $("circle", "#bestBtn, #sosoBtn").attr('stroke', '#DADEE5');
+		    $("path", "#bestBtn, #sosoBtn").attr('stroke', '#C2C6CE');
+		    $("path", "#bestBtn, #sosoBtn").attr('fill', 'white');
+		    $("#goodCmt").attr('style','color:black');
+		    $("#sosoCmt, #bestCmt").attr('style','color:#9CA3AF');
+		});//click
+
+		/* '아쉬워요'버튼 누르면 동작 */
+		$("#sosoBtn").click(function() {
+		    $("circle", this).attr('fill', '#0DCC5A');
+		    $("path", this).attr('stroke', 'white');
+		    $("path", this).attr('fill', '#0DCC5A');
+		    $("circle", "#bestBtn, #goodBtn").attr('fill', 'white');
+		    $("circle", "#bestBtn, #goodBtn").attr('stroke', '#DADEE5');
+		    $("path", "#bestBtn, #goodBtn").attr('stroke', '#C2C6CE');
+		    $("path", "#bestBtn, #goodBtn").attr('fill', 'white');
+		    $("#sosoCmt").attr('style','color:black');
+		    $("#goodCmt, #bestCmt").attr('style','color:#9CA3AF');
+		});//click
+		
+		/* '친절/매너가 좋아요' 체크박스 누르면 동작 */
+		$("#sellerFeedback").click(function(){
+			if ($(this).find("path").attr('fill') === '#0DCC5A') {
+		        $(this).find("path").attr('fill', '#C2C6CE');
+		    } else {
+		        $(this).find("path").attr('fill', '#0DCC5A');
+		    }//end else
+		});//click
+
+		/* '응답이 빨라요' 체크박스 누르면 동작 */
+		$("#replySpeedFeedback").click(function(){
+			 if ($(this).find("path").attr('fill') === '#0DCC5A') {
+			        $(this).find("path").attr('fill', '#C2C6CE');
+			    } else {
+			        $(this).find("path").attr('fill', '#0DCC5A');
+			    }//end else
+		});//click
+
+		$("#comfortFeedback").click(function(){
+			if ($(this).find("path").attr('fill') === '#0DCC5A') {
+		        $(this).find("path").attr('fill', '#C2C6CE');
+		    } else {
+		        $(this).find("path").attr('fill', '#0DCC5A');
+		    }//end else
+		});//click
 		
 	});//ready
 	
@@ -39,6 +103,15 @@
 			$("#lengthCnt").html(maxLength);
 		}
 	}
+	
+	function comment1(value){
+		$("#comment1").val(value);
+	}
+	
+	function comment2(value){
+		$("#"+value).attr('checked','checked');
+	}
+	
 </script>
 
 </head>
@@ -91,7 +164,7 @@
 						
 						<div class="css-1vhc4hr">
 							<div class="item-wrap ">
-								<button type="button">
+								<button type="button" id="bestBtn" onclick="comment1('best')">
 									<svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg" class="css-wsqqvh">
 										<g clip-path="url(#clip0_833_149965)">
 										<circle cx="30" cy="30" r="30" fill="#0DCC5A"></circle>
@@ -113,11 +186,11 @@
 										<rect width="32" height="32" fill="white"
 											transform="translate(14.0024 14)"></rect></clipPath></defs></svg>
 								</button>
-								<p class="css-1ejdrt9">최고예요!</p>
+								<p class="css-1ejdrt9" id="bestCmt">최고예요!</p>
 							</div>
 							
 							<div class="item-wrap ">
-								<button type="button">
+								<button type="button" id="goodBtn" onclick="comment1('good')">
 									<svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg" class="css-wsqqvh">
 										<g clip-path="url(#clip0_13404_51422)">
 										<circle cx="30" cy="30" r="29.25" fill="white"
@@ -135,11 +208,11 @@
 										<rect width="32" height="32" fill="white"
 											transform="translate(14 14)"></rect></clipPath></defs></svg>
 								</button>
-								<p class="css-k69puj">좋아요</p>
+								<p class="css-k69puj" id="goodCmt">좋아요</p>
 							</div>
 							
 							<div class="item-wrap ">
-								<button type="button">
+								<button type="button" id="sosoBtn" onclick="comment1('soso')">
 									<svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg" class="css-nn7eu2">
 										<g clip-path="url(#clip0_13404_51422)">
 										<circle cx="30" cy="30" r="29.25" fill="white"
@@ -156,19 +229,21 @@
 										<clipPath id="clip1_13404_51422">
 										<rect width="32" height="32" fill="white" transform="translate(14 14)"></rect></clipPath></defs></svg>
 								</button>
-								<p class="css-k69puj">아쉬워요</p>
+								<p class="css-k69puj" id="sosoCmt">아쉬워요</p>
 							</div>
 						</div>
 					</section>
 					<!---->
 					
+					<form id="hrdFrm">
+					<input type="hidden" id="comment1" name="comment1">
 					<!-- 상세 선택 -->
 					<section>
 						<ul class="css-1ovzr4f">
 						
 							<li>
-							<label for="sellerFeedback">
-							<input type="checkbox" id="sellerFeedback" name="review_item" value="2">
+							<label for="sellerFeedback" id="sellerFeedback" onclick="comment2('checkKind')">
+							<input type="checkbox" id="checkKind" name="review_item" value="1">
 								<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
 										xmlns="http://www.w3.org/2000/svg" class="css-1t3in5p">
 										<path fill-rule="evenodd" clip-rule="evenodd"
@@ -179,8 +254,8 @@
 							</li>
 							
 							<li>
-							<label for="replySpeedFeedback">
-							<input type="checkbox" id="replySpeedFeedback" name="review_item" value="2">
+							<label for="replySpeedFeedback" id="replySpeedFeedback" onclick="comment2('checkSpeed')">
+							<input type="checkbox" id="checkSpeed" name="review_item" value="2">
 								<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
 										xmlns="http://www.w3.org/2000/svg" class="css-1t3in5p">
 										<path fill-rule="evenodd" clip-rule="evenodd"
@@ -191,9 +266,8 @@
 							</li>
 							
 							<li>
-							<label for="descriptionMatchFeedback">
-							<input type="checkbox" id="descriptionMatchFeedback"
-									name="review_item" value="2">
+							<label for="descriptionMatchFeedback" id="comfortFeedback" onclick="comment2('checkComfort')">
+							<input type="checkbox" id="checkComfort" name="review_item" value="3">
 								<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
 										xmlns="http://www.w3.org/2000/svg" class="css-1t3in5p">
 										<path fill-rule="evenodd" clip-rule="evenodd"
@@ -207,13 +281,14 @@
 					<!---->
 					
 					<div style="text-align: right">
-					<textarea id="reviewArea" oninput="javascript:lengthCnt()" placeholder="상세한 리뷰를 작성해주세요.(선택)"
+					<textarea id="reviewArea" name="reviewArea" oninput="lengthCnt()" placeholder="상세한 리뷰를 작성해주세요.(선택)"
 					style="width:100%; height: 170px; border: 1px solid #DBDFE6; 
 					border-radius: 5px; resize: none; padding:10px; margin-top:10px" ></textarea>
 					<span id="lengthCnt">0</span>/300
 					</div>
-					
+					</form>
 				</div>
+				
 				<div class="css-1nenfkg">
 					<input type="button" class="css-12uwwjm" id="reviewBtn" value="후기 등록"/>
 				</div>
