@@ -43,6 +43,7 @@
 </head>
 <body>
 	<c:import url="http://localhost/retro_prj/common/cdn/cdn.jsp" />
+	<c:import url="http://localhost/retro_prj/common/cdn/review_write.css" />
 	<!-- 상품 목록 -->
 	<div class="product-list">
 		<div>
