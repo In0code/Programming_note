@@ -94,8 +94,8 @@ $(function(){
 		<div class="searchDiv">
 		<form id="frmSearch">
 			<select class="searchList" id="field" name="field">
-				<option value="1"${ param.field eq "1" ? " selected='selected'" : "" }>아이디</option>
-				<option value="3"${ param.field eq "3" ? " selected='selected'" : "" }>카테고리명</option>
+				<option value="1"${ param.field eq "1" ? " selected='selected'" : "" }>닉네임</option>
+				<option value="2"${ param.field eq "2" ? " selected='selected'" : "" }>카테고리명</option>
 			</select>
 			<input type="text" class="textBox" id="keyword" name="keyword" placeholder="내용을 입력해주세요"
 			value = "${ param.keyword ne 'null' ? param.keyword : ''}"/>
@@ -116,12 +116,10 @@ $(function(){
 				<tr id="top_title">
 					<!-- 컬럼 사이즈 -->
 					<th style="width:100px">No</th>
-					<th style="width:70px">이미지</th>
 					<th style="width:180px">닉네임</th>
 					<th style="width:200px">카테고리</th>
 					<th style="width:300px">상품명</th>
 					<th style="width:200px">상품가격</th>
-					<th style="width:150px">상품상태</th>
 					<th style="width:150px">등록일</th>
 				</tr>
 				</thead>
@@ -138,9 +136,6 @@ $(function(){
 					<c:forEach var="product" items="${ productList }" varStatus="i">
 					<tr onclick="productDetail(${ product.goodsCode })">
 						<td>${ startNum + i.index }</td>
-						<td><img src="http://localhost/prj_web_shopping/upload/goods/${ product.mainImg }" style="width:35px"/></td>
-					 <td><a href="item_managing_detail.jsp?gcode=${product.goodsCode }" 
-   onclick="window.open(this.href, '', 'width=1650 , height=900, top=120, left=650'); return false;"><c:out value="${ product.goodsCode }" /></a></td> 
 						<td><a href="item_managing_detail.jsp?gcode=${product.goodsCode }" 
    onclick="window.open(this.href, '', 'width=1650 , height=900, top=120, left=650'); return false;"><c:out value="${ product.goodsName }" /></a></td>
 						<td><a href="item_managing_detail.jsp?gcode=${product.goodsCode }" 
