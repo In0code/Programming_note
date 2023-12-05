@@ -53,4 +53,22 @@ public class MyPageInfoDetailDAO {
 		
 		return result;
 	}
+	
+	public int updateByeUser(String id) {
+		int result = 0;
+		
+		MybatisHandler mh = MybatisHandler.getInstance();
+		SqlSession ss = mh.getMyBatisHandler(false);
+		
+		result = ss.update("kr.co.sist.user.mypageInfoDetail.byebye", id);
+		if(result == 1) {
+			ss.commit();
+		} else {
+			ss.rollback();
+		}
+		
+		mh.closeHandler(ss);
+		
+		return result;
+	}
 }

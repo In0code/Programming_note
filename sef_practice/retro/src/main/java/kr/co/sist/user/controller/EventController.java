@@ -8,7 +8,13 @@ public class EventController {
 	
 	@GetMapping("/event.do")
 	public String eventList() {
-		return "user/event";
+		return "user/event/event";
+	}
+
+	@GetMapping("/event/detail.do")
+	public String eventDetail(String evtcode) {
+		System.out.println(evtcode);
+		return "user/event/event_detail";
 	}
 
 }

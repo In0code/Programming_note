@@ -25,4 +25,8 @@ public class MyPageInfoDetailService {
 		
 		return flagMsg;
 	}
+	
+	public void byebye(String id) {
+		MyPageInfoDetailDAO.getInstance().updateByeUser(id);
+	}
 }

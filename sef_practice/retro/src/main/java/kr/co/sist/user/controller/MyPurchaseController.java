@@ -6,9 +6,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class MyPurchaseController {
 	
-	@GetMapping("my/purchase.do")
+	@GetMapping("/my/purchase.do")
 	public String purchaseList() {
 		return "/user/user_mypage/user_purchase";
+	}
+
+	@GetMapping("/my/purchase/detail.do")
+	public String purchaseDetail() {
+		return "/user/user_mypage/user_purchase_detail";
 	}
 
 }

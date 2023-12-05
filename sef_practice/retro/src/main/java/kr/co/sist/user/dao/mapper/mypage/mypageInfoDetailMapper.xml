@@ -14,6 +14,13 @@ WHERE ID=#{id} AND PW=#{pw}
 <update id="changeUserPw" parameterType="kr.co.sist.user.vo.ChangePwVO">
 UPDATE MEMBER
 SET PW=#{newPw}
+WHERE ID=#{id} and PW=#{oldPw}
+</update>
+
+<!-- 회원탈퇴 -->
+<update id="byebye" parameterType="String">
+UPDATE MEMBER
+SET STATUS='C'
 WHERE ID=#{id}
 </update>
 </mapper>
