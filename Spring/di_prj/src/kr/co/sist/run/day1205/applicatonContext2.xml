@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context-4.2.xsd">
+	<!-- 1. 의존성 주입할 객체 생성 -->
+	<bean id="od" class="kr.co.sist.dao.OracleDAOImpl" scope="singleton"/>		
+	<bean id="md" class="kr.co.sist.dao.MysqlDAOImpl" scope="prototype"/>
+	
+	<!-- 2. 의존성 주입 받을 객체 생성 -->
+	<bean id="si" class="kr.co.sist.service.ServiceImpl">
+		<constructor-arg ref="od"/>
+	</bean>
+
+</beans>
