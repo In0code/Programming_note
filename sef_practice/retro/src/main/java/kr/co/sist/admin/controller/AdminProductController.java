@@ -17,7 +17,15 @@ public class AdminProductController {
 		return "admin/product_managing";
 	}//productManage
 		
-	}
+	@RequestMapping("/admin/productDetail_managing.do")
+	public String productManageDetail(HttpServletRequest request, Model model) {
+		
+		model.addAttribute("method",request.getMethod());
+		
+		return "admin/productDetail_managing";
+	}//productManage
+	
+}//class
 	
 	
 
