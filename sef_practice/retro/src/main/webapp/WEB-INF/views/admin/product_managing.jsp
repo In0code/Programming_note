@@ -1,26 +1,19 @@
-<%-- <%@page import="admin.vo.ProductManageVO"%>
-<%@page import="common.util.BoardUtilVO"%>
-<%@page import="common.util.BoardUtil"%> --%>
-<%@page import="kr.co.sist.common.BoardRangeVO"%>
-<%@page import="kr.co.sist.admin.dao.ProductDAO"%>
-<%@page import="java.util.List"%>
-<%@page import="java.sql.SQLException"%>
-<%-- <%@page import="common.dao.BoardDAO"%> --%>
-<%-- <%@page import="admin.dao.BoardManageDAO"%>
-<%@page import="admin.vo.BoardManageVO"%> --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page info=""%>
+<%@ page info="관리자 - 상품리스트  / 인영 "%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html><!--  -->
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<c:import url="http://localhost/retro_prj/common/cdn/admin_cdn.jsp"/>
 
+<!-- 태균이가 만든거 -->
 <style type="text/css">
 body{
  margin: 0px;
+}
+#wrap{
+	
 }
 #right{
 	width: calc(100vw - 240px); height: 100%;float: right;
@@ -37,7 +30,6 @@ body{
 	padding-right: 15px;
 	background: #FFFFFF;
 }
-
 #rightBody{
 	width: 100%; min-height: 500px;float: right;
 	padding: 40px;
@@ -46,106 +38,46 @@ body{
 	position: relative;
 }
 
+/* 인영 - 주문관리 style  시작*/
+#mainTitle{
+	font-size:25px;
+	color: #333;
+	position: absolute;
+	left : 60px;
+} 
+#background_box{
+overflow: auto;
+background-color:  #FFFFFF;
+color:  #333333;
+height: 150%; width: 80%;
+position: absolute;
+top: 100px; left: 60px;
+outline:  1px;
+box-shadow: rgb(204, 202, 202) 0px 2px 8px 0px;
+border-radius: 9px;
+}
 td {
 	cursor: pointer;
 }
 </style>
-
+<!-- 태균이가 만든거 끝-->
 <script type="text/javascript">
-$(function() {
+$(function(){
 	
-/* 	$("#addProduct").click(function(){
-		
-	});// click */
-	$("#btnLogout").click(function() {
-		location.href="logout.jsp";
+	$("#btnLogouttt2").click(function(){
+		alert("1234");
+	})
+	$("#btnLogouttt").click(function(){
+		alert("123123");
+	/* 	location.href="admin_logout_process.do"; */
 	});
-	
-	$("#btnSearch").click(function() {
-		chkNull();
-	});
-	
-	$("#keyword").keyup(function(evt) {
-		if(evt.which == 13){
-			chkNull();
-		}//end if
-	});//keyup
-});
-
-function chkNull() {
-	var keyword = $("#keyword").val();
-	if(keyword.trim() == ""){
-		alert("검색 키워드를 입력해주세요.");
-		return;
-	}//end if
-	
-	//글자 수 제한
-	
-	//모두 통과했으면 submit
-	$("#frmSearch").submit();
-}
-
-function productDetail(gcode){
-	$("#gcode").val(gcode);
-	$("#frmDetail").submit();
-}
+});//ready
 </script>
+
+
+
 </head>
 <body>
-<%
-	ProductDAO pDAO = ProductDAO.getInstance();
-	BoardRangeVO brVO = new BoardRangeVO();
-	
-	String field = request.getParameter("field");
-	String keyword = request.getParameter("keyword");
-	
-	/* 페이지가 최초 호출 시에는 field나 keyword가 없다. 
-	검색을 하지 않는 경우에도 값이 없다. */
-/* 	brVO.setField(field);
-	brVO.setKeyword(keyword);
-	
-	//1.총 레코드의 수 
-	int totalCount = pDAO.totalCount(brVO); */
-	
-	//2.한 화면에 보여줄 게시물의 수
-	int pageScale = 10;
-	
-	//3.총 페이지 수
-	//int totalPage = totalCount/pageScale;
-	
-	//총 레코드 수 나누기 한 화면에 보여줄 게시물의 수를 했을 때
-	//나머지가 있다면(0이 아니라면) 한 화면에 보여줄 게시물의 수를 초과한 것이므로
-	//총 페이지 수를 하나 늘림
-	//Math 사용 - 올림
-	/* int totalPage = (int)Math.ceil(totalCount/(double)pageScale); */
-	
-	//4.현재 페이지 번호 구하기
-	String tempPage = request.getParameter("currentPage");
-	int currentPage = 1; //최초 페이지는 1번째 페이지가 보임
-	if(tempPage != null){
-		currentPage = Integer.parseInt(tempPage);
-	}//end if
-	
-	//5.시작 번호
-	int startNum = currentPage*pageScale-pageScale+1;
-	pageContext.setAttribute("startNum", startNum);
-	
-	//6.끝 번호
-	int endNum = startNum+pageScale-1;
-	
-	/*  //Dynamic Query에 의해서 구해진 시작번호와 끝번호를 VO에 넣는다.
-	brVO.setStartNum(startNum);
-	brVO.setEndNum(endNum);
-	
-	try{
-		List<ProductVO> productList = pDAO.selectAllProduct(brVO);
-		pageContext.setAttribute("productList", productList);
-		
-	}catch(SQLException se){
-		se.printStackTrace();
-	}// */
-%> 
-
  <%@ include file="sidebar.jsp" %> 
 <div id="right">
 	<div id="rightHeader" align="right">
@@ -237,21 +169,12 @@ function productDetail(gcode){
 		<!-- 페이지네이션 -->
 		<div class="pagenationDiv">
 			<div class="pagination">
- 				<%-- <%
- 					BoardUtil util = BoardUtil.getInstance();
- 					BoardUtilVO buVO = new BoardUtilVO("admin_itemmanaging2.jsp", keyword, field, currentPage, totalPage);
- 					out.println(util.pageNation(buVO));
- 				%> --%>
 			</div>
 		</div>
 		</c:if>
 		
-		<% if(request.getParameter("keyword") != null && !"null".equals(request.getParameter("keyword"))) 
-			out.print("<a href='admin_itemmanaging2.jsp'><input type='button' id='btnList' style='left:1250px' value='목록'/></a>");
-		%>  
 	</div>
 	<!-- <input style="position: absolute; top: 830px; left: 1700px; padding:10px"type="button" id="addProduct" name="addProduct" value="상품 새로 등록하기" class="btn btn-outline-secondary" onclick="location.href='item_add.jsp'"> -->
 </div>	
 </body>
-</html>
 </html>

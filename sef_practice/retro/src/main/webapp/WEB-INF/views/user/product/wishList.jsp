@@ -6,89 +6,173 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<c:import url="http://localhost/retro_prj/common/cdn/cdn.jsp"/>
+<link rel="stylesheet" href="https://kream.co.kr/_nuxt/css/199727e.css" />
+<link rel="stylesheet" href="https://kream.co.kr/_nuxt/css/9caa514.css" />
+<c:import url="http://localhost/retro_prj/common/cdn/cdn.jsp" />
 <style type="text/css">
+#orderByList {
+	display : none;
+}
+
+.btnStyle {
+	border-radius: 10px;
+	border: 1px solid #EEEFF0;
+	font-size: 14px;
+	font-weight: 600;
+	width: 70px;
+	padding: 10px;
+	margin-left: 30px;
+}
+
+.end-0 {
+    right: 0;
+}
 
 </style>
 <script type="text/javascript">
-$(function(){
-   
-});//ready
+	$(function() {
+		 $(document).on('click', function (event) {
+	         var orderBy = $("#orderBy");
+	         var orderByList = $("#orderByList");
+	         // 클릭된 영역이 selectBox 내부에 속하면 아무 동작하지 않음
+	         if (orderBy.is(event.target) || orderBy.has(event.target).length > 0) {
+	             return;
+	         }
+	         // 클릭된 영역이 selectOption 내부에 속하면 아무 동작하지 않음
+	         if (orderByList.is(event.target) || orderByList.has(event.target).length > 0) {
+	             return;
+	         }
+	         
+	         orderByList.hide();
+	     });
+		
+		
+		$("#orderBy").click(function() {
+			$("#orderByList").toggle();
+		});
+		
+	});//ready
 </script>
 
 </head>
-<body>
+<body style="height:auto">
 <c:import url="http://localhost/retro_prj/common/cdn/header.jsp"/>
-<main class="relative flex-grow border-b-2"
+	<main class="relative flex-grow border-b-2"
 		style="min-height: -webkit-fill-available; -webkit-overflow-scrolling: touch">
-		<div class="mx-auto max-w-[1280px] px-4 md:px-8 2xl:px-16 box-content">
-			<section class="mx-auto w-full max-w-[768px]">
-<div id="pageTitle" style="font-family:Pretendard Medium;">관심상품</div><br>
-<div id="container" style="font-family:Pretendard Medium;">
-	<div id="contents">
-		<div class="table-container" >
-				<form id="tableFrm" name="tableFrm" method="get" action="buy.jsp?where=wish&full=n">
-			<table class="table" id="table" style="border: 1px solid #E5E4E4; text-align: center;">
-				<tr style="border: 1px solid #E5E4E4; border-bottom: 1px solid #919191;">
-					<td  style="width:10px; color: #929492; height: 36px">
-						<input type="hidden" style="border: 1px solid #929492 ; width: 15px; height: 15px"/>
-					</td>
-					<td style="width:100px; color: #929492; vertical-align: middle; padding:15px">이미지</td>
-					<td style="width:350px;color: #929492;vertical-align: middle; ">상품정보</td>
-					<td style="width:200px;color: #929492; vertical-align: middle;">판매가</td>
-					<td style="width:100px;color: #929492;vertical-align: middle;">배송비</td>
-					<td style="width:100px ;color: #929492;vertical-align: middle;">합계</td>
-					<td style="width:100px; color: #929492;vertical-align: middle;"> 선택</td>
-				</tr>
-				<c:if test="${ empty wishList }">
-					<tr>
-					<td colspan="7" style="text-align: center; padding:100px">관심상품 내역이 없습니다.</td>
-					</tr>
-				</c:if>
-					<c:forEach var="wish" items="${ wishList }" varStatus="i">
-					  <tr style="border-bottom: 1px solid #E5E4E4;" >
-						<td style=" vertical-align: middle;"><input type="checkbox" class="check" name="check"  value="${ wish.gcode }" 
-							style="border: 1px solid #929492 ; width: 15px; "></td>
-						<!-- 상품사진 --> 
-						<td  style=" vertical-align: middle;"><img src="../upload/goods/${ wish.img }"  style="width: 100px"/></td>
-						<!-- 상품 이름 -->
-						<td style=" vertical-align: middle;"><a href="product_detail.jsp?gcode=${ wish.gcode }"><c:out value="${ wish.gname }"/></a></td>
-						<!-- 상품가격 -->
-						<td style=" vertical-align: middle;"><fmt:formatNumber value="${ wish.price }" pattern="#,###,###"/></td>
-						<!-- 배송비 -->
-						<%-- <td style=" vertical-align: middle;"><fmt:formatNumber value="<%= deliveryPrice %>" pattern="#,###,###"/></td> --%>
-						<!-- 총 금액 -->
-					 	<td style=" vertical-align: middle;"><fmt:formatNumber value="${ wish.price + deliveryPrice }" pattern="#,###,###"/></td>
-					 	<!-- 장바구니 담기 / 삭제하기 버튼 --> 
-						<td>
-							<input type="hidden" style="width:90px; height:50px ;"/><br/>
-					 		<input type="button" value="장바구니담기"  class="addCartBtn" name="addCartBtn"  onclick="addCart('${wish.gcode}')" 
-					 			style="width:90px; height:30px ;background-color: white;border : 1px solid  #E5E4E4;"/><br/>
-					 		<input type="button" value="x삭제" class="deleteBtn" name="deleteBtn" onclick="deleteWish('${wish.gcode}')"
-					 			style="width:90px; height:30px ;background-color: white; border : 1px solid  #E5E4E4;"/>
-					 	</td>
-					 </tr>
-					</c:forEach>
-				</table>
-				<input type="hidden" name="where" value="wish">
-				<input type="hidden" id="full" name="full" value="">
-				</form>
-		</div>
-		<div class="move">
-		
-				<div class="xans-element- xans-order xans-order-totalorder ec-base-button 100per">
-					<a class="btnBlack" id="btnBlack">전체상품주문</a>
-		     		<a class="btnSubmit" id="btnSubmit">선택상품주문</a> 
+		<div class="flex mx-auto max-w-[1280px] px-4 md:px-8 2xl:px-16 box-content">
+			<c:import url="http://localhost/retro_prj/common/cdn/mypage_sidebar.jsp" />
+			<div class="w-full flex-grow">
+				<c:import url="http://localhost/retro_prj/common/cdn/mypage_info.jsp" />
+				<div class="px-0 max-lg:mt-10">
+					<div class="items-center justify-between block mb-4 md:flex lg:mb-7">
+						<div class="flex-shrink-0 mb-1 text-xs leading-4 text-body md:text-sm pe-4 md:me-6 lg:ps-2 lg:block">
+							2 개의 상품</div>
+					</div>
+
+					<!-- 구매내역 리스트 -->
+					<div data-v-ef57988c="" data-v-f6a73334="" class="purchase_list bidding bid">
+						<div data-v-ef57988c="" class="purchase_head">
+							<div data-v-ef57988c="" class="head_status" style="font-size: 13px">
+								<div data-v-ef57988c="" class="status_box field_price" style="padding-right: 5px">
+									<span data-v-ef57988c="" class="status_txt">가격</span>
+								</div>
+							</div>
+						</div>
+						
+						<!-- 상품 정보 -->
+						<div data-v-ef57988c="">
+							<div data-v-6e1f328e="" data-v-ef57988c="">
+								<div data-v-6e1f328e="" class="purchase_list_display_item" style="background-color: rgb(255, 255, 255);">
+									<div data-v-6e1f328e="" class="purchase_list_product">
+										<input type="hidden" value=""/>
+									
+										<!-- 상품 이미지 -->
+										<div data-v-6e1f328e="" class="list_item_img_wrap">
+											<img data-v-6e1f328e="" alt="product_image"
+												src="https://kream-phinf.pstatic.net/MjAyMzExMTVfMzYg/MDAxNzAwMDM3NTE4ODY4.FsqG6bk6HOgtB6isNowU1Dokh5Uk6FXjgzoyBQ2OshUg.9nh_39MLoypIGYBJdKibaEiDgAq_hG_V5NyAyn10DJAg.JPEG/a_8ab9b5882971402eb1d7b30f7f19546b.jpg?type=m"
+												class="list_item_img"
+												style="background-color: rgb(255, 255, 255);">
+										</div>
+										<!---->
+
+										<!-- 상품명 -->
+										<div data-v-6e1f328e="" class="list_item_title_wrap">
+											<p data-v-6e1f328e="" class="list_item_title">
+											 Cosymosy Mini Bird Keyring Marshmallow</p>
+										</div>
+										<!---->
+									</div>
+
+									<div data-v-6e1f328e="" class="list_item_status">
+										<!-- 가격 -->
+										<div data-v-6e1f328e="" class="list_item_column column_secondary">
+											<p data-v-8016a084="" data-v-6e1f328e=""
+												class="secondary_title display_paragraph"
+												style="color: rgb(34, 34, 34);">29,500원</p>
+										</div>
+										<!---->
+
+										<!---->
+
+										<!---->
+									</div>
+								</div>
+								<!-- 상품 정보 -->
+							</div>
+						</div>
+						<!---->
+						
+						<!-- 상품 정보 -->
+						<div data-v-ef57988c="">
+							<div data-v-6e1f328e="" data-v-ef57988c="">
+								<div data-v-6e1f328e="" class="purchase_list_display_item" style="background-color: rgb(255, 255, 255);">
+									<div data-v-6e1f328e="" class="purchase_list_product">
+										<!-- 상품 이미지 -->
+										<div data-v-6e1f328e="" class="list_item_img_wrap">
+											<img data-v-6e1f328e="" alt="product_image"
+												src="https://kream-phinf.pstatic.net/MjAyMzExMTVfMzYg/MDAxNzAwMDM3NTE4ODY4.FsqG6bk6HOgtB6isNowU1Dokh5Uk6FXjgzoyBQ2OshUg.9nh_39MLoypIGYBJdKibaEiDgAq_hG_V5NyAyn10DJAg.JPEG/a_8ab9b5882971402eb1d7b30f7f19546b.jpg?type=m"
+												class="list_item_img"
+												style="background-color: rgb(255, 255, 255);">
+										</div>
+										<!---->
+
+										<!-- 상품명 -->
+										<div data-v-6e1f328e="" class="list_item_title_wrap">
+											<p data-v-6e1f328e="" class="list_item_title">
+											[KREAM Exclusive] Cosymosy Mini Bird Keyring Marshmallow</p>
+										</div>
+										<!---->
+									</div>
+
+									<div data-v-6e1f328e="" class="list_item_status">
+										<!-- 가격 -->
+										<div data-v-6e1f328e="" class="list_item_column column_secondary">
+											<p data-v-8016a084="" data-v-6e1f328e=""
+												class="secondary_title display_paragraph"
+												style="color: rgb(34, 34, 34);">29,500원</p>
+										</div>
+										<!---->
+
+									</div>
+								</div>
+								<!-- 상품 정보 -->
+							</div>
+						</div>
+						<!---->
+						
+						<div data-v-ef57988c="" class="v-portal" style="display: none;"></div>
+					</div>
+					
+					
+					
+					
+					
+					<div class="py-8 text-center xl:pt-14"></div>
 				</div>
-		
-</div>
-</div>
-</div>
-</section>
+			</div>
 		</div>
 		<div class="Toastify"></div>
 	</main>
-<c:import url="http://localhost/retro_prj/common/cdn/footer.jsp"/>
+	<c:import url="http://localhost/retro_prj/common/cdn/footer.jsp"/>
 </body>
 </html>
