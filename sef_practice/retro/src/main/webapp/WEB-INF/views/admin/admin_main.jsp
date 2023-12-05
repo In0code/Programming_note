@@ -47,26 +47,27 @@ body{
 } 
 #background_box{
 overflow: auto;
-background-color:  #FFFFFF;
+background-color:  #EEEEEE;
 color:  #333333;
 height: 150%; width: 80%;
 position: absolute;
 top: 100px; left: 60px;
-outline:  1px;
-box-shadow: rgb(204, 202, 202) 0px 2px 8px 0px;
+outline:  0px;
+/* box-shadow: rgb(204, 202, 202) 0px 2px 8px 0px; */
+/* box-shadow: rgb(204, 202, 202) 0px 2px 8px 0px; */
 border-radius: 9px;
 }
 </style>
 <!-- 태균이가 만든거 끝-->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script> 
 <script type="text/javascript">
 $(function(){
-	
-	$("#btnLogouttt2").click(function(){
+	$("#btnLogout2").click(function(){
 		alert("1234");
-	})
-	$("#btnLogouttt").click(function(){
-		alert("123123");
-	/* 	location.href="admin_logout_process.do"; */
+	});
+	$("#btnLogout").click(function(){
+		
+		location.href="admin_logout_process.do"; 
 	});
 });//ready
 </script>
@@ -79,25 +80,16 @@ $(function(){
 <div id="right">
 
 	<div id="rightHeader" align="right">
-	<input  type="button" id="btnLogouttt2" class="btn btn-outline-dark" value="로그아웃" style="margin-right: 5px">
+	<input  type="button" id="btnLogout2" class="btn btn-outline-dark"  value="로그아웃" style="margin-right: 5px">
 		관리자<span style="font-weight: bold;margin-right: 20px"> <c:out value="${sessionScope.id}"/> 님</span>
-		<input  type="button" id="btnLogouttt" class="btn btn-outline-dark" value="로그아웃" style="margin-right: 20px">
+		<input  type="button" id="btnLogout" class="btn btn-outline-dark" value="로그아웃" style="margin-right: 20px">
 	</div>
 	<div id="rightBody">
 		<div class="text" id="mainTitle">
-			<strong>주문 리스트</strong>
+			<strong>대시보드</strong>
 		</div>
-		<div id="background_box"> <!-- 각자 원하는데로 사용 -->
-<!-- 여기부터가 코딩하는 div 영역 --><!-- 여기부터가 코딩하는 div 영역 --><!-- 여기부터가 코딩하는 div 영역 --><!-- 여기부터가 코딩하는 div 영역 --><!-- 여기부터가 코딩하는 div 영역 -->
-코딩는 여기에!! 코딩는 여기에!! 코딩는 여기에!! 코딩는 여기에!! 코딩는 여기에!! 코딩는 여기에!! 
-코딩는 여기에!! 코딩는 여기에!! 코딩는 여기에!! 코딩는 여기에!! 코딩는 여기에!! 코딩는 여기에!! 코딩는 여기에!! 
-코딩는 여기에!! 코딩는 여기에!! 코딩는 여기에!! 코딩는 여기에!! 코딩는 여기에!! 코딩는 여기에!! 코딩는 여기에!! 코딩는 여기에!! 
-코딩는 여기에!! 코딩는 여기에!! 코딩는 여기에!! 코딩는 여기에!! 코딩는 여기에!! 코딩는 여기에!! 코딩는 여기에!! 
-코딩는 여기에!! 코딩는 여기에!! 코딩는 여기에!! 코딩는 여기에!! 코딩는 여기에!! 코딩는 여기에!! 코딩는 여기에!! 
-코딩는 여기에!! 코딩는 여기에!! 코딩는 여기에!! 코딩는 여기에!! 코딩는 여기에!! 코딩는 여기에!! 코딩는 여기에!! 
-코딩는 여기에!! 코딩는 여기에!! 코딩는 여기에!! 코딩는 여기에!! 코딩는 여기에!! 코딩는 여기에!! 코딩는 여기에!! 코딩는 여기에!! 
-코딩는 여기에!! 코딩는 여기에!! 코딩는 여기에!! 코딩는 여기에!! 코딩는 여기에!! 코딩는 여기에!! 코딩는 여기에!!
-<!-- 여기까지가 코딩하는 div 영역 --><!-- 여기까지가 코딩하는 div 영역 --><!-- 여기까지가 코딩하는 div 영역 --><!-- 여기까지가 코딩하는 div 영역 --><!-- 여기까지가 코딩하는 div 영역 --> 
+		<div id="background_box">
+		<div id="">  
 		</div>
 	</div>	
 </div>

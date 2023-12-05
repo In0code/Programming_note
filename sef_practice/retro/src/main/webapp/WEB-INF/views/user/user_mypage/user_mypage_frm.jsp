@@ -149,8 +149,11 @@ function sortUp(txt) {
 	<div class="py-8 text-center xl:pt-14"></div>
 </div>
 <!-- 판매한 /중인 /완료한 상품 보여주는 곳 끝 -->
+</div>
+</div>
+</main>
 
-	<!-- footer -->
-	<c:import url="http://localhost/retro_prj/common/cdn/footer.jsp" />
+<!-- footer -->
+<c:import url="http://localhost/retro_prj/common/cdn/footer.jsp" />
 </body>
 </html>

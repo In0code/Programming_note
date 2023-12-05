@@ -53,6 +53,11 @@
 		});
 		
 	});//ready
+	
+	function purchaseDetail(val){
+		$("#pccode").val(val);
+		$("#hrdFrm").submit();
+	}
 </script>
 
 </head>
@@ -133,12 +138,16 @@
 							</div>
 						</div>
 						
+						<form id="hrdFrm" action="purchase/detail.do">
+							<input type="hidden" id="pccode" name="pccode"/>
+						</form>
+						
 						<!-- 상품 정보 -->
+						<div id="productDiv" onclick="purchaseDetail('10')">
 						<div data-v-ef57988c="">
 							<div data-v-6e1f328e="" data-v-ef57988c="">
 								<div data-v-6e1f328e="" class="purchase_list_display_item" style="background-color: rgb(255, 255, 255);">
 									<div data-v-6e1f328e="" class="purchase_list_product">
-										<input type="hidden" value=""/>
 									
 										<!-- 상품 이미지 -->
 										<div data-v-6e1f328e="" class="list_item_img_wrap">
@@ -184,6 +193,7 @@
 								</div>
 								<!-- 상품 정보 -->
 							</div>
+						</div>
 						</div>
 						<!---->
 						
@@ -241,10 +251,6 @@
 						
 						<div data-v-ef57988c="" class="v-portal" style="display: none;"></div>
 					</div>
-					
-					
-					
-					
 					
 					<div class="py-8 text-center xl:pt-14"></div>
 				</div>
