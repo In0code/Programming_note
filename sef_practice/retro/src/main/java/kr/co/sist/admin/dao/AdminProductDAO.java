@@ -26,18 +26,18 @@ public class AdminProductDAO {
 		return pDAO;
 	}// getInstance
 
-	/*
-	 * public List<AdminProductDomain> selectAllProduct(BoardRangeVO brVO) throws
-	 * PersistenceException { List<AdminProductDomain> list = null;
-	 * 
-	 * MybatisHandler mbh = MybatisHandler.getInstance(); SqlSession ss =
-	 * mbh.getMyBatisHandler(configPath, false); list =
-	 * ss.selectList("admin.product.selectAllProduct", brVO);
-	 * 
-	 * mbh.closeHandler(ss);
-	 * 
-	 * return list; }// selectAllProduct
-	 */
+	
+	  public List<AdminProductDomain> selectAllProduct(BoardRangeVO brVO) throws
+	  PersistenceException { List<AdminProductDomain> list = null;
+	  
+	  MybatisHandler mbh = MybatisHandler.getInstance(); SqlSession ss =
+	  mbh.getMyBatisHandler(configPath, false); list =
+	  ss.selectList("admin.product.selectAllProduct", brVO);
+	  
+	  mbh.closeHandler(ss);
+	  
+	  return list; }// selectAllProduct
+	 
 	/**
 	 * 상품 하나 상세 조회
 	 * 
@@ -56,26 +56,25 @@ public class AdminProductDAO {
 		return pdd;
 	}// selectOneProduct
 
-	/*	
-		*//**
-			 * 상품 삭제 업데이트
-			 * 
-			 * @param pcode
-			 * @return
-			 * @throws PersistenceException
-			 *//*
-				 * public int updateRemoveProduct(String pcode)throws PersistenceException { int
-				 * updateCnt=0; MybatisHandler mbh= MybatisHandler.getInstance(); SqlSession
-				 * ss=mbh.getMyBatisHandler(configPath, false);
-				 * updateCnt=ss.selectOne("admin.product.udpateProduct",pcode);
-				 * 
-				 * mbh.closeHandler(ss);
-				 * 
-				 * return updateCnt; }//updateRemoveProduct
-				 */
+	/**
+	 * 상품 삭제 업데이트
+	 * 
+	 * @param pcode
+	 * @return
+	 * @throws PersistenceException
+	 */
+		  public int updateRemoveProduct(String pcode)throws PersistenceException { int
+		 updateCnt=0; MybatisHandler mbh= MybatisHandler.getInstance(); SqlSession
+		  ss=mbh.getMyBatisHandler(configPath, false);
+		 updateCnt=ss.selectOne("admin.product.udpateProduct",pcode);
+				 
+		  mbh.closeHandler(ss);
+				  
+		  return updateCnt; }//updateRemoveProduct
+				 
 	public static void main(String[] args) {
 		AdminProductDAO apDAO = AdminProductDAO.getInstance();
 		apDAO.selectOneProduct("P00001");
-	}
+	}//main
 
 }// class

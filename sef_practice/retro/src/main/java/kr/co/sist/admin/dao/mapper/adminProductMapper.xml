@@ -5,7 +5,6 @@
 <mapper namespace="admin.product">
 
 <!-- 모든 상품 조회 -->
-<!-- 
 <select id="selectAllProduct" resultType="admin.domain.ProductDomain" parameterType="admin.vo.BoardRangeVO">
 select NICKNAME ,NAME, PNAME,PRICE,INPUT_DATE
 from(select m.NICKNAME, c2.NAME, p.PNAME, p.PRICE, p.INPUT_DATE
@@ -14,11 +13,16 @@ from  PRODUCT p, MEMBER m,CATEGORY2 c2,CATEGORY3 c3
 where m.id=p.id   and p.C3CODE = c3.C3CODE and c2.C2CODE=c3.C2CODE 
 and c2.NAME = #{ name } and m.NICKNAME =#{ nickname })
 where rnum between 1 and 10 
-	<where>
-	<if test="model != 'all'">
-	model=#{ model }
-	</if>
-	</where>
+<where>
+		<if test="keyword neq null and keyword neq ''">
+			<if test="keyword eq 'c2.name'">
+			name like #{ keyword }
+			</if>
+			<if test="keyword eq 'm.nickname'">
+			nickname like #{ keyword }
+			</if>
+		</if>
+</where>
 )
 <where>
 <if test="model != 'all'">
@@ -26,7 +30,6 @@ rnum between 1 and 10
 </if>
 </where>
 </select>
- -->
 
 <!-- 상품 상세 조회 -->
 <select id="selectDetailProduct" resultType="apdd" parameterType="String">
@@ -36,12 +39,12 @@ where m.id=p.id   and p.C3CODE = c3.C3CODE and c2.C2CODE=c3.C2CODE
 and p.pcode=#{ pcode }
 </select>
 
-<!-- <select id="udpateProduct" parameterType="Integer">
+<update id="udpateProduct" parameterType="Integer">
 update PRODUCT
-set   CANCLE=#{cancle}
-where  PCODE=#{pcode}
-</select>
- -->
+set   PCANCEL=#{ pcancel }
+where  PCODE=#{ pcode }
+</update>
+
 
 
 
