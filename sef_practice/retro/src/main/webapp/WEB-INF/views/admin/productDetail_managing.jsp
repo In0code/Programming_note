@@ -72,6 +72,10 @@ body {
 td {
 	cursor: pointer;
 }
+a{
+color : #333;
+text-decoration: none;
+}
 </style>
 <!-- 태균이가 만든거 끝-->
 <script type="text/javascript">
@@ -101,7 +105,7 @@ td {
 		<div id="rightBody" style="height: 895px">
 			<div class="text" id="mainTitle"
 				style="margin-left: 40px; font-family: Pretendard Medium">
-				<strong><a href="product_managing.do">&lt; 상품 리스트</a></strong>
+				<strong><a href="product_managing.do" style="color : #333;text-decoration: none;">&lt; 상품 리스트</a></strong>
 			</div>
 			<form action="" id="frm" name="frm" method="post" style="left: 30px">
 				<input type="hidden" id="gcode" name="gcode" value="">

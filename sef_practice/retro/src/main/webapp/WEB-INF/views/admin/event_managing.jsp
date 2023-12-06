@@ -38,13 +38,13 @@ body{
 	position: relative;
 }
 
-/* 인영 - 주문관리 style  시작*/
 #mainTitle{
 	font-size:25px;
 	color: #333;
 	position: absolute;
 	left : 60px;
 } 
+
 /* #background_box{
 overflow: auto;
 background-color:  #FFFFFF;
@@ -87,7 +87,9 @@ $(function() {
 			<strong>이벤트 리스트</strong>
 		</div>
 		
+		<!-- 검색 -->
 		<div class="searchDiv">
+		<div class="allBox">
 		<form id="frmSearch">
 			<select class="searchList" id="field" name="field">
 				<option value="1"${ param.field eq "1" ? " selected='selected'" : "" }>아이디</option>
@@ -105,7 +107,10 @@ $(function() {
 			</button>
 		</form>
 		</div>
+		</div>
+		<!---->
 		
+		<!-- 테이블 -->
 		<div id="background_box">
 		<div style="margin: 10px; text-align: center;">
 			<!-- 리스트 시작 -->
@@ -113,12 +118,10 @@ $(function() {
 				<thead>
 				<tr id="top_title">
 					<!-- 컬럼 사이즈 -->
-					<th style="width:100px">No</th>
-					<th style="width:200px">카테고리명</th>
-					<th style="width:300px">상품명</th>
-					<th style="width:200px">작성자</th>
-					<th style="width:200px">작성일</th>
-					<th style="width:180px">평점</th>
+					<th style="width:100px; border-bottom: 1px solid #E5E5E5;">No</th>
+					<th style="width:200px; border-bottom: 1px solid #E5E5E5;">제목</th>
+					<th style="width:200px; border-bottom: 1px solid #E5E5E5;">작성자</th>
+					<th style="width:200px; border-bottom: 1px solid #E5E5E5;">작성일</th>
 				</tr>
 				</thead>
 				
@@ -148,16 +151,9 @@ $(function() {
 				</tbody>
 			</table>
 			</div>
-
-		
-		
-		
-		
-		
-		
-		
-		
 		</div>
+		<!---->
+		
 	</div>	
 </div>
 </body>
