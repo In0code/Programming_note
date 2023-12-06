@@ -32,7 +32,7 @@ body{
 }
 #rightBody{
 	width: 100%; min-height: 500px;float: right;
-	padding: 40px;
+	padding: 20px;
 	padding-left: 56px;
 	background: #EEEEEE;
 	position: relative;
@@ -45,7 +45,7 @@ body{
 	position: absolute;
 	left : 60px;
 } 
-#background_box{
+/* #background_box{
 overflow: auto;
 background-color:  #FFFFFF;
 color:  #333333;
@@ -55,7 +55,7 @@ top: 100px; left: 60px;
 outline:  1px;
 box-shadow: rgb(204, 202, 202) 0px 2px 8px 0px;
 border-radius: 9px;
-}
+} */
 </style>
 <!-- 태균이가 만든거 끝-->
 
@@ -75,8 +75,16 @@ $(function() {
 		<input id="btnLogout" type="button" class="btn btn-outline-dark" value="로그아웃" style="margin-right: 20px">
 	</div>
 	<div id="rightBody">
+		<div class="pageLocation">
+		홈 
+		<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+ 		<path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+		</svg>
+		회원 관리
+		</div>
+		
 		<div class="text" id="mainTitle">
-			<strong>주문 리스트</strong>
+			<strong>회원 리스트</strong>
 		</div>
 		<div id="background_box"> <!-- 각자 원하는데로 사용 -->
 <!-- 여기부터가 코딩하는 div 영역 --><!-- 여기부터가 코딩하는 div 영역 --><!-- 여기부터가 코딩하는 div 영역 --><!-- 여기부터가 코딩하는 div 영역 --><!-- 여기부터가 코딩하는 div 영역 -->
