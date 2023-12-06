@@ -21,7 +21,9 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<context:annotation-config/> <!-- .*도 안되면 이걸 넣으면 됨 -->
 	<context:component-scan base-package="kr.co.sist" />
+	<context:component-scan base-package="kr.co.sist.*" /> <!-- 혹시나 못찾으면 .* -->
 	<interceptors>
 		<interceptor>
 			<mapping path="/day1129/**"/>
