@@ -79,7 +79,7 @@ body {
   transition: all 200ms ease-in;
 }
 .sidebar #leftside-navigation ul li a:hover {
-  color: #ED6516;/*호버글자 색 EE8B80*/
+  color: #D793A6;/*호버글자 색 EE8B80*/
 }
 .sidebar #leftside-navigation ul li a span {
   display: inline-block;

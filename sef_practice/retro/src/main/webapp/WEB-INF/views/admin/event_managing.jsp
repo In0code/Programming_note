@@ -130,7 +130,43 @@ $(function() {
 					<c:if test="${ empty reviewList }">
 					<tr>
 						<td colspan="6" style="text-align: center;"> 
-							리뷰가 존재하지 않습니다. </td>
+							이벤트가 존재하지 않습니다. </td>
+					</tr>
+					<tr>
+						<td colspan="6" style="text-align: center;"> 
+							이벤트가 존재하지 않습니다. </td>
+					</tr>
+					<tr>
+						<td colspan="6" style="text-align: center;"> 
+							이벤트가 존재하지 않습니다. </td>
+					</tr>
+					<tr>
+						<td colspan="6" style="text-align: center;"> 
+							이벤트가 존재하지 않습니다. </td>
+					</tr>
+					<tr>
+						<td colspan="6" style="text-align: center;"> 
+							이벤트가 존재하지 않습니다. </td>
+					</tr>
+					<tr>
+						<td colspan="6" style="text-align: center;"> 
+							이벤트가 존재하지 않습니다. </td>
+					</tr>
+					<tr>
+						<td colspan="6" style="text-align: center;"> 
+							이벤트가 존재하지 않습니다. </td>
+					</tr>
+					<tr>
+						<td colspan="6" style="text-align: center;"> 
+							이벤트가 존재하지 않습니다. </td>
+					</tr>
+					<tr>
+						<td colspan="6" style="text-align: center;"> 
+							이벤트가 존재하지 않습니다. </td>
+					</tr>
+					<tr>
+						<td colspan="6" style="text-align: center;"> 
+							이벤트가 존재하지 않습니다. </td>
 					</tr>
 					</c:if>
 				
@@ -153,6 +189,8 @@ $(function() {
 			</div>
 		</div>
 		<!---->
+		
+		
 		
 	</div>	
 </div>

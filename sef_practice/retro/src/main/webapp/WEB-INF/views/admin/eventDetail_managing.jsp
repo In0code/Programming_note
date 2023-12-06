@@ -80,17 +80,11 @@ $(function() {
 		<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
  		<path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
 		</svg>
-		<!-- 작업하는 jsp에 따라 바꿔줄 것 -->
-		
-		회원 관리
-		
-		<!---->
-		<!---->
-		<!---->
+		이벤트 관리
 		</div>
 		
 		<div class="text" id="mainTitle">
-			<strong>회원 리스트</strong>
+			<strong>이벤트 리스트</strong>
 		</div>
 		
 		<!-- 검색 -->
@@ -133,12 +127,27 @@ $(function() {
 				
 				<tbody>
 					<!-- list가 존재하지 않을 경우 -->
-					<c:if test="${ memberList eq null }">
+					<c:if test="${ empty reviewList }">
 					<tr>
-						<td colspan="4" style="text-align: center;"> 
-							게시글이 존재하지 않습니다. </td>
+
+							
 					</tr>
 					</c:if>
+				
+					<c:forEach var="review" items="${ reviewList }" varStatus="i">
+					<tr onclick="boardDetail(${ review.rcode })">
+						<td>${ startNum + i.index }</td>
+						<td>${ review.cat_name }</td>
+						<td>${ review.gname }</td>
+						<td>${ review.id }</td>
+						<td>${ review.rev_date }</td>
+						<td style="color:#FF923A">
+						<c:forEach var="star" begin="1" end="${ review.star }">
+							<img src="../common/images/star.png" style="width:16px"/>
+						</c:forEach>
+						</td>
+					</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 			</div>
