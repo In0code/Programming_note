@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import kr.co.sist.admin.domain.AdminProductDetailDomain;
 import kr.co.sist.admin.domain.AdminProductDomain;
+import kr.co.sist.admin.vo.AdminProductVO;
 import kr.co.sist.common.BoardRangeVO;
 import kr.co.sist.common.dao.MybatisHandler;
 
@@ -30,9 +31,9 @@ public class AdminProductDAO {
 	  public List<AdminProductDomain> selectAllProduct(BoardRangeVO brVO) throws
 	  PersistenceException { List<AdminProductDomain> list = null;
 	  
-	  MybatisHandler mbh = MybatisHandler.getInstance(); SqlSession ss =
-	  mbh.getMyBatisHandler(configPath, false); list =
-	  ss.selectList("admin.product.selectAllProduct", brVO);
+	  MybatisHandler mbh = MybatisHandler.getInstance(); 
+	  SqlSession ss =mbh.getMyBatisHandler(configPath, false); 
+	  list =ss.selectList("admin.product.selectAllProduct", brVO);
 	  
 	  mbh.closeHandler(ss);
 	  
@@ -63,18 +64,23 @@ public class AdminProductDAO {
 	 * @return
 	 * @throws PersistenceException
 	 */
-		  public int updateRemoveProduct(String pcode)throws PersistenceException { int
-		 updateCnt=0; MybatisHandler mbh= MybatisHandler.getInstance(); SqlSession
-		  ss=mbh.getMyBatisHandler(configPath, false);
-		 updateCnt=ss.selectOne("admin.product.udpateProduct",pcode);
+	public int updateRemoveProduct(AdminProductVO apVO)throws PersistenceException { int
+		 updateCnt=0; 
+		 MybatisHandler mbh= MybatisHandler.getInstance(); 
+		 SqlSession ss=mbh.getMyBatisHandler(configPath, false);
+		 updateCnt=ss.selectOne("admin.product.udpateProduct",apVO);
 				 
 		  mbh.closeHandler(ss);
 				  
-		  return updateCnt; }//updateRemoveProduct
+		  return updateCnt; 
+	 }//updateRemoveProduct
 				 
 	public static void main(String[] args) {
 		AdminProductDAO apDAO = AdminProductDAO.getInstance();
-		apDAO.selectOneProduct("P00001");
+		AdminProductVO apVO=new AdminProductVO();
+		apVO.setPcode("P00001");
+		apVO.setPcancel("C");
+		apDAO.updateRemoveProduct(apVO);
 	}//main
 
 }// class
