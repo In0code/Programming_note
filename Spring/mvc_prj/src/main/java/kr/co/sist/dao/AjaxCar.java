@@ -10,7 +10,6 @@ import kr.co.sist.domain.CarDomain;
 
 @Component
 public class AjaxCar {
-
 	
 	public List<String> selectMaker(String country)throws PersistenceException{
 		List<String> list=null;
