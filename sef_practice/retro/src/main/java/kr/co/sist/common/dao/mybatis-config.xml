@@ -10,6 +10,7 @@
 		<typeAlias type="kr.co.sist.user.vo.FakeVO" alias="fVO"/>
 		<typeAlias type="kr.co.sist.login.vo.LoginVO" alias="lVO"/>
 		<typeAlias type="kr.co.sist.login.domain.LoginDomain" alias="ld"/>
+		<typeAlias type="kr.co.sist.admin.domain.AdminProductDetailDomain" alias="apdd"/>
 	</typeAliases>
 	
 	
@@ -30,5 +31,6 @@
     <mapper resource="kr/co/sist/user/dao/mapper/mypage/mypageInfoDetailMapper.xml"/>
     <mapper resource="kr/co/sist/login/dao/mapper/loginMapper.xml"/>
     <mapper resource="kr/co/sist/user/dao/mapper/fakeMapper.xml"/>
+    <mapper resource="kr/co/sist/admin/dao/mapper/adminProductMapper.xml"/>
   </mappers> 
 </configuration>

@@ -16,7 +16,7 @@ public class AdminProductService {
 		
 		AdminProductDAO pDAO=AdminProductDAO.getInstance();
 		try {
-			list=pDAO.selectAllProduct(brVO);
+//			list=pDAO.selectAllProduct(brVO);
 		}catch(PersistenceException pe){
 			pe.printStackTrace();
 		}//end catch
