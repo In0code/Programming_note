@@ -11,6 +11,9 @@
 		<typeAlias type="kr.co.sist.login.vo.LoginVO" alias="lVO"/>
 		<typeAlias type="kr.co.sist.login.domain.LoginDomain" alias="ld"/>
 		<typeAlias type="kr.co.sist.admin.domain.AdminProductDetailDomain" alias="apdd"/>
+		<typeAlias type="kr.co.sist.admin.domain.AdminProductDomain" alias="apd"/>
+		<typeAlias type="kr.co.sist.common.BoardRangeVO" alias="brVO"/>
+		<typeAlias type="kr.co.sist.admin.vo.AdminProductVO" alias="apVO"/>
 	</typeAliases>
 	
 	

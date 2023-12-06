@@ -27,18 +27,36 @@ public class AdminProductDAO {
 		return pDAO;
 	}// getInstance
 
+	/**
+	 * 총 레코드 수
+	 * @param brVO
+	 * @return
+	 * @throws PersistenceException
+	 */
+	public int productTotalCnt(BoardRangeVO brVO)throws PersistenceException  {
+		int cnt=0;
+		
+		MybatisHandler mbh=MybatisHandler.getInstance();
+		SqlSession ss=mbh.getMyBatisHandler(configPath,false);
+		cnt=ss.selectOne("admin.product.productTotalCnt",brVO);
+		mbh.closeHandler(ss);
+		
+		return cnt;
+	}//productTotalCnt
 	
-	  public List<AdminProductDomain> selectAllProduct(BoardRangeVO brVO) throws
-	  PersistenceException { List<AdminProductDomain> list = null;
-	  
-	  MybatisHandler mbh = MybatisHandler.getInstance(); 
-	  SqlSession ss =mbh.getMyBatisHandler(configPath, false); 
-	  list =ss.selectList("admin.product.selectAllProduct", brVO);
-	  
-	  mbh.closeHandler(ss);
-	  
-	  return list; }// selectAllProduct
-	 
+	
+	public List<AdminProductDomain> selectAllProduct(BoardRangeVO brVO) throws PersistenceException {
+		List<AdminProductDomain> list = null;
+
+		MybatisHandler mbh = MybatisHandler.getInstance();
+		SqlSession ss = mbh.getMyBatisHandler(configPath, false);
+		list = ss.selectList("admin.product.selectAllProduct", brVO);
+
+		mbh.closeHandler(ss);
+
+		return list;
+	}// selectAllProduct
+
 	/**
 	 * 상품 하나 상세 조회
 	 * 
@@ -64,23 +82,17 @@ public class AdminProductDAO {
 	 * @return
 	 * @throws PersistenceException
 	 */
-	public int updateRemoveProduct(AdminProductVO apVO)throws PersistenceException { int
-		 updateCnt=0; 
-		 MybatisHandler mbh= MybatisHandler.getInstance(); 
-		 SqlSession ss=mbh.getMyBatisHandler(configPath, false);
-		 updateCnt=ss.selectOne("admin.product.udpateProduct",apVO);
-				 
-		  mbh.closeHandler(ss);
-				  
-		  return updateCnt; 
-	 }//updateRemoveProduct
-				 
-	public static void main(String[] args) {
-		AdminProductDAO apDAO = AdminProductDAO.getInstance();
-		AdminProductVO apVO=new AdminProductVO();
-		apVO.setPcode("P00001");
-		apVO.setPcancel("C");
-		apDAO.updateRemoveProduct(apVO);
-	}//main
+
+	public int updateRemoveProduct(AdminProductVO apVO) throws PersistenceException {
+		int updateCnt = 0;
+		MybatisHandler mbh = MybatisHandler.getInstance();
+		SqlSession ss = mbh.getMyBatisHandler(configPath, false);
+		updateCnt = ss.update("admin.product.updateProduct", apVO);
+
+		mbh.closeHandler(ss);
+
+		return updateCnt;
+	}// updateRemoveProduct
+
 
 }// class

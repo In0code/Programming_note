@@ -4,8 +4,25 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="admin.product">
 
+<select id="productTotalCnt" resultType="int" parameterType="brVO">
+select count(*) cnt
+from  PRODUCT p, MEMBER m,CATEGORY2 c2,CATEGORY3 c3
+where m.id=p.id   and p.C3CODE = c3.C3CODE and c2.C2CODE=c3.C2CODE
+<where>
+	<if test="keyword neq null and keyword neq ''">
+		<if test="keyword eq 'c2.name'">
+		and name like #{ keyword }
+		</if>
+		<if test="keyword eq 'm.NICKNAME'">
+		and nickname like #{ keyword }
+		</if>
+	</if>
+</where>
+</select>
+
+
 <!-- 모든 상품 조회 -->
-<select id="selectAllProduct" resultType="admin.domain.AdminProductDomain" parameterType="admin.vo.BoardRangeVO">
+<select id="selectAllProduct" resultType="apd" parameterType="brVO">
 select NICKNAME ,NAME, PNAME,PRICE,INPUT_DATE
 from(select m.NICKNAME, c2.NAME, p.PNAME, p.PRICE, p.INPUT_DATE
 			,row_number() over(order by p.INPUT_DATE desc) rnum
@@ -15,12 +32,12 @@ where m.id=p.id   and p.C3CODE = c3.C3CODE and c2.C2CODE=c3.C2CODE
 			<if test="keyword eq 'c2.name'">
 			and name like #{ keyword }
 			</if>
-			<if test="keyword eq 'm.nickname'">
+			<if test="keyword eq 'm.NICKNAME'">
 			and nickname like #{ keyword }
 			</if>
 		</if>
 )
- and rnum between 1 and 10
+ where rnum between 1 and 10
 </select>
 
 <!-- 상품 상세 조회 -->
@@ -31,10 +48,11 @@ where m.id=p.id   and p.C3CODE = c3.C3CODE and c2.C2CODE=c3.C2CODE
 and p.pcode=#{ pcode }
 </select>
 
-<update id="udpateProduct"  parameterType="admin.vo.AdminProductVO">
+<!-- 관리자가 상품 삭제시 pcancel을 C로 변경 -->
+<update id="updateProduct"  parameterType="apVO">
 update PRODUCT
-set   PCANCEL=#{ pcancel }
-where  PCODE=#{ pcode }
+set   PCANCEL=#{pcancel}
+where  PCODE=#{pcode}
 </update>
 
 
