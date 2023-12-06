@@ -73,9 +73,6 @@
 					<div data-v-ef57988c="" data-v-f6a73334="" class="purchase_list bidding bid">
 						<div data-v-ef57988c="" class="purchase_head">
 							<div data-v-ef57988c="" class="head_status" style="font-size: 13px">
-								<div data-v-ef57988c="" class="status_box field_price" style="padding-right: 5px">
-									<span data-v-ef57988c="" class="status_txt">가격</span>
-								</div>
 							</div>
 						</div>
 						
@@ -108,13 +105,12 @@
 										<div data-v-6e1f328e="" class="list_item_column column_secondary">
 											<p data-v-8016a084="" data-v-6e1f328e=""
 												class="secondary_title display_paragraph"
-												style="color: rgb(34, 34, 34);">29,500원</p>
+												style="color: rgb(34, 34, 34); margin-right:80px;">29,500원</p>
 										</div>
-										<!---->
-
-										<!---->
-
-										<!---->
+									</div>
+									<div>
+										<input type="button" value="x삭제" class="deleteBtn" name="deleteBtn" onclick="deleteWish('${wish.gcode}')"
+					 			style="width:90px; height:30px ;background-color: white; border : 1px solid  #E5E4E4;"/>
 									</div>
 								</div>
 								<!-- 상품 정보 -->
@@ -149,10 +145,14 @@
 										<div data-v-6e1f328e="" class="list_item_column column_secondary">
 											<p data-v-8016a084="" data-v-6e1f328e=""
 												class="secondary_title display_paragraph"
-												style="color: rgb(34, 34, 34);">29,500원</p>
+												style="color: rgb(34, 34, 34); margin-right:80px;">29,500원</p>
 										</div>
 										<!---->
 
+									</div>
+									<div>
+										<input type="button" value="x삭제" class="deleteBtn" name="deleteBtn" onclick="deleteWish('${wish.gcode}')"
+					 			style="width:90px; height:30px ;background-color: white; border : 1px solid  #E5E4E4;"/>
 									</div>
 								</div>
 								<!-- 상품 정보 -->

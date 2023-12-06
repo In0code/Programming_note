@@ -101,14 +101,14 @@ td {
 		<div id="rightBody" style="height: 895px">
 			<div class="text" id="mainTitle"
 				style="margin-left: 40px; font-family: Pretendard Medium">
-				<strong>상품 상세 정보</strong>
+				<strong><a href="product_managing.do">&lt; 상품 리스트</a></strong>
 			</div>
 			<form action="" id="frm" name="frm" method="post" style="left: 30px">
 				<input type="hidden" id="gcode" name="gcode" value="">
 				<div id="background_box"
-					style="width: 1300px; height: 750px; font-family: pretendard; position: relative; top: 55px">
+					style="width: 1200px; height: 700px; font-family: pretendard; position: relative; top: 55px">
 					<!-- 각자 원하는데로 사용 -->
-
+					<label style="position: absolute; top: 10px; left: 30px; font-size: 20px; color:#929492">상품 상세 정보</label>
 					<div
 						style="position: absolute; top: 60px; left: 50px; width: 350px; height: 350px">
 						<img id="previewMainImg" src="../upload/goods/img_null.png"
@@ -158,7 +158,7 @@ td {
 
 
 					<input type="button" class="btn" id="btnChange" value="상품 삭제"
-						style="position: absolute; top: 650px; left: 1100px; font-size: 20px;" />
+						style="position: absolute; top: 620px; left: 1030px; font-size: 20px;" />
 				</div>
 			</form>
 		</div>
