@@ -11,7 +11,7 @@ public class MysqlDAOImpl implements DAO {
 	}
 	
 	@Override
-	public void insert(String name) throws SQLException {
+	public void insertName(String name) throws SQLException {
 		System.out.println(name+" 추가");
 	}//insert
 

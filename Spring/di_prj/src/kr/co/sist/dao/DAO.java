@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface DAO {
 	
-	public void insert(String name)throws SQLException;
+	public void insertName(String name)throws SQLException;
 	public List<String> selectAllNames() throws SQLException;
 		
 	

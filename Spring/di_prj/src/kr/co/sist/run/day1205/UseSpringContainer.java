@@ -2,6 +2,7 @@ package kr.co.sist.run.day1205;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import kr.co.sist.dao.DAO;
 import kr.co.sist.dao.MysqlDAOImpl;
@@ -13,8 +14,13 @@ public class UseSpringContainer {
 
 	public static void main(String[] args) {
 		// 1. 설정 파일을 넣어 Spring Container 생성
-		ApplicationContext ac=new ClassPathXmlApplicationContext
-				("kr/co/sist/run/day1205/applicationContext.xml");
+//		ApplicationContext ac=new ClassPathXmlApplicationContext
+//				("kr/co/sist/run/day1205/applicationContext.xml");
+		
+		//FileSystemXmlApplicationContext는 설정파일을 절대 경로로 입력한다.
+		ApplicationContext ac=
+				new FileSystemXmlApplicationContext
+				("E:/dev/workspace-spring/di_prj/src/kr/co/sist/run/day1205/applicationContext.xml");
 		
 		//2. 의존성 주입 받은 객체를 얻는다.
 		Service service = ac.getBean(ServiceImpl.class);
@@ -31,6 +37,8 @@ public class UseSpringContainer {
 		DAO mdao=ac.getBean("md",MysqlDAOImpl.class);
 		DAO mdao2=ac.getBean("md2",MysqlDAOImpl.class);
 		DAO mdao3=ac.getBean("md",MysqlDAOImpl.class);
+		
+		((FileSystemXmlApplicationContext)ac).close();
 	}//main
 
 }//class

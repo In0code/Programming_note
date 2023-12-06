@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context-4.2.xsd">
+   <!-- 1. 의존성 주입할 객체 생성 -->
+   <bean id="od" class="kr.co.sist.dao.OracleDAOImpl" scope="singleton"/>
+   <bean id="md" class="kr.co.sist.dao.MysqlDAOImpl" scope="prototype"/>
+   <!-- 2. 의존성 주입할 객체 생성 -->
+   <bean id="si" class="kr.co.sist.service.ServiceImpl">
+   <constructor-arg ref="od"/>
+   </bean>
+
+   <!-- 2. method(property) 의존성 주입 받을 객체 생성 -->
+   <bean id="si2" class="kr.co.sist.service.ServiceImpl2">
+      <property name="dao" ref="md"/>
+   </bean>
+
+	<!-- 문자열 injection -->
+	<bean id="si3" class="kr.co.sist.service.ServiceImpl3">
+		<!-- <constructor-arg value="2023"/> type을 설정하지 않으면 숫자형일지라도 문자열로 추가된다.-->
+		<constructor-arg value="홍지성" type="java.lang.String"/>
+	</bean>
+	<!-- 정수 injection -->
+	<bean id="si4" class="kr.co.sist.service.ServiceImpl3">
+		<!-- <constructor-arg value="2023"/> type을 설정하지 않으면 숫자형일지라도 문자열로 추가된다.-->
+		<constructor-arg value="2023" type="int"/>
+	</bean>
+	<!-- java.util.List injection -->
+	<bean id="si5" class="kr.co.sist.service.ServiceImpl3">
+		<constructor-arg>
+			<list>
+			<value type="java.lang.String">임태균</value>
+			<value type="java.lang.String">억까 홍지성</value>
+			<value type="java.lang.String">귤 김다영</value>
+			<value type="java.lang.String">사귐 김주민</value>
+			</list>
+		</constructor-arg>
+	</bean>
+	
+	<!-- java.util.List injection -->
+	<bean id="si5_1" class="kr.co.sist.service.ServiceImpl3">
+		<constructor-arg>
+			<set>
+			<value type="java.lang.String">임태균</value>
+			<value type="java.lang.String">홍지성</value>
+			<value type="java.lang.String">홍지성</value>
+			<value type="java.lang.String">사귐 김주민</value>
+			</set>
+		</constructor-arg>
+	</bean>
+	
+	<!-- java.util.Map injection -->
+   	<bean id="si6" class="kr.co.sist.service.ServiceImpl3">
+   	<constructor-arg>
+   		<map>
+   			<entry>
+   			<key><value type="java.lang.String">억까</value></key>
+   			<value type="java.lang.String">홍지성, 송지하</value>
+   			</entry>
+   			<entry>
+   			<key><value type="java.lang.String">귤</value></key>
+   			<value type="java.lang.String">김다영</value>
+   			</entry>
+   			<entry>
+   			<key><value type="java.lang.String">뜨개질</value></key>
+   			<value type="java.lang.String">강다연</value>
+   			</entry>
+   			<entry>
+   			<key><value>유튜브</value></key>
+   			<value>임태균</value>
+   			</entry>
+   		</map>
+   	</constructor-arg>
+   	</bean>
+   	
+   	<!-- singleton pattern으로 구현된 class : private 생성자도 호출 가능-->
+   	<!-- <bean id="si7" class="kr.co.sist.service.ServiceImpl4"/> -->
+   	<bean id="si7" class="kr.co.sist.service.ServiceImpl4"
+   		factory-method="getInstance"/>
+   	<!-- </bean> -->
+   	
+</beans>

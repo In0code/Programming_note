@@ -20,7 +20,7 @@ public class ServiceImpl implements Service {
 	@Override
 	public void addName(String name) {
 		try {
-			dao.insert(name);
+			dao.insertName(name);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}//end catch

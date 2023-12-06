@@ -9,7 +9,7 @@
 	
 	<!-- 2. 의존성 주입 받을 객체 생성 -->
 	<bean id="si" class="kr.co.sist.service.ServiceImpl">
-		<constructor-arg ref="md2"/>
+		<constructor-arg ref="md"/>
 	</bean>
 
 </beans>
