@@ -6,14 +6,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<c:import url="http://localhost/retro_prj/common/cdn/cdn.jsp"/>
 <title>Insert title here</title>
-<link rel="icon"
-	href="http://192.168.0.70/jsp_prj/common/main/favicon-32x32.png">
+<link rel="icon" href="http://192.168.0.70/jsp_prj/common/main/favicon-32x32.png">
 <!-- jQuery CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <!-- 결제 css -->
-<link rel="stylesheet" href="https://fruitsfamily.com/static/css/main.8c8a1dc3.chunk.css" >
+<link rel="preload" href="https://web.joongna.com/_next/static/css/82d216d82f2f74d1.css" as="style"/>
+<link rel="stylesheet" href="https://web.joongna.com/_next/static/css/82d216d82f2f74d1.css" data-n-g=""/>
+<link href="https://fruitsfamily.com/static/css/main.8c8a1dc3.chunk.css" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css" />
 <style type="text/css">
 .Checkout-container {
     padding-left: 650px;
@@ -31,8 +32,8 @@
 </script>
 
 </head>
-<c:import url="http://localhost/retro_prj/common/cdn/header.jsp"/>
 <body>
+<jsp:include page="/common/cdn/header.jsp"/>
 	<div class="Checkout-container">
 		<h1 class="page-title">주문 / 결제</h1>
 		<h4 class="Checkout-title">상품 정보</h4>
@@ -100,6 +101,6 @@
 			</div>
 		</div>
 	</div>
-<c:import url="http://localhost/retro_prj/common/cdn/footer.jsp"/>
 </body>
+<jsp:include page="/common/cdn/footer.jsp"/>
 </html>

@@ -26,6 +26,7 @@
 	<form id="frmMypage" action="user_mypage_frm.do" method="post">
 		<p id="user_mypage_frm" style="cursor: pointer;">마이페이지 메인 화면</p>
 	</form>
+	<p><a href="user_join.do">회원 가입</a></p>
 </div>
 </body>
 </html>

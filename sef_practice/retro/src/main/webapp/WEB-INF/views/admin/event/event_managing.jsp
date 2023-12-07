@@ -187,11 +187,6 @@ function detail(rcode){
 						<td>${ review.gname }</td>
 						<td>${ review.id }</td>
 						<td>${ review.rev_date }</td>
-						<td style="color:#FF923A">
-						<c:forEach var="star" begin="1" end="${ review.star }">
-							<img src="../common/images/star.png" style="width:16px"/>
-						</c:forEach>
-						</td>
 					</tr>
 					</c:forEach>
 				</tbody>
@@ -203,8 +198,8 @@ function detail(rcode){
 		<div class="pagenationDiv">
     	<div class="pagination">
       		<a href="#"><</a>
-        	<a href="#">1</a>
-        	<span class="active">2</span>
+        	<span class="active">1</span>
+        	<a href="#">2</a>
         	<a href="#">3</a>
         	<a href="#">></a>
     	</div>

@@ -6,21 +6,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<c:import url="http://localhost/retro_prj/common/cdn/cdn.jsp" />
 <title>Insert title here</title>
-<link rel="icon"
-	href="http://192.168.0.70/jsp_prj/common/main/favicon-32x32.png">
+<link rel="icon" href="http://192.168.0.70/jsp_prj/common/main/favicon-32x32.png">
 <!-- jQuery CDN -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <!-- 판매자 후기 css -->
-<link rel="stylesheet"
-	href="https://web.joongna.com/_next/static/css/18a2ca6fa781bc2f.css"
-	data-n-g="" />
-<link rel="stylesheet"
-	href="https://web.joongna.com/_next/static/css/a4ef56fda630c4e5.css"
-	data-n-p="" />
-
+<link rel="preload" href="https://web.joongna.com/_next/static/css/d08446f8760abfc6.css" as="style"/>
+<link rel="stylesheet" href="https://web.joongna.com/_next/static/css/d08446f8760abfc6.css" data-n-g=""/>
+<link rel="preload" href="https://web.joongna.com/_next/static/css/a4ef56fda630c4e5.css" as="style"/>
+<link rel="stylesheet" href="https://web.joongna.com/_next/static/css/a4ef56fda630c4e5.css" data-n-p=""/>
+<link rel="preload" href="https://web.joongna.com/_next/static/css/e3048584c00a0406.css" as="style"/>
+<link rel="stylesheet" href="https://web.joongna.com/_next/static/css/e3048584c00a0406.css"/>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css" />
 <style type="text/css">
 .css-afxwf6 {
 	padding: 32px 20px 24px;
@@ -202,6 +199,7 @@ img.css-sxxyvs {
 
 </head>
 <body>
+<jsp:include page="/common/cdn/header.jsp"/>
 	<div class="mx-auto max-w-[1280px] px-4 md:px-8 2xl:px-16 box-content">
 		<div class="w-full flex-grow">
 			<div class="block pb-4 lg:mt-6">
@@ -408,7 +406,6 @@ img.css-sxxyvs {
 
 		</div>
 	</div>
-	<c:import url="http://localhost/retro_prj/common/cdn/footer.jsp" />
-
 </body>
+<jsp:include page="/common/cdn/footer.jsp"/>
 </html>

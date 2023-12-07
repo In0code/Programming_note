@@ -163,7 +163,7 @@ $(function() {
 <!-- <span style="font-size: 16px;font-weight: bold;">&ensp;이미지</span> --><!-- </a> -->
       </li>
       
-      <li class="sub-menu" id="0">
+      <li class="sub-menu1" id="0">
         <a href="dashboard.jsp?no=0">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grid-fill" viewBox="0 0 16 16">
   <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm-8 8A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm8 0A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3z"/>
@@ -174,7 +174,7 @@ $(function() {
           </li>
           </ul>
      </li>
-      <li class="sub-menu" id="1">
+      <li class="sub-menu1" id="1">
         <a href="member_list.jsp?no=1">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
   <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/>
@@ -182,7 +182,7 @@ $(function() {
 <span>&ensp;회원 관리</span></a>
      </li>
      
-      <li class="sub-menu" id="2"> 
+      <li class="sub-menu1" id="2"> 
         <a href="admin_itemmanaging2.jsp?no=2">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box2-heart-fill" viewBox="0 0 16 16">
   <path d="M3.75 0a1 1 0 0 0-.8.4L.1 4.2a.5.5 0 0 0-.1.3V15a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V4.5a.5.5 0 0 0-.1-.3L13.05.4a1 1 0 0 0-.8-.4h-8.5ZM8.5 4h6l.5.667V5H1v-.333L1.5 4h6V1h1zM8 7.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132"/>
@@ -190,7 +190,7 @@ $(function() {
         <span>&ensp;상품 관리</span></a>
         
       </li>
-      <li class="sub-menu" id="3">
+      <li class="sub-menu1" id="3">
         <a href="orderManagement_order.jsp?no=3" >
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-dots" viewBox="0 0 16 16">
   <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
@@ -204,7 +204,7 @@ $(function() {
           </li>
         </ul>
       </li>
-      <li class="sub-menu"  id="4">
+      <li class="sub-menu1" id="4">
         <a href="http://localhost/retro_prj/admin/event.do?no=4">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-event" viewBox="0 0 16 16">
   <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z"/>
@@ -212,7 +212,7 @@ $(function() {
 </svg><!-- <i class="fa fa-bar-chart-o"></i> -->
         <span>&ensp;이벤트 관리</span></a>
          <ul>
-          <li><a href="eventAddFrm.do">&ensp;&ensp;등록</a>
+          <li><a href="eventAddFrm.do?no=4">&ensp;&ensp;등록</a>
           </li>
         </ul>
     </ul>

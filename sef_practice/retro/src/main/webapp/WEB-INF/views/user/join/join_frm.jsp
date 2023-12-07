@@ -14,14 +14,163 @@
 }
 </style>
 <script type="text/javascript">
-	$(function() {
+	var openPrivacyFlag = false;
 
+	$(function() {
+		$("#pw").keydown(function() {
+			var flag = false;
+			var pw = $("#pw").val();
+			
+			if(pw.length < 8 || pw.length > 16){
+				flag = true;
+			}else if(pw.search(/\s/) != -1){
+				flag = true;
+			}
+			
+			if(flag) {
+				$("#err1").addClass("has_error");
+				$("#pw").addClass("text_fill");
+				return;
+			} else {
+				$("#err1").removeClass("has_error");
+				$("#pw").removeClass("text_fill");
+			}
+		});
+		
+		$("#pwChk").keydown(function() {
+			var pw = $("#pw").val();
+			var pwChk = $("#pwChk").val();		
+			
+			if(pw != pwChk) {
+				$("#err2").addClass("has_error");
+				$("#pwChk").addClass("text_fill");
+			} else {
+				$("#err2").removeClass("has_error");
+				$("#pwChk").removeClass("text_fill");
+			}
+		});
+		
+		$("#email").keydown(function() {
+			var regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+			var email = $("#email").val();
+			
+		    if (!regEmail.test(email)) {
+				$("#err").addClass("has_error");
+				$("#email").addClass("text_fill");
+		    } else {
+				$("#err").removeClass("has_error");
+				$("#email").removeClass("text_fill");
+		    }
+		});
+		
+		$("#checkBox").change(function() {
+			var join = [$("#id").val(), $("#nickname").val(), $("#email").val(), $("#pw").val(), $("#pwChk").val(), $("#phone").val()];
+			var flag = false;
+			
+			for(var i = 0; i < join.length; i++) {
+				if(join[i].length > 0) {
+					flag = true
+				} else {
+					return;
+				}
+			}
+			
+			if(flag) {
+				$("#join").removeClass("disabled");		
+			} else {
+				$("#join").addClass("disabled");	
+			}
+		});
 	});
+	
+function join() {
+	var id = $("#id").val();
+	var nickname = $("#nickname").val();
+	var email = $("#email").val();
+	var pw = $("#pw").val();
+	var pwChk = $("#pwChk").val();
+	var phone = $("#phone").val();
+	
+	$("#id").val(id);
+	$("#nickname").val(nickname);
+	$("#email").val(email);
+	$("#pw").val(pw);
+	$("#phone").val(phone);
+	
+	joinAjax(id, nickname, email, pw, phone);
+}
+
+function joinAjax(id, nickname, email, pw, phone) {
+	var param = {id:id, nickname:nickname, email:email, pw:pw, phone:phone};
+	
+	$.ajax({
+		url:"user_join_chk.do",
+		type:"POST",
+		data:param,
+		dataType:"JSON",
+		error:function(xhr) {
+			alert(xhr.status);
+		},
+		success:function(jsonObj) {
+			if(!jsonObj.flag) {
+				alert(jsonObj.flagMsg);
+			} else {
+				$("#joinFrn").submit();
+			}
+		}
+				
+	});
+}
+	
+function openPrivacy() {
+	if(!openPrivacyFlag) {
+		$("#detailInfo").addClass("open");
+	} else {
+		$("#detailInfo").removeClass("open");		
+	}
+	openPrivacyFlag = !openPrivacyFlag;
+}
+
+function layer_privacy() {
+	$("#layer_privacy").css("display", "");
+}
+
+function layer_agreement() {
+	$("#layer_agreement").css("display", "");	
+}
+
+function closePrivacy() {
+	$("#layer_privacy").css("display", "none");		
+}
+
+function closeAgreement() {
+	$("#layer_agreement").css("display", "none");		
+}
+
+function handleOnInputID(e)  {
+	e.value = e.value.replace(/[^A-Za-z0-9]/ig, '')
+}
+
+function handleOnInputNickname(e)  {
+	e.value = e.value.replace(/[^ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]/ig, '')
+}
+
+function handleOnInputPhone(e)  {
+	e.value = e.value.replace(/[^0-9]/ig, '')
+}
 </script>
 </head>
 <body>
 <!-- header -->
 <c:import url="http://localhost/retro_prj/common/cdn/header.jsp" />
+
+<form id="joinFrn" method="post" action="user_join_process.do">
+	<input type="hidden" value="" id="idHid" name="id">
+	<input type="hidden" value="" id="nicknameHid" name="nickname">
+	<input type="hidden" value="" id="emailHid" name="email">
+	<input type="hidden" value="" id="pwHid" name="pw">
+	<input type="hidden" value="" id="phoneHid" name="phone">
+</form>
 
 	<!-- 회원가입 -->
 	<div data-v-286e873e="" data-v-7304c5c4="" class="container join" style="text-align: center;">
@@ -31,106 +180,93 @@
 				<div data-v-5ee806c3="" data-v-286e873e="" class="input_join input_box">
 					<h3 data-v-286e873e="" data-v-5ee806c3="" class="input_title ess">아이디</h3>
 					<div data-v-5ee806c3="" class="input_item">
-						<input data-v-5ee806c3="" type="text" placeholder="아이디" autocomplete="off" class="input_txt">
+						<input data-v-5ee806c3="" id="id" type="text" placeholder="아이디" autocomplete="off" class="input_txt" maxlength="30" oninput="handleOnInputID(this)">
 					</div>
 					<p data-v-286e873e="" data-v-5ee806c3="" class="input_error"></p>
 				</div>
 				<div data-v-5ee806c3="" data-v-286e873e="" class="input_join input_box">
 					<h3 data-v-286e873e="" data-v-5ee806c3="" class="input_title ess">닉네임</h3>
 					<div data-v-5ee806c3="" class="input_item">
-						<input data-v-5ee806c3="" type="text" placeholder="별칭" autocomplete="off" class="input_txt">
+						<input data-v-5ee806c3="" id="nickname" type="text" placeholder="별칭" autocomplete="off" class="input_txt" maxlength="10" oninput="handleOnInputNickname(this)">
 					</div>
 					<p data-v-286e873e="" data-v-5ee806c3="" class="input_error"></p>
 				</div>
-				<div data-v-5ee806c3="" data-v-286e873e="" class="input_join input_box">
+				<div data-v-5ee806c3="" data-v-286e873e="" id="err" class="input_join input_box">
 					<h3 data-v-286e873e="" data-v-5ee806c3="" class="input_title ess">이메일 주소</h3>
 					<div data-v-5ee806c3="" class="input_item">
-						<input data-v-5ee806c3="" type="text" placeholder="예) retro@retro.co.kr" autocomplete="off" class="input_txt">
+						<input data-v-5ee806c3="" id="email" type="text" placeholder="예) retro@retro.co.kr" autocomplete="off" class="input_txt">
 					</div>
-					<p data-v-286e873e="" data-v-5ee806c3="" class="input_error"></p>
+					<p data-v-286e873e="" data-v-5ee806c3="" class="input_error">이메일이 올바르지 않습니다.</p>
 				</div>
 				<!---->
-				<div data-v-5ee806c3="" data-v-286e873e="" class="input_box input_join has_button">
+				<div data-v-5ee806c3="" data-v-286e873e="" id="err1" class="input_box input_join has_button">
 					<h3 data-v-286e873e="" data-v-5ee806c3="" class="input_title ess">비밀번호</h3>
 					<div data-v-5ee806c3="" class="input_item">
-						<input data-v-5ee806c3="" type="password" placeholder="영문, 숫자, 특수문자 조합 8-16자" autocomplete="off" class="input_txt" max-length="16">
+						<input data-v-5ee806c3="" id="pw" type="password" placeholder="영문, 숫자, 특수문자 조합 8-16자" autocomplete="off" class="input_txt" maxlength="16">
 					</div>
 					<p data-v-286e873e="" data-v-5ee806c3="" class="input_error">영문, 숫자, 특수문자만 사용하여 입력해주세요.</p>
 				</div>
-				<div data-v-5ee806c3="" data-v-286e873e="" class="input_box input_join has_button">
+				<div data-v-5ee806c3="" data-v-286e873e="" id="err2" class="input_box input_join has_button">
 					<h3 data-v-286e873e="" data-v-5ee806c3="" class="input_title ess">비밀번호 확인</h3>
 					<div data-v-5ee806c3="" class="input_item">
-						<input data-v-5ee806c3="" type="password" placeholder="영문, 숫자, 특수문자 조합 8-16자" autocomplete="off" class="input_txt" max-length="16">
+						<input data-v-5ee806c3="" id="pwChk" type="password" placeholder="영문, 숫자, 특수문자 조합 8-16자" autocomplete="off" class="input_txt" maxlength="16">
 					</div>
 					<p data-v-286e873e="" data-v-5ee806c3="" class="input_error">비밀번호 불일치</p>
 				</div>
 				<div data-v-5ee806c3="" data-v-286e873e="" class="input_join input_box">
 					<h3 data-v-286e873e="" data-v-5ee806c3="" class="input_title ess">전화번호</h3>
 					<div data-v-5ee806c3="" class="input_item">
-						<input data-v-5ee806c3="" type="text" placeholder="01098741234" autocomplete="off" class="input_txt" max-length="11">
+						<input data-v-5ee806c3="" id="phone" type="text" placeholder="01098761234" autocomplete="off" class="input_txt" maxlength="11" oninput="handleOnInputPhone(this)">
 					</div>
 					<p data-v-286e873e="" data-v-5ee806c3="" class="input_error"></p>
 				</div>
 				<div data-v-286e873e="" class="join_terms">
-					<div data-v-286e873e="" class="terms_box">
-						<div data-v-286e873e="" class="check_main">
+					<div id="detailInfo" class="terms_box">
+						<div class="check_main">
 							<div data-v-4c714e9f="" data-v-286e873e="" class="checkbox_item">
-								<input data-v-4c714e9f="" id="group_check_1" type="checkbox" name="" class="blind">
-								<label data-v-4c714e9f="" for="group_check_1" class="check_label">
-									<svg data-v-4c714e9f="" xmlns="http://www.w3.org/2000/svg" class="icon sprite-icons ico-check-inactive">
-										<use data-v-4c714e9f="" href="https://kream.co.kr/_nuxt/e72fd9e874df2e60bd653f838dce3aab.svg#i-ico-check-inactive" xlink:href="https://kream.co.kr/_nuxt/e72fd9e874df2e60bd653f838dce3aab.svg#i-ico-check-inactive"></use>
-									</svg>
-									<span data-v-4c714e9f="" class="label_txt">[필수] 만 14세 이상이며 모두 동의합니다.</span>
-								</label>
+								<input type="checkbox" id="checkBox" style="-webkit-appearance: checkbox;width: 15px;height: 15px;border: 1px solid; border-radius: 5px;margin-top: 6px;margin-right: 5px;
+									accent-color: black;">
+								<span data-v-4c714e9f="" class="label_txt" style="padding: 0px;font-weight: bold;">[필수] 가입 시 만 14세 이상이며 모두 동의합니다.</span>
+								<a onclick="openPrivacy()" style="font-size: 12px;margin-top: 2px;padding-top: 1px;margin-left: 44px;cursor: pointer;">더보기</a>
 							</div>
-							<button data-v-0a6aebaa="" data-v-286e873e="" type="button" class="btn">
-								<svg data-v-286e873e="" xmlns="http://www.w3.org/2000/svg" class="icon sprite-icons ico-plus">
-									<use data-v-286e873e="" href="https://kream.co.kr/_nuxt/e72fd9e874df2e60bd653f838dce3aab.svg#i-ico-plus" xlink:href="https://kream.co.kr/_nuxt/e72fd9e874df2e60bd653f838dce3aab.svg#i-ico-plus"></use>
-								</svg>
-							</button>
 						</div>
 						<div data-v-286e873e="" class="check_sub">
 							<div data-v-4c714e9f="" data-v-286e873e="" class="checkbox_item">
-								<input data-v-4c714e9f="" id="agreement" type="checkbox" name="" class="blind">
-								<label data-v-4c714e9f="" for="agreement" class="check_label">
-									<svg data-v-4c714e9f="" xmlns="http://www.w3.org/2000/svg" class="icon sprite-icons ico-check-inactive">
-										<use data-v-4c714e9f="" href="https://kream.co.kr/_nuxt/e72fd9e874df2e60bd653f838dce3aab.svg#i-ico-check-inactive" xlink:href="https://kream.co.kr/_nuxt/e72fd9e874df2e60bd653f838dce3aab.svg#i-ico-check-inactive"></use>
-									</svg>
-									<span data-v-4c714e9f="" class="label_txt">이용약관 동의</span>
-								</label>
-								<a data-v-286e873e="" data-v-4c714e9f="" href="#" class="btn_view"> 내용 보기 </a>
+								<span data-v-4c714e9f="" class="label_txt">이용약관 동의</span>
+								<a onclick="layer_privacy()" href="#" class="btn_view" style="font-size: 12px;cursor: pointer;margin-top: 2px;padding-top: 1px;margin-left: 132px;"> 내용 보기 </a>
 							</div>
 							<div data-v-4c714e9f="" data-v-286e873e="" class="checkbox_item">
-								<input data-v-4c714e9f="" id="privacy" type="checkbox" name="" class="blind">
-								<label data-v-4c714e9f="" for="privacy" class="check_label">
-									<svg data-v-4c714e9f="" xmlns="http://www.w3.org/2000/svg" class="icon sprite-icons ico-check-inactive">
-										<use data-v-4c714e9f="" href="https://kream.co.kr/_nuxt/e72fd9e874df2e60bd653f838dce3aab.svg#i-ico-check-inactive" xlink:href="https://kream.co.kr/_nuxt/e72fd9e874df2e60bd653f838dce3aab.svg#i-ico-check-inactive"></use>
-									</svg>
-									<span data-v-4c714e9f="" class="label_txt">개인정보 수집 및 이용 동의</span>
-								</label>
-								<a data-v-286e873e="" data-v-4c714e9f="" href="#" class="btn_view"> 내용 보기 </a>
+								<span data-v-4c714e9f="" class="label_txt">개인정보 수집 및 이용 동의</span>
+								<a onclick="layer_agreement()" href="#" class="btn_view" style="font-size: 12px;cursor: pointer;margin-top: 2px;padding-top: 1px;margin-left: 64px;"> 내용 보기 </a>
 							</div>
 						</div>
 					</div>
 				</div>
-				<a data-v-0a6aebaa="" data-v-286e873e="" disabled="disabled" href="#" class="btn btn_join full solid disabled"> 가입하기 </a>
+				<a data-v-0a6aebaa="" data-v-286e873e="" id="join" onclick="join()" class="btn btn_join full solid disabled"> 가입하기 </a>
 			</div>
-			<div data-v-4be3d37a="" data-v-33332626="" data-v-286e873e="" class="layer lg layer_privacy" style="display: none;">
+			<div id="layer_privacy" class="layer lg layer_privacy" style="display: none;">
 				<!---->
 				<div data-v-4be3d37a="" class="layer_container">
-					<a data-v-33332626="" data-v-4be3d37a="" class="btn_layer_close">
-						<svg data-v-33332626="" data-v-4be3d37a="" xmlns="http://www.w3.org/2000/svg" class="ico-close icon sprite-icons">
-							<use data-v-33332626="" data-v-4be3d37a="" href="https://kream.co.kr/_nuxt/e72fd9e874df2e60bd653f838dce3aab.svg#i-ico-close" xlink:href="https://kream.co.kr/_nuxt/e72fd9e874df2e60bd653f838dce3aab.svg#i-ico-close"></use>
+					<a data-v-33332626="" data-v-4be3d37a="" onclick="closePrivacy()" class="btn_layer_close">
+						<svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 1280.000000 1280.000000" preserveAspectRatio="xMidYMid meet">
+							<g transform="translate(0.000000,1280.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
+								<path d="M6180 11089 c-921 -38 -1841 -368 -2584 -926 -356 -267 -701 -614 -961 -963 -907 -1222 -1165 -2801 -694 -4250 127 -389 329 -804 561 -1149 987 -1473 2722 -2269 4468 -2050 966 121 1831 515 2559 1165 1571 1403 2010 3690 
+									1070 5574 -418 836 -1056 1515 -1869 1985 -608 352 -1377 582 -2040 610 -283 12 -330 12 -510 4z m555 -719 c1327 -114 2497 -871 3146 -2035 484 -870 622 -1920 378 -2895 -175 -702 -530 -1330 -1039 -1840 -329 -330 -687 -585 -1095
+									-781 -545 -261 -1114 -389 -1725 -389 -641 0 -1227 139 -1795 425 -760 383 -1377 1001 -1760 1763 -588 1171 -560 2582 74 3717 648 1160 1815 1918 3131 2034 139 12 546 12 685 1z"/>
+								<path d="M4609 8719 c-26 -4 -57 -13 -70 -19 -40 -21 -409 -392 -432 -435 -29 -53 -30 -173 -3 -225 10 -19 378 -395 817 -835 l799 -800 -796 -795 c-462 -462 -804 -812 -817 -835 -33 -62 -31 -175 5 -235 39 -66 394 -414 442 -434
+									49 -20 152 -21 202 0 29 11 255 231 842 817 l802 802 803 -802 c586 -586 812 -806 841 -817 50 -21 153 -20 202 0 48 20 403 368 442 434 36 60 38 173 5 235 -13 23 -355 373 -817 835 l-796 795 799 800 c439 440 807 816 817 835 27 52
+									26 172 -3 225 -32 59 -399 420 -448 441 -51 21 -148 21 -200 -1 -30 -12 -249 -225 -842 -818 l-803 -802 -802 802 c-464 464 -816 807 -833 814 -47 19 -106 25 -156 18z"/>
+							</g>
 						</svg>
 					</a>
-					<div data-v-4be3d37a="" class="layer_header">
+					<div data-v-4be3d37a="" class="layer_header" style="margin-left: 150px;">
 						<h2 data-v-33332626="" data-v-4be3d37a="" class="title">개인정보 수집 및 이용</h2>
 					</div>
 					<div data-v-4be3d37a="" class="layer_content">
 						<div data-v-746654f1="" data-v-33332626="" id="wrap" data-v-4be3d37a="">
 							<div data-v-746654f1="" class="agreement_list">
 								<div data-v-746654f1="" class="agreement_subtitle">
-									크림(주)(이하 회사)는 서비스 제공을 위하여 아래와 같이 개인정보를 수집 ・ 이용 및 제공합니다.
+									레토르(주)(이하 회사)는 서비스 제공을 위하여 아래와 같이 개인정보를 수집 ・ 이용 및 제공합니다.
 								</div>
 							</div>
 							<div data-v-746654f1="" class="divider"></div>
@@ -162,7 +298,7 @@
 												<th data-v-746654f1="" scorp="row">회원: ID, 이메일 주소, 비밀번호, 이름, 휴대폰번호, 닉네임, CI/DI</th>
 												<td data-v-746654f1="" rowspan="2">회원 가입 및 프로필 관리</td>
 												<td data-v-746654f1="">필수</td>
-												<td data-v-746654f1="" rowspan="3">회원 탈퇴 또는 서비스 종료 시까지</td>
+												<td data-v-746654f1="" rowspan="2">회원 탈퇴 또는 서비스 종료 시까지</td>
 											</tr>
 											<tr data-v-746654f1="">
 												<th data-v-746654f1="" scorp="row">(공통) 별명, 사진, 배송 주소, 카드 정보, 거래 은행 및 계좌번호</th>
@@ -204,24 +340,28 @@
 					</div>
 				</div>
 			</div>
-			<div data-v-4be3d37a="" data-v-17b3a53d="" data-v-286e873e=""
-				class="layer lg layer_agreement" style="display: none;">
+			<div id="layer_agreement" class="layer lg layer_agreement" style="display: none;">
 				<!---->
 				<div data-v-4be3d37a="" class="layer_container">
-					<a data-v-17b3a53d="" data-v-4be3d37a="" class="btn_layer_close"><svg
-							data-v-17b3a53d="" data-v-4be3d37a=""
-							xmlns="http://www.w3.org/2000/svg"
-							class="ico-close icon sprite-icons">
-							<use data-v-17b3a53d="" data-v-4be3d37a=""
-								href="/_nuxt/e72fd9e874df2e60bd653f838dce3aab.svg#i-ico-close"
-								xlink:href="/_nuxt/e72fd9e874df2e60bd653f838dce3aab.svg#i-ico-close"></use></svg></a>
-					<div data-v-4be3d37a="" class="layer_header">
+					<a data-v-17b3a53d="" data-v-4be3d37a="" onclick="closeAgreement()" class="btn_layer_close">
+						<svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 1280.000000 1280.000000" preserveAspectRatio="xMidYMid meet">
+							<g transform="translate(0.000000,1280.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
+								<path d="M6180 11089 c-921 -38 -1841 -368 -2584 -926 -356 -267 -701 -614 -961 -963 -907 -1222 -1165 -2801 -694 -4250 127 -389 329 -804 561 -1149 987 -1473 2722 -2269 4468 -2050 966 121 1831 515 2559 1165 1571 1403 2010 3690 
+									1070 5574 -418 836 -1056 1515 -1869 1985 -608 352 -1377 582 -2040 610 -283 12 -330 12 -510 4z m555 -719 c1327 -114 2497 -871 3146 -2035 484 -870 622 -1920 378 -2895 -175 -702 -530 -1330 -1039 -1840 -329 -330 -687 -585 -1095
+									-781 -545 -261 -1114 -389 -1725 -389 -641 0 -1227 139 -1795 425 -760 383 -1377 1001 -1760 1763 -588 1171 -560 2582 74 3717 648 1160 1815 1918 3131 2034 139 12 546 12 685 1z"/>
+								<path d="M4609 8719 c-26 -4 -57 -13 -70 -19 -40 -21 -409 -392 -432 -435 -29 -53 -30 -173 -3 -225 10 -19 378 -395 817 -835 l799 -800 -796 -795 c-462 -462 -804 -812 -817 -835 -33 -62 -31 -175 5 -235 39 -66 394 -414 442 -434
+									49 -20 152 -21 202 0 29 11 255 231 842 817 l802 802 803 -802 c586 -586 812 -806 841 -817 50 -21 153 -20 202 0 48 20 403 368 442 434 36 60 38 173 5 235 -13 23 -355 373 -817 835 l-796 795 799 800 c439 440 807 816 817 835 27 52
+									26 172 -3 225 -32 59 -399 420 -448 441 -51 21 -148 21 -200 -1 -30 -12 -249 -225 -842 -818 l-803 -802 -802 802 c-464 464 -816 807 -833 814 -47 19 -106 25 -156 18z"/>
+							</g>
+						</svg>
+					</a>
+					<div data-v-4be3d37a="" class="layer_header" style="margin-left: 150px;">
 						<h2 data-v-17b3a53d="" data-v-4be3d37a="" class="title">이용약관</h2>
 					</div>
 					<div data-v-4be3d37a="" class="layer_content">
 						<div data-v-17b3a53d="" class="editor_viewer" data-v-4be3d37a="">
 							<p>
-								<strong>KREAM 서비스 이용 약관</strong>
+								<strong>RE:TRO 서비스 이용 약관</strong>
 							</p>
 							<p>&nbsp;</p>
 							<p>
