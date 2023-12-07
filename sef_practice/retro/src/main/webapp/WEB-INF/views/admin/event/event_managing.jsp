@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ page info=""%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,10 +65,15 @@ $(function() {
 		location.href="logout.jsp";
 	});
 });
+
+function detail(rcode){
+	$("#rcode").val(rcode);
+	$("#frmDetail").submit();
+}
 </script>
 </head>
 <body>
-<%@ include file="sidebar.jsp" %>
+<%@ include file="../sidebar.jsp" %>
 <div id="right">
 	<div id="rightHeader" align="right">
 		<span style="font-weight: bold;margin-right: 20px">관리자님</span>
@@ -81,20 +85,21 @@ $(function() {
 		<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
  		<path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
 		</svg>
-		상품 리스트
+		이벤트 관리
 		</div>
 		
 		<div class="text" id="mainTitle">
-			<strong>상품 리스트</strong>
+			<strong>이벤트 리스트</strong>
 		</div>
 		
 		<!-- 검색 -->
-		 <div class="searchDiv">
+		<div class="searchDiv">
 		<div class="allBox">
 		<form id="frmSearch">
 			<select class="searchList" id="field" name="field">
 				<option value="1"${ param.field eq "1" ? " selected='selected'" : "" }>아이디</option>
-				<option value="2"${ param.field eq "2" ? " selected='selected'" : "" }>카테고리명</option>
+				<option value="2"${ param.field eq "2" ? " selected='selected'" : "" }>상품명</option>
+				<option value="3"${ param.field eq "3" ? " selected='selected'" : "" }>카테고리명</option>
 			</select>
 			<span class="textBox" style="vertical-align: middle">
 			<input type="text" id="keyword" name="keyword" class="keywordBox" placeholder="내용을 입력해주세요"
@@ -107,8 +112,13 @@ $(function() {
 			</button>
 		</form>
 		</div>
-		</div> 
+		</div>
 		<!---->
+		
+		<!-- 상세보기 페이지로 -->
+		<form id="frmDetail" action="eventDetail.do">
+			<input type="hidden" id="rcode" name="rcode"/>
+		</form>
 		
 		<!-- 테이블 -->
 		<div id="background_box">
@@ -119,31 +129,69 @@ $(function() {
 				<tr id="top_title">
 					<!-- 컬럼 사이즈 -->
 					<th style="width:100px; border-bottom: 1px solid #E5E5E5;">No</th>
-					<th style="width:200px; border-bottom: 1px solid #E5E5E5;">닉네임</th>
-					<th style="width:200px; border-bottom: 1px solid #E5E5E5;">카테고리</th>
-					<th style="width:200px; border-bottom: 1px solid #E5E5E5;">상품명</th>
-					<th style="width:200px; border-bottom: 1px solid #E5E5E5;">상품가격</th>
-					<th style="width:200px; border-bottom: 1px solid #E5E5E5;">등록일</th>
+					<th style="width:200px; border-bottom: 1px solid #E5E5E5;">제목</th>
+					<th style="width:200px; border-bottom: 1px solid #E5E5E5;">작성자</th>
+					<th style="width:200px; border-bottom: 1px solid #E5E5E5;">작성일</th>
 				</tr>
 				</thead>
 				
 				<tbody>
 					<!-- list가 존재하지 않을 경우 -->
-					<c:if test="${ empty productList }">
+					<c:if test="${ empty reviewList }">
+					<tr onclick="detail(10)">
+						<td colspan="6" style="text-align: center;"> 
+							이벤트가 존재하지 않습니다. </td>
+					</tr>
 					<tr>
 						<td colspan="6" style="text-align: center;"> 
-							상품이 존재하지 않습니다. </td>
+							이벤트가 존재하지 않습니다. </td>
+					</tr>
+					<tr>
+						<td colspan="6" style="text-align: center;"> 
+							이벤트가 존재하지 않습니다. </td>
+					</tr>
+					<tr>
+						<td colspan="6" style="text-align: center;"> 
+							이벤트가 존재하지 않습니다. </td>
+					</tr>
+					<tr>
+						<td colspan="6" style="text-align: center;"> 
+							이벤트가 존재하지 않습니다. </td>
+					</tr>
+					<tr>
+						<td colspan="6" style="text-align: center;"> 
+							이벤트가 존재하지 않습니다. </td>
+					</tr>
+					<tr>
+						<td colspan="6" style="text-align: center;"> 
+							이벤트가 존재하지 않습니다. </td>
+					</tr>
+					<tr>
+						<td colspan="6" style="text-align: center;"> 
+							이벤트가 존재하지 않습니다. </td>
+					</tr>
+					<tr>
+						<td colspan="6" style="text-align: center;"> 
+							이벤트가 존재하지 않습니다. </td>
+					</tr>
+					<tr>
+						<td colspan="6" style="text-align: center;"> 
+							이벤트가 존재하지 않습니다. </td>
 					</tr>
 					</c:if>
 				
-					 <c:forEach var="product" items="${ productList }" varStatus="i">
-					<tr onclick="<%-- boardDetail(${ product.pcode }) --%>">
-						<td>${ 1 + i.index }</td> 
-						<td>${ product.nickname }</td>
-						<td>${ product.category }</td>
-						<td>${ product.pname }</td>
-						<td><fmt:formatNumber pattern="#,###,###" value="${ product.price }"/></td>
-						<td>${ product.input_date }</td>
+					<c:forEach var="review" items="${ reviewList }" varStatus="i">
+					<tr onclick="detail(10)">
+						<td>${ startNum + i.index }</td>
+						<td>${ review.cat_name }</td>
+						<td>${ review.gname }</td>
+						<td>${ review.id }</td>
+						<td>${ review.rev_date }</td>
+						<td style="color:#FF923A">
+						<c:forEach var="star" begin="1" end="${ review.star }">
+							<img src="../common/images/star.png" style="width:16px"/>
+						</c:forEach>
+						</td>
 					</tr>
 					</c:forEach>
 				</tbody>
@@ -152,6 +200,16 @@ $(function() {
 		</div>
 		<!---->
 		
+		<div class="pagenationDiv">
+    	<div class="pagination">
+      		<a href="#"><</a>
+        	<a href="#">1</a>
+        	<span class="active">2</span>
+        	<a href="#">3</a>
+        	<a href="#">></a>
+    	</div>
+    	</div>
+			
 	</div>	
 </div>
 </body>
