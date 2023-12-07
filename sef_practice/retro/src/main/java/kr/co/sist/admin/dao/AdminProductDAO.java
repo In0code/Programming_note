@@ -94,10 +94,11 @@ public class AdminProductDAO {
 		return updateCnt;
 	}// updateRemoveProduct
 
-	/*
-	 * public static void main(String[] args) { AdminProductDAO
-	 * apDAO=AdminProductDAO.getInstance(); BoardRangeVO brVO=new BoardRangeVO();
-	 * brVO.setKeyword("싱숭생숭연"); apDAO.selectAllProduct(brVO); }
-	 */
+	public static void main(String[] args) {
+		AdminProductDAO apDAO = AdminProductDAO.getInstance();
+		BoardRangeVO brVO = new BoardRangeVO();
+		brVO.setKeyword("싱숭생숭연");
+		apDAO.selectAllProduct(brVO);
+	}
 
 }// class

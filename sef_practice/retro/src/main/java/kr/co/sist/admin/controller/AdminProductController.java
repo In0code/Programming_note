@@ -23,17 +23,17 @@ public class AdminProductController {
 		
 		
 		
-		/*
-		 * String keyword=request.getParameter("keyword"); String
-		 * field=request.getParameter("field");
-		 */
 		
-		brVO.setKeyword("싱숭생숭연");
-//		brVO.setField(field);
+		  String keyword=request.getParameter("keyword"); String
+		  field=request.getParameter("field");
+		 
+		
+		brVO.setKeyword(keyword);
+		brVO.setField(field);
 		
 		List<AdminProductDomain> productList=aps.searchAllProduct(brVO);
 		
-		model.addAttribute("prductList",productList);
+		model.addAttribute("productList",productList);
 		
 		
 		return "admin/product_managing";

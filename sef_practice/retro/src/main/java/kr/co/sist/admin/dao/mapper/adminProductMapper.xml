@@ -23,7 +23,7 @@ where m.id=p.id   and p.C3CODE = c3.C3CODE and c2.C2CODE=c3.C2CODE
 
 <!-- 모든 상품 조회 -->
 <select id="selectAllProduct" resultType="apd" parameterType="brVO">
-select NICKNAME ,NAME, PNAME,PRICE,INPUT_DATE
+select NICKNAME ,NAME as category, PNAME,PRICE,INPUT_DATE
 from(select m.NICKNAME, c2.NAME, p.PNAME, p.PRICE, p.INPUT_DATE
 			,row_number() over(order by p.INPUT_DATE desc) rnum
 from  PRODUCT p, MEMBER m,CATEGORY2 c2,CATEGORY3 c3
