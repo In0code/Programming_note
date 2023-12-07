@@ -128,7 +128,7 @@ $(function() {
 				
 				<tbody>
 					<!-- list가 존재하지 않을 경우 -->
-					<c:if test="${ empty reviewList }">
+					<c:if test="${ empty productList }">
 					<tr>
 						<td colspan="6" style="text-align: center;"> 
 							상품이 존재하지 않습니다. </td>
@@ -143,11 +143,6 @@ $(function() {
 						<td>${ product.pname }</td>
 						<td>${ product.price }</td>
 						<td>${ product.input_date }</td>
-						<td style="color:#FF923A">
-						<c:forEach var="star" begin="1" end="${ review.star }">
-							<img src="../common/images/star.png" style="width:16px"/>
-						</c:forEach>
-						</td>
 					</tr>
 					</c:forEach>
 				</tbody>
