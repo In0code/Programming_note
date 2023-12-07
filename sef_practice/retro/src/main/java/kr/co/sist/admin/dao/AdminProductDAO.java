@@ -29,22 +29,22 @@ public class AdminProductDAO {
 
 	/**
 	 * 총 레코드 수
+	 * 
 	 * @param brVO
 	 * @return
 	 * @throws PersistenceException
 	 */
-	public int productTotalCnt(BoardRangeVO brVO)throws PersistenceException  {
-		int cnt=0;
-		
-		MybatisHandler mbh=MybatisHandler.getInstance();
-		SqlSession ss=mbh.getMyBatisHandler(configPath,false);
-		cnt=ss.selectOne("admin.product.productTotalCnt",brVO);
+	public int productTotalCnt(BoardRangeVO brVO) throws PersistenceException {
+		int cnt = 0;
+
+		MybatisHandler mbh = MybatisHandler.getInstance();
+		SqlSession ss = mbh.getMyBatisHandler(configPath, false);
+		cnt = ss.selectOne("admin.product.productTotalCnt", brVO);
 		mbh.closeHandler(ss);
-		
+
 		return cnt;
-	}//productTotalCnt
-	
-	
+	}// productTotalCnt
+
 	public List<AdminProductDomain> selectAllProduct(BoardRangeVO brVO) throws PersistenceException {
 		List<AdminProductDomain> list = null;
 
@@ -94,5 +94,10 @@ public class AdminProductDAO {
 		return updateCnt;
 	}// updateRemoveProduct
 
+	/*
+	 * public static void main(String[] args) { AdminProductDAO
+	 * apDAO=AdminProductDAO.getInstance(); BoardRangeVO brVO=new BoardRangeVO();
+	 * brVO.setKeyword("싱숭생숭연"); apDAO.selectAllProduct(brVO); }
+	 */
 
 }// class
