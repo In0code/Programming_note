@@ -45,18 +45,6 @@ body{
 	position: absolute;
 	left : 60px;
 } 
-
-/* #background_box{
-overflow: auto;
-background-color:  #FFFFFF;
-color:  #333333;
-height: 150%; width: 80%;
-position: absolute;
-top: 100px; left: 60px;
-outline:  1px;
-box-shadow: rgb(204, 202, 202) 0px 2px 8px 0px;
-border-radius: 9px;
-} */
 </style>
 <!-- 태균이가 만든거 끝-->
 
@@ -64,8 +52,36 @@ border-radius: 9px;
 $(function() {
 	$("#btnLogout").click(function() {
 		location.href="logout.jsp";
-	});
-});
+	});//click
+	
+	$(".searchBtn").click(function() {
+		chkNull();
+	});//click
+	
+	$("#keyword").keyup(function(evt) {
+		if(evt.which == 13){
+			chkNull();
+		}//end if
+	});//keyup
+});//ready
+
+function boardDetail(pcode){
+	$("#md").val(pcode);
+	$("#frmDetail").submit();
+}//boardDetail
+
+function chkNull() {
+	var keyword = $("#keyword").val();
+	if(keyword.trim() == ""){
+		alert("검색 키워드를 입력해주세요.");
+		return;
+	}//end if
+	
+	//글자 수 제한
+	
+	//모두 통과했으면 submit
+	$("#frmSearch").submit();
+}//chkNull
 </script>
 </head>
 <body>
@@ -93,7 +109,7 @@ $(function() {
 		<div class="allBox">
 		<form id="frmSearch">
 			<select class="searchList" id="field" name="field">
-				<option value="1"${ param.field eq "1" ? " selected='selected'" : "" }>아이디</option>
+				<option value="1"${ param.field eq "1" ? " selected='selected'" : "" }>닉네임</option>
 				<option value="2"${ param.field eq "2" ? " selected='selected'" : "" }>카테고리명</option>
 			</select>
 			<span class="textBox" style="vertical-align: middle">
@@ -109,6 +125,11 @@ $(function() {
 		</div>
 		</div> 
 		<!---->
+		
+		<!-- 상품 상세보기 페이지 -->
+		<form id="frmDetail" action="productDetail_managing.do">
+			<input type="hidden" id="md" name="pcode" value=""/>
+		</form>
 		
 		<!-- 테이블 -->
 		<div id="background_box">
@@ -131,13 +152,13 @@ $(function() {
 					<!-- list가 존재하지 않을 경우 -->
 					<c:if test="${ empty productList }">
 					<tr>
-						<td colspan="6" style="text-align: center;"> 
+						<td colspan="6" style="text-align: center; color: red; font-weight: bold;"> 
 							상품이 존재하지 않습니다. </td>
 					</tr>
 					</c:if>
 				
 					 <c:forEach var="product" items="${ productList }" varStatus="i">
-					<tr onclick="<%-- boardDetail(${ product.pcode }) --%>">
+					<tr onclick="boardDetail('${ product.pcode }')" style="cursor: pointer;">
 						<td>${ 1 + i.index }</td> 
 						<td>${ product.nickname }</td>
 						<td>${ product.category }</td>
