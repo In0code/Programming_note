@@ -56,20 +56,17 @@ public class AdminProductService {
 		return productList;
 	}// searchAllProduct
 
+	
 	/**
 	 * 상품 하나 상세 조회 service
 	 * @param pcode
 	 * @return
 	 */
 	public AdminProductDetailDomain searchOneProduct(String pcode) {
-		AdminProductDetailDomain pdd = null;
+		
+		AdminProductDetailDomain productOne = apDAO.selectOneProduct(pcode);
 
-		try {
-			pdd = apDAO.selectOneProduct(pcode);
-		} catch (PersistenceException pe) {
-			pe.printStackTrace();
-		} // end catch
-		return pdd;
+		return productOne;
 	}// selectOneProduct
 
 	/**

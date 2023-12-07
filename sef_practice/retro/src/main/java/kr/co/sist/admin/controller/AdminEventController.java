@@ -18,7 +18,7 @@ public class AdminEventController {
 
 	@GetMapping("/admin/eventAddFrm.do")
 	public String eventAddFrm() {
-		return "admin/event/eventAdd_managing";
+		return "admin/event/event_add_frm";
 	}
 
 }

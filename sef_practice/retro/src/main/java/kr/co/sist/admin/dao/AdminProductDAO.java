@@ -98,7 +98,8 @@ public class AdminProductDAO {
 		AdminProductDAO apDAO = AdminProductDAO.getInstance();
 		BoardRangeVO brVO = new BoardRangeVO();
 		brVO.setKeyword("싱숭생숭연");
-		apDAO.selectAllProduct(brVO);
+		apDAO.selectOneProduct("P00001");
+		
 	}
 
 }// class

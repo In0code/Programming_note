@@ -10,7 +10,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class AdminProductDomain {
-	private String  nickname, category, pname;
+	private String  nickname, category, pname, pcode;
 	private int price;
 	private Date input_date;
 }

@@ -10,10 +10,10 @@ from  PRODUCT p, MEMBER m,CATEGORY2 c2,CATEGORY3 c3
 where m.id=p.id   and p.C3CODE = c3.C3CODE and c2.C2CODE=c3.C2CODE
 <where>
 	<if test="keyword neq null and keyword neq ''">
-		<if test="keyword eq 'c2.name'">
-		and name like #{ keyword }
+		<if test="field eq 'category'">
+		and category like #{ keyword }
 		</if>
-		<if test="keyword eq 'm.NICKNAME'">
+		<if test="field eq 'NICKNAME'">
 		and nickname like #{ keyword }
 		</if>
 	</if>
@@ -23,16 +23,16 @@ where m.id=p.id   and p.C3CODE = c3.C3CODE and c2.C2CODE=c3.C2CODE
 
 <!-- 모든 상품 조회 -->
 <select id="selectAllProduct" resultType="apd" parameterType="brVO">
-select NICKNAME ,NAME as category, PNAME,PRICE,INPUT_DATE
-from(select m.NICKNAME, c2.NAME, p.PNAME, p.PRICE, p.INPUT_DATE
+select NICKNAME , PCODE,NAME as category, PNAME,PRICE,INPUT_DATE
+from(select m.NICKNAME,p.PCODE, c2.NAME, p.PNAME, p.PRICE, p.INPUT_DATE
 			,row_number() over(order by p.INPUT_DATE desc) rnum
 from  PRODUCT p, MEMBER m,CATEGORY2 c2,CATEGORY3 c3
 where m.id=p.id   and p.C3CODE = c3.C3CODE and c2.C2CODE=c3.C2CODE 
 		<if test="keyword neq null and keyword neq ''">
-			<if test="keyword eq 'c2.name'">
-			and name like #{ keyword }
+			<if test="field eq 'category'">
+			and category like #{ keyword }
 			</if>
-			<if test="keyword eq 'm.NICKNAME'">
+			<if test="field eq 'NICKNAME'">
 			and nickname like #{ keyword }
 			</if>
 		</if>
@@ -42,7 +42,7 @@ where m.id=p.id   and p.C3CODE = c3.C3CODE and c2.C2CODE=c3.C2CODE
 
 <!-- 상품 상세 조회 -->
 <select id="selectDetailProduct" resultType="apdd" parameterType="String">
-select p.PNAME, p.PCANCEL, m.ID, c2.NAME, p.PRICE, p.STATUS,p.INPUT_DATE
+select p.PNAME,p.PCODE, p.PCANCEL, m.ID, c2.NAME as category, p.PRICE, p.STATUS,p.INPUT_DATE
 from  PRODUCT p, MEMBER m,CATEGORY2 c2,CATEGORY3 c3
 where m.id=p.id   and p.C3CODE = c3.C3CODE and c2.C2CODE=c3.C2CODE
 and p.pcode=#{ pcode }
