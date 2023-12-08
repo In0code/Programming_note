@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.sist.user.mypagePrdInfo">
+<!-- 상품 판매중 -->
+<select id="selectPrdOnProcess" resultType="kr.co.sist.user.domain.mypage.MypagePrdDomain" parameterType="String">
+SELECT PCODE, PNAME, PRICE, INPUT_DATE, LOC
+FROM PRODUCT
+WHERE ID=#{id} AND PCANCEL='N'
+</select>
+</mapper>

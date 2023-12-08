@@ -18,7 +18,7 @@ public class JoinDAO {
 		MybatisHandler mh = MybatisHandler.getInstance();
 		SqlSession ss = mh.getMyBatisHandler(configPath, false);
 		
-		result = ss.selectOne("kr.co.sist.user.join.join.insertUser", jVO);
+		result = ss.insert("kr.co.sist.user.join.insertUser", jVO);
 		if(result == 1) {
 			ss.commit();
 		} else {

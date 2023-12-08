@@ -23,4 +23,11 @@ UPDATE MEMBER
 SET STATUS='C'
 WHERE ID=#{id}
 </update>
+
+<!-- 상품 판매중 -->
+<select id="selectPrdOnProcess" resultType="kr.co.sist.user.domain.mypage.PrdOnProcessDomain" parameterType="String">
+SELECT PCODE, PNAME, PRICE, INPUT_DATE, LOC
+FROM PRODUCT
+WHERE ID=#{id}
+</select>
 </mapper>

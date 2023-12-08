@@ -33,8 +33,6 @@ public class MyPageController {
 			model.addAttribute("flag", false);
 		}
 		
-		System.out.println("/mypage_info.do :: "+mpeDomain);
-		
 		return "user/user_mypage/mypage_detail_info";
 	}
 	
@@ -46,7 +44,7 @@ public class MyPageController {
 	@PostMapping("/change_pw.do")
 	public String changePw(String oldPw, String newPw, Model model, HttpSession session) {
 		System.out.println("oldPw :: "+oldPw+" / newPw :: "+newPw);
-		String id = "user";
+		String id = (String)session.getAttribute("sesId");
 		
 		String flagMsg = new MyPageInfoDetailService().changePw(new ChangePwVO(id, oldPw, newPw));
 		model.addAttribute("flagMsg", flagMsg);
@@ -55,7 +53,8 @@ public class MyPageController {
 	}
 	
 	@PostMapping("/user_mypage_frm.do")
-	public String userMypageMainFrm(HttpSession session) {
+	public String userMypageMainFrm(HttpSession session, String id) {
+		session.setAttribute("sesId", id);
 		return "user/user_mypage/user_mypage_frm";
 	}
 	

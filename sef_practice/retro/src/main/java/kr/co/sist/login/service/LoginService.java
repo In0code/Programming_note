@@ -1,8 +1,12 @@
 package kr.co.sist.login.service;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+
 import kr.co.sist.login.dao.LoginDAO;
 import kr.co.sist.login.domain.LoginDomain;
 import kr.co.sist.login.vo.LoginVO;
+import kr.co.sist.util.cipher.DataEncrypt;
 
 public class LoginService {
 	private static LoginService ls;
@@ -23,7 +27,16 @@ public class LoginService {
 		LoginDomain ld= new LoginDomain();
 		LoginDAO lDAO = LoginDAO.getInstance();
 		
-		ld=lDAO.selectLogin(lVO);
+		try {
+			DataEncrypt de = new DataEncrypt("singsungsaengsungyeon");
+			lVO.setPw(DataEncrypt.messageDigest("MD5", lVO.getPw()));
+			ld=lDAO.selectLogin(lVO);
+			
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
 		
 		return ld;
 		

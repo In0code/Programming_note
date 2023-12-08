@@ -1,5 +1,7 @@
 package kr.co.sist.user.service.join;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.regex.Pattern;
 
 import org.json.simple.JSONObject;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import kr.co.sist.user.dao.JoinDAO;
 import kr.co.sist.user.vo.JoinVO;
+import kr.co.sist.util.cipher.DataEncrypt;
 
 @Service
 public class JoinService {
@@ -18,7 +21,18 @@ public class JoinService {
 	
 	@PostMapping("/user_join_process.do")
 	public void addUser(JoinVO jVO) {
-		jDAO.insertUser(jVO);
+		try {
+			DataEncrypt de=new DataEncrypt("singsungsaengsungyeon");
+			jVO.setPw(DataEncrypt.messageDigest("MD5", jVO.getPw()));
+			
+			jDAO.insertUser(jVO);
+			
+		} catch (UnsupportedEncodingException uee) {
+			uee.printStackTrace();
+			
+		} catch (NoSuchAlgorithmException ne) {
+			ne.printStackTrace();
+		}
 	}
 	
 	public JSONObject chkInfo(JoinVO jVO) {
@@ -38,7 +52,11 @@ public class JoinService {
 	
 	public boolean checkEmail(String email) {
 		String emailReg = "^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$";
-        return Pattern.matches(emailReg, email);
+		boolean flag = false;
+		
+		flag = Pattern.matches(emailReg, email) && !email.contains("@retro.co.kr") && !email.contains("@retro.com");
+		
+        return flag;
 	}
 	
 	public boolean checkPhone(String phone) {
@@ -57,6 +75,10 @@ public class JoinService {
 		length = nickname.getBytes().length;
 		if(length < 31) {
 			flag = true;
+		}
+		String[] unableNickname = {"관리자", "매니저"};
+		for(String str : unableNickname) {
+			flag = !nickname.contains(str);
 		}
 		
 		return flag;
