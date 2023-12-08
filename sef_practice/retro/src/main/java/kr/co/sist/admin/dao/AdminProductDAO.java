@@ -83,11 +83,11 @@ public class AdminProductDAO {
 	 * @throws PersistenceException
 	 */
 
-	public int updateRemoveProduct(AdminProductVO apVO) throws PersistenceException {
+	public int updateRemoveProduct(String pcode) throws PersistenceException {
 		int updateCnt = 0;
 		MybatisHandler mbh = MybatisHandler.getInstance();
 		SqlSession ss = mbh.getMyBatisHandler(configPath, false);
-		updateCnt = ss.update("admin.product.updateProduct", apVO);
+		updateCnt = ss.update("admin.product.updateProduct", pcode);
 
 		mbh.closeHandler(ss);
 

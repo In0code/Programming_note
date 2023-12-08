@@ -3,6 +3,7 @@ package kr.co.sist.admin.service;
 import java.util.List;
 
 import org.apache.ibatis.exceptions.PersistenceException;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import kr.co.sist.admin.dao.AdminProductDAO;
@@ -13,8 +14,8 @@ import kr.co.sist.common.BoardRangeVO;
 
 public class AdminProductService {
 
-	private AdminProductDAO apDAO=AdminProductDAO.getInstance();
-	
+	private AdminProductDAO apDAO = AdminProductDAO.getInstance();
+
 	private static AdminProductService aps;
 
 	private AdminProductService() {
@@ -27,9 +28,9 @@ public class AdminProductService {
 		return aps;
 	}// getInstance
 
-	
 	/**
 	 * 총 레코드 수 service
+	 * 
 	 * @param brVO
 	 * @return
 	 */
@@ -46,44 +47,59 @@ public class AdminProductService {
 
 	/**
 	 * 전체 상품 조회 service
+	 * 
 	 * @param brVO
 	 * @return
 	 */
 	public List<AdminProductDomain> searchAllProduct(BoardRangeVO brVO) {
 
-		List<AdminProductDomain> productList =  apDAO.selectAllProduct(brVO);
+		List<AdminProductDomain> productList = null;
+		try {
+			productList = apDAO.selectAllProduct(brVO);
+		} catch (PersistenceException pe) {
+			pe.printStackTrace();
+		} // end catch
 
 		return productList;
 	}// searchAllProduct
 
-	
 	/**
 	 * 상품 하나 상세 조회 service
+	 * 
 	 * @param pcode
 	 * @return
 	 */
 	public AdminProductDetailDomain searchOneProduct(String pcode) {
-		
-		AdminProductDetailDomain productOne = apDAO.selectOneProduct(pcode);
+
+		AdminProductDetailDomain productOne = null;
+		try {
+			productOne = apDAO.selectOneProduct(pcode);
+		} catch (PersistenceException pe) {
+			pe.printStackTrace();
+		} // end catch
 
 		return productOne;
 	}// selectOneProduct
 
 	/**
 	 * 관리자가 상품 삭제 시 pCancel이 C로 바뀜. service
+	 * 
 	 * @param apVO
 	 * @return
 	 */
-	public int editRemoveProduct(AdminProductVO apVO) {
-		int updateCnt = 0;
-
-
+	public JSONObject editRemoveProduct(String pcode) {
+		JSONObject jsonObj = new JSONObject();
+		jsonObj.put("resultData", false);
+		
 		try {
-			updateCnt = apDAO.updateRemoveProduct(apVO);
-		} catch (PersistenceException pe) {
+			int updateCnt=apDAO.updateRemoveProduct(pcode);
+			jsonObj.put("resultData", true);
+			
+		}catch(PersistenceException pe) {
 			pe.printStackTrace();
-		} // end catch
-		return updateCnt;
+			jsonObj.put("error", pe.getMessage()); // 예외 메시지 추가
+		}//end catch
+		return jsonObj;
 	}// updateRemoveProduct
 
 }// class
