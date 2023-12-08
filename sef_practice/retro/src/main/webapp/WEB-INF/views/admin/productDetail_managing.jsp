@@ -14,7 +14,6 @@ body {
 	margin: 0px;
 }
 
-
 #right {
 	width: calc(100vw - 240px);
 	height: 100%;
@@ -73,16 +72,49 @@ body {
 td {
 	cursor: pointer;
 }
-a{
-color : #333;
-text-decoration: none;
+
+a {
+	color: #333;
+	text-decoration: none;
 }
 </style>
 <!-- 태균이가 만든거 끝-->
 <script type="text/javascript">
 	$(function() {
-
+	
+		  $("#btnChange").click(function() {
+		        var pcode = "${ productOne.pcode }";
+		        var confirmDelete = confirm("정말로 삭제하시겠습니까?");
+		        
+		        if (confirmDelete) {
+		        	deleteProduct(pcode);
+		        }//end if
+		    });//click
+		});//click
+		
 	});//ready
+	
+	function update(pcancel){
+		$("#fi").val(pcode);
+		$("#frmUpdate").submit();
+	}
+	
+	function deleteProduct(pcode){
+				$.ajax({
+					url:"productManageEdit.do",
+					type:"get",
+					data:"pcode="+pcode,
+					dataType:"JSON",
+					error:function(xhr){
+						 alert("죄송합니다. 서버에 문제가 발생하였습니다. 잠시 후에 다시 시도해주세요.");
+						 console.log(xhr.status);
+					},
+					success:function(jsonObj){
+						location.reload();
+					}//success
+				});//ajax
+		
+	}//deleteProduct
 </script>
 
 
@@ -96,17 +128,24 @@ text-decoration: none;
 				id="btnLogout" type="button" class="btn btn-outline-dark"
 				value="로그아웃" style="margin-right: 20px">
 		</div>
+		<form id="frmUpdate" action="">
+			<input type="hidden" id="fi" name="pcode"
+				value="${ productOne.pcode }" />
+		</form>
 		<div id="rightBody" style="height: 895px">
 			<div class="text" id="mainTitle"
 				style="margin-left: 40px; font-family: Pretendard Medium">
-				<strong><a href="product_managing.do" style="color : #333;text-decoration: none;">&lt; 상품 리스트</a></strong>
+				<strong><a href="product_managing.do"
+					style="color: #333; text-decoration: none;">&lt; 상품 리스트</a></strong>
 			</div>
 			<form action="" id="frm" name="frm" method="post" style="left: 30px">
 				<input type="hidden" id="gcode" name="gcode" value="">
 				<div id="background_box"
 					style="width: 1200px; height: 700px; font-family: pretendard; position: relative; top: 55px">
 					<!-- 각자 원하는데로 사용 -->
-					<label style="position: absolute; top: 10px; left: 30px; font-size: 20px; color:#929492">상품 상세 정보</label>
+					<label
+						style="position: absolute; top: 10px; left: 30px; font-size: 20px; color: #929492">상품
+						상세 정보</label>
 					<div
 						style="position: absolute; top: 60px; left: 50px; width: 350px; height: 350px">
 						<img id="previewMainImg" src="../upload/goods/img_null.png"
@@ -114,77 +153,91 @@ text-decoration: none;
 					</div>
 					<div
 						style="position: absolute; top: 460px; left: 60px; font-size: 20px">
-						<strong><label style="color:#929492">상품명</label></strong><br/> 
-						<input type="text" style="border: 0px solid white; border-bottom: 1px solid #ccc; height: 40px;"
+						<strong><label style="color: #929492">상품명</label></strong><br />
+						<input type="text"
+							style="border: 0px solid white; border-bottom: 1px solid #ccc; height: 40px;"
 							value="${ productOne.pname }" readonly="readonly">
 					</div>
 
-					<div style="position: absolute; top: 550px; left: 60px; font-size: 20px">
-				    <strong><label style="color:#929492">상품등록상태</label></strong><br/> 
-				    <c:choose>
-				        <c:when test="${productOne.pcancel eq 'D'}">
-				            <input type="text" style="border: 0px solid white; border-bottom: 1px solid #ccc; height: 40px" value="삭제 ( 사용자 )" readonly="readonly">
-				        </c:when>
-				        <c:when test="${productOne.pcancel eq 'C'}">
-				            <input type="text" style="border: 0px solid white; border-bottom: 1px solid #ccc; height: 40px" value="삭제 ( 관리자 )" readonly="readonly">
-				        </c:when>
-				        <c:when test="${productOne.pcancel eq 'H'}">
-				            <input type="text" style="border: 0px solid white; border-bottom: 1px solid #ccc; height: 40px" value="판매 보류 ( 사용자 )" readonly="readonly">
-				        </c:when>
-				        <c:otherwise>
-				            <input type="text" style="border: 0px solid white; border-bottom: 1px solid #ccc; height: 40px" value="등록" readonly="readonly">
-				        </c:otherwise>
-				    </c:choose>
-</div>
+					<div
+						style="position: absolute; top: 550px; left: 60px; font-size: 20px">
+						<strong><label style="color: #929492">상품등록상태</label></strong><br />
+						<c:choose>
+							<c:when test="${productOne.pcancel eq 'N'}">
+								<input type="text"
+									style="border: 0px solid white; border-bottom: 1px solid #ccc; height: 40px"
+									value="등록" readonly="readonly">
+							</c:when>
+							<c:when test="${productOne.pcancel eq 'C'}">
+								<input type="text"
+									style="border: 0px solid white; border-bottom: 1px solid #ccc; height: 40px"
+									value="삭제 ( 관리자 )" readonly="readonly">
+							</c:when>
+							<c:otherwise>
+								<input type="text"
+									style="border: 0px solid white; border-bottom: 1px solid #ccc; height: 40px"
+									value="" readonly="readonly">
+							</c:otherwise>
+						</c:choose>
+					</div>
 
 
 					<div
 						style="position: absolute; top: 80px; left: 500px; font-size: 20px; width: 500px">
-						<strong><label style="color:#929492">아이디</label></strong><br/> 
-						<input type="text" style="border: 0px solid white; border-bottom: 1px solid #ccc; height: 40px; width: 500px"
+						<strong><label style="color: #929492">아이디</label></strong><br />
+						<input type="text"
+							style="border: 0px solid white; border-bottom: 1px solid #ccc; height: 40px; width: 500px"
 							value="${ productOne.id }" readonly="readonly">
 					</div>
 					<div
 						style="position: absolute; top: 170px; left: 500px; font-size: 20px; width: 500px">
-						<strong><label style="color:#929492">카테고리</label></strong><br/> 
-						<input type="text" style="border: 0px solid white; border-bottom: 1px solid #ccc; height: 40px; width: 500px"
+						<strong><label style="color: #929492">카테고리</label></strong><br />
+						<input type="text"
+							style="border: 0px solid white; border-bottom: 1px solid #ccc; height: 40px; width: 500px"
 							value="${ productOne.category }" readonly="readonly">
 					</div>
 					<div
 						style="position: absolute; top: 260px; left: 500px; font-size: 20px; width: 500px">
-						<strong><label style="color:#929492">삼품가격</label></strong><br/> 
-						 <fmt:formatNumber pattern="#,###,###" var="formattedPrice" value="${productOne.price}"/>
-  					  <input type="text" style="border: 0px solid white; border-bottom: 1px solid #ccc; height: 40px; width: 500px"
-        			   value="${formattedPrice}" readonly="readonly">
+						<strong><label style="color: #929492">삼품가격</label></strong><br />
+						<fmt:formatNumber pattern="#,###,###" var="formattedPrice"
+							value="${productOne.price}" />
+						<input type="text"
+							style="border: 0px solid white; border-bottom: 1px solid #ccc; height: 40px; width: 500px"
+							value="${formattedPrice}" readonly="readonly">
 					</div>
 					<div
 						style="position: absolute; top: 350px; left: 500px; font-size: 20px; width: 500px">
-						<strong><label style="color:#929492">상품상태</label></strong><br/> 
+						<strong><label style="color: #929492">상품상태</label></strong><br />
 						<c:choose>
-				        <c:when test="${productOne.status eq 'J'}">
-				           <input type="text" style="border: 0px solid white; border-bottom: 1px solid #ccc; height: 40px; width: 500px" value="중고" readonly="readonly">
-				        </c:when>
-				        <c:when test="${productOne.status eq 'S'}">
-				            <input type="text" style="border: 0px solid white; border-bottom: 1px solid #ccc; height: 40px; width: 500px" value="새상품" readonly="readonly">
-				        </c:when>
-				        <c:otherwise>
-				             <input type="text" style="border: 0px solid white; border-bottom: 1px solid #ccc; height: 40px; width: 500px" value="(미등록)" readonly="readonly">
-				        </c:otherwise>
-				    </c:choose>
+							<c:when test="${productOne.status eq 'J'}">
+								<input type="text"
+									style="border: 0px solid white; border-bottom: 1px solid #ccc; height: 40px; width: 500px"
+									value="중고" readonly="readonly">
+							</c:when>
+							<c:when test="${productOne.status eq 'S'}">
+								<input type="text"
+									style="border: 0px solid white; border-bottom: 1px solid #ccc; height: 40px; width: 500px"
+									value="새상품" readonly="readonly">
+							</c:when>
+							<c:otherwise>
+								<input type="text"
+									style="border: 0px solid white; border-bottom: 1px solid #ccc; height: 40px; width: 500px"
+									value="(미등록)" readonly="readonly">
+							</c:otherwise>
+						</c:choose>
 					</div>
 					<div
 						style="position: absolute; top: 450px; left: 500px; font-size: 20px; width: 500px">
-						<strong><label style="color:#929492">등록일</label></strong><br/> 
-						<input type="text" style="border: 0px solid white; border-bottom: 1px solid #ccc; height: 40px; width: 500px"
+						<strong><label style="color: #929492">등록일</label></strong><br />
+						<input type="text"
+							style="border: 0px solid white; border-bottom: 1px solid #ccc; height: 40px; width: 500px"
 							value="${ productOne.input_date }" readonly="readonly">
 					</div>
 
-
-
-
-
-					<input type="button" class="btn" id="btnChange" value="상품 삭제"
-						style="position: absolute; top: 620px; left: 1030px; font-size: 20px;" />
+					<c:if test="${productOne.pcancel eq 'N'}">
+						<input type="button" class="btn" id="btnChange" value="상품 삭제"
+							style="position: absolute; top: 620px; left: 1030px; font-size: 20px;" />
+					</c:if>
 				</div>
 			</form>
 		</div>

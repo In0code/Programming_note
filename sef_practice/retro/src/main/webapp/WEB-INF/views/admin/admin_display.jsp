@@ -65,6 +65,11 @@ $(function() {
 		location.href="logout.jsp";
 	});
 });
+
+function detail(rcode){
+	$("#rcode").val(rcode);
+	$("#frmDetail").submit();
+}
 </script>
 </head>
 <body>
@@ -80,17 +85,11 @@ $(function() {
 		<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
  		<path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
 		</svg>
-		<!-- 작업하는 jsp에 따라 바꿔줄 것 -->
-		
-		회원 관리
-		
-		<!---->
-		<!---->
-		<!---->
+		이벤트 관리
 		</div>
 		
 		<div class="text" id="mainTitle">
-			<strong>회원 리스트</strong>
+			<strong>이벤트 리스트</strong>
 		</div>
 		
 		<!-- 검색 -->
@@ -116,6 +115,11 @@ $(function() {
 		</div>
 		<!---->
 		
+		<!-- 상세보기 페이지로 -->
+		<form id="frmDetail" action="">
+			<input type="hidden" id="" name=""/>
+		</form>
+		
 		<!-- 테이블 -->
 		<div id="background_box">
 		<div style="margin: 10px; text-align: center;">
@@ -133,18 +137,44 @@ $(function() {
 				
 				<tbody>
 					<!-- list가 존재하지 않을 경우 -->
-					<c:if test="${ memberList eq null }">
-					<tr>
-						<td colspan="4" style="text-align: center;"> 
-							게시글이 존재하지 않습니다. </td>
+					<c:if test="${ empty reviewList }">
+					<tr onclick="detail(10)">
+						<td colspan="6" style="text-align: center; border:none;"> 
+							이벤트가 존재하지 않습니다. </td>
 					</tr>
 					</c:if>
+				
+					<c:forEach var="var" items="${ items }" varStatus="i">
+					<tr onclick="detail(10)">
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 			</div>
 		</div>
 		<!---->
 		
+		<div class="pagenationDiv">
+    	<div class="pagination">
+      		<a href="#"><</a>
+        	<span class="active">1</span>
+        	<a href="#">2</a>
+        	<a href="#">3</a>
+        	<a href="#">></a>
+    	</div>
+    	</div>
+    	
+    	<!-- 버튼 쓸 사람 -->
+    	<div class="btnDiv">
+			<input type="button" class="btnCss" value="목록">	
+		</div>
+		<!---->
+			
 	</div>	
 </div>
 </body>

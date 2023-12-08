@@ -172,7 +172,18 @@ function chkNull() {
 			</div>
 		</div>
 		<!---->
-		
+		<div class="pagenationDiv">
+    	<div class="pagination">
+      		<a href="#"><</a>
+        	<span class="active">1</span>
+        	<a href="#">2</a>
+        	<a href="#">3</a>
+        	<a href="#">></a>
+    	</div>
+    	</div>
+    	<div class="btnDiv">
+			<input type="button" class="btnCss" value="목록">	
+		</div>
 	</div>	
 </div>
 </body>

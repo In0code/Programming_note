@@ -10,6 +10,18 @@
 <link rel="stylesheet" href="http://localhost/retro_prj/common/cdn/review_write.css" />
 <style type="text/css">
 
+textarea {
+	border: 1px solid #DBDFE6; 
+	border-radius: 5px; 
+	resize: none; 
+	padding:10px; 
+	margin-top:10px
+}
+
+textarea:focus {
+	outline: none;
+	border: 1px solid #0DCC5A;
+}
 
 </style>
 
@@ -282,8 +294,7 @@
 					
 					<div style="text-align: right">
 					<textarea id="reviewArea" name="reviewArea" oninput="lengthCnt()" placeholder="상세한 리뷰를 작성해주세요.(선택)"
-					style="width:100%; height: 170px; border: 1px solid #DBDFE6; 
-					border-radius: 5px; resize: none; padding:10px; margin-top:10px" ></textarea>
+					style="width:100%; height: 170px;" ></textarea>
 					<span id="lengthCnt">0</span>/300
 					</div>
 					</form>

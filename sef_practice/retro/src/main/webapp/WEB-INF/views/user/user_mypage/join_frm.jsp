@@ -15,13 +15,70 @@
 </style>
 <script type="text/javascript">
 	var openPrivacyFlag = false;
-	var nicknameCnt = 0;
 
 	$(function() {
-		$("#nickname").keydown(function(word) {
-			checkNickname(word);
-			if(nicknameCnt > 30) {
-				
+		$("#pw").keydown(function() {
+			var flag = false;
+			var pw = $("#pw").val();
+			
+			if(pw.length < 8 || pw.length > 16){
+				flag = true;
+			}else if(pw.search(/\s/) != -1){
+				flag = true;
+			}
+			
+			if(flag) {
+				$("#err1").addClass("has_error");
+				$("#pw").addClass("text_fill");
+				return;
+			} else {
+				$("#err1").removeClass("has_error");
+				$("#pw").removeClass("text_fill");
+			}
+		});
+		
+		$("#pwChk").keydown(function() {
+			var pw = $("#pw").val();
+			var pwChk = $("#pwChk").val();		
+			
+			if(pw != pwChk) {
+				$("#err2").addClass("has_error");
+				$("#pwChk").addClass("text_fill");
+			} else {
+				$("#err2").removeClass("has_error");
+				$("#pwChk").removeClass("text_fill");
+			}
+		});
+		
+		$("#email").keydown(function() {
+			var regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+			var email = $("#email").val();
+			
+		    if (!regEmail.test(email)) {
+				$("#err").addClass("has_error");
+				$("#email").addClass("text_fill");
+		    } else {
+				$("#err").removeClass("has_error");
+				$("#email").removeClass("text_fill");
+		    }
+		});
+		
+		$("#checkBox").change(function() {
+			var join = [$("#id").val(), $("#nickname").val(), $("#email").val(), $("#pw").val(), $("#pwChk").val(), $("#phone").val()];
+			var flag = false;
+			
+			for(var i = 0; i < join.length; i++) {
+				if(join[i].length > 0) {
+					flag = true
+				} else {
+					return;
+				}
+			}
+			
+			if(flag) {
+				$("#join").removeClass("disabled");		
+			} else {
+				$("#join").addClass("disabled");	
 			}
 		});
 	});
@@ -34,48 +91,26 @@ function join() {
 	var pwChk = $("#pwChk").val();
 	var id = $("#phone").val();
 	
-	checkPw(pw, pwCHk);
+		joinAjax();
 }
 
-function checkNickname(word) {
-	var regKR = /[ㄱ-ㅎ|가-힣]/;
-	
-	if(nickname.test(regKR)) {
-		nicknameCnt += 3;
-	} else {
-		nicknameCnt += 1;		
-	}
-}
-
-function checkEmail(email) {
-	var regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
-	
-    if (!regEmail.test(email)) {
-        alert('이메일 형식에 맞춰주세요.');
-		$("#err").addClass("has_error");
-		$("#email").addClass("text_fill");
-    }
-}
-
-function checkPw(pw, pwChk) {
-	var flag = false;
-	if(pw.length < 8 || pw.length > 16){
-		alert("8자리 ~ 16자리 이내로 입력해주세요.");
-		flag = true;
-	}else if(pw.search(/\s/) != -1){
-		alert("비밀번호는 공백 없이 입력해주세요.");
-		flag = true;
-	}
-	if(flag) {
-		$("#err1").addClass("has_error");
-		$("#pw").addClass("text_fill");
-		return;
-	}
-	
-	if(pw === pwChk) {
-		$("#err2").addClass("has_error");
-		$("#pwChk").addClass("text_fill");
-	}
+function joinAjax() {
+	$.ajax({
+		url:"use_response_json.do",
+		type:"GET",
+		data:param,
+		dataType:"JSON",
+		error:function(xhr) {
+			alert(xhr.status);
+		},
+		success:function(jsonObj) {
+			var output = jsonObj.hierarchy+" <strong>"+jsonObj.name+"님</strong><p style='color: red;'>"+jsonObj.msg+"</p>";
+			
+			$("#output").html(output);
+			$("img").show();
+		}
+				
+	});
 }
 	
 function openPrivacy() {
@@ -110,6 +145,10 @@ function handleOnInputID(e)  {
 function handleOnInputNickname(e)  {
 	e.value = e.value.replace(/[^ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]/ig, '')
 }
+
+function handleOnInputPhone(e)  {
+	e.value = e.value.replace(/[^0-9]/ig, '')
+}
 </script>
 </head>
 <body>
@@ -139,36 +178,36 @@ function handleOnInputNickname(e)  {
 				<div data-v-5ee806c3="" data-v-286e873e="" class="input_join input_box">
 					<h3 data-v-286e873e="" data-v-5ee806c3="" class="input_title ess">닉네임</h3>
 					<div data-v-5ee806c3="" class="input_item">
-						<input data-v-5ee806c3="" id="nickname" type="text" placeholder="별칭" autocomplete="off" class="input_txt" maxlength="30" oninput="handleOnInputNickname(this)">
+						<input data-v-5ee806c3="" id="nickname" type="text" placeholder="별칭" autocomplete="off" class="input_txt" maxlength="10" oninput="handleOnInputNickname(this)">
 					</div>
 					<p data-v-286e873e="" data-v-5ee806c3="" class="input_error"></p>
 				</div>
-				<div data-v-5ee806c3="" data-v-286e873e="" class="input_join input_box">
-					<h3 data-v-286e873e="" data-v-5ee806c3="" id="email" class="input_title ess">이메일 주소</h3>
+				<div data-v-5ee806c3="" data-v-286e873e="" id="err" class="input_join input_box">
+					<h3 data-v-286e873e="" data-v-5ee806c3="" class="input_title ess">이메일 주소</h3>
 					<div data-v-5ee806c3="" class="input_item">
-						<input data-v-5ee806c3="" type="text" placeholder="예) retro@retro.co.kr" autocomplete="off" class="input_txt">
+						<input data-v-5ee806c3="" id="email" type="text" placeholder="예) retro@retro.co.kr" autocomplete="off" class="input_txt">
 					</div>
-					<p data-v-286e873e="" data-v-5ee806c3="" id="err" class="input_error">이메일이 올바르지 않습니다.</p>
+					<p data-v-286e873e="" data-v-5ee806c3="" class="input_error">이메일이 올바르지 않습니다.</p>
 				</div>
 				<!---->
 				<div data-v-5ee806c3="" data-v-286e873e="" id="err1" class="input_box input_join has_button">
 					<h3 data-v-286e873e="" data-v-5ee806c3="" class="input_title ess">비밀번호</h3>
 					<div data-v-5ee806c3="" class="input_item">
-						<input data-v-5ee806c3="" id="pw" type="password" placeholder="영문, 숫자, 특수문자 조합 8-16자" autocomplete="off" class="input_txt" max-length="16">
+						<input data-v-5ee806c3="" id="pw" type="password" placeholder="영문, 숫자, 특수문자 조합 8-16자" autocomplete="off" class="input_txt" maxlength="16">
 					</div>
 					<p data-v-286e873e="" data-v-5ee806c3="" class="input_error">영문, 숫자, 특수문자만 사용하여 입력해주세요.</p>
 				</div>
 				<div data-v-5ee806c3="" data-v-286e873e="" id="err2" class="input_box input_join has_button">
 					<h3 data-v-286e873e="" data-v-5ee806c3="" class="input_title ess">비밀번호 확인</h3>
 					<div data-v-5ee806c3="" class="input_item">
-						<input data-v-5ee806c3="" id="pwChk" type="password" placeholder="영문, 숫자, 특수문자 조합 8-16자" autocomplete="off" class="input_txt" max-length="16">
+						<input data-v-5ee806c3="" id="pwChk" type="password" placeholder="영문, 숫자, 특수문자 조합 8-16자" autocomplete="off" class="input_txt" maxlength="16">
 					</div>
 					<p data-v-286e873e="" data-v-5ee806c3="" class="input_error">비밀번호 불일치</p>
 				</div>
 				<div data-v-5ee806c3="" data-v-286e873e="" class="input_join input_box">
 					<h3 data-v-286e873e="" data-v-5ee806c3="" class="input_title ess">전화번호</h3>
 					<div data-v-5ee806c3="" class="input_item">
-						<input data-v-5ee806c3="" id="phone" type="text" placeholder="01098761234" autocomplete="off" class="input_txt" max-length="11">
+						<input data-v-5ee806c3="" id="phone" type="text" placeholder="01098761234" autocomplete="off" class="input_txt" maxlength="11" oninput="handleOnInputPhone(this)">
 					</div>
 					<p data-v-286e873e="" data-v-5ee806c3="" class="input_error"></p>
 				</div>
@@ -176,8 +215,10 @@ function handleOnInputNickname(e)  {
 					<div id="detailInfo" class="terms_box">
 						<div class="check_main">
 							<div data-v-4c714e9f="" data-v-286e873e="" class="checkbox_item">
+								<input type="checkbox" id="checkBox" style="-webkit-appearance: checkbox;width: 15px;height: 15px;border: 1px solid; border-radius: 5px;margin-top: 6px;margin-right: 5px;
+									accent-color: black;">
 								<span data-v-4c714e9f="" class="label_txt" style="padding: 0px;font-weight: bold;">[필수] 가입 시 만 14세 이상이며 모두 동의합니다.</span>
-								<a onclick="openPrivacy()" style="font-size: 12px;margin-top: 2px;padding-top: 1px;margin-left: 64px;cursor: pointer;">더보기</a>
+								<a onclick="openPrivacy()" style="font-size: 12px;margin-top: 2px;padding-top: 1px;margin-left: 44px;cursor: pointer;">더보기</a>
 							</div>
 						</div>
 						<div data-v-286e873e="" class="check_sub">
@@ -192,7 +233,7 @@ function handleOnInputNickname(e)  {
 						</div>
 					</div>
 				</div>
-				<a data-v-0a6aebaa="" data-v-286e873e="" onclick="join()" class="btn btn_join full solid disabled"> 가입하기 </a>
+				<a data-v-0a6aebaa="" data-v-286e873e="" id="join" onclick="join()" class="btn btn_join full solid disabled"> 가입하기 </a>
 			</div>
 			<div id="layer_privacy" class="layer lg layer_privacy" style="display: none;">
 				<!---->
