@@ -51,7 +51,7 @@ if(str != null && !"".equals(str)) {
 		<form id="frm" name="frm" method="post" action="mypage_info.do">
 			<input type="password" id="pw" name="pw" style="padding-left: 10px;padding-top: 7px;padding-bottom: 5px;border: 1px solid #D1D1D1;border-radius: 5px;" placeholder="비밀번호 입력">
 			<p id="pwErr" style="display: none;color: red;font-size: 13px;">비밀번호를 다시 입력해주세요</p>
-			<input type="hidden" name="id" value="user">
+			<input type="hidden" name="id" value="${sessionScope.sesId }">
 		</form>
 	</div>
 </div>

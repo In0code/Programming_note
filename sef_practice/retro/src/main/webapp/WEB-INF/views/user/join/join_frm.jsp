@@ -91,18 +91,7 @@ function join() {
 	var pwChk = $("#pwChk").val();
 	var phone = $("#phone").val();
 	
-	$("#id").val(id);
-	$("#nickname").val(nickname);
-	$("#email").val(email);
-	$("#pw").val(pw);
-	$("#phone").val(phone);
-	
-	joinAjax(id, nickname, email, pw, phone);
-}
-
-function joinAjax(id, nickname, email, pw, phone) {
 	var param = {id:id, nickname:nickname, email:email, pw:pw, phone:phone};
-	
 	$.ajax({
 		url:"user_join_chk.do",
 		type:"POST",
@@ -112,15 +101,19 @@ function joinAjax(id, nickname, email, pw, phone) {
 			alert(xhr.status);
 		},
 		success:function(jsonObj) {
-			if(!jsonObj.flag) {
-				alert(jsonObj.flagMsg);
-			} else {
-				$("#joinFrn").submit();
-			}
+			
+			$("#idHid").val(id);
+			$("#nicknameHid").val(nickname);
+			$("#emailHid").val(email);
+			$("#pwHid").val(pw);
+			$("#pwChkHid").val(pwChk);
+			$("#phoneHid").val(phone);
+			
+			$("#joinFrn").submit();
 		}
-				
 	});
 }
+
 	
 function openPrivacy() {
 	if(!openPrivacyFlag) {

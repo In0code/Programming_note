@@ -119,7 +119,7 @@ function bye() {
 							<form id="cnlByeFrm" method="post" action="user_mypage_frm.do?">
 								<input id="cnlBye" type="button" class="btn solid medium" data-v-0a6aebaa="" data-v-79f8507c="" data-v-4be3d37a="" value="탈퇴 안 할래요">
 							</form>
-							<a href="reallyBye.do?id=user" data-v-79f8507c="" data-v-4be3d37a="" class="link_withdrawal"> 탈퇴하기 </a>
+							<a href="reallyBye.do?id=asdasd" data-v-79f8507c="" data-v-4be3d37a="" class="link_withdrawal"> 탈퇴하기 </a>
 						</div>
 					</div>
 				</div>

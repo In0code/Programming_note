@@ -43,7 +43,7 @@
 	</div>
 	<div style="color: #6F6965;margin-top: 65px;font-size: 14px;">
 		<p><span>회원 가입이 완료되었습니다.</span></p>
-		<p style="margin-top: 30px;font-weight: bold;color: #333"><span>user(싱숭생숭)님 방갑습니다.</span></p>
+		<p style="margin-top: 30px;font-weight: bold;color: #333"><span>${param.id }(${param.nickname })님 방갑습니다.</span></p>
 <%-- 		<p style="margin-top: 30px;"><span>${param.id }(${param.nickname })님 방갑습니다.</span></p> --%>
 		<a id="mainA" href="indexdw.do">메인으로</a>
 	</div>

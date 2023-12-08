@@ -54,7 +54,7 @@
 				<div data-v-0c9f3f9e="" data-v-cf6a6ef4="" class="unit" data-v-8b96a82e="">
 					<h5 data-v-0c9f3f9e="" class="title">아이디</h5>
 					<div data-v-0c9f3f9e="" class="unit_content">
-						<p data-v-24a03828="" data-v-cf6a6ef4="" class="desc email" data-v-0c9f3f9e=""><c:out value="${userInfo.id }"/></p>
+						<p data-v-24a03828="" data-v-cf6a6ef4="" class="desc email" data-v-0c9f3f9e=""><c:out value="${sessionScope.sesId }"/></p>
 					</div>
 				</div>
 				<div data-v-0c9f3f9e="" data-v-cf6a6ef4="" class="unit" data-v-8b96a82e="">
