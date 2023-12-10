@@ -130,14 +130,14 @@ a {
 				<input type="hidden" id="gcode" name="gcode" value="">
 				<div id="background_box"
 					style="width: 1200px; height: 700px; font-family: pretendard; position: relative; top: 55px">
-					<!-- 각자 원하는데로 사용 -->
 					<label
 						style="position: absolute; top: 10px; left: 30px; font-size: 20px; color: #929492">상품
 						상세 정보</label>
 					<div
 						style="position: absolute; top: 60px; left: 50px; width: 350px; height: 350px">
-						<img id="previewMainImg" src="../upload/goods/img_null.png"
+						<img id="previewMainImg" src="../upload/img1.jpg"
 							style="width: 350px; height: 350px;" name="mainImg__div">
+							<!-- ../upload/${ productOne.img } -->
 					</div>
 					<div
 						style="position: absolute; top: 460px; left: 60px; font-size: 20px">
@@ -172,17 +172,17 @@ a {
 
 					<div
 						style="position: absolute; top: 80px; left: 500px; font-size: 20px; width: 500px">
-						<strong><label style="color: #929492">아이디</label></strong><br />
+						<strong><label style="color: #929492">아이디 ( 닉네임 )</label></strong><br />
 						<input type="text"
 							style="border: 0px solid white; border-bottom: 1px solid #ccc; height: 40px; width: 500px"
-							value="${ productOne.id }" readonly="readonly">
+							value="${ productOne.id } ( ${ productOne.nickname } ) " readonly="readonly">
 					</div>
 					<div
 						style="position: absolute; top: 170px; left: 500px; font-size: 20px; width: 500px">
 						<strong><label style="color: #929492">카테고리</label></strong><br />
 						<input type="text"
 							style="border: 0px solid white; border-bottom: 1px solid #ccc; height: 40px; width: 500px"
-							value="${ productOne.category }" readonly="readonly">
+							value="${ productOne.category } > ${ productOne.category2 } > ${ productOne.category3 }" readonly="readonly">
 					</div>
 					<div
 						style="position: absolute; top: 260px; left: 500px; font-size: 20px; width: 500px">
@@ -221,7 +221,7 @@ a {
 							style="border: 0px solid white; border-bottom: 1px solid #ccc; height: 40px; width: 500px"
 							value="${ productOne.input_date }" readonly="readonly">
 					</div>
-
+					<!-- 상품 등록 상태가 '등록'일때만 '상품 삭제' 버튼 보여 줌 -->
 					<c:if test="${productOne.pcancel eq 'N'}">
 						<input type="button" class="btn" id="btnChange" value="상품 삭제"
 							style="position: absolute; top: 620px; left: 1030px; font-size: 20px;" />

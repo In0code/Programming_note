@@ -23,11 +23,11 @@
 	$(function() {
 /* ---------------패션 의류--------------------- */
 		/* 패션의류 클릭하면 동작 */
-		$("#category-1").click(function() {
+		$("#C").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-		 $("#category-2, #category-3, #category-4, #category-5, #category-1-1, #category-11,#category-12").css({
+		 $("#G, #T, #P, #B, #C-1, #C1,#C2").css({
 			  'background-color': '#FFFFFF'
 		 });
 			
@@ -37,11 +37,11 @@
 		});//click
 		
 		/* 여성의류 클릭하면 동작 */
-		$("#category-11").click(function() {
+		$("#C1").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-			$("#category-12, #category-112,#category-113,#category-111").css({
+			$("#C2, #C102,#C103,#C101").css({
 				  'background-color': '#FFFFFF'
 			 });
 			$("#category-depth-1-1").show();
@@ -49,11 +49,11 @@
 		});//click
 		
 		/* 남성의류 클릭하면 동작 */
-		$("#category-12").click(function() {
+		$("#C2").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-			$("#category-11, #category-121,#category-122,#category-123").css({
+			$("#C1, #C201,#C202,#C203").css({
 				  'background-color': '#FFFFFF'
 			 });
 			$("#category-depth-1-2").show();
@@ -61,61 +61,61 @@
 		});//click
 		
 		/* 티셔츠 , 캐쥬얼의류가 클릭되면 동작 */
-		$("#category-111").click(function() {
+		$("#C101").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-		$("#category-112, #category-113").css({
+		$("#C102, #C103").css({
 			  'background-color': '#FFFFFF'
 		 });
 		});//click
 		
 		/* 바지, 치마가 클릭되면 동작 */
-		$("#category-112").click(function() {
+		$("#C102").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-		$("#category-111, #category-113").css({
+		$("#C101, #C103").css({
 			  'background-color': '#FFFFFF'
 		 });
 		});//click
 		
 		/* 트레이닝복이 클릭되면 동작 */
-		$("#category-113").click(function() {
+		$("#C103").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-		$("#category-112, #category-111").css({
+		$("#C102, #C101").css({
 			  'background-color': '#FFFFFF'
 		 });
 		});//click
 		
 		/* 티셔츠 , 캐쥬얼의류가 클릭되면 동작 */
-		$("#category-121").click(function() {
+		$("#C201").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-		$("#category-122, #category-123").css({
+		$("#C202, #C203").css({
 			  'background-color': '#FFFFFF'
 		 });
 		});//click
 		
 		/* 바지, 치마가 클릭되면 동작 */
-		$("#category-122").click(function() {
+		$("#C202").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-		$("#category-121, #category-123").css({
+		$("#C201, #C203").css({
 			  'background-color': '#FFFFFF'
 		 });
 		});//click
 		
 		/* 트레이닝복이 클릭되면 동작 */
-		$("#category-123").click(function() {
+		$("#C203").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-		$("#category-122, #category-121").css({
+		$("#C202, #C201").css({
 			  'background-color': '#FFFFFF'
 		 });
 		});//click
@@ -123,11 +123,11 @@
  /* ---------------패션 잡화--------------------- */
 		
 		/* 패션잡화 클릭하면 동작 */
-		$("#category-2").click(function() {
+		$("#G").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-			$("#category-1, #category-3, #category-4, #category-5, #category-1-1,#category-21,#category-22,#category-23").css({
+			$("#C, #T, #P, #B, #C-1,#G1,#G2,#G3").css({
 				  'background-color': '#FFFFFF'
 			 });
 			$("#category-depth-2").show();
@@ -135,11 +135,11 @@
 		});//click
 		
 		/* 여성화 클릭하면 동작 */
-		$("#category-21").click(function() {
+		$("#G1").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-			$("#category-1, #category-3, #category-4, #category-5, #category-1-1,#category-22,#category-23,#category-211,#category-212,#category-213").css({
+			$("#C, #T, #P, #B, #C-1,#G2,#G3,#G101,#G102,#G103").css({
 				  'background-color': '#FFFFFF'
 			 });
 			$("#category-depth-2-1").show();
@@ -147,11 +147,11 @@
 		});//click
 		
 		/* 남성화 클릭하면 동작 */
-		$("#category-22").click(function() {
+		$("#G2").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-			$("#category-1, #category-3, #category-4, #category-5, #category-1-1,#category-21,#category-23,#category-221,#category-222,#category-223").css({
+			$("#C, #T, #P, #B, #C-1,#G1,#G3,#G201,#G202,#G203").css({
 				  'background-color': '#FFFFFF'
 			 });
 			$("#category-depth-2-2").show();
@@ -159,11 +159,11 @@
 		});//click
 		
 		/* 가방 클릭하면 동작 */
-		$("#category-23").click(function() {
+		$("#G3").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-			$("#category-1, #category-3, #category-4, #category-5, #category-1-1,#category-21,#category-22,#category-231,#category-232,#category-233").css({
+			$("#C, #T, #P, #B, #C-1,#G1,#G2,#G301,#G302,#G303").css({
 				  'background-color': '#FFFFFF'
 			 });
 			$("#category-depth-2-3").show();
@@ -171,91 +171,91 @@
 		});//click
 		
 		/* 여성화 > 단화/ 로퍼 클릭되면 동작 */
-		$("#category-211").click(function() {
+		$("#G101").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-		$("#category-212, #category-213").css({
+		$("#G102, #G103").css({
 			  'background-color': '#FFFFFF'
 		 });
 		});//click
 		
 		/* 여성화 > 워커 / 부츠가 클릭되면 동작 */
-		$("#category-212").click(function() {
+		$("#G102").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-		$("#category-211, #category-213").css({
+		$("#G101, #G103").css({
 			  'background-color': '#FFFFFF'
 		 });
 		});//click
 		
 		/* 여성화 > 샌들 / 슬리퍼 클릭되면 동작 */
-		$("#category-213").click(function() {
+		$("#G103").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-		$("#category-212, #category-211").css({
+		$("#G102, #G101").css({
 			  'background-color': '#FFFFFF'
 		 });
 		});//click
 		
 		/* 남성화 > 단화/ 로퍼 클릭되면 동작 */
-		$("#category-221").click(function() {
+		$("#G201").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-		$("#category-222, #category-223").css({
+		$("#G202, #G203").css({
 			  'background-color': '#FFFFFF'
 		 });
 		});//click
 		
 		/* 남성화 > 워커 / 부츠가 클릭되면 동작 */
-		$("#category-222").click(function() {
+		$("#G202").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-		$("#category-221, #category-223").css({
+		$("#G201, #G203").css({
 			  'background-color': '#FFFFFF'
 		 });
 		});//click
 		
 		/* 남성화 > 샌들 / 슬리퍼 클릭되면 동작 */
-		$("#category-223").click(function() {
+		$("#G203").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-		$("#category-222, #category-221").css({
+		$("#G202, #G201").css({
 			  'background-color': '#FFFFFF'
 		 });
 		});//click
 		
 		/* 가방 > 숄더백 클릭되면 동작 */
-		$("#category-231").click(function() {
+		$("#G301").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-		$("#category-232, #category-233").css({
+		$("#G302, #G303").css({
 			  'background-color': '#FFFFFF'
 		 });
 		});//click
 		
 		/* 가방 > 크로스백가 클릭되면 동작 */
-		$("#category-232").click(function() {
+		$("#G302").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-		$("#category-231, #category-233").css({
+		$("#G301, #G303").css({
 			  'background-color': '#FFFFFF'
 		 });
 		});//click
 		
 		/* 가방 > 백팩 클릭되면 동작 */
-		$("#category-233").click(function() {
+		$("#G303").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-		$("#category-232, #category-231").css({
+		$("#G302, #G301").css({
 			  'background-color': '#FFFFFF'
 		 });
 		});//click
@@ -264,11 +264,11 @@
 /* ---------------모바일, 테블릿--------------------- */	
 
 		/* 모바일, 테블릿 클릭하면 동작 */
-		$("#category-3").click(function() {
+		$("#T").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-			$("#category-2, #category-1, #category-4, #category-5, #category-1-1,#category-31,#category-32").css({
+			$("#G, #C, #P, #B, #C-1,#T1,#T2").css({
 				  'background-color': '#FFFFFF'
 			 });
 			$("#category-depth-3").show();
@@ -276,11 +276,11 @@
 		});//click
 		
 		/* 스마트폰 클릭하면 동작 */
-		$("#category-31").click(function() {
+		$("#T1").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-			$("#category-1, #category-2, #category-4, #category-5, #category-1-1,#category-32,#category-311,#category-312,#category-313,#category-314").css({
+			$("#C, #G, #P, #B, #C-1,#T2,#T101,#T102,#T103,#T104").css({
 				  'background-color': '#FFFFFF'
 			 });
 			$("#category-depth-3-1").show();
@@ -288,11 +288,11 @@
 		});//click
 		
 		/* 테블릿PC 클릭하면 동작 */
-		$("#category-32").click(function() {
+		$("#T2").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-			$("#category-1, #category-2, #category-4, #category-5, #category-1-1,#category-31,#category-321,#category-322,#category-323").css({
+			$("#C, #G, #P, #B, #C-1,#T1,#T201,#T202,#T203").css({
 				  'background-color': '#FFFFFF'
 			 });
 			$("#category-depth-3-2").show();
@@ -300,71 +300,71 @@
 		});//click
 		
 		/* 스마트폰 > 삼성 클릭되면 동작 */
-		$("#category-311").click(function() {
+		$("#T101").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-		$("#category-312,#category-313,#category-314").css({
+		$("#T102,#T103,#T104").css({
 			  'background-color': '#FFFFFF'
 		 });
 		});//click
 		
 		/* 스마트폰 > LG 클릭되면 동작 */
-		$("#category-312").click(function() {
+		$("#T102").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-		$("#category-311,#category-313,#category-314").css({
+		$("#T101,#T103,#T104").css({
 			  'background-color': '#FFFFFF'
 		 });
 		});//click
 		
 		/* 스마트폰 > 애플 클릭되면 동작 */
-		$("#category-313").click(function() {
+		$("#T103").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-		$("#category-312 ,#category-311,#category-314").css({
+		$("#T102 ,#T101,#T104").css({
 			  'background-color': '#FFFFFF'
 		 });
 		});//click
 		
 		/* 스마트폰 > 기타 클릭되면 동작 */
-		$("#category-314").click(function() {
+		$("#T104").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-		$("#category-312 ,#category-313,#category-311").css({
+		$("#T102 ,#T103,#T101").css({
 			  'background-color': '#FFFFFF'
 		 });
 		});//click
 		
 		/* 테블릿PC > 삼성 클릭되면 동작 */
-		$("#category-321").click(function() {
+		$("#T201").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-		$("#category-322,#category-323").css({
+		$("#T202,#T203").css({
 			  'background-color': '#FFFFFF'
 		 });
 		});//click
 		
 		/* 테블릿PC > 애플 클릭되면 동작 */
-		$("#category-322").click(function() {
+		$("#T202").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-		$("#category-323 ,#category-321").css({
+		$("#T203 ,#T201").css({
 			  'background-color': '#FFFFFF'
 		 });
 		});//click
 		
 		/* 테블릿PC > 기타 클릭되면 동작 */
-		$("#category-323").click(function() {
+		$("#T203").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-		$("#category-322 ,#category-321").css({
+		$("#T202 ,#T201").css({
 			  'background-color': '#FFFFFF'
 		 });
 		});//click
@@ -373,11 +373,11 @@
 /* ---------------노트북, PC--------------------- */
 		
 		/* 노트북, PC 클릭하면 동작 */
-		$("#category-4").click(function() {
+		$("#P").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-			$("#category-2, #category-3, #category-1, #category-5, #category-1-1,#category-41,#category-42,#category-43").css({
+			$("#G, #T, #C, #B, #C-1,#P1,#P2,#P3").css({
 				  'background-color': '#FFFFFF'
 			 });
 			$("#category-depth-4").show();
@@ -385,11 +385,11 @@
 		});//click
 		
 		/* 노트북 클릭하면 동작 */
-		$("#category-41").click(function() {
+		$("#P1").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-			$("#category-1, #category-3, #category-2, #category-5,#category-42,#category-43,#category-411,#category-412,#category-413").css({
+			$("#C, #T, #G, #B,#P2,#P3,#P101,#P102,#P103").css({
 				  'background-color': '#FFFFFF'
 			 });
 			$("#category-depth-4-1").show();
@@ -397,53 +397,53 @@
 		});//click
 		
 		/* 모니터 클릭하면 동작 */
-		$("#category-42").click(function() {
+		$("#P2").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-			$("#category-1, #category-2, #category-3, #category-5, #category-41,#category-43").css({
+			$("#C, #G, #T, #B, #P1,#P3").css({
 				  'background-color': '#FFFFFF'
 			 });
 			$("#category-depth-4-1").hide();
 		});//click
 		
 		/* 데스크탑 클릭하면 동작 */
-		$("#category-43").click(function() {
+		$("#P3").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-			$("#category-1, #category-2, #category-3, #category-5,#category-41,#category-42").css({
+			$("#C, #G, #T, #B,#P1,#P2").css({
 				  'background-color': '#FFFFFF'
 			 });
 			$("#category-depth-4-1").hide();
 		});//click
 		
 		/* 노트북 > 삼성 클릭되면 동작 */
-		$("#category-411").click(function() {
+		$("#P101").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-		$("#category-412,#category-413").css({
+		$("#P102,#P103").css({
 			  'background-color': '#FFFFFF'
 		 });
 		});//click
 		
 		/* 노트북 > LG 클릭되면 동작 */
-		$("#category-412").click(function() {
+		$("#P102").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-		$("#category-413 ,#category-411").css({
+		$("#P103 ,#P101").css({
 			  'background-color': '#FFFFFF'
 		 });
 		});//click
 		
 		/* 노트북 > 애플 클릭되면 동작 */
-		$("#category-413").click(function() {
+		$("#P103").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-		$("#category-412 ,#category-411").css({
+		$("#P102 ,#P101").css({
 			  'background-color': '#FFFFFF'
 		 });
 		});//click
@@ -452,11 +452,11 @@
 /* ---------------도서 , 문구--------------------- */		
 		
 		/* 도서/ 문구 클릭하면 동작 */
-		$("#category-5").click(function() {
+		$("#B").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-			$("#category-2, #category-3, #category-4, #category-1, #category-1-1,#category-51,#category-52,#category-53").css({
+			$("#G, #T, #P, #C, #C-1,#B1,#B2,#B3").css({
 				  'background-color': '#FFFFFF'
 			 });
 			$("#category-depth-5").show();
@@ -464,11 +464,11 @@
 		});//click
 		
 		/* 학습 / 교육 클릭하면 동작 */
-		$("#category-51").click(function() {
+		$("#B1").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-			$("#category-1, #category-3, #category-2, #category-4,#category-52,#category-53,#category-511,#category-512,#category-513").css({
+			$("#C, #T, #G, #P,#B2,#B3,#B101,#B102,#B103").css({
 				  'background-color': '#FFFFFF'
 			 });
 			$("#category-depth-5-1").show();
@@ -476,11 +476,11 @@
 		});//click
 		
 		/* 소설 / 만화책 클릭하면 동작 */
-		$("#category-52").click(function() {
+		$("#B2").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-			$("#category-1, #category-2, #category-3, #category-4, #category-51,#category-53,#category-521,#category-522").css({
+			$("#C, #G, #T, #P, #B1,#B3,#B201,#B202").css({
 				  'background-color': '#FFFFFF'
 			 });
 			$("#category-depth-5-2").show();
@@ -488,63 +488,63 @@
 		});//click
 		
 		/* 문구 / 사무용품 클릭하면 동작 */
-		$("#category-53").click(function() {
+		$("#B3").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-			$("#category-1, #category-2, #category-3, #category-4,#category-51,#category-52").css({
+			$("#C, #G, #T, #P,#B1,#B2").css({
 				  'background-color': '#FFFFFF'
 			 });
 			$("#category-depth-5-1,#category-depth-5-2").hide();
 		});//click
 		
 		/* 학습/ 교육 > 학습/참고서 클릭되면 동작 */
-		$("#category-511").click(function() {
+		$("#B101").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-		$("#category-512,#category-513").css({
+		$("#B102,#B103").css({
 			  'background-color': '#FFFFFF'
 		 });
 		});//click
 		
 		/* 학습/ 교육 > 수험서/자격증 클릭되면 동작 */
-		$("#category-512").click(function() {
+		$("#B102").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-		$("#category-513 ,#category-511").css({
+		$("#B103 ,#B101").css({
 			  'background-color': '#FFFFFF'
 		 });
 		});//click
 		
 		/* 학습/ 교육 > 컴퓨터/인터넷 클릭되면 동작 */
-		$("#category-513").click(function() {
+		$("#B103").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-		$("#category-512 ,#category-511").css({
+		$("#B102 ,#B101").css({
 			  'background-color': '#FFFFFF'
 		 });
 		});//click
 		
 
 		/* 소설/만화책 > 소설책 클릭되면 동작 */
-		$("#category-521").click(function() {
+		$("#B201").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-		$("#category-522").css({
+		$("#B202").css({
 			  'background-color': '#FFFFFF'
 		 });
 		});//click
 		
 		/* 소설/만화책 > 만화책 클릭되면 동작 */
-		$("#category-522").click(function() {
+		$("#B202").click(function() {
 			$(this).css({
 				'background-color' : '#E5E4E4'
 			});
-		$("#category-521").css({
+		$("#B201").css({
 			  'background-color': '#FFFFFF'
 		 });
 		});//click
@@ -590,15 +590,36 @@
 		
 		
 	});//ready
+	
+	/*
+	패션의류 C		>	여성의류 C1	>	티셔츠/캐주얼의류 C101 , 바치/치마 C102 , 트레이닝복 C103 
+				>	남성의류 C2	>	티셔츠/캐주얼의류 C201 , 바치 C202 , 트레이닝복 C203 
+				
+	패션잡화 G		>	여성화 G1		>	단화/로퍼 G101 , 워커/부츠 G102 , 샌들/슬리퍼 G103
+				>	남성화 G2		>	단화/로퍼 G201 , 워커/부츠 G202 , 샌들/슬리퍼 G203
+				>	가방 G3		>	숄더백 G301 , 크로스백 G302 , 백백 G303
+				
+  모바일/태블릿 T	>	스마트폰 T1	>	삼성 T101 , LG T102 , 애플 T103 , 기타 T104
+  				>	태블릿PC T2	>	삼성 T201 , 애플 T202 , 기타 T203
+  				
+	노트북/PC P	>	노트북 P1		>	삼성 P101 , LG P102 , 애플 P103
+				>	모니터 P2
+				>	데스크탑 P3
+				
+	도서/문구 B	>	학습/교육 B1	>	학습/참고서 B101 , 수험서/자격증 B102 , 컴퓨터/인터넷 B103
+				>	소설/만화책 B2	>	소설책 B201 , 만화책 B202
+				>	문구/사무용품 B3
+	*/
+	
 </script>
  <link as="script" rel="prefetch"
-	href="https://web.joongna.com/_next/static/chunks/4126-99e7ff6d28dc11d7.js">
+	href="https://web.joongna.com/_next/static/chunks/4126-99e7ff6d28dC101d7.js">
 <link as="script" rel="prefetch"
 	href="https://web.joongna.com/_next/static/chunks/6869-4c157c328e76af89.js">
 <link as="script" rel="prefetch"
 	href="https://web.joongna.com/_next/static/chunks/7068-99e7a3a9004c76dc.js">
 <link rel="stylesheet"
-	href="https://web.joongna.com/_next/static/css/4faf93b11322cf67.css">
+	href="https://web.joongna.com/_next/static/css/4faf93B101322cf67.css">
 <link rel="stylesheet"
 	href="https://web.joongna.com/_next/static/css/e3048584c00a0406.css"
 	data-n-p=""> 
@@ -623,10 +644,10 @@
 								<svg width="32px" height="32px" viewBox="0 0 32 32" fill="none"
 									xmlns="http://www.w3.org/2000/svg" class="">
 									<path fill-rule="evenodd" clip-rule="evenodd"
-										d="M15.728 20.4461C13.6481 20.4461 11.9619 18.7599 11.9619 16.68C11.9619 14.6001 13.6481 12.9138 15.728 12.9138C17.8079 12.9138 19.4942 14.6001 19.4942 16.68C19.4942 18.7599 17.8079 20.4461 15.728 20.4461Z"
+										d="M15.728 20.4461C103.6481 20.4461 11.9619 18.7599 11.9619 16.68C101.9619 14.6001 13.6481 12.9138 15.728 12.9138C17.8079 12.9138 19.4942 14.6001 19.4942 16.68C19.4942 18.7599 17.8079 20.4461 15.728 20.4461Z"
 										fill="#C2C6CE"></path>
 									<path fill-rule="evenodd" clip-rule="evenodd"
-										d="M10.4564 7.32295C10.9376 6.00587 11.5097 5.15997 12.8118 5.15997H17.9241C19.2253 5.15997 19.7975 6.00463 20.2785 7.32003H20.7897C24.7543 7.32003 27.968 10.4192 27.968 14.2417V19.119C27.968 22.9409 24.7543 26.04 20.7897 26.04H10.6669C6.7023 26.04 3.48798 22.9409 3.48798 19.119V14.2417C3.48798 10.487 6.58918 7.4303 10.4564 7.32295ZM21.3772 16.68C21.3772 19.8001 18.8481 22.3292 15.728 22.3292C12.6079 22.3292 10.0788 19.8001 10.0788 16.68C10.0788 13.5599 12.6079 11.0308 15.728 11.0308C18.8481 11.0308 21.3772 13.5599 21.3772 16.68ZM21.5988 11.88C21.5988 12.4 22.0204 12.8216 22.5403 12.8216C23.0603 12.8216 23.4819 12.4 23.4819 11.88C23.4819 11.36 23.0603 10.9385 22.5403 10.9385C22.0204 10.9385 21.5988 11.36 21.5988 11.88Z"
+										d="M10.4564 7.32295C10.9376 6.00587 11.5097 5.15997 12.8118 5.15997H17.9241C19.2253 5.15997 19.7975 6.00463 20.2785 7.32003H20.7897C24.7543 7.32003 27.968 10.4192 27.968 14.2417V19.119C27.968 22.9409 24.7543 26.04 20.7897 26.04H10.6669C6.7023 26.04 3.48798 22.9409 3.48798 19.119V14.2417C3.48798 10.487 6.58918 7.4303 10.4564 7.32295ZM21.3772 16.68C201.3772 19.8001 18.8481 22.3292 15.728 22.3292C102.6079 22.3292 10.0788 19.8001 10.0788 16.68C10.0788 13.5599 12.6079 11.0308 15.728 11.0308C18.8481 11.0308 21.3772 13.5599 21.3772 16.68ZM21.5988 11.88C201.5988 12.4 22.0204 12.8216 22.5403 12.8216C203.0603 12.8216 23.4819 12.4 23.4819 11.88C203.4819 11.36 23.0603 10.9385 22.5403 10.9385C202.0204 10.9385 21.5988 11.36 21.5988 11.88Z"
 										fill="#C2C6CE"></path></svg>
 								<p class="mt-1 text-xs text-jnGray-500">0/10</p>
 							</div>
@@ -685,7 +706,7 @@
 								xmlns="http://www.w3.org/2000/svg">
 								<g id="Icon / 16 Stroke Over Error">
 								<path id="Vector"
-									d="M14.375 8C14.375 11.5208 11.5208 14.375 8 14.375C4.47918 14.375 1.625 11.5208 1.625 8C1.625 4.47918 4.47918 1.625 8 1.625C11.5208 1.625 14.375 4.47918 14.375 8Z"
+									d="M14.375 8C14.375 11.5208 11.5208 14.375 8 14.375C4.47918 14.375 1.625 11.5208 1.625 8C1.625 4.47918 4.47918 1.625 8 1.625C101.5208 1.625 14.375 4.47918 14.375 8Z"
 									stroke="#5A616B" stroke-width="1.25" stroke-linecap="round"
 									stroke-linejoin="round"></path>
 								<path id="!" fill-rule="evenodd" clip-rule="evenodd"
@@ -697,19 +718,19 @@
 							<div id="category-depth-0"
 								class="w-1/3 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
 								<ul class="flex flex-col border-solid border-jnGray-300">
-									<li class="false h-10 p-3" id="category-1">
+									<li class="false h-10 p-3" id="C">
 											패션의류
 									</li>
-									<li class="false h-10 p-3" id="category-2">
+									<li class="false h-10 p-3" id="G">
 											<p>패션잡화</p>
 										</li>
-									<li class="false h-10 p-3" id="category-3">
+									<li class="false h-10 p-3" id="T">
 											<p>모바일/태블릿</p>
 										</li>
-									<li class="false h-10 p-3" id="category-4">
+									<li class="false h-10 p-3" id="P">
 											<p>노트북/PC</p>
 										</li>
-									<li class="false h-10 p-3" id="category-5">
+									<li class="false h-10 p-3" id="B">
 											<p>도서/문구</p>
 										</li>
 								</ul>
@@ -719,10 +740,10 @@
 								class="w-1/3 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
 
 								<ul class="flex flex-col border-solid border-jnGray-300">
-									<li class="false h-10 p-3" id="category-11">
+									<li class="false h-10 p-3" id="C1">
 											<p class="truncate break-keep">여성의류</p>
 										</li>
-									<li class="false h-10 p-3" id="category-12">
+									<li class="false h-10 p-3" id="C2">
 											<p class="truncate break-keep">남성의류</p>
 										</li>
 								</ul>
@@ -732,13 +753,13 @@
 							<div id="category-depth-2"
 								class="w-1/3 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
 								<ul class="flex flex-col border-solid border-jnGray-300">
-									<li class="false h-10 p-3" id="category-21">
+									<li class="false h-10 p-3" id="G1">
 											<p class="truncate break-keep">여성화</p>
 										</li>
-									<li class="false h-10 p-3" id="category-22">
+									<li class="false h-10 p-3" id="G2">
 											<p class="truncate break-keep">남성화</p>
 										</li>
-									<li class="false h-10 p-3" id="category-23">
+									<li class="false h-10 p-3" id="G3">
 											<p class="truncate break-keep">가방</p>
 										</li>
 
@@ -748,10 +769,10 @@
 							<div id="category-depth-3"
 								class="w-1/3 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
 								<ul class="flex flex-col border-solid border-jnGray-300">
-									<li class="false h-10 p-3" id="category-31">
+									<li class="false h-10 p-3" id="T1">
 											<p class="truncate break-keep">스마트폰</p>
 										</li>
-									<li class="false h-10 p-3" id="category-32">
+									<li class="false h-10 p-3" id="T2">
 											<p class="truncate break-keep">테블릿PC</p>
 									</li>
 								</ul>
@@ -760,13 +781,13 @@
 							<div id="category-depth-4"
 								class="w-1/3 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
 								<ul class="flex flex-col border-solid border-jnGray-300">
-									<li class="false h-10 p-3" id="category-41">
+									<li class="false h-10 p-3" id="P1">
 											<p class="truncate break-keep">노트북</p>
 										</li>
-									<li class="false h-10 p-3" id="category-42">
+									<li class="false h-10 p-3" id="P2">
 											<p class="truncate break-keep">모니터</p>
 									</li>
-									<li class="false h-10 p-3" id="category-43">
+									<li class="false h-10 p-3" id="P3">
 											<p class="truncate break-keep">데스크탑</p>
 										</li>
 								</ul>
@@ -775,13 +796,13 @@
 							<div id="category-depth-5"
 								class="w-1/3 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
 								<ul class="flex flex-col border-solid border-jnGray-300">
-									<li class="false h-10 p-3" id="category-51">
+									<li class="false h-10 p-3" id="B1">
 											<p class="truncate break-keep">학습 / 교육</p>
 										</li>
-									<li class="false h-10 p-3" id="category-52">
+									<li class="false h-10 p-3" id="B2">
 											<p class="truncate break-keep">소설 / 만화책</p>
 										</li>
-									<li class="false h-10 p-3" id="category-53">
+									<li class="false h-10 p-3" id="B3">
 											<p class="truncate break-keep">문구 / 사무용품</p>
 										</li>
 								</ul>
@@ -790,13 +811,13 @@
 							<div id="category-depth-1-1"
 								class="w-1/3 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
 								<ul class="flex flex-col border-solid border-jnGray-300">
-									<li class="false h-10 p-3" id="category-111">
+									<li class="false h-10 p-3" id="C101">
 											<p class="truncate break-keep">티셔츠/캐쥬얼의류</p>
 										</li>
-									<li class="false h-10 p-3" id="category-112">
+									<li class="false h-10 p-3" id="C102">
 											<p class="truncate break-keep">바지/치마</p>
 										</li>
-									<li class="false h-10 p-3" id="category-113">
+									<li class="false h-10 p-3" id="C103">
 											<p class="truncate break-keep">트레이닝복</p>
 										</li>
 								</ul>
@@ -805,13 +826,13 @@
 							<div id="category-depth-1-2"
 								class="w-1/3 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
 								<ul class="flex flex-col border-solid border-jnGray-300">
-									<li class="false h-10 p-3" id="category-121">
+									<li class="false h-10 p-3" id="C201">
 											<p class="truncate break-keep">티셔츠/캐쥬얼의류</p>
 										</li>
-									<li class="false h-10 p-3" id="category-122">
+									<li class="false h-10 p-3" id="C202">
 											<p class="truncate break-keep">바지</p>
 										</li>
-									<li class="false h-10 p-3" id="category-123">
+									<li class="false h-10 p-3" id="C203">
 											<p class="truncate break-keep">트레이닝복</p>
 										</li>
 								</ul>
@@ -820,13 +841,13 @@
 							<div id="category-depth-2-1"
 								class="w-1/3 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
 								<ul class="flex flex-col border-solid border-jnGray-300">
-									<li class="false h-10 p-3" id="category-211">
+									<li class="false h-10 p-3" id="G101">
 											<p class="truncate break-keep">단화/로퍼</p>
 										</li>
-									<li class="false h-10 p-3" id="category-212">
+									<li class="false h-10 p-3" id="G102">
 											<p class="truncate break-keep">워커/부츠</p>
 										</li>
-									<li class="false h-10 p-3" id="category-213">
+									<li class="false h-10 p-3" id="G103">
 											<p class="truncate break-keep">샌들/슬리퍼</p>
 										</li>
 								</ul>
@@ -835,13 +856,13 @@
 							<div id="category-depth-2-2"
 								class="w-1/3 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
 								<ul class="flex flex-col border-solid border-jnGray-300">
-									<li class="false h-10 p-3" id="category-221">
+									<li class="false h-10 p-3" id="G201">
 											<p class="truncate break-keep">단화/로퍼</p>
 										</li>
-									<li class="false h-10 p-3" id="category-222">
+									<li class="false h-10 p-3" id="G202">
 											<p class="truncate break-keep">워커/부츠</p>
 										</li>
-									<li class="false h-10 p-3" id="category-223">
+									<li class="false h-10 p-3" id="G203">
 											<p class="truncate break-keep">샌들/슬리퍼</p>
 										</li>
 								</ul>
@@ -850,13 +871,13 @@
 							<div id="category-depth-2-3"
 								class="w-1/3 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
 								<ul class="flex flex-col border-solid border-jnGray-300">
-									<li class="false h-10 p-3" id="category-231">
+									<li class="false h-10 p-3" id="G301">
 											<p class="truncate break-keep">숄더백</p>
 										</li>
-									<li class="false h-10 p-3" id="category-232">
+									<li class="false h-10 p-3" id="G302">
 											<p class="truncate break-keep">크로스백</p>
 										</li>
-									<li class="false h-10 p-3" id="category-233">
+									<li class="false h-10 p-3" id="G303">
 											<p class="truncate break-keep">백팩</p>
 										</li>
 								</ul>
@@ -865,16 +886,16 @@
 							<div id="category-depth-3-1"
 								class="w-1/3 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
 								<ul class="flex flex-col border-solid border-jnGray-300">
-									<li class="false h-10 p-3" id="category-311">
+									<li class="false h-10 p-3" id="T101">
 											<p class="truncate break-keep">삼성</p>
 										</li>
-									<li class="false h-10 p-3" id="category-312">
+									<li class="false h-10 p-3" id="T102">
 											<p class="truncate break-keep">LG</p>
 										</li>
-									<li class="false h-10 p-3" id="category-313">
+									<li class="false h-10 p-3" id="T103">
 											<p class="truncate break-keep">애플</p>
 										</li>
-									<li class="false h-10 p-3" id="category-314">
+									<li class="false h-10 p-3" id="T104">
 											<p class="truncate break-keep">기타</p>
 										</li>
 								</ul>
@@ -883,13 +904,13 @@
 							<div id="category-depth-3-2"
 								class="w-1/3 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
 								<ul class="flex flex-col border-solid border-jnGray-300">
-									<li class="false h-10 p-3" id="category-321">
+									<li class="false h-10 p-3" id="T201">
 											<p class="truncate break-keep">삼성</p>
 										</li>
-									<li class="false h-10 p-3" id="category-322">
+									<li class="false h-10 p-3" id="T202">
 											<p class="truncate break-keep">애플</p>
 										</li>
-									<li class="false h-10 p-3" id="category-323">
+									<li class="false h-10 p-3" id="T203">
 											<p class="truncate break-keep">기타</p>
 										</li>
 								</ul>
@@ -898,13 +919,13 @@
 							<div id="category-depth-4-1"
 								class="w-1/3 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
 								<ul class="flex flex-col border-solid border-jnGray-300">
-									<li class="false h-10 p-3" id="category-411">
+									<li class="false h-10 p-3" id="P101">
 											<p class="truncate break-keep">삼성</p>
 										</li>
-									<li class="false h-10 p-3" id="category-412">
+									<li class="false h-10 p-3" id="P102">
 											<p class="truncate break-keep">LG</p>
 										</li>
-									<li class="false h-10 p-3" id="category-413">
+									<li class="false h-10 p-3" id="P103">
 											<p class="truncate break-keep">애플</p>
 										</li>
 								</ul>
@@ -913,13 +934,13 @@
 							<div id="category-depth-5-1"
 								class="w-1/3 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
 								<ul class="flex flex-col border-solid border-jnGray-300">
-									<li class="false h-10 p-3" id="category-511">
+									<li class="false h-10 p-3" id="B101">
 											<p class="truncate break-keep">학습/참고서</p>
 										</li>
-									<li class="false h-10 p-3" id="category-512">
+									<li class="false h-10 p-3" id="B102">
 											<p class="truncate break-keep">수험서/자격증</p>
 										</li>
-									<li class="false h-10 p-3" id="category-513">
+									<li class="false h-10 p-3" id="B103">
 											<p class="truncate break-keep">컴퓨터/인터넷</p>
 										</li>
 								</ul>
@@ -928,10 +949,10 @@
 							<div id="category-depth-5-2"
 								class="w-1/3 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
 								<ul class="flex flex-col border-solid border-jnGray-300">
-									<li class="false h-10 p-3" id="category-521">
+									<li class="false h-10 p-3" id="B201">
 											<p class="truncate break-keep">소설책</p>
 										</li>
-									<li class="false h-10 p-3" id="category-522">
+									<li class="false h-10 p-3" id="B202">
 											<p class="truncate break-keep">만화책</p>
 										</li>
 								</ul>
