@@ -8,6 +8,7 @@
 	<!-- Alias 설정 -->
 	<typeAliases>
 		<typeAlias type="kr.co.sist.user.vo.FakeVO" alias="fVO"/>
+		<typeAlias type="kr.co.sist.user.domain.ProductDomain" alias="pd"/>
 		<typeAlias type="kr.co.sist.login.vo.LoginVO" alias="lVO"/>
 		<typeAlias type="kr.co.sist.login.domain.LoginDomain" alias="ld"/>
 		<typeAlias type="kr.co.sist.admin.domain.AdminProductDetailDomain" alias="apdd"/>

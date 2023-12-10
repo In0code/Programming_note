@@ -4,27 +4,12 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="user.product">
 
-<!-- 모든 상품 조회 -->
-<select id="selectAllProduct" resultType="admin.domain.ProductDomain" parameterType="admin.vo.BoardRangeVO">
-select NICKNAME ,NAME, PNAME,PRICE,INPUT_DATE
-from(select m.NICKNAME, c2.NAME, p.PNAME, p.PRICE, p.INPUT_DATE
-			,row_number() over(order by p.INPUT_DATE desc) rnum
-from  PRODUCT p, MEMBER m,CATEGORY2 c2,CATEGORY3 c3
-where m.id=p.id   and p.C3CODE = c3.C3CODE and c2.C2CODE=c3.C2CODE 
-and c2.NAME = #{ name } and m.NICKNAME =#{ nickname })
-where rnum between 1 and 10 
+<!-- 카테고리 조회 조회 -->
+<select id="selectCategory" resultType="pd">
+select c1.NAME as category, c2.NAME as category2, c3.NAME as category3, c1.CCODE, c2.C2CODE, c3.C3CODE
+from CATEGORY c1, CATEGORY2 c2, CATEGORY3 c3
+where  c1.ccode=c2.ccode and c2.c2code = c3.c2code
 </select>
-
-<!-- 상품 상세 조회 -->
-<select id="selectDetailProduct" resultType="admin.domain.ProductDetailDomain" parameterType="String">
-select m.NICKNAME, c2.NAME, p.PNAME, p.PRICE, p.INPUT_DATE
-from  PRODUCT p, MEMBER m,CATEGORY2 c2,CATEGORY3 c3
-where m.id=p.id   and p.C3CODE = c3.C3CODE and c2.C2CODE=c3.C2CODE;
-</select>
-
-<delete id="deleteProduct" parameterType="Integer">
-delete from PRODUCT where RCODE = # { RCODE }
-</delete>
 
 
 </mapper>
