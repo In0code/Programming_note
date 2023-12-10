@@ -79,6 +79,7 @@ a {
 }
 </style>
 <!-- 태균이가 만든거 끝-->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script type="text/javascript">
 	$(function() {
 	
@@ -90,14 +91,8 @@ a {
 		        	deleteProduct(pcode);
 		        }//end if
 		    });//click
-		});//click
 		
 	});//ready
-	
-	function update(pcancel){
-		$("#fi").val(pcode);
-		$("#frmUpdate").submit();
-	}
 	
 	function deleteProduct(pcode){
 				$.ajax({
@@ -113,11 +108,8 @@ a {
 						location.reload();
 					}//success
 				});//ajax
-		
 	}//deleteProduct
 </script>
-
-
 
 </head>
 <body>
@@ -128,10 +120,6 @@ a {
 				id="btnLogout" type="button" class="btn btn-outline-dark"
 				value="로그아웃" style="margin-right: 20px">
 		</div>
-		<form id="frmUpdate" action="">
-			<input type="hidden" id="fi" name="pcode"
-				value="${ productOne.pcode }" />
-		</form>
 		<div id="rightBody" style="height: 895px">
 			<div class="text" id="mainTitle"
 				style="margin-left: 40px; font-family: Pretendard Medium">

@@ -66,8 +66,8 @@ $(function() {
 	});
 });
 
-function detail(rcode){
-	$("#rcode").val(rcode);
+function detailEvt(ecode){
+	$("#ecode").val(ecode);
 	$("#frmDetail").submit();
 }
 </script>
@@ -97,9 +97,8 @@ function detail(rcode){
 		<div class="allBox">
 		<form id="frmSearch">
 			<select class="searchList" id="field" name="field">
-				<option value="1"${ param.field eq "1" ? " selected='selected'" : "" }>아이디</option>
-				<option value="2"${ param.field eq "2" ? " selected='selected'" : "" }>상품명</option>
-				<option value="3"${ param.field eq "3" ? " selected='selected'" : "" }>카테고리명</option>
+				<option value="title"${ param.field eq "title" ? " selected='selected'" : "" }>제목</option>
+				<option value="context"${ param.field eq "context" ? " selected='selected'" : "" }>내용</option>
 			</select>
 			<span class="textBox" style="vertical-align: middle">
 			<input type="text" id="keyword" name="keyword" class="keywordBox" placeholder="내용을 입력해주세요"
@@ -117,7 +116,8 @@ function detail(rcode){
 		
 		<!-- 상세보기 페이지로 -->
 		<form id="frmDetail" action="eventDetail.do">
-			<input type="hidden" id="rcode" name="rcode"/>
+			<input type="hidden" id="no" name="no" value="4"/>
+			<input type="hidden" id="ecode" name="ecode"/>
 		</form>
 		
 		<!-- 테이블 -->
@@ -137,56 +137,19 @@ function detail(rcode){
 				
 				<tbody>
 					<!-- list가 존재하지 않을 경우 -->
-					<c:if test="${ empty reviewList }">
-					<tr onclick="detail(10)">
-						<td colspan="6" style="text-align: center;"> 
-							이벤트가 존재하지 않습니다. </td>
-					</tr>
+					<c:if test="${ empty eventList }">
 					<tr>
-						<td colspan="6" style="text-align: center;"> 
-							이벤트가 존재하지 않습니다. </td>
-					</tr>
-					<tr>
-						<td colspan="6" style="text-align: center;"> 
-							이벤트가 존재하지 않습니다. </td>
-					</tr>
-					<tr>
-						<td colspan="6" style="text-align: center;"> 
-							이벤트가 존재하지 않습니다. </td>
-					</tr>
-					<tr>
-						<td colspan="6" style="text-align: center;"> 
-							이벤트가 존재하지 않습니다. </td>
-					</tr>
-					<tr>
-						<td colspan="6" style="text-align: center;"> 
-							이벤트가 존재하지 않습니다. </td>
-					</tr>
-					<tr>
-						<td colspan="6" style="text-align: center;"> 
-							이벤트가 존재하지 않습니다. </td>
-					</tr>
-					<tr>
-						<td colspan="6" style="text-align: center;"> 
-							이벤트가 존재하지 않습니다. </td>
-					</tr>
-					<tr>
-						<td colspan="6" style="text-align: center;"> 
-							이벤트가 존재하지 않습니다. </td>
-					</tr>
-					<tr>
-						<td colspan="6" style="text-align: center;"> 
+						<td colspan="6" style="text-align: center; border:none;"> 
 							이벤트가 존재하지 않습니다. </td>
 					</tr>
 					</c:if>
 				
-					<c:forEach var="review" items="${ reviewList }" varStatus="i">
-					<tr onclick="detail(10)">
-						<td>${ startNum + i.index }</td>
-						<td>${ review.cat_name }</td>
-						<td>${ review.gname }</td>
-						<td>${ review.id }</td>
-						<td>${ review.rev_date }</td>
+					<c:forEach var="event" items="${ eventList }" varStatus="i">
+					<tr onclick="detailEvt('${ event.eventcode }')">
+						<td>${ 1 }</td>
+						<td>${ event.title }</td>
+						<td>${ event.id }</td>
+						<td>${ event.input_date }</td>
 					</tr>
 					</c:forEach>
 				</tbody>

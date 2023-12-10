@@ -78,7 +78,13 @@
 		$("#sendComment").click(function() {
 			location.href = "../review/user_sales_review.do";
 		});
-
+		
+		var salesStatus = localStorage.getItem('saleStatus');
+		
+		if(salesStatus === 'completed'){
+			$("#saleOkStyle").attr('class',"absolute top-0 left-0 bg-black/[0.5] w-full h-full z-[1] rounded-lg");
+			$("#saleOkStyle").show();
+		}//end if
 	});//ready
 
 	/* '상태변경'버튼 클릭 시 모달 나오게 동작 */
@@ -131,12 +137,18 @@
 		modalBg3.style.display = 'none';
 	}//closeDelModal
 	
+	/* 상태 변경에서 상품 판매 완료 처리를 하면 상품 판매 처리가 됨 */
 	function saleOk(){
-		if(confirm("판매 완료 처리 하시겠습니까?")){
-			$("#saleOkStyle").attr('class',"absolute top-0 left-0 bg-black/[0.5] w-full h-full z-[1] rounded-lg");
-			$("#saleOkStyle").show();
-		}//end if
-	}//saleOk
+		 if (confirm("판매 완료 처리 하시겠습니까?")) {
+		        $("#saleOkStyle").attr('class', "absolute top-0 left-0 bg-black/[0.5] w-full h-full z-[1] rounded-lg");
+		        $("#saleOkStyle").show();
+
+		        // 저장된 상태를 localStorage에 저장
+		        localStorage.setItem('saleStatus', 'completed');
+
+		        location.reload();
+		    }//end if
+		}//saleOk
 </script>
 
 </head>

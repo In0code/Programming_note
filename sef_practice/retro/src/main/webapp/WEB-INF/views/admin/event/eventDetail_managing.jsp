@@ -74,14 +74,15 @@ body{
 }
 
 .imgThum {
-    display: block;
-    max-width: 100%;
-    height: auto;
+	max-width: 291px; 
+	max-height: 291px;
 }
 
 .imgDiv {
 	width: 100%;
-    overflow: auto;
+	height: auto;
+	border: 1px solid #DBDFE6; 
+	border-radius: 5px; 
 }
 
 .filebox input[type="file"] {
@@ -134,6 +135,11 @@ textarea:focus{
 <script type="text/javascript">
 
 $(function() {
+	toggleImageSize();
+	
+	$("#thumnail").click(function(){
+		toggleImageSize();
+	});
 	
 	$("#file").on('change',function(){
 		  var fileName = $("#file").val();
@@ -157,18 +163,50 @@ $(function() {
 	      buttonText: "Select date"
 	});
 	
-	$("#saveBtn").click(function(){
-		$("#saveBtn").submit();
-	});
-	
 	$("#btnLogout").click(function() {
 		location.href="logout.jsp";
 	});
+	
+	$("#saveBtn").click(function(){
+		$("#evtForm").submit();
+	});
+	
+	$("#file").change(function(event) {
+		if($("#file").val() == ""){
+			alert("이미지를 선택해주세요.");
+			return;
+		}
+		
+		var thumbnail = document.getElementById('thumnail');
+        thumbnail.style.maxWidth = '291px';
+        thumbnail.style.maxHeight = '291px';
+        
+		var file = event.target.files[0];
+	    var reader = new FileReader(); 
+	    
+	    reader.onload = function(e) {
+	    	$("#thumnail").attr("src", e.target.result);
+	    }
+
+	    reader.readAsDataURL(file);
+	});
+	
 });
 
-function date() {
+function toggleImageSize() {
+    var thumbnail = document.getElementById('thumnail');
 
+    if (thumbnail.style.maxWidth === '291px') {
+        // 현재 이미지가 원본 크기라면 최대 크기 제한을 없애고, 테두리 스타일 변경
+        thumbnail.style.maxWidth = '400px';
+        thumbnail.style.maxHeight = '2000px';
+    } else {
+        // 현재 이미지가 최대 크기 제한이 없는 경우, 다시 최대 크기 제한을 설정하고, 테두리 스타일 초기화
+        thumbnail.style.maxWidth = '291px';
+        thumbnail.style.maxHeight = '291px';
+    }
 }
+
 </script>
 <div id="right">
 	<div id="rightHeader" align="right">
@@ -199,40 +237,41 @@ function date() {
 				<div style="margin: 0 10px 0px 10px;">
 				
 				<form id="evtForm">
+				<input type="hidden" name="no" value="4"/>
 				<table class="table tableList" style="height: auto;">
 				<tr>
 					<th class="top_title">기간</th>
 					<td>
-					<input type="text" id="startDate" name="startDate" class="dateCss borderCss" autocomplete="off">
+					<input type="text" id="startDate" name="startDate" class="dateCss borderCss" autocomplete="off" value="${ event.start_date }">
 				 	~
-					<input type="text" id="endDate" name="endDate" class="dateCss borderCss" autocomplete="off">
+					<input type="text" id="endDate" name="endDate" class="dateCss borderCss" autocomplete="off" value="${ event.end_date }">
 					</td>
 				</tr>
 				<tr>
 					<th class="top_title">제목</th>
-					<td><input type="text" id="evtTitle" name="title" class="borderCss" style="width:100%;"></td>
+					<td><input type="text" id="evtTitle" name="title" class="borderCss" style="width:100%;" value="${ event.title }"></td>
 				</tr>
 				<tr>
 					<th class="top_title">내용</th>
 					<td>
-						<textarea style="width:100%; height:140px; margin: 7px 0px 5px 0px; resize: none;" class="borderCss" name="content"></textarea>
+						<textarea style="width:100%; height:140px; margin: 7px 0px 5px 0px; resize: none;" class="borderCss" name="content">${ event.context }</textarea>
 					</td>
 				</tr>
 				<tr>
 					<th class="top_title">이미지 첨부</th>
 					<td>
 					<div class="filebox">
-    						<input class="upload-name" placeholder="첨부파일" readonly="readonly">
+    						<input class="upload-name" placeholder="첨부파일" readonly="readonly" value="${ event.img }">
     						<label for="file">파일찾기</label> 
     						<input type="file" id="file" name="img">
 					</div>
 					</td>
 				</tr>
  				<tr>
-					<th class="top_title" style="border-bottom: none; height: 286px">이미지</th>
-					<td style="border-bottom: none; padding:15px">
-						<div class="imgDiv">
-							<img src="http://localhost/mvc_prj/common/images/damgom.jpg" class="imgThum"/>
+					<th class="top_title" style="border-bottom: none; height: 305px">이미지</th>
+					<td style="border-bottom: none; padding:15px 10px 0px 10px; height: 305px">
+						<div class="imgDiv" style="padding:10px">
+							<img src="http://localhost/retro_prj/upload/${ event.img }" id="thumnail" class="imgThum"/>
 						</div>
 					</td>
 				</tr>
@@ -242,7 +281,8 @@ function date() {
 		</div>
 		<!---->
 		<div class="btnDiv">
-			<input type="button" class="btnCss" id="saveBtn" value="저장">	
+		<input type="button" class="btnCss" value="저장" id="saveBtn">	
+		<input type="button" class="btnCss" value="삭제" id="delBtn">	
 		</div>
 	</div>	
 </div>
