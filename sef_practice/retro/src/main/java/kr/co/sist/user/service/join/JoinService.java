@@ -1,6 +1,5 @@
 package kr.co.sist.user.service.join;
 
-import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.regex.Pattern;
 
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import kr.co.sist.user.dao.JoinDAO;
+import kr.co.sist.user.service.mypage.UserInfoEncryptionSerivice;
 import kr.co.sist.user.vo.JoinVO;
 import kr.co.sist.util.cipher.DataEncrypt;
 
@@ -18,23 +18,29 @@ public class JoinService {
 	
 	@Autowired
 	private JoinDAO jDAO;
+	@Autowired
+	private UserInfoEncryptionSerivice encrypt;
 	
+	/**
+	 * 회원 정보를 DB에 저장하기 위한 method
+	 * @param jVO
+	 */
 	@PostMapping("/user_join_process.do")
 	public void addUser(JoinVO jVO) {
 		try {
-			DataEncrypt de=new DataEncrypt("singsungsaengsungyeon");
-			jVO.setPw(DataEncrypt.messageDigest("MD5", jVO.getPw()));
-			
+			jVO.setPw(DataEncrypt.messageDigest("MD5", encrypt.oneWayEncryptData(jVO.getPw())));
 			jDAO.insertUser(jVO);
-			
-		} catch (UnsupportedEncodingException uee) {
-			uee.printStackTrace();
 			
 		} catch (NoSuchAlgorithmException ne) {
 			ne.printStackTrace();
 		}
 	}
 	
+	/**
+	 * 유효성 검사
+	 * @param jVO
+	 * @return JSONObject
+	 */
 	public JSONObject chkInfo(JoinVO jVO) {
 		JSONObject jsonObj = new JSONObject();
 		jsonObj.put("flag", false);

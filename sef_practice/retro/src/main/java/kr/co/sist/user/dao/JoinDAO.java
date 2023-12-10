@@ -12,6 +12,12 @@ public class JoinDAO {
 	
 	private static String configPath="kr/co/sist/common/dao/mybatis-config.xml";
 
+	/**
+	 * 회원정보를 DB에 저장
+	 * @param jVO
+	 * @return int
+	 * @throws PersistenceException
+	 */
 	public int insertUser(JoinVO jVO) throws PersistenceException {
 		int result = 0;
 		

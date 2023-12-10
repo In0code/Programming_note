@@ -87,8 +87,14 @@ public class AdminProductDAO {
 		int updateCnt = 0;
 		MybatisHandler mbh = MybatisHandler.getInstance();
 		SqlSession ss = mbh.getMyBatisHandler(configPath, false);
+		
 		updateCnt = ss.update("admin.product.updateProduct", pcode);
-
+		if(updateCnt == 1) {
+			ss.commit();
+		} else {
+			ss.rollback();
+		}
+		
 		mbh.closeHandler(ss);
 
 		return updateCnt;
@@ -96,9 +102,10 @@ public class AdminProductDAO {
 
 	public static void main(String[] args) {
 		AdminProductDAO apDAO = AdminProductDAO.getInstance();
-		BoardRangeVO brVO = new BoardRangeVO();
-		brVO.setKeyword("싱숭생숭연");
-		apDAO.selectOneProduct("P00001");
+//		BoardRangeVO brVO = new BoardRangeVO();
+//		brVO.setKeyword("싱숭생숭연");
+//		apDAO.selectOneProduct("P00001");
+		apDAO.updateRemoveProduct("P00001");
 		
 	}
 

@@ -27,11 +27,20 @@ public class JoinController {
 		return jc;
 	}
 	
+	/**
+	 * 회원가입 화면 페이지로 이동
+	 * @return
+	 */
 	@GetMapping("/user_join.do")
 	public String joinFrm() {		
 		return "user/join/join_frm";
 	}
 	
+	/**
+	 * 유효성 검사
+	 * @param jVO
+	 * @return
+	 */
 	@ResponseBody
 	@PostMapping("/user_join_chk.do")
 	public String joinComplete(JoinVO jVO) {
@@ -39,6 +48,11 @@ public class JoinController {
 		return json.toJSONString();
 	}
 	
+	/**
+	 * 회원가입 성공시 나오는 화면 페이지로 이동
+	 * @param jVO
+	 * @return
+	 */
 	@PostMapping("/user_join_process.do")
 	public String joinUser(JoinVO jVO) {
 		js.addUser(jVO);

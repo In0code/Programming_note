@@ -14,6 +14,8 @@
 		<typeAlias type="kr.co.sist.admin.domain.AdminProductDomain" alias="apd"/>
 		<typeAlias type="kr.co.sist.common.BoardRangeVO" alias="brVO"/>
 		<typeAlias type="kr.co.sist.admin.vo.AdminProductVO" alias="apVO"/>
+		<typeAlias type="kr.co.sist.admin.vo.AdminEventVO" alias="aeVO"/>
+		<typeAlias type="kr.co.sist.admin.domain.AdminEventDomain" alias="aed"/>
 	</typeAliases>
 	
 	
@@ -35,5 +37,6 @@
     <mapper resource="kr/co/sist/login/dao/mapper/loginMapper.xml"/>
     <mapper resource="kr/co/sist/user/dao/mapper/fakeMapper.xml"/>
     <mapper resource="kr/co/sist/admin/dao/mapper/adminProductMapper.xml"/>
+    <mapper resource="kr/co/sist/admin/dao/mapper/adminEventMapper.xml"/>
   </mappers> 
 </configuration>

@@ -3,10 +3,25 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.sist.user.mypagePrdInfo">
-<!-- 상품 판매중 -->
+<!-- 모든 상품을 조회 -->
+<select id="selectAllPrd" resultType="kr.co.sist.user.domain.mypage.MypagePrdDomain" parameterType="String">
+
+</select>
+
+<!-- 판매중인 상품 조회-->
 <select id="selectPrdOnProcess" resultType="kr.co.sist.user.domain.mypage.MypagePrdDomain" parameterType="String">
-SELECT PCODE, PNAME, PRICE, INPUT_DATE, LOC
+SELECT PCODE, PNAME, PRICE, INPUT_DATE, LOC, TO_CHAR(SYSDATE-INPUT_DATE) DATEGAP
 FROM PRODUCT
 WHERE ID=#{id} AND PCANCEL='N'
+</select>
+
+<!-- 판매완료한 상품 조회 -->
+<select id="selectCompletedPrd" resultType="kr.co.sist.user.domain.mypage.MypagePrdDomain" parameterType="String">
+
+</select>
+
+<!-- 예약중인 상품 조회 -->
+<select id="selectReservationPrd" resultType="kr.co.sist.user.domain.mypage.MypagePrdDomain" parameterType="String">
+
 </select>
 </mapper>
