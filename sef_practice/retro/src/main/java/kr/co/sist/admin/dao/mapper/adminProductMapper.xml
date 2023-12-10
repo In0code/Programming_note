@@ -42,9 +42,9 @@ where m.id=p.id   and p.C3CODE = c3.C3CODE and c2.C2CODE=c3.C2CODE and PCANCEL='
 
 <!-- 상품 상세 조회 -->
 <select id="selectDetailProduct" resultType="apdd" parameterType="String">
-select p.PNAME,p.PCODE, p.PCANCEL, m.ID, c2.NAME as category, p.PRICE, p.STATUS,p.INPUT_DATE
-from  PRODUCT p, MEMBER m,CATEGORY2 c2,CATEGORY3 c3
-where m.id=p.id   and p.C3CODE = c3.C3CODE and c2.C2CODE=c3.C2CODE
+select p.PNAME,p.PCODE, p.PCANCEL, m.ID, m.NICKNAME,  c1.name as category, c2.NAME as category2,c3.name as category3, p.PRICE, p.STATUS,p.INPUT_DATE
+from  PRODUCT p, MEMBER m,CATEGORY c1,CATEGORY2 c2,CATEGORY3 c3
+where m.id=p.id   and p.C3CODE = c3.C3CODE and c1.CCODE =c2.CCODE and c2.C2CODE=c3.C2CODE
 and p.pcode=#{ pcode }
 </select>
 
