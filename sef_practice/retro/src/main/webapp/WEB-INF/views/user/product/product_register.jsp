@@ -591,7 +591,25 @@
 		
 	});//ready
 	
-	/*
+	document.addEventListener("DOMContentLoaded", function () {
+	    // 모든 li 요소에 대해 클릭 이벤트 리스너 등록
+	    var liElements = document.querySelectorAll("ul li");
+	    
+	    liElements.forEach(function(li) {
+	        li.addEventListener("click", function(event) {
+	            // 클릭한 li 요소의 ID를 가져와서 출력
+	            var clickedId = event.currentTarget.id;
+	            console.log("Clicked ID:", clickedId);
+	            
+	            $("#category").html(clickedId);
+	            // 여기에서 클릭한 li 요소의 ID를 활용하면 됩니다.
+	            // 예를 들어, 클릭한 ID를 서버로 전송하거나 다른 작업을 수행할 수 있습니다.
+	        });
+	    });
+	});
+</script>
+	
+	<!-- 
 	패션의류 C		>	여성의류 C1	>	티셔츠/캐주얼의류 C101 , 바치/치마 C102 , 트레이닝복 C103 
 				>	남성의류 C2	>	티셔츠/캐주얼의류 C201 , 바치 C202 , 트레이닝복 C203 
 				
@@ -609,9 +627,8 @@
 	도서/문구 B	>	학습/교육 B1	>	학습/참고서 B101 , 수험서/자격증 B102 , 컴퓨터/인터넷 B103
 				>	소설/만화책 B2	>	소설책 B201 , 만화책 B202
 				>	문구/사무용품 B3
-	*/
+	 -->
 	
-</script>
  <link as="script" rel="prefetch"
 	href="https://web.joongna.com/_next/static/chunks/4126-99e7ff6d28dC101d7.js">
 <link as="script" rel="prefetch"
@@ -712,6 +729,7 @@
 								<path id="!" fill-rule="evenodd" clip-rule="evenodd"
 									d="M8.6908 8.85272C8.66709 9.21681 8.36486 9.5 8 9.5C7.63514 9.5 7.33291 9.21681 7.3092 8.85272L7.06757 5.14173L7.04112 4.49915C7.01869 3.95411 7.4545 3.5 8 3.5C8.5455 3.5 8.98131 3.95411 8.95888 4.49915L8.93243 5.14173L8.6908 8.85272ZM8.71038 12.2135C8.5173 12.4045 8.27869 12.5 7.99454 12.5C7.71038 12.5 7.47359 12.4045 7.28415 12.2135C7.09472 12.0226 7 11.7847 7 11.5C7 11.2153 7.09472 10.9774 7.28415 10.7865C7.47359 10.5955 7.71038 10.5 7.99454 10.5C8.27869 10.5 8.5173 10.5955 8.71038 10.7865C8.90346 10.9774 9 11.2153 9 11.5C9 11.7847 8.90346 12.0226 8.71038 12.2135Z"
 									fill="#5A616B"></path></g></svg>
+									<div id="category"></div>
 						</button>
 						<div
 							class="flex flex-row w-full overflow-hidden text-sm font-medium h-60">
