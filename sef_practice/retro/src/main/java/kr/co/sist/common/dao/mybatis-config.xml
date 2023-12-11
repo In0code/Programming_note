@@ -8,7 +8,6 @@
 	<!-- Alias 설정 -->
 	<typeAliases>
 		<typeAlias type="kr.co.sist.user.vo.FakeVO" alias="fVO"/>
-		<typeAlias type="kr.co.sist.user.domain.ProductDomain" alias="pd"/>
 		<typeAlias type="kr.co.sist.login.vo.LoginVO" alias="lVO"/>
 		<typeAlias type="kr.co.sist.login.domain.LoginDomain" alias="ld"/>
 		<typeAlias type="kr.co.sist.admin.domain.AdminProductDetailDomain" alias="apdd"/>
@@ -17,6 +16,7 @@
 		<typeAlias type="kr.co.sist.admin.vo.AdminProductVO" alias="apVO"/>
 		<typeAlias type="kr.co.sist.admin.vo.AdminEventVO" alias="aeVO"/>
 		<typeAlias type="kr.co.sist.admin.domain.AdminEventDomain" alias="aed"/>
+		<typeAlias type="kr.co.sist.admin.domain.EventDomain" alias="ed"/>
 	</typeAliases>
 	
 	
@@ -40,5 +40,8 @@
     <mapper resource="kr/co/sist/user/dao/mapper/fakeMapper.xml"/>
     <mapper resource="kr/co/sist/admin/dao/mapper/adminProductMapper.xml"/>
     <mapper resource="kr/co/sist/admin/dao/mapper/adminEventMapper.xml"/>
+    <mapper resource="kr/co/sist/admin/dao/mapper/dashBoardMapper.xml"/>
+    <mapper resource="kr/co/sist/user/dao/mapper/mypage/mypagePrdInfoMapper.xml"/>
+    
   </mappers> 
 </configuration>

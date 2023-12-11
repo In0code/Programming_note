@@ -2,7 +2,41 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  <mapper namespace="admin.dashboard">
+  <mapper namespace="kr.co.sist.admin.dashboard">
+  <!-- 일일 가입자수 -->
+  <select id="selectTodayJoin" resultType="int">
+  select count(*) from member where to_date( input_date,'yyyy-MM-dd') =to_date( sysdate,'yyyy-MM-dd')
+  </select>
+  <!-- 일일 신고수 -->
+    <select id="selectTodayReport" resultType="int">
+  select count(*) from report where to_date( input_date,'yyyy-MM-dd') =to_date( sysdate,'yyyy-MM-dd')
+  </select>
+   <!-- 일일 거래수 -->
+    <select id="selectTodayTrade" resultType="int">
+  select count(*) from BUYRECEIPT where to_date(PAYMENT_DATE,'yyyy-MM-dd') =to_date( sysdate,'yyyy-MM-dd')
+  </select>
   
+  <select id="selectTop5Category" resultType="kr.co.sist.admin.domain.TopRankDomain">
+  select rownum rank,total,name category
+   from(select  count(c2.name) total, c2.name 
+   from product p , BUYRECEIPT b, category3 c3, category2 c2   where p.pcode = b.pcode and p.c3code= c3.c3code and c3.c2code = c2.c2code  and to_date(PAYMENT_DATE,'yy-MM-dd') ='2023-12-08' and cancle is null   group by c2.name order by total desc ) 
+   where rownum between 1 and 5
+  
+  </select>
+  <select id="selectEvent" resultType="ed">
+  	<![CDATA[
+
+  	select title,start_date ,end_date 
+  	from(select title,to_date(START_DATE,'yy-MM-dd') start_date,END_DATE from event where sysdate between START_DATE and END_DATE order by dbms_random.value)
+  	 where rownum <=3 
+]]>
+  </select>
+  <select id="selectVisitor" resultType="int">
+  select count(*) from member where to_date(login_date,'yyyy-MM-dd') = to_date(sysdate,'yyyy-MM-dd') group by login_date
+  </select>
+  
+  <select id="selectVisitors" resultType="int" parameterType="Date">
+  select total_cnt from visitors where to_date(daily_date,'yy-MM-dd') = #{date}
+  </select>
   
   </mapper>

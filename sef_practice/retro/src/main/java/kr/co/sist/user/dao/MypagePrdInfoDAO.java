@@ -10,7 +10,7 @@ import kr.co.sist.user.domain.mypage.MypagePrdDomain;
 
 /**
  * 전체, 판매중, 판매완료, 예약중인 사용자의 상품 정보를 불러오는 DAO class
- * @author marklim
+ * @author ㅌㅌ
  */
 @Component
 public class MypagePrdInfoDAO {
@@ -65,24 +65,6 @@ public class MypagePrdInfoDAO {
 		SqlSession ss = mh.getMyBatisHandler(false);
 		
 		list = ss.selectList("kr.co.sist.user.mypagePrdInfo.selectCompletedPrd", id);
-		
-		mh.closeHandler(ss);
-		
-		return list;
-	}
-	
-	/**
-	 * 예약중 상품 조회
-	 * @param id
-	 * @return  List&lt;MypagePrdDomain&gt;
-	 */
-	public List<MypagePrdDomain> selectReservationPrd(String id) {
-		List<MypagePrdDomain> list = null;
-		
-		mh = MybatisHandler.getInstance();
-		SqlSession ss = mh.getMyBatisHandler(false);
-		
-		list = ss.selectList("kr.co.sist.user.mypagePrdInfo.selectReservationPrd", id);
 		
 		mh.closeHandler(ss);
 		

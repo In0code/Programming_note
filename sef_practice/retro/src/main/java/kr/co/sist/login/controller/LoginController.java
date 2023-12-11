@@ -100,32 +100,28 @@ public class LoginController {
 		return "admin/login/admin_login_frm";
 	}//adminLoginFrm
 	
-	@PostMapping("/admin/login/admin_login_process.do")
-	public String adminloginSuccessProcess(Model model,LoginVO lVO) {
+	   @PostMapping("/admin/login/admin_login_process.do")
+	   public String adminloginSuccessProcess(Model model,LoginVO lVO) {
 
-		String url="/admin/login/admin_login_frm";
-		String msg="아이디와 비밀번호를 확인해주세요.";
-		
-		LoginService ls = LoginService.getInstance();
-		LoginDomain ld = ls.adminLogin(lVO);
-		if(ld!=null) {
-			model.addAttribute("id", ld.getId());
-			msg="";
-			url="admin/admin_main";
-		}
-		model.addAttribute("msg", msg);
-		
-		return url;
-		
-		
-	}//loginSuccessProcess
+	      String url="/admin/login/admin_login_frm";
+	      String msg="아이디와 비밀번호를 확인해주세요.";
+	      
+	      LoginService ls = LoginService.getInstance();
+	      LoginDomain ld = ls.adminLogin(lVO);
+	      if(ld!=null) {
+	         model.addAttribute("id", ld.getId());
+	         msg="";
+	         url="forward:/admin/dashboard.do";
+	      }
+	      model.addAttribute("msg", msg);
+	      
+	      return url;
+	      
+	      
+	   }//loginSuccessProcess
+
 	
-	@GetMapping("/admin/admin_main.do")
-	public String adminMainfrm() {
-		
-		
-		return "admin/admin_main";
-	}//adminMainfrm
+
 	
 	@GetMapping("/admin/login/admin_logout_process.do")
 	public String removeAdminSession( SessionStatus ss) {

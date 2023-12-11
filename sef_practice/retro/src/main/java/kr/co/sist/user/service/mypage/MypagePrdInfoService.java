@@ -6,6 +6,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import kr.co.sist.user.dao.MypagePrdInfoDAO;
 import kr.co.sist.user.domain.mypage.MypagePrdDomain;
@@ -25,6 +27,7 @@ public class MypagePrdInfoService {
 	 * @param id
 	 * @return List&lt;MypagePrdDomain&gt;
 	 */
+	@PostMapping("/mypage_prd_all.do")
 	public List<MypagePrdDomain> searchAllPrd(String id) {
 		return mpDAO.selectAllPrd(id);
 	}
@@ -34,6 +37,7 @@ public class MypagePrdInfoService {
 	 * @param id
 	 * @return List&lt;MypagePrdDomain&gt;
 	 */
+	@PostMapping("/mypage_prd_onsale.do")
 	public List<MypagePrdDomain> searchPrdOnProcess(String id) {
 		return mpDAO.selectPrdOnProcess(id);
 	}
@@ -43,16 +47,8 @@ public class MypagePrdInfoService {
 	 * @param id
 	 * @return JSONObject
 	 */
+	@GetMapping("/mypage_prd_completed.do")
 	public List<MypagePrdDomain> searchCompletedPrd(String id) {
 		return mpDAO.selectCompletedPrd(id);
-	}
-	
-	/**
-	 * 예약중인 상품을 검색
-	 * @param id
-	 * @return JSONObject
-	 */
-	public List<MypagePrdDomain> searchReservationPrd(String id) {
-		return mpDAO.selectReservationPrd(id);
 	}
 }

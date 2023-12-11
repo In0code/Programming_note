@@ -11,7 +11,8 @@ import lombok.ToString;
 @ToString
 public class MypagePrdDomain {
 
-	private String pcode, pname, loc, dateGap;
+	private String pcode, pname, loc, img;
+	private String[] date_gap;
 	private int price;
 	private Date input_date;
 }
