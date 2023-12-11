@@ -13,7 +13,7 @@ import kr.co.sist.common.dao.MybatisHandler;
 
 public class AdminProductDAO {
 
-	private static AdminProductDAO pDAO;
+	private static AdminProductDAO apDAO;
 	private String configPath;
 
 	private AdminProductDAO() {
@@ -21,10 +21,10 @@ public class AdminProductDAO {
 	}
 
 	public static AdminProductDAO getInstance() {
-		if (pDAO == null) {
-			pDAO = new AdminProductDAO();
+		if (apDAO == null) {
+			apDAO = new AdminProductDAO();
 		} // end if
-		return pDAO;
+		return apDAO;
 	}// getInstance
 
 	/**
@@ -101,11 +101,11 @@ public class AdminProductDAO {
 	}// updateRemoveProduct
 
 	public static void main(String[] args) {
-		AdminProductDAO apDAO = AdminProductDAO.getInstance();
+		AdminProductDAO aapDAO = AdminProductDAO.getInstance();
 //		BoardRangeVO brVO = new BoardRangeVO();
 //		brVO.setKeyword("싱숭생숭연");
-//		apDAO.selectOneProduct("P00001");
-		apDAO.updateRemoveProduct("P00001");
+//		aapDAO.selectOneProduct("P00001");
+		aapDAO.updateRemoveProduct("P00001");
 		
 	}
 

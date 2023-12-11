@@ -1,13 +1,19 @@
 package kr.co.sist.user.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import kr.co.sist.user.domain.ProductDomain;
+import kr.co.sist.user.service.ProductService;
+
 @Controller
 public class ProductController {
+	private ProductService ps=ProductService.getInstance();
 
 	/**
 	 * 상품 등록 페이지
@@ -18,7 +24,12 @@ public class ProductController {
 	@RequestMapping("/user/product/product_register.do")
 	public String productRegister(HttpServletRequest request, Model model) {
 		
-		model.addAttribute("method",request.getMethod());
+		String pname=request.getParameter("pname");
+		System.out.println(pname);
+		
+		List<ProductDomain> categoryList=ps.searchCategory();
+		model.addAttribute("categoryList",categoryList);
+		model.addAttribute("categorySize",categoryList.size());
 		
 		return "user/product/product_register";
 	}//productRegister

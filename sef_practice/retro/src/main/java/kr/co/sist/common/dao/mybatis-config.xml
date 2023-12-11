@@ -35,6 +35,7 @@
   <mappers>
     <mapper resource="kr/co/sist/user/dao/mapper/join/joinMapper.xml"/>
     <mapper resource="kr/co/sist/user/dao/mapper/mypage/mypageInfoDetailMapper.xml"/>
+    <mapper resource="kr/co/sist/user/dao/mapper/productMapper.xml"/>
     <mapper resource="kr/co/sist/login/dao/mapper/loginMapper.xml"/>
     <mapper resource="kr/co/sist/user/dao/mapper/fakeMapper.xml"/>
     <mapper resource="kr/co/sist/admin/dao/mapper/adminProductMapper.xml"/>

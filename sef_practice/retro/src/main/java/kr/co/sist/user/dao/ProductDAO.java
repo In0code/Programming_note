@@ -1,5 +1,7 @@
 package kr.co.sist.user.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.exceptions.PersistenceException;
 import org.apache.ibatis.session.SqlSession;
 
@@ -27,17 +29,22 @@ public class ProductDAO {
 	 * @return
 	 * @throws PersistenceException
 	 */
-	public ProductDomain selectCategory() throws PersistenceException {
-		ProductDomain pd= null;
+	public List<ProductDomain> selectCategory() throws PersistenceException {
+		List<ProductDomain> list= null;
 
 		MybatisHandler mbh=MybatisHandler.getInstance();
-		SqlSession ss=mbh.getMyBatisHandler(configPath,false);
-		pd=ss.selectOne("user.product.selectCategory");
+		SqlSession ss=mbh.getMyBatisHandler(configPath, false);
+		list=ss.selectList("user.product.selectCategory");
 		
 		mbh.closeHandler(ss);
 			
-		return pd;
+		return list;
 	}//selectCategory
+	
+	public static void main(String[] args) {
+		ProductDAO pd=ProductDAO.getInstance();
+		pd.selectCategory();
+	}//main
 
 
 }// class
