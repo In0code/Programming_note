@@ -4,12 +4,13 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="user.product">
 
-<!-- 카테고리 조회 조회 -->
-<select id="selectCategory" resultType="pd">
-select c1.NAME as category, c2.NAME as category2, c3.NAME as category3, c1.CCODE, c2.C2CODE, c3.C3CODE
-from CATEGORY c1, CATEGORY2 c2, CATEGORY3 c3
-where  c1.ccode=c2.ccode and c2.c2code = c3.c2code
-</select>
+	<!-- 카테고리 조회 조회 -->
+	<select id="selectCategory" resultType="pd">
+		select c1.NAME as category, c2.NAME as category2, c3.NAME as category3,
+		c1.CCODE, c2.C2CODE, c3.C3CODE
+		from CATEGORY c1, CATEGORY2 c2, CATEGORY3 c3
+		where c1.ccode=c2.ccode and c2.c2code = c3.c2code
+	</select>
 
 
 </mapper>

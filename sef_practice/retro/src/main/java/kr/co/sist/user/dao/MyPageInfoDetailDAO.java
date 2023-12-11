@@ -1,27 +1,18 @@
 package kr.co.sist.user.dao;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.stereotype.Component;
 
 import kr.co.sist.common.dao.MybatisHandler;
 import kr.co.sist.user.domain.MyPageEnterDomain;
+import kr.co.sist.user.domain.mypage.MypageInfoDomain;
 import kr.co.sist.user.vo.ChangePwVO;
 import kr.co.sist.user.vo.MyPageIdPwVO;
 
+@Component
 public class MyPageInfoDetailDAO {
 	
-	private static MyPageInfoDetailDAO mpDAO;
-	private static String configPath;
-	
-	private MyPageInfoDetailDAO() {
-		configPath = "kr/co/sist/common/dao/mybatis-config.xml";
-	}
-	
-	public static MyPageInfoDetailDAO getInstance() {
-		if(mpDAO == null) {
-			mpDAO = new MyPageInfoDetailDAO();
-		}
-		return mpDAO;
-	}
+	private static String configPath = "kr/co/sist/common/dao/mybatis-config.xml";
 	
 	public MyPageEnterDomain isEnterable(MyPageIdPwVO mpeVO) {
 		MyPageEnterDomain mpeDomain = null;
@@ -70,5 +61,23 @@ public class MyPageInfoDetailDAO {
 		mh.closeHandler(ss);
 		
 		return result;
+	}
+	
+	/**
+	 * 사용자의 기본적인 정보를 받아서 반환
+	 * @param id
+	 * @return MypageInfoDomain
+	 */
+	public MypageInfoDomain selectUserInfo(String id) {
+		MypageInfoDomain miDomain = null;
+		
+		MybatisHandler mh = MybatisHandler.getInstance();
+		SqlSession ss = mh.getMyBatisHandler(false);
+		
+		miDomain = ss.selectOne("kr.co.sist.user.mypageInfoDetail.selectUserInfo", id);
+		
+		mh.closeHandler(ss);
+		
+		return miDomain;
 	}
 }

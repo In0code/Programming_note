@@ -30,4 +30,24 @@ SELECT PCODE, PNAME, PRICE, INPUT_DATE, LOC
 FROM PRODUCT
 WHERE ID=#{id}
 </select>
+
+<!-- 마이페이지 사용자 정보 -->
+<select id="selectUserInfo" resultType="kr.co.sist.user.domain.mypage.MypageInfoDomain" parameterType="String">
+SELECT CREDIT_LEVEL,
+(SELECT COUNT(*)
+FROM BUYRECEIPT
+WHERE ID=#{id}) TOTAL_BUYRECEIPT,
+(SELECT COUNT(*)
+FROM PRODUCT
+WHERE ID=#{id}) TOTAL_PRODUCT,
+(SELECT COUNT(*)
+FROM BUYCOMMENT
+WHERE ID=#{id}) TOTAL_BUYCOMMENT,
+(SELECT COUNT(*)
+FROM WISH
+WHERE ID=#{id}) TOTAL_WISH
+
+FROM MEMBER
+WHERE ID=#{id}
+</select>
 </mapper>

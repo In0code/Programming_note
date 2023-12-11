@@ -3,6 +3,7 @@ package kr.co.sist.user.controller.mypage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,9 @@ import kr.co.sist.user.vo.MyPageIdPwVO;
 @Controller
 public class MyPageController {
 	
+	@Autowired
+	MyPageInfoDetailService midService;
+	
 	@GetMapping("/mypage_enter.do")
 	public String myPageEnterFrm(HttpSession session) {
 		return "user/user_mypage/user_info_enter";
@@ -25,7 +29,7 @@ public class MyPageController {
 	public String myPageEnter(String id, String pw, Model model, HttpSession session) {
 		MyPageIdPwVO mpeVO = new MyPageIdPwVO(id, pw);
 		
-		MyPageEnterDomain mpeDomain = new MyPageInfoDetailService().isEnterable(mpeVO);
+		MyPageEnterDomain mpeDomain = midService.isEnterable(mpeVO);
 		model.addAttribute("userInfo", mpeDomain);
 		model.addAttribute("flag", true);
 		
@@ -46,15 +50,17 @@ public class MyPageController {
 		System.out.println("oldPw :: "+oldPw+" / newPw :: "+newPw);
 		String id = (String)session.getAttribute("sesId");
 		
-		String flagMsg = new MyPageInfoDetailService().changePw(new ChangePwVO(id, oldPw, newPw));
+		String flagMsg = midService.changePw(new ChangePwVO(id, oldPw, newPw));
 		model.addAttribute("flagMsg", flagMsg);
 		
 		return "user/user_mypage/change_pw";
 	}
 	
 	@PostMapping("/user_mypage_frm.do")
-	public String userMypageMainFrm(HttpSession session, String id) {
+	public String userMypageMainFrm(HttpSession session, Model model, String id) {
 		session.setAttribute("sesId", id);
+		model.addAttribute("userInfo", midService.searchUserInfo(id));
+		
 		return "user/user_mypage/user_mypage_frm";
 	}
 	
@@ -67,7 +73,7 @@ public class MyPageController {
 	public String reallyBye(HttpSession session, HttpServletRequest request) {
 		String id = request.getParameter("id");
 		System.out.println("reallyBye :: "+id+"----------------------------------------------------------------------------------");
-		new MyPageInfoDetailService().byebye(id);
+		midService.byebye(id);
 		
 		return "user/user_mypage/byebye_end";
 	}
