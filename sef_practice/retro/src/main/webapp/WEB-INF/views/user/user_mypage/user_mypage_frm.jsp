@@ -17,7 +17,7 @@
 	var comboBoxSortTxt = "최신순";
 	
 	$("#btn").val(comboBoxSortTxt);
-	$("#all").click();
+	$("#all").trigger('click')
 	
 	$(function() {
 		
@@ -33,66 +33,81 @@
 		});
 		
 		$("#all").click(function() {
-			alert("전체");
+			changeCss(this);
+			
 			$.ajax({
-				url:"mypage_prd_all.do",
+				url:"mypage_prd_all.do?f=all",
 				type:"POST",
-				data:param,
-				dataType:"TEXT",
+				dataType:"HTML",
 				error:function(xhr) {
 					alert(xhr.status);
 				},
-				success:function(jsonObj) {
-					alert(jsonObj);
+				success:function(data) {
+					var cnt = $("#totalPrd").val();
+					$("#cntDiv").html(cnt+"개의 상품");
+					$("#prdInfo").html(data);
 				}
+			});
 		});
 		
 		$("#onSale").click(function() {
-			alert("판매중");
+			changeCss(this);
+			
 			$.ajax({
 				url:"mypage_prd_onsale.do",
 				type:"POST",
-				data:param,
-				dataType:"TEXT",
+				dataType:"HTML",
 				error:function(xhr) {
 					alert(xhr.status);
 				},
-				success:function(jsonObj) {
-					alert(jsonObj);
+				success:function(data) {
+					var cnt = $("#totalPrd").val();
+					$("#cntDiv").html(cnt+"개의 상품");
+					$("#prdInfo").html(data);
 				}
-		});
-		
-		$("#reservation").click(function() {
-			alert("예약중");
-			$.ajax({
-				url:"mypage_prd_reservation.do",
-				type:"POST",
-				data:param,
-				dataType:"TEXT",
-				error:function(xhr) {
-					alert(xhr.status);
-				},
-				success:function(jsonObj) {
-					alert(jsonObj);
-				}
+			});
 		});
 		
 		$("#completed").click(function() {
-			alert("판매완료");
+			changeCss(this);
+			
 			$.ajax({
 				url:"mypage_prd_completed.do",
 				type:"POST",
-				data:param,
-				dataType:"TEXT",
+				dataType:"HTML",
 				error:function(xhr) {
 					alert(xhr.status);
 				},
-				success:function(jsonObj) {
-					alert(jsonObj);
+				success:function(data) {
+					var cnt = $("#totalPrd").val();
+					$("#cntDiv").html(cnt+"개의 상품");
+					$("#prdInfo").html(data);
 				}
+			});
 		});
 	});
 
+function changeCss(obj) {
+	var idName = $(obj).attr("id");
+	
+	if(idName == "all") {
+		$("#all").addClass("border-black");
+		$("#onSale").removeClass("border-black");
+		$('#completed').removeClass("border-black");
+	}
+	if(idName == "onSale") {
+		$("#onSale").addClass("border-black");
+		$("#all").removeClass("border-black");
+		$('#completed').removeClass("border-black");
+	}
+	if(idName == "completed") {
+		$('#completed').addClass("border-black");
+		$("#all").removeClass("border-black");
+		$("#onSale").removeClass("border-black");
+	}
+	
+}		
+		
 function outputPrd(data) {
 	$("#prdInfo").html(data);
 }
@@ -120,15 +135,21 @@ function sortUp(txt) {
 <!-- 판매한 /중인 /완료한 상품 보여주는 곳 시작 -->
 <div class="px-0 max-lg:mt-10">
 	<div class="items-center justify-between block mb-4 md:flex lg:mb-7">
-		<div class="flex-shrink-0 mb-1 text-xs leading-4 text-body md:text-sm pe-4 md:me-6 lg:ps-2 lg:block">1
-			개의 상품</div>
+		<div id="cntDiv" class="flex-shrink-0 mb-1 text-xs leading-4 text-body md:text-sm pe-4 md:me-6 lg:ps-2 lg:block">
+		<!-- 개의 상품 정보 -->
+		</div>
 		<div class="flex flex-wrap items-center justify-between">
 			<div class="mr-0 lg:mr-4">
 				<ul class="colors flex flex-nowrap -me-3">
-					<li id="all" class="shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black border-black">전체</li>
-					<li id="onSale" class="shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black">판매중</li>
-					<li id="reservation" class="shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black">예약중</li>
-					<li id="completed" class="shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black">판매완료</li>
+					<li id="all" class="shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black border-black">
+						전체
+					</li>
+					<li id="onSale" class="shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black">
+						판매중
+					</li>
+					<li id="completed" class="shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black">
+						판매완료
+					</li>
 				</ul>
 			</div>
 			<div class="relative my-2 sm:m-0 lg:ms-0 z-10 min-w-[160px]">
