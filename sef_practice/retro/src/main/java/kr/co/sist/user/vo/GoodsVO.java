@@ -8,5 +8,5 @@ import lombok.ToString;
 @Setter
 @ToString
 public class GoodsVO {
-	private String category, gcode, id;
+	private String category, pcode, id, img, input_date;
 }

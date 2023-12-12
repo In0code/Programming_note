@@ -1,5 +1,6 @@
 package kr.co.sist.admin.dao;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.apache.ibatis.exceptions.PersistenceException;
@@ -7,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Component;
 
 import kr.co.sist.admin.domain.AdminEventDomain;
+import kr.co.sist.admin.vo.AdminEventVO;
 import kr.co.sist.common.BoardRangeVO;
 import kr.co.sist.common.dao.MybatisHandler;
 
@@ -63,13 +65,39 @@ public class AdminEventDAO {
 		SqlSession ss = mbh.getMyBatisHandler(configPath, false);
 		aed = ss.selectOne("admin.event.selectOneEvent",ecode);
 		
+		mbh.closeHandler(ss);
+		
 		return aed;
+	}
+
+	public int insertEvent(AdminEventVO aeVO) throws PersistenceException{
+		MybatisHandler mbh = MybatisHandler.getInstance();
+		SqlSession ss = mbh.getMyBatisHandler(configPath, false);
+		int cnt = ss.insert("admin.event.insertEvent", aeVO);
+		
+		if(cnt == 1) {
+			ss.commit();
+		}
+		
+		mbh.closeHandler(ss);
+		
+		return cnt;
 	}
 	
 	public static void main(String[] args) {
 		AdminEventDAO aDAO = new AdminEventDAO();
 		BoardRangeVO brVO = new BoardRangeVO();
-		aDAO.selectOneEvent("E00007");
+		AdminEventVO aeVO = new AdminEventVO();
+		aeVO.setContext("내용");
+		aeVO.setTitle("제목");
+		aeVO.setId("admin");
+		aeVO.setImg("img.png");
+		aeVO.setImg2("img2.png");
+		aeVO.setStart_date("2023-12-11");
+		aeVO.setEnd_date("2023-12-15");
+		
+		System.out.println(aDAO.insertEvent(aeVO));
+		
 	}
 
 }

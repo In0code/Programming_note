@@ -38,9 +38,15 @@ where rn between 1 and 10
 </select>
 
 <select id="selectOneEvent" resultType="aed" parameterType="String">
-select eventcode, title, context, img, input_date, start_date, end_date, id
+select eventcode, title, context, img, img2, input_date, 
+to_char(start_date,'yyyy-mm-dd') start_date, to_char(end_date,'yyyy-mm-dd') end_date, id
 from event
 where eventcode = #{ eventcode } 
 </select>
+
+<insert id="insertEvent" parameterType="aeVO">
+insert into event 
+values('E' || lpad(event_seq.nextval, 5, 0), #{ title }, #{ context }, #{ img }, sysdate, #{ start_date }, #{ end_date }, #{ id }, #{ img2 })
+</insert>
 
 </mapper>
