@@ -15,7 +15,7 @@
     <select id="selectTodayTrade" resultType="int">
   select count(*) from BUYRECEIPT where to_date(PAYMENT_DATE,'yyyy-MM-dd') =to_date( sysdate,'yyyy-MM-dd')
   </select>
-  
+  <!-- 상위 거래 카테고리 5개 , 데이터 입력 후 where 문 수정해야함 -->
   <select id="selectTop5Category" resultType="kr.co.sist.admin.domain.TopRankDomain">
   select rownum rank,total,name category
    from(select  count(c2.name) total, c2.name 
@@ -23,6 +23,7 @@
    where rownum between 1 and 5
   
   </select>
+  <!-- 이벤트리스트 -->
   <select id="selectEvent" resultType="ed">
   	<![CDATA[
 
@@ -31,10 +32,11 @@
   	 where rownum <=3 
 ]]>
   </select>
+    <!-- 일일 방문자 -->
   <select id="selectVisitor" resultType="int">
   select count(*) from member where to_date(login_date,'yyyy-MM-dd') = to_date(sysdate,'yyyy-MM-dd') group by login_date
   </select>
-  
+  <!-- 방문자수 추이 -->
   <select id="selectVisitors" resultType="int" parameterType="Date">
   select total_cnt from visitors where to_date(daily_date,'yy-MM-dd') = #{date}
   </select>

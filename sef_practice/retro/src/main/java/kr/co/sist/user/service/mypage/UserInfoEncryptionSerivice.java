@@ -32,4 +32,14 @@ public class UserInfoEncryptionSerivice {
 		DataDecrypt dd = new DataDecrypt(key);
 		return dd.decryption(cipher);
 	}
+	
+//	public static void main(String[] args) {
+//		UserInfoEncryptionSerivice s = new UserInfoEncryptionSerivice();
+//		try {
+//			System.out.println(s.oneWayEncryptData("123456789"));
+//			
+//		} catch (NoSuchAlgorithmException e) {
+//			e.printStackTrace();
+//		}
+//	}
 }

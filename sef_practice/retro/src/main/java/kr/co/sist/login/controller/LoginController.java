@@ -11,7 +11,9 @@ import org.springframework.web.bind.support.SessionStatus;
 import kr.co.sist.login.domain.LoginDomain;
 import kr.co.sist.login.service.LoginService;
 import kr.co.sist.login.vo.LoginVO;
-@SessionAttributes({"id","nickname"})
+import kr.co.sist.user.domain.mypage.MypageInfoDomain;
+import kr.co.sist.user.service.mypage.MyPageInfoDetailService;
+@SessionAttributes({"id","nickname", "userInfo"})
 @Controller
 public class LoginController {
 	
@@ -31,6 +33,9 @@ public class LoginController {
 		LoginService ls = LoginService.getInstance();
 		LoginDomain ld = ls.Login(lVO);
 		if(ld!=null) {
+			MyPageInfoDetailService ms= new MyPageInfoDetailService();
+			MypageInfoDomain mid= ms.searchUserInfo(ld.getId());
+			model.addAttribute("userInfo", mid);
 			model.addAttribute("id", ld.getId());
 			model.addAttribute("nickname",ld.getNickname());
 			msg="";

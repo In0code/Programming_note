@@ -2,7 +2,6 @@ package kr.co.sist.admin.service;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,7 +60,7 @@ public class DashBoardService {
 		list=dbDA0.selectEvent();
 		
 		return list;
-	}
+	}//searchEvent
 		
 		
 	public int searchTodayVisitor() {
@@ -82,7 +81,6 @@ public class DashBoardService {
 	    for (int i = 0; i < 5; i++) {
 	        lDate = LocalDate.now().minusDays(i); // 일 수를 감소시켜 연속된 날짜를 얻음
 	        Date date = java.sql.Date.valueOf(lDate);
-	        System.out.println(date);
 	        list.add(dbDAO.selectVisitors(date));
 	    }
 

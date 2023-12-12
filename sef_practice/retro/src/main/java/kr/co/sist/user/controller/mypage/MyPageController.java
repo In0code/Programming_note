@@ -1,6 +1,5 @@
 package kr.co.sist.user.controller.mypage;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,16 +20,16 @@ public class MyPageController {
 	MyPageInfoDetailService midService;
 	
 	@GetMapping("/mypage_enter.do")
-	public String myPageEnterFrm(HttpSession session) {
+	public String myPageEnterFrm() {
 		return "user/user_mypage/user_info_enter";
 	}
 	
 	@PostMapping("/mypage_info.do")
-	public String myPageEnter(String id, String pw, Model model, HttpSession session) {
-		MyPageIdPwVO mpeVO = new MyPageIdPwVO(id, pw);
+	public String myPageEnter(String pw, Model model, HttpSession session) {
+		MyPageIdPwVO mpeVO = new MyPageIdPwVO((String)session.getAttribute("id"), pw);
 		
 		MyPageEnterDomain mpeDomain = midService.isEnterable(mpeVO);
-		model.addAttribute("userInfo", mpeDomain);
+		model.addAttribute("privateInfo", mpeDomain);
 		model.addAttribute("flag", true);
 		
 		if(mpeDomain == null) {
@@ -47,8 +46,7 @@ public class MyPageController {
 	
 	@PostMapping("/change_pw.do")
 	public String changePw(String oldPw, String newPw, Model model, HttpSession session) {
-		System.out.println("oldPw :: "+oldPw+" / newPw :: "+newPw);
-		String id = (String)session.getAttribute("sesId");
+		String id = (String)session.getAttribute("id");
 		
 		String flagMsg = midService.changePw(new ChangePwVO(id, oldPw, newPw));
 		model.addAttribute("flagMsg", flagMsg);
@@ -57,22 +55,18 @@ public class MyPageController {
 	}
 	
 	@PostMapping("/user_mypage_frm.do")
-	public String userMypageMainFrm(HttpSession session, Model model, String id) {
-		session.setAttribute("sesId", id);
-		model.addAttribute("userInfo", midService.searchUserInfo(id));
-		
+	public String userMypageMainFrm() {
 		return "user/user_mypage/user_mypage_frm";
 	}
 	
 	@GetMapping("/byebye_frm.do")
-	public String byebyeFrm(HttpSession session) {
+	public String byebyeFrm() {
 		return "user/user_mypage/byebye_frm";
 	}
 	
 	@GetMapping("/reallyBye.do")
-	public String reallyBye(HttpSession session, HttpServletRequest request) {
-		String id = request.getParameter("id");
-		System.out.println("reallyBye :: "+id+"----------------------------------------------------------------------------------");
+	public String reallyBye(HttpSession session) {
+		String id = (String)session.getAttribute("id");
 		midService.byebye(id);
 		
 		return "user/user_mypage/byebye_end";

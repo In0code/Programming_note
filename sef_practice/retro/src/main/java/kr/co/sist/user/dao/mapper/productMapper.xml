@@ -5,12 +5,106 @@
 <mapper namespace="user.product">
 
 	<!-- 카테고리 조회 조회 -->
-	<select id="selectCategory" resultType="pd">
-		select c1.NAME as category, c2.NAME as category2, c3.NAME as category3,
-		c1.CCODE, c2.C2CODE, c3.C3CODE
-		from CATEGORY c1, CATEGORY2 c2, CATEGORY3 c3
-		where c1.ccode=c2.ccode and c2.c2code = c3.c2code
-	</select>
+	<insert id="insertProduct" parameterType="pVO">
+		insert into PRODUCT (PCODE, PNAME, CONTEXT, IMG, 
+			<if test="img2 neq null and img2 neq ''">
+	 		IMG2,
+	 		</if>
+	 		<if test="img3 neq null and img3 neq ''">
+	 		IMG3,
+	 		</if>
+	 		<if test="img4 neq null and img4 neq ''">
+	 		IMG4,
+	 		</if>
+	 		<if test="img5 neq null and img5 neq ''">
+	 		IMG5,
+	 		</if>
+		PRICE, INPUT_DATE, DELIVER, STATUS, LOC, PCANCEL, C3CODE, ID)
+ 		values (#{pcode},#{pname},#{context},#{img},
+ 		
+	 		<if test="img2 neq null and img2 neq ''">
+	 		#{img2},
+	 		</if>
+	 		<if test="img3 neq null and img3 neq ''">
+	 		#{img3},
+	 		</if>
+	 		<if test="img4 neq null and img4 neq ''">
+	 		#{img4},
+	 		</if>
+	 		<if test="img5 neq null and img5 neq ''">
+	 		#{img5},
+	 		</if>
+ 		#{price},sysdate ,#{deliver},#{status},#{loc},'N',
+ 		#{c3code},#{id})
+	</insert>
 
+	<select id="selectProduct" resultType="pd" parameterType="pVO">
+		select  PCODE, PNAME, CONTEXT, IMG, 
+				<if test="img2 neq null and img2 neq ''">
+		 		IMG2,
+		 		</if>
+		 		<if test="img3 neq null and img3 neq ''">
+		 		IMG3,
+		 		</if>
+		 		<if test="img4 neq null and img4 neq ''">
+		 		IMG4,
+		 		</if>
+		 		<if test="img5 neq null and img5 neq ''">
+		 		IMG5,
+		 		</if>
+				PRICE, INPUT_DATE, DELIVER, STATUS, LOC, PCANCEL, C3CODE, ID
+		from PRODUCT
+		where ID=#{id} and PCODE=#{pcode}
+	
+		</select>
+	
+	
+	<update id="updateProduct" parameterType="pVO">
+	update PRODUCT
+	set  
+			<if test="pname neq null and pname neq ''">
+	 		PNAME=#{pname},
+	 		</if>
+	 		<if test="context neq null and context neq ''">
+	 		CONTEXT=#{context},
+	 		</if>
+	 		<if test="img4 neq null and img4 neq ''">
+	 		IMG=#{img},
+	 		</if>
+			<if test="img2 neq null and img2 neq ''">
+	 		IMG2=#{img2},
+	 		</if>
+	 		<if test="img3 neq null and img3 neq ''">
+	 		IMG3=#{img3},
+	 		</if>
+	 		<if test="img4 neq null and img4 neq ''">
+	 		IMG4=#{img4},
+	 		</if>
+	 		<if test="img5 neq null and img5 neq ''">
+	 		IMG5=#{img5},
+	 		</if>
+	 		<if test="price neq null and price neq ''">
+	 		PRICE=#{price},
+	 		</if>
+	 		<if test="deliver neq null and deliver neq ''">
+	 		DELIVER=#{deliver},
+	 		</if>
+	 		<if test="status neq null and status neq ''">
+	 		STATUS=#{status},
+	 		</if>
+			<if test="loc neq null and loc neq ''">
+	 		LOC=#{loc},
+	 		</if>
+	 		<if test="c3code neq null and c3code neq ''">
+	 		C3CODE=#{c3code},
+	 		</if>
+	where PCODE=#{pcode} and ID=#{id}
+	</update>
+	
+	
+	<delete id="deleteProduct" parameterType="pVO">
+		delete from PRODUCT where PCODE=#{pcode} and ID=#{id}
+	</delete>
+	
 
 </mapper>

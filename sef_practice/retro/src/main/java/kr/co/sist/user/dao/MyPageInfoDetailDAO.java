@@ -9,7 +9,7 @@ import kr.co.sist.user.domain.mypage.MypageInfoDomain;
 import kr.co.sist.user.vo.ChangePwVO;
 import kr.co.sist.user.vo.MyPageIdPwVO;
 
-@Component
+
 public class MyPageInfoDetailDAO {
 	
 	private static String configPath = "kr/co/sist/common/dao/mybatis-config.xml";

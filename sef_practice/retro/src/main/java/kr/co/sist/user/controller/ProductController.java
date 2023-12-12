@@ -1,15 +1,13 @@
 package kr.co.sist.user.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import kr.co.sist.user.domain.ProductDomain;
 import kr.co.sist.user.service.ProductService;
+import kr.co.sist.user.vo.ProductVO;
 
 @Controller
 public class ProductController {
@@ -22,12 +20,10 @@ public class ProductController {
 	 * @return
 	 */
 	@RequestMapping("/user/product/product_register.do")
-	public String productRegister(HttpServletRequest request, Model model) {
+	public String productRegister(HttpServletRequest request, Model model,ProductVO pVO) {
 		
-		String pname=request.getParameter("pname");
-		
-		List<ProductDomain> categoryList=ps.searchCategory();
-		model.addAttribute("categoryList",categoryList);
+		int result= ps.addProduct(pVO);
+		model.addAttribute("result",result);
 		
 		return "user/product/product_register";
 	}//productRegister

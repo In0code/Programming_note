@@ -2,18 +2,14 @@ package kr.co.sist.login.service;
 
 import java.security.NoSuchAlgorithmException;
 
-import org.springframework.beans.factory.annotation.Autowired;
 
 import kr.co.sist.login.dao.LoginDAO;
 import kr.co.sist.login.domain.LoginDomain;
 import kr.co.sist.login.vo.LoginVO;
 import kr.co.sist.user.service.mypage.UserInfoEncryptionSerivice;
-import kr.co.sist.util.cipher.DataEncrypt;
 
 public class LoginService {
 	private static LoginService ls;
-	@Autowired
-	private UserInfoEncryptionSerivice encrypt;
 	
 	private LoginService() {
 		
@@ -32,7 +28,8 @@ public class LoginService {
 		LoginDAO lDAO = LoginDAO.getInstance();
 		
 		try {
-			lVO.setPw(DataEncrypt.messageDigest("MD5", encrypt.oneWayEncryptData(lVO.getPw())));
+			UserInfoEncryptionSerivice encrypt= new UserInfoEncryptionSerivice();
+			lVO.setPw(encrypt.oneWayEncryptData(lVO.getPw()));
 			ld=lDAO.selectLogin(lVO);
 			
 		} catch (NoSuchAlgorithmException e) {
