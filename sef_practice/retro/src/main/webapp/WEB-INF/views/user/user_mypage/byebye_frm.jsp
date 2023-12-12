@@ -34,7 +34,7 @@ function bye() {
 		<c:import url="http://localhost/retro_prj/common/cdn/mypage_sidebar.jsp" />
 		<div class="w-full flex-grow">
 		<!-- 마이페이지 header -->
-		<c:import url="http://localhost/retro_prj/common/cdn/mypage_info.jsp" />
+		<c:import url="/common/cdn/mypage_info.jsp" />
 
 <!-- 탈퇴 내용 동의 및 탈퇴 -->
 <div class="content" data-v-ab6e088a="">

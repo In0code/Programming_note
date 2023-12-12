@@ -594,13 +594,54 @@
 		$("#parcelFeeY").click(function() {
 			$("#changeDeliver").val("Y");
 		});
-
+		
+		/* 에러 메시지를 보여줬다가, 다시 키가 올라오면 에러 메시지 사라지게 */
+		$("#productTitle").keyup(function(){
+			 $("#pnameErr").css('display', 'none');
+		});
+		$("#productPrice").keyup(function(){
+			 $("#priceNErr").css('display', 'none');
+		});
+		$("#productDescription").keyup(function(){
+			 $("#contextErr").css('display', 'none');
+		});
+		$("#locInputBox").keyup(function(){
+			 $("#locErr").css('display', 'none');
+		});
+		
+		/* 등록 버튼 클릭 시 동작 */
 		$("#registerBtn").click(function() {
-			 var locInput = $("#locInputBox").val();
-			   alert(flag);
+			
+			if($("#productTitle").val() === ''){
+			        $("#pnameErr").css('display', 'block');
+			        alert("상품명을 입력해주세요");
+			        return; // locInput이 비어있으면 처리 중단
+			    } else {
+			        $("#pnameErr").css('display', 'none');
+			}//end else			
+			
+			if($("#productPrice").val() === ''){
+			        $("#priceNErr").css('display', 'block');
+			        alert("가격을 입력해주세요");
+			        return; // locInput이 비어있으면 처리 중단
+			    } else {
+			        $("#priceNErr").css('display', 'none');
+			}//end else			
+			
+			/* 상품 상세 정보가 비어있을 때 */
+			if($("#productDescription").val() === ''){
+			        $("#contextErr").css('display', 'block');
+			        alert("상품 상세정보를 입력해주세요");
+			        return; // locInput이 비어있으면 처리 중단
+			    } else {
+			        $("#contextErr").css('display', 'none');
+			}//end else			
+			
+			/* 희망지역 입력 칸이 비어있을 시 */
 			 if(flag){
-			    if (locInput === '') {
+			    if ( $("#locInputBox").val() === '') {
 			        $("#locErr").css('display', 'block');
+			        alert("희망지역을 입력해주세요");
 			        return; // locInput이 비어있으면 처리 중단
 			    } else {
 			        $("#locErr").css('display', 'none');
@@ -613,9 +654,9 @@
 			$("#changeStatus").val();
 			$("#changeDeliver").val();
 			$("#category3").val();
-			location.href = "product_register_ok.do";
 			$("#regiFrm").submit();
-
+			
+			location.href = "product_register_ok.do";
 			
 		});//click
 
@@ -638,8 +679,8 @@
 				// 여기에서 클릭한 li 요소의 ID를 활용하면 됩니다.
 				// 예를 들어, 클릭한 ID를 서버로 전송하거나 다른 작업을 수행할 수 있습니다.
 			});
-		});
-	});
+		});//forEach
+	});//addEventListener
 	
 	/* price */
 	function validatePrice(input) {
@@ -726,24 +767,17 @@
 				<section class="mx-auto w-full max-w-[768px]">
 					<div class="flex px-5 pb-1.5">
 						<div>
-							<input name="media" type="file" multiple=""
-								accept="image/png, image/jpeg, image/jpg, video/*"
-								class="hidden">
-							<button
-								class="flex items-center justify-center w-20 h-20 mr-1.5 bg-jnGray-200 rounded">
-								<div class="flex flex-col">
-									<svg width="32px" height="32px" viewBox="0 0 32 32" fill="none"
-										xmlns="http://www.w3.org/2000/svg" class="">
-									<path fill-rule="evenodd" clip-rule="evenodd"
-											d="M15.728 20.4461C13.6481 20.4461 11.9619 18.7599 11.9619 16.68C11.9619 14.6001 13.6481 12.9138 15.728 12.9138C17.8079 12.9138 19.4942 14.6001 19.4942 16.68C19.4942 18.7599 17.8079 20.4461 15.728 20.4461Z"
-											fill="#C2C6CE"></path>
-									<path fill-rule="evenodd" clip-rule="evenodd"
-											d="M10.4564 7.32295C10.9376 6.00587 11.5097 5.15997 12.8118 5.15997H17.9241C19.2253 5.15997 19.7975 6.00463 20.2785 7.32003H20.7897C24.7543 7.32003 27.968 10.4192 27.968 14.2417V19.119C27.968 22.9409 24.7543 26.04 20.7897 26.04H10.6669C6.7023 26.04 3.48798 22.9409 3.48798 19.119V14.2417C3.48798 10.487 6.58918 7.4303 10.4564 7.32295ZM21.3772 16.68C21.3772 19.8001 18.8481 22.3292 15.728 22.3292C12.6079 22.3292 10.0788 19.8001 10.0788 16.68C10.0788 13.5599 12.6079 11.0308 15.728 11.0308C18.8481 11.0308 21.3772 13.5599 21.3772 16.68ZM21.5988 11.88C21.5988 12.4 22.0204 12.8216 22.5403 12.8216C23.0603 12.8216 23.4819 12.4 23.4819 11.88C23.4819 11.36 23.0603 10.9385 22.5403 10.9385C22.0204 10.9385 21.5988 11.36 21.5988 11.88Z"
-											fill="#C2C6CE"></path></svg>
-									<p class="mt-1 text-xs text-jnGray-500">0/5</p>
-								</div>
-							</button>
-						</div>
+					    <input name="media" type="file" multiple="" accept="image/png, image/jpeg, image/jpg, video/*" class="hidden" id="file-input">
+					    <button class="flex items-center justify-center w-20 h-20 mr-1.5 bg-jnGray-200 rounded" onclick="document.getElementById('file-input').click()">
+					        <div class="flex flex-col">
+					            <svg width="32px" height="32px" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+					                <path fill-rule="evenodd" clip-rule="evenodd" d="M15.728 20.4461C13.6481 20.4461 11.9619 18.7599 11.9619 16.68C11.9619 14.6001 13.6481 12.9138 15.728 12.9138C17.8079 12.9138 19.4942 14.6001 19.4942 16.68C19.4942 18.7599 17.8079 20.4461 15.728 20.4461Z" fill="#C2C6CE"></path>
+					                <path fill-rule="evenodd" clip-rule="evenodd" d="M10.4564 7.32295C10.9376 6.00587 11.5097 5.15997 12.8118 5.15997H17.9241C19.2253 5.15997 19.7975 6.00463 20.2785 7.32003H20.7897C24.7543 7.32003 27.968 10.4192 27.968 14.2417V19.119C27.968 22.9409 24.7543 26.04 20.7897 26.04H10.6669C6.7023 26.04 3.48798 22.9409 3.48798 19.119V14.2417C3.48798 10.487 6.58918 7.4303 10.4564 7.32295ZM21.3772 16.68C21.3772 19.8001 18.8481 22.3292 15.728 22.3292C12.6079 22.3292 10.0788 19.8001 10.0788 16.68C10.0788 13.5599 12.6079 11.0308 15.728 11.0308C18.8481 11.0308 21.3772 13.5599 21.3772 16.68ZM21.5988 11.88C21.5988 12.4 22.0204 12.8216 22.5403 12.8216C23.0603 12.8216 23.4819 12.4 23.4819 11.88C23.4819 11.36 23.0603 10.9385 22.5403 10.9385C22.0204 10.9385 21.5988 11.36 21.5988 11.88Z" fill="#C2C6CE"></path>
+					            </svg>
+					            <p class="mt-1 text-xs text-jnGray-500">0/5</p>
+					        </div>
+					    </button>
+					</div>
 						<div class="overflow-hidden">
 							<div
 								class="os-host os-host-foreign os-theme-dark os-host-resize-disabled os-host-scrollbar-horizontal-hidden os-host-scrollbar-vertical-hidden os-host-transition">
@@ -790,6 +824,8 @@
 								placeholder="상품명"
 								class="py-2 px-4 md:px-5 w-full appearance-none border text-input text-xs lg:text-sm font-body placeholder-body min-h-12 transition duration-200 ease-in-out bg-white border-gray-300 focus:border-heading h-11 md:h-12 focus:outline-none rounded-md"
 								autocomplete="off" spellcheck="false" aria-invalid="false">
+								<p id="pnameErr"
+							style="display:none; color: red; font-size: 15px;">  상품명을 입력해주세요.</p>
 						</div>
 
 						<div
@@ -1056,6 +1092,8 @@
 						<p id="priceError" class="input_error"
 							style="display: none; color: red; font-size: 15px">최대 1억원까지
 							입력 가능합니다.</p>
+							<p id="priceNErr"
+							style="display:none; color: red; font-size: 15px;">판매 가격을 입력해주세요.</p>
 					</div><br/>
 					<section class="flex flex-col px-5 space-y-5">
 						<!-- 상품명, 구매시기, 착용 시간, 요염 여부, 하자여부 작성 inputBox -->
@@ -1063,8 +1101,10 @@
 							<textarea id=productDescription name="context" oninput="javascript:lengthCnt()"
 								placeholder="- 상품명(브랜드)																																																- 구매 시기																																																- 사용 기간																																																- 하자 여부																																																* 실제 촬영한 사진과 함께 상세 정보를 입력해주세요.																																																* 카카오톡 아이디 첨부 시 게시물 삭제 및 이용제재 처리될 수 있어요.																																																 																																																안전하고 건전한 거래환경을 위해 과학기술정보통신부, 한국인터넷진흥원, 중고나라가 함께합니다."
 								style="width: 100%; height: 300px; border: 1px solid #E5E4E4; border-radius: 5px; resize: none; padding: 15px; margin-top: 15px; border-color:#929492 "></textarea>
+							<p id="contextErr"
+							style="display:none; color: red; font-size: 15px; text-align: left;">상품 상제 정보를 입력해주세요</p>
 							<span id="lengthCnt">0</span>/1000
-						</div>
+						</div><br/>
 						<!-- 상품상태 : 중고 / 새상품 버튼 -->
 						<p class="font-semibold">상품상태</p>
 						<div class="flex gap-3">

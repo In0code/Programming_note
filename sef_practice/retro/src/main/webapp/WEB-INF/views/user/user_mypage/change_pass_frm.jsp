@@ -22,7 +22,6 @@
 			var newPw = $("#newPw").val();
 			
 			if(!check(oldPw) && !check(newPw)) {
-				alert("2. oldPw :: "+oldPw+"\nnewPw :: "+newPw);
 				$("#frm").submit();
 				
 			} else {
@@ -100,7 +99,7 @@ function check(pass) {
 		<c:import url="http://localhost/retro_prj/common/cdn/mypage_sidebar.jsp" />
 		<div class="w-full flex-grow">
 		<!-- 마이페이지 header -->
-		<c:import url="http://localhost/retro_prj/common/cdn/mypage_info.jsp" />
+		<c:import url="/common/cdn/mypage_info.jsp" />
 		
 <!-- 코딩 시작 -->
 <div data-v-cf6a6ef4="" data-v-8b96a82e="" class="modify" style="text-align: center;">

@@ -36,7 +36,7 @@
 		<c:import url="http://localhost/retro_prj/common/cdn/mypage_sidebar.jsp" />
 		<div class="w-full flex-grow">
 		<!-- 마이페이지 header -->
-		<c:import url="http://localhost/retro_prj/common/cdn/mypage_info.jsp" />
+		<c:import url="/common/cdn/mypage_info.jsp" />
 		
 <!-- 코딩 시작 -->
 <div data-v-cf6a6ef4="" data-v-0adb81cc="" class="content_area my-page-content">
@@ -54,7 +54,7 @@
 				<div data-v-0c9f3f9e="" data-v-cf6a6ef4="" class="unit" data-v-8b96a82e="">
 					<h5 data-v-0c9f3f9e="" class="title">아이디</h5>
 					<div data-v-0c9f3f9e="" class="unit_content">
-						<p data-v-24a03828="" data-v-cf6a6ef4="" class="desc email" data-v-0c9f3f9e=""><c:out value="${sessionScope.sesId }"/></p>
+						<p data-v-24a03828="" data-v-cf6a6ef4="" class="desc email" data-v-0c9f3f9e=""><c:out value="${sessionScope.id }"/></p>
 					</div>
 				</div>
 				<div data-v-0c9f3f9e="" data-v-cf6a6ef4="" class="unit" data-v-8b96a82e="">
@@ -83,17 +83,17 @@
 				<div data-v-0c9f3f9e="" data-v-cf6a6ef4="" class="unit" data-v-8b96a82e="">
 					<h5 data-v-0c9f3f9e="" class="title">닉네임</h5>
 					<div data-v-0c9f3f9e="" class="unit_content">
-						<p data-v-24a03828="" data-v-cf6a6ef4="" class="desc email" data-v-0c9f3f9e=""><c:out value="${userInfo.nickname }"/></p>
+						<p data-v-24a03828="" data-v-cf6a6ef4="" class="desc email" data-v-0c9f3f9e=""><c:out value="${privateInfo.nickname }"/></p>
 						<input id="nickname" value="변경" data-v-0a6aebaa="" data-v-cf6a6ef4="" type="button" class="btn btn_modify outlinegrey small" data-v-0c9f3f9e="">
-						<input type="hidden" name="nickname" value="${userInfo.nickname} }">
+						<input type="hidden" name="nickname" value="${privateInfo.nickname} }">
 					</div>
 				</div>
 				<div data-v-0c9f3f9e="" data-v-cf6a6ef4="" class="unit" data-v-8b96a82e="">
 					<h5 data-v-0c9f3f9e="" class="title">이메일 주소</h5>
 					<div data-v-0c9f3f9e="" class="unit_content">
-						<p data-v-24a03828="" data-v-cf6a6ef4="" class="desc email" data-v-0c9f3f9e=""><c:out value="${userInfo.email }"/></p>
+						<p data-v-24a03828="" data-v-cf6a6ef4="" class="desc email" data-v-0c9f3f9e=""><c:out value="${privateInfo.email }"/></p>
 						<input data-v-0a6aebaa="" value="변경" data-v-cf6a6ef4="" type="button" class="btn btn_modify outlinegrey small" data-v-0c9f3f9e="">
-						<input type="hidden" name="email" value="${userInfo.email }">
+						<input type="hidden" name="email" value="${privateInfo.email }">
 					</div>
 				</div>
 				
@@ -103,12 +103,12 @@
 				<div data-v-0c9f3f9e="" data-v-cf6a6ef4="" class="unit" data-v-8b96a82e="">
 					<h5 data-v-0c9f3f9e="" class="title">휴대폰 번호</h5>
 					<div data-v-0c9f3f9e="" class="unit_content">
-					<c:set var="TextValue" value="${userInfo.phone }"/>
+					<c:set var="TextValue" value="${privateInfo.phone }"/>
 						<p data-v-24a03828="" data-v-cf6a6ef4="" class="desc" data-v-0c9f3f9e="">
 							${fn:substring(TextValue,0,3)}-${fn:substring(TextValue,3,7)}-${fn:substring(TextValue,7,11)}
 						</p>
 						<input data-v-0a6aebaa="" data-v-cf6a6ef4="" type="button" value="변경" class="btn btn_modify outlinegrey small" data-v-0c9f3f9e="">
-						<input type="hidden" name="phone" value="${userInfo.phone }">
+						<input type="hidden" name="phone" value="${privateInfo.phone }">
 					</div>
 				</div>
 				

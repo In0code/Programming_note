@@ -38,7 +38,10 @@ a:hover { color:#222222 }
 </style>
 <script type="text/javascript">
 $(function(){
-   
+   $("#loginBtn").click(function(){
+	   location.href="login_frm.do"
+	   
+   })
 });//ready
 </script>
 
