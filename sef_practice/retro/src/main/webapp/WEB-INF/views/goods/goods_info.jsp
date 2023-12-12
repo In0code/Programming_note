@@ -9,7 +9,11 @@
 <title>Insert title here</title>
 <link rel="icon" href="http://192.168.0.70/jsp_prj/common/main/favicon-32x32.png">
 <!-- jQuery CDN -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script> -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<!-- Swiper 라이브러리 CDN 링크 -->
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <!-- 상품 css -->
 <link rel="preload" href="https://web.joongna.com/_next/static/css/d08446f8760abfc6.css" as="style"/>
 <link rel="stylesheet" href="https://web.joongna.com/_next/static/css/d08446f8760abfc6.css" data-n-g=""/>
@@ -18,18 +22,52 @@
 <link rel="preload" href="https://web.joongna.com/_next/static/css/e3048584c00a0406.css" as="style"/>
 <link rel="stylesheet" href="https://web.joongna.com/_next/static/css/e3048584c00a0406.css" data-n-p=""/>
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css" />
-<!-- js -->
-<link as="script" rel="prefetch" href="https://web.joongna.com/_next/static/chunks/4126-99e7ff6d28dc11d7.js">
-<link as="script" rel="prefetch" href="https://web.joongna.com/_next/static/chunks/6869-4c157c328e76af89.js">
-<link as="script" rel="prefetch" href="https://web.joongna.com/_next/static/chunks/7068-99e7a3a9004c76dc.js">
 <style type="text/css">
 </style>
 <script type="text/javascript">
-	$(function() {
+$(document).ready(function () {
+    // Swiper 초기화 함수
+    function initializeSwiper() {
+      var swiper = new Swiper('.swiper', {
+        slidesPerView: 1,
+        spaceBetween: 10,
+        navigation: {
+          nextEl: '#product-gallery-slider-next',
+          prevEl: '#product-gallery-slider-prev',
+        },
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+        },
+      });
 
-	});//ready
+      // 이전 버튼 클릭 시
+      $("#product-gallery-slider-prev").on("click", function () {
+        swiper.slidePrev();
+      });
+
+      // 다음 버튼 클릭 시
+      $("#product-gallery-slider-next").on("click", function () {
+        swiper.slideNext();
+      });
+
+      // 페이지네이션 버튼 클릭 시 해당 슬라이드로 이동
+      $(".swiper-pagination-bullet").on("click", function () {
+        var index = $(this).index();
+        swiper.slideTo(index);
+      });
+
+      return swiper;
+    }
+
+    // 초기화된 슬라이더가 있으면 파괴 후 다시 초기화
+    var existingSwiper = initializeSwiper();
+    if (existingSwiper) {
+      existingSwiper.destroy();
+      initializeSwiper();
+    }
+  });
 </script>
-
 </head>
 <body>
 <jsp:include page="/common/cdn/header.jsp"/>
@@ -37,11 +75,13 @@
 		<div class="items-start block grid-cols-2 pt-5 lg:grid gap-x-10 xl:gap-x-14 pb-14 lg:py-10 lg:pb-14 2xl:pb-20">
 			<div class="carouselWrapper relative product-gallery swiperThumbnail product-gallery-slider sticky top-[200px]   ">
 				<div class="swiper swiper-initialized swiper-horizontal swiper-pointer-events swiper-backface-hidden" dir="ltr">
+					
 					<div class="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px);">
+						
 						<div class="swiper-slide swiper-slide-active" style="width: 503px;">
 							<div class="col-span-1 transition duration-150 ease-in hover:opacity-90 w-full relative pt-[100%]">
-								<img alt="파크랜드 정장 블레이저 판매합니다--0" referrerpolicy="no-referrer"
-									src="https://img2.joongna.com/media/original/2023/11/27/1701074706713igx_rGIT7.jpg?impolicy=resizeWatermark3&amp;ftext=김빛내리"
+								<img alt="나이키 티셔츠-0" referrerpolicy="no-referrer"
+									src="http://localhost/retro_prj/common/goods_img/sample.png"
 									decoding="async" data-nimg="fill"
 									class="object-cover w-full h-full rounded-lg top-1/2 left-1/2"
 									loading="lazy"
@@ -50,8 +90,18 @@
 						</div>
 						<div class="swiper-slide swiper-slide-next" style="width: 503px;">
 							<div class="col-span-1 transition duration-150 ease-in hover:opacity-90 w-full relative pt-[100%]">
-								<img alt="파크랜드 정장 블레이저 판매합니다--1" referrerpolicy="no-referrer"
-									src="https://img2.joongna.com/media/original/2023/11/27/1701074706714dVG_CWoKP.jpg?impolicy=resizeWatermark3&amp;ftext=김빛내리"
+								<img alt="나이키 티셔츠-1" referrerpolicy="no-referrer"
+									src="http://localhost/retro_prj/common/goods_img/sample2.png"
+									decoding="async" data-nimg="fill"
+									class="object-cover w-full h-full rounded-lg top-1/2 left-1/2"
+									loading="lazy"
+									style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
+							</div>
+						</div>
+						 <div class="swiper-slide" style="width: 503px;">
+							<div class="col-span-1 transition duration-150 ease-in hover:opacity-90 w-full relative pt-[100%]">
+								<img alt="나이키 티셔츠-2" referrerpolicy="no-referrer"
+									src="http://localhost/retro_prj/common/goods_img/sample3.png"
 									decoding="async" data-nimg="fill"
 									class="object-cover w-full h-full rounded-lg top-1/2 left-1/2"
 									loading="lazy"
@@ -60,8 +110,8 @@
 						</div>
 						<div class="swiper-slide" style="width: 503px;">
 							<div class="col-span-1 transition duration-150 ease-in hover:opacity-90 w-full relative pt-[100%]">
-								<img alt="파크랜드 정장 블레이저 판매합니다--2" referrerpolicy="no-referrer"
-									src="https://img2.joongna.com/media/original/2023/11/27/1701074706714JFG_J2t5J.jpg?impolicy=resizeWatermark3&amp;ftext=김빛내리"
+								<img alt="나이키 티셔츠-3" referrerpolicy="no-referrer"
+									src="http://localhost/retro_prj/common/goods_img/sample4.png"
 									decoding="async" data-nimg="fill"
 									class="object-cover w-full h-full rounded-lg top-1/2 left-1/2"
 									loading="lazy"
@@ -69,23 +119,21 @@
 							</div>
 						</div>
 						<div class="swiper-slide" style="width: 503px;">
-							<div
-								class="col-span-1 transition duration-150 ease-in hover:opacity-90 w-full relative pt-[100%]">
-								<img alt="파크랜드 정장 블레이저 판매합니다--3" referrerpolicy="no-referrer"
-									src="https://img2.joongna.com/media/original/2023/11/27/1701074706714gGA_qmnfR.jpg?impolicy=resizeWatermark3&amp;ftext=김빛내리"
+							<div class="col-span-1 transition duration-150 ease-in hover:opacity-90 w-full relative pt-[100%]">
+								<img alt="나이키 티셔츠-4" referrerpolicy="no-referrer"
+									src="http://localhost/retro_prj/common/goods_img/sample5.png"
 									decoding="async" data-nimg="fill"
 									class="object-cover w-full h-full rounded-lg top-1/2 left-1/2"
 									loading="lazy"
 									style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
 							</div>
 						</div>
+						
+						
 					</div>
-					<div
-						class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal">
+					<div class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal">
 						<span class="swiper-pagination-bullet swiper-pagination-bullet-active"></span>
-						<span class="swiper-pagination-bullet"></span>
-						<span class="swiper-pagination-bullet"></span>
-						<span class="swiper-pagination-bullet"></span>
+						
 					</div>
 				</div>
 				<div class="flex items-center w-full absolute top-2/4 z-10 ">
@@ -102,13 +150,15 @@
 					<button
 						class="w-7 h-7 lg:w-8 lg:h-8 text-sm md:text-base lg:text-lg text-black flex items-center justify-center rounded absolute transition duration-250 hover:bg-gray-900 hover:text-white focus:outline-none transform shadow-navigation translate-x-1/2 rounded-full lg:w-9 lg:h-9 xl:w-10 xl:h-10 3xl:w-12 3xl:h-12 lg:text-xl 3xl:text-2xl -right-4 bg-transparent shadow-transparent hover:bg-transparent hover:text-black"
 						id="product-gallery-slider-next" aria-label="next-button">
-						<svg stroke="currentColor" fill="currentColor" stroke-width="0"
-							viewBox="0 0 512 512" height="1em" width="1em"
-							xmlns="http://www.w3.org/2000/svg">
-							<path
-								d="M294.1 256L167 129c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.3 34 0L345 239c9.1 9.1 9.3 23.7.7 33.1L201.1 417c-4.7 4.7-10.9 7-17 7s-12.3-2.3-17-7c-9.4-9.4-9.4-24.6 0-33.9l127-127.1z"></path></svg>
+						<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" 
+							height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+						<path d="M294.1 256L167 129c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.3 34 0L345 239c9.1 9.1 9.3 23.7.7 33.1L201.1 417c-4.7 4.7-10.9 7-17 7s-12.3-2.3-17-7c-9.4-9.4-9.4-24.6 0-33.9l127-127.1z"></path></svg>
 					</button>
 				</div>
+				
+				
+				
+				
 			</div>
 			<div class="pt-4 lg:pt-0">
 				<div class="pb-4">
@@ -135,24 +185,23 @@
 						</ol>
 					</div>
 				</div>
+				
 				<div class="pb-5 border-b border-gray-300">
-					<h1
-						class="flex justify-between mb-1 text-lg font-bold align-middle text-heading lg:text-xl 2xl:text-2xl hover:text-black">
-						파크랜드 정장 블레이저 판매합니다
+					<h1 class="flex justify-between mb-1 text-lg font-bold align-middle text-heading lg:text-xl 2xl:text-2xl hover:text-black">
+						나이키 티셔츠 팔아요
 						<button type="button" aria-label="공유하기" class="ml-2 text-lg">
 							<svg stroke="currentColor" fill="currentColor" stroke-width="0"
 								viewBox="0 0 24 24" height="1em" width="1em"
 								xmlns="http://www.w3.org/2000/svg">
 								<g>
 								<path fill="none" d="M0 0h24v24H0z"></path>
-								<path
-									d="M10 3v2H5v14h14v-5h2v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h6zm7.586 2H13V3h8v8h-2V6.414l-7 7L10.586 12l7-7z"></path></g></svg>
+						<path d="M10 3v2H5v14h14v-5h2v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h6zm7.586 2H13V3h8v8h-2V6.414l-7 7L10.586 12l7-7z"></path></g></svg>
 						</button>
 					</h1>
 					<div class="flex items-center justify-between">
 						<div
 							class="text-heading font-bold text-[40px] pe-2 md:pe-0 lg:pe-2 2xl:pe-0 mr-2">
-							100,000<span class="text-base">원</span>
+							20000<span class="text-base">원</span>
 						</div>
 						<svg width="30" height="17" viewBox="0 0 30 17" fill="none"
 							xmlns="http://www.w3.org/2000/svg">
@@ -199,8 +248,7 @@
 						
 					</div>
 				</div>
-				<div
-					class="flex items-center py-4 border-b border-gray-300 space-s-4">
+				<div class="flex items-center py-4 border-b border-gray-300 space-s-4">
 					<button data-variant="slim"
 						class="text-[13px] md:text-sm leading-4 inline-flex items-center cursor-pointer transition ease-in-out duration-300 font-semibold font-body text-center justify-center placeholder-white focus-visible:outline-none focus:outline-none rounded-md h-11 md:h-12 px-5 py-2 transform-none normal-case hover:shadow-cart w-full bg-white hover:bg-white/90 text-jnblack hover:text-jnblack border-[1px] border-jnblack">채팅하기</button>
 					<button data-variant="slim"
@@ -250,10 +298,9 @@
 						바랍니다.</span>
 				</div>
 				<article>
-					<p class="px-4 py-10 break-words break-all whitespace-pre-line lg:py-2">파크랜드
-						정장 상의 사이즈100 L 판매합니다 여름 가을에 입을수있는 얇고 가벼운 정장입니다 자연스러운 주름이 만들어지고 시원한
-						연그레이색입니다 실착1회뿐이고 정가 20만원대입니다 우체국택배로 배송접수해드리며 다음날 바로도착합니다 배송비 및 박스
-						등 부대비용은 제가 부담하겠습니다 운송증도 보내드립니다</p>
+					<p class="px-4 py-10 break-words break-all whitespace-pre-line lg:py-2">
+					나이키 티셔츠 싸게 팔아봅니다 연락주세요
+					</p>
 				</article>
 			</div>
 			<div name="product-store"
@@ -274,10 +321,10 @@
 				</div>
 				<div class="lg:ml-4">
 					<div class="flex justify-between mt-2 text-[#0CB650] font-medium">
-						<strong>신뢰지수 323</strong><span class="text-jnGray-500 text-sm">1,000</span>
+						<strong>신뢰지수 1000</strong><span class="text-jnGray-500 text-sm">1,000</span>
 					</div>
 					<div class="w-full h-1.5 bg-[#CCF4DC] rounded overflow-hidden">
-						<div class="h-full rounded bg-[#0DCC5A]" style="width: 32.3%;"></div>
+						<div class="h-full rounded bg-[#0DCC5A]" style="width: 100%;"></div>
 					</div>
 				</div>
 			</div>

@@ -115,10 +115,12 @@ function outputPrd(data) {
 	$("#prdInfo").html(data);
 }
 
-function sortUp(txt) {
-	comboBoxSortTxt = txt;
-	$("#btn").val(comboBoxSortTxt);
+function sortUp(txt, flag) {
+	$("#btn").val(txt);
 	$("#comboBoxSort").hide();
+	
+	
+	
 	comboBoxSortFlag = !comboBoxSortFlag;
 }
 </script>
@@ -205,15 +207,15 @@ function sortUp(txt) {
 				</span>
 				<ul id="comboBoxSort" style="display: none;" class="absolute w-full py-1 mt-1 overflow-auto bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none text-xs md:text-sm" aria-labelledby="headlessui-listbox-button-:rr:" aria-orientation="vertical" id="headlessui-listbox-options-:r15:" role="listbox" tabindex="0" data-headlessui-state="open">
 					<li class="text-gray-900 cursor-default select-none relative py-2 ps-10 pe-4" id="headlessui-listbox-option-:r16:" role="option" tabindex="-1" aria-selected="false" data-headlessui-state=""
-						onclick="sortUp('최신순')">
+						onclick="sortUp('최신순', 'A')">
 						<span class="font-normal block truncate">최신순</span>
 					</li>
 					<li class="text-gray-900 cursor-default select-none relative py-2 ps-10 pe-4" id="headlessui-listbox-option-:r17:" role="option" tabindex="-1" aria-selected="false" data-headlessui-state=""
-						onclick="sortUp('낮은가격순')">
+						onclick="sortUp('낮은가격순', 'B')">
 						<span class="font-normal block truncate">낮은가격순</span>
 					</li>
 					<li class="text-gray-900 cursor-default select-none relative py-2 ps-10 pe-4" id="headlessui-listbox-option-:r18:" role="option" tabindex="-1" aria-selected="false" data-headlessui-state=""
-						onclick="sortUp('높은가격순')">
+						onclick="sortUp('높은가격순', 'C')">
 						<span class="font-normal block truncate">높은가격순</span>
 					</li>
 				</ul>

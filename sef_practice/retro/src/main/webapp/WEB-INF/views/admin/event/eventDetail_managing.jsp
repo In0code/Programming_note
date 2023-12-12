@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ page info=""%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -74,13 +74,12 @@ body{
 }
 
 .imgThum {
-	max-width: 291px; 
-	max-height: 291px;
+	max-width: 264px; 
+	max-height: 264px;
 }
 
 .imgDiv {
-	width: 100%;
-	height: auto;
+	height: 290px;
 	border: 1px solid #DBDFE6; 
 	border-radius: 5px; 
 }
@@ -107,13 +106,13 @@ body{
 
 .filebox label {
     display: inline-block;
-    padding: 10px 20px;
+    padding: 8px 18px;
     color: #fff;
     vertical-align: middle;
     background-color: #333;
     cursor: pointer;
     height: 40px;
-    margin-left: 10px;
+    margin: 3px 0px 0px 10px;
 }
 
 .upload-name:focus {
@@ -135,17 +134,7 @@ textarea:focus{
 <script type="text/javascript">
 
 $(function() {
-	toggleImageSize();
-	
-	$("#thumnail").click(function(){
-		toggleImageSize();
-	});
-	
-	$("#file").on('change',function(){
-		  var fileName = $("#file").val();
-		  $(".upload-name").val(fileName);
-		});
-	
+
 	$(".dateCss").datepicker({ //JSON 형태 -> 이름:값, 이름:값,,,
 		  dateFormat: 'yy-mm-dd',
 		  prevText: '이전 달',
@@ -170,43 +159,69 @@ $(function() {
 	$("#saveBtn").click(function(){
 		$("#evtForm").submit();
 	});
+
+    $("#thumbnail2").click(function(){
+        toggleImageSize();
+    });
 	
-	$("#file").change(function(event) {
-		if($("#file").val() == ""){
+	$("#mainImg").on('change',function(){
+		alert("본문");
+		  var fileName = $("#mainImg").val();
+		  $("#mainSrc").val(fileName);
+	});
+
+	$("#subImg").on('change',function(){
+			alert("썸");
+		  var fileName = $("#subImg").val();
+		  $("#thumSrc").val(fileName);
+	});
+	
+	
+	/* 본문 */
+	$("#mainImg").change(function(event) {
+		alert("본문");
+		if($("#mainImg").val() == ""){
 			alert("이미지를 선택해주세요.");
 			return;
 		}
 		
-		var thumbnail = document.getElementById('thumnail');
-        thumbnail.style.maxWidth = '291px';
-        thumbnail.style.maxHeight = '291px';
+		var thumbnail = document.getElementById('thumbMain');
+        thumbnail.style.maxWidth = '264px';
+        thumbnail.style.maxHeight = '264px';
         
 		var file = event.target.files[0];
 	    var reader = new FileReader(); 
 	    
 	    reader.onload = function(e) {
-	    	$("#thumnail").attr("src", e.target.result);
+	    	$("#thumbMain").attr("src", e.target.result);
 	    }
 
 	    reader.readAsDataURL(file);
 	});
-	
+
+	/* 썸네일 */
+	$("#subImg").change(function(event) {
+		alert("썸넬");
+		if($("#subImg").val() == ""){
+			alert("이미지를 선택해주세요.");
+			return;
+		}
+		
+		var thumbnail = document.getElementById('thumbSub');
+        thumbnail.style.maxWidth = '264px';
+        thumbnail.style.maxHeight = '264px';
+        
+		var file = event.target.files[0];
+	    var reader = new FileReader(); 
+	    
+	    reader.onload = function(e) {
+	    	$("#thumbSub").attr("src", e.target.result);
+	    }
+
+	    reader.readAsDataURL(file);
+	});
+
 });
-
-function toggleImageSize() {
-    var thumbnail = document.getElementById('thumnail');
-
-    if (thumbnail.style.maxWidth === '291px') {
-        // 현재 이미지가 원본 크기라면 최대 크기 제한을 없애고, 테두리 스타일 변경
-        thumbnail.style.maxWidth = '400px';
-        thumbnail.style.maxHeight = '2000px';
-    } else {
-        // 현재 이미지가 최대 크기 제한이 없는 경우, 다시 최대 크기 제한을 설정하고, 테두리 스타일 초기화
-        thumbnail.style.maxWidth = '291px';
-        thumbnail.style.maxHeight = '291px';
-    }
-}
-
 </script>
 <div id="right">
 	<div id="rightHeader" align="right">
@@ -241,37 +256,47 @@ function toggleImageSize() {
 				<table class="table tableList" style="height: auto;">
 				<tr>
 					<th class="top_title">기간</th>
-					<td>
-					<input type="text" id="startDate" name="startDate" class="dateCss borderCss" autocomplete="off" value="${ event.start_date }">
+					<td colspan="2">
+					<input type="text" id="startDate" name="start_date" class="dateCss borderCss" autocomplete="off" value="${ event.start_date }">
 				 	~
-					<input type="text" id="endDate" name="endDate" class="dateCss borderCss" autocomplete="off" value="${ event.end_date }">
+					<input type="text" id="endDate" name="end_date" class="dateCss borderCss" autocomplete="off" value="${ event.end_date }">
 					</td>
 				</tr>
 				<tr>
 					<th class="top_title">제목</th>
-					<td><input type="text" id="evtTitle" name="title" class="borderCss" style="width:100%;" value="${ event.title }"></td>
+					<td colspan="2"><input type="text" id="evtTitle" name="title" class="borderCss" style="width:100%;" value="${ event.title }"></td>
 				</tr>
 				<tr>
 					<th class="top_title">내용</th>
-					<td>
-						<textarea style="width:100%; height:140px; margin: 7px 0px 5px 0px; resize: none;" class="borderCss" name="content">${ event.context }</textarea>
+					<td colspan="2">
+						<textarea style="width:100%; height:120px; margin: 7px 0px 5px 0px; resize: none;" class="borderCss" name="context">${ event.context }</textarea>
 					</td>
 				</tr>
 				<tr>
 					<th class="top_title">이미지 첨부</th>
-					<td>
+					<td colspan="2">
 					<div class="filebox">
-    						<input class="upload-name" placeholder="첨부파일" readonly="readonly" value="${ event.img }">
-    						<label for="file">파일찾기</label> 
-    						<input type="file" id="file" name="img">
+					    	<input class="upload-name" placeholder="썸네일" readonly="readonly" id="thumSrc" value="${ event.img2 }">
+    						<label for="subImg">파일찾기</label> 
+    						<input type="file" id="subImg" name="img2">
+					</div>
+					<div class="filebox">
+    						<input class="upload-name" placeholder="본문 이미지" readonly="readonly" id="mainSrc" value="${ event.img }">
+    						<label for="mainImg">파일찾기</label> 
+    						<input type="file" id="mainImg" name="img">
 					</div>
 					</td>
 				</tr>
  				<tr>
-					<th class="top_title" style="border-bottom: none; height: 305px">이미지</th>
-					<td style="border-bottom: none; padding:15px 10px 0px 10px; height: 305px">
+					<th class="top_title" style="border-bottom: none; height: 301px">이미지</th>
+					<td style="border-bottom: none; padding:15px 10px 0px 10px; height: 301px; width: 629.8px">
 						<div class="imgDiv" style="padding:10px">
-							<img src="http://localhost/retro_prj/upload/${ event.img }" id="thumnail" class="imgThum"/>
+							<img src="http://localhost/retro_prj/upload/${ event.img2 }" id="thumbSub" class="imgThum" alt="thumbnail"/>
+						</div>
+					</td>
+					<td style="border-bottom: none; padding:15px 10px 0px 10px; height: 301px; width: 629.8px">
+						<div class="imgDiv" style="padding:10px">
+							<img src="http://localhost/retro_prj/upload/${ event.img }" id="thumbMain" class="imgThum" alt="main"/>
 						</div>
 					</td>
 				</tr>
