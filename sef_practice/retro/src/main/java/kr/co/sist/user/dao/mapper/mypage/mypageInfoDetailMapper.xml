@@ -50,4 +50,19 @@ WHERE ID=#{id}) TOTAL_WISH
 FROM MEMBER
 WHERE ID=#{id}
 </select>
+
+<!-- 사용자 개인정보 변경 -->
+<update id="updateUserInfo" parameterType="kr.co.sist.user.vo.ChangeUserInfoVO">
+UPDATE MEMBER
+	<if test='flag eq "N"'>
+		SET NICKNAME=#{data}
+	</if>
+	<if test='flag eq "E"'>
+		SET EMAIL=#{data}
+	</if>
+	<if test='flag eq "P"'>
+		SET PHONE=#{data}
+	</if>
+WHERE ID=#{id}
+</update>
 </mapper>

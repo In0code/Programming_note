@@ -2,6 +2,7 @@ package kr.co.sist.user.service.mypage;
 
 import java.security.NoSuchAlgorithmException;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +10,7 @@ import kr.co.sist.user.dao.MyPageInfoDetailDAO;
 import kr.co.sist.user.domain.MyPageEnterDomain;
 import kr.co.sist.user.domain.mypage.MypageInfoDomain;
 import kr.co.sist.user.vo.ChangePwVO;
+import kr.co.sist.user.vo.ChangeUserInfoVO;
 import kr.co.sist.user.vo.MyPageIdPwVO;
 
 @Service
@@ -51,6 +53,16 @@ public class MyPageInfoDetailService {
 		}
 		
 		return flagMsg;
+	}
+	
+	public JSONObject changeInfo(ChangeUserInfoVO cuiVO) {
+		JSONObject jsonObj = new JSONObject();
+		
+		midDAO = new MyPageInfoDetailDAO();
+		boolean flag = midDAO.updateUserInfo(cuiVO) == 1 ? true : false;
+		jsonObj.put("flag", flag);
+		
+		return jsonObj;
 	}
 	
 	public void byebye(String id) {

@@ -30,15 +30,20 @@ public class ProductDAO {
 	 * @throws PersistenceException
 	 */
 	public int insertProduct(ProductVO pVO) throws PersistenceException {
-		int result = 0;
+		int insertCnt = 0;
 
 		MybatisHandler mbh = MybatisHandler.getInstance();
 		SqlSession ss = mbh.getMyBatisHandler(configPath, false);
-		result = ss.insert("user.product.insertProduct", pVO);
-
+		insertCnt = ss.insert("user.product.insertProduct", pVO);
+		if(insertCnt == 1) {
+			ss.commit();
+		} else {
+			ss.rollback();
+		}
+		
 		mbh.closeHandler(ss);
 
-		return result;
+		return insertCnt;
 	}// selectCategory
 
 	/**
@@ -49,15 +54,15 @@ public class ProductDAO {
 	 * @throws PersistenceException
 	 */
 	public ProductDomain selectProduct(ProductVO pVO) throws PersistenceException {
-		ProductDomain pd = null;
+		ProductDomain search = null;
 
 		MybatisHandler mbh = MybatisHandler.getInstance();
 		SqlSession ss = mbh.getMyBatisHandler(configPath, false);
-		pd = ss.selectOne("user.product.selectProduct", pVO);
+		search = ss.selectOne("user.product.selectProduct", pVO);
 
 		mbh.closeHandler(ss);
 
-		return pd;
+		return search;
 	}// selectProduct
 	
 	public int updateProduct(ProductVO pVO)throws PersistenceException{
@@ -65,7 +70,12 @@ public class ProductDAO {
 		MybatisHandler mbh = MybatisHandler.getInstance();
 		SqlSession ss = mbh.getMyBatisHandler(configPath, false);
 		updateCnt = ss.update("user.product.updateProduct", pVO);
-
+		if(updateCnt == 1) {
+			ss.commit();
+		} else {
+			ss.rollback();
+		}
+		
 		mbh.closeHandler(ss);
 
 		return updateCnt;
@@ -75,7 +85,12 @@ public class ProductDAO {
 		int deleteCnt=0;
 		MybatisHandler mbh = MybatisHandler.getInstance();
 		SqlSession ss = mbh.getMyBatisHandler(configPath, false);
-		deleteCnt = ss.delete("user.product.updateProduct", pVO);
+		deleteCnt = ss.delete("user.product.deleteProduct", pVO);
+		if(deleteCnt == 1) {
+			ss.commit();
+		} else {
+			ss.rollback();
+		}
 		
 		mbh.closeHandler(ss);
 		
@@ -83,24 +98,25 @@ public class ProductDAO {
 	}//updateProduct
 	
 	
-	
-	
 
 	public static void main(String[] args) {
 		ProductDAO pd = ProductDAO.getInstance();
 		ProductVO pVO = new ProductVO();
-		pVO.setC3code("C102");
-		pVO.setContext("안녕하세요");
-		pVO.setDeliver("N");
 		pVO.setId("1011kiy111");
-		pVO.setLoc("자양동");
-		pVO.setPcode("P00039");
+//		pVO.setPcode("P00039");
 		pVO.setPname("롱치마");
 		pVO.setPrice(10000);
 		pVO.setStatus("S");
-		pVO.setImg("asdf");
-		pVO.setImg2("asdf");
-//		pd.addProduct(pVO);
+		pVO.setImg("b1.png");
+		pVO.setImg2("b2.png");
+		pVO.setContext("이것도 올라가주세요");
+		pVO.setDeliver("N");
+		pVO.setLoc("의정부동");
+		pVO.setC3code("C102");
+		pd.insertProduct(pVO);
+//		pd.deleteProduct(pVO);
+		
+		
 	}// main
 
 }// class

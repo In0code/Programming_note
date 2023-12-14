@@ -7,10 +7,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.sist.user.domain.MyPageEnterDomain;
 import kr.co.sist.user.service.mypage.MyPageInfoDetailService;
 import kr.co.sist.user.vo.ChangePwVO;
+import kr.co.sist.user.vo.ChangeUserInfoVO;
 import kr.co.sist.user.vo.MyPageIdPwVO;
 
 @Controller
@@ -70,5 +72,13 @@ public class MyPageController {
 		midService.byebye(id);
 		
 		return "user/user_mypage/byebye_end";
+	}
+	
+	@ResponseBody
+	@PostMapping("/change_user_info.do")
+	public String changeInfo(HttpSession session, String flag, String data) {
+		String id = (String)session.getAttribute("id");
+		ChangeUserInfoVO cuiVO = new ChangeUserInfoVO(id, data, flag);
+		return midService.changeInfo(cuiVO).toJSONString();
 	}
 }

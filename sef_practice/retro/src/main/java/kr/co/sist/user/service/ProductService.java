@@ -1,6 +1,7 @@
 package kr.co.sist.user.service;
 
 import org.apache.ibatis.exceptions.PersistenceException;
+import org.json.simple.JSONObject;
 
 import kr.co.sist.user.dao.ProductDAO;
 import kr.co.sist.user.domain.ProductDomain;
@@ -28,47 +29,53 @@ public class ProductService {
 	 * @return
 	 */
 	public int addProduct(ProductVO pVO){
-		int result= 0;
+		int insertCnt= 0;
 		try {
-			result=pDAO.insertProduct(pVO);
+			insertCnt=pDAO.insertProduct(pVO);
 		}catch(PersistenceException pe) {
 			pe.printStackTrace();
 		}//end catch
 		
-		return result;
+		return insertCnt;
 	}//searchCategory
 	
 	public ProductDomain searchProduct(ProductVO pVO){
-		ProductDomain pd= null;
+		ProductDomain search= null;
 		try {
-			pd=pDAO.selectProduct(pVO);
+			search=pDAO.selectProduct(pVO);
 		}catch(PersistenceException pe) {
 			pe.printStackTrace();
 		}//end catch
 		
-		return pd;
+		return search;
 	}//searchCategory
 	
-	public int editProduct(ProductVO pVO){
-		int updateCnt= 0;
+	public JSONObject editProduct(ProductVO pVO){
+		JSONObject editJsonObj = new JSONObject();
+		editJsonObj.put("resultData", false);
 		try {
-			updateCnt=pDAO.updateProduct(pVO);
+			int updateCnt=pDAO.updateProduct(pVO);
+			editJsonObj.put("resultData", true);
 		}catch(PersistenceException pe) {
 			pe.printStackTrace();
+			editJsonObj.put("error", pe.getMessage()); // 예외 메시지 추가
 		}//end catch
 		
-		return updateCnt;
+		return editJsonObj;
 	}//searchCategory
 	
-	public int cancelProduct(ProductVO pVO){
-		int deleteCnt= 0;
+	public JSONObject cancelProduct(ProductVO pVO){
+		JSONObject deletejsonObj = new JSONObject();
+		deletejsonObj.put("resultData", false);
 		try {
-			deleteCnt=pDAO.deleteProduct(pVO);
+			int deleteCnt=pDAO.deleteProduct(pVO);
+			deletejsonObj.put("resultData", true);
 		}catch(PersistenceException pe) {
 			pe.printStackTrace();
+			deletejsonObj.put("error", pe.getMessage()); // 예외 메시지 추가
 		}//end catch
 		
-		return deleteCnt;
+		return deletejsonObj;
 	}//searchCategory
 	
 	

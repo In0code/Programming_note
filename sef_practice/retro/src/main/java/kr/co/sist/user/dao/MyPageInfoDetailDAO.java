@@ -1,12 +1,12 @@
 package kr.co.sist.user.dao;
 
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.stereotype.Component;
 
 import kr.co.sist.common.dao.MybatisHandler;
 import kr.co.sist.user.domain.MyPageEnterDomain;
 import kr.co.sist.user.domain.mypage.MypageInfoDomain;
 import kr.co.sist.user.vo.ChangePwVO;
+import kr.co.sist.user.vo.ChangeUserInfoVO;
 import kr.co.sist.user.vo.MyPageIdPwVO;
 
 
@@ -41,6 +41,22 @@ public class MyPageInfoDetailDAO {
 		}
 		
 		mh.closeHandler(ss);
+		
+		return result;
+	}
+	
+	public int updateUserInfo(ChangeUserInfoVO cuiVO) {
+		int result = 0;
+		
+		MybatisHandler mh = MybatisHandler.getInstance();
+		SqlSession ss = mh.getMyBatisHandler(false);
+		
+		result = ss.update("kr.co.sist.user.mypageInfoDetail.updateUserInfo", cuiVO);
+		if(result == 1) {
+			ss.commit();
+		} else {
+			ss.rollback();
+		}
 		
 		return result;
 	}

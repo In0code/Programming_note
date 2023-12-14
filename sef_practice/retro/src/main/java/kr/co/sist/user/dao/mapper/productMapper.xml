@@ -20,7 +20,7 @@
 	 		IMG5,
 	 		</if>
 		PRICE, INPUT_DATE, DELIVER, STATUS, LOC, PCANCEL, C3CODE, ID)
- 		values (#{pcode},#{pname},#{context},#{img},
+ 		values ('P' || lpad(pcode_seq.nextval, 5, 0),#{pname},#{context},#{img},
  		
 	 		<if test="img2 neq null and img2 neq ''">
 	 		#{img2},
@@ -96,14 +96,14 @@
 	 		LOC=#{loc},
 	 		</if>
 	 		<if test="c3code neq null and c3code neq ''">
-	 		C3CODE=#{c3code},
+	 		C3CODE=#{c3code}
 	 		</if>
-	where PCODE=#{pcode} and ID=#{id}
+	where PCODE=#{pcode}
 	</update>
 	
 	
 	<delete id="deleteProduct" parameterType="pVO">
-		delete from PRODUCT where PCODE=#{pcode} and ID=#{id}
+		delete from PRODUCT where PCODE=#{pcode}
 	</delete>
 	
 

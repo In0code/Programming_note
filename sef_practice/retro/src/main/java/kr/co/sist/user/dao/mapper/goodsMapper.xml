@@ -35,22 +35,21 @@
 	
 	<!-- 중분류 상품 목록 조회 -->
 	<select id="MidCategory" resultType="kr.co.sist.user.domain.GoodsDomain"
-		parameterType="kr.co.sist.user.vo.GoodsVO">
+		parameterType="String">
 		
 	SELECT P.IMG, P.PNAME, P.PRICE, P.LOC, P.INPUT_DATE
 	FROM PRODUCT P
 	JOIN CATEGORY3 C3 ON P.C3CODE = C3.C3CODE
 	JOIN CATEGORY2 C2 ON C3.C2CODE = C2.C2CODE
-	WHERE C2.C2CODE = #{category}
+	WHERE C2.C2CODE = '${category}'
 	</select>
 	
 	<!-- 소분류 상품 목록 조회 -->
 	<select id="SmallCategory" resultType="kr.co.sist.user.domain.GoodsDomain"
-		parameterType="kr.co.sist.user.vo.GoodsVO">
-	SELECT P.IMG, P.PNAME, P.PRICE, P.LOC, P.INPUT_DATE
-	FROM PRODUCT P
-	JOIN CATEGORY3 C3 ON P.C3CODE = C3.C3CODE
-	WHERE C3.C3CODE = #{category}
+		parameterType="String">
+	select IMG, PNAME, PRICE, LOC, INPUT_DATE
+	from product
+	where c3code = '${category}'
 	</select>
 	
 </mapper>

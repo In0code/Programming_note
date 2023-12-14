@@ -46,21 +46,19 @@ public class AdminEventController {
 		return "admin/event/event_managing";
 	}
 
-	
 	/**
 	 * 이벤트 상세 보기
 	 * @return
 	 */
 	@GetMapping("/admin/eventDetail.do")
-	public String eventDetail(String ecode, Model model) {
-		AdminEventDomain event = aes.searchOneEvent(ecode);
+	public String eventDetail(String eventcode, Model model) {
+		AdminEventDomain event = aes.searchOneEvent(eventcode);
 		
 		model.addAttribute("event", event);
 		
 		return "admin/event/eventDetail_managing";
 	}
 
-	
 	/**
 	 * 이벤트 등록 화면
 	 * @return
@@ -70,13 +68,40 @@ public class AdminEventController {
 		return "admin/event/event_add_frm";
 	}
 	
+	/**
+	 * 이벤트 등록 프로세스
+	 * @param request
+	 * @return
+	 */
 	@ResponseBody
 	@PostMapping("/admin/eventAddProcess.do")
-	public String eventAddProcess(HttpServletRequest request, Model model) {
+	public String eventAddProcess(HttpServletRequest request) {
+		return eventProcess(request, "insert");
+	}
+
+	/**
+	 * 이벤트 수정 프로세스
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@PostMapping("/admin/eventUpdateProcess.do")
+	public String eventUpdateProcess(HttpServletRequest request) {
+		return eventProcess(request, "update");
+	}
+	
+	/**
+	 * 등록/수정 프로세스
+	 * @param request
+	 * @param method insert/update
+	 * @return
+	 */
+	public String eventProcess(HttpServletRequest request, String method) {
 		File saveDir = new File("C:/Users/user/git/retro/retro_prj/src/main/webapp/upload");
 		int maxSize = 1024*1024*30; //최대 파일 업로드 사이즈는 10Mbyte
 		int chkSize = 1024*1024*10;
 		boolean uploadFlag = true;
+		boolean resultFlag = false;
 		JSONObject json = new JSONObject();
 		AdminEventVO aeVO = new AdminEventVO();
 		
@@ -90,18 +115,17 @@ public class AdminEventController {
 			//본문 이미지
 			if(img.length() > chkSize) {
 				uploadFlag = false;
-				img.delete(); //사이즈 초과시 파일 삭제
 				json.put("overFileimg", mr.getFilesystemName("img"));
 			}
 			
 			//썸네일
 			if(img2.length() > chkSize) {
 				uploadFlag = false;
-				img2.delete();
 				json.put("overFileimg2", mr.getFilesystemName("img2"));
 			}
 			
 			if(uploadFlag) {
+				aeVO.setEventcode(mr.getParameter("eventcode"));
 				aeVO.setStart_date(mr.getParameter("start_date"));
 				aeVO.setEnd_date(mr.getParameter("end_date"));
 				aeVO.setTitle((mr.getParameter("title")));
@@ -109,13 +133,23 @@ public class AdminEventController {
 				aeVO.setImg(mr.getFilesystemName("img"));
 				aeVO.setImg2(mr.getFilesystemName("img2"));
 				aeVO.setId("admin");
-				System.out.println(aeVO.toString());
 				
-				json.put("insertFlag",aes.addEvent(aeVO)==1);
+				if("insert".equals(method)) {
+					resultFlag = aes.addEvent(aeVO)==1;
+				}
+				if("update".equals(method)) {
+					resultFlag = aes.editEvent(aeVO)==1;
+				}
 			}
 			
-			json.put("uploadFlag", uploadFlag);
-			System.out.println(json.toJSONString());
+			//insert/update 실패시 파일 삭제
+			if(!resultFlag || !uploadFlag) {
+				img.delete();
+				img2.delete();
+			}
+			
+			json.put("resultFlag",resultFlag);
+			json.put("uploadFlag",uploadFlag);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -124,5 +158,20 @@ public class AdminEventController {
 		return json.toJSONString();
 	}
 	
-
+	@ResponseBody
+	@PostMapping("/admin/eventDeleteProcess.do")
+	public String removeEvent(String eventcode) {
+		JSONObject json = new JSONObject();
+		
+		int cnt = aes.removeEvent(eventcode);
+		
+		if(cnt == 1) {
+			json.put("resultFlag", true);
+		}else {
+			json.put("resultFlag", false);
+		}
+		
+		return json.toJSONString();
+	}
+	
 }

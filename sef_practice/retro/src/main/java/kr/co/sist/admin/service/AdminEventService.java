@@ -1,11 +1,8 @@
 package kr.co.sist.admin.service;
 
-import java.beans.Transient;
 import java.util.List;
 
 import org.apache.ibatis.exceptions.PersistenceException;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -71,7 +68,6 @@ public class AdminEventService {
 	}
 	
 	public int addEvent(AdminEventVO aeVO){
-		JSONObject jsonObj = new JSONObject();
 		int cnt = 0;
 		
 		try {
@@ -79,6 +75,30 @@ public class AdminEventService {
 		}catch(PersistenceException pe) {
 			pe.printStackTrace();
 		}//end catch
+		
+		return cnt;
+	}
+
+	public int editEvent(AdminEventVO aeVO){
+		int cnt = 0;
+		
+		try {
+			cnt = aeDAO.updateEvent(aeVO);
+		}catch(PersistenceException pe) {
+			pe.printStackTrace();
+		}//end catch
+		
+		return cnt;
+	}
+	
+	public int removeEvent(String eventcode) {
+		int cnt = 0;
+		
+		try {
+			cnt = aeDAO.deleteEvent(eventcode);
+		}catch(PersistenceException pe) {
+			pe.printStackTrace();
+		}
 		
 		return cnt;
 	}

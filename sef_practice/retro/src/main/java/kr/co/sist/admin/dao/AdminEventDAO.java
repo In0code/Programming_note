@@ -84,20 +84,32 @@ public class AdminEventDAO {
 		return cnt;
 	}
 	
-	public static void main(String[] args) {
-		AdminEventDAO aDAO = new AdminEventDAO();
-		BoardRangeVO brVO = new BoardRangeVO();
-		AdminEventVO aeVO = new AdminEventVO();
-		aeVO.setContext("내용");
-		aeVO.setTitle("제목");
-		aeVO.setId("admin");
-		aeVO.setImg("img.png");
-		aeVO.setImg2("img2.png");
-		aeVO.setStart_date("2023-12-11");
-		aeVO.setEnd_date("2023-12-15");
+	public int updateEvent(AdminEventVO aeVO) throws PersistenceException{
+		MybatisHandler mbh = MybatisHandler.getInstance();
+		SqlSession ss = mbh.getMyBatisHandler(configPath, false);
+		int cnt = ss.update("admin.event.updateEvent", aeVO);
 		
-		System.out.println(aDAO.insertEvent(aeVO));
+		if(cnt == 1) {
+			ss.commit();
+		}
 		
+		mbh.closeHandler(ss);
+		
+		return cnt;
+	}
+	
+	public int deleteEvent(String eventcode) throws PersistenceException{
+		MybatisHandler mbh = MybatisHandler.getInstance();
+		SqlSession ss = mbh.getMyBatisHandler(configPath,false);
+		int cnt = ss.delete("admin.event.deleteEvent",eventcode);
+		
+		if(cnt == 1) {
+			ss.commit();
+		}
+		
+		mbh.closeHandler(ss);
+		
+		return cnt;
 	}
 
 }
