@@ -9,26 +9,26 @@ import kr.co.sist.user.vo.ProductVO;
 
 public class ProductService {
 
-	private ProductDAO pDAO=ProductDAO.getInstance();
-	private static ProductService ps;
-	
-	private ProductService() {
-		
-	}
-	
-	public static ProductService getInstance() {
-		if(ps == null) {
-			ps=new ProductService();
-		}//end if
-		return ps;
-	}//getInstance
-	
-	/**
-	 * 상품 등록
-	 * @param pVO
-	 * @return
-	 */
-	public int addProduct(ProductVO pVO){
+    private ProductDAO pDAO = ProductDAO.getInstance();
+    private static ProductService ps;
+
+    private ProductService() {
+
+    }
+
+    public static ProductService getInstance() {
+        if (ps == null) {
+            ps = new ProductService();
+        }
+        return ps;
+    }
+
+    /**
+     * 상품 등록
+     * 
+     * @param pVO
+     */
+    public int addProduct(ProductVO pVO){
 		int insertCnt= 0;
 		try {
 			insertCnt=pDAO.insertProduct(pVO);
@@ -38,45 +38,64 @@ public class ProductService {
 		
 		return insertCnt;
 	}//searchCategory
-	
-	public ProductDomain searchProduct(ProductVO pVO){
-		ProductDomain search= null;
-		try {
-			search=pDAO.selectProduct(pVO);
-		}catch(PersistenceException pe) {
-			pe.printStackTrace();
-		}//end catch
-		
-		return search;
-	}//searchCategory
-	
-	public JSONObject editProduct(ProductVO pVO){
-		JSONObject editJsonObj = new JSONObject();
-		editJsonObj.put("resultData", false);
-		try {
-			int updateCnt=pDAO.updateProduct(pVO);
-			editJsonObj.put("resultData", true);
-		}catch(PersistenceException pe) {
-			pe.printStackTrace();
-			editJsonObj.put("error", pe.getMessage()); // 예외 메시지 추가
-		}//end catch
-		
-		return editJsonObj;
-	}//searchCategory
-	
-	public JSONObject cancelProduct(ProductVO pVO){
-		JSONObject deletejsonObj = new JSONObject();
-		deletejsonObj.put("resultData", false);
-		try {
-			int deleteCnt=pDAO.deleteProduct(pVO);
-			deletejsonObj.put("resultData", true);
-		}catch(PersistenceException pe) {
-			pe.printStackTrace();
-			deletejsonObj.put("error", pe.getMessage()); // 예외 메시지 추가
-		}//end catch
-		
-		return deletejsonObj;
-	}//searchCategory
-	
-	
-}//class
+    
+    public String getPcode() {
+    	String getRecentPcode="";
+    	try {
+    		getRecentPcode=pDAO.getPcode();
+    	} catch (PersistenceException pe) {
+    		pe.printStackTrace();
+    	}
+    	return getRecentPcode;
+    }
+
+    public ProductDomain searchProduct(ProductVO pVO) {
+        ProductDomain search = null;
+        try {
+            search = pDAO.selectProduct(pVO);
+        } catch (PersistenceException pe) {
+            pe.printStackTrace();
+        }
+        return search;
+    }
+
+    public JSONObject editProduct(ProductVO pVO) {
+        JSONObject editJsonObj = new JSONObject();
+        editJsonObj.put("resultData", false);
+        try {
+            int updateCnt = pDAO.updateProduct(pVO);
+            editJsonObj.put("resultData", true);
+        } catch (PersistenceException pe) {
+            pe.printStackTrace();
+            editJsonObj.put("error", pe.getMessage()); // 예외 메시지 추가
+        }
+        return editJsonObj;
+    }
+
+    public JSONObject editSaleok(String pcode) {
+        JSONObject editSaleJsonObj = new JSONObject();
+        editSaleJsonObj.put("resultData", false);
+        try {
+            int updateCnt = pDAO.updateSaleok(pcode);
+            editSaleJsonObj.put("resultData", true);
+        } catch (PersistenceException pe) {
+            pe.printStackTrace();
+            editSaleJsonObj.put("error", pe.getMessage()); // 예외 메시지 추가
+        }
+        return editSaleJsonObj;
+    }
+
+    public JSONObject cancelProduct(String pcode) {
+        JSONObject deletejsonObj = new JSONObject();
+        deletejsonObj.put("resultData", false);
+        try {
+            int deleteCnt = pDAO.deleteProduct(pcode);
+            deletejsonObj.put("resultData", true);
+        } catch (PersistenceException pe) {
+            pe.printStackTrace();
+            deletejsonObj.put("error", pe.getMessage()); // 예외 메시지 추가
+        }
+        return deletejsonObj;
+    }
+
+}

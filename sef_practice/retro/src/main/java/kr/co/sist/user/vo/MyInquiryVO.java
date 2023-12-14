@@ -9,6 +9,6 @@ import lombok.ToString;
 @ToString
 public class MyInquiryVO {
 	
-	private String id ,type ,context ;
+	private String id ,type ,context,inquiryCode ;
 
 }

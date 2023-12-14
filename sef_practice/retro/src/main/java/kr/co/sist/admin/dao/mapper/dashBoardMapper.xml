@@ -34,11 +34,11 @@
   </select>
     <!-- 일일 방문자 -->
   <select id="selectVisitor" resultType="int">
-  select count(*) from member where to_date(login_date,'yyyy-MM-dd') = to_date(sysdate,'yyyy-MM-dd') group by login_date
+  select nvl(max(count(*)),0) cnt from member where to_date(login_date,'yyyy-MM-dd') = to_date(sysdate+1,'yyyy-MM-dd') group by login_date
   </select>
   <!-- 방문자수 추이 -->
   <select id="selectVisitors" resultType="int" parameterType="Date">
-  select total_cnt from visitors where to_date(daily_date,'yy-MM-dd') = #{date}
+  select nvl(max(total_cnt),0) cnt from visitors where to_date(daily_date,'yy-MM-dd') = #{date}
   </select>
   
   </mapper>

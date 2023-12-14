@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.co.sist.common.PageVO;
 import kr.co.sist.user.domain.GoodsDomain;
 import kr.co.sist.user.service.GoodsService;
 
@@ -17,19 +18,26 @@ public class GoodsController {
 	@Autowired
 	private GoodsService gs;
 	
-	
 	/**
-	 * 대분류 상품 조회
+	 * 대분류 상품 조회, 페이징처리
 	 * @param category
 	 * @param model
 	 * @return
 	 */
 	@GetMapping("/goods/goods_list1.do")
-	public String goodsList1(@RequestParam("category1") String category, Model model) {
+	public String goodsList1(@RequestParam("category1") String category, @RequestParam(required = false, defaultValue="1") Integer pageNo, Model model) {
+		PageVO pageVO = new PageVO(pageNo);
+//		System.out.println("==========================");
+//		System.out.println(pageVO);
+		pageVO.setCategory(category);
+		int totalCnt = gs.searchGoodsList1Cnt(pageVO);
+		pageVO.setTotalCnt(totalCnt);
 		
 		List<GoodsDomain> list=null;
-		list=gs.searchGoodsList1(category);
+//		list=gs.searchGoodsList1(category);
+		list=gs.searchGoodsList1(pageVO);
 		model.addAttribute("bigCate", list);
+		model.addAttribute("pageVO", pageVO);
 		
 		return "goods/goods_list";
 	}
@@ -42,7 +50,7 @@ public class GoodsController {
 	 */
 	@GetMapping("/goods/goods_list2.do")
 	public String goodsList2(@RequestParam("category2") String category, Model model) {
-		
+		System.out.println(category);
 		List<GoodsDomain> list=null;
 		list=gs.searchGoodsList2(category);
 		model.addAttribute("midCate", list);
@@ -66,9 +74,31 @@ public class GoodsController {
 		return "goods/goods_list";
 	}
 	
+	/**
+	 * 상품 검색, 페이징처리
+	 * @param category
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/goods/goods_search_by_text.do")
+	public String goodsSearchByText(@RequestParam String searchText, @RequestParam(required = false, defaultValue="1") Integer pageNo, Model model) {
+		PageVO pageVO = new PageVO(pageNo);
+		pageVO.setSearchText(searchText);
+		int totalCnt = gs.searchByTextCnt(pageVO);
+		pageVO.setTotalCnt(totalCnt);
+		
+		List<GoodsDomain> list=null;
+//		list=gs.searchByText(searchText);
+		list=gs.searchByText(pageVO);
+		model.addAttribute("bigCate", list);
+		model.addAttribute("pageVO", pageVO);
+		
+		return "goods/goods_list_search";
+	}
+	
 	
 	@GetMapping("/goods/goods_info.do")
-	public String goodsInfo(@RequestParam("category") String pcode, Model model) {
+	public String goodsInfo(@RequestParam String pcode, Model model) {
 		
 		GoodsDomain gd=gs.searchGoodsDetail(pcode);
 		

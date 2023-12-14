@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.sist.inquiry" >
+<!-- 문의 리스트 -->
+	<select id="selectInquiry" parameterType="String" resultType="mid">
+		select type, inquirycode,context, status from inquiry where id =#{id}
+	 </select>
+	 
+	 <!-- 문의 상세 -->
+	<select id="selectInquiryDetail" parameterType="String" resultType="mid">
+	select to_date(ask_date,'yy-MM-dd') askDate ,type,context,answer,status,inquirycode from inquiry where inquirycode = #{inqcode}
+	</select>
+	
+	<!-- 문의 수정 -->
+	<update id="updateInquiry" parameterType="miVO">
+	update inquiry set context=#{context} where inquirycode=#{inquiryCode}
+	</update>
+	
+	<!-- 문의 삭제 -->
+	<delete id="deleteInquiry" parameterType="String">
+	delete from inquiry where inquirycode = #{inquiryCode}
+	</delete>
+	<!-- 문의 등록 -->
+	<insert id="insertInquiry" parameterType="miVO">
+	insert into inquiry (INQUIRYCODE, TYPE, CONTEXT,  ASK_DATE, STATUS, ID) 
+	values('I'|| lpad(inquiry_seq.nextval, 5, 0),#{type} ,#{context} ,sysdate,'N',#{id})
+	</insert>
+</mapper>
+
+
+

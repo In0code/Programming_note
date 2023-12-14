@@ -12,20 +12,11 @@
 	WHERE	PCODE = #{pcode}
 	</select>
 	
-	<!-- 카테고리별 상품 목록 조회 -->
-	<!-- <select id="selectGoodsList" resultType="kr.co.sist.user.domain.GoodsDomain"
-		parameterType="kr.co.sist.user.vo.GoodsVO">
-	SELECT * 
-	FROM PRODUCT
-    WHERE C3CODE IN 
-    ( SELECT C3CODE FROM CATEGORY3 WHERE C2CODE = #{c2code} )	
-	</select> -->
-	
 	<!-- 대분류 상품 목록 조회 -->
 	<select id="BigCategory" resultType="kr.co.sist.user.domain.GoodsDomain"
-		parameterType="kr.co.sist.user.vo.GoodsVO">
+		parameterType="String">
 		
-	SELECT P.IMG, P.PNAME, P.PRICE, P.LOC, P.INPUT_DATE
+	SELECT P.PCODE, P.IMG, P.PNAME, P.PRICE, P.LOC, P.INPUT_DATE
 	FROM PRODUCT P
 	JOIN CATEGORY3 C3 ON P.C3CODE = C3.C3CODE
 	JOIN CATEGORY2 C2 ON C3.C2CODE = C2.C2CODE
@@ -33,11 +24,37 @@
 	WHERE C.CCODE = #{category}	
 	</select>
 	
+	<!-- 대분류 상품 목록 Count -->
+	<select id="BigCategoryPageCnt" resultType="Integer"
+		parameterType="kr.co.sist.common.PageVO">
+	SELECT count(P.PCODE)
+	FROM PRODUCT P
+	JOIN CATEGORY3 C3 ON P.C3CODE = C3.C3CODE
+	JOIN CATEGORY2 C2 ON C3.C2CODE = C2.C2CODE
+	JOIN CATEGORY C ON C2.CCODE = C.CCODE
+	WHERE C.CCODE = #{category}	
+	</select>
+	
+	<!-- 대분류 상품 목록 paging -->
+	<select id="BigCategoryPage" resultType="kr.co.sist.user.domain.GoodsDomain"
+		parameterType="kr.co.sist.common.PageVO">
+	select * from
+	(	
+	SELECT ROWNUM as RNUM, P.PCODE, P.IMG, P.PNAME, P.PRICE, P.LOC, P.INPUT_DATE
+	FROM PRODUCT P
+	JOIN CATEGORY3 C3 ON P.C3CODE = C3.C3CODE
+	JOIN CATEGORY2 C2 ON C3.C2CODE = C2.C2CODE
+	JOIN CATEGORY C ON C2.CCODE = C.CCODE
+	WHERE C.CCODE = #{category}	
+	) TB
+	where RNUM &gt;= #{start} and RNUM &lt;= #{end}
+	</select>
+	
 	<!-- 중분류 상품 목록 조회 -->
 	<select id="MidCategory" resultType="kr.co.sist.user.domain.GoodsDomain"
 		parameterType="String">
 		
-	SELECT P.IMG, P.PNAME, P.PRICE, P.LOC, P.INPUT_DATE
+	SELECT P.PCODE,P.IMG, P.PNAME, P.PRICE, P.LOC, P.INPUT_DATE
 	FROM PRODUCT P
 	JOIN CATEGORY3 C3 ON P.C3CODE = C3.C3CODE
 	JOIN CATEGORY2 C2 ON C3.C2CODE = C2.C2CODE
@@ -47,9 +64,37 @@
 	<!-- 소분류 상품 목록 조회 -->
 	<select id="SmallCategory" resultType="kr.co.sist.user.domain.GoodsDomain"
 		parameterType="String">
-	select IMG, PNAME, PRICE, LOC, INPUT_DATE
-	from product
-	where c3code = '${category}'
+	SELECT PCODE, IMG, PNAME, PRICE, LOC, INPUT_DATE
+	FROM PRODUCT
+	WHERE C3CODE = '${category}'
+	</select>
+	
+	<!-- 상품 검색창  -->
+	<select id="SearchByText" resultType="kr.co.sist.user.domain.GoodsDomain"
+		parameterType="String">
+	SELECT PCODE, IMG, PNAME, PRICE, LOC, INPUT_DATE
+	FROM PRODUCT
+	WHERE PNAME LIKE '%${searchText}%'
+	</select>
+	
+	<!-- 검색창 상품 검색 count  -->
+	<select id="SearchByTextCnt" resultType="Integer"
+		parameterType="kr.co.sist.common.PageVO">
+	SELECT count(PCODE)
+	FROM PRODUCT
+	WHERE PNAME LIKE '%${searchText}%'
+	</select>
+	
+	<!-- 검색창 상품 검색 paging -->
+	<select id="SearchByTextPage" resultType="kr.co.sist.user.domain.GoodsDomain"
+		parameterType="kr.co.sist.common.PageVO">
+	select * from
+	(
+	SELECT ROWNUM as RNUM, PCODE, IMG, PNAME, PRICE, LOC, INPUT_DATE
+	FROM PRODUCT
+	WHERE PNAME LIKE '%${searchText}%'
+	) TB
+	where RNUM &gt;= ${start} and RNUM &lt;= ${end}
 	</select>
 	
 </mapper>

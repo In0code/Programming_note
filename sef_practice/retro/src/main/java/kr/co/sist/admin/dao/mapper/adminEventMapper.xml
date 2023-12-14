@@ -59,6 +59,9 @@ values('E' || lpad(event_seq.nextval, 5, 0), #{ title }, #{ context }, #{ img },
 		<if test="title neq null and title neq ''">
 		title = #{ title },
 		</if>
+		<if test="context eq null or context eq ''">
+		context = null,
+		</if>
 		<if test="context neq null and context neq ''">
 		context = #{ context },
 		</if>

@@ -115,13 +115,13 @@ public class AdminEventController {
 			//본문 이미지
 			if(img.length() > chkSize) {
 				uploadFlag = false;
-				json.put("overFileimg", mr.getFilesystemName("img"));
+				json.put("overFileimg", mr.getOriginalFileName("img"));
 			}
 			
 			//썸네일
 			if(img2.length() > chkSize) {
 				uploadFlag = false;
-				json.put("overFileimg2", mr.getFilesystemName("img2"));
+				json.put("overFileimg2", mr.getOriginalFileName("img2"));
 			}
 			
 			if(uploadFlag) {
@@ -130,9 +130,9 @@ public class AdminEventController {
 				aeVO.setEnd_date(mr.getParameter("end_date"));
 				aeVO.setTitle((mr.getParameter("title")));
 				aeVO.setContext((mr.getParameter("context")));
-				aeVO.setImg(mr.getFilesystemName("img"));
-				aeVO.setImg2(mr.getFilesystemName("img2"));
-				aeVO.setId("admin");
+				aeVO.setImg(mr.getOriginalFileName("img"));
+				aeVO.setImg2(mr.getOriginalFileName("img2"));
+				aeVO.setId(mr.getParameter("id"));
 				
 				if("insert".equals(method)) {
 					resultFlag = aes.addEvent(aeVO)==1;

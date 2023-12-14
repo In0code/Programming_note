@@ -1,6 +1,5 @@
 package kr.co.sist.admin.dao;
 
-import java.sql.Date;
 import java.util.List;
 
 import org.apache.ibatis.exceptions.PersistenceException;

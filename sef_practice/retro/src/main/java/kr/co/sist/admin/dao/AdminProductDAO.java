@@ -100,13 +100,5 @@ public class AdminProductDAO {
 		return updateCnt;
 	}// updateRemoveProduct
 
-//	public static void main(String[] args) {
-//		AdminProductDAO aapDAO = AdminProductDAO.getInstance();
-////		BoardRangeVO brVO = new BoardRangeVO();
-////		brVO.setKeyword("싱숭생숭연");
-////		aapDAO.selectOneProduct("P00001");
-////		aapDAO.updateRemoveProduct("P00001");
-//		
-//	}
 
 }// class

@@ -42,8 +42,6 @@ public class AdminProductController {
 	
 	@RequestMapping("/admin/productDetail_managing.do")
 	public String productManageDetail( Model model,String pcode) {
-//		pcode="P00001";
-		System.out.println(pcode);
 		AdminProductDetailDomain productOne=aps.searchOneProduct(pcode);
 		
 		model.addAttribute("productOne", productOne);

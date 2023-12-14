@@ -8,7 +8,9 @@
 	<!-- Alias 설정 -->
 	<typeAliases>
 		<typeAlias type="kr.co.sist.user.domain.ProductDomain" alias="pd"/>
+		<typeAlias type="kr.co.sist.user.domain.WishDomain" alias="wd"/>
 		<typeAlias type="kr.co.sist.user.vo.ProductVO" alias="pVO"/>
+		<typeAlias type="kr.co.sist.user.vo.WishVO" alias="wVO"/>
 		<typeAlias type="kr.co.sist.user.vo.FakeVO" alias="fVO"/>
 		<typeAlias type="kr.co.sist.login.vo.LoginVO" alias="lVO"/>
 		<typeAlias type="kr.co.sist.login.domain.LoginDomain" alias="ld"/>
@@ -19,6 +21,9 @@
 		<typeAlias type="kr.co.sist.admin.vo.AdminEventVO" alias="aeVO"/>
 		<typeAlias type="kr.co.sist.admin.domain.AdminEventDomain" alias="aed"/>
 		<typeAlias type="kr.co.sist.admin.domain.EventDomain" alias="ed"/>
+		<typeAlias type="kr.co.sist.user.domain.EventDomain" alias="ued"/>
+		<typeAlias type="kr.co.sist.user.domain.MyInquiryDomain" alias="mid"/>
+		<typeAlias type="kr.co.sist.user.vo.MyInquiryVO" alias="miVO"/>
 	</typeAliases>
 	
 	
@@ -45,6 +50,9 @@
     <mapper resource="kr/co/sist/admin/dao/mapper/dashBoardMapper.xml"/>
     <mapper resource="kr/co/sist/user/dao/mapper/mypage/mypagePrdInfoMapper.xml"/>
     <mapper resource="kr/co/sist/user/dao/mapper/goodsMapper.xml"/>
+    <mapper resource="kr/co/sist/user/dao/mapper/eventMapper.xml"/>
+    <mapper resource="kr/co/sist/user/dao/mapper/inquiryMapper.xml"/>
+    <mapper resource="kr/co/sist/user/dao/mapper/reiview/reiviewMapper.xml"/>
     
   </mappers> 
 </configuration>

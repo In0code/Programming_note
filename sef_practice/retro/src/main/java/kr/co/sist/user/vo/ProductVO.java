@@ -13,6 +13,10 @@ import lombok.ToString;
 @NoArgsConstructor
 public class ProductVO {
 	private String c3code, id, pcode, pname, context, img, img2, img3, 
-		img4, img5, status, loc, deliver;
+		img4, img5, status, loc, deliver, saleok, pcancel;
 	private int price;
+	
+	public ProductVO(String pcode) {
+		this.pcode=pcode;
+	}
 }//class

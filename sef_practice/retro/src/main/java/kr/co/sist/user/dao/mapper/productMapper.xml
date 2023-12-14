@@ -5,104 +5,113 @@
 <mapper namespace="user.product">
 
 	<!-- 카테고리 조회 조회 -->
-	<insert id="insertProduct" parameterType="pVO">
+	<insert id="insertProduct" parameterType="pVO"  >
 		insert into PRODUCT (PCODE, PNAME, CONTEXT, IMG, 
-			<if test="img2 neq null and img2 neq ''">
+			<if test="img2 != null and img2 != ''">
 	 		IMG2,
 	 		</if>
-	 		<if test="img3 neq null and img3 neq ''">
+	 		<if test="img3 != null and img3 != ''">
 	 		IMG3,
 	 		</if>
-	 		<if test="img4 neq null and img4 neq ''">
+	 		<if test="img4 != null and img4 != ''">
 	 		IMG4,
 	 		</if>
-	 		<if test="img5 neq null and img5 neq ''">
+	 		<if test="img5 != null and img5 != ''">
 	 		IMG5,
 	 		</if>
 		PRICE, INPUT_DATE, DELIVER, STATUS, LOC, PCANCEL, C3CODE, ID)
  		values ('P' || lpad(pcode_seq.nextval, 5, 0),#{pname},#{context},#{img},
  		
-	 		<if test="img2 neq null and img2 neq ''">
+	 		<if test="img2 != null and img2 != ''">
 	 		#{img2},
 	 		</if>
-	 		<if test="img3 neq null and img3 neq ''">
+	 		<if test="img3 != null and img3 != ''">
 	 		#{img3},
 	 		</if>
-	 		<if test="img4 neq null and img4 neq ''">
+	 		<if test="img4 != null and img4 != ''">
 	 		#{img4},
 	 		</if>
-	 		<if test="img5 neq null and img5 neq ''">
+	 		<if test="img5 != null and img5 != ''">
 	 		#{img5},
 	 		</if>
  		#{price},sysdate ,#{deliver},#{status},#{loc},'N',
  		#{c3code},#{id})
 	</insert>
+	
+	<select id="getPcode" resultType="String">
+  SELECT pcode FROM product ORDER BY input_date DESC FETCH FIRST 1 ROW ONLY
+	</select>
 
 	<select id="selectProduct" resultType="pd" parameterType="pVO">
 		select  PCODE, PNAME, CONTEXT, IMG, 
-				<if test="img2 neq null and img2 neq ''">
+				<if test="img2 != null and img2 != ''">
 		 		IMG2,
 		 		</if>
-		 		<if test="img3 neq null and img3 neq ''">
+		 		<if test="img3 != null and img3 != ''">
 		 		IMG3,
 		 		</if>
-		 		<if test="img4 neq null and img4 neq ''">
+		 		<if test="img4 != null and img4 != ''">
 		 		IMG4,
 		 		</if>
-		 		<if test="img5 neq null and img5 neq ''">
+		 		<if test="img5 != null and img5 != ''">
 		 		IMG5,
 		 		</if>
 				PRICE, INPUT_DATE, DELIVER, STATUS, LOC, PCANCEL, C3CODE, ID
 		from PRODUCT
-		where ID=#{id} and PCODE=#{pcode}
-	
+		where PCODE=#{pcode} and ID=#{id}	
 		</select>
+		
 	
 	
 	<update id="updateProduct" parameterType="pVO">
 	update PRODUCT
 	set  
-			<if test="pname neq null and pname neq ''">
+			<if test="pname != null and pname != ''">
 	 		PNAME=#{pname},
 	 		</if>
-	 		<if test="context neq null and context neq ''">
+	 		<if test="context != null and context != ''">
 	 		CONTEXT=#{context},
 	 		</if>
-	 		<if test="img4 neq null and img4 neq ''">
+	 		<if test="img4 != null and img4 != ''">
 	 		IMG=#{img},
 	 		</if>
-			<if test="img2 neq null and img2 neq ''">
+			<if test="img2 != null and img2 != ''">
 	 		IMG2=#{img2},
 	 		</if>
-	 		<if test="img3 neq null and img3 neq ''">
+	 		<if test="img3 != null and img3 != ''">
 	 		IMG3=#{img3},
 	 		</if>
-	 		<if test="img4 neq null and img4 neq ''">
+	 		<if test="img4 != null and img4 != ''">
 	 		IMG4=#{img4},
 	 		</if>
-	 		<if test="img5 neq null and img5 neq ''">
+	 		<if test="img5 != null and img5 != ''">
 	 		IMG5=#{img5},
 	 		</if>
-	 		<if test="price neq null and price neq ''">
+	 		<if test="price != null and price != ''">
 	 		PRICE=#{price},
 	 		</if>
-	 		<if test="deliver neq null and deliver neq ''">
+	 		<if test="deliver != null and deliver != ''">
 	 		DELIVER=#{deliver},
 	 		</if>
-	 		<if test="status neq null and status neq ''">
+	 		<if test="status != null and status != ''">
 	 		STATUS=#{status},
 	 		</if>
-			<if test="loc neq null and loc neq ''">
+			<if test="loc != null and loc != ''">
 	 		LOC=#{loc},
 	 		</if>
-	 		<if test="c3code neq null and c3code neq ''">
+	 		<if test="c3code != null and c3code != ''">
 	 		C3CODE=#{c3code}
 	 		</if>
 	where PCODE=#{pcode}
 	</update>
 	
+	<update id="updateSaleOk" parameterType="String">
+		update PRODUCT
+		set saleok='Y'
+		where PCODE=#{pcode}
+	</update>
 	
-	<delete id="deleteProduct" parameterType="pVO">
+	<delete id="deleteProduct" parameterType="String">
 		delete from PRODUCT where PCODE=#{pcode}
 	</delete>
 	
