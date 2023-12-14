@@ -22,22 +22,15 @@
 	$(function() {
 		/* ---------------패션 의류--------------------- */
 		/* 패션의류 클릭하면 동작 */
-		$("#C")
-				.click(
-						function() {
-							$(this).css({
-								'background-color' : '#E5E4E4'
-							});
-							$("#G, #T, #P, #B, #C-1, #C1,#C2").css({
-								'background-color' : '#FFFFFF'
-							});
+		$("#C").click(function() {
+			$(this).css({'background-color' : '#E5E4E4'});
+			$("#G, #T, #P, #B, #C-1, #C1,#C2").css({'background-color' : '#FFFFFF'});
 
-							$("#category-depth-1").show();
+			$("#category-depth-1").show();
 
-							$(
-									"#category-depth-2, #category-depth-3, #category-depth-4, #category-depth-5,#category-depth-1-1,#category-depth-1-2, #category-depth-2-3,#category-depth-2-2,#category-depth-2-1,#category-depth-3-1,#category-depth-3-2,#category-depth-4-1,#category-depth-5-1,#category-depth-5-2")
+			$("#category-depth-2, #category-depth-3, #category-depth-4, #category-depth-5,#category-depth-1-1,#category-depth-1-2, #category-depth-2-3,#category-depth-2-2,#category-depth-2-1,#category-depth-3-1,#category-depth-3-2,#category-depth-4-1,#category-depth-5-1,#category-depth-5-2")
 									.hide();
-						});//click
+		});//click
 
 		/* 여성의류 클릭하면 동작 */
 		$("#C1").click(function() {
@@ -647,16 +640,11 @@
 			        $("#locErr").css('display', 'none');
 			    }//end else
 			 }//end if
-			$("#productTitle").val();
-			$("#productPrice").val();
-			$("#productDescription").val();
-			$("#oldProductBtn").val();
-			$("#changeStatus").val();
-			$("#changeDeliver").val();
-			$("#category3").val();
+			  var frm=document.frm;
+		       frm.action="product_register_ok.do";
 			$("#regiFrm").submit();
 			
-			location.href = "product_register_ok.do";
+			/* location.href = "product_register_ok.do"; */
 			
 		});//click
 
@@ -674,7 +662,7 @@
 				$("#category").html(clickedId);
 				var productName = $("#productTitle").val();
 
-				$("#category3").val(clickedId);
+				$("#c3code").val(clickedId);
 
 				// 여기에서 클릭한 li 요소의 ID를 활용하면 됩니다.
 				// 예를 들어, 클릭한 ID를 서버로 전송하거나 다른 작업을 수행할 수 있습니다.
@@ -714,6 +702,9 @@
 			$("#lengthCnt").html(maxLength);
 		}//end if
 	}//lengthCnt
+	
+	
+	
 </script>
 
 <!-- 
@@ -756,8 +747,8 @@
 	<c:import url="http://localhost/retro_prj/common/cdn/header.jsp" />
 
 
-	<form id="regiFrm">
-		<input type="hidden" name="category3" id="category3" /> 
+	<form id="regiFrm" name="frm" enctype="multipart/form-data" method="post">
+		<input type="hidden" name="c3code" id="c3code" /> 
 		<input type="hidden" name="deliver" id="changeDeliver" value="N" />
 		<input type="hidden" name="loc" id="changeLoc"/>
 		<main class="relative flex-grow border-b-2"
@@ -766,9 +757,11 @@
 				class="mx-auto max-w-[1280px] px-4 md:px-8 2xl:px-16 box-content">
 				<section class="mx-auto w-full max-w-[768px]">
 					<div class="flex px-5 pb-1.5">
+					
 						<div>
-					    <input name="media" type="file" multiple="" accept="image/png, image/jpeg, image/jpg, video/*" class="hidden" id="file-input">
-					    <button class="flex items-center justify-center w-20 h-20 mr-1.5 bg-jnGray-200 rounded" onclick="document.getElementById('file-input').click()">
+					</div>
+					<input type="file" name="img" class="inputBox" id="file-input" style="width:300px;"/><br/>
+					   <!--  <button class="flex items-center justify-center w-20 h-20 mr-1.5 bg-jnGray-200 rounded" onclick="document.getElementById('file-input').click()">
 					        <div class="flex flex-col">
 					            <svg width="32px" height="32px" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 					                <path fill-rule="evenodd" clip-rule="evenodd" d="M15.728 20.4461C13.6481 20.4461 11.9619 18.7599 11.9619 16.68C11.9619 14.6001 13.6481 12.9138 15.728 12.9138C17.8079 12.9138 19.4942 14.6001 19.4942 16.68C19.4942 18.7599 17.8079 20.4461 15.728 20.4461Z" fill="#C2C6CE"></path>
@@ -776,8 +769,8 @@
 					            </svg>
 					            <p class="mt-1 text-xs text-jnGray-500">0/5</p>
 					        </div>
-					    </button>
-					</div>
+					    </button> -->
+					
 						<div class="overflow-hidden">
 							<div
 								class="os-host os-host-foreign os-theme-dark os-host-resize-disabled os-host-scrollbar-horizontal-hidden os-host-scrollbar-vertical-hidden os-host-transition">
@@ -1122,13 +1115,13 @@
 							<ul class="flex flex-row items-start mt-3">
 								<li class="flex items-center mr-4 contents-center"><label
 									for="parcelFeeN" class="flex items-end"><input
-										name="parcelFeeYn" type="radio" id="parcelFeeN"
+										 type="radio" id="parcelFeeN"
 										class="appearance-none rounded-full w-5 h-5 border-1.5 border-solid border-jnGray-500 transition-all duration-100 ease-linear mr-1.5 cursor-pointer checked:border-6 checked:border-jngreen"
 										value="0" checked=""><span
 										class="cursor-pointer text-jnGray-700">배송비 별도</span></label></li>
 								<li class="flex items-center mr-4 contents-center"><label
 									for="parcelFeeY" class="flex items-end"><input
-										name="parcelFeeYn" type="radio" id="parcelFeeY"
+										 type="radio" id="parcelFeeY"
 										class="appearance-none rounded-full w-5 h-5 border-1.5 border-solid border-jnGray-500 transition-all duration-100 ease-linear mr-1.5 cursor-pointer checked:border-6 checked:border-jngreen"
 										value="1"><span class="cursor-pointer text-jnGray-700">배송비
 											포함</span></label></li>

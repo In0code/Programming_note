@@ -65,140 +65,140 @@
 								<div class="absolute invisible bg-white opacity-0 subMenu shadow-header start-0">
 									<ul class="py-5 text-sm text-body max-h-[calc(100vh-220px)] overflow-y-scroll">
 										<li class="">
-										<a class="flex items-center py-2 ps-5 xl:ps-7 pe-3 xl:pe-3.5 hover:text-heading hover:bg-gray-300" href="/search?category=1">패션의류</a>
+										<a class="flex items-center py-2 ps-5 xl:ps-7 pe-3 xl:pe-3.5 hover:text-heading hover:bg-gray-300" href="goods_list1.do?category1=C">패션의류</a>
 										<div class="absolute flex bg-white categoryMegaMenu shadow-header w-[630px] xl:w-[1000px] 2xl:w-[1200px] start-full" style="margin-left: 240px;">
 												<div class="flex-shrink-0" style="margin-left: 0px;">
 													<div class="absolute bg-gray-200 megaMenu shadow-header -start-28 xl:start-0">
 														<div class="grid grid-cols-5">
 															<ul class="pt-6 even:bg-gray-150 pb-7 2xl:pb-8 2xl:pt-7 max-h-[calc(100vh-220px)] overflow-y-scroll">
 																<li class="mb-1.5">
-																	<a class="block text-sm py-1.5 text-heading font-semibold px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="/search?category=101">여성의류</a></li>
+																	<a class="block text-sm py-1.5 text-heading font-semibold px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="goods_list2.do?category2=C1">여성의류</a></li>
 																<li class="">
-																	<a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="/search?category=1001">티셔츠 / 캐주얼의류</a></li>
+																	<a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="goods_list3.do?category3=C101">티셔츠 / 캐주얼의류</a></li>
 																<li class="">
-																	<a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="/search?category=1002">바지 / 치마</a></li>
-																<li class="border-b border-gray-300 pb-3.5 mb-3"><a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="/search?category=1004">트레이닝복</a></li>
+																	<a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="goods_list3.do?category3=C102">바지 / 치마</a></li>
+																<li class="border-b border-gray-300 pb-3.5 mb-3"><a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="goods_list3.do?category3=C103">트레이닝복</a></li>
 															</ul>
 															<ul class="pt-6 even:bg-gray-150 pb-7 2xl:pb-8 2xl:pt-7 max-h-[calc(100vh-220px)] overflow-y-scroll">
 																<li class="mb-1.5">
-																	<a class="block text-sm py-1.5 text-heading font-semibold px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="/search?category=104">남성의류</a></li>
+																	<a class="block text-sm py-1.5 text-heading font-semibold px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="goods_list2.do?category2=C2">남성의류</a></li>
 																<li class="">
-																	<a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="/search?category=1017">티셔츠 / 캐쥬얼의류</a></li>
+																	<a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="goods_list3.do?category3=C201">티셔츠 / 캐쥬얼의류</a></li>
 																<li class="">
-																	<a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="/search?category=1018">바지</a></li>
+																	<a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="goods_list3.do?category3=C202">바지</a></li>
 																<li class="">
-																	<a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="/search?category=1019">트레이닝복</a></li>
+																	<a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="goods_list3.do?category3=C203">트레이닝복</a></li>
 															</ul>
 														</div>
 													</div>
 												</div>
 											</div></li>
 										<li class="">
-										<a class="flex items-center py-2 ps-5 xl:ps-7 pe-3 xl:pe-3.5 hover:text-heading hover:bg-gray-300" href="/search?category=2">패션잡화</a>
+										<a class="flex items-center py-2 ps-5 xl:ps-7 pe-3 xl:pe-3.5 hover:text-heading hover:bg-gray-300" href="goods_list1.do?category1=G">패션잡화</a>
 										<div class="absolute flex bg-white categoryMegaMenu shadow-header w-[630px] xl:w-[1000px] 2xl:w-[1200px] start-full" style="margin-left: 240px;">
 												<div class="flex-shrink-0">
 													<div class="absolute bg-gray-200 megaMenu shadow-header -start-28 xl:start-0">
 														<div class="grid grid-cols-5">
 															<ul class="pt-6 even:bg-gray-150 pb-7 2xl:pb-8 2xl:pt-7 max-h-[calc(100vh-220px)] overflow-y-scroll">
 																<li class="mb-1.5">
-																	<a class="block text-sm py-1.5 text-heading font-semibold px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="/search?category=111">여성화</a></li>
+																	<a class="block text-sm py-1.5 text-heading font-semibold px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="goods_list2.do?category2=G1">여성화</a></li>
 																<li class="">
-																	<a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="/search?category=1050">단화 / 로퍼</a></li>
+																	<a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="goods_list3.do?category3=G101">단화 / 로퍼</a></li>
 																<li class="">
-																	<a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="/search?category=1051">워커 / 부츠</a></li>
+																	<a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="goods_list3.do?category3=G102">워커 / 부츠</a></li>
 																<li class="border-b border-gray-300 pb-3.5 mb-3">
-																	<a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="/search?category=1061">샌들 / 슬리퍼</a></li>
+																	<a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="goods_list3.do?category3=G103">샌들 / 슬리퍼</a></li>
 															</ul>
 															<ul class="pt-6 even:bg-gray-150 pb-7 2xl:pb-8 2xl:pt-7 max-h-[calc(100vh-220px)] overflow-y-scroll">
 																<li class="mb-1.5">
-																	<a class="block text-sm py-1.5 text-heading font-semibold px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="/search?category=112">남성화</a></li>
+																	<a class="block text-sm py-1.5 text-heading font-semibold px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="goods_list2.do?category2=G2">남성화</a></li>
 																<li class="">
-																	<a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="/search?category=1062">단화 / 로퍼</a></li>
+																	<a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="goods_list3.do?category3=G201">단화 / 로퍼</a></li>
 																<li class="">
-																	<a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="/search?category=1063">워커 / 부츠</a></li>
+																	<a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="goods_list3.do?category3=G202">워커 / 부츠</a></li>
 																<li class="border-b border-gray-300 pb-3.5 mb-3">
-																	<a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="/search?category=1072">샌들 / 슬리퍼</a></li>
+																	<a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="goods_list3.do?category3=G203">샌들 / 슬리퍼</a></li>
 															</ul>
 															<ul class="pt-6 even:bg-gray-150 pb-7 2xl:pb-8 2xl:pt-7 max-h-[calc(100vh-220px)] overflow-y-scroll">
 																<li class="mb-1.5">
-																	<a class="block text-sm py-1.5 text-heading font-semibold px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="/search?category=113">가방</a></li>
+																	<a class="block text-sm py-1.5 text-heading font-semibold px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="goods_list2.do?category2=G3">가방</a></li>
 																<li class="">
-																	<a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="/search?category=1341">숄더백</a></li>
+																	<a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="goods_list3.do?category3=G301">숄더백</a></li>
 																<li class="">
-																	<a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="/search?category=1342">크로스백</a></li>
+																	<a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="goods_list3.do?category3=G302">크로스백</a></li>
 																<li class="border-b border-gray-300 pb-3.5 mb-3">
-																	<a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="/search?category=1343">트레이닝복</a></li>
+																	<a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="goods_list3.do?category3=G303">트레이닝복</a></li>
 															</ul>
 														</div>
 													</div>
 												</div>
 											</div></li>
-										<li class=""><a class="flex items-center py-2 ps-5 xl:ps-7 pe-3 xl:pe-3.5 hover:text-heading hover:bg-gray-300" href="/search?category=3">모바일 / 태블릿</a>
+										<li class=""><a class="flex items-center py-2 ps-5 xl:ps-7 pe-3 xl:pe-3.5 hover:text-heading hover:bg-gray-300" href="goods_list1.do?category1=T">모바일 / 태블릿</a>
 										<div class="absolute flex bg-white categoryMegaMenu shadow-header w-[630px] xl:w-[1000px] 2xl:w-[1200px] start-full" style="margin-left: 240px;">
 												<div class="flex-shrink-0">
 													<div class="absolute bg-gray-200 megaMenu shadow-header -start-28 xl:start-0">
 														<div class="grid grid-cols-5">
 															<ul class="pt-6 even:bg-gray-150 pb-7 2xl:pb-8 2xl:pt-7 max-h-[calc(100vh-220px)] overflow-y-scroll">
 																<li class="mb-1.5">
-																	<a class="block text-sm py-1.5 text-heading font-semibold px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="/search?category=114">스마트폰</a></li>
+																	<a class="block text-sm py-1.5 text-heading font-semibold px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="goods_list2.do?category2=T1">스마트폰</a></li>
 																<li class="">
-																	<a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="/search?category=1073">삼성</a></li>
+																	<a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="goods_list3.do?category3=T101">삼성</a></li>
 																<li class="">
-																	<a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="/search?category=1074">LG</a></li>
+																	<a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="goods_list3.do?category3=T102">LG</a></li>
 																<li class="">
-																	<a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="/search?category=1074">애플</a></li>
+																	<a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="goods_list3.do?category3=T103">애플</a></li>
 																<li class="border-b border-gray-300 pb-3.5 mb-3">
-																	<a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="/search?category=1075">기타</a></li>
+																	<a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="goods_list3.do?category3=T104">기타</a></li>
 															</ul>
 															<ul class="pt-6 even:bg-gray-150 pb-7 2xl:pb-8 2xl:pt-7 max-h-[calc(100vh-220px)] overflow-y-scroll">
 																<li class="mb-1.5">
-																	<a class="block text-sm py-1.5 text-heading font-semibold px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="/search?category=117">태블릿PC</a></li>
+																	<a class="block text-sm py-1.5 text-heading font-semibold px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="goods_list2.do?category2=T2">태블릿PC</a></li>
 																<li class="">
-																	<a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="/search?category=1088">삼성</a></li>
+																	<a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="goods_list3.do?category3=T201">삼성</a></li>
 																<li class="">
-																	<a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="/search?category=1089">애플</a></li>
+																	<a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="goods_list3.do?category3=T202">애플</a></li>
 																<li class="border-b border-gray-300 pb-3.5 mb-3">
-																	<a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="/search?category=1096">기타</a></li>
+																	<a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="goods_list3.do?category3=T203">기타</a></li>
 															</ul>
 														</div>
 													</div>
 												</div>
 											</div></li>
-										<li class=""><a class="flex items-center py-2 ps-5 xl:ps-7 pe-3 xl:pe-3.5 hover:text-heading hover:bg-gray-300" href="/search?category=4">노트북 / PC</a>
+										<li class=""><a class="flex items-center py-2 ps-5 xl:ps-7 pe-3 xl:pe-3.5 hover:text-heading hover:bg-gray-300" href="goods_list1.do?category1=P">노트북 / PC</a>
 										<div class="absolute flex bg-white categoryMegaMenu shadow-header w-[630px] xl:w-[1000px] 2xl:w-[1200px] start-full" style="margin-left: 240px;">
 												<div class="flex-shrink-0">
 													<div class="absolute bg-gray-200 megaMenu shadow-header -start-28 xl:start-0">
 														<div class="grid grid-cols-5">
 															<ul class="pt-6 even:bg-gray-150 pb-7 2xl:pb-8 2xl:pt-7 max-h-[calc(100vh-220px)] overflow-y-scroll">
-																<li class="mb-1.5"><a class="block text-sm py-1.5 text-heading font-semibold px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="/search?category=124">노트북</a></li>
-																<li class=""><a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="/search?category=1111">삼성</a></li>
-																<li class=""><a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="/search?category=1112">LG</a></li>
-																<li class="border-b border-gray-300 pb-3.5 mb-3"><a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="/search?category=1114">애플</a></li>
+																<li class="mb-1.5"><a class="block text-sm py-1.5 text-heading font-semibold px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="goods_list2.do?category2=P1">노트북</a></li>
+																<li class=""><a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="goods_list3.do?category3=P101">삼성</a></li>
+																<li class=""><a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="goods_list3.do?category3=P102">LG</a></li>
+																<li class="border-b border-gray-300 pb-3.5 mb-3"><a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="goods_list3.do?category3=P103">애플</a></li>
 															</ul>
 															<ul class="pt-6 even:bg-gray-150 pb-7 2xl:pb-8 2xl:pt-7 max-h-[calc(100vh-220px)] overflow-y-scroll">
-																<li class="mb-1.5"><a class="block text-sm py-1.5 text-heading font-semibold px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="/search?category=126">모니터</a></li>
-																<li class="mb-1.5"><a class="block text-sm py-1.5 text-heading font-semibold px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="/search?category=128">데스크탑</a></li>
+																<li class="mb-1.5"><a class="block text-sm py-1.5 text-heading font-semibold px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="goods_list2.do?category2=P2">모니터</a></li>
+																<li class="mb-1.5"><a class="block text-sm py-1.5 text-heading font-semibold px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="goods_list2.do?category2=P3">데스크탑</a></li>
 															</ul>
 														</div>
 													</div>
 												</div>
 											</div></li>
-										<li class=""><a class="flex items-center py-2 ps-5 xl:ps-7 pe-3 xl:pe-3.5 hover:text-heading hover:bg-gray-300" href="/search?category=5">도서 / 문구</a>
+										<li class=""><a class="flex items-center py-2 ps-5 xl:ps-7 pe-3 xl:pe-3.5 hover:text-heading hover:bg-gray-300" href="goods_list1.do?category1=B">도서 / 문구</a>
 										<div class="absolute flex bg-white categoryMegaMenu shadow-header w-[630px] xl:w-[1000px] 2xl:w-[1200px] start-full" style="margin-left: 240px;">
 												<div class="flex-shrink-0">
 													<div class="absolute bg-gray-200 megaMenu shadow-header -start-28 xl:start-0">
 														<div class="grid grid-cols-5">
 															<ul class="pt-6 even:bg-gray-150 pb-7 2xl:pb-8 2xl:pt-7 max-h-[calc(100vh-220px)] overflow-y-scroll">
-																<li class="mb-1.5"><a class="block text-sm py-1.5 text-heading font-semibold px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="/search?category=132">학습 / 교육</a></li>
-																<li class=""><a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="/search?category=1115">학습 / 참고서</a></li>
-																<li class=""><a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="/search?category=1116">수험서 / 자격증</a></li>
-																<li class=""><a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="/search?category=1127">컴퓨터 / 인터넷</a></li>
+																<li class="mb-1.5"><a class="block text-sm py-1.5 text-heading font-semibold px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="goods_list2.do?category2=B1">학습 / 교육</a></li>
+																<li class=""><a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="goods_list3.do?category3=B101">학습 / 참고서</a></li>
+																<li class=""><a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="goods_list3.do?category3=B102">수험서 / 자격증</a></li>
+																<li class=""><a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="goods_list3.do?category3=B103">컴퓨터 / 인터넷</a></li>
 															</ul>
 															<ul class="pt-6 even:bg-gray-150 pb-7 2xl:pb-8 2xl:pt-7 max-h-[calc(100vh-220px)] overflow-y-scroll">
-																<li class="mb-1.5"><a class="block text-sm py-1.5 text-heading font-semibold px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="/search?category=134">소설 / 만화책</a></li>
-																<li class=""><a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="/search?category=1129">소설책</a></li>
-																<li class=""><a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="/search?category=1133">만화책</a></li>
-																<li class=""><a class="block text-sm py-1.5 text-heading font-semibold px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="/search?category=134">문구 / 사무용품</a></li>
+																<li class="mb-1.5"><a class="block text-sm py-1.5 text-heading font-semibold px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="goods_list2.do?category2=B2">소설 / 만화책</a></li>
+																<li class=""><a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="goods_list3.do?category3=B201">소설책</a></li>
+																<li class=""><a class="text-body text-sm block py-1.5 px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="goods_list3.do?category3=B202">만화책</a></li>
+																<li class=""><a class="block text-sm py-1.5 text-heading font-semibold px-5 xl:px-8 2xl:px-10 hover:text-heading hover:bg-gray-300" href="goods_list2.do?category2=B3">문구 / 사무용품</a></li>
 															</ul>
 														</div>
 													</div>

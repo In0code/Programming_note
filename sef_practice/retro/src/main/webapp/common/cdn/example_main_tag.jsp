@@ -236,12 +236,6 @@
 											
 											
 											
-											
-											
-											
-											
-											
-											
 											<div class="swiper-slide pt-2">
 												<div class="flex flex-col items-center justify-center">
 													<a class="ga4_main_recommend_more w-10 h-10 lg:w-12 lg:h-12 xl:w-16 xl:h-16 3xl:w-18 3xl:h-18 text-sm md:text-base lg:text-lg text-black flex items-center justify-center rounded bg-white transition duration-250 hover:bg-gray-900 hover:text-white focus:outline-none shadow-navigation rounded-full text-sm md:text-base lg:text-xl 3xl:text-2xl" href="/product/list?type=recommend"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">

@@ -14,4 +14,6 @@
 <link rel="stylesheet" href="https://web.joongna.com/_next/static/css/13bd0b4016b44d89.css" data-n-p="">
 <link rel="stylesheet" href="https://web.joongna.com/_next/static/css/18a2ca6fa781bc2f.css" data-n-p="">
 <link rel="stylesheet" href="https://web.joongna.com/_next/static/css/8ef8137d4e8264e4.css" data-n-p="">
+<link rel="stylesheet" href="https://web.joongna.com/_next/static/css/20d8240f73a371fc.css" data-n-g="">
+
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css" />

@@ -117,7 +117,7 @@ function detailEvt(ecode){
 		<!-- 상세보기 페이지로 -->
 		<form id="frmDetail" action="eventDetail.do">
 			<input type="hidden" id="no" name="no" value="4"/>
-			<input type="hidden" id="ecode" name="ecode"/>
+			<input type="hidden" id="ecode" name="eventcode"/>
 		</form>
 		
 		<!-- 테이블 -->

@@ -134,7 +134,7 @@ textarea:focus{
 <script type="text/javascript">
 
 $(function() {
-
+	/* 데이트피커 */
 	$(".dateCss").datepicker({ //JSON 형태 -> 이름:값, 이름:값,,,
 		  dateFormat: 'yy-mm-dd',
 		  prevText: '이전 달',
@@ -152,10 +152,12 @@ $(function() {
 	      buttonText: "Select date"
 	});
 	
+	/* 로그아웃 */
 	$("#btnLogout").click(function() {
 		location.href="logout.jsp";
 	});
 	
+	/* 저장 */
 	$("#saveBtn").click(function(){
 		var subImg = $("#subImg").val();
 		var mainImg = $("#mainImg").val();
@@ -189,11 +191,11 @@ $(function() {
 			},
 			success : function(jsonObj) {
 				if(jsonObj.uploadFlag){
-					if(jsonObj.insertFlag){
+					if(jsonObj.resultFlag){
 						alert("이벤트가 등록되었습니다.");
 						location.href="http://localhost/retro_prj/admin/event.do";
 					}else {
-						alert("문제가 발생하였습니다.");
+						alert("서버에 문제가 발생하였습니다. 잠시후 다시 시도해주세요.");
 					}
 				}else{
 					if(jsonObj.overFileimg != null && jsonObj.overFileimg2 != null){
@@ -213,6 +215,7 @@ $(function() {
 		});
 	});
 	
+	/* 파일 값이 바뀌면 파일명을 보여주는 input 값이 바뀜 */
 	$("#mainImg").on('change',function(){
 		  var fileName = $("#mainImg").val();
 		  fileName = fileName.substring(fileName.lastIndexOf("\\")+1);
@@ -224,11 +227,12 @@ $(function() {
 		  fileName = fileName.substring(fileName.lastIndexOf("\\")+1);
 		  $("#thumSrc").val(fileName);
 	});
+	/* ------------------------------------ */
 	
-	/* 본문 */
+	/* 이미지 미리보기 */
 	$("#mainImg").change(function(event) {
 		if($("#mainImg").val() == ""){
-			alert("이미지를 선택해주세요.");
+			$("#thumbMain").attr("src","");
 			return;
 		}
         
@@ -242,10 +246,9 @@ $(function() {
 	    reader.readAsDataURL(file);
 	});
 
-	/* 썸네일 */
 	$("#subImg").change(function(event) {
 		if($("#subImg").val() == ""){
-			alert("이미지를 선택해주세요.");
+			$("#thumbSub").attr("src","");
 			return;
 		}
         
@@ -258,7 +261,7 @@ $(function() {
 
 	    reader.readAsDataURL(file);
 	});
-	
+	/* ------------------------------------ */
 
 });
 </script>
@@ -290,37 +293,38 @@ $(function() {
 		<div id="background_box" style="height:140%">
 				<div style="margin: 0 10px 0px 10px;">
 				
-				<form id="evtForm" action="eventAddProcess.do" method="POST" enctype="multipart/form-data">
+				<form id="evtForm" action="eventAddProcess.do" method="POST">
 				<input type="hidden" name="no" value="4"/>
+				<input type="hidden" name="id" value="${ sessionScope.id }"/>
 				<table class="table tableList" style="height: auto;">
 				<tr>
 					<th class="top_title">기간</th>
 					<td colspan="2">
-					<input type="text" id="startDate" name="start_date" class="dateCss borderCss" autocomplete="off">
+					<input type="text" id="startDate" name="start_date" class="dateCss borderCss" placeholder="시작 날짜" autocomplete="off">
 				 	~
-					<input type="text" id="endDate" name="end_date" class="dateCss borderCss" autocomplete="off">
+					<input type="text" id="endDate" name="end_date" class="dateCss borderCss" placeholder="종료 날짜" autocomplete="off">
 					</td>
 				</tr>
 				<tr>
 					<th class="top_title">제목</th>
-					<td colspan="2"><input type="text" id="evtTitle" name="title" class="borderCss" style="width:100%;"></td>
+					<td colspan="2"><input type="text" id="evtTitle" name="title" class="borderCss" style="width:100%;" placeholder="제목"></td>
 				</tr>
 				<tr>
 					<th class="top_title">내용</th>
 					<td colspan="2">
-						<textarea style="width:100%; height:100px; margin: 7px 0px 5px 0px; resize: none;" class="borderCss" name="context"></textarea>
+						<textarea style="width:100%; height:100px; margin: 7px 0px 5px 0px; resize: none;" class="borderCss" name="context" placeholder="내용(선택)"></textarea>
 					</td>
 				</tr>
 				<tr>
 					<th class="top_title">이미지 첨부</th>
 					<td colspan="2">
 					<div class="filebox">
-					    	<input class="upload-name" placeholder="썸네일" readonly="readonly" id="thumSrc">
+					    	<input class="upload-name" placeholder="썸네일" readonly="readonly" id="thumSrc" name="thumSrc">
     						<label for="subImg">파일찾기</label> 
     						<input type="file" id="subImg" name="img2">
 					</div>
 					<div class="filebox">
-    						<input class="upload-name" placeholder="본문 이미지" readonly="readonly" id="mainSrc">
+    						<input class="upload-name" placeholder="메인 이미지" readonly="readonly" id="mainSrc" name="mainSrc">
     						<label for="mainImg">파일찾기</label> 
     						<input type="file" id="mainImg" name="img">
 					</div>
@@ -335,7 +339,7 @@ $(function() {
 						</div>
 					</td>
 					<td style="border-bottom: none; padding:15px 10px 0px 10px; height: 299px; width: 629.8px">
-						<span>본문 이미지</span>
+						<span>메인 이미지</span>
 						<div class="imgDiv" style="padding:10px">
 							<img src="" id="thumbMain" class="imgThum"/>
 						</div>

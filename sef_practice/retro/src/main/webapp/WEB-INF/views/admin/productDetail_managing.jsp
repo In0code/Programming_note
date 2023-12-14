@@ -121,15 +121,20 @@ a {
 				value="로그아웃" style="margin-right: 20px">
 		</div>
 		<div id="rightBody" style="height: 895px">
-			<div class="text" id="mainTitle"
-				style="margin-left: 40px; font-family: Pretendard Medium">
-				<strong><a href="product_managing.do"
-					style="color: #333; text-decoration: none;">&lt; 상품 리스트</a></strong>
-			</div>
+		<div class="pageLocation">
+		홈 
+		<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+ 		<path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+		</svg>
+		상품 리스트
+		</div>
+		
+		<div class="text" id="mainTitle">
+			<strong>상품 리스트</strong>
+		</div>
 			<form action="" id="frm" name="frm" method="post" style="left: 30px">
 				<input type="hidden" id="gcode" name="gcode" value="">
-				<div id="background_box"
-					style="width: 1200px; height: 700px; font-family: pretendard; position: relative; top: 55px">
+				<div id="background_box">
 					<label
 						style="position: absolute; top: 10px; left: 30px; font-size: 20px; color: #929492">상품
 						상세 정보</label>
