@@ -52,7 +52,7 @@ body {
 <script type="text/javascript">
 $(function() {
 	  $("#loginBtn").click(function(){
-		  alert("버튼");
+		 
 		   checkNull(); 
 		   /* $("#frm").submit(); */
 	   })//click
@@ -71,7 +71,7 @@ $(function() {
 
 	   
 	    function checkNull(){
-	    	alert("check");
+	    
 	    	var id=$("#id").val();
 	    	var pass=$("#pw").val();
 

@@ -8,10 +8,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<c:import url="http://localhost/retro_prj/common/cdn/cdn.jsp" />
 <link rel="icon" href="http://192.168.0.70/jsp_prj/common/main/favicon-32x32.png">
 <!-- jQuery CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<!-- 상품목록css -->
+<link rel="preload" href="https://web.joongna.com/_next/static/css/d08446f8760abfc6.css" as="style"/>
+<link rel="stylesheet" href="https://web.joongna.com/_next/static/css/d08446f8760abfc6.css" data-n-g=""/>
+<link rel="preload" href="https://web.joongna.com/_next/static/css/a4ef56fda630c4e5.css" as="style"/>
+<link rel="stylesheet" href="https://web.joongna.com/_next/static/css/a4ef56fda630c4e5.css" data-n-p=""/>
+<link rel="preload" href="https://web.joongna.com/_next/static/css/e3048584c00a0406.css" as="style"/>
+<link rel="stylesheet" href="https://web.joongna.com/_next/static/css/e3048584c00a0406.css"/>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css" />
 <style type="text/css">
 </style>
 <script type="text/javascript">
@@ -170,6 +177,7 @@
 		
 	</c:choose>
 		</ul>
+		
 			<div class="bottom-0 py-3 m-auto text-center bg-white">
 				<ul class="flex justify-center space-x-2 space-x-reverse">
 					<li class="w-4 mr-2"><a class="items-center hidden h-full"
@@ -182,14 +190,14 @@
 				<c:forEach var="i" begin="1" end="${pageVO.totalPageNo}" step="1">     
 				
 					<li class="w-10 h-10 rounded-md shrink-0 bg-jngreen/80 text-white">
-					 <a class="block leading-10" href="goods_list1.do?category1=${pageVO.category}&amp;pageNo=${i}">${i}</a>
+					 <a class="block leading-10" href="goods_search_by_text.do?searchText=${pageVO.searchText}&amp;pageNo=${i}">${i}</a>
 					</li>
 					
 				</c:forEach>
 					
-					<li class="w-4 mr-2"><a class="items-center h-full flex"
-						href="/search?category=1050&amp;page=2"><svg
-								stroke="currentColor" fill="currentColor" stroke-width="0"
+					<li class="w-4 mr-2">
+					<a class="items-center h-full flex" href="/search?category=1050&amp;page=2">
+					<svg stroke="currentColor" fill="currentColor" stroke-width="0"
 								viewBox="0 0 24 24" height="1em" width="1em"
 								xmlns="http://www.w3.org/2000/svg">
 								<path d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z"></path></svg></a></li>

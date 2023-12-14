@@ -11,6 +11,8 @@
 	href="http://192.168.0.70/jsp_prj/common/main/favicon-32x32.png">
 <!-- jQuery CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<!-- Tailwind CSS CDN 추가 -->
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 <!-- 판매자정보css -->
 <link rel="preload" href="https://web.joongna.com/_next/static/css/d08446f8760abfc6.css" as="style"/>
 <link rel="stylesheet" href="https://web.joongna.com/_next/static/css/d08446f8760abfc6.css" data-n-g=""/>
@@ -22,11 +24,8 @@
 <style type="text/css">
 </style>
 <script type="text/javascript">
-	$(function() {
 
-	});//ready
 </script>
-
 </head>
 <body>
 <jsp:include page="/common/cdn/header.jsp"/>
@@ -90,30 +89,19 @@
 				<div class="flex flex-wrap items-center justify-between">
 					<div class="mr-0 lg:mr-4">
 						<ul class="colors flex flex-nowrap -me-3">
-							<li
-								class="shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black border-black">전체</li>
-							<li
-								class="shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black">판매중</li>
-							<li
-								class="shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black">판매완료</li>
+							<li id="allButton"
+		                    class="shrink-0 cursor-pointer rounded-full border border-gray-100 p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black">
+		                    전체</li>
+		                	<li id="sellingButton"
+		                    class="shrink-0 cursor-pointer rounded-full border border-gray-100 p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black">
+		                    판매중</li>
+		                	<li id="soldButton"
+		                    class="shrink-0 cursor-pointer rounded-full border border-gray-100 p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black">
+		                   	판매완료
+		                   	</li>
 						</ul>
 					</div>
-					<div class="relative my-2 sm:m-0 lg:ms-0 z-10 min-w-[160px]">
-						<button
-							class="border border-gray-300 text-heading text-xs md:text-sm font-semibold relative w-full py-2 ps-3 pe-10 text-start bg-white rounded-lg shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm cursor-pointer"
-							id="headlessui-listbox-button-:R6kqjglf6:" type="button"
-							aria-haspopup="listbox" aria-expanded="false"
-							data-headlessui-state="">
-							<span class="block truncate">최신순</span><span
-								class="absolute inset-y-0 end-0 flex items-center pe-2 pointer-events-none"><svg
-									stroke="currentColor" fill="none" stroke-width="0"
-									viewBox="0 0 24 24" class="w-5 h-5 text-gray-400"
-									aria-hidden="true" height="1em" width="1em"
-									xmlns="http://www.w3.org/2000/svg">
-									<path stroke-linecap="round" stroke-linejoin="round"
-										stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path></svg></span>
-						</button>
-					</div>
+					
 				</div>
 			</div>
 			<div

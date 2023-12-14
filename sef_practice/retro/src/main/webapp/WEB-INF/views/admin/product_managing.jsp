@@ -54,7 +54,7 @@ $(function() {
 		location.href="logout.jsp";
 	});//click
 	
-	$(".searchBtn").click(function() {
+	/* $(".searchBtn").click(function() {
 		chkNull();
 	});//click
 	
@@ -62,7 +62,12 @@ $(function() {
 		if(evt.which == 13){
 			chkNull();
 		}//end if
-	});//keyup
+	});//keyup */
+	
+	$("#allList").click(function(){
+		location.href="product_managing.jsp";
+	});
+	
 });//ready
 
 function boardDetail(pcode){
@@ -97,7 +102,9 @@ function chkNull() {
 		<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
  		<path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
 		</svg>
-		상품 리스트
+		<a href="product_managing.do">
+		상품 관리
+		</a>
 		</div>
 		
 		<div class="text" id="mainTitle">
@@ -109,8 +116,8 @@ function chkNull() {
 		<div class="allBox">
 		<form id="frmSearch">
 			<select class="searchList" id="field" name="field">
-				<option value="1"${ param.field eq "1" ? " selected='selected'" : "" }>닉네임</option>
-				<option value="2"${ param.field eq "2" ? " selected='selected'" : "" }>카테고리명</option>
+				<option value="category"${ param.field eq "category" ? " selected='selected'" : "" }>카테고리명</option>
+				<option value="id"${ param.field eq "id" ? " selected='selected'" : "" }>아이디</option>
 			</select>
 			<span class="textBox" style="vertical-align: middle">
 			<input type="text" id="keyword" name="keyword" class="keywordBox" placeholder="내용을 입력해주세요"
@@ -140,7 +147,7 @@ function chkNull() {
 				<tr id="top_title">
 					<!-- 컬럼 사이즈 -->
 					<th style="width:100px; border-bottom: 1px solid #E5E5E5;">No</th>
-					<th style="width:200px; border-bottom: 1px solid #E5E5E5;">닉네임</th>
+					<th style="width:200px; border-bottom: 1px solid #E5E5E5;">아이디 ( 닉네임 )</th>
 					<th style="width:200px; border-bottom: 1px solid #E5E5E5;">카테고리</th>
 					<th style="width:200px; border-bottom: 1px solid #E5E5E5;">상품명</th>
 					<th style="width:200px; border-bottom: 1px solid #E5E5E5;">상품가격</th>
@@ -160,7 +167,7 @@ function chkNull() {
 					 <c:forEach var="product" items="${ productList }" varStatus="i">
 					<tr onclick="boardDetail('${ product.pcode }')" style="cursor: pointer;">
 						<td>${ 1 + i.index }</td> 
-						<td>${ product.nickname }</td>
+						<td><c:out value="${ product.id } ( ${ product.nickname } )"/></td>
 						<td>${ product.category }</td>
 						<td>${ product.pname }</td>
 						<td><fmt:formatNumber pattern="#,###,###" value="${ product.price }"/></td>
@@ -181,9 +188,13 @@ function chkNull() {
         	<a href="#">></a>
     	</div>
     	</div>
-    	<div class="btnDiv">
-			<input type="button" class="btnCss" value="목록">	
-		</div>
+    	<c:if test="${ not empty param.keyword }">
+	    	<div class="btnDiv">
+				<a href="product_managing.do">
+				<input type="button" class="btnCss" value="목록" id="allList">	
+		</a>
+			</div>
+    	</c:if>
 	</div>	
 </div>
 </body>

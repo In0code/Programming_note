@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page info=""%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,7 +61,8 @@
 	border-radius: 10px;
 	z-index: 1001; /* 모달을 모달 배경 위에 표시 */
 }
-#saleOkStyle{
+
+#saleOkStyle {
 	display: none;
 }
 </style>
@@ -78,13 +80,35 @@
 		$("#sendComment").click(function() {
 			location.href = "../review/user_sales_review.do";
 		});
-		
-		var salesStatus = localStorage.getItem('saleStatus');
-		
-		if(salesStatus === 'completed'){
-			$("#saleOkStyle").attr('class',"absolute top-0 left-0 bg-black/[0.5] w-full h-full z-[1] rounded-lg");
+
+
+		  $("#saleOk").click(function() {
+		        var pcode = "${ userProduct.pcode }";
+		        var confirmSaleOk= confirm("판매 완료 처리 하겠습니까?");
+		        
+		        if (confirmSaleOk) {
+		        	prductSaleOk(pcode);
+		        }//end if
+		    });//click	
+		    
+
+		    $("#deleteBtn").click(function() {
+		        var pcode = "${ userProduct.pcode }";
+		        var confirmDelete = confirm("정말로 삭제하시겠습니까?");
+		        
+		        if (confirmDelete) {
+		        	deleteProduct(pcode);
+		        }//end if
+		    });//click
+		    
+		  var saleOkChk="${ userProduct.saleok }"
+		  if(saleOkChk){
+			$("#saleOkStyle").attr('class',
+					"absolute top-0 left-0 bg-black/[0.5] w-full h-full z-[1] rounded-lg");
 			$("#saleOkStyle").show();
-		}//end if
+				
+			}//end if
+		    
 	});//ready
 
 	/* '상태변경'버튼 클릭 시 모달 나오게 동작 */
@@ -136,19 +160,40 @@
 		}
 		modalBg3.style.display = 'none';
 	}//closeDelModal
-	
+
 	/* 상태 변경에서 상품 판매 완료 처리를 하면 상품 판매 처리가 됨 */
-	function saleOk(){
-		 if (confirm("판매 완료 처리 하시겠습니까?")) {
-		        $("#saleOkStyle").attr('class', "absolute top-0 left-0 bg-black/[0.5] w-full h-full z-[1] rounded-lg");
-		        $("#saleOkStyle").show();
+	function prductSaleOk(pcode) {
 
-		        // 저장된 상태를 localStorage에 저장
-		        localStorage.setItem('saleStatus', 'completed');
-
-		        location.reload();
-		    }//end if
-		}//saleOk
+		$.ajax({
+			url:"productSaleEdit.do",
+			type:"get",
+			data:"pcode="+pcode,
+			dataType:"JSON",
+			error:function(xhr){
+				 alert("죄송합니다. 서버에 문제가 발생하였습니다. 잠시 후에 다시 시도해주세요.");
+				 console.log(xhr.status);
+			},
+			success:function(jsonObj){
+				location.reload();
+			}//success
+		});//ajax
+	}//prductSaleOk
+	
+	function deleteProduct(pcode){
+		$.ajax({
+			url:"productDelete.do",
+			type:"get",
+			data:"pcode="+pcode,
+			dataType:"JSON",
+			error:function(xhr){
+				 alert("죄송합니다. 서버에 문제가 발생하였습니다. 잠시 후에 다시 시도해주세요.");
+				 console.log(xhr.status);
+			},
+			success:function(jsonObj){
+				location.reload();
+			}//success
+		});//ajax
+}//deleteProduct
 </script>
 
 </head>
@@ -174,19 +219,19 @@
 								<div
 									class="col-span-1 transition duration-150 ease-in hover:opacity-90 w-full relative pt-[100%]">
 									<img alt="그림그려드리빈다용--0" referrerpolicy="no-referrer"
-										src="https://img2.joongna.com/media/original/2023/12/08/1702016714426c5M_cm9g2.png?impolicy=resizeWatermark3&amp;ftext=zxxxdsdd"
+										src="http://localhost/retro_prj/upload/${ userProduct.img }"
 										decoding="async" data-nimg="fill"
 										class="object-cover w-full h-full rounded-lg top-1/2 left-1/2"
 										loading="lazy"
 										style="position: absolute; height: 95%; width: 95%; inset: 0px; color: transparent;">
-									<div id="saleOkStyle"
-										>
-										<div 
-											class="flex justify-center items-center text-2xl text-white font-bold w-full h-full flex-col" >
+									<div id="saleOkStyle" style="display: none;">
+										<div
+											class="flex justify-center items-center text-2xl text-white font-bold w-full h-full flex-col">
 											<img alt="판매완료"
 												src="http://localhost/retro_prj/common/images/icons/check-circle-white.svg"
 												width="80" height="80" decoding="async" data-nimg="1"
-												class="m-4" loading="lazy" style="color: transparent;">판매완료
+												class="m-4" loading="lazy"
+												style="color: transparent;">판매완료
 										</div>
 									</div>
 								</div>
@@ -239,7 +284,7 @@
 					<div class="pb-5 border-b border-gray-300">
 						<h1
 							class="flex justify-between mb-1 text-lg font-bold align-middle text-heading lg:text-xl 2xl:text-2xl hover:text-black">
-							홍대 미대가 그려주는 그림
+							${ userProduct.pname }
 							<button type="button" aria-label="공유하기" class="ml-2 text-lg">
 								<svg stroke="currentColor" fill="currentColor" stroke-width="0"
 									viewBox="0 0 24 24" height="1em" width="1em"
@@ -252,7 +297,9 @@
 						</h1>
 						<div class="flex items-center justify-between">
 							<div
-								class="text-jnGreen font-bold text-[40px] pe-2 md:pe-0 lg:pe-2 2xl:pe-0 mr-2">무료나눔</div>
+								class="text-heading font-bold text-[40px] pe-2 md:pe-0 lg:pe-2 2xl:pe-0 mr-2">
+								<fmt:formatNumber pattern="##,###,###" value="${ userProduct.price }"/><span class="text-base">원</span>
+							</div>
 						</div>
 					</div>
 					<div class="py-4 border-b border-gray-300 space-s-4">
@@ -272,12 +319,29 @@
 							<div class="flex justify-between">
 								<div class="flex-1 basis-[33.33%] pe-4 border-r border-gray-300">
 									<span>배송비</span><span
-										class="block mt-2 text-lg font-semibold text-heading">배송비
-										별도</span>
+										class="block mt-2 text-lg font-semibold text-heading">
+										<c:choose>
+											<c:when test="${ userProduct.deliver eq 'Y' }">
+												배송비 포함
+											</c:when>
+											<c:when test="${ userProduct.deliver eq 'N' }">
+												배송비 별도
+											</c:when>
+										</c:choose>
+									</span>
 								</div>
 								<div class="flex-1 basis-[33.33%] ps-4">
 									<span>제품 상태</span><span
-										class="block mt-2 text-lg font-semibold text-heading">중고</span>
+										class="block mt-2 text-lg font-semibold text-heading">
+										<c:choose>
+											<c:when test="${ userProduct.status eq 'J' }">
+												중고
+											</c:when>
+											<c:when test="${ userProduct.status eq 'S' }">
+												새상품
+											</c:when>
+										</c:choose>
+									</span>
 								</div>
 							</div>
 						</div>
@@ -313,7 +377,7 @@
 								</button></li>
 							<!-- '상품 삭제' 버튼 -->
 							<li><button class="flex flex-col items-center"
-									onclick="openDelModal()">
+									id="deleteBtn">
 									<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
 										xmlns="http://www.w3.org/2000/svg">
 										<path d="M3 6H5H21" stroke="#141313" stroke-width="1.5"
@@ -372,7 +436,7 @@
 					</div>
 					<article>
 						<p
-							class="px-4 py-10 break-words break-all whitespace-pre-line lg:py-2">무료입니당ㅎㅎㅎㅎㅎ</p>
+							class="px-4 py-10 break-words break-all whitespace-pre-line lg:py-2">${ userProduct.context }</p>
 					</article>
 				</div>
 				<div name="product-store"
@@ -380,7 +444,7 @@
 					<div class="flex">
 						<div class="flex w-full flex-col justify-around lg:ml-4">
 							<a class="font-semibold text-base text-jnblack"
-								href="/store/1424385">zxxxdsdd</a><span
+								href="/store/1424385"><%-- ${ userProduct. } --%></a><span
 								class="font-medium text-sm flex text-jnGray-500">판매상품 1 ·
 								안전거래 0 · 후기 0</span>
 						</div>
@@ -422,9 +486,8 @@
 									class="py-[14px] [&amp;>button]:w-full [&amp;>button]:text-left"
 									onclick="openCompleteModal()"><button>택배거래 완료</button></li>
 								<li
-									class="py-[14px] [&amp;>button]:w-full [&amp;>button]:text-left"
-									onclick="saleOk()"><button>다른 곳을 통해 판매
-										완료</button></li>
+									class="py-[14px] [&amp;>button]:w-full [&amp;>button]:text-left" id="saleOk"
+									><button>다른 곳을 통해 판매 완료</button></li>
 							</ul>
 						</div>
 					</div>
@@ -456,31 +519,7 @@
 				</div>
 			</div>
 		</div>
-		
-		<div id="delModalBg" class="delModal-bg" onclick="closeDelModal()">
-			<!-- 모달 -->
-			<div id="delModal" class="delModal">
-				<div
-					class="flex flex-col justify-between bg-white p-5 min-h-[220px] min-[480px]:min-w-[400px]">
-					<div tabindex="0"
-						class="md:text-lg font-normal text-black text-center overflow-auto flex-auto flex justify-center flex-col outline-none mb-3 items-center">
-						<div
-							class="flex flex-col items-center justify-center px-5 pb-5 pt-7">
-							<p class="text-base font-medium text-left text-jnGray-700 mb-1">상품을
-								삭제하시겠습니까?</p>
-							<p class="text-base font-medium text-left text-jnGray-700">삭제된
-								상품은 복구되지 않습니다.</p>
-						</div>
-					</div>
-					<div class="flex space-x-2 w-full shrink-0 text text-base h-[52px]">
-						<button data-variant="flat" id="delCancel"
-							class="md:text-sm inline-flex items-center cursor-pointer transition ease-in-out duration-300 font-semibold font-body text-center justify-center placeholder-white focus-visible:outline-none focus:outline-none rounded-md px-5 md:px-6 lg:px-8 py-4 md:py-3.5 lg:py-4 hover:shadow-cart bg-white border-gray-400 border flex-grow text-[16px] text-black focus-visible:ring hover:bg-white hover:text-black">취소</button>
-						<button data-variant="flat"
-							class="md:text-sm inline-flex items-center cursor-pointer transition ease-in-out duration-300 font-semibold font-body text-center justify-center border-0 border-transparent placeholder-white focus-visible:outline-none focus:outline-none rounded-md text-white px-5 md:px-6 lg:px-8 py-4 md:py-3.5 lg:py-4 hover:text-white hover:shadow-cart bg-jnblack hover:bg-jnblack/90 active:bg-jnblack/90 flex-grow text-[16px] focus-visible:ring">확인</button>
-					</div>
-				</div>
-			</div>
-		</div>
+
 
 		<!-- '상태변경' 버튼 클릭 후 '판매완료' 클릭 시 나오는 모달  -->
 		<!-- 거래 상대 선택 및 판매 후기 작성 모달 -->

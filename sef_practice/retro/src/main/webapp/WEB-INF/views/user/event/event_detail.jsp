@@ -28,47 +28,28 @@
 			<div class="relative">
 				<div class="flex">
 					<!-- 이벤트 제목 -->
-					<p class="text-center flex-[1_0_auto] py-4" style="font-size:18px">CU 알뜰택배 무료배송</p>
+					<p class="text-center flex-[1_0_auto] py-4" style="font-size:20px;">
+						${ event.title }
+					</p>
 				</div>
 					<!-- 이벤트 기간 -->
-					<p style="text-align: right; margin-bottom:10px; color:#ABABAB">
-					2023-12-01 ~ 2023-12-31
+					<p style="text-align: right; margin-bottom:13px; color:#ABABAB">
+						${ event.start_date } ~ ${ event.end_date }
 					</p>
-				<div
-					class="[&amp;>img]:w-full [&amp;>img]:h-auto bg-transparent w-full [&amp;>p]:mb-0"
-					id="eventContent">
+				<div class="[&amp;>img]:w-full [&amp;>img]:h-auto bg-transparent w-full [&amp;>p]:mb-0" id="eventContent">
 					<p style="font-size: 0;">
-						<img
-							src="https://img2.joongna.com/media/original/2023/11/30/1701356158596.png"
-							alt="" width="850" height="2372">
+						<img src="http://localhost/retro_prj/upload/${ event.img }" alt="" width="850">
 					</p>
-					<p style="font-size: 0;">
-						<a href="jnapps3://?eventseq=1041"><img
-							src="https://img2.joongna.com/media/original/2023/08/17/1692261244552.png"
-							alt="" width="850" height="177"></a>
+					<p style="margin: 10px 0px 5px 0px; font-size:18px; text-align: center">
+						${ event.context }
 					</p>
-					<p style="font-size: 0;">
-						<a href="jnapps3://?eventseq=1041"><img
-							src="https://img2.joongna.com/media/original/2023/11/07/1699324137447.png"
-							alt="" width="850" height="2976"></a>
-					</p>
-					<p style="font-size: 0;">&nbsp;</p>
-					<p style="font-size: 0;">&nbsp;</p>
-					<p style="font-size: 0;">&nbsp;</p>
-					<p style="font-size: 0;">&nbsp;</p>
-					<p style="font-size: 0;">&nbsp;</p>
-					<p style="font-size: 0;">&nbsp;</p>
-					<p style="font-size: 0;">&nbsp;</p>
-					<p style="font-size: 0;">&nbsp;</p>
-					<p style="font-size: 0;">&nbsp;</p>
-					<p style="font-size: 0;">&nbsp;</p>
 				</div>
 			</div>
 			<div></div>
 			<div data-v-7a3bdf55="" class="detail_btn_box">
-				<a data-v-0a6aebaa="" data-v-7a3bdf55="" href="../event.do" style="margin-bottom:100px" 
+				<a data-v-0a6aebaa="" data-v-7a3bdf55="" href="javascript:history.back()" style="margin-bottom:100px" 
 				class="btn btn_view_list outlinegrey medium"> 
-				목록보기 
+				목록
 				</a>
 			</div>
 		</div>

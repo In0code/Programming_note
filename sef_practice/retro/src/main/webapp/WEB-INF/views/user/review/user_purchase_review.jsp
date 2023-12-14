@@ -47,6 +47,11 @@ textarea:focus {
 		    $("path", "#goodBtn, #sosoBtn").attr('fill', 'white');
 		    $("#bestCmt").attr('style','color:black');
 		    $("#sosoCmt, #goodCmt").attr('style','color:#9CA3AF');
+		    
+		    $("#statusP").html("상품 상태가 좋아요.");
+		    $("#kindP").html("친절/매너가 좋아요.");
+		    $("#timeP").html("거래 시간을 잘 지켜요.");
+		    $("#speedP").html("응답이 빨라요.");
 		});
 
 		/* '좋아요'버튼 누르면 동작 */
@@ -60,6 +65,11 @@ textarea:focus {
 		    $("path", "#bestBtn, #sosoBtn").attr('fill', 'white');
 		    $("#goodCmt").attr('style','color:black');
 		    $("#sosoCmt, #bestCmt").attr('style','color:#9CA3AF');
+		    
+		    $("#statusP").html("상품 상태가 좋아요.");
+		    $("#kindP").html("친절/매너가 좋아요.");
+		    $("#timeP").html("거래 시간을 잘 지켜요.");
+		    $("#speedP").html("응답이 빨라요.");
 		});//click
 
 		/* '아쉬워요'버튼 누르면 동작 */
@@ -73,6 +83,11 @@ textarea:focus {
 		    $("path", "#bestBtn, #goodBtn").attr('fill', 'white');
 		    $("#sosoCmt").attr('style','color:black');
 		    $("#goodCmt, #bestCmt").attr('style','color:#9CA3AF');
+		    
+		    $("#statusP").html("상품 상태가 아쉬워요.");
+		    $("#kindP").html("친절/매너가 아쉬워요.");
+		    $("#timeP").html("거래 시간을 안 지켜요.");
+		    $("#speedP").html("응답이 느려요.");
 		});//click
 		
 		/* '친절/매너가 좋아요' 체크박스 누르면 동작 */
@@ -93,6 +108,7 @@ textarea:focus {
 			    }//end else
 		});//click
 
+		/* 상품 상태가 좋아요 */
 		$("#comfortFeedback").click(function(){
 			if ($(this).find("path").attr('fill') === '#0DCC5A') {
 		        $(this).find("path").attr('fill', '#C2C6CE');
@@ -100,6 +116,15 @@ textarea:focus {
 		        $(this).find("path").attr('fill', '#0DCC5A');
 		    }//end else
 		});//click
+		
+		/* 거래 시간을 잘 지켜요 */
+		$("#timeFeedback").click(function() {
+			if ($(this).find("path").attr('fill') === '#0DCC5A') {
+		        $(this).find("path").attr('fill', '#C2C6CE');
+		    } else {
+		        $(this).find("path").attr('fill', '#0DCC5A');
+		    }//end else
+		});
 		
 	});//ready
 	
@@ -261,7 +286,7 @@ textarea:focus {
 										<path fill-rule="evenodd" clip-rule="evenodd"
 											d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12ZM16.5303 9.53033C16.8232 9.23744 16.8232 8.76256 16.5303 8.46967C16.2374 8.17678 15.7626 8.17678 15.4697 8.46967L10.5 13.4393L8.53033 11.4697C8.23744 11.1768 7.76256 11.1768 7.46967 11.4697C7.17678 11.7626 7.17678 12.2374 7.46967 12.5303L9.96967 15.0303C10.2626 15.3232 10.7374 15.3232 11.0303 15.0303L16.5303 9.53033Z"
 											fill="#C2C6CE"></path></svg>
-									<p>친절/매너가 좋아요.</p>
+									<p id="kindP">친절/매너가 좋아요.</p>
 							</label>
 							</li>
 							
@@ -273,7 +298,7 @@ textarea:focus {
 										<path fill-rule="evenodd" clip-rule="evenodd"
 											d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12ZM16.5303 9.53033C16.8232 9.23744 16.8232 8.76256 16.5303 8.46967C16.2374 8.17678 15.7626 8.17678 15.4697 8.46967L10.5 13.4393L8.53033 11.4697C8.23744 11.1768 7.76256 11.1768 7.46967 11.4697C7.17678 11.7626 7.17678 12.2374 7.46967 12.5303L9.96967 15.0303C10.2626 15.3232 10.7374 15.3232 11.0303 15.0303L16.5303 9.53033Z"
 											fill="#C2C6CE"></path></svg>
-									<p>응답이 빨라요.</p>
+									<p id="speedP">응답이 빨라요.</p>
 							</label>
 							</li>
 							
@@ -285,7 +310,19 @@ textarea:focus {
 										<path fill-rule="evenodd" clip-rule="evenodd"
 											d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12ZM16.5303 9.53033C16.8232 9.23744 16.8232 8.76256 16.5303 8.46967C16.2374 8.17678 15.7626 8.17678 15.4697 8.46967L10.5 13.4393L8.53033 11.4697C8.23744 11.1768 7.76256 11.1768 7.46967 11.4697C7.17678 11.7626 7.17678 12.2374 7.46967 12.5303L9.96967 15.0303C10.2626 15.3232 10.7374 15.3232 11.0303 15.0303L16.5303 9.53033Z"
 											fill="#C2C6CE"></path></svg>
-									<p>상품상태가 좋아요.</p>
+									<p id="statusP">상품 상태가 좋아요.</p>
+							</label>
+							</li>
+
+							<li>
+							<label for="descriptionMatchFeedback" id="timeFeedback" onclick="comment2('checkTime')">
+							<input type="checkbox" id="checkTime" name="review_item" value="4">
+								<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+										xmlns="http://www.w3.org/2000/svg" class="css-1t3in5p">
+										<path fill-rule="evenodd" clip-rule="evenodd"
+											d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12ZM16.5303 9.53033C16.8232 9.23744 16.8232 8.76256 16.5303 8.46967C16.2374 8.17678 15.7626 8.17678 15.4697 8.46967L10.5 13.4393L8.53033 11.4697C8.23744 11.1768 7.76256 11.1768 7.46967 11.4697C7.17678 11.7626 7.17678 12.2374 7.46967 12.5303L9.96967 15.0303C10.2626 15.3232 10.7374 15.3232 11.0303 15.0303L16.5303 9.53033Z"
+											fill="#C2C6CE"></path></svg>
+									<p id="timeP">거래 시간을 잘 지켜요.</p>
 							</label>
 							</li>
 						</ul>

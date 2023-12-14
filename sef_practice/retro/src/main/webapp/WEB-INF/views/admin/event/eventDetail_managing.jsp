@@ -111,10 +111,19 @@ body{
     color: #fff;
     vertical-align: middle;
     background-color: #333;
+    border: 1px solid #BEBEBE;
     cursor: pointer;
     height: 40px;
     margin: 3px 0px 0px 10px;
 }
+
+.filebox label:hover {
+	background-color: white;
+	color: #333;
+	font-weight: 600;
+  	transition: background-color 0.3s ease, color 0.3s ease, font-weight 0.3s ease;
+}
+
 
 .upload-name:focus {
 	outline:none;
@@ -122,6 +131,12 @@ body{
 
 textarea:focus{
 	outline:none;
+}
+
+#userPage {
+	float: left;
+	font-size: 17px;
+	font-weight: 600;
 }
 
 </style>
@@ -161,7 +176,7 @@ $(function() {
 	
 	/* 삭제 */
 	$("#delBtn").click(function() {
-		if(confirm("삭제 하시겠습니까??")){
+		if(confirm("삭제 하시겠습니까?")){
 			$.ajax({
 				url : "eventDeleteProcess.do",
 				type : "post",
@@ -186,68 +201,75 @@ $(function() {
 	
 	/* 저장 */
 	$("#saveBtn").click(function(){
-		var subImg = $("#thumSrc").val();
-		var mainImg = $("#mainSrc").val();
+		if(chkValue()){
+			//1.폼 얻기
+			var frm = $("#evtForm")[0];
 		
-		if(subImg == ""){
-			alert("썸네일 이미지를 선택해주세요.");
-			return;
-		}
+			//2.ajax로 전송할 폼 객체 생성
+			var formData = new FormData(frm);
 		
-		if(mainImg == ""){
-			alert("메인 이미지를 선택해주세요.");
-			return;
-		}
-		
-		//1.폼 얻기
-		var frm = $("#evtForm")[0];
-		
-		//2.ajax로 전송할 폼 객체 생성
-		var formData = new FormData(frm);
-		
-		$.ajax({
-			url: "eventUpdateProcess.do",
-			type : "post",
-			processData : false,
-			contentType : false,
-			data : formData,
-			async : "false",
-			dataType : "JSON",
-			error : function(xhr) {
-				console.log(xhr.status);
-			},
-			success : function(jsonObj) {
-				if(jsonObj.uploadFlag){
-					var msg = jsonObj.resultFlag ? "수정되었습니다." : "서버에서 문제가 발생하였습니다. 잠시 후 다시 시도해주세요.";
-					alert(msg);
-				}else{
-					if(jsonObj.overFileimg != null && jsonObj.overFileimg2 != null){
-						alert(jsonObj.overFileimg + ", " + jsonObj.overFileimg2 + "파일이 10MByte를 초과하여 업로드에 실패하였습니다.");
-						return;
-					}
-					if(jsonObj.overFileimg != null){
-						alert(jsonObj.overFileimg + "파일이 10MByte를 초과하여 업로드에 실패하였습니다.");
-						return;
-					}
-					if(jsonObj.overFileimg2 != null){
-						alert(jsonObj.overFileimg2 + "파일이 10MByte를 초과하여 업로드에 실패하였습니다.");
-						return;
+			$.ajax({
+				url: "eventUpdateProcess.do",
+				type : "post",
+				processData : false,
+				contentType : false,
+				data : formData,
+				async : "false",
+				dataType : "JSON",
+				error : function(xhr) {
+					console.log(xhr.status);
+				},
+				success : function(jsonObj) {
+					if(jsonObj.uploadFlag){
+						var msg = jsonObj.resultFlag ? "저장되었습니다." : "서버에서 문제가 발생하였습니다. 잠시 후 다시 시도해주세요.";
+						alert(msg);
+					}else{
+						if(jsonObj.overFileimg != null && jsonObj.overFileimg2 != null){
+							alert(jsonObj.overFileimg + ", " + jsonObj.overFileimg2 + "파일이 10MByte를 초과하여 업로드에 실패하였습니다.");
+							return;
+						}
+						if(jsonObj.overFileimg != null){
+							alert(jsonObj.overFileimg + "파일이 10MByte를 초과하여 업로드에 실패하였습니다.");
+							return;
+						}
+						if(jsonObj.overFileimg2 != null){
+							alert(jsonObj.overFileimg2 + "파일이 10MByte를 초과하여 업로드에 실패하였습니다.");
+							return;
+						}
 					}
 				}
-			}
-		});
+			});
+		}
 	});
 
 	/* 파일 값이 바뀌면 파일명을 보여주는 input 값이 바뀜 */
 	$("#mainImg").on('change',function(){
 		  var fileName = $("#mainImg").val();
+		  var fileType = fileName.substring(fileName.lastIndexOf(".")).toLowerCase();
 		  fileName = fileName.substring(fileName.lastIndexOf("\\")+1);
+			
+		  if(fileType != "" && fileType != ".jpg" && fileType != ".png" && fileType != ".jpeg") {
+			  alert("jpg, jpeg, png 확장자만 가능합니다.");
+			  $("#mainImg").val("");
+			  fileName = "";
+		  }
+		  
 		  $("#mainSrc").val(fileName);
 	});
 
 	$("#subImg").on('change',function(){
 		  var fileName = $("#subImg").val();
+		  var fileType = fileName.substring(fileName.lastIndexOf(".")).toLowerCase();
 		  fileName = fileName.substring(fileName.lastIndexOf("\\")+1);
+		  
+		  if(fileType != "" && fileType != ".jpg" && fileType != ".png" && fileType != ".jpeg") {
+			  alert("jpg, jpeg, png 확장자만 가능합니다.");
+			  $("#subImg").val("");
+			  $("#thumSrc").val("");
+			  
+			  return;
+		  }
+		  
 		  $("#thumSrc").val(fileName);
 	});
 	/* ------------------------------------ */
@@ -287,6 +309,48 @@ $(function() {
 	/* ------------------------------------ */
 
 });
+
+function chkValue() {
+	var startDate = $("#startDate").val().split('-');
+	var endDate = $("#endDate").val().split('-');
+	var title = $("#evtTitle").val();
+	var subImg = $("#thumSrc").val();
+	var mainImg = $("#mainSrc").val();
+	var context = $("#context").val();
+	
+	startDate = parseInt(startDate[0] + startDate[1] + startDate[2]);
+	endDate = parseInt(endDate[0] + endDate[1] + endDate[2]);
+	
+	if(startDate-endDate > 0 || $("#startDate").val() == "" || $("#endDate").val() == ""){
+		alert("시작 날짜와 종료 날짜를 확인해주세요.");
+		$("#startDate").focus();
+		return false;
+	}
+	
+	if(title.replace(/ /g,"") == ""){
+		alert("제목을 입력해주세요.");
+		$("#evtTitle").val("");
+		$("#evtTitle").focus();
+		return false;
+	}
+	
+	if(context.replace(/ /g,"") == ""){
+		$("#context").val("");
+	}
+	
+	if(subImg == ""){
+		alert("썸네일 이미지를 선택해주세요.");
+		return false;
+	}
+	
+	if(mainImg == ""){
+		alert("메인 이미지를 선택해주세요.");
+		return false;
+	}
+	
+	return true;
+}
+
 </script>
 <div id="right">
 	<div id="rightHeader" align="right">
@@ -310,12 +374,18 @@ $(function() {
 		
 		<div class="text" id="mainTitle">
 			<strong>이벤트 상세</strong>
+			<a href="http://localhost/retro_prj/event/detail.do?eventcode=${ param.eventcode }">
+				<svg stroke="currentColor" fill="#5D5F63" stroke-width="0" viewBox="0 0 24 24" 
+				height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" 
+				style="color: white; width: 18px; height: 18px; margin-bottom:5px"><g>
+				<path fill="none" d="M0 0h24v24H0z"></path>
+				<path d="M10 3v2H5v14h14v-5h2v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h6zm7.586 2H13V3h8v8h-2V6.414l-7 7L10.586 12l7-7z"></path></g></svg>
+			</a>
 		</div>
 		
 		<!-- 테이블 -->
 		<div id="background_box" style="height:140%">
 				<div style="margin: 0 10px 0px 10px;">
-				
 				<form id="evtForm" method="POST">
 				<input type="hidden" name="no" value="4"/>
 				<input type="hidden" id="eventcode" name="eventcode" value="${ param.eventcode }"/>
@@ -336,7 +406,7 @@ $(function() {
 				<tr>
 					<th class="top_title">내용</th>
 					<td colspan="2">
-						<textarea style="width:100%; height:100px; margin: 7px 0px 5px 0px; padding:5px 10px; resize: none;" class="borderCss" name="context" placeholder="내용(선택)">${ event.context }</textarea>
+						<textarea style="width:100%; height:100px; margin: 7px 0px 5px 0px; padding:5px 10px; resize: none;" class="borderCss" name="context" id="context" placeholder="내용(선택)">${ event.context }</textarea>
 					</td>
 				</tr>
 				<tr>

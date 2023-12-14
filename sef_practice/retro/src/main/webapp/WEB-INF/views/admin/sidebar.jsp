@@ -108,6 +108,10 @@ body {
   color: #aeb2b7;
 }
 
+#logo:hover{
+	cursor:pointer;
+}
+
 /* 임태균이 만든 거 시작 */
 #down{
   position: fixed;
@@ -159,7 +163,8 @@ $(function() {
     <ul class="nano-content">
       <li style="height: 100px;padding: 0px;background: #426784;">
         <!-- <a style="padding: 0px;height: 100px" href="http://192.168.10.143/jsp_prj/prj_admin/admin_design.jsp"> -->
-        <img src="http://localhost/retro_prj/common/images/logo_w.png" style="display: block; margin: 0px auto;padding-top: 5px;" width=210px>
+        <img id="logo" src="http://localhost/retro_prj/common/images/logo_w.png" onclick="javascript:location.href='http://localhost/retro_prj/index.html'"
+        style="display: block; margin: 0px auto; padding-top: 5px;" width=210px;">
 <!-- <span style="font-size: 16px;font-weight: bold;">&ensp;이미지</span> --><!-- </a> -->
       </li>
       
@@ -183,7 +188,7 @@ $(function() {
      </li>
      
       <li class="sub-menu1" id="2"> 
-        <a href="admin_itemmanaging2.jsp?no=2">
+        <a href="product_managing.do?no=2">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box2-heart-fill" viewBox="0 0 16 16">
   <path d="M3.75 0a1 1 0 0 0-.8.4L.1 4.2a.5.5 0 0 0-.1.3V15a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V4.5a.5.5 0 0 0-.1-.3L13.05.4a1 1 0 0 0-.8-.4h-8.5ZM8.5 4h6l.5.667V5H1v-.333L1.5 4h6V1h1zM8 7.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132"/>
 </svg><!-- <i class="fa fa fa-tasks"></i> -->

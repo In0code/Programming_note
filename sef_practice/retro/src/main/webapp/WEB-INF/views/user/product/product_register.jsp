@@ -605,6 +605,8 @@
 		/* 등록 버튼 클릭 시 동작 */
 		$("#registerBtn").click(function() {
 			
+			var formData = new FormData($("#regiFrm")[0]);
+			
 			if($("#productTitle").val() === ''){
 			        $("#pnameErr").css('display', 'block');
 			        alert("상품명을 입력해주세요");
@@ -644,11 +646,8 @@
 		       frm.action="product_register_ok.do";
 			$("#regiFrm").submit();
 			
-			/* location.href = "product_register_ok.do"; */
-			
-		});//click
-
-	});//ready
+		    });
+		});
 
 	document.addEventListener("DOMContentLoaded", function() {
 		// 모든 li 요소에 대해 클릭 이벤트 리스너 등록
@@ -663,6 +662,8 @@
 				var productName = $("#productTitle").val();
 
 				$("#c3code").val(clickedId);
+				
+				
 
 				// 여기에서 클릭한 li 요소의 ID를 활용하면 됩니다.
 				// 예를 들어, 클릭한 ID를 서버로 전송하거나 다른 작업을 수행할 수 있습니다.
@@ -760,7 +761,7 @@
 					
 						<div>
 					</div>
-					<input type="file" name="img" class="inputBox" id="file-input" style="width:300px;"/><br/>
+					<input type="file" name="img" class="inputBox" multiple="multiple" id="file-input" style="width:300px;"/><br/>
 					   <!--  <button class="flex items-center justify-center w-20 h-20 mr-1.5 bg-jnGray-200 rounded" onclick="document.getElementById('file-input').click()">
 					        <div class="flex flex-col">
 					            <svg width="32px" height="32px" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1149,12 +1150,13 @@
 					<div class="relative flex gap-4 px-5 py-3">
 						<input type="button" id="registerBtn"
 							class="text-[13px] md:text-sm leading-4 inline-flex items-center cursor-pointer transition ease-in-out duration-300 font-semibold font-body text-center justify-center border-0 border-transparent placeholder-white focus-visible:outline-none focus:outline-none rounded-md bg-heading text-white px-5 md:px-6 lg:px-8 py-4 md:py-3.5 lg:py-4 hover:text-white hover:bg-gray-600 hover:shadow-cart w-[20%] break-keep"
-							style="margin-left: 590px;" value="등록" />
+							style="margin-left: 590px;" value="등록"/>
 					</div>
 				</section>
 			</div>
 			<div class="Toastify"></div>
 		</main>
+		 <!-- <input type="submit" value="Submit"/> -->
 	</form>
 	<!-- footer -->
 	<c:import url="http://localhost/retro_prj/common/cdn/footer.jsp" />

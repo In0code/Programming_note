@@ -10,73 +10,45 @@
 
 <!-- 태균이가 만든거 -->
 <style type="text/css">
-body {
-	margin: 0px;
+body{
+ margin: 0px;
 }
-
-#right {
-	width: calc(100vw - 240px);
-	height: 100%;
-	float: right;
+#wrap{
+	
+}
+#right{
+	width: calc(100vw - 240px); height: 100%;float: right;
 	background: blue;
 }
-
-#left {
-	min-width: 240px;
-	height: 100%;
-	float: left;
+#left{
+	min-width: 240px;height: 100%;float: left;
 	padding: 0px;
 	background: yellow;
 }
 
-#rightHeader {
+#rightHeader{
 	min-height: 55px;
-	padding-top: 8px;
-	padding-bottom: 5px;
+	padding-top: 8px;padding-bottom: 5px;
 	padding-right: 15px;
 	background: #FFFFFF;
 }
-
-#rightBody {
-	width: 100%;
+#rightBody{
+	width: 100%; 
 	min-height: 500px;
 	float: right;
-	padding: 40px;
+	padding: 20px;
 	padding-left: 56px;
 	background: #EEEEEE;
 	position: relative;
 }
 
-/* 인영 - 주문관리 style  시작*/
-#mainTitle {
-	font-size: 25px;
+#mainTitle{
+	font-size:25px;
 	color: #333;
 	position: absolute;
-	left: 60px;
-}
+	left : 60px;
+} 
 
-#background_box {
-	overflow: auto;
-	background-color: #FFFFFF;
-	color: #333333;
-	height: 150%;
-	width: 80%;
-	position: absolute;
-	top: 100px;
-	left: 60px;
-	outline: 1px;
-	box-shadow: rgb(204, 202, 202) 0px 2px 8px 0px;
-	border-radius: 9px;
-}
-
-td {
-	cursor: pointer;
-}
-
-a {
-	color: #333;
-	text-decoration: none;
-}
 </style>
 <!-- 태균이가 만든거 끝-->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -116,31 +88,40 @@ a {
 	<%@ include file="sidebar.jsp"%>
 	<div id="right">
 		<div id="rightHeader" align="right">
-			<span style="font-weight: bold; margin-right: 20px">관리자님</span> <input
-				id="btnLogout" type="button" class="btn btn-outline-dark"
+			<span style="font-weight: bold; margin-right: 20px">관리자님</span> 
+			<input id="btnLogout" type="button" class="btn btn-outline-dark"
 				value="로그아웃" style="margin-right: 20px">
 		</div>
-		<div id="rightBody" style="height: 895px">
+		<div id="rightBody">
 		<div class="pageLocation">
 		홈 
 		<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
  		<path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
 		</svg>
-		상품 리스트
+		<a href="product_managing.do">
+		상품 관리
+		</a>
+		<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+ 		<path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+		</svg>
+		상품 상세
 		</div>
 		
+		
 		<div class="text" id="mainTitle">
-			<strong>상품 리스트</strong>
+			<strong>상품 상세</strong>
 		</div>
+		
 			<form action="" id="frm" name="frm" method="post" style="left: 30px">
 				<input type="hidden" id="gcode" name="gcode" value="">
-				<div id="background_box">
+				
+				<div id="background_box" style="height:140%; width:80%">
 					<label
 						style="position: absolute; top: 10px; left: 30px; font-size: 20px; color: #929492">상품
 						상세 정보</label>
 					<div
 						style="position: absolute; top: 60px; left: 50px; width: 350px; height: 350px">
-						<img id="previewMainImg" src="../upload/img1.jpg"
+						<img id="previewMainImg" src="http://localhost/retro_prj/upload/${ productOne.img }"
 							style="width: 350px; height: 350px;" name="mainImg__div">
 							<!-- ../upload/${ productOne.img } -->
 					</div>

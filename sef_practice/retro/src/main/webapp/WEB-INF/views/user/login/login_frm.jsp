@@ -116,7 +116,7 @@ $(function(){
 <br>
 <input type="button"  style="margin-top:40px; border-radius: 12px; width:450px; height: 50px; font-family:Pretendard Variable;    color:#FFFFFF; background-color:#333333  " id="loginBtn" name="loginBtn" value="로그인" class="btn btn-dark"/>
 <div style="text-align: center;  margin-top: 30px" >
-<ul class="ul" ><li class="li"><a href="/join" class="look_link" >가입</a></li><li class="li"> <a href="find_id_frm.do" class="look_link" >아이디 찾기</a></li><li class="li"><a href="find_pw_frm.do" class="look_link" >비밀번호 찾기</a></li></ul>
+<ul class="ul" ><li class="li"><a href="user_join.do" class="look_link" >가입</a></li><li class="li"> <a href="find_id_frm.do" class="look_link" >아이디 찾기</a></li><li class="li"><a href="find_pw_frm.do" class="look_link" >비밀번호 찾기</a></li></ul>
 </div>
 </div>
 

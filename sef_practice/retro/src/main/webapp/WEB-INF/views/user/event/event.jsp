@@ -12,7 +12,14 @@
 
 <script type="text/javascript">
 	$(function() {
-
+		var searchType = '${ param.searchType }';
+		if(searchType == 'END'){
+			$("#END").attr("class","font-bold");
+			$("#ING").attr("class","");
+		}else{
+			$("#ING").attr("class","font-bold");
+			$("#END").attr("class","");
+		}
 	});//ready
 </script>
 
@@ -31,8 +38,8 @@
 						class="text-lg md:text-xl lg:text-2xl 2xl:text-3xl xl:leading-10 font-bold text-heading">이벤트</h3>
 				</div>
 				<ul class="flex gap-6 py-5 max-w-[1280px] mx-auto">
-					<li class="font-bold"><a href="/event/list?searchType=ING">진행중</a></li>
-					<li class=""><a href="/event/list?searchType=END">종료</a></li>
+					<li class="" id="ING"><a href="event.do">진행중</a></li>
+					<li class="" id="END"><a href="event.do?searchType=END">종료</a></li>
 				</ul>
 			</div>
 			
@@ -44,14 +51,15 @@
 					<ul class="md:py-[17px] grid grid-cols-2 gap-5 max-[600px]:block mx-auto md:px-8">
 					
 						<!-- 진열 시작 -->
+						<c:forEach var="event" items="${ eventList }">
 						<li class="w-full aspect-[2.5]">
 							<div class="relative h-full">
 							
 								<!-- 링크 -->
-								<a class="w-full h-full aspect-[2.5] absolute" href="event/detail.do?evtcode=10">
+								<a class="w-full h-full aspect-[2.5] absolute" href="event/detail.do?eventcode=${ event.eventcode }">
 								
 									<!-- 이미지 -->
-									<img alt="중고나라 에코마일" src="https://img2.joongna.com/media/original/2023/11/13/1699866394928.png"
+									<img alt="${ event.title }" src="http://localhost/retro_prj/upload/${ event.img2 }"
 									decoding="async" data-nimg="fill" class="rounded-md overflow-hidden" loading="lazy"
 									style="position: absolute; height: 100%; width: 100%; left: 0; top: 0; right: 0; bottom: 0; color: transparent">
 								</a>
@@ -60,121 +68,28 @@
 							
 								<!-- 시작/종료 날짜 -->
 								<p class="text-[#666666]">
-									2023-11-13
+									${ event.start_date }
 									~
-									2024-01-14
+									${ event.end_date }
 								</p>
 								
 								<!-- D-DAY -->
-								<p class="text-jngreen">D-48</p>
+								<c:if test="${ param.searchType eq 'ING' or param.searchType eq '' or param.searchType eq null }">
+									<p class="text-jngreen">
+										D-${ event.dday }
+									</p>
+								</c:if>
+								<c:if test="${ param.searchType eq 'END' }">
+									<p class="text-[#666666]">
+										종료
+									</p>
+								</c:if>
 							</div>
 						</li>
+						</c:forEach>
 						<!-- 진열 끝 -->
 						
-						<li class="w-full aspect-[2.5]">
-							<div class="relative h-full">
-								<a class="w-full h-full aspect-[2.5] absolute" href="/event/detail/1108">
-									<img alt="11월 결제 혜택 모아보기" src="https://img2.joongna.com/media/original/2023/11/01/1698820074139.png"
-									decoding="async" data-nimg="fill" class="rounded-md overflow-hidden" loading="lazy"
-									style="position: absolute; height: 100%; width: 100%; left: 0; top: 0; right: 0; bottom: 0; color: transparent"></a>
-							</div>
-							<div class="flex justify-between w-full px-1 py-3 h-12">
-								<p class="text-[#666666]">
-									2023-11-01
-									<!-- -->
-									~
-									<!-- -->
-									<!-- -->
-									2023-11-30
-								</p>
-								<p class="text-jngreen">D-3</p>
-							</div>
-						</li>
 						
-						<li class="w-full aspect-[2.5]">
-							<div class="relative h-full">
-								<a class="w-full h-full aspect-[2.5] absolute" href="/event/detail/1096">
-									<img alt="11월 첫결제 수수료 무료"
-									src="https://img2.joongna.com/media/original/2023/10/26/1698315529276.png"
-									decoding="async" data-nimg="fill" class="rounded-md overflow-hidden" loading="lazy"
-									style="position: absolute; height: 100%; width: 100%; left: 0; top: 0; right: 0; bottom: 0; color: transparent"></a>
-							</div>
-							<div class="flex justify-between w-full px-1 py-3 h-12">
-								<p class="text-[#666666]">
-									2023-11-01
-									<!-- -->
-									~
-									<!-- -->
-									<!-- -->
-									2023-11-30
-								</p>
-								<!-- D-DAY -->
-								<p class="text-jngreen">D-3</p>
-							</div>
-						</li>
-						
-						<li class="w-full aspect-[2.5]">
-							<div class="relative h-full">
-								<a class="w-full h-full aspect-[2.5] absolute" href="/event/detail/1092">
-									<img alt="11월 초특가 럭키드로우 START!"
-									src="https://img2.joongna.com/media/original/2023/10/30/1698670574765.png"
-									decoding="async" data-nimg="fill" class="rounded-md overflow-hidden" loading="lazy"
-									style="position: absolute; height: 100%; width: 100%; left: 0; top: 0; right: 0; bottom: 0; color: transparent"></a>
-							</div>
-							<div class="flex justify-between w-full px-1 py-3 h-12">
-								<p class="text-[#666666]">
-									2023-11-01
-									<!-- -->
-									~
-									<!-- -->
-									<!-- -->
-									2023-11-30
-								</p>
-								<p class="text-jngreen">D-3</p>
-							</div>
-						</li>
-						
-						<li class="w-full aspect-[2.5]">
-							<div class="relative h-full">
-								<a class="w-full h-full aspect-[2.5] absolute" href="/event/detail/1083">
-									<img alt="세븐일레븐 편의점 택배 무료배송"
-									src="https://img2.joongna.com/media/original/2023/10/04/1696383368536.png"
-									decoding="async" data-nimg="fill" class="rounded-md overflow-hidden" loading="lazy"
-									style="position: absolute; height: 100%; width: 100%; left: 0; top: 0; right: 0; bottom: 0; color: transparent"></a>
-							</div>
-							<div class="flex justify-between w-full px-1 py-3 h-12">
-								<p class="text-[#666666]">
-									2023-10-05
-									<!-- -->
-									~
-									<!-- -->
-									<!-- -->
-									2023-12-31
-								</p>
-								<p class="text-jngreen">D-34</p>
-							</div>
-						</li>
-						
-						<li class="w-full aspect-[2.5]">
-							<div class="relative h-full">
-								<a class="w-full h-full aspect-[2.5] absolute" href="/event/detail/1038">
-									<img alt="CU 알뜰택배 500원 무제한 할인"
-									src="https://img2.joongna.com/media/original/2023/11/07/1699320239162.png"
-									decoding="async" data-nimg="fill" class="rounded-md overflow-hidden" loading="lazy"
-									style="position: absolute; height: 100%; width: 100%; left: 0; top: 0; right: 0; bottom: 0; color: transparent"></a>
-							</div>
-							<div class="flex justify-between w-full px-1 py-3 h-12">
-								<p class="text-[#666666]">
-									2023-09-01
-									<!-- -->
-									~
-									<!-- -->
-									<!-- -->
-									2023-11-30
-								</p>
-								<p class="text-jngreen">D-3</p>
-							</div>
-						</li>
 					</ul>
 					<!-- 이벤트 끝 -->
 					
