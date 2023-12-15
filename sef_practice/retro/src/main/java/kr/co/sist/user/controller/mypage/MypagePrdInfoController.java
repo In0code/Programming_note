@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import kr.co.sist.user.domain.mypage.MypagePrdDomain;
 import kr.co.sist.user.service.mypage.MypagePrdInfoService;
+import kr.co.sist.user.vo.MypageIDnFlagVO;
 
 @Controller
 public class MypagePrdInfoController {
@@ -20,8 +21,10 @@ public class MypagePrdInfoController {
 	private MypagePrdInfoService mpiService;
 
 	@PostMapping("/mypage_prd_all.do")
-	public String ajaxSearchAllProcess(HttpSession session, Model model) {
-		List<MypagePrdDomain> list = mpiService.searchAllPrd((String)session.getAttribute("id"));
+	public String ajaxSearchAllProcess(HttpSession session,String flag, Model model) {
+		MypageIDnFlagVO mVO = new MypageIDnFlagVO((String)session.getAttribute("id"), flag.charAt(0));
+		
+		List<MypagePrdDomain> list = mpiService.searchAllPrd(mVO);
 		model.addAttribute("prdList", list);
 		model.addAttribute("totalCnt", calcTotal(list));
 		model.addAttribute("f", true);
@@ -29,8 +32,10 @@ public class MypagePrdInfoController {
 	}
 	
 	@PostMapping("/mypage_prd_onsale.do")
-	public String ajaxSearchOnProcess(HttpSession session, Model model) {
-		List<MypagePrdDomain> list = mpiService.searchPrdOnProcess((String)session.getAttribute("id"));
+	public String ajaxSearchOnProcess(HttpSession session,String flag, Model model) {
+		MypageIDnFlagVO mVO = new MypageIDnFlagVO((String)session.getAttribute("id"), flag.charAt(0));
+
+		List<MypagePrdDomain> list = mpiService.searchAllPrd(mVO);
 		model.addAttribute("prdList", list);
 		model.addAttribute("totalCnt", calcTotal(list));
 		model.addAttribute("f", true);
@@ -38,8 +43,10 @@ public class MypagePrdInfoController {
 	}
 	
 	@PostMapping("/mypage_prd_completed.do")
-	public String ajaxSearchCompleted(HttpSession session, Model model) {
-		List<MypagePrdDomain> list = mpiService.searchCompletedPrd((String)session.getAttribute("id"));
+	public String ajaxSearchCompleted(HttpSession session,String flag, Model model) {
+		MypageIDnFlagVO mVO = new MypageIDnFlagVO((String)session.getAttribute("id"), flag.charAt(0));
+
+		List<MypagePrdDomain> list = mpiService.searchAllPrd(mVO);
 		model.addAttribute("prdList", list);
 		model.addAttribute("totalCnt", calcTotal(list));
 		model.addAttribute("f", false);

@@ -4,7 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.sist.user.mypageReiview">
 <select id="myReiview" resultType="kr.co.sist.user.domain.reiview.ReiviewDomain" parameterType="String">
-SELECT BC.ID, BC.CONTEXT, BC.INPUT_DATE, BC.BUYCOMMENTCODE, BC.SELECT2
+SELECT BC.BUYCOMMENTCODE, BC.ID, BC.CONTEXT, BC.INPUT_DATE, BC.BUYCOMMENTCODE, BC.SELECT2
 FROM BUYCOMMENT BC, BUYRECEIPT BR, PRODUCT P
 WHERE BC.BUYRECEIPTCODE=BR.BUYRECEIPTCODE AND BR.PCODE=P.PCODE AND P.ID=#{id}
 </select>

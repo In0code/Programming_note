@@ -1,7 +1,5 @@
 package kr.co.sist.user.service;
 
-import java.util.List;
-
 import org.apache.ibatis.exceptions.PersistenceException;
 import org.json.simple.JSONObject;
 
@@ -47,19 +45,10 @@ public class ProductService {
     		getRecentPcode=pDAO.getPcode();
     	} catch (PersistenceException pe) {
     		pe.printStackTrace();
-    	}
+    	}//end catch
     	return getRecentPcode;
-    }
+    }//getPcode
     
-    public List<ProductDomain> getCategoryName(String pcode) {
-    	List<ProductDomain> getCname=null;
-    	try {
-    		getCname=pDAO.getCategoryName(pcode);
-    	} catch (PersistenceException pe) {
-    		pe.printStackTrace();
-    	}
-    	return getCname;
-    }
 
     public ProductDomain searchProduct(ProductVO pVO) {
         ProductDomain search = null;
@@ -67,22 +56,20 @@ public class ProductService {
             search = pDAO.selectProduct(pVO);
         } catch (PersistenceException pe) {
             pe.printStackTrace();
-        }
+        }//end catch
         return search;
-    }
+    }//searchProduct
 
-    public JSONObject editProduct(ProductVO pVO) {
-        JSONObject editJsonObj = new JSONObject();
-        editJsonObj.put("resultData", false);
-        try {
-            int updateCnt = pDAO.updateProduct(pVO);
-            editJsonObj.put("resultData", true);
-        } catch (PersistenceException pe) {
-            pe.printStackTrace();
-            editJsonObj.put("error", pe.getMessage()); // 예외 메시지 추가
-        }
-        return editJsonObj;
-    }
+    public int editProduct(ProductVO pVO) {
+    	int editCnt= 0;
+		try {
+			editCnt=pDAO.updateProduct(pVO);
+		}catch(PersistenceException pe) {
+			pe.printStackTrace();
+		}//end catch
+		
+		return editCnt;
+    }//editProduct
 
     public JSONObject editSaleok(String pcode) {
         JSONObject editSaleJsonObj = new JSONObject();
@@ -93,9 +80,9 @@ public class ProductService {
         } catch (PersistenceException pe) {
             pe.printStackTrace();
             editSaleJsonObj.put("error", pe.getMessage()); // 예외 메시지 추가
-        }
+        }//end catch
         return editSaleJsonObj;
-    }
+    }//editSaleok
 
     public JSONObject cancelProduct(String pcode) {
         JSONObject deletejsonObj = new JSONObject();
@@ -106,8 +93,8 @@ public class ProductService {
         } catch (PersistenceException pe) {
             pe.printStackTrace();
             deletejsonObj.put("error", pe.getMessage()); // 예외 메시지 추가
-        }
+        }//end catch
         return deletejsonObj;
-    }
+    }//cancelProduct
 
-}
+}//class

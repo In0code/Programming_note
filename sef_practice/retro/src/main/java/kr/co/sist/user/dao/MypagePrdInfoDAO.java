@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import kr.co.sist.common.dao.MybatisHandler;
 import kr.co.sist.user.domain.mypage.MypagePrdDomain;
+import kr.co.sist.user.vo.MypageIDnFlagVO;
 
 /**
  * 전체, 판매중, 판매완료, 예약중인 사용자의 상품 정보를 불러오는 DAO class
@@ -22,13 +23,13 @@ public class MypagePrdInfoDAO {
 	 * @param id
 	 * @return  List&lt;MypagePrdDomain&gt;
 	 */
-	public List<MypagePrdDomain> selectAllPrd(String id) {
+	public List<MypagePrdDomain> selectAllPrd(MypageIDnFlagVO mVO) {
 		List<MypagePrdDomain> list = null;
 		
 		mh = MybatisHandler.getInstance();
 		SqlSession ss = mh.getMyBatisHandler(false);
 		
-		list = ss.selectList("kr.co.sist.user.mypagePrdInfo.selectAllPrd", id);
+		list = ss.selectList("kr.co.sist.user.mypagePrdInfo.selectAllPrd", mVO);
 		
 		mh.closeHandler(ss);
 		
@@ -40,13 +41,13 @@ public class MypagePrdInfoDAO {
 	 * @param id
 	 * @return List&lt;MypagePrdDomain&gt;
 	 */
-	public List<MypagePrdDomain> selectPrdOnProcess(String id) {
+	public List<MypagePrdDomain> selectPrdOnProcess(MypageIDnFlagVO mVO) {
 		List<MypagePrdDomain> list = null;
 		
 		mh = MybatisHandler.getInstance();
 		SqlSession ss = mh.getMyBatisHandler(false);
 		
-		list = ss.selectList("kr.co.sist.user.mypagePrdInfo.selectPrdOnProcess", id);
+		list = ss.selectList("kr.co.sist.user.mypagePrdInfo.selectPrdOnProcess", mVO);
 		
 		mh.closeHandler(ss);
 		
@@ -58,13 +59,13 @@ public class MypagePrdInfoDAO {
 	 * @param id
 	 * @return  List&lt;MypagePrdDomain&gt;
 	 */
-	public List<MypagePrdDomain> selectCompletedPrd(String id) {
+	public List<MypagePrdDomain> selectCompletedPrd(MypageIDnFlagVO mVO) {
 		List<MypagePrdDomain> list = null;
 		
 		mh = MybatisHandler.getInstance();
 		SqlSession ss = mh.getMyBatisHandler(false);
 		
-		list = ss.selectList("kr.co.sist.user.mypagePrdInfo.selectCompletedPrd", id);
+		list = ss.selectList("kr.co.sist.user.mypagePrdInfo.selectCompletedPrd", mVO);
 		
 		mh.closeHandler(ss);
 		

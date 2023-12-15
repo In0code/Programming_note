@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user.purchase">
+
+<!-- 거래 완료 -->
+<select id="selectDealComplete" resultType="mpd" parameterType="String">
+select p.pcode, buyreceiptcode, p.pname, p.img, p.price, to_char(b.payment_date, 'yyyy-mm-dd') payment_date
+from buyreceipt b, product p
+where b.pcode = p.pcode and b.id = #{ id }
+</select>
+
+<!-- 구매 완료 -->
+<select id="selectPayComplete" resultType="mpd" parameterType="String">
+select safecode, buy_date, p.pcode, pname, img, price
+from safepurchase s, product p
+where s.pcode = p.pcode and s.pcode not in (select pcode from buyreceipt)
+and s.id = #{ id } and cancel = 'N'
+</select>
+
+<!-- 취소 -->
+<select id="selectCancelComplete" resultType="mpd" parameterType="String">
+select safecode, buy_date, p.pcode, pname, img, price
+from safepurchase s, product p
+where s.pcode = p.pcode and s.pcode not in (select pcode from buyreceipt)
+and s.id = #{ id } and cancel = 'Y'
+</select>
+
+
+</mapper>

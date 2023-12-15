@@ -56,18 +56,12 @@
 		 		<if test="img5 != null and img5 != ''">
 		 		p.IMG5,
 		 		</if>
-		p.input_date, p.deliver, p.status
+		p.input_date, p.deliver, p.status, p.saleok
 		,p.loc, p.pcancel, p.c3code, p.id, c1.name as cname, c2.name as c2name, c3.name as c3name
 		from product p, CATEGORY c1, CATEGORY2 c2, CATEGORY3 c3
 		where  c1.ccode=c2.ccode and c2.c2code = c3.c2code and c3.C3CODE=p.C3CODE and p.PCODE=#{ pcode }	
 		</select>
 		
-		<select id="getCname" resultType="pd" parameterType="String">
-		select c1.NAME as cname, c2.NAME as c2name, c3.NAME as c3name, p.pcode, c3.c3code
-		from CATEGORY c1, CATEGORY2 c2, CATEGORY3 c3, PRODUCT p
-		where  c1.ccode=c2.ccode and c2.c2code = c3.c2code and c3.C3CODE=p.C3CODE and p.PCODE='${ pcode }'
-		</select>
-	
 	
 	<update id="updateProduct" parameterType="pVO">
 	update PRODUCT

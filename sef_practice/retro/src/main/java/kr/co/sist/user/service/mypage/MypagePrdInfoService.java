@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import kr.co.sist.user.dao.MypagePrdInfoDAO;
 import kr.co.sist.user.domain.mypage.MypagePrdDomain;
+import kr.co.sist.user.vo.MypageIDnFlagVO;
 
 /**
  * @author marklim
@@ -26,8 +27,8 @@ public class MypagePrdInfoService {
 	 * @return List&lt;MypagePrdDomain&gt;
 	 */
 	@PostMapping("/mypage_prd_all.do")
-	public List<MypagePrdDomain> searchAllPrd(String id) {
-		return mpDAO.selectAllPrd(id);
+	public List<MypagePrdDomain> searchAllPrd(MypageIDnFlagVO mVO) {
+		return mpDAO.selectAllPrd(mVO);
 	}
 	
 	/**
@@ -36,8 +37,8 @@ public class MypagePrdInfoService {
 	 * @return List&lt;MypagePrdDomain&gt;
 	 */
 	@PostMapping("/mypage_prd_onsale.do")
-	public List<MypagePrdDomain> searchPrdOnProcess(String id) {
-		return mpDAO.selectPrdOnProcess(id);
+	public List<MypagePrdDomain> searchPrdOnProcess(MypageIDnFlagVO mVO) {
+		return mpDAO.selectPrdOnProcess(mVO);
 	}
 	
 	/**
@@ -46,7 +47,7 @@ public class MypagePrdInfoService {
 	 * @return JSONObject
 	 */
 	@GetMapping("/mypage_prd_completed.do")
-	public List<MypagePrdDomain> searchCompletedPrd(String id) {
-		return mpDAO.selectCompletedPrd(id);
+	public List<MypagePrdDomain> searchCompletedPrd(MypageIDnFlagVO mVO) {
+		return mpDAO.selectCompletedPrd(mVO);
 	}
 }
