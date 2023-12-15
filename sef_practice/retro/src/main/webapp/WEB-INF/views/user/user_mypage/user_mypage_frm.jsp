@@ -15,6 +15,8 @@
 <script type="text/javascript">
 	var comboBoxSortFlag = false;
 	var comboBoxSortTxt = "최신순";
+	let flag = "A";
+	let uri = "all";
 	
 	$("#btn").val(comboBoxSortTxt);
 	
@@ -34,50 +36,30 @@
 		
 		$("#all").click(function() {
 			changeCss(this);
+			uri = "all";
 			all();
 		});
 		
 		$("#onSale").click(function() {
 			changeCss(this);
-			
-			$.ajax({
-				url:"mypage_prd_onsale.do",
-				type:"POST",
-				dataType:"HTML",
-				error:function(xhr) {
-					alert(xhr.status);
-				},
-				success:function(data) {
-					var cnt = $("#totalPrd").val();
-					$("#cntDiv").html(cnt+"개의 상품");
-					$("#prdInfo").html(data);
-				}
-			});
+			uri = "onsale";
+			all();
 		});
 		
 		$("#completed").click(function() {
 			changeCss(this);
-			
-			$.ajax({
-				url:"mypage_prd_completed.do",
-				type:"POST",
-				dataType:"HTML",
-				error:function(xhr) {
-					alert(xhr.status);
-				},
-				success:function(data) {
-					var cnt = $("#totalPrd").val();
-					$("#cntDiv").html(cnt+"개의 상품");
-					$("#prdInfo").html(data);
-				}
-			});
+			uri = "completed";
+			all();
 		});
 	});
 	
 function all() {
+	let url = "mypage_prd_"+uri+".do"
+
 	$.ajax({
-		url:"mypage_prd_all.do?",
+		url:url,
 		type:"POST",
+		data:"flag="+flag,
 		dataType:"HTML",
 		error:function(xhr) {
 			alert(xhr.status);
@@ -115,10 +97,11 @@ function outputPrd(data) {
 	$("#prdInfo").html(data);
 }
 
-function sortUp(txt, flag) {
+function sortUp(txt, f) {
 	$("#btn").val(txt);
 	$("#comboBoxSort").hide();
-	
+	flag = f;
+	all();
 	
 	
 	comboBoxSortFlag = !comboBoxSortFlag;

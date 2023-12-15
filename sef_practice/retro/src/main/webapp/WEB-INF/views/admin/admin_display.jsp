@@ -91,10 +91,12 @@ function detail(rcode){
 		<div class="text" id="mainTitle">
 			<strong>이벤트 리스트</strong>
 			<a href="http://localhost/retro_prj/event.do">
-				<svg style="margin-bottom: 5px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
-  					<path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>
-  					<path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/>
-				</svg>
+				<svg stroke="currentColor" fill="#5D5F63" stroke-width="0" viewBox="0 0 24 24" 
+				height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" 
+				style="color: white; width: 18px; height: 18px; margin-bottom:5px"><g>
+				<path fill="none" d="M0 0h24v24H0z"></path>
+				<path d="M10 3v2H5v14h14v-5h2v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h6zm7.586 2H13V3h8v8h-2V6.414l-7 7L10.586 12l7-7z"></path></g></svg>
+			
 			</a>
 		</div>
 		

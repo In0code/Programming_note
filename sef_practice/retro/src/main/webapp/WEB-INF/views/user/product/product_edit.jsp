@@ -855,7 +855,7 @@
 						<!-- 상품명 입력 inpuBox -->
 						<div class="block">
 							<input id="productTitle" name="pname" type="text"
-								placeholder="상품명"
+								value="${ userProduct.pname }"
 								class="py-2 px-4 md:px-5 w-full appearance-none border text-input text-xs lg:text-sm font-body placeholder-body min-h-12 transition duration-200 ease-in-out bg-white border-gray-300 focus:border-heading h-11 md:h-12 focus:outline-none rounded-md"
 								autocomplete="off" spellcheck="false" aria-invalid="false">
 							<p id="pnameErr"
@@ -1121,7 +1121,7 @@
 								<span>₩</span> <input name="price" type="text"
 								inputmode="numeric" id="productPrice"
 								class="ml-1 bg-white focus:outline-none h-11 md:h-12 placeholer-jnGray-500 w-2/3 disabled:opacity-100 placeholer-jnGray-500"
-								placeholder="판매가격" oninput="validatePrice(this)" value="">
+								 value="${ userProduct.price }" oninput="validatePrice(this)" value="">
 							</label>
 						</div>
 						<p id="priceError" class="input_error"
@@ -1137,8 +1137,8 @@
 						<div style="text-align: right">
 							<textarea id=productDescription name="context"
 								oninput="javascript:lengthCnt()"
-								placeholder="- 상품명(브랜드)																																																- 구매 시기																																																- 사용 기간																																																- 하자 여부																																																* 실제 촬영한 사진과 함께 상세 정보를 입력해주세요.																																																* 카카오톡 아이디 첨부 시 게시물 삭제 및 이용제재 처리될 수 있어요.																																																 																																																안전하고 건전한 거래환경을 위해 과학기술정보통신부, 한국인터넷진흥원, 중고나라가 함께합니다."
-								style="width: 100%; height: 300px; border: 1px solid #E5E4E4; border-radius: 5px; resize: none; padding: 15px; margin-top: 15px; border-color: #929492"></textarea>
+								style="width: 100%; height: 300px; border: 1px solid #E5E4E4; border-radius: 5px; resize: none; padding: 15px; margin-top: 15px; border-color: #929492">
+								${ userProduct.context }</textarea>
 							<p id="contextErr"
 								style="display: none; color: red; font-size: 15px; text-align: left;">상품
 								상제 정보를 입력해주세요</p>

@@ -68,7 +68,7 @@
 </style>
 <script type="text/javascript">
 	$(function() {
-		   alert("${ userProduct.saleok}")
+		alert("${ userProduct.saleok}")
 		$("#completeCancel").click(function() {
 			var modalBg3 = document.getElementById('completeModalBg');
 			modalBg3.style.display = 'none';
@@ -82,39 +82,42 @@
 			location.href = "../review/user_sales_review.do";
 		});
 
+		$("#saleOk").click(function() {
+			var pcode = "${ userProduct.pcode }";
+			var confirmSaleOk = confirm("판매 완료 처리 하겠습니까?");
 
-		  $("#saleOk").click(function() {
-		        var pcode = "${ userProduct.pcode }";
-		        var confirmSaleOk= confirm("판매 완료 처리 하겠습니까?");
-		        
-		        if (confirmSaleOk) {
-		        	prductSaleOk(pcode);
-		        	
-		        }//end if
-		    });//click	
-		    
+			if (confirmSaleOk) {
+				prductSaleOk(pcode);
 
-		    $("#deleteBtn").click(function() {
-		        var pcode = "${ userProduct.pcode }";
-		        var confirmDelete = confirm("정말로 삭제하시겠습니까?");
-		        
-		        if (confirmDelete) {
-		        	deleteProduct(pcode);
-		        }//end if
-		    });//click
-		    
-		 
-		    
-		    var saleOkChk = $("#saleOkStyle").data("saleok");
-		    
+			}//end if
+		});//click	
 
-		    if (saleOkChk === 'Y') {
-		        $("#saleOkStyle").attr('class', "absolute top-0 left-0 bg-black/[0.5] w-full h-full z-[1] rounded-lg");
-		        $("#saleOkStyle").show();
-		    } else {
-		        $("#saleOkStyle").hide();
-		    }
-		    
+		$("#deleteBtn").click(function() {
+			var pcode = "${ userProduct.pcode }";
+			var confirmDelete = confirm("정말로 삭제하시겠습니까?");
+
+			if (confirmDelete) {
+				deleteProduct(pcode);
+			}//end if
+		});//click
+
+		var saleOkChk = $("#saleOkStyle").data("saleok");
+
+		if (saleOkChk === 'Y') {
+			$("#saleOkStyle")
+					.attr('class',
+							"absolute top-0 left-0 bg-black/[0.5] w-full h-full z-[1] rounded-lg");
+			$("#saleOkStyle").show();
+			$("#editBar").hide();
+		} else {
+			$("#saleOkStyle").hide();
+			$("#editBar").show();
+		}
+
+		$("#editBtn").click(function(){
+			location.href="product_edit.do?pcode=${ userProduct.pcode }";
+		});
+		
 	});//ready
 
 	/* '상태변경'버튼 클릭 시 모달 나오게 동작 */
@@ -167,45 +170,44 @@
 		modalBg3.style.display = 'none';
 	}//closeDelModal
 
-	function saleOkBtn(pcode){
-		alert(pcod);
-	}
-	
+
 	/* 상태 변경에서 상품 판매 완료 처리를 하면 상품 판매 처리가 됨 */
 	function prductSaleOk(pcode) {
 
 		$.ajax({
-			url:"productSaleEdit.do",
-			type:"get",
-			data:"pcode="+pcode,
-			dataType:"JSON",
-			error:function(xhr){
-				 alert("죄송합니다. 서버에 문제가 발생하였습니다. 잠시 후에 다시 시도해주세요.");
-				 console.log(xhr.status);
+			url : "productSaleEdit.do",
+			type : "get",
+			data : "pcode=" + pcode,
+			dataType : "JSON",
+			error : function(xhr) {
+				alert("죄송합니다. 서버에 문제가 발생하였습니다. 잠시 후에 다시 시도해주세요.");
+				console.log(xhr.status);
 			},
-			success:function(jsonObj){
+			success : function(jsonObj) {
 				alert("판매 완료 처리 되었습니다");
 				location.reload();
 			}//success
 		});//ajax
 	}//prductSaleOk
-	
-	function deleteProduct(pcode){
+
+	function deleteProduct(pcode) {
 		$.ajax({
-			url:"productDelete.do",
-			type:"get",
-			data:"pcode="+pcode,
-			dataType:"JSON",
-			error:function(xhr){
-				 alert("죄송합니다. 서버에 문제가 발생하였습니다. 잠시 후에 다시 시도해주세요.");
-				 console.log(xhr.status);
+			url : "productDelete.do",
+			type : "get",
+			data : "pcode=" + pcode,
+			dataType : "JSON",
+			error : function(xhr) {
+				alert("죄송합니다. 서버에 문제가 발생하였습니다. 잠시 후에 다시 시도해주세요.");
+				console.log(xhr.status);
 			},
-			success:function(jsonObj){
+			success : function(jsonObj) {
 				alert("삭제 완료되었습니다.");
-				/* location.href=""; 사용자 메인으로 이동 */ 
+				/* location.href=""; 사용자 메인으로 이동 */
 			}//success
 		});//ajax
-}//deleteProduct
+	}//deleteProduct
+	
+
 </script>
 
 </head>
@@ -218,64 +220,66 @@
 			class="max-w-[1280px] lg:min-h-[950px] mx-auto max-w-[1280px] px-4 md:px-8 2xl:px-16 box-content">
 			<div
 				class="items-start block grid-cols-2 pt-5 lg:grid gap-x-10 xl:gap-x-14 pb-14 lg:py-10 lg:pb-14 2xl:pb-20">
-				<div
-					class="carouselWrapper relative product-gallery swiperThumbnail product-gallery-slider sticky top-[200px]   ">
+				<div class="px-3 sticky top-[200px]">
 					<div
-						class="swiper swiper-initialized swiper-horizontal swiper-pointer-events swiper-backface-hidden"
-						dir="ltr">
-						<div class="swiper-wrapper"
-							style="transform: translate3d(0px, 0px, 0px);">
-
-							<div class="swiper-slide swiper-slide-active"
-								style="width: 600px;">
-								<div
-									class="col-span-1 transition duration-150 ease-in hover:opacity-90 w-full relative pt-[100%]">
-									<img alt="그림그려드리빈다용--0" referrerpolicy="no-referrer"
-										src="http://localhost/retro_prj/upload/${ userProduct.img }"
-										decoding="async" data-nimg="fill"
-										class="object-cover w-full h-full rounded-lg top-1/2 left-1/2"
-										loading="lazy"
-										style="position: absolute; height: 95%; width: 95%; inset: 0px; color: transparent;">
-									<div id="saleOkStyle" onclick="saleOkBtn('${ userProduct.pcode}')" style="display: none;" data-saleok="${userProduct.saleok}">
-										<div
-											class="flex justify-center items-center text-2xl text-white font-bold w-full h-full flex-col">
-											<img alt="판매완료"
-												src="http://localhost/retro_prj/common/images/icons/check-circle-white.svg"
-												width="80" height="80" decoding="async" data-nimg="1"
-												class="m-4" loading="lazy"
-												style="color: transparent;">판매완료
+						class="carouselWrapper relative product-gallery swiperThumbnail product-gallery-slider   ">
+						<div
+							class="swiper swiper-initialized swiper-horizontal swiper-pointer-events swiper-backface-hidden"
+							dir="ltr">
+							<div class="swiper-wrapper"
+								style="transform: translate3d(0px, 0px, 0px);">
+								<div class="swiper-slide swiper-slide-active"
+									style="width: 524px;">
+									<div
+										class="col-span-1 transition duration-150 ease-in hover:opacity-90 w-full relative pt-[100%]">
+										<img alt="fds--0" referrerpolicy="no-referrer"
+											src="http://localhost/retro_prj/upload/${ userProduct.img }"
+											decoding="async" data-nimg="fill"
+											class="object-cover w-full h-full rounded-lg top-1/2 left-1/2"
+											loading="lazy"
+											style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
+										<div id="saleOkStyle"
+											onclick="saleOkBtn('${ userProduct.pcode}')"
+											style="display: none;" data-saleok="${userProduct.saleok}"
+											class="absolute top-0 left-0 bg-black/[0.5] w-full h-full z-[1] rounded-lg">
+											<div
+												class="flex justify-center items-center text-2xl text-white font-bold w-full h-full flex-col">
+												<img alt="판매완료" src="http://localhost/retro_prj/common/images/icons/check-circle-white.svg"
+													width="80" height="80" decoding="async" data-nimg="1"
+													class="m-4" loading="lazy" style="color: transparent;">판매완료
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
+							<div
+								class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal swiper-pagination-lock">
+								<span
+									class="swiper-pagination-bullet swiper-pagination-bullet-active"></span>
+							</div>
 						</div>
-						<div
-							class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal swiper-pagination-lock">
-							<span
-								class="swiper-pagination-bullet swiper-pagination-bullet-active"></span>
+						<div class="flex items-center w-full absolute top-2/4 z-10 hidden">
+							<button
+								class="w-7 h-7 lg:w-8 lg:h-8 text-sm md:text-base lg:text-lg text-black flex items-center justify-center rounded absolute transition duration-250 hover:bg-gray-900 hover:text-white focus:outline-none transform shadow-navigation -translate-x-1/2 rounded-full lg:w-9 lg:h-9 xl:w-10 xl:h-10 3xl:w-12 3xl:h-12 lg:text-xl 3xl:text-2xl -left-4 bg-transparent shadow-transparent hover:bg-transparent hover:text-black swiper-button-disabled swiper-button-lock"
+								id="product-gallery-slider-prev" aria-label="prev-button"
+								disabled="">
+								<svg stroke="currentColor" fill="currentColor" stroke-width="0"
+									viewBox="0 0 512 512" height="1em" width="1em"
+									xmlns="http://www.w3.org/2000/svg">
+									<path
+										d="M217.9 256L345 129c9.4-9.4 9.4-24.6 0-33.9-9.4-9.4-24.6-9.3-34 0L167 239c-9.1 9.1-9.3 23.7-.7 33.1L310.9 417c4.7 4.7 10.9 7 17 7s12.3-2.3 17-7c9.4-9.4 9.4-24.6 0-33.9L217.9 256z"></path></svg>
+							</button>
+							<button
+								class="w-7 h-7 lg:w-8 lg:h-8 text-sm md:text-base lg:text-lg text-black flex items-center justify-center rounded absolute transition duration-250 hover:bg-gray-900 hover:text-white focus:outline-none transform shadow-navigation translate-x-1/2 rounded-full lg:w-9 lg:h-9 xl:w-10 xl:h-10 3xl:w-12 3xl:h-12 lg:text-xl 3xl:text-2xl -right-4 bg-transparent shadow-transparent hover:bg-transparent hover:text-black swiper-button-disabled swiper-button-lock"
+								id="product-gallery-slider-next" aria-label="next-button"
+								disabled="">
+								<svg stroke="currentColor" fill="currentColor" stroke-width="0"
+									viewBox="0 0 512 512" height="1em" width="1em"
+									xmlns="http://www.w3.org/2000/svg">
+									<path
+										d="M294.1 256L167 129c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.3 34 0L345 239c9.1 9.1 9.3 23.7.7 33.1L201.1 417c-4.7 4.7-10.9 7-17 7s-12.3-2.3-17-7c-9.4-9.4-9.4-24.6 0-33.9l127-127.1z"></path></svg>
+							</button>
 						</div>
-					</div>
-					<div class="flex items-center w-full absolute top-2/4 z-10 hidden">
-						<button
-							class="w-7 h-7 lg:w-8 lg:h-8 text-sm md:text-base lg:text-lg text-black flex items-center justify-center rounded absolute transition duration-250 hover:bg-gray-900 hover:text-white focus:outline-none transform shadow-navigation -translate-x-1/2 rounded-full lg:w-9 lg:h-9 xl:w-10 xl:h-10 3xl:w-12 3xl:h-12 lg:text-xl 3xl:text-2xl -left-4 bg-transparent shadow-transparent hover:bg-transparent hover:text-black swiper-button-disabled swiper-button-lock"
-							id="product-gallery-slider-prev" aria-label="prev-button"
-							disabled="">
-							<svg stroke="currentColor" fill="currentColor" stroke-width="0"
-								viewBox="0 0 512 512" height="1em" width="1em"
-								xmlns="http://www.w3.org/2000/svg">
-								<path
-									d="M217.9 256L345 129c9.4-9.4 9.4-24.6 0-33.9-9.4-9.4-24.6-9.3-34 0L167 239c-9.1 9.1-9.3 23.7-.7 33.1L310.9 417c4.7 4.7 10.9 7 17 7s12.3-2.3 17-7c9.4-9.4 9.4-24.6 0-33.9L217.9 256z"></path></svg>
-						</button>
-						<button
-							class="w-7 h-7 lg:w-8 lg:h-8 text-sm md:text-base lg:text-lg text-black flex items-center justify-center rounded absolute transition duration-250 hover:bg-gray-900 hover:text-white focus:outline-none transform shadow-navigation translate-x-1/2 rounded-full lg:w-9 lg:h-9 xl:w-10 xl:h-10 3xl:w-12 3xl:h-12 lg:text-xl 3xl:text-2xl -right-4 bg-transparent shadow-transparent hover:bg-transparent hover:text-black swiper-button-disabled swiper-button-lock"
-							id="product-gallery-slider-next" aria-label="next-button"
-							disabled="">
-							<svg stroke="currentColor" fill="currentColor" stroke-width="0"
-								viewBox="0 0 512 512" height="1em" width="1em"
-								xmlns="http://www.w3.org/2000/svg">
-								<path
-									d="M294.1 256L167 129c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.3 34 0L345 239c9.1 9.1 9.3 23.7.7 33.1L201.1 417c-4.7 4.7-10.9 7-17 7s-12.3-2.3-17-7c-9.4-9.4-9.4-24.6 0-33.9l127-127.1z"></path></svg>
-						</button>
 					</div>
 				</div>
 				<div class="pt-4 lg:pt-0">
@@ -315,7 +319,9 @@
 						<div class="flex items-center justify-between">
 							<div
 								class="text-heading font-bold text-[40px] pe-2 md:pe-0 lg:pe-2 2xl:pe-0 mr-2">
-								<fmt:formatNumber pattern="##,###,###" value="${ userProduct.price }"/><span class="text-base">원</span>
+								<fmt:formatNumber pattern="##,###,###"
+									value="${ userProduct.price }" />
+								<span class="text-base">원</span>
 							</div>
 						</div>
 					</div>
@@ -364,10 +370,12 @@
 									<span>희망 지역</span><span
 										class="block mt-2 text-lg font-semibold text-heading">
 										<c:choose>
-											<c:when test="${ userProduct.loc eq null || userProduct.loc eq ''}">
+											<c:when
+												test="${ userProduct.loc eq null || userProduct.loc eq ''}">
 												설정 안함
 											</c:when>
-											<c:when test="${ userProduct.loc != null and userProduct.loc != '' }">
+											<c:when
+												test="${ userProduct.loc != null and userProduct.loc != '' }">
 												${ userProduct.loc }
 											</c:when>
 										</c:choose>
@@ -377,10 +385,11 @@
 						</div>
 					</div>
 					<div
-						class="flex items-center py-4 border-b border-gray-300 space-s-4">
+						class="flex items-center py-4 border-b border-gray-300 space-s-4" style="display: block;" id="editBar">
 						<ul class="flex flex-row justify-around w-full">
 							<!-- '상품 수정' 버튼 -->
-							<li><button class="flex flex-col items-center">
+							<li><button class="flex flex-col items-center" id="editBtn"
+										onclick="productEdit('${ userProduct.pcode }')">
 									<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
 										xmlns="http://www.w3.org/2000/svg">
 										<path d="M12 21H21" stroke="#141313" stroke-width="1.5"
@@ -474,9 +483,9 @@
 					<div class="flex">
 						<div class="flex w-full flex-col justify-around lg:ml-4">
 							<a class="font-semibold text-base text-jnblack"
-								href="/store/1424385"><%-- ${ userProduct. } --%></a><span
-								class="font-medium text-sm flex text-jnGray-500">판매상품 1 ·
-								안전거래 0 · 후기 0</span>
+								href="/store/1424385"> <%-- ${ userProduct. } --%>
+							</a><span class="font-medium text-sm flex text-jnGray-500">판매상품
+								1 · 안전거래 0 · 후기 0</span>
 						</div>
 						<a class="flex items-center translate-x-4" href="/store/1424385"><img
 							alt="프로파일"
@@ -516,8 +525,8 @@
 									class="py-[14px] [&amp;>button]:w-full [&amp;>button]:text-left"
 									onclick="openCompleteModal()"><button>택배거래 완료</button></li>
 								<li
-									class="py-[14px] [&amp;>button]:w-full [&amp;>button]:text-left" id="saleOk"
-									><button>다른 곳을 통해 판매 완료</button></li>
+									class="py-[14px] [&amp;>button]:w-full [&amp;>button]:text-left"
+									id="saleOk"><button>다른 곳을 통해 판매 완료</button></li>
 							</ul>
 						</div>
 					</div>

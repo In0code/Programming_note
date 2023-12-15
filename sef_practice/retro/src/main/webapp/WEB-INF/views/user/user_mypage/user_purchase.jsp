@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page info=""%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,12 +53,28 @@
 			$("#orderByList").toggle();
 		});
 		
+		$("#dc").click(function() {
+			alert("눌림");
+			$.ajax({
+				uri: "purchase_t.do",
+				type: "post",
+				dataType: "JSON",
+				error: function(xhr){
+					alert(xhr.status);
+				},
+				success: function(jsonObj){
+					alert(jsonObj.dataSize);
+				}
+			});
+		});
+		
 	});//ready
 	
 	function purchaseDetail(val){
 		$("#pccode").val(val);
 		$("#hrdFrm").submit();
 	}
+
 </script>
 
 </head>
@@ -77,13 +94,17 @@
 							<div class="mr-0 lg:mr-4">
 								<ul class="colors flex flex-nowrap -me-3">
 									<li class="shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black border-black">
-										전체</li>
+										전체
+									</li>
+									<li id="dc" class="shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black">
+										결제완료
+									</li>
 									<li class="shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black">
-										결제완료</li>
+										거래완료
+									</li>
 									<li class="shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black">
-										거래완료</li>
-									<li class="shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black">
-										구매취소</li>
+										구매취소
+									</li>
 								</ul>
 							</div>
 							<div class="relative my-2 sm:m-0 lg:ms-0 z-10 min-w-[160px]">
@@ -142,8 +163,9 @@
 							<input type="hidden" id="pccode" name="pccode"/>
 						</form>
 						
+						<%-- <c:forEach var="purchase" items="${ purchaseList }">
 						<!-- 상품 정보 -->
-						<div id="productDiv" onclick="purchaseDetail('10')">
+						<div id="productDiv" onclick="purchaseDetail('${ purchase.buyreceiptcode }')">
 						<div data-v-ef57988c="">
 							<div data-v-6e1f328e="" data-v-ef57988c="">
 								<div data-v-6e1f328e="" class="purchase_list_display_item" style="background-color: rgb(255, 255, 255);">
@@ -152,7 +174,7 @@
 										<!-- 상품 이미지 -->
 										<div data-v-6e1f328e="" class="list_item_img_wrap">
 											<img data-v-6e1f328e="" alt="product_image"
-												src="https://kream-phinf.pstatic.net/MjAyMzExMTVfMzYg/MDAxNzAwMDM3NTE4ODY4.FsqG6bk6HOgtB6isNowU1Dokh5Uk6FXjgzoyBQ2OshUg.9nh_39MLoypIGYBJdKibaEiDgAq_hG_V5NyAyn10DJAg.JPEG/a_8ab9b5882971402eb1d7b30f7f19546b.jpg?type=m"
+												src="http://localhost/retro_prj/upload/${ purchase.img }"
 												class="list_item_img"
 												style="background-color: rgb(255, 255, 255);">
 										</div>
@@ -161,7 +183,7 @@
 										<!-- 상품명 -->
 										<div data-v-6e1f328e="" class="list_item_title_wrap">
 											<p data-v-6e1f328e="" class="list_item_title">
-											[KREAM Exclusive] Cosymosy Mini Bird Keyring Marshmallow</p>
+											${ purchase.pname }</p>
 										</div>
 										<!---->
 									</div>
@@ -171,7 +193,9 @@
 										<div data-v-6e1f328e="" class="list_item_column column_secondary">
 											<p data-v-8016a084="" data-v-6e1f328e=""
 												class="secondary_title display_paragraph"
-												style="color: rgb(34, 34, 34);">29,500원</p>
+												style="color: rgb(34, 34, 34);">
+												<fmt:formatNumber value="${ purchase.price }" pattern="#,###,###"/>원
+												</p>
 										</div>
 										<!---->
 
@@ -179,7 +203,9 @@
 										<div data-v-6e1f328e="" class="list_item_column column_last">
 											<p data-v-8016a084="" data-v-6e1f328e=""
 												class="last_title display_paragraph"
-												style="color: rgb(34, 34, 34);">2023-11-03</p>
+												style="color: rgb(34, 34, 34);">
+												${ purchase.payment_date }
+											</p>
 										</div>
 										<!---->
 
@@ -196,58 +222,7 @@
 						</div>
 						</div>
 						<!---->
-						
-						<!-- 상품 정보 -->
-						<div data-v-ef57988c="">
-							<div data-v-6e1f328e="" data-v-ef57988c="">
-								<div data-v-6e1f328e="" class="purchase_list_display_item" style="background-color: rgb(255, 255, 255);">
-									<div data-v-6e1f328e="" class="purchase_list_product">
-										<!-- 상품 이미지 -->
-										<div data-v-6e1f328e="" class="list_item_img_wrap">
-											<img data-v-6e1f328e="" alt="product_image"
-												src="https://kream-phinf.pstatic.net/MjAyMzExMTVfMzYg/MDAxNzAwMDM3NTE4ODY4.FsqG6bk6HOgtB6isNowU1Dokh5Uk6FXjgzoyBQ2OshUg.9nh_39MLoypIGYBJdKibaEiDgAq_hG_V5NyAyn10DJAg.JPEG/a_8ab9b5882971402eb1d7b30f7f19546b.jpg?type=m"
-												class="list_item_img"
-												style="background-color: rgb(255, 255, 255);">
-										</div>
-										<!---->
-
-										<!-- 상품명 -->
-										<div data-v-6e1f328e="" class="list_item_title_wrap">
-											<p data-v-6e1f328e="" class="list_item_title">
-											[KREAM Exclusive] Cosymosy Mini Bird Keyring Marshmallow</p>
-										</div>
-										<!---->
-									</div>
-
-									<div data-v-6e1f328e="" class="list_item_status">
-										<!-- 가격 -->
-										<div data-v-6e1f328e="" class="list_item_column column_secondary">
-											<p data-v-8016a084="" data-v-6e1f328e=""
-												class="secondary_title display_paragraph"
-												style="color: rgb(34, 34, 34);">29,500원</p>
-										</div>
-										<!---->
-
-										<!-- 구매일 -->
-										<div data-v-6e1f328e="" class="list_item_column column_last">
-											<p data-v-8016a084="" data-v-6e1f328e=""
-												class="last_title display_paragraph"
-												style="color: rgb(34, 34, 34);">2023-11-03</p>
-										</div>
-										<!---->
-
-										<!-- 후기 작성 / 구매 취소 -->
-										<div data-v-6e1f328e="" class="list_item_column column_last">
-											<input type="button" class="btnStyle" value="후기작성"
-												style="margin-left: 60px" />
-										</div>
-										<!---->
-									</div>
-								</div>
-								<!-- 상품 정보 -->
-							</div>
-						</div>
-						<!---->
+						</c:forEach> --%>
 						
 						<div data-v-ef57988c="" class="v-portal" style="display: none;"></div>
 					</div>

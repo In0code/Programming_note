@@ -25,6 +25,10 @@
 	$(function() {
 		
 	});
+
+function moveTo(bcCode) {
+	location.href = ""+bcCode;
+}
 </script>
 </head>
 <body>
@@ -106,7 +110,7 @@
 		<c:choose>
 			<c:when test="${not empty reiviews }">
 			<c:forEach var="reiview" items="${reiviews }">
-				<tr style="border: none;">
+				<tr style="border: none;cursor: pointer;" onclick="moveTo(${reiview.buycommentcode})">
 					<td style="border: none;text-align: left;width: 50px;">
 						<img src="https://img2.joongna.com/common/Profile/Default/profile_f.png" alt="id" width="42" height="42" referrerpolicy="no-referrer" class="css-sxxyvs" style="border-radius: 24px;">
 					</td>
