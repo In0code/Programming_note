@@ -43,24 +43,30 @@
 	</select>
 
 	<select id="selectProduct" resultType="pd" parameterType="pVO">
-		select  PCODE, PNAME, CONTEXT, IMG, 
-				<if test="img2 != null and img2 != ''">
-		 		IMG2,
+		select p.pcode, p.pname, p.context, p.img, p.price,
+				<if test="img2 != null and p.img2 != ''">
+		 		p.IMG2,
 		 		</if>
 		 		<if test="img3 != null and img3 != ''">
-		 		IMG3,
+		 		p.IMG3,
 		 		</if>
 		 		<if test="img4 != null and img4 != ''">
-		 		IMG4,
+		 		p.IMG4,
 		 		</if>
 		 		<if test="img5 != null and img5 != ''">
-		 		IMG5,
+		 		p.IMG5,
 		 		</if>
-				PRICE, INPUT_DATE, DELIVER, STATUS, LOC, PCANCEL, C3CODE, ID
-		from PRODUCT
-		where PCODE=#{pcode} and ID=#{id}	
+		p.input_date, p.deliver, p.status
+		,p.loc, p.pcancel, p.c3code, p.id, c1.name as cname, c2.name as c2name, c3.name as c3name
+		from product p, CATEGORY c1, CATEGORY2 c2, CATEGORY3 c3
+		where  c1.ccode=c2.ccode and c2.c2code = c3.c2code and c3.C3CODE=p.C3CODE and p.PCODE=#{ pcode }	
 		</select>
 		
+		<select id="getCname" resultType="pd" parameterType="String">
+		select c1.NAME as cname, c2.NAME as c2name, c3.NAME as c3name, p.pcode, c3.c3code
+		from CATEGORY c1, CATEGORY2 c2, CATEGORY3 c3, PRODUCT p
+		where  c1.ccode=c2.ccode and c2.c2code = c3.c2code and c3.C3CODE=p.C3CODE and p.PCODE='${ pcode }'
+		</select>
 	
 	
 	<update id="updateProduct" parameterType="pVO">
@@ -114,6 +120,8 @@
 	<delete id="deleteProduct" parameterType="String">
 		delete from PRODUCT where PCODE=#{pcode}
 	</delete>
+	
+	
 	
 
 </mapper>

@@ -133,8 +133,13 @@ public class ProductController {
 		pVO.setId("1011kiy111");
 				
 		ProductDomain userProduct=ps.searchProduct(pVO);
+//		List<ProductDomain> getCname=ps.getCategoryName(pcode);
+		
+		System.out.println(userProduct);
+//		System.out.println(getCname);
 		
 		model.addAttribute("userProduct",userProduct);
+//		model.addAttribute("getCname",getCname);
 		
 		return "user/product/product_detail";
 	}//productDetail
@@ -155,8 +160,8 @@ public class ProductController {
 	
 	@ResponseBody
 	@RequestMapping("/user/product/productDelete.do")
-	public String productDelete(String pode) {
-		return ps.cancelProduct(pode).toJSONString();
+	public String productDelete(String pcode) {
+		return ps.cancelProduct(pcode).toJSONString();
 	}//productDetail
 	
 	

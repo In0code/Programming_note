@@ -1,5 +1,7 @@
 package kr.co.sist.user.service;
 
+import java.util.List;
+
 import org.apache.ibatis.exceptions.PersistenceException;
 import org.json.simple.JSONObject;
 
@@ -47,6 +49,16 @@ public class ProductService {
     		pe.printStackTrace();
     	}
     	return getRecentPcode;
+    }
+    
+    public List<ProductDomain> getCategoryName(String pcode) {
+    	List<ProductDomain> getCname=null;
+    	try {
+    		getCname=pDAO.getCategoryName(pcode);
+    	} catch (PersistenceException pe) {
+    		pe.printStackTrace();
+    	}
+    	return getCname;
     }
 
     public ProductDomain searchProduct(ProductVO pVO) {
