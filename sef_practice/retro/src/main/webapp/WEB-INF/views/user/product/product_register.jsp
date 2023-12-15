@@ -22,15 +22,22 @@
 	$(function() {
 		/* ---------------패션 의류--------------------- */
 		/* 패션의류 클릭하면 동작 */
-		$("#C").click(function() {
-			$(this).css({'background-color' : '#E5E4E4'});
-			$("#G, #T, #P, #B, #C-1, #C1,#C2").css({'background-color' : '#FFFFFF'});
+		$("#C")
+				.click(
+						function() {
+							$(this).css({
+								'background-color' : '#E5E4E4'
+							});
+							$("#G, #T, #P, #B, #C-1, #C1,#C2").css({
+								'background-color' : '#FFFFFF'
+							});
 
-			$("#category-depth-1").show();
+							$("#category-depth-1").show();
 
-			$("#category-depth-2, #category-depth-3, #category-depth-4, #category-depth-5,#category-depth-1-1,#category-depth-1-2, #category-depth-2-3,#category-depth-2-2,#category-depth-2-1,#category-depth-3-1,#category-depth-3-2,#category-depth-4-1,#category-depth-5-1,#category-depth-5-2")
+							$(
+									"#category-depth-2, #category-depth-3, #category-depth-4, #category-depth-5,#category-depth-1-1,#category-depth-1-2, #category-depth-2-3,#category-depth-2-2,#category-depth-2-1,#category-depth-3-1,#category-depth-3-2,#category-depth-4-1,#category-depth-5-1,#category-depth-5-2")
 									.hide();
-		});//click
+						});//click
 
 		/* 여성의류 클릭하면 동작 */
 		$("#C1").click(function() {
@@ -375,13 +382,20 @@
 		/* ---------------노트북, PC--------------------- */
 
 		/* 노트북, PC 클릭하면 동작 */
-		$("#P").click(function() {
-			$(this).css({'background-color' : '#E5E4E4'});
-			$("#G, #T, #C, #B, #C-1,#P1,#P2,#P3").css({'background-color' : '#FFFFFF'});
-			$("#category-depth-4").show();
-			$("#category-depth-2, #category-depth-3, #category-depth-1, #category-depth-5,#category-depth-1-1,#category-depth-1-2,#category-depth-3-1,#category-depth-3-2,#category-depth-2-1,#category-depth-2-2,#category-depth-2-3,#category-depth-4-1,#category-depth-5-1,#category-depth-5-2")
+		$("#P")
+				.click(
+						function() {
+							$(this).css({
+								'background-color' : '#E5E4E4'
+							});
+							$("#G, #T, #C, #B, #C-1,#P1,#P2,#P3").css({
+								'background-color' : '#FFFFFF'
+							});
+							$("#category-depth-4").show();
+							$(
+									"#category-depth-2, #category-depth-3, #category-depth-1, #category-depth-5,#category-depth-1-1,#category-depth-1-2,#category-depth-3-1,#category-depth-3-2,#category-depth-2-1,#category-depth-2-2,#category-depth-2-3,#category-depth-4-1,#category-depth-5-1,#category-depth-5-2")
 									.hide();
-		});//click
+						});//click
 
 		/* 노트북 클릭하면 동작 */
 		$("#P1").click(function() {
@@ -450,13 +464,20 @@
 		/* ---------------도서 , 문구--------------------- */
 
 		/* 도서/ 문구 클릭하면 동작 */
-		$("#B").click(function() {
-			$(this).css({'background-color' : '#E5E4E4'});
-			$("#G, #T, #P, #C, #C-1,#B1,#B2,#B3").css({'background-color' : '#FFFFFF'});
-			$("#category-depth-5").show();
-			$("#category-depth-2, #category-depth-3, #category-depth-4, #category-depth-1,#category-depth-1-1,#category-depth-1-2,#category-depth-2-1,#category-depth-2-2,#category-depth-2-3,#category-depth-3-1,#category-depth-3-2,#category-depth-4-1,#category-depth-5-1,#category-depth-5-2")
+		$("#B")
+				.click(
+						function() {
+							$(this).css({
+								'background-color' : '#E5E4E4'
+							});
+							$("#G, #T, #P, #C, #C-1,#B1,#B2,#B3").css({
+								'background-color' : '#FFFFFF'
+							});
+							$("#category-depth-5").show();
+							$(
+									"#category-depth-2, #category-depth-3, #category-depth-4, #category-depth-1,#category-depth-1-1,#category-depth-1-2,#category-depth-2-1,#category-depth-2-2,#category-depth-2-3,#category-depth-3-1,#category-depth-3-2,#category-depth-4-1,#category-depth-5-1,#category-depth-5-2")
 									.hide();
-		});//click
+						});//click
 
 		/* 학습 / 교육 클릭하면 동작 */
 		$("#B1").click(function() {
@@ -544,24 +565,40 @@
 		});//click
 
 		/* --------희망지역 버튼------------- */
-		var flag=true;
+		var flag = true;
 		/* '주소검색' 버튼 누르면 동작 */
-		$("#addrSearchBtn").click(function() {
-			$(this).attr('class',"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 text-white bg-jngreen border-jngreen");
-			$("#noAddrBtn").attr('class',"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 border-jnblack text-jnblack bg-white");
-			$("#locInputBox").css('display', 'block');
-			flag=true;
-			
-		});//clcick
+		$("#addrSearchBtn")
+				.click(
+						function() {
+							$(this)
+									.attr(
+											'class',
+											"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 text-white bg-jngreen border-jngreen");
+							$("#noAddrBtn")
+									.attr(
+											'class',
+											"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 border-jnblack text-jnblack bg-white");
+							$("#locInputBox").css('display', 'block');
+							flag = true;
+
+						});//clcick
 
 		/* '지역 설정 안 함'버튼누르면 동작*/
-		$("#noAddrBtn").click(function() {
-			$(this).attr('class',"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 text-white bg-jngreen border-jngreen");
-			$("#addrSearchBtn").attr('class',"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 border-jnblack text-jnblack bg-white");
-			$("#locInputBox").css('display', 'none');
-			 $("#locErr").css('display', 'none');
-			 flag=false;
-		});//clcick
+		$("#noAddrBtn")
+				.click(
+						function() {
+							$(this)
+									.attr(
+											'class',
+											"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 text-white bg-jngreen border-jngreen");
+							$("#addrSearchBtn")
+									.attr(
+											'class',
+											"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 border-jnblack text-jnblack bg-white");
+							$("#locInputBox").css('display', 'none');
+							$("#locErr").css('display', 'none');
+							flag = false;
+						});//clcick
 
 		/* --------상품 상태 버튼------------- */
 
@@ -578,76 +615,84 @@
 			$("#oldProductBtn").attr('class',"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 border-jnblack text-jnblack bg-white");
 			$("#changeStatus").val("S");
 		});//clcick
+		
+		/* --------배송비 버튼------------- */
 
-		/* '배송비 별도' 클릭시 동작 */
-		$("#parcelFeeN").click(function() {
+		/* '배송비 별도' 버튼 누르면 동작 */
+		$("#deliverNBtn").click(function() {
+			$(this).attr('class',"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 text-white bg-jngreen border-jngreen");
+			$("#deliverYBtn").attr('class',"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 border-jnblack text-jnblack bg-white");
 			$("#changeDeliver").val("N");
-		});//click
-		/* '배송비 포함' 클릭시 동작*/
-		$("#parcelFeeY").click(function() {
+		});//clcick
+
+		/* '새상품'버튼누르면 동작*/
+		$("#deliverYBtn").click(function() {
+			$(this).attr('class',"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 text-white bg-jngreen border-jngreen");
+			$("#deliverNBtn").attr('class',"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 border-jnblack text-jnblack bg-white");
 			$("#changeDeliver").val("Y");
-		});
-		
+		});//clcick
+
+
 		/* 에러 메시지를 보여줬다가, 다시 키가 올라오면 에러 메시지 사라지게 */
-		$("#productTitle").keyup(function(){
-			 $("#pnameErr").css('display', 'none');
+		$("#productTitle").keyup(function() {
+			$("#pnameErr").css('display', 'none');
 		});
-		$("#productPrice").keyup(function(){
-			 $("#priceNErr").css('display', 'none');
+		$("#productPrice").keyup(function() {
+			$("#priceNErr").css('display', 'none');
 		});
-		$("#productDescription").keyup(function(){
-			 $("#contextErr").css('display', 'none');
+		$("#productDescription").keyup(function() {
+			$("#contextErr").css('display', 'none');
 		});
-		$("#locInputBox").keyup(function(){
-			 $("#locErr").css('display', 'none');
+		$("#locInputBox").keyup(function() {
+			$("#locErr").css('display', 'none');
 		});
-		
+
 		/* 등록 버튼 클릭 시 동작 */
 		$("#registerBtn").click(function() {
-			
+
 			var formData = new FormData($("#regiFrm")[0]);
-			
-			if($("#productTitle").val() === ''){
-			        $("#pnameErr").css('display', 'block');
-			        alert("상품명을 입력해주세요");
-			        return; // locInput이 비어있으면 처리 중단
-			    } else {
-			        $("#pnameErr").css('display', 'none');
+
+			if ($("#productTitle").val() === '') {
+				$("#pnameErr").css('display', 'block');
+				alert("상품명을 입력해주세요");
+				return; // locInput이 비어있으면 처리 중단
+			} else {
+				$("#pnameErr").css('display', 'none');
 			}//end else			
-			
-			if($("#productPrice").val() === ''){
-			        $("#priceNErr").css('display', 'block');
-			        alert("가격을 입력해주세요");
-			        return; // locInput이 비어있으면 처리 중단
-			    } else {
-			        $("#priceNErr").css('display', 'none');
+
+			if ($("#productPrice").val() === '') {
+				$("#priceNErr").css('display', 'block');
+				alert("가격을 입력해주세요");
+				return; // locInput이 비어있으면 처리 중단
+			} else {
+				$("#priceNErr").css('display', 'none');
 			}//end else			
-			
+
 			/* 상품 상세 정보가 비어있을 때 */
-			if($("#productDescription").val() === ''){
-			        $("#contextErr").css('display', 'block');
-			        alert("상품 상세정보를 입력해주세요");
-			        return; // locInput이 비어있으면 처리 중단
-			    } else {
-			        $("#contextErr").css('display', 'none');
+			if ($("#productDescription").val() === '') {
+				$("#contextErr").css('display', 'block');
+				alert("상품 상세정보를 입력해주세요");
+				return; // locInput이 비어있으면 처리 중단
+			} else {
+				$("#contextErr").css('display', 'none');
 			}//end else			
-			
+
 			/* 희망지역 입력 칸이 비어있을 시 */
-			 if(flag){
-			    if ( $("#locInputBox").val() === '') {
-			        $("#locErr").css('display', 'block');
-			        alert("희망지역을 입력해주세요");
-			        return; // locInput이 비어있으면 처리 중단
-			    } else {
-			        $("#locErr").css('display', 'none');
-			    }//end else
-			 }//end if
-			  var frm=document.frm;
-		       frm.action="product_register_ok.do";
+			if (flag) {
+				if ($("#locInputBox").val() === '') {
+					$("#locErr").css('display', 'block');
+					alert("희망지역을 입력해주세요");
+					return; // locInput이 비어있으면 처리 중단
+				} else {
+					$("#locErr").css('display', 'none');
+				}//end else
+			}//end if
+			var frm = document.frm;
+			frm.action = "product_register_ok.do";
 			$("#regiFrm").submit();
-			
-		    });
+
 		});
+	});
 
 	document.addEventListener("DOMContentLoaded", function() {
 		// 모든 li 요소에 대해 클릭 이벤트 리스너 등록
@@ -662,15 +707,13 @@
 				var productName = $("#productTitle").val();
 
 				$("#c3code").val(clickedId);
-				
-				
 
 				// 여기에서 클릭한 li 요소의 ID를 활용하면 됩니다.
 				// 예를 들어, 클릭한 ID를 서버로 전송하거나 다른 작업을 수행할 수 있습니다.
 			});
 		});//forEach
 	});//addEventListener
-	
+
 	/* price */
 	function validatePrice(input) {
 		// 숫자만 남기기
@@ -703,9 +746,6 @@
 			$("#lengthCnt").html(maxLength);
 		}//end if
 	}//lengthCnt
-	
-	
-	
 </script>
 
 <!-- 
@@ -748,21 +788,21 @@
 	<c:import url="http://localhost/retro_prj/common/cdn/header.jsp" />
 
 
-	<form id="regiFrm" name="frm" enctype="multipart/form-data" method="post">
-		<input type="hidden" name="c3code" id="c3code" /> 
-		<input type="hidden" name="deliver" id="changeDeliver" value="N" />
-		<input type="hidden" name="loc" id="changeLoc"/>
+	<form id="regiFrm" name="frm" enctype="multipart/form-data"
+		method="post">
+		<input type="hidden" name="c3code" id="c3code" />  <input
+			type="hidden" name="loc" id="changeLoc" />
 		<main class="relative flex-grow border-b-2"
 			style="min-height: -webkit-fill-available; -webkit-overflow-scrolling: touch">
 			<div
 				class="mx-auto max-w-[1280px] px-4 md:px-8 2xl:px-16 box-content">
 				<section class="mx-auto w-full max-w-[768px]">
 					<div class="flex px-5 pb-1.5">
-					
-						<div>
-					</div>
-					<input type="file" name="img" class="inputBox" multiple="multiple" id="file-input" style="width:300px;"/><br/>
-					   <!--  <button class="flex items-center justify-center w-20 h-20 mr-1.5 bg-jnGray-200 rounded" onclick="document.getElementById('file-input').click()">
+
+						<div></div>
+						<input type="file" name="img" class="inputBox" multiple="multiple"
+							id="file-input" style="width: 300px;" /><br />
+						<!--  <button class="flex items-center justify-center w-20 h-20 mr-1.5 bg-jnGray-200 rounded" onclick="document.getElementById('file-input').click()">
 					        <div class="flex flex-col">
 					            <svg width="32px" height="32px" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 					                <path fill-rule="evenodd" clip-rule="evenodd" d="M15.728 20.4461C13.6481 20.4461 11.9619 18.7599 11.9619 16.68C11.9619 14.6001 13.6481 12.9138 15.728 12.9138C17.8079 12.9138 19.4942 14.6001 19.4942 16.68C19.4942 18.7599 17.8079 20.4461 15.728 20.4461Z" fill="#C2C6CE"></path>
@@ -771,7 +811,7 @@
 					            <p class="mt-1 text-xs text-jnGray-500">0/5</p>
 					        </div>
 					    </button> -->
-					
+
 						<div class="overflow-hidden">
 							<div
 								class="os-host os-host-foreign os-theme-dark os-host-resize-disabled os-host-scrollbar-horizontal-hidden os-host-scrollbar-vertical-hidden os-host-transition">
@@ -810,7 +850,8 @@
 								<div class="os-scrollbar-corner"></div>
 							</div>
 						</div>
-					</div><br/>
+					</div>
+					<br />
 					<div class="flex flex-col px-5 space-y-5">
 						<!-- 상품명 입력 inpuBox -->
 						<div class="block">
@@ -818,8 +859,9 @@
 								placeholder="상품명"
 								class="py-2 px-4 md:px-5 w-full appearance-none border text-input text-xs lg:text-sm font-body placeholder-body min-h-12 transition duration-200 ease-in-out bg-white border-gray-300 focus:border-heading h-11 md:h-12 focus:outline-none rounded-md"
 								autocomplete="off" spellcheck="false" aria-invalid="false">
-								<p id="pnameErr"
-							style="display:none; color: red; font-size: 15px;">  상품명을 입력해주세요.</p>
+							<p id="pnameErr"
+								style="display: none; color: red; font-size: 15px;">상품명을
+								입력해주세요.</p>
 						</div>
 
 						<div
@@ -1086,19 +1128,24 @@
 						<p id="priceError" class="input_error"
 							style="display: none; color: red; font-size: 15px">최대 1억원까지
 							입력 가능합니다.</p>
-							<p id="priceNErr"
-							style="display:none; color: red; font-size: 15px;">판매 가격을 입력해주세요.</p>
-					</div><br/>
+						<p id="priceNErr"
+							style="display: none; color: red; font-size: 15px;">판매 가격을
+							입력해주세요.</p>
+					</div>
+					<br />
 					<section class="flex flex-col px-5 space-y-5">
 						<!-- 상품명, 구매시기, 착용 시간, 요염 여부, 하자여부 작성 inputBox -->
 						<div style="text-align: right">
-							<textarea id=productDescription name="context" oninput="javascript:lengthCnt()"
+							<textarea id=productDescription name="context"
+								oninput="javascript:lengthCnt()"
 								placeholder="- 상품명(브랜드)																																																- 구매 시기																																																- 사용 기간																																																- 하자 여부																																																* 실제 촬영한 사진과 함께 상세 정보를 입력해주세요.																																																* 카카오톡 아이디 첨부 시 게시물 삭제 및 이용제재 처리될 수 있어요.																																																 																																																안전하고 건전한 거래환경을 위해 과학기술정보통신부, 한국인터넷진흥원, 중고나라가 함께합니다."
-								style="width: 100%; height: 300px; border: 1px solid #E5E4E4; border-radius: 5px; resize: none; padding: 15px; margin-top: 15px; border-color:#929492 "></textarea>
+								style="width: 100%; height: 300px; border: 1px solid #E5E4E4; border-radius: 5px; resize: none; padding: 15px; margin-top: 15px; border-color: #929492"></textarea>
 							<p id="contextErr"
-							style="display:none; color: red; font-size: 15px; text-align: left;">상품 상제 정보를 입력해주세요</p>
+								style="display: none; color: red; font-size: 15px; text-align: left;">상품
+								상제 정보를 입력해주세요</p>
 							<span id="lengthCnt">0</span>/1000
-						</div><br/>
+						</div>
+						<br />
 						<!-- 상품상태 : 중고 / 새상품 버튼 -->
 						<p class="font-semibold">상품상태</p>
 						<div class="flex gap-3">
@@ -1109,25 +1156,20 @@
 								id="newProductBtn"
 								class="h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 border-jnblack text-jnblack bg-white"
 								value="새상품" />
-						</div><br/>
+						</div>
+						<br />
 						<!-- 배송비 : 새송비 별도 / 배송비 포함 러디오 버튼-->
-						<div>
-							<p class="text-jnGray-900">배송비</p>
-							<ul class="flex flex-row items-start mt-3">
-								<li class="flex items-center mr-4 contents-center"><label
-									for="parcelFeeN" class="flex items-end"><input
-										 type="radio" id="parcelFeeN"
-										class="appearance-none rounded-full w-5 h-5 border-1.5 border-solid border-jnGray-500 transition-all duration-100 ease-linear mr-1.5 cursor-pointer checked:border-6 checked:border-jngreen"
-										value="0" checked=""><span
-										class="cursor-pointer text-jnGray-700">배송비 별도</span></label></li>
-								<li class="flex items-center mr-4 contents-center"><label
-									for="parcelFeeY" class="flex items-end"><input
-										 type="radio" id="parcelFeeY"
-										class="appearance-none rounded-full w-5 h-5 border-1.5 border-solid border-jnGray-500 transition-all duration-100 ease-linear mr-1.5 cursor-pointer checked:border-6 checked:border-jngreen"
-										value="1"><span class="cursor-pointer text-jnGray-700">배송비
-											포함</span></label></li>
-							</ul>
-						</div><br/>
+						<p class="font-semibold">배송비</p>
+						<div class="flex gap-3">
+							<input type="button" id="deliverNBtn" name="deliver"
+								class="h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 text-white bg-jngreen border-jngreen"
+								value="배송비 별도" /> 
+								<input type="hidden" name="deliver" id="changeDeliver" value="N" /> 
+								<input type="button" id="deliverYBtn"
+								class="h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 border-jnblack text-jnblack bg-white"
+								value="배송비 포함" />
+						</div>
+						<br />
 
 
 						<!-- 희망지역 : 주소검색 / 지역 설정 안함 버튼 -->
@@ -1139,9 +1181,11 @@
 								class="h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 border-jnblack text-jnblack bg-white"
 								style="width: 130px" value="지역 설정 안 함">
 						</div>
-							<input type="text" class="inputBox" name="loc" id="locInputBox" placeholder="희망하는 지역의 동까지 입력   예) 자양동" style="font-size :15px;border: 1px solid #929492; width:300px; padding: 5px; display: block"/>
-							<p id="locErr"
-							style="display:none; color: red; font-size: 15px;">희망하는 지역의 주소를 입력해주세요.</p>
+						<input type="text" class="inputBox" name="loc" id="locInputBox"
+							placeholder="희망하는 지역의 동까지 입력   예) 자양동"
+							style="font-size: 15px; border: 1px solid #929492; width: 300px; padding: 5px; display: block" />
+						<p id="locErr" style="display: none; color: red; font-size: 15px;">희망하는
+							지역의 주소를 입력해주세요.</p>
 					</section>
 					<section class="w-full px-5 text-sm font-medium mb-7">
 						<div class="h-px mb-4 bg-jnGray-200"></div>
@@ -1150,13 +1194,13 @@
 					<div class="relative flex gap-4 px-5 py-3">
 						<input type="button" id="registerBtn"
 							class="text-[13px] md:text-sm leading-4 inline-flex items-center cursor-pointer transition ease-in-out duration-300 font-semibold font-body text-center justify-center border-0 border-transparent placeholder-white focus-visible:outline-none focus:outline-none rounded-md bg-heading text-white px-5 md:px-6 lg:px-8 py-4 md:py-3.5 lg:py-4 hover:text-white hover:bg-gray-600 hover:shadow-cart w-[20%] break-keep"
-							style="margin-left: 590px;" value="등록"/>
+							style="margin-left: 590px;" value="등록" />
 					</div>
 				</section>
 			</div>
 			<div class="Toastify"></div>
 		</main>
-		 <!-- <input type="submit" value="Submit"/> -->
+		<!-- <input type="submit" value="Submit"/> -->
 	</form>
 	<!-- footer -->
 	<c:import url="http://localhost/retro_prj/common/cdn/footer.jsp" />

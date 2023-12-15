@@ -68,6 +68,7 @@
 </style>
 <script type="text/javascript">
 	$(function() {
+		   alert("${ userProduct.saleok}")
 		$("#completeCancel").click(function() {
 			var modalBg3 = document.getElementById('completeModalBg');
 			modalBg3.style.display = 'none';
@@ -88,6 +89,7 @@
 		        
 		        if (confirmSaleOk) {
 		        	prductSaleOk(pcode);
+		        	
 		        }//end if
 		    });//click	
 		    
@@ -101,13 +103,17 @@
 		        }//end if
 		    });//click
 		    
-		  var saleOkChk="${ userProduct.saleok }"
-		  if(saleOkChk){
-			$("#saleOkStyle").attr('class',
-					"absolute top-0 left-0 bg-black/[0.5] w-full h-full z-[1] rounded-lg");
-			$("#saleOkStyle").show();
-				
-			}//end if
+		 
+		    
+		    var saleOkChk = $("#saleOkStyle").data("saleok");
+		    
+
+		    if (saleOkChk === 'Y') {
+		        $("#saleOkStyle").attr('class', "absolute top-0 left-0 bg-black/[0.5] w-full h-full z-[1] rounded-lg");
+		        $("#saleOkStyle").show();
+		    } else {
+		        $("#saleOkStyle").hide();
+		    }
 		    
 	});//ready
 
@@ -161,6 +167,10 @@
 		modalBg3.style.display = 'none';
 	}//closeDelModal
 
+	function saleOkBtn(pcode){
+		alert(pcod);
+	}
+	
 	/* 상태 변경에서 상품 판매 완료 처리를 하면 상품 판매 처리가 됨 */
 	function prductSaleOk(pcode) {
 
@@ -174,6 +184,7 @@
 				 console.log(xhr.status);
 			},
 			success:function(jsonObj){
+				alert("판매 완료 처리 되었습니다");
 				location.reload();
 			}//success
 		});//ajax
@@ -190,7 +201,8 @@
 				 console.log(xhr.status);
 			},
 			success:function(jsonObj){
-				location.reload();
+				alert("삭제 완료되었습니다.");
+				/* location.href=""; 사용자 메인으로 이동 */ 
 			}//success
 		});//ajax
 }//deleteProduct
@@ -224,7 +236,7 @@
 										class="object-cover w-full h-full rounded-lg top-1/2 left-1/2"
 										loading="lazy"
 										style="position: absolute; height: 95%; width: 95%; inset: 0px; color: transparent;">
-									<div id="saleOkStyle" style="display: none;">
+									<div id="saleOkStyle" onclick="saleOkBtn('${ userProduct.pcode}')" style="display: none;" data-saleok="${userProduct.saleok}">
 										<div
 											class="flex justify-center items-center text-2xl text-white font-bold w-full h-full flex-col">
 											<img alt="판매완료"
@@ -272,12 +284,17 @@
 							<ol class="flex flex-wrap items-center w-full">
 								<li
 									class="flex-shrink-0 px-0 text-sm break-all transition duration-200 ease-in text-body first:ps-0 last:pe-0 hover:text-heading"><a
-									href="/">홈</a></li>
+									href="/">${ userProduct.cname }</a></li>
 								<li
 									class="text-sm mx-2.5 leading-5 text-body min-[480px]:px-1 max-[480px]:px-0">&gt;</li>
 								<li
 									class="flex-shrink-0 px-0 text-sm break-all transition duration-200 ease-in text-body first:ps-0 last:pe-0 hover:text-heading"><a
-									class="capitalize" href="/search?category=21">무료나눔</a></li>
+									class="capitalize" href="/search?category=21">${ userProduct.c2name }</a></li>
+								<li
+									class="text-sm mx-2.5 leading-5 text-body min-[480px]:px-1 max-[480px]:px-0">&gt;</li>
+								<li
+									class="flex-shrink-0 px-0 text-sm break-all transition duration-200 ease-in text-body first:ps-0 last:pe-0 hover:text-heading"><a
+									class="capitalize" href="/search?category=21">${ userProduct.c3name }</a></li>
 							</ol>
 						</div>
 					</div>
@@ -330,7 +347,7 @@
 										</c:choose>
 									</span>
 								</div>
-								<div class="flex-1 basis-[33.33%] ps-4">
+								<div class="flex-1 basis-[33.33%] ps-4 border-r border-gray-300">
 									<span>제품 상태</span><span
 										class="block mt-2 text-lg font-semibold text-heading">
 										<c:choose>
@@ -339,6 +356,19 @@
 											</c:when>
 											<c:when test="${ userProduct.status eq 'S' }">
 												새상품
+											</c:when>
+										</c:choose>
+									</span>
+								</div>
+								<div class="flex-1 basis-[33.33%] ps-4">
+									<span>희망 지역</span><span
+										class="block mt-2 text-lg font-semibold text-heading">
+										<c:choose>
+											<c:when test="${ userProduct.loc eq null || userProduct.loc eq ''}">
+												설정 안함
+											</c:when>
+											<c:when test="${ userProduct.loc != null and userProduct.loc != '' }">
+												${ userProduct.loc }
 											</c:when>
 										</c:choose>
 									</span>
