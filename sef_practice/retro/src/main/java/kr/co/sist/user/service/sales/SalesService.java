@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import kr.co.sist.user.dao.sales.SalesDAO;
 import kr.co.sist.user.domain.sales.SalesDomain;
+import kr.co.sist.user.domain.sales.SalesListDomain;
+import kr.co.sist.user.vo.sales.SalesListVO;
 import kr.co.sist.user.vo.sales.SalesVO;
 
 @Service
@@ -15,33 +17,37 @@ public class SalesService {
 	@Autowired
 	private SalesDAO sDAO;
 	
-	public List<SalesDomain> searchSales(SalesVO sVO) {
-		List<SalesDomain> list = null;
+	public List<SalesListDomain> searchSales(SalesListVO slVO) {
+		List<SalesListDomain> list = null;
 
-		switch (sVO.getFlag()) {
+		switch (slVO.getFlag()) {
 		case 'A':
-			list = searchAllSales(sVO.getId());
+			list = searchAllSales(slVO.getId());
 			break;
 		case 'O':
-			list = searchOnSales(sVO.getId());
+			list = searchOnSales(slVO.getId());
 			break;
 		case 'F':
-			list = searchFinishedSales(sVO.getId());
+			list = searchFinishedSales(slVO.getId());
 			break;
 		}
 		
 		return list;
 	}
 	
-	public List<SalesDomain> searchAllSales(String id) {
+	public List<SalesListDomain> searchAllSales(String id) {
 		return sDAO.selectAllSales(id);
 	}
 	
-	public List<SalesDomain> searchOnSales(String id) {
+	public List<SalesListDomain> searchOnSales(String id) {
 		return sDAO.selectOnSales(id);
 	}
 	
-	public List<SalesDomain> searchFinishedSales(String id) {
+	public List<SalesListDomain> searchFinishedSales(String id) {
 		return sDAO.selectFinishedSales(id);
+	}
+	
+	public SalesDomain searchOneSales(SalesVO sVO) {
+		return sDAO.selectOneSale(sVO);
 	}
 }

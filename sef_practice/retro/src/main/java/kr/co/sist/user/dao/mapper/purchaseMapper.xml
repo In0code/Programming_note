@@ -48,9 +48,9 @@ and s.id = #{ id } and cancel = 'Y'
 order by buy_date desc
 </select>
 
-<!-- 거래완료 디테일 -->
 <select id="selectBuyDetail" resultType="mpd" parameterType="String">
-select buyreceiptcode code, to_char(b.payment_date, 'yyyy-mm-dd') buy_date, p.pcode, p.pname, p.img, p.price, p.id seller, payment, m.phone, m.nickname, b.id buyer, select1, select2, s.context
+<!-- 거래완료 디테일 -->
+select buyreceiptcode code, to_char(b.payment_date, 'yyyy-mm-dd') buy_date, p.pcode, p.pname, p.img, p.price, p.id seller, payment, m.phone, m.nickname, b.id buyer, s.commentcode, select1, select2, s.context
 from buyreceipt b, product p, member m, SELLCOMMENT s
 where b.pcode = p.pcode and p.id = m.id and s.pcode(+) = p.pcode and buyreceiptcode = #{ code }
 </select>
@@ -62,5 +62,10 @@ from safepurchase s, product p, member m
 where s.pcode = p.pcode and p.id = m.id and safecode = #{ code }
 </select>
 
+<update id="updateCancel" parameterType="String">
+update safepurchase
+set cancel = 'Y'
+where safecode = #{ code }
+</update>
 
 </mapper>

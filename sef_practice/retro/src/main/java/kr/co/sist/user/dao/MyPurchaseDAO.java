@@ -101,6 +101,22 @@ public class MyPurchaseDAO {
 		return mpd;
 	}
 	
+	public int updateCancel(String code) throws PersistenceException{
+		int cnt = 0;
+		
+		MybatisHandler mbh = MybatisHandler.getInstance();
+		SqlSession ss = mbh.getMyBatisHandler(configPath, false);
+		cnt = ss.update("user.purchase.updateCancel",code);
+		
+		if(cnt == 1) {
+			ss.commit();
+		}
+		
+		mbh.closeHandler(ss);
+		
+		return cnt;
+	}
+	
 	public static void main(String[] args) {
 		
 		System.out.println(new MyPurchaseDAO().selectDealCnt("urface"));

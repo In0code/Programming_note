@@ -11,6 +11,5 @@ import lombok.ToString;
 @AllArgsConstructor
 public class SalesVO {
 
-	private String id;
-	private char flag;
+	private String id, pcode;
 }

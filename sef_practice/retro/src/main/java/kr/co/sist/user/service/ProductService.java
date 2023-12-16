@@ -21,7 +21,7 @@ public class ProductService {
             ps = new ProductService();
         }
         return ps;
-    }
+    }//getInstance
 
     /**
      * 상품 등록
@@ -49,13 +49,13 @@ public class ProductService {
     	return getRecentPcode;
     }//getPcode
     
-
+    
     public ProductDomain searchProduct(ProductVO pVO) {
-        ProductDomain search = null;
-        try {
-            search = pDAO.selectProduct(pVO);
-        } catch (PersistenceException pe) {
-            pe.printStackTrace();
+    	ProductDomain search = null;
+    	try {
+    		search = pDAO.selectProduct(pVO);
+    	} catch (PersistenceException pe) {
+    		pe.printStackTrace();
         }//end catch
         return search;
     }//searchProduct

@@ -38,13 +38,9 @@ public class MyPurchaseService {
 		
 		try {
 			mpd = mpDAO.selectBuyDetail(code);
+			mpd.setPhone(maskingPhone(mpd.getPhone()));
 			
-			String phone = mpd.getPhone();
-			StringBuilder tempPhone = new StringBuilder();
-			tempPhone.append(phone.substring(0,3)).append("-").append(phone.substring(3,4)).append("***-*").append(phone.substring(8));
-			
-			mpd.setPhone(tempPhone.toString());
-			
+			System.out.println(mpd.getSelect1());
 		}catch(PersistenceException pe) {
 			pe.printStackTrace();
 		}
@@ -57,18 +53,28 @@ public class MyPurchaseService {
 		
 		try {
 			mpd = mpDAO.selectPayDetail(code);
-			
-			String phone = mpd.getPhone();
-			StringBuilder tempPhone = new StringBuilder();
-			tempPhone.append(phone.substring(0,3)).append("-").append(phone.substring(3,4)).append("***-*").append(phone.substring(8));
-			
-			mpd.setPhone(tempPhone.toString());
+			mpd.setPhone(maskingPhone(mpd.getPhone()));
 			
 		}catch(PersistenceException pe) {
 			pe.printStackTrace();
 		}
 		
 		return mpd;
+	}
+	
+	public JSONObject cancelBuy(String code) {
+		JSONObject jsonObj = new JSONObject();
+		
+		jsonObj.put("resultFlag",mpDAO.updateCancel(code) == 1 ? true : false);
+		
+		return jsonObj;
+	}
+	
+	public String maskingPhone(String phone) {
+		StringBuilder tempPhone = new StringBuilder();
+		tempPhone.append(phone.substring(0,3)).append("-").append(phone.substring(3,4)).append("***-*").append(phone.substring(8));
+		
+		return tempPhone.toString();
 	}
 	
 //	public JSONObject searchDealComplete(String id) {

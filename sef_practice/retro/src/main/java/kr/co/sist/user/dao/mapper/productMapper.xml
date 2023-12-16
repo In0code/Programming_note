@@ -108,7 +108,7 @@
 	where PCODE=#{pcode}
 	</update>
 	
-	<update id="updateSaleOk" parameterType="String">
+	<update id="updateSaleOk" parameterType="String" >
 		update PRODUCT
 		set saleok='Y'
 		where PCODE=#{pcode}

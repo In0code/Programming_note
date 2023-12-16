@@ -10,8 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.sist.user.domain.MyPurchaseDomain;
@@ -41,16 +39,22 @@ public class MyPurchaseController {
 	}
 
 	@GetMapping("/my/purchase/detail.do")
-	public String purchaseDetail(HttpSession session, String code, String table, Model model) {
-		if("buy".equals(table)) {
+	public String purchaseDetail(HttpSession session, String code, Model model) {
+		if(code.startsWith("B")){
 			model.addAttribute("purchase", mps.searchBuyDetail(code));
 		}
 		
-		if("safe".equals(table)) {
+		if(code.startsWith("S")){
 			model.addAttribute("purchase", mps.searchPayDetail(code));
 		}
 		
 		return "/user/user_mypage/user_purchase_detail";
+	}
+	
+	@ResponseBody
+	@PostMapping("/my/purchase_cancel.do")
+	public String purchaseCancel(HttpSession session, String code) {
+		return mps.cancelBuy(code).toJSONString();
 	}
 
 }

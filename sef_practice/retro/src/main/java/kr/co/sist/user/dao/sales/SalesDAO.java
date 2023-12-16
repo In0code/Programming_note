@@ -7,12 +7,14 @@ import org.springframework.stereotype.Component;
 
 import kr.co.sist.common.dao.MybatisHandler;
 import kr.co.sist.user.domain.sales.SalesDomain;
+import kr.co.sist.user.domain.sales.SalesListDomain;
+import kr.co.sist.user.vo.sales.SalesVO;
 
 @Component
 public class SalesDAO {
 
-	public List<SalesDomain> selectAllSales(String id) {
-		List<SalesDomain> list = null;
+	public List<SalesListDomain> selectAllSales(String id) {
+		List<SalesListDomain> list = null;
 		
 		MybatisHandler mh = MybatisHandler.getInstance();
 		SqlSession ss = mh.getMyBatisHandler(false);
@@ -24,8 +26,8 @@ public class SalesDAO {
 		return list;
 	}
 	
-	public List<SalesDomain> selectOnSales(String id) {
-		List<SalesDomain> list = null;
+	public List<SalesListDomain> selectOnSales(String id) {
+		List<SalesListDomain> list = null;
 		
 		MybatisHandler mh = MybatisHandler.getInstance();
 		SqlSession ss = mh.getMyBatisHandler(false);
@@ -37,8 +39,8 @@ public class SalesDAO {
 		return list;
 	}
 	
-	public List<SalesDomain> selectFinishedSales(String id) {
-		List<SalesDomain> list = null;
+	public List<SalesListDomain> selectFinishedSales(String id) {
+		List<SalesListDomain> list = null;
 		
 		MybatisHandler mh = MybatisHandler.getInstance();
 		SqlSession ss = mh.getMyBatisHandler(false);
@@ -48,5 +50,18 @@ public class SalesDAO {
 		mh.closeHandler(ss);
 		
 		return list;
+	}
+	
+	public SalesDomain selectOneSale(SalesVO sVO) {
+		SalesDomain sDomain = null;
+		
+		MybatisHandler mh = MybatisHandler.getInstance();
+		SqlSession ss = mh.getMyBatisHandler(false);
+		
+		sDomain = ss.selectOne("kr.co.sist.user.userSales.salesDetail", sVO);
+		
+		mh.closeHandler(ss);
+		
+		return sDomain;
 	}
 }
