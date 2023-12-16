@@ -184,7 +184,6 @@ $(function() {
 				dataType : "json",
 				error : function(xhr){
 					alert("서버에서 문제가 발생하였습니다.");
-					console.log(xhr);
 					console.log(xhr.status);
 				},
 				success : function(jsonObj){

@@ -35,6 +35,22 @@
 
 	$(function() {
 		salesAjax(flag);
+		
+		$("#all").click(function() {
+			changeCss("all");
+			salesAjax('A');			
+		});
+		
+		$("#on").click(function() {
+			changeCss("on");
+			salesAjax('A');			
+		});
+		
+		$("#fin").click(function() {
+			changeCss("fin");
+			salesAjax('A');			
+		});
+		
 	});//ready
 	
 function salesAjax(val) {
@@ -59,6 +75,24 @@ function moveTo(val){
 	alert(val);
 }
 
+function changeCss(idName) {
+	if(idName == "all") {
+		$("#all").addClass("border-black");
+		$("#onSale").removeClass("border-black");
+		$('#completed').removeClass("border-black");
+	}
+	if(idName == "onSale") {
+		$("#onSale").addClass("border-black");
+		$("#all").removeClass("border-black");
+		$('#completed').removeClass("border-black");
+	}
+	if(idName == "completed") {
+		$('#completed').addClass("border-black");
+		$("#all").removeClass("border-black");
+		$("#onSale").removeClass("border-black");
+	}
+	
+}		
 </script>
 
 </head>
@@ -77,13 +111,13 @@ function moveTo(val){
 						<div class="flex flex-wrap items-center justify-between">
 							<div class="mr-0 lg:mr-4">
 								<ul class="colors flex flex-nowrap -me-3">
-									<li id="all" onclick="salesAjax('A')" class="shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black border-black">
+									<li id="all" class="shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black border-black">
 										전체
 									</li>
-									<li id="on" onclick="salesAjax('O')" class="shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black">
+									<li id="on" class="shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black">
 										판매중
 									</li>
-									<li id="fin" onclick="salesAjax('F')" class="shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black">
+									<li id="fin" class="shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black">
 										판매완료
 									</li>
 								</ul>

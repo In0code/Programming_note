@@ -21,7 +21,7 @@
 		</c:when>
 		<c:otherwise>
 			<c:forEach var="prd" items="${saleList }">
-			<tr style="border: none;" onclick="moveTo('${prd.pcode }')">
+			<tr style="border: none;cursor: pointer;" onclick="moveTo('${prd.pcode }')">
 				<td style="border: none;width: 70px;max-width: 70px;border-bottom: 1px solid #EDEDED;"><img alt="${prd.pname }" src="http://localhost/retro_prj/upload/${prd.img }" width="60" style="border-radius: 5px;"></td>
 				<td style="border: none;width: 120px;font-size: 14px;border-bottom: 1px solid #EDEDED;"><c:out value="${prd.pname }"/></td>
 				<td style="border: none;text-align: center;font-size: 14px;border-bottom: 1px solid #EDEDED;">

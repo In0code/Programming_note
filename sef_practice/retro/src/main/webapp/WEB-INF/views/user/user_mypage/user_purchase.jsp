@@ -55,9 +55,8 @@
 		
 	});//ready
 	
-	function purchaseDetail(code, table){
+	function purchaseDetail(code){
 		$("#code").val(code);
-		$("#table").val(table);
 		
 		$("#hrdFrm").submit();
 	}
@@ -87,6 +86,34 @@
 		});
 	}; 
 */
+	function purchaseCancel(code){
+		if(confirm("취소 하시겠습니까?")){
+			$.ajax({
+				url: "purchase_cancel.do",
+				type: "post",
+				data: "code="+code,
+				dataType: "json",
+				error: function(xhr){
+					console.log(xhr.status);
+				},
+				success: function(jsonObj){
+					if(jsonObj.resultFlag){
+						alert("취소 완료되었습니다.");
+						location.href="http://localhost/retro_prj/my/purchase.do";
+					}else{
+						alert("잠시 후 다시 시도해주세요.");
+					}
+				}
+			});
+		}
+	}
+
+	function purchaseWrite(code) {
+		var frm = $("#hrdFrm")[0];
+		frm.action = "http://localhost/retro_prj/purchase_review_write.do";
+		$("#code").val(code);
+		$("#hrdFrm").submit();
+	}
 	
 	function purchaseBy(status){
 		if(status == 'a'){
@@ -109,13 +136,13 @@
 			$("#tranLi, #canLi, #allLi").attr("class","shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black");
 			$("#cntDiv").html(${ payCnt });
 			
-			$("#tcDiv, #ccDiv").attr("style","display:none");
+			$("#tcDiv, #ccDiv").hide();
 			if(${ empty pcList }){
-				$("#noDataDiv").attr("style","display:block");
-				$("#pcDiv").attr("style","display:none");
+				$("#noDataDiv").show();
+				$("#pcDiv").hide();
 			}else{
-				$("#noDataDiv").attr("style","display:none");
-				$("#pcDiv").attr("style","display:block");
+				$("#noDataDiv").hide();
+				$("#pcDiv").show();
 			}
 		}
 		
@@ -125,13 +152,13 @@
 			$("#payLi, #canLi, #allLi").attr("class","shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black");
 			$("#cntDiv").html(${ dealCnt });
 			
-			$("#pcDiv, #ccDiv").attr("style","display:none");
+			$("#pcDiv, #ccDiv").hide();
 			if(${ empty tcList }){
-				$("#noDataDiv").attr("style","display:block");
-				$("#tcDiv").attr("style","display:none");
+				$("#noDataDiv").show();
+				$("#tcDiv").hide();
 			}else {
-				$("#noDataDiv").attr("style","display:none");
-				$("#tcDiv").attr("style","display:block");
+				$("#noDataDiv").hide();
+				$("#tcDiv").show();
 			}
 		}
 		/* 취소완료 */
@@ -140,16 +167,15 @@
 			$("#payLi, #tranLi, #allLi").attr("class","shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black");
 			$("#cntDiv").html(${ cancelCnt });
 			
-			$("#pcDiv, #tcDiv").attr("style","display:none");
+			$("#pcDiv, #tcDiv").hide();
 			if(${ empty ccList }){
-				$("#noDataDiv").attr("style","display:block");
-				$("#ccDiv").attr("style","display:none");
+				$("#noDataDiv").show();
+				$("#ccDiv").hide();
 			}else {
-				$("#noDataDiv").attr("style","display:none");
-				$("#ccDiv").attr("style","display:block");
+				$("#noDataDiv").hide();
+				$("#ccDiv").show();
 			}
 		}
-		
 	};
 
 </script>
@@ -242,14 +268,13 @@
 						
 						<form id="hrdFrm" action="purchase/detail.do">
 							<input type="hidden" id="code" name="code"/>
-							<input type="hidden" id="table" name="table"/>
 						</form>
 						
 						<div id="listDiv">
 						<div id="tcDiv">
 						<c:forEach var="tc" items="${ tcList }">
 						<!-- 상품 정보 -->
-						<div id="productDiv" onclick="purchaseDetail('${ tc.code }','buy')">
+						<div id="productDiv1" onclick="purchaseDetail('${ tc.code }')">
 						<div data-v-ef57988c="">
 							<div data-v-6e1f328e="" data-v-ef57988c="">
 								<div data-v-6e1f328e="" class="purchase_list_display_item" style="background-color: rgb(255, 255, 255);">
@@ -295,8 +320,7 @@
 
 										<!-- 후기 작성 / 구매 취소 -->
 										<div data-v-6e1f328e="" class="list_item_column column_last">
-											<input type="button" class="btnStyle" value="후기 작성"
-												style="margin-left: 60px" />
+											<input type="button" class="btnStyle" value="후기 작성" onclick="purchaseWrite('${ tc.code }')" style="margin-left: 60px; cursor:pointer" />
 										</div>
 										<!---->
 									</div>
@@ -312,11 +336,11 @@
 						<div id="pcDiv">
 						<c:forEach var="pc" items="${ pcList }">
 						<!-- 상품 정보 -->
-						<div id="productDiv" onclick="purchaseDetail('${ pc.code }','safe')">
+						<div id="productDiv2">
 						<div data-v-ef57988c="">
 							<div data-v-6e1f328e="" data-v-ef57988c="">
 								<div data-v-6e1f328e="" class="purchase_list_display_item" style="background-color: rgb(255, 255, 255);">
-									<div data-v-6e1f328e="" class="purchase_list_product">
+									<div data-v-6e1f328e="" class="purchase_list_product" onclick="purchaseDetail('${ pc.code }')">
 									
 										<!-- 상품 이미지 -->
 										<div data-v-6e1f328e="" class="list_item_img_wrap">
@@ -337,7 +361,7 @@
 
 									<div data-v-6e1f328e="" class="list_item_status">
 										<!-- 가격 -->
-										<div data-v-6e1f328e="" class="list_item_column column_secondary">
+										<div data-v-6e1f328e="" class="list_item_column column_secondary" onclick="purchaseDetail('${ pc.code }')">
 											<p data-v-8016a084="" data-v-6e1f328e=""
 												class="secondary_title display_paragraph"
 												style="color: rgb(34, 34, 34);">
@@ -347,7 +371,7 @@
 										<!---->
 
 										<!-- 구매일 -->
-										<div data-v-6e1f328e="" class="list_item_column column_last">
+										<div data-v-6e1f328e="" class="list_item_column column_last" onclick="purchaseDetail('${ pc.code }')">
 											<p data-v-8016a084="" data-v-6e1f328e=""
 												class="last_title display_paragraph"
 												style="color: rgb(34, 34, 34);">
@@ -358,7 +382,7 @@
 
 										<!-- 후기 작성 / 구매 취소 -->
 										<div data-v-6e1f328e="" class="list_item_column column_last">
-											<input type="button" class="btnStyle" value="구매 취소" onclick="purchaseCancel('${ pc.code }')" style="margin-left: 60px" />
+											<input type="button" class="btnStyle" value="구매 취소" onclick="purchaseCancel('${ pc.code }')" style="margin-left: 60px; cursor:pointer" />
 										</div>
 										<!---->
 									</div>
@@ -374,10 +398,10 @@
 						<div id="ccDiv">
 						<c:forEach var="cc" items="${ ccList }">
 						<!-- 상품 정보 -->
-						<div id="productDiv" onclick="purchaseDetail('${ cc.code }','safe')">
+						<div id="productDiv3">
 						<div data-v-ef57988c="">
 							<div data-v-6e1f328e="" data-v-ef57988c="">
-								<div data-v-6e1f328e="" class="purchase_list_display_item" style="background-color: rgb(255, 255, 255);">
+								<div data-v-6e1f328e="" class="purchase_list_display_item" style="background-color: rgb(255, 255, 255); cursor:none">
 									<div data-v-6e1f328e="" class="purchase_list_product">
 									
 										<!-- 상품 이미지 -->
@@ -420,7 +444,7 @@
 
 										<!-- 후기 작성 / 구매 취소 -->
 										<div data-v-6e1f328e="" class="list_item_column column_last">
-											취소 완료
+											<span style="font-size:14px; margin-right:8px">취소 완료</span>
 										</div>
 										<!---->
 									</div>

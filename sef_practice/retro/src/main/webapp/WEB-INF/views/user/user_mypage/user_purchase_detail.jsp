@@ -44,6 +44,11 @@ h4 {
 	});//ready
 </script>
 
+<%
+	String code = String.valueOf(request.getParameter("code").charAt(0));
+	pageContext.setAttribute("code", code);
+%>
+
 </head>
 <body>
 
@@ -133,7 +138,7 @@ h4 {
 							<div data-v-6a98cab4="" data-v-c54402b6="" class="section_title">
 								<div data-v-6a98cab4="" class="title_box">
 									<h4 data-v-6a98cab4="" class="title">
-									<c:out value="${ param.table eq 'buy' ? '거래 정보' : '결제 정보'}"/>
+									<c:out value="${ code eq 'B' ? '거래 정보' : '결제 정보'}"/>
 									</h4>
 								</div>
 								<!---->
@@ -153,7 +158,7 @@ h4 {
 										class="display_line line heavy_text" style="display:flex;">
 										<p data-v-8016a084="" data-v-15287078=""
 											class="line_title display_paragraph"
-											style="color: rgb(34, 34, 34); width:130px; font-size:16px">결제 예정 금액</p>
+											style="color: rgb(34, 34, 34); width:130px; font-size:16px">구매 금액</p>
 										<div data-v-15287078="" class="description_wrap" style="width:94.125px; padding-top: 0px;">
 											<p data-v-8016a084="" data-v-15287078=""
 												class="line_description display_paragraph"
@@ -197,7 +202,7 @@ h4 {
 										<!---->
 									</div>
 									
-									<c:if test="${ param.table eq 'buy' }">
+									<c:if test="${ code eq 'B' }">
 									<div data-v-00c4558b="" data-v-4217af8e=""
 										class="display_line line separator"
 										style="background-color: rgb(240, 240, 240);">
@@ -229,7 +234,7 @@ h4 {
 											class="line_title display_paragraph"
 											style="color: rgb(34, 34, 34); width:130px">
 											
-											<c:out value="${ param.table eq 'buy' ? '거래 일시' : '결제 일시' }"/>
+											<c:out value="${ code eq 'B' ? '거래 일시' : '결제 일시' }"/>
 											
 											</p>
 										<div data-v-15287078="" class="description_wrap">
@@ -279,7 +284,7 @@ h4 {
 						<!---->
 						<!---->
 						
-						<c:if test="${ param.table eq 'buy' }">
+						<c:if test="${ code eq 'B' }">
 						<div data-v-0c19a43c="" data-v-7a3bdf55=""
 							class="shipping_address_wrap">
 							<div data-v-6a98cab4="" data-v-0c19a43c="" class="section_title">
@@ -289,17 +294,27 @@ h4 {
 								<!---->
 							</div>
 							<div data-v-0c19a43c="" class="shipping_address">
+							<c:choose>
+							<c:when test="${ not empty purchase.commentcode }">
 								<dl data-v-0c19a43c="" class="address_item" style="padding: 20px 16px;">
 									<dt data-v-0c19a43c="" class="address_title">· 응답이 빨라요.</dt>
 								</dl>
 								<dl data-v-0c19a43c="" class="address_item" style="padding: 20px 16px;">
 									<dt data-v-0c19a43c="" class="address_title">· 상태가 좋아요.</dt>
 								</dl>
+								<c:if test="${ not empty purchase.reviewconext }">
 								<textarea style="width:100%; height: 170px; border: 1px solid #DBDFE6; 
 								border-radius: 5px; resize: none; padding:10px; margin-top:10px; font-size: 15px;" 
 								disabled="disabled">${ purchase.context }</textarea>
+								</c:if>
+							</c:when>
+							<c:otherwise>
+								<dl data-v-0c19a43c="" class="address_item" style="padding: 20px 16px;">
+									<dt data-v-0c19a43c="" class="address_title" style="width:300px">받은 후기가 없습니다.</dt>
+								</dl>
+							</c:otherwise>
+							</c:choose>
 							</div>
-							<!---->
 							<!---->
 						</div>
 						<!---->
@@ -308,7 +323,7 @@ h4 {
 						</c:if>
 					</div>
 					
-					<div data-v-7a3bdf55="" class="detail_btn_box">
+					<div data-v-7a3bdf55="" class="detail_btn_box" style="margin-bottom:100px">
 						<a data-v-0a6aebaa="" data-v-7a3bdf55="" href="http://localhost/retro_prj/my/purchase.do"
 							class="btn btn_view_list outlinegrey medium">목록</a>
 					</div>

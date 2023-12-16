@@ -1226,9 +1226,9 @@
 						<div class="flex gap-3">
 							<input type="button" id="oldProductBtn" name="status"
 								class="h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 text-white bg-jngreen border-jngreen"
-								value="중고" /> <input type="hidden" name="status"
-								id="changeStatus" value="J" /> <input type="button"
-								id="newProductBtn"
+								value="중고" /> 
+								<input type="hidden" name="status" id="changeStatus" value="J" /> 
+								<input type="button" id="newProductBtn"
 								class="h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 border-jnblack text-jnblack bg-white"
 								value="새상품" />
 						</div>
