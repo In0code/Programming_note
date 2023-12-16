@@ -27,24 +27,26 @@ public class ReiviewService {
 		int four = 0;
 		
 		if(list != null) {
-			for(ReiviewDomain reiviews : list) {
-				switch (reiviews.getSelect2()) {
-				case '1':
-					rcDomain.setROne(one++);
-					break;
-				case '2':
-					rcDomain.setRTwo(two++);
-					break;
-				case '3':
-					rcDomain.setRThree(three++);
-					break;
-				case '4':
-					rcDomain.setRFour(four++);
-					break;
+			for(ReiviewDomain reiview : list) {
+				if(reiview.getSelect1() != '1') {
+					switch (reiview.getSelect2()) {
+					case '1':
+						rcDomain.setOne(++one);
+						break;
+					case '2':
+						rcDomain.setTwo(++two);
+						break;
+					case '3':
+						rcDomain.setThree(++three);
+						break;
+					case '4':
+						rcDomain.setFour(++four);
+						break;
+					}
 				}
-				
 			}
 			
+			rcDomain.setTotal(list.size());
 		}
 		
 		return rcDomain;

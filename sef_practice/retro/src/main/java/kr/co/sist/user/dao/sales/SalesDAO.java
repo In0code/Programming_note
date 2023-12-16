@@ -24,7 +24,7 @@ public class SalesDAO {
 		return list;
 	}
 	
-	public List<SalesDomain> selecOnSales(String id) {
+	public List<SalesDomain> selectOnSales(String id) {
 		List<SalesDomain> list = null;
 		
 		MybatisHandler mh = MybatisHandler.getInstance();
@@ -48,9 +48,5 @@ public class SalesDAO {
 		mh.closeHandler(ss);
 		
 		return list;
-	}
-	
-	public static void main(String[] arg) {
-		System.out.println(new SalesDAO().selectAllSales("user"));
 	}
 }

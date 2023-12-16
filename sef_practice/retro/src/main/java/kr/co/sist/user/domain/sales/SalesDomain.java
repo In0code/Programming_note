@@ -9,6 +9,6 @@ import lombok.ToString;
 @ToString
 public class SalesDomain {
 
-	private String pcode, pname, input_date, wish, img, saleok;
+	private String pcode, pname, input_date, wish, img;
 	private int price;
 }

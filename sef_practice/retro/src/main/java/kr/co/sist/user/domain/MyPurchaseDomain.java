@@ -9,6 +9,6 @@ import lombok.ToString;
 @ToString
 public class MyPurchaseDomain {
 	private String pcode, buyreceiptcode, pname, img, payment_date, 
-	seller, phone, buyer, select1, select2, context, safecode, buy_date, nickname;
+	seller, phone, buyer, select1, select2, context, safecode, buy_date, nickname, code, payment;
 	private int price;
 }

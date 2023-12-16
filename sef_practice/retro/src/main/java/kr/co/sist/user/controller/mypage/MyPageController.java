@@ -90,8 +90,7 @@ public class MyPageController {
 		String useId = "";
 		if((String)session.getAttribute("id") != null) {
 			useId = (String)session.getAttribute("id");			
-		}
-		if(id == null) {
+		} else if(id == null) {
 			useId = id;
 		}
 		

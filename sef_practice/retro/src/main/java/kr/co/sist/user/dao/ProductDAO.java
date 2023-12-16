@@ -50,12 +50,12 @@ public class ProductDAO {
 	}// selectCategory
 
 
-	public String getPcode() throws PersistenceException{
+	public String getPcode(String id) throws PersistenceException{
 		
 		String getRecentPcode="";
 		MybatisHandler mbh = MybatisHandler.getInstance();
 		SqlSession ss = mbh.getMyBatisHandler(configPath, false);
-		getRecentPcode = ss.selectOne("user.product.getPcode");
+		getRecentPcode = ss.selectOne("user.product.getPcode",id);
 
 		mbh.closeHandler(ss);
 
@@ -144,13 +144,16 @@ public class ProductDAO {
 //	public static void main(String[] args) {
 //		ProductDAO pd = ProductDAO.getInstance();
 //		ProductVO pVO = new ProductVO();
+//		String id="1011kiy111";
 ////		pVO.setId("1011kiy111");
-//		pVO.setPcode("P00089");
+////		pVO.setPcode("P00108");
 ////		pVO.setPname("롱치마");
 ////		pVO.setPrice(10000);
 ////		pVO.setStatus("S");
-////		pVO.setImg("b1.png");
-////		pVO.setImg2("b2.png");s
+////		pVO.setImg("b2.png");
+////		pVO.setImg2("b2.png");
+////		pVO.setImg3("b3.png");
+////		pVO.setImg4("b4.png");
 ////		pVO.setContext("이것도 올라가주세요");
 ////		pVO.setDeliver("N");
 ////		pVO.setLoc("의정부동");
@@ -158,7 +161,8 @@ public class ProductDAO {
 ////		pd.insertProduct(pVO);
 ////		pd.deleteProduct(pVO);
 ////		pd.getCategoryName("C103");
-//		pd.selectProduct(pVO);
+////		pd.selectProduct(pVO);
+//		pd.getPcode(id);
 //		
 //		
 //		

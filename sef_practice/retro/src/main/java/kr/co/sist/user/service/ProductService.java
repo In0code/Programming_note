@@ -39,10 +39,10 @@ public class ProductService {
 		return insertCnt;
 	}//searchCategory
     
-    public String getPcode() {
+    public String getPcode(String id) {
     	String getRecentPcode="";
     	try {
-    		getRecentPcode=pDAO.getPcode();
+    		getRecentPcode=pDAO.getPcode(id);
     	} catch (PersistenceException pe) {
     		pe.printStackTrace();
     	}//end catch

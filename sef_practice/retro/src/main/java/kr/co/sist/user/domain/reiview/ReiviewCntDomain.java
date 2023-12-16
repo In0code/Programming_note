@@ -9,5 +9,5 @@ import lombok.ToString;
 @ToString
 public class ReiviewCntDomain {
 
-	private int rOne, rTwo, rThree, rFour;
+	private int one, two, three, four, total;
 }

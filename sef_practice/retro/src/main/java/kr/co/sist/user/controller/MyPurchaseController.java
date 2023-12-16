@@ -1,5 +1,8 @@
 package kr.co.sist.user.controller;
 
+import java.util.HashMap;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.sist.user.domain.MyPurchaseDomain;
 import kr.co.sist.user.service.MyPurchaseService;
 
 @Controller
@@ -21,37 +25,31 @@ public class MyPurchaseController {
 	
 	@GetMapping("/my/purchase.do")
 	public String purchaseList(HttpSession session, Model model) {
-
+		session.setAttribute("id", "urface");
+		String id = (String)session.getAttribute("id");
+		HashMap<String, Object> data = (HashMap<String, Object>) mps.searchAllList(id);
+		
+		model.addAttribute("tcList", (List<MyPurchaseDomain>) data.get("tc"));
+		model.addAttribute("ccList", (List<MyPurchaseDomain>) data.get("cc"));
+		model.addAttribute("pcList", (List<MyPurchaseDomain>) data.get("pc"));
+		
+		model.addAttribute("dealCnt", data.get("dealCnt"));
+		model.addAttribute("payCnt", data.get("payCnt"));
+		model.addAttribute("cancelCnt", data.get("cancelCnt"));
 		
 		return "/user/user_mypage/user_purchase";
 	}
 
-	@ResponseBody
-	@RequestMapping(value = "/my/purchase_t.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String purchaseDCList() {
-		System.out.println(mps.searchDealComplete("urface").toJSONString());
-		
-		return mps.searchDealComplete("urface").toJSONString();
-	}
-	
-	@ResponseBody
-	@PostMapping("/my/purchase_p.do")
-	public String purchasePCList(HttpSession session) {
-		String id = (String)session.getAttribute("id");
-		
-		return mps.searchPayComplete("urface").toJSONString();
-	}
-
-	@ResponseBody
-	@PostMapping("/my/purchase_c.do")
-	public String purchaseCCList(HttpSession session) {
-		String id = (String)session.getAttribute("id");
-		
-		return mps.searchPayComplete("urface").toJSONString();
-	}
-
 	@GetMapping("/my/purchase/detail.do")
-	public String purchaseDetail() {
+	public String purchaseDetail(HttpSession session, String code, String table, Model model) {
+		if("buy".equals(table)) {
+			model.addAttribute("purchase", mps.searchBuyDetail(code));
+		}
+		
+		if("safe".equals(table)) {
+			model.addAttribute("purchase", mps.searchPayDetail(code));
+		}
+		
 		return "/user/user_mypage/user_purchase_detail";
 	}
 

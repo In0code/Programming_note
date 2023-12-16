@@ -71,6 +71,9 @@ public class ProductController {
 			String pname=mr.getParameter("pname");
 			String context=mr.getParameter("context");
 			String img=mr.getFilesystemName("img");
+			String img2=mr.getFilesystemName("img2");
+			String img3=mr.getFilesystemName("img3");
+			String img4=mr.getFilesystemName("img4");
 			int price=Integer.parseInt(mr.getParameter("price"));
 			String deliver=mr.getParameter("deliver");
 			String status=mr.getParameter("status");
@@ -83,6 +86,9 @@ public class ProductController {
 			pVO.setPname(pname);
 			pVO.setContext(context);
 			pVO.setImg(img);
+			pVO.setImg2(img2);
+			pVO.setImg3(img3);
+			pVO.setImg4(img4);
 			pVO.setPrice(price);
 			pVO.setDeliver(deliver);
 			pVO.setStatus(status);
@@ -124,9 +130,10 @@ public class ProductController {
 	 * @return
 	 */
 	@RequestMapping("/user/product/product_detail.do")
-	public String productDetail(HttpServletRequest request, Model model,ProductVO pVO) {
-		
-		String pcode=ps.getPcode();
+	public String productDetail(HttpServletRequest request, HttpSession session,Model model,ProductVO pVO) {
+		String id = (String)session.getAttribute("id");
+	
+		String pcode=ps.getPcode("1011kiy111");
 		pVO.setPcode(pcode);
 		pVO.setId("1011kiy111");
 //		String pcode=request.getParameter("pcode");
@@ -146,8 +153,8 @@ public class ProductController {
 	@RequestMapping("/user/product/product_edit.do")
 	public String productEditFrm(HttpServletRequest request, HttpSession session, Model model, ProductVO pVO) {
 
-	    String pcode = request.getParameter("pcode"); // URL에서 pcode를 받아옵니다.
-	    pVO.setPcode(pcode); // 받아온 pcode를 ProductVO에 설정합니다.
+	    String pcode = request.getParameter("pcode"); 
+	    pVO.setPcode(pcode); 
 
 	    ProductDomain userProduct = ps.searchProduct(pVO);
 	    model.addAttribute("userProduct", userProduct);
@@ -170,6 +177,9 @@ public class ProductController {
 			String pname=mr.getParameter("pname");
 			String context=mr.getParameter("context");
 			String img=mr.getFilesystemName("img");
+			String img2=mr.getFilesystemName("img2");
+			String img3=mr.getFilesystemName("img3");
+			String img4=mr.getFilesystemName("img4");
 			int price=Integer.parseInt(mr.getParameter("price"));
 			String deliver=mr.getParameter("deliver");
 			String status=mr.getParameter("status");
@@ -182,6 +192,9 @@ public class ProductController {
 			pVO.setPname(pname);
 			pVO.setContext(context);
 			pVO.setImg(img);
+			pVO.setImg2(img2);
+			pVO.setImg3(img3);
+			pVO.setImg4(img4);
 			pVO.setPrice(price);
 			pVO.setDeliver(deliver);
 			pVO.setStatus(status);

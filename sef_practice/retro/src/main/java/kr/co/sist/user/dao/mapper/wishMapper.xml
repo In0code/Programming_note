@@ -10,7 +10,7 @@
 	(wcode_seq.nextval, #{ id },#{ pcode },sysdate);
 	</insert>
 
-	<select id="selectWish" resultType="wd" parameterType="String">
+	<select id="selectAllWish" resultType="wd" parameterType="brVO">
 		select IMG,pname,price, id, pcode , wcode
 	from(select row_number() over(order by wcode ) rnum,
 	 p.IMG, p.pname, p.price, p.id ,p.PCODE, w.wcode

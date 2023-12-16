@@ -51,9 +51,59 @@ public class MyPurchaseDAO {
 		return list;
 	}
 	
+	public int selectDealCnt(String id) throws PersistenceException{
+		int cnt = 0;
+		
+		MybatisHandler mbh = MybatisHandler.getInstance();
+		SqlSession ss = mbh.getMyBatisHandler(configPath,false);
+		cnt = ss.selectOne("user.purchase.dealCnt",id);
+		
+		return cnt;
+	}
+	
+	public int selectPayCnt(String id) throws PersistenceException{
+		int cnt = 0;
+		
+		MybatisHandler mbh = MybatisHandler.getInstance();
+		SqlSession ss = mbh.getMyBatisHandler(configPath,false);
+		cnt = ss.selectOne("user.purchase.payCnt",id);
+		
+		return cnt;
+	}
+	
+	public int selectCancelCnt(String id) throws PersistenceException{
+		int cnt = 0;
+		
+		MybatisHandler mbh = MybatisHandler.getInstance();
+		SqlSession ss = mbh.getMyBatisHandler(configPath,false);
+		cnt = ss.selectOne("user.purchase.cancelCnt",id);
+		
+		return cnt;
+	}
+
+	public MyPurchaseDomain selectBuyDetail(String code) throws PersistenceException{
+		MyPurchaseDomain mpd = null;
+		
+		MybatisHandler mbh = MybatisHandler.getInstance();
+		SqlSession ss = mbh.getMyBatisHandler(configPath,false);
+		mpd = ss.selectOne("user.purchase.selectBuyDetail",code);
+		
+		return mpd;
+	}
+
+	public MyPurchaseDomain selectPayDetail(String code) throws PersistenceException{
+		MyPurchaseDomain mpd = null;
+		
+		MybatisHandler mbh = MybatisHandler.getInstance();
+		SqlSession ss = mbh.getMyBatisHandler(configPath,false);
+		mpd = ss.selectOne("user.purchase.selectPayDetail",code);
+		
+		return mpd;
+	}
+	
 	public static void main(String[] args) {
 		
-		System.out.println(new MyPurchaseDAO().selectCancelComplete("urface"));
+		System.out.println(new MyPurchaseDAO().selectDealCnt("urface"));
 	}
 	
 
