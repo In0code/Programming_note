@@ -16,6 +16,50 @@
 	#category-depth-2-3, #category-depth-2-2, #category-depth-2-1 {
 	display: none;
 }
+.filebox input[type="file"] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+}
+
+.filebox .upload-name {
+    display: inline-block;
+    padding: 0 10px;
+    vertical-align: middle;
+    width: 60%;
+    color: #999999;
+    border: 1px solid #DBDFE6; 
+	border-radius: 2px; 
+	height: 30px;
+}
+
+.filebox label {
+    display: inline-block;
+    padding: 8px 18px;
+    color: #fff;
+    vertical-align: middle;
+    background-color: #333;
+    border: 1px solid #BEBEBE;
+    cursor: pointer;
+    height: 40px;
+    margin: 3px 0px 0px 10px;
+}
+
+.upload-name:focus {
+	outline:none;
+}
+
+
+.filebox label:hover {
+	background-color: white;
+	color: #333;
+	font-weight: 600;
+  	transition: background-color 0.3s ease, color 0.3s ease, font-weight 0.3s ease;
+}
+
 </style>
 <title>Insert title here</title>
 <script type="text/javascript">
@@ -625,7 +669,7 @@
 			$("#changeDeliver").val("N");
 		});//clcick
 
-		/* '새상품'버튼누르면 동작*/
+		/* '배송비 포함'버튼누르면 동작*/
 		$("#deliverYBtn").click(function() {
 			$(this).attr('class',"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 text-white bg-jngreen border-jngreen");
 			$("#deliverNBtn").attr('class',"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 border-jnblack text-jnblack bg-white");
@@ -692,7 +736,68 @@
 			$("#regiFrm").submit();
 
 		});
-	});
+		
+		/* 파일 값이 바뀌면 파일명을 보여주는 input 값이 바뀜 */
+		$("#mainImg").on('change',function(){
+			  var fileName = $("#mainImg").val();
+			  var fileType = fileName.substring(fileName.lastIndexOf(".")).toLowerCase();
+			  fileName = fileName.substring(fileName.lastIndexOf("\\")+1);
+				
+			  if(fileType != "" && fileType != ".jpg" && fileType != ".png" && fileType != ".jpeg") {
+				  alert("jpg, jpeg, png 확장자만 가능합니다.");
+				  $("#mainImg").val("");
+				  fileName = "";
+			  }
+			  
+			  $("#imgSrc").val(fileName);
+		});
+
+		$("#subImg").on('change',function(){
+			  var fileName = $("#subImg").val();
+			  var fileType = fileName.substring(fileName.lastIndexOf(".")).toLowerCase();
+			  fileName = fileName.substring(fileName.lastIndexOf("\\")+1);
+				
+			  if(fileType != "" && fileType != ".jpg" && fileType != ".png" && fileType != ".jpeg") {
+				  alert("jpg, jpeg, png 확장자만 가능합니다.");
+				  $("#subImg").val("");
+				  $("#img2Src").val("");
+				  
+				  return;
+			  }
+			  
+			  $("#img2Src").val(fileName);
+		});
+		/* 파일 값이 바뀌면 파일명을 보여주는 input 값이 바뀜 */
+		$("#mainImg2").on('change',function(){
+			  var fileName = $("#mainImg2").val();
+			  var fileType = fileName.substring(fileName.lastIndexOf(".")).toLowerCase();
+			  fileName = fileName.substring(fileName.lastIndexOf("\\")+1);
+				
+			  if(fileType != "" && fileType != ".jpg" && fileType != ".png" && fileType != ".jpeg") {
+				  alert("jpg, jpeg, png 확장자만 가능합니다.");
+				  $("#mainImg2").val("");
+				  fileName = "";
+			  }
+			  
+			  $("#img3Src").val(fileName);
+		});
+
+		$("#subImg2").on('change',function(){
+			  var fileName = $("#subImg2").val();
+			  var fileType = fileName.substring(fileName.lastIndexOf(".")).toLowerCase();
+			  fileName = fileName.substring(fileName.lastIndexOf("\\")+1);
+				
+			  if(fileType != "" && fileType != ".jpg" && fileType != ".png" && fileType != ".jpeg") {
+				  alert("jpg, jpeg, png 확장자만 가능합니다.");
+				  $("#subImg2").val("");
+				  $("#img4Src").val("");
+				  
+				  return;
+			  }
+			  
+			  $("#img4Src").val(fileName);
+		});
+	});//ready
 
 	document.addEventListener("DOMContentLoaded", function() {
 		// 모든 li 요소에 대해 클릭 이벤트 리스너 등록
@@ -798,58 +903,29 @@
 				class="mx-auto max-w-[1280px] px-4 md:px-8 2xl:px-16 box-content">
 				<section class="mx-auto w-full max-w-[768px]">
 					<div class="flex px-5 pb-1.5">
-
-						<input type="file" name="img" class="inputBox" multiple="multiple"
-							id="file-input" style="width: 300px; display: none" /><br />
-						  <button class="flex items-center justify-center w-20 h-20 mr-1.5 bg-jnGray-200 rounded" onclick="document.getElementById('file-input').click()">
-					        <div class="flex flex-col">
-					            <svg width="32px" height="32px" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-					                <path fill-rule="evenodd" clip-rule="evenodd" d="M15.728 20.4461C13.6481 20.4461 11.9619 18.7599 11.9619 16.68C11.9619 14.6001 13.6481 12.9138 15.728 12.9138C17.8079 12.9138 19.4942 14.6001 19.4942 16.68C19.4942 18.7599 17.8079 20.4461 15.728 20.4461Z" fill="#C2C6CE"></path>
-					                <path fill-rule="evenodd" clip-rule="evenodd" d="M10.4564 7.32295C10.9376 6.00587 11.5097 5.15997 12.8118 5.15997H17.9241C19.2253 5.15997 19.7975 6.00463 20.2785 7.32003H20.7897C24.7543 7.32003 27.968 10.4192 27.968 14.2417V19.119C27.968 22.9409 24.7543 26.04 20.7897 26.04H10.6669C6.7023 26.04 3.48798 22.9409 3.48798 19.119V14.2417C3.48798 10.487 6.58918 7.4303 10.4564 7.32295ZM21.3772 16.68C21.3772 19.8001 18.8481 22.3292 15.728 22.3292C12.6079 22.3292 10.0788 19.8001 10.0788 16.68C10.0788 13.5599 12.6079 11.0308 15.728 11.0308C18.8481 11.0308 21.3772 13.5599 21.3772 16.68ZM21.5988 11.88C21.5988 12.4 22.0204 12.8216 22.5403 12.8216C23.0603 12.8216 23.4819 12.4 23.4819 11.88C23.4819 11.36 23.0603 10.9385 22.5403 10.9385C22.0204 10.9385 21.5988 11.36 21.5988 11.88Z" fill="#C2C6CE"></path>
-					            </svg>
-					            <p class="mt-1 text-xs text-jnGray-500">0/5</p>
-					        </div>
-					    </button> 
-
-						<div class="overflow-hidden">
-							<div
-								class="os-host os-host-foreign os-theme-dark os-host-resize-disabled os-host-scrollbar-horizontal-hidden os-host-scrollbar-vertical-hidden os-host-transition">
-								<div class="os-resize-observer-host observed">
-									<div class="os-resize-observer" style="left: 0px; right: auto;"></div>
-								</div>
-								<div class="os-size-auto-observer observed"
-									style="height: calc(100% + 1px); float: left;">
-									<div class="os-resize-observer"></div>
-								</div>
-								<div class="os-content-glue"
-									style="width: 0px; margin: 0px; max-width: 100%; height: 0px;"></div>
-								<div class="os-padding">
-									<div
-										class="os-viewport os-viewport-native-scrollbars-invisible os-viewport-native-scrollbars-overlaid">
-										<div class="os-content"
-											style="padding: 0px; height: auto; width: 100%; float: left;">
-											<ul class="flex items-center"></ul>
-										</div>
-									</div>
-								</div>
-								<div
-									class="os-scrollbar os-scrollbar-horizontal os-scrollbar-unusable os-scrollbar-auto-hidden">
-									<div class="os-scrollbar-track os-scrollbar-track-off">
-										<div class="os-scrollbar-handle"
-											style="transform: translate(0px, 0px);"></div>
-									</div>
-								</div>
-								<div
-									class="os-scrollbar os-scrollbar-vertical os-scrollbar-unusable os-scrollbar-auto-hidden">
-									<div class="os-scrollbar-track os-scrollbar-track-off">
-										<div class="os-scrollbar-handle"
-											style="transform: translate(0px, 0px);"></div>
-									</div>
-								</div>
-								<div class="os-scrollbar-corner"></div>
-							</div>
-						</div>
+					<div class="filebox">
+    						<input class="upload-name" placeholder="이미지를 선택해주세요." readonly="readonly" id="imgSrc" name="imgSrc">
+    						<label for="mainImg">파일찾기</label> 
+    						<input type="file" id="mainImg" name="img">
 					</div>
+					<div class="filebox">
+					    	<input class="upload-name" placeholder="이미지를 선택해주세요." readonly="readonly" id="img2Src" name="img2Src">
+    						<label for="subImg">파일찾기</label> 
+    						<input type="file" id="subImg" name="img2">
+					</div>
+					</div>
+					<div class="flex px-5 pb-1.5">
+					<div class="filebox">
+    						<input class="upload-name" placeholder="이미지를 선택해주세요." readonly="readonly" id="img3Src" name="img3Src">
+    						<label for="mainImg2">파일찾기</label> 
+    						<input type="file" id="mainImg2" name="img3">
+					</div>
+					<div class="filebox">
+					    	<input class="upload-name" placeholder="이미지를 선택해주세요." readonly="readonly" id="img4Src" name="img4Src">
+    						<label for="subImg2">파일찾기</label> 
+    						<input type="file" id="subImg2" name="img4">
+					</div>
+					</div><br/>
 					<br />
 					<div class="flex flex-col px-5 space-y-5">
 						<!-- 상품명 입력 inpuBox -->
@@ -1158,7 +1234,7 @@
 						</div>
 						<br />
 						<!-- 배송비 : 새송비 별도 / 배송비 포함 러디오 버튼-->
-						<p class="font-semibold">배송비</p>
+						<p class="font-semibold">배송비 ( 배송 거래 시 )</p>
 						<div class="flex gap-3">
 							<input type="button" id="deliverNBtn" name="deliver"
 								class="h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 text-white bg-jngreen border-jngreen"

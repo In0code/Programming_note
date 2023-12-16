@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page info=""%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -89,8 +90,8 @@ h4 {
 										class="product_wrap tag_top">
 										<div data-v-4d00617c="" class="product_img_flex_box">
 											<div data-v-4d00617c="" class="product_img_wrap">
-												<img data-v-4d00617c="" alt="product_image"
-													src="https://kream-phinf.pstatic.net/MjAyMTEyMjBfMTA4/MDAxNjM5OTg0MjQxMTYy.F0BGHeY9Lo5okE_K4MrvzWTvO5XQ72TPW7BDhqWZUHUg.0lz1wS4mL94VUWaFzY9RIoiHuARng_qo5Ss7Eir-xk0g.PNG/a_1fef41f2dc8a4c5f9ce69aff036113e3.png?type=m"
+												<img data-v-4d00617c="" alt="image"
+													src="http://localhost/retro_prj/upload/${ purchase.img }"
 													class="product_img"
 													style="background-color: rgb(246, 238, 237);">
 												<!---->
@@ -99,10 +100,12 @@ h4 {
 										<div data-v-4d00617c="" class="product_info_wrap">
 											<div data-v-4d00617c="" class="product_info">
 												<!-- 상품명 -->
-												<p data-v-4d00617c="" class="product_title" style="font-size:18px">
-													행운 무나 합니다.</p>
+												<p data-v-4d00617c="" class="product_description" style="font-size:18px">
+													${ purchase.pname }</p>
 												<!-- 판매자 닉네임 -->
-												<p data-v-4d00617c="" class="product_description">판매자 닉네임</p>
+												<p data-v-4d00617c="" class="product_title">
+													${ purchase.nickname }
+												</p>
 												<div data-v-4d00617c="" class="product_option_wrap">
 													<div data-v-4d00617c="" class="tag_wrap">
 														<!---->
@@ -129,7 +132,9 @@ h4 {
 							class="order_info_items_wrap empty_header">
 							<div data-v-6a98cab4="" data-v-c54402b6="" class="section_title">
 								<div data-v-6a98cab4="" class="title_box">
-									<h4 data-v-6a98cab4="" class="title">거래 정보</h4>
+									<h4 data-v-6a98cab4="" class="title">
+									<c:out value="${ param.table eq 'buy' ? '거래 정보' : '결제 정보'}"/>
+									</h4>
 								</div>
 								<!---->
 							</div>
@@ -152,8 +157,12 @@ h4 {
 										<div data-v-15287078="" class="description_wrap" style="width:94.125px; padding-top: 0px;">
 											<p data-v-8016a084="" data-v-15287078=""
 												class="line_description display_paragraph"
-												style="color: rgb(34, 34, 34); width: 94.125px;">
-												<em style="color: inherit;" class="">192,000원</em>
+												style="color: rgb(34, 34, 34); width: 94.125px; text-align: left">
+												
+												<!-- 가격 -->
+												<em style="color: inherit;" class="">
+													<fmt:formatNumber value="${ purchase.price }" pattern="#,###,###"/>원
+												</em>
 											</p>
 											<!---->
 											<!---->
@@ -188,9 +197,11 @@ h4 {
 										<!---->
 									</div>
 									
+									<c:if test="${ param.table eq 'buy' }">
 									<div data-v-00c4558b="" data-v-4217af8e=""
 										class="display_line line separator"
-										style="background-color: rgb(240, 240, 240);"></div>
+										style="background-color: rgb(240, 240, 240);">
+									</div>
 									<div data-v-15287078="" data-v-4217af8e=""
 										class="display_line line title_description">
 										<p data-v-8016a084="" data-v-15287078=""
@@ -199,11 +210,15 @@ h4 {
 										<div data-v-15287078="" class="description_wrap">
 											<p data-v-8016a084="" data-v-15287078=""
 												class="line_description display_paragraph"
-												style="color: rgb(34, 34, 34); text-align: left;">직거래</p>
+												style="color: rgb(34, 34, 34); text-align: left;">
+												<c:if test="${ purchase.payment eq 'T' }">택배거래</c:if>
+												<c:if test="${ purchase.payment eq 'G' }">직거래</c:if>
+												</p>
 											<!---->
 											<!---->
 										</div>
 									</div>
+									</c:if>
 									
 									<div data-v-00c4558b="" data-v-4217af8e=""
 										class="display_line line separator"
@@ -212,11 +227,17 @@ h4 {
 										class="display_line line title_description">
 										<p data-v-8016a084="" data-v-15287078=""
 											class="line_title display_paragraph"
-											style="color: rgb(34, 34, 34); width:130px">거래 일시</p>
+											style="color: rgb(34, 34, 34); width:130px">
+											
+											<c:out value="${ param.table eq 'buy' ? '거래 일시' : '결제 일시' }"/>
+											
+											</p>
 										<div data-v-15287078="" class="description_wrap">
 											<p data-v-8016a084="" data-v-15287078=""
 												class="line_description display_paragraph"
-												style="color: rgb(34, 34, 34); text-align: left;">22/06/20 23:24</p>
+												style="color: rgb(34, 34, 34); text-align: left;">
+												${ purchase.buy_date }
+												</p>
 											<!---->
 											<!---->
 										</div>
@@ -225,6 +246,7 @@ h4 {
 							</div>
 						</div>
 					</div>
+					
 					
 					<div data-v-7a3bdf55="">
 						<!---->
@@ -243,11 +265,11 @@ h4 {
 							<div data-v-0c19a43c="" class="shipping_address">
 								<dl data-v-0c19a43c="" class="address_item" style="padding: 20px 16px;">
 									<dt data-v-0c19a43c="" class="address_title">닉네임</dt>
-									<dd data-v-0c19a43c="" class="address_txt">태균아정신차려</dd>
+									<dd data-v-0c19a43c="" class="address_txt">${ purchase.nickname }(${ purchase.seller })</dd>
 								</dl>
 								<dl data-v-0c19a43c="" class="address_item" style="padding: 20px 16px;">
 									<dt data-v-0c19a43c="" class="address_title">휴대폰 번호</dt>
-									<dd data-v-0c19a43c="" class="address_txt">010-3***-*869</dd>
+									<dd data-v-0c19a43c="" class="address_txt">${ purchase.phone }</dd>
 								</dl>
 							</div>
 							<!---->
@@ -257,6 +279,7 @@ h4 {
 						<!---->
 						<!---->
 						
+						<c:if test="${ param.table eq 'buy' }">
 						<div data-v-0c19a43c="" data-v-7a3bdf55=""
 							class="shipping_address_wrap">
 							<div data-v-6a98cab4="" data-v-0c19a43c="" class="section_title">
@@ -274,7 +297,7 @@ h4 {
 								</dl>
 								<textarea style="width:100%; height: 170px; border: 1px solid #DBDFE6; 
 								border-radius: 5px; resize: none; padding:10px; margin-top:10px; font-size: 15px;" 
-								disabled="disabled">빠른 거래 감사용</textarea>
+								disabled="disabled">${ purchase.context }</textarea>
 							</div>
 							<!---->
 							<!---->
@@ -282,10 +305,12 @@ h4 {
 						<!---->
 						<!---->
 						<!---->
+						</c:if>
 					</div>
+					
 					<div data-v-7a3bdf55="" class="detail_btn_box">
-						<a data-v-0a6aebaa="" data-v-7a3bdf55="" href="../purchase.do"
-							class="btn btn_view_list outlinegrey medium"> 목록보기 </a>
+						<a data-v-0a6aebaa="" data-v-7a3bdf55="" href="http://localhost/retro_prj/my/purchase.do"
+							class="btn btn_view_list outlinegrey medium">목록</a>
 					</div>
 					<div data-v-7a3bdf55="" class="v-portal" style="display: none;"></div>
 				</div>

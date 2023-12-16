@@ -68,7 +68,6 @@
 </style>
 <script type="text/javascript">
 	$(function() {
-		alert("${ userProduct.saleok}")
 		$("#completeCancel").click(function() {
 			var modalBg3 = document.getElementById('completeModalBg');
 			modalBg3.style.display = 'none';

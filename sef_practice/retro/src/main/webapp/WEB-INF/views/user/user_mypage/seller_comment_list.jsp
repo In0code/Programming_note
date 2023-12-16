@@ -58,7 +58,7 @@ function moveTo(bcCode) {
 					<svg width="16" height="18" viewBox="0 -2 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="css-wsqqvh">
 						<path d="M2.53333 14C2.53333 11.4227 5.42266 9.33333 7.99999 9.33333C10.5773 9.33333 13.4667 11.4227 13.4667 14M10.6667 4.66667C10.6667 6.13943 9.47275 7.33333 7.99999 7.33333C6.52723 7.33333 5.33333 6.13943 5.33333 4.66667C5.33333 3.19391 6.52723 2 7.99999 2C9.47275 2 10.6667 3.19391 10.6667 4.66667Z" stroke="#9CA3AF" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
 					</svg>
-					<p style="color: rgb(120, 126, 137);margin-left: 2px;"><c:out value="${reiviewCnt.rOne }"/></p>
+					<p style="color: rgb(120, 126, 137);margin-left: 2px;"><c:out value="${reiviewCnt.one }"/></p>
 				</div>
 			</div>
 			<br/>
@@ -70,7 +70,7 @@ function moveTo(bcCode) {
 					<svg width="16" height="18" viewBox="0 -2 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="css-wsqqvh">
 						<path d="M2.53333 14C2.53333 11.4227 5.42266 9.33333 7.99999 9.33333C10.5773 9.33333 13.4667 11.4227 13.4667 14M10.6667 4.66667C10.6667 6.13943 9.47275 7.33333 7.99999 7.33333C6.52723 7.33333 5.33333 6.13943 5.33333 4.66667C5.33333 3.19391 6.52723 2 7.99999 2C9.47275 2 10.6667 3.19391 10.6667 4.66667Z" stroke="#9CA3AF" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
 					</svg>
-					<p style="color: rgb(120, 126, 137);margin-left: 2px;"><c:out value="${reiviewCnt.rTwo }"/></p>
+					<p style="color: rgb(120, 126, 137);margin-left: 2px;"><c:out value="${reiviewCnt.two }"/></p>
 				</div>
 			</div>
 			<br/>
@@ -82,7 +82,7 @@ function moveTo(bcCode) {
 					<svg width="16" height="18" viewBox="0 -2 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="css-wsqqvh">
 						<path d="M2.53333 14C2.53333 11.4227 5.42266 9.33333 7.99999 9.33333C10.5773 9.33333 13.4667 11.4227 13.4667 14M10.6667 4.66667C10.6667 6.13943 9.47275 7.33333 7.99999 7.33333C6.52723 7.33333 5.33333 6.13943 5.33333 4.66667C5.33333 3.19391 6.52723 2 7.99999 2C9.47275 2 10.6667 3.19391 10.6667 4.66667Z" stroke="#9CA3AF" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
 					</svg>
-					<p style="color: rgb(120, 126, 137);margin-left: 2px;"><c:out value="${reiviewCnt.rThree }"/></p>
+					<p style="color: rgb(120, 126, 137);margin-left: 2px;"><c:out value="${reiviewCnt.three }"/></p>
 				</div>
 			</div>
 			<br/>
@@ -94,7 +94,7 @@ function moveTo(bcCode) {
 					<svg width="16" height="18" viewBox="0 -2 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="css-wsqqvh">
 						<path d="M2.53333 14C2.53333 11.4227 5.42266 9.33333 7.99999 9.33333C10.5773 9.33333 13.4667 11.4227 13.4667 14M10.6667 4.66667C10.6667 6.13943 9.47275 7.33333 7.99999 7.33333C6.52723 7.33333 5.33333 6.13943 5.33333 4.66667C5.33333 3.19391 6.52723 2 7.99999 2C9.47275 2 10.6667 3.19391 10.6667 4.66667Z" stroke="#9CA3AF" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
 					</svg>
-					<p style="color: rgb(120, 126, 137);margin-left: 2px;"><c:out value="${reiviewCnt.rFour }"/></p>
+					<p style="color: rgb(120, 126, 137);margin-left: 2px;"><c:out value="${reiviewCnt.four }"/></p>
 				</div>
 			</div>
 		</li>
@@ -103,7 +103,7 @@ function moveTo(bcCode) {
 <div>
 <br><hr style="border: 2px solid;width: 100%;margin-top: 10px;margin-bottom: 10px">
 <div style="font-size: 20px;color: #000;margin-bottom: 25px;">
-	<strong>상세한 후기도 있어요</strong><span style="color: #0DCC5A;padding-left: 7px;">2</span>
+	<strong>상세한 후기도 있어요</strong><span style="color: #0DCC5A;padding-left: 7px;"><c:out value="${reiviewCnt.total }"/></span>
 </div>
 <div id="div_s" style="width: 100%">
 	<table style="border: none;border-collapse: separate;border-spacing: 0px 12px;">

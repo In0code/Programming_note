@@ -53,27 +53,104 @@
 			$("#orderByList").toggle();
 		});
 		
-		$("#dc").click(function() {
-			alert("눌림");
-			$.ajax({
-				uri: "purchase_t.do",
-				type: "post",
-				dataType: "JSON",
-				error: function(xhr){
-					alert(xhr.status);
-				},
-				success: function(jsonObj){
-					alert(jsonObj.dataSize);
-				}
-			});
-		});
-		
 	});//ready
 	
-	function purchaseDetail(val){
-		$("#pccode").val(val);
+	function purchaseDetail(code, table){
+		$("#code").val(code);
+		$("#table").val(table);
+		
 		$("#hrdFrm").submit();
 	}
+	
+/* 	function purchaseBy(status){
+		var url = "purchase.do";
+		if(status == 'p'){
+			url = "purchase_p.do";
+		}
+		if(status == 't'){
+			url = "purchase_t.do";
+		}
+		if(status == 'c'){
+			url = "purchase_c.do";
+		}
+		
+		$.ajax({
+			url: url,
+			type: "post",
+			dataType: "json",
+			error: function(xhr){
+				alert(xhr.status);
+			},
+			success: function(jsonObj){
+				alert(jsonObj.dataSize);
+			}
+		});
+	}; 
+*/
+	
+	function purchaseBy(status){
+		if(status == 'a'){
+			$("#allLi").attr("class","shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black border-black");
+			$("#tranLi, #canLi, #payLi").attr("class","shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black");
+			$("#cntDiv").html(${ dealCnt + payCnt + cancelCnt });
+			
+			if(${ empty pcList and empty tcList and empty ccList}){
+				$("#pcDiv, #tcDiv, #ccDiv").attr("style","display:none");
+				$("#noDataDiv").attr("style","display:block");
+			}else{
+				$("#pcDiv, #tcDiv, #ccDiv").attr("style","display:block");
+				$("#noDataDiv").attr("style","display:none");
+			}
+		}
+	
+		/* 결제완료 */
+		if(status == 'p'){
+			$("#payLi").attr("class","shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black border-black");
+			$("#tranLi, #canLi, #allLi").attr("class","shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black");
+			$("#cntDiv").html(${ payCnt });
+			
+			$("#tcDiv, #ccDiv").attr("style","display:none");
+			if(${ empty pcList }){
+				$("#noDataDiv").attr("style","display:block");
+				$("#pcDiv").attr("style","display:none");
+			}else{
+				$("#noDataDiv").attr("style","display:none");
+				$("#pcDiv").attr("style","display:block");
+			}
+		}
+		
+		/* 거래완료 */
+		if(status == 't'){
+			$("#tranLi").attr("class","shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black border-black");
+			$("#payLi, #canLi, #allLi").attr("class","shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black");
+			$("#cntDiv").html(${ dealCnt });
+			
+			$("#pcDiv, #ccDiv").attr("style","display:none");
+			if(${ empty tcList }){
+				$("#noDataDiv").attr("style","display:block");
+				$("#tcDiv").attr("style","display:none");
+			}else {
+				$("#noDataDiv").attr("style","display:none");
+				$("#tcDiv").attr("style","display:block");
+			}
+		}
+		/* 취소완료 */
+		if(status == 'c'){
+			$("#canLi").attr("class","shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black border-black");
+			$("#payLi, #tranLi, #allLi").attr("class","shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black");
+			$("#cntDiv").html(${ cancelCnt });
+			
+			$("#pcDiv, #tcDiv").attr("style","display:none");
+			if(${ empty ccList }){
+				$("#noDataDiv").attr("style","display:block");
+				$("#ccDiv").attr("style","display:none");
+			}else {
+				$("#noDataDiv").attr("style","display:none");
+				$("#ccDiv").attr("style","display:block");
+			}
+		}
+		
+	};
 
 </script>
 
@@ -89,25 +166,25 @@
 				<div class="px-0 max-lg:mt-10">
 					<div class="items-center justify-between block mb-4 md:flex lg:mb-7">
 						<div class="flex-shrink-0 mb-1 text-xs leading-4 text-body md:text-sm pe-4 md:me-6 lg:ps-2 lg:block">
-							2 개의 상품</div>
+							<span id="cntDiv">${ dealCnt + payCnt + cancelCnt }</span>개의 상품</div>
 						<div class="flex flex-wrap items-center justify-between">
 							<div class="mr-0 lg:mr-4">
 								<ul class="colors flex flex-nowrap -me-3">
-									<li class="shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black border-black">
+									<li onclick="purchaseBy('a')" id="allLi" class="shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black border-black">
 										전체
 									</li>
-									<li id="dc" class="shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black">
+									<li onclick="purchaseBy('p')" id="payLi" class="shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black">
 										결제완료
 									</li>
-									<li class="shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black">
+									<li onclick="purchaseBy('t')" id="tranLi" class="shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black">
 										거래완료
 									</li>
-									<li class="shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black">
+									<li onclick="purchaseBy('c')" id="canLi" class="shrink-0 cursor-pointer rounded-full border border-gray-100  p-1 px-2 mr-1 sm:mr-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-black">
 										구매취소
 									</li>
 								</ul>
 							</div>
-							<div class="relative my-2 sm:m-0 lg:ms-0 z-10 min-w-[160px]">
+<!-- 							<div class="relative my-2 sm:m-0 lg:ms-0 z-10 min-w-[160px]">
 								<button class="border border-gray-300 text-heading text-xs md:text-sm font-semibold relative w-full py-2 ps-3 pe-10 text-start bg-white rounded-lg shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm cursor-pointer"
 									id="orderBy" type="button" aria-haspopup="listbox" style="border:1px solid #E6E6E6; text-align:left">
 									<span class="block truncate">최신순</span>
@@ -137,7 +214,7 @@
 										<span class="font-normal block truncate">높은가격순</span>
 									</li>
 								</ul>
-							</div>
+							</div> -->
 						</div>
 					</div>
 
@@ -150,7 +227,7 @@
 								</div>
 								<div data-v-ef57988c="" class="status_box"
 									style="padding-right: 5px">
-									<span data-v-ef57988c="" class="status_txt">구매일</span>
+									<span data-v-ef57988c="" class="status_txt">구매일자</span>
 								</div>
 								<div data-v-ef57988c="" class="status_box"
 									style="padding-right: 10px;">
@@ -159,13 +236,20 @@
 							</div>
 						</div>
 						
+						<div id="noDataDiv" style="display:none">
+							<p class="py-12 text-center" style="padding:40px 0px 41px 0px">상품이 없습니다.</p>
+						</div>
+						
 						<form id="hrdFrm" action="purchase/detail.do">
-							<input type="hidden" id="pccode" name="pccode"/>
+							<input type="hidden" id="code" name="code"/>
+							<input type="hidden" id="table" name="table"/>
 						</form>
 						
-						<%-- <c:forEach var="purchase" items="${ purchaseList }">
+						<div id="listDiv">
+						<div id="tcDiv">
+						<c:forEach var="tc" items="${ tcList }">
 						<!-- 상품 정보 -->
-						<div id="productDiv" onclick="purchaseDetail('${ purchase.buyreceiptcode }')">
+						<div id="productDiv" onclick="purchaseDetail('${ tc.code }','buy')">
 						<div data-v-ef57988c="">
 							<div data-v-6e1f328e="" data-v-ef57988c="">
 								<div data-v-6e1f328e="" class="purchase_list_display_item" style="background-color: rgb(255, 255, 255);">
@@ -173,17 +257,17 @@
 									
 										<!-- 상품 이미지 -->
 										<div data-v-6e1f328e="" class="list_item_img_wrap">
-											<img data-v-6e1f328e="" alt="product_image"
-												src="http://localhost/retro_prj/upload/${ purchase.img }"
+											<img data-v-6e1f328e="" alt="image"
+												src="http://localhost/retro_prj/upload/${ tc.img }"
 												class="list_item_img"
 												style="background-color: rgb(255, 255, 255);">
 										</div>
 										<!---->
 
 										<!-- 상품명 -->
-										<div data-v-6e1f328e="" class="list_item_title_wrap">
+										<div data-v-6e1f328e="" class="list_item_title_wrap" style="width:auto;">
 											<p data-v-6e1f328e="" class="list_item_title">
-											${ purchase.pname }</p>
+											${ tc.pname }</p>
 										</div>
 										<!---->
 									</div>
@@ -194,7 +278,7 @@
 											<p data-v-8016a084="" data-v-6e1f328e=""
 												class="secondary_title display_paragraph"
 												style="color: rgb(34, 34, 34);">
-												<fmt:formatNumber value="${ purchase.price }" pattern="#,###,###"/>원
+												<fmt:formatNumber value="${ tc.price }" pattern="#,###,###"/>원
 												</p>
 										</div>
 										<!---->
@@ -204,14 +288,14 @@
 											<p data-v-8016a084="" data-v-6e1f328e=""
 												class="last_title display_paragraph"
 												style="color: rgb(34, 34, 34);">
-												${ purchase.payment_date }
+												${ tc.buy_date }
 											</p>
 										</div>
 										<!---->
 
 										<!-- 후기 작성 / 구매 취소 -->
 										<div data-v-6e1f328e="" class="list_item_column column_last">
-											<input type="button" class="btnStyle" value="후기작성"
+											<input type="button" class="btnStyle" value="후기 작성"
 												style="margin-left: 60px" />
 										</div>
 										<!---->
@@ -222,7 +306,134 @@
 						</div>
 						</div>
 						<!---->
-						</c:forEach> --%>
+						</c:forEach>
+						 </div>
+						
+						<div id="pcDiv">
+						<c:forEach var="pc" items="${ pcList }">
+						<!-- 상품 정보 -->
+						<div id="productDiv" onclick="purchaseDetail('${ pc.code }','safe')">
+						<div data-v-ef57988c="">
+							<div data-v-6e1f328e="" data-v-ef57988c="">
+								<div data-v-6e1f328e="" class="purchase_list_display_item" style="background-color: rgb(255, 255, 255);">
+									<div data-v-6e1f328e="" class="purchase_list_product">
+									
+										<!-- 상품 이미지 -->
+										<div data-v-6e1f328e="" class="list_item_img_wrap">
+											<img data-v-6e1f328e="" alt="image"
+												src="http://localhost/retro_prj/upload/${ pc.img }"
+												class="list_item_img"
+												style="background-color: rgb(255, 255, 255);">
+										</div>
+										<!---->
+
+										<!-- 상품명 -->
+										<div data-v-6e1f328e="" class="list_item_title_wrap" style="width:auto;">
+											<p data-v-6e1f328e="" class="list_item_title">
+											${ pc.pname }</p>
+										</div>
+										<!---->
+									</div>
+
+									<div data-v-6e1f328e="" class="list_item_status">
+										<!-- 가격 -->
+										<div data-v-6e1f328e="" class="list_item_column column_secondary">
+											<p data-v-8016a084="" data-v-6e1f328e=""
+												class="secondary_title display_paragraph"
+												style="color: rgb(34, 34, 34);">
+												<fmt:formatNumber value="${ pc.price }" pattern="#,###,###"/>원
+												</p>
+										</div>
+										<!---->
+
+										<!-- 구매일 -->
+										<div data-v-6e1f328e="" class="list_item_column column_last">
+											<p data-v-8016a084="" data-v-6e1f328e=""
+												class="last_title display_paragraph"
+												style="color: rgb(34, 34, 34);">
+												${ pc.buy_date }
+											</p>
+										</div>
+										<!---->
+
+										<!-- 후기 작성 / 구매 취소 -->
+										<div data-v-6e1f328e="" class="list_item_column column_last">
+											<input type="button" class="btnStyle" value="구매 취소" onclick="purchaseCancel('${ pc.code }')" style="margin-left: 60px" />
+										</div>
+										<!---->
+									</div>
+								</div>
+								<!-- 상품 정보 -->
+							</div>
+						</div>
+						</div>
+						<!---->
+						</c:forEach>
+						</div>
+						
+						<div id="ccDiv">
+						<c:forEach var="cc" items="${ ccList }">
+						<!-- 상품 정보 -->
+						<div id="productDiv" onclick="purchaseDetail('${ cc.code }','safe')">
+						<div data-v-ef57988c="">
+							<div data-v-6e1f328e="" data-v-ef57988c="">
+								<div data-v-6e1f328e="" class="purchase_list_display_item" style="background-color: rgb(255, 255, 255);">
+									<div data-v-6e1f328e="" class="purchase_list_product">
+									
+										<!-- 상품 이미지 -->
+										<div data-v-6e1f328e="" class="list_item_img_wrap">
+											<img data-v-6e1f328e="" alt="image"
+												src="http://localhost/retro_prj/upload/${ cc.img }"
+												class="list_item_img"
+												style="background-color: rgb(255, 255, 255);">
+										</div>
+										<!---->
+
+										<!-- 상품명 -->
+										<div data-v-6e1f328e="" class="list_item_title_wrap" style="width:auto;">
+											<p data-v-6e1f328e="" class="list_item_title">
+											${ cc.pname }</p>
+										</div>
+										<!---->
+									</div>
+
+									<div data-v-6e1f328e="" class="list_item_status">
+										<!-- 가격 -->
+										<div data-v-6e1f328e="" class="list_item_column column_secondary">
+											<p data-v-8016a084="" data-v-6e1f328e=""
+												class="secondary_title display_paragraph"
+												style="color: rgb(34, 34, 34);">
+												<fmt:formatNumber value="${ cc.price }" pattern="#,###,###"/>원
+												</p>
+										</div>
+										<!---->
+
+										<!-- 구매일 -->
+										<div data-v-6e1f328e="" class="list_item_column column_last">
+											<p data-v-8016a084="" data-v-6e1f328e=""
+												class="last_title display_paragraph"
+												style="color: rgb(34, 34, 34);">
+												${ cc.buy_date }
+											</p>
+										</div>
+										<!---->
+
+										<!-- 후기 작성 / 구매 취소 -->
+										<div data-v-6e1f328e="" class="list_item_column column_last">
+											취소 완료
+										</div>
+										<!---->
+									</div>
+								</div>
+								<!-- 상품 정보 -->
+							</div>
+						</div>
+						</div>
+						<!---->
+						</c:forEach>
+						</div>
+						</div>
+						
 						
 						<div data-v-ef57988c="" class="v-portal" style="display: none;"></div>
 					</div>
