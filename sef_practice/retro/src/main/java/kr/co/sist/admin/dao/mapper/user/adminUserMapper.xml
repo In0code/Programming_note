@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.sist.admin.userMng">
+<!-- 모든 회원 조회 -->
+<select id="selectAllUser" resultType="kr.co.sist.admin.domain.user.UserDomain">
+
+</select>
+
+<!-- 회원 정보 상세 조회 -->
+<select id="selectOneUser" resultType="kr.co.sist.admin.domain.user.UserDomain" parameterType="String">
+
+</select>
+
+<!-- 회원 정지 -->
+<select id="updateUserStatus" resultType="kr.co.sist.admin.domain.user.UserDomain" parameterType="String">
+
+</select>
+
+<!-- 회원 삭제 -->
+<select id="updateDelUser" resultType="kr.co.sist.admin.domain.user.UserDomain" parameterType="String">
+
+</select>
+</mapper>
