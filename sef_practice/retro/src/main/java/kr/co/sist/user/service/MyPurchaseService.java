@@ -1,11 +1,10 @@
 package kr.co.sist.user.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.exceptions.PersistenceException;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,10 +34,36 @@ public class MyPurchaseService {
 	
 	public MyPurchaseDomain searchBuyDetail(String code) {
 		MyPurchaseDomain mpd = null;
+		List<String> commentList = new ArrayList<String>();
 		
 		try {
 			mpd = mpDAO.selectBuyDetail(code);
 			mpd.setPhone(maskingPhone(mpd.getPhone()));
+			
+			if(mpd.getCommentcode() != null) {
+				String[] select = {mpd.getSelect2_1(), mpd.getSelect2_2(), mpd.getSelect2_3(), mpd.getSelect2_4()};
+				String[] comment = {"친절/매너가 좋아요.", "응답이 빨라요.", "제가 있는 곳까지 와서 거래했어요.", "거래 시간을 잘 지켜요."};
+				
+				if("3".equals(mpd.getSelect1())) {
+					comment[0] = "친절/매너가 아쉬워요.";
+					comment[1] = "응답이 느려요.";
+					comment[2] = "원하지 않는 가격을 계속 요구해요.";
+					comment[3] = "거래 시간을 안 지켜요.";
+				}
+				
+				for(int i = 0; i < select.length; i++) {
+					if(select[i] != null) {
+						for(int j = 0; i < comment.length; j++) {
+							if(String.valueOf(j+1).equals(select[i])) {
+								commentList.add(comment[j]);
+								break;
+							}
+						}
+					}
+				}
+				
+				mpd.setCmlist(commentList);
+			}
 			
 			System.out.println(mpd.getSelect1());
 		}catch(PersistenceException pe) {

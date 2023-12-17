@@ -44,20 +44,8 @@
 
 	<select id="selectProduct" resultType="pd" parameterType="pVO">
     SELECT 
-        p.pcode, p.pname, p.context, p.img, p.price,
-        <if test="img2 != null and img2 != ''">
-            p.img2,
-        </if>
-        <if test="img3 != null and img3 != ''">
-            p.img3,
-        </if>
-        <if test="img4 != null and img4 != ''">
-            p.img4,
-        </if>
-        <if test="img5 != null and img5 != ''">
-            p.img5,
-        </if>
-        p.input_date, p.deliver, p.status, p.saleok,
+        p.pcode, p.pname, p.context, p.img, p.price, p.img2, p.img3, p.img4,  p.img5,
+         p.input_date, p.deliver, p.status, p.saleok,
         p.loc, p.pcancel, p.c3code, p.id, c1.name as cname, c2.name as c2name, c3.name as c3name
     FROM 
         product p, CATEGORY c1, CATEGORY2 c2, CATEGORY3 c3
@@ -65,6 +53,11 @@
         c1.ccode=c2.ccode AND c2.c2code = c3.c2code AND c3.C3CODE=p.C3CODE AND p.PCODE=#{pcode}
 </select>
 		
+		<select id="selectBuyerAllInfo" resultType="msd" parameterType="String">
+		  select m.nickname as buyerNick, c.BUYER_ID as buyerId
+		  from CHATTING c, member m
+		  where m.id = c.BUYER_ID and c.SELLER_ID = #{ seller }
+		</select>
 	
 	<update id="updateProduct" parameterType="pVO">
 	update PRODUCT

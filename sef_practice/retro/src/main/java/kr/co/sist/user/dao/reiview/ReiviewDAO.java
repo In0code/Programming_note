@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Component;
 
 import kr.co.sist.common.dao.MybatisHandler;
+import kr.co.sist.user.domain.MyPurchaseDomain;
 import kr.co.sist.user.domain.reiview.ReiviewDomain;
 
 @Component
@@ -23,4 +24,5 @@ public class ReiviewDAO {
 		
 		return list;
 	}
+	
 }

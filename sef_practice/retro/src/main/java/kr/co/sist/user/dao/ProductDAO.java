@@ -6,6 +6,7 @@ import org.apache.ibatis.exceptions.PersistenceException;
 import org.apache.ibatis.session.SqlSession;
 
 import kr.co.sist.common.dao.MybatisHandler;
+import kr.co.sist.user.domain.MySalesDomain;
 import kr.co.sist.user.domain.ProductDomain;
 import kr.co.sist.user.vo.ProductVO;
 
@@ -139,33 +140,31 @@ public class ProductDAO {
 	    return deleteCnt;
 	}//deleteProduct
 	
+	public List<MySalesDomain> selectBuyerAllInfo(String seller)throws PersistenceException{
+		
+		List<MySalesDomain> selectInfo=null;
+		
+		MybatisHandler mbh = MybatisHandler.getInstance();
+		SqlSession ss = mbh.getMyBatisHandler(configPath, false);
+		selectInfo = ss.selectList("user.product.selectBuyerAllInfo",seller);
+		
+		mbh.closeHandler(ss);
+		
+		return selectInfo;
+		
+	}//selectBuyerAllInfo
+	
 	
 
-//	public static void main(String[] args) {
-//		ProductDAO pd = ProductDAO.getInstance();
-//		ProductVO pVO = new ProductVO();
-//		String id="1011kiy111";
-////		pVO.setId("1011kiy111");
-////		pVO.setPcode("P00108");
-////		pVO.setPname("롱치마");
-////		pVO.setPrice(10000);
-////		pVO.setStatus("S");
-////		pVO.setImg("b2.png");
-////		pVO.setImg2("b2.png");
-////		pVO.setImg3("b3.png");
-////		pVO.setImg4("b4.png");
-////		pVO.setContext("이것도 올라가주세요");
-////		pVO.setDeliver("N");
-////		pVO.setLoc("의정부동");
-////		pVO.setC3code("C102");
-////		pd.insertProduct(pVO);
-////		pd.deleteProduct(pVO);
-////		pd.getCategoryName("C103");
-////		pd.selectProduct(pVO);
-//		pd.getPcode(id);
-//		
-//		
-//		
-//	}// main
+	public static void main(String[] args) {
+		ProductDAO pd = ProductDAO.getInstance();
+		ProductVO pVO = new ProductVO();
+		pVO.setPcode("P00008");
+		pd.selectProduct(pVO);
+////		pd.getPcode(id);
+////		
+////		
+////		
+	}// main
 
 }// class

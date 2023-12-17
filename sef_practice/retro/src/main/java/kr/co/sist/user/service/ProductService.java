@@ -1,9 +1,12 @@
 package kr.co.sist.user.service;
 
+import java.util.List;
+
 import org.apache.ibatis.exceptions.PersistenceException;
 import org.json.simple.JSONObject;
 
 import kr.co.sist.user.dao.ProductDAO;
+import kr.co.sist.user.domain.MySalesDomain;
 import kr.co.sist.user.domain.ProductDomain;
 import kr.co.sist.user.vo.ProductVO;
 
@@ -96,5 +99,16 @@ public class ProductService {
         }//end catch
         return deletejsonObj;
     }//cancelProduct
+    
+
+	public List<MySalesDomain> searchBuyerAllInfo(String seller){
+		 List<MySalesDomain> searchAllInfo=null;
+		 try {
+			 searchAllInfo = pDAO.selectBuyerAllInfo(seller);
+			}catch(PersistenceException pe) {
+				pe.printStackTrace();
+			}//end catch
+			return searchAllInfo;
+	}//searchBuyerAllInfo
 
 }//class

@@ -9,8 +9,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class MyPurchaseDomain {
-	private String pcode, buyreceiptcode, pname, img, payment_date, seller, phone, buyer, select1, select2, select2_1, select2_2, select2_3, select2_4,
+public class MySalesDomain {
+	private String pcode, buyreceiptcode, pname, img, payment_date, sellerNick, sellerId, phone, buyerNick, buyerId, select1, select2, select2_1, select2_2, select2_3, select2_4,
 	context, safecode, buy_date, nickname, code, payment, commentcode;
 	private int price;
 	
