@@ -111,6 +111,7 @@
 	function purchaseWrite(code) {
 		var frm = $("#hrdFrm")[0];
 		frm.action = "http://localhost/retro_prj/purchase_review_write.do";
+		frm.method = "POST";
 		$("#code").val(code);
 		$("#hrdFrm").submit();
 	}
@@ -268,6 +269,7 @@
 						
 						<form id="hrdFrm" action="purchase/detail.do">
 							<input type="hidden" id="code" name="code"/>
+							<input type="hidden" id="id" name="id" value="urface"/> <!-- ${ sessionScope.id } -->
 						</form>
 						
 						<div id="listDiv">
@@ -320,7 +322,14 @@
 
 										<!-- 후기 작성 / 구매 취소 -->
 										<div data-v-6e1f328e="" class="list_item_column column_last">
-											<input type="button" class="btnStyle" value="후기 작성" onclick="purchaseWrite('${ tc.code }')" style="margin-left: 60px; cursor:pointer" />
+										<c:choose>
+											<c:when test="${ empty tc.commentcode }">
+												<input type="button" class="btnStyle" value="후기 작성" onclick="purchaseWrite('${ tc.code }')" style="margin-left: 60px; cursor:pointer" />
+											</c:when>
+											<c:otherwise>
+												<span style="font-size:14px; margin-right:8px">거래 완료</span>
+											</c:otherwise>
+										</c:choose>
 										</div>
 										<!---->
 									</div>

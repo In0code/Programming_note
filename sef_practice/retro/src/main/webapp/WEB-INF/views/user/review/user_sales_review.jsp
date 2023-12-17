@@ -23,13 +23,17 @@ textarea:focus {
 	border: 1px solid #0DCC5A;
 }
 
+#productInfoArea {
+	cursor: pointer;
+}
+
 </style>
 
 <script type="text/javascript">
 	$(function() {
 		$("#productInfoArea").click(function(){
 			/* 상품 상세로 이동하도록 설정 */
-			location.href="";
+			location.href="https://www.naver.com/";
 		});
 		
 		$("#reviewBtn").click(function(){
@@ -48,7 +52,7 @@ textarea:focus {
 		    $("#bestCmt").attr('style','color:black');
 		    $("#sosoCmt, #goodCmt").attr('style','color:#9CA3AF');
 		    
-		    $("#statusP").html("제가 있는 곳까지 와서 거래했어요.");
+		    $("#statusP").html("제가 있는 곳까지 와서 거래했어요");
 		    $("#kindP").html("친절/매너가 좋아요.");
 		    $("#timeP").html("거래 시간을 잘 지켜요.");
 		    $("#speedP").html("응답이 빨라요.");
@@ -66,7 +70,7 @@ textarea:focus {
 		    $("#goodCmt").attr('style','color:black');
 		    $("#sosoCmt, #bestCmt").attr('style','color:#9CA3AF');
 		    
-		    $("#statusP").html("제가 있는 곳까지 와서 거래했어요.");
+		    $("#statusP").html("제가 있는 곳까지 와서 거래했어요");
 		    $("#kindP").html("친절/매너가 좋아요.");
 		    $("#timeP").html("거래 시간을 잘 지켜요.");
 		    $("#speedP").html("응답이 빨라요.");
@@ -84,9 +88,9 @@ textarea:focus {
 		    $("#sosoCmt").attr('style','color:black');
 		    $("#goodCmt, #bestCmt").attr('style','color:#9CA3AF');
 		    
-		    $("#statusP").html("거래 거리가 아쉬워요.");
+		    $("#statusP").html("원하지 않는 가격을 계속 요구해요.");
 		    $("#kindP").html("친절/매너가 아쉬워요.");
-		    $("#timeP").html("거래 시간을 안 지켜요.");
+		    $("#timeP").html("거래 시간을 잘 안지켜요");
 		    $("#speedP").html("응답이 느려요.");
 		});//click
 		
@@ -149,20 +153,20 @@ textarea:focus {
 /* 		$("#"+value).attr('checked','checked');
 		document.getElementById("reviewBtn").disabled = false;
 		 */
-		    // 주어진 ID를 가진 체크박스의 상태를 토글
-		    $("#" + value).prop('checked', function(_, currentChecked) {
-		        // 현재 체크된 상태와 반대로 설정하여 토글
-		        return !currentChecked;
-		    });
+		// 주어진 ID를 가진 체크박스의 상태를 토글
+		$("#" + value).prop('checked', function(_, currentChecked) {
+		    // 현재 체크된 상태와 반대로 설정하여 토글
+		    return !currentChecked;
+		});
 
-		    // 네 개의 체크박스 중 하나라도 체크된 경우
-		    if ($("#checkKind").prop('checked') || $("#checkSpeed").prop('checked') || $("#checkTime").prop('checked') || $("#checkComfort").prop('checked')) {
-		        // reviewBtn을 활성화
-		        document.getElementById("reviewBtn").disabled = false;
-		    } else {
-		        // 모든 체크박스가 체크 해제된 경우 reviewBtn을 비활성화
-		        document.getElementById("reviewBtn").disabled = true;
-		    }
+		// 네 개의 체크박스 중 하나라도 체크된 경우
+		if ($("#checkKind").prop('checked') || $("#checkSpeed").prop('checked') || $("#checkTime").prop('checked') || $("#checkComfort").prop('checked')) {
+		     // reviewBtn을 활성화
+		     document.getElementById("reviewBtn").disabled = false;
+		} else {
+		     // 모든 체크박스가 체크 해제된 경우 reviewBtn을 비활성화
+		     document.getElementById("reviewBtn").disabled = true;
+		}
 	}
 	
 </script>
@@ -188,30 +192,30 @@ textarea:focus {
 		</header>
 		<div id="container" class="container css-1vsyufa">
 			<main class="css-1n52gqv">
-				<div class="containerStyle" style="height:680px">
-					<button id="productInfoArea">
+				<div class="containerStyle" style="height:750px">
+					<div id="productInfoArea">
 						<div class="css-1glkcst">
-							<div class="product-img-wrap css-4sj9kq">
+							<div class="product-img-wrap css-4sj9kq" style="width:80px; height:80px">
 								<!-- 상품 이미지 -->
-								<img src="https://img2.joongna.com/media/original/2023/11/30/1701329246394HfJ_vgYmu.png"
-									alt="상품명" width="1000" height="1000"
+								<img src="http://localhost/retro_prj/upload/${ info.img }"
+									alt="" width="1000" height="1000"
 									referrerpolicy="no-referrer" class="css-sxxyvs">
 								<!---->
 							</div>
 							<!-- 상품 정보 -->
-							<div class="product-info">
-								<h2>제목 영역</h2>
-								<p>판매자 닉네임</p>
+							<div class="product-info" style="margin-top:19px">
+								<p style="font-size:16px">${ info.pname }</p>
+								<h2>${ info.nickname }</h2>
 							</div>
 							<!---->
 						</div>
-					</button>
+					</div>
 					
 					<!-- 기본 선택 -->
 					<section class="css-1y8gct2">
 						<div>
 							<h3>
-								닉네임님과의<br>거래는 어떠셨나요?
+								${ info.buyerNick }님과의 거래는 어떠셨나요?
 							</h3>
 						</div>
 						
@@ -288,8 +292,10 @@ textarea:focus {
 					</section>
 					<!---->
 					
-					<form id="hrdFrm" action="http://localhost/retro_prj/purchase_review_write_prc.do" method="POST">
-					<input type="hidden" id="comment1" name="comment1">
+					<form id="hrdFrm" action="http://localhost/retro_prj/sales_review_write_prc.do" method="POST">
+					<input type="hidden" id="comment1" name="comment1" value="1">
+					<input type="hidden" id="code" name="code" value="${ param.code }">
+					<input type="hidden" id="id" name="id" value="${ param.id }">
 					<!-- 상세 선택 -->
 					<section>
 						<ul class="css-1ovzr4f">
@@ -345,14 +351,14 @@ textarea:focus {
 					<!---->
 					
 					<div style="text-align: right">
-					<textarea id="reviewArea" name="reviewArea" oninput="lengthCnt()" placeholder="상세한 리뷰를 작성해주세요.(선택)"
+					<textarea id="reviewArea" name="context" oninput="lengthCnt()" placeholder="상세한 리뷰를 작성해주세요.(선택)"
 					style="width:100%; height: 130px;" ></textarea>
 					<span id="lengthCnt">0</span>/300
 					</div>
 					</form>
 				</div>
 				
-				<div class="css-1nenfkg">
+				<div class="css-1nenfkg" style="margin-bottom: 60px">
 					<input type="button" class="css-12uwwjm" id="reviewBtn" value="후기 등록" disabled="disabled"/>
 				</div>
 				

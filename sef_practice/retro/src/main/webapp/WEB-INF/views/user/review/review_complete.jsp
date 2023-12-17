@@ -39,6 +39,34 @@ svg:not(:root) {
     transform: rotate(0deg);
 }
 
+.btn_view_list[data-v-7a3bdf55] {
+    min-width: 120px;
+}
+
+.outlinegrey[data-v-0a6aebaa] {
+    border: 1px solid #d3d3d3;
+    color: rgba(34,34,34,.8);
+}
+
+.medium[data-v-0a6aebaa] {
+    border-radius: 12px;
+    font-size: 14px;
+    height: 42px;
+    letter-spacing: -.14px;
+    padding: 0 18px;
+}
+
+.btn[data-v-0a6aebaa] {
+    align-items: center;
+    background-color: #fff;
+    color: rgba(34,34,34,.8);
+    cursor: pointer;
+    display: inline-flex;
+    justify-content: center;
+    text-align: center;
+    vertical-align: middle;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -107,8 +135,21 @@ svg:not(:root) {
 							<clipPath id="clip0_833_154178">
 							<rect width="92" height="92" fill="white"></rect></clipPath></defs>
 						</svg>
-
-						<p>후기 작성이 완료되었습니다.</p>
+						<c:choose>
+							<c:when test="${ addFlag }">
+								<p>후기 작성이 완료되었습니다.</p>
+								<div data-v-7a3bdf55="" class="detail_btn_box" style="margin: 30px 0px 50px 0px">
+								<a data-v-0a6aebaa="" data-v-7a3bdf55="" href="http://localhost/retro_prj/my/purchase.do"
+									class="btn btn_view_list outlinegrey medium">목록</a>
+								</div>
+							</c:when>
+							<c:otherwise>
+								<script type="text/javascript">
+									alert("잠시 후 다시 시도해주세요.");
+									history.back();
+								</script>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</article>
 			</div>

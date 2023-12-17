@@ -78,7 +78,13 @@
 		});//click
 
 		$("#sendComment").click(function() {
-			location.href = "../review/user_sales_review.do";
+			var frm = $("#hrdFrm")[0];
+			frm.action = "http://localhost/retro_prj/sales_review_write.do";
+			frm.method = "POST";
+			$("#hrdFrm").submit();
+			
+			/*  var pcode = "${userProduct.pcode}";
+			    prductSaleOk(pcode); */
 		});
 
 		$("#saleOk").click(function() {
@@ -86,7 +92,7 @@
 			var confirmSaleOk = confirm("판매 완료 처리 하겠습니까?");
 
 			if (confirmSaleOk) {
-				productSaleOk(pcode);
+				prductSaleOk(pcode);
 
 			}//end if
 		});//click	
@@ -117,19 +123,6 @@
 			location.href="product_edit.do?pcode=${ userProduct.pcode }";
 		});
 		
-		/* var pcode="${ userProduct.pcode}";
-		$("#pcode").val(pcode);
-		alert($("#pcode"));
-		
-		$("#gOk").click(function(){
-			$("#chkPayment").val("G");
-			alert($("#chkPayment"));
-		});//click
-		
-		$("#tOk").click(function(){
-			$("#chkPayment").val("T");
-			alert($("#chkPayment"));
-		});//click */
 	});//ready
 
 	/* '상태변경'버튼 클릭 시 모달 나오게 동작 */
@@ -138,83 +131,8 @@
 		modalBg.style.display = 'block';
 	}//openModal
 
-	
-	
-	function chkPayMentG(payment,pcode,event){
-		$.ajax({
-			url : "addBuyReceipt.do",
-			type : "get",
-			data : {
-			      payment: payment,
-			      pcode: pcode
-			    },
-			dataType : "JSON",
-			error : function(xhr) {
-				alert("죄송합니다. 서버에 문제가 발생하였습니다. 잠시 후에 다시 시도해주세요.");
-				console.log(xhr.status);
-			},
-			success : function(jsonObj) {
-				 if (event) {
-		                event.stopPropagation();
-		            }
-				/* location.href=""; 사용자 메인으로 이동 */
-			}//success
-		});//ajax
-		
-	}//chkPayMentG
-	
-	function chkPayMentT(payment,pcode,event){
-		$.ajax({
-			url : "addBuyReceipt.do",
-			type : "get",
-			data : {
-			      payment: payment,
-			      pcode: pcode
-			    },
-			dataType : "JSON",
-			error : function(xhr) {
-				alert("죄송합니다. 서버에 문제가 발생하였습니다. 잠시 후에 다시 시도해주세요.");
-				console.log(xhr.status);
-			},
-			success : function(jsonObj) {
-				 if (event) {
-		                event.stopPropagation();
-		            }
-				/* location.href=""; 사용자 메인으로 이동 */
-			}//success
-		});//ajax
-		
-	}//chkPayMentG
-	/* '상태변경' 버튼 클릭 후 '판매완료' 클릭 시 모달이 나오게 동작  */
-	function openCompleteModal() {
-		 var modalBg3 = document.getElementById('completeModalBg');
-		    modalBg3.style.display = 'block';
-
-		    // 클릭된 영역이 모달 외부인 경우에만 닫기
-		    if (event) {
-		        event.stopPropagation();
-		    }////end if
-		}//openCompleteModal
-
-
-	/* '상품삭제'버튼 클릭 시 모달 나오게 동작 */
-	function openDelModal() {
-		var modalBg2 = document.getElementById('delModalBg');
-		modalBg2.style.display = 'block';
-	}//openDelModal
-
-	/* '상품삭제'버튼 클릭 시 모달 나오고, 모달 이외의 배경을 클릭하면 모달이 없어지게 동작 */
-	function closeDelModal(event) {
-		var modalBg2 = document.getElementById('delModalBg');
-		var modal2 = $("#delModal");
-		if (modal2.is(event.target) || modal2.has(event.target).length > 0) {
-			return;
-		}
-		modalBg2.style.display = 'none';
-	}//closeDelModal
-	
 	/* '상태변경'버튼 클릭 시 모달 나오고, 모달 이외의 배경을 클릭하면 모달이 없어지게 동작 */
-	function closeModal(event) {
+	function closeModal() {
 		var modalBg = document.getElementById('modalBg');
 
 		var modal = $("#myModal");
@@ -225,22 +143,86 @@
 		modalBg.style.display = 'none';
 	}//closeModal
 
-	
+	/* '상품삭제'버튼 클릭 시 모달 나오게 동작 */
+	function openDelModal() {
+		var modalBg2 = document.getElementById('delModalBg');
+		modalBg2.style.display = 'block';
+	}//openDelModal
+
+	/* '상품삭제'버튼 클릭 시 모달 나오고, 모달 이외의 배경을 클릭하면 모달이 없어지게 동작 */
+	function closeDelModal() {
+		var modalBg2 = document.getElementById('delModalBg');
+		var modal2 = $("#delModal");
+		if (modal2.is(event.target) || modal2.has(event.target).length > 0) {
+			return;
+		}
+		modalBg2.style.display = 'none';
+	}//closeDelModal
+
+	/* '상태변경' 버튼 클릭 후 '판매완료' 클릭 시 모달이 나오게 동작  */
+	function openCompleteModal(payment,pcode) {
+		var modalBg3 = document.getElementById('completeModalBg');
+		modalBg3.style.display = 'block';
+		
+		if(payment === 'G'){
+			$.ajax({
+				url : "addBuyReceipt.do",
+				type : "get",
+				data : {
+				      payment: payment,
+				      pcode: pcode
+				    },
+				dataType : "JSON",
+				error : function(xhr) {
+					alert("죄송합니다. 서버에 문제가 발생하였습니다. 잠시 후에 다시 시도해주세요.");
+					console.log(xhr.status);
+				},
+				success : function(jsonObj) {
+					 if (event) {
+			                event.stopPropagation();
+			            }
+					/* location.href=""; 사용자 메인으로 이동 */
+				}//success
+			});//ajax
+		}else if( payment === 'T' ){
+			$.ajax({
+				url : "addBuyReceipt.do",
+				type : "get",
+				data : {
+				      payment: payment,
+				      pcode: pcode
+				    },
+				dataType : "JSON",
+				error : function(xhr) {
+					alert("죄송합니다. 서버에 문제가 발생하였습니다. 잠시 후에 다시 시도해주세요.");
+					console.log(xhr.status);
+				},
+				success : function(jsonObj) {
+					 if (event) {
+			                event.stopPropagation();
+			            }
+					 
+					/* location.href=""; 사용자 메인으로 이동 */
+				}//success
+			});//ajax
+		}
+		
+		
+	}//openDelModal
+
 	/* '상태변경' 버튼 클릭 후 '판매완료' 클릭 시 모달이 나오고, 모달 이외의 배경을 클릭하면 모달이 없어지게 동작 */
-	function closeCompleteModal(event) {
+	function closeCompleteModal() {
 		var modalBg3 = document.getElementById('completeModalBg');
 		var modal3 = $("#completeModal");
 		if (modal3.is(event.target) || modal3.has(event.target).length > 0) {
 			return;
 		}
 		modalBg3.style.display = 'none';
-	}//closeCompleteModal
+	}//closeDelModal
 
-	
 
 	/* 상태 변경에서 상품 판매 완료 처리를 하면 상품 판매 처리가 됨 */
-	function productSaleOk(pcode) {
-
+	function prductSaleOk(pcode) {
 		$.ajax({
 			url : "productSaleEdit.do",
 			type : "get",
@@ -273,8 +255,6 @@
 			}//success
 		});//ajax
 	}//deleteProduct
-	
-	
 	
 
 </script>
@@ -586,21 +566,17 @@
 						class="max-w-[400px] mx-auto my-0 pt-[30px] pb-[20px] w-full text-jnblack px-6">
 						<div class="flex flex-col w-full">
 							<p class="font-medium text-center text-l py-[11px]">상태변경</p>
-							<form id="chkBuyReceipt" name="frm" method="post">
-									<input type="hidden" name="payment" id="chkPayment"/> 
-									<input type="hidden" name="pcode" id="pcode"/> 
 							<ul class="flex flex-col mt-3 mb-6">
 								<li
-									class="py-[14px] [&amp;>button]:w-full [&amp;>button]:text-left" 
-									onclick="openCompleteModal(); chkPayMentG('G','${ userProduct.pcode }')"><button>직거래 완료</button></li>
+									class="py-[14px] [&amp;>button]:w-full [&amp;>button]:text-left"
+									onclick="openCompleteModal('G','${ userProduct.pcode }')"><button>직거래 완료</button></li>
 								<li
-									class="py-[14px] [&amp;>button]:w-full [&amp;>button]:text-left"  
-									onclick="openCompleteModal(); chkPayMentT('T','${ userProduct.pcode }')"><button>택배거래 완료</button></li>
+									class="py-[14px] [&amp;>button]:w-full [&amp;>button]:text-left"
+									onclick="openCompleteModal('T','${ userProduct.pcode }')"><button>택배거래 완료</button></li>
 								<li
 									class="py-[14px] [&amp;>button]:w-full [&amp;>button]:text-left"
 									id="saleOk"><button>다른 곳을 통해 판매 완료</button></li>
 							</ul>
-							</form>
 						</div>
 					</div>
 				</div>
@@ -632,7 +608,11 @@
 			</div>
 		</div>
 
-
+	
+		<form id="hrdFrm" action="/retro_prj/user/review/user_sales_review" method="post">
+			<input type="hidden" id="comment1" name="comment1" value="1">
+			<input type="hidden" id="code" name="code" value="${ userProduct.pcode }">
+						
 		<!-- '상태변경' 버튼 클릭 후 '판매완료' 클릭 시 나오는 모달  -->
 		<!-- 거래 상대 선택 및 판매 후기 작성 모달 -->
 		<div id="completeModalBg" class="completeModal-bg"
@@ -649,6 +629,7 @@
 								class="block font-semibold text-xl text-center text-jnGray-900">
 								거래한 상대를 선택하고 <br>후기를 작성해보세요.
 							</p>
+							<c:forEach var="info" items="${ AllCominfo }" varStatus="i">
 							<ul class="w-full mt-4 px-4 overflow-y-scroll">
 								<li class="flex items-center justify-between mb-1"><div
 										class="flex items-center">
@@ -657,30 +638,32 @@
 											width="50" height="50" decoding="async" data-nimg="1"
 											class="rounded-full max-w-none h-[50px] mr-3" loading="lazy"
 											style="color: transparent;">
+											
 										<div>
-											<p class="mb-0 text-start">중고나라#8626590</p>
-											<p
-												class="text-start text-sm text-jnGray-700 w-full line-clamp-1">제가
-												아니면 안돼요</p>
+											<p class="mb-0 text-start">${ info.buyerNick }</p>
 										</div>
+											<!-- <p
+												class="text-start text-sm text-jnGray-700 w-full line-clamp-1">제가
+												아니면 안돼요</p> -->
 									</div> <label for="1424385_8626376_8626376" class="flex items-end"><input
-										type="radio" id="1424385_8626376_8626376"
-										name="myProductBuyer"
+										type="radio" id="1424385_8626376_8626376" name="buyerId" value="${ info.buyerId }"
 										class="appearance-none rounded-full w-5 h-5 border-1.5 border-solid border-jnGray-500 transition-all duration-100 ease-linear mx-1.5 cursor-pointer checked:border-6 checked:border-jngreen"
 										value="8626376"></label></li>
 							</ul>
+						</c:forEach>
 						</div>
 					</div>
 					<div class="flex space-x-2 w-full shrink-0 text text-base h-[52px]">
 						<button data-variant="flat" id="completeCancel"
-							class="md:text-sm inline-flex items-center cursor-pointer transition ease-in-out duration-300 font-semibold font-body text-center justify-center placeholder-white focus-visible:outline-none focus:outline-none rounded-md px-5 md:px-6 lg:px-8 py-4 md:py-3.5 lg:py-4 hover:shadow-cart bg-white border-gray-400 border flex-1 text-[16px] text-black focus-visible:ring hover:bg-white hover:text-black">취소</button>
+							class="md:text-sm inline-flex items-center cursor-pointer transition ease-in-out duration-300 font-semibold font-body text-center justify-center placeholder-white focus-visible:outline-none focus:outline-none rounded-md px-5 md:px-6 lg:px-8 py-4 md:py-3.5 lg:py-4 hover:shadow-cart bg-white border-gray-400 border flex-1 text-[16px] text-black focus-visible:ring hover:bg-white hover:text-black" onclick="prductSaleOk('${userProduct.pcode}')">취소</button>
 						<button data-variant="flat" id="sendComment"
-							class="md:text-sm inline-flex items-center cursor-pointer transition ease-in-out duration-300 font-semibold font-body text-center justify-center border-0 border-transparent placeholder-white focus-visible:outline-none focus:outline-none rounded-md text-white px-5 md:px-6 lg:px-8 py-4 md:py-3.5 lg:py-4 hover:text-white hover:shadow-cart bg-jnblack hover:bg-jnblack/90 active:bg-jnblack/90 flex-1 text-[16px] focus-visible:ring disabled:bg-jnGray-300">후기
+							class="md:text-sm inline-flex items-center cursor-pointer transition ease-in-out duration-300 font-semibold font-body text-center justify-center border-0 border-transparent placeholder-white focus-visible:outline-none focus:outline-none rounded-md text-white px-5 md:px-6 lg:px-8 py-4 md:py-3.5 lg:py-4 hover:text-white hover:shadow-cart bg-jnblack hover:bg-jnblack/90 active:bg-jnblack/90 flex-1 text-[16px] focus-visible:ring disabled:bg-jnGray-300" >후기
 							보내기</button>
 					</div>
 				</div>
 			</div>
 		</div>
+		</form>
 		<!-- <div class="Toastify"></div> -->
 	</main>
 	<!-- footer -->

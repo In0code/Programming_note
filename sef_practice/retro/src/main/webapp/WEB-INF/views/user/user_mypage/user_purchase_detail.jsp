@@ -103,7 +103,7 @@ h4 {
 											</div>
 										</div>
 										<div data-v-4d00617c="" class="product_info_wrap">
-											<div data-v-4d00617c="" class="product_info">
+											<div data-v-4d00617c="" class="product_info" style="margin-top: 10px">
 												<!-- 상품명 -->
 												<p data-v-4d00617c="" class="product_description" style="font-size:18px">
 													${ purchase.pname }</p>
@@ -296,13 +296,12 @@ h4 {
 							<div data-v-0c19a43c="" class="shipping_address">
 							<c:choose>
 							<c:when test="${ not empty purchase.commentcode }">
+								<c:forEach var="comment" items="${ purchase.cmlist }">
 								<dl data-v-0c19a43c="" class="address_item" style="padding: 20px 16px;">
-									<dt data-v-0c19a43c="" class="address_title">· 응답이 빨라요.</dt>
+									<dt data-v-0c19a43c="" class="address_title" style="width: auto">· ${ comment }</dt>
 								</dl>
-								<dl data-v-0c19a43c="" class="address_item" style="padding: 20px 16px;">
-									<dt data-v-0c19a43c="" class="address_title">· 상태가 좋아요.</dt>
-								</dl>
-								<c:if test="${ not empty purchase.reviewconext }">
+								</c:forEach>
+								<c:if test="${ not empty purchase.context }">
 								<textarea style="width:100%; height: 170px; border: 1px solid #DBDFE6; 
 								border-radius: 5px; resize: none; padding:10px; margin-top:10px; font-size: 15px;" 
 								disabled="disabled">${ purchase.context }</textarea>
