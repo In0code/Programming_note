@@ -9,12 +9,30 @@ import org.springframework.stereotype.Component;
 import kr.co.sist.common.PageVO;
 import kr.co.sist.user.dao.GoodsDAO;
 import kr.co.sist.user.domain.GoodsDomain;
+import kr.co.sist.user.vo.GoodsVO;
 
 @Component
 public class GoodsService {
 	
 	@Autowired
 	private GoodsDAO gDAO;
+	
+	/**
+	 * 상품 상세 조회
+	 * @param pcode
+	 * @return
+	 */
+	public GoodsDomain searchGoodsDetail(String pcode) {
+		GoodsDomain gd=null;
+		
+		try {
+		gd=gDAO.selectGoodsDetail(pcode);
+		}catch(PersistenceException pe) {
+			pe.printStackTrace();
+		}//end catch
+		return gd;
+	}//searchGoodsDetail
+	
 	
 	/**
 	 * 대분류 상품 조회
@@ -52,11 +70,11 @@ public class GoodsService {
 	 * @param pageVO
 	 * @return
 	 */
-	public List<GoodsDomain> searchGoodsList1(PageVO pageVO) {
+	public List<GoodsDomain> searchGoodsList1Page(PageVO pageVO) {
 		List<GoodsDomain> list=null;
 		
 		try {
-			list=gDAO.selectGoodsList1(pageVO);
+			list=gDAO.selectGoodsList1Page(pageVO);
 		} catch (PersistenceException pe) {
 			pe.printStackTrace();
 		}
@@ -80,6 +98,40 @@ public class GoodsService {
 		return list;
 	}//searchGoodsList2
 	
+	
+	/**
+	 * 중분류 상품 목록 Count
+	 * @param PageVO
+	 * @return
+	 */
+	public int searchGoodsList2Cnt(PageVO pageVO) {
+		int totalCnt=0;
+		
+		try {
+			totalCnt=gDAO.selectGoodsList2Cnt(pageVO);
+		} catch (PersistenceException pe) {
+			pe.printStackTrace();
+		}
+		return totalCnt;
+	}//searchGoodsList2Cnt
+	
+	/**
+	 * 중분류 상품 목록 Paging
+	 * @param category
+	 * @return
+	 */
+	public List<GoodsDomain> searchGoodsList2Page(PageVO pageVO) {
+		List<GoodsDomain> list=null;
+		
+		try {
+			list=gDAO.selectGoodsList2Page(pageVO);
+		} catch (PersistenceException pe) {
+			pe.printStackTrace();
+		}
+		return list;
+	}//searchGoodsList2Page
+	
+	
 	/**
 	 * 소분류 상품 조회
 	 * @param category
@@ -94,24 +146,41 @@ public class GoodsService {
 			pe.printStackTrace();
 		}
 		return list;
-	}//searchGoodsList1
+	}//searchGoodsList3
+	
+	/**
+	 * 소분류 상품 목록 Count
+	 * @param PageVO
+	 * @return
+	 */
+	public int searchGoodsList3Cnt(PageVO pageVO) {
+		int totalCnt=0;
+		
+		try {
+			totalCnt=gDAO.selectGoodsList3Cnt(pageVO);
+		} catch (PersistenceException pe) {
+			pe.printStackTrace();
+		}
+		return totalCnt;
+	}//searchGoodsList3Cnt
 	
 	
 	/**
-	 * 상품 상세 조회
-	 * @param pcode
+	 * 소분류 상품 목록 Paging
+	 * @param category
 	 * @return
 	 */
-	public GoodsDomain searchGoodsDetail(String pcode) {
-		GoodsDomain gd=null;
+	public List<GoodsDomain> searchGoodsList3Page(PageVO pageVO) {
+		List<GoodsDomain> list=null;
 		
 		try {
-		gd=gDAO.selectGoodsDetail(pcode);
-		}catch(PersistenceException pe) {
+			list=gDAO.selectGoodsList3Page(pageVO);
+		} catch (PersistenceException pe) {
 			pe.printStackTrace();
-		}//end catch
-		return gd;
-	}//searchGoodsDetail
+		}
+		return list;
+	}//searchGoodsList3Page
+	
 
 	/**
 	 * 검색창에서 상품 검색
@@ -161,7 +230,17 @@ public class GoodsService {
 		return list;
 	}//searchByText
 
-	
+	public int searchCheck(GoodsVO gVO) {
+		int cnt = 0;
+		
+		try {
+			cnt = gDAO.searchCheck(gVO);
+		}catch(PersistenceException pe) {
+			pe.printStackTrace();
+		}
+		
+		return cnt;
+	}
 	
 	
 

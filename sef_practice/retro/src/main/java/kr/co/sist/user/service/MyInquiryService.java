@@ -2,6 +2,7 @@ package kr.co.sist.user.service;
 
 import java.util.List;
 
+import kr.co.sist.common.BoardRangeVO;
 import kr.co.sist.user.dao.MyInquiryDAO;
 import kr.co.sist.user.domain.MyInquiryDomain;
 import kr.co.sist.user.vo.MyInquiryVO;
@@ -20,10 +21,11 @@ public class MyInquiryService {
 		return mIs;
 	}//getInstance
 	
-	public List<MyInquiryDomain> searchInquiry(String id) {
+	public List<MyInquiryDomain> searchInquiry(BoardRangeVO brVO) {
 		List<MyInquiryDomain> list =null;
 		MyInquiryDAO miDAO = MyInquiryDAO.getInstance();
-		list = miDAO.selectInquiry(id);
+		
+		list = miDAO.selectInquiry(brVO);
 		return list;
 	}//searchInquiry
 	
@@ -54,5 +56,10 @@ public class MyInquiryService {
 		cnt = miDAO.insertInquiry(miVO);
 		return cnt;
 	}//addInquiry
+	
+	public int totalCnt(String id) {
+		MyInquiryDAO miDAO = MyInquiryDAO.getInstance();
+		return miDAO.selectCntRecode(id);
+	}//totalCnt
 	
 }//class

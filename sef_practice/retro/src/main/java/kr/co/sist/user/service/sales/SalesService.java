@@ -1,5 +1,6 @@
 package kr.co.sist.user.service.sales;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,34 @@ public class SalesService {
 	}
 	
 	public SalesDomain searchOneSales(SalesVO sVO) {
-		return sDAO.selectOneSale(sVO);
+		SalesDomain sDomain = sDAO.selectOneSale(sVO);
+		
+		if(sDomain != null) {
+			String[] select = {sDomain.getSelect2_1(), sDomain.getSelect2_2(), sDomain.getSelect2_3(), sDomain.getSelect2_4()};
+			String[] comment = {"친절/매너가 좋아요.", "응답이 빨라요.", "제가 있는 곳까지 와서 거래했어요.", "거래 시간을 잘 지켜요."};
+			
+			if("3".equals(sDomain.getSelect1())) {
+				comment[0] = "친절/매너가 아쉬워요.";
+				comment[1] = "응답이 느려요.";
+				comment[2] = "원하지 않는 가격을 계속 요구해요.";
+				comment[3] = "거래 시간을 안 지켜요.";
+			}
+			
+			List<String> commentList = new ArrayList<String>();
+			for(int i = 0; i < select.length; i++) {
+				if(select[i] != null) {
+					for(int j = 0; i < comment.length; j++) {
+						if(String.valueOf(j+1).equals(select[i])) {
+							commentList.add(comment[j]);
+							break;
+						}
+					}
+				}
+			}
+			
+			sDomain.setCommentList(commentList);
+		}
+		
+		return sDomain;
 	}
 }

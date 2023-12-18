@@ -1,17 +1,10 @@
 package kr.co.sist.user.service.reiview;
 
-import java.util.List;
-
 import org.apache.ibatis.exceptions.PersistenceException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import kr.co.sist.user.dao.ProductDAO;
-import kr.co.sist.user.dao.reiview.PurchaseReviewDAO;
 import kr.co.sist.user.dao.reiview.SalesReviewDAO;
-import kr.co.sist.user.domain.MyPurchaseDomain;
 import kr.co.sist.user.domain.MySalesDomain;
-import kr.co.sist.user.service.ProductService;
 import kr.co.sist.user.vo.ReviewVO;
 
 @Service
@@ -62,7 +55,6 @@ public class SaleReviewService {
 		}//end catch
 		return searchInfo;
 	}//searchBuyerInfo
-
 	
 	
 }//class

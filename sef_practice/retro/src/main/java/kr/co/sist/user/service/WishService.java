@@ -41,6 +41,7 @@ public class WishService {
 	    }//searchWishCnt
 	    
 	    public JSONObject addWish(WishVO wVO) {
+	    	
 	        JSONObject addjsonObj = new JSONObject();
 	        addjsonObj.put("resultData", false);
 	        try {
@@ -53,6 +54,15 @@ public class WishService {
 	        return addjsonObj;
 	    }//addWish
 	    
+	    public int getChkPcode(WishVO wVO) {
+	    	int resultPcode=0;
+	    	try {
+	    		resultPcode = wDAO.getChkPcode(wVO); 
+	    	} catch (PersistenceException pe) {
+	    		pe.printStackTrace();
+	        }//end catch
+	        return resultPcode;
+	    }//getPcode
 	    
 	    /**
 	     * 찜 리스트 전체 조회

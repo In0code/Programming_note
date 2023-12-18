@@ -40,22 +40,4 @@ public class BuyReceiptService {
 	    }//addBuyReceipt
 	    
 	    
-//	    /**
-//	     * 판매 상태 변경 버튼 클릭 시 거래 방법 선택
-//	     * @param brVO
-//	     * @return
-//	     */
-//	    public int addBuyReceipt(BuyReceiptVO BuyRVO) {
-//	    	int insertCnt = 0;
-//	    	try {
-//	    		insertCnt = BuyRDAO.insertBuyReceipt(BuyRVO);
-//	    	} catch (PersistenceException pe) {
-//	    		pe.printStackTrace();
-//	        }//end catch
-//	        return insertCnt;
-//	    }//searchWish
-//	    
-	    
-	    
-	    
 }//class

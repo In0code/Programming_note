@@ -53,6 +53,17 @@ public class ProductService {
     }//getPcode
     
     
+    public int searchWishCnt(String pcode) {
+    	int wishCnt=0;
+    	try {
+    		wishCnt=pDAO.selectWishCnt(pcode);
+    	} catch (PersistenceException pe) {
+    		pe.printStackTrace();
+    	}//end catch
+    	return wishCnt;
+    }//searchWishCnt
+    
+    
     public ProductDomain searchProduct(ProductVO pVO) {
     	ProductDomain search = null;
     	try {
