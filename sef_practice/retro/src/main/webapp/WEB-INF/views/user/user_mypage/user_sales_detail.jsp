@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page info=""%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -70,8 +70,8 @@ h4 {
 										<li data-v-71603f99="" class="menu_item_parent select_item"><a
 											data-v-71603f99="" href="#select_item" class="menu_item"><img
 												data-v-71603f99=""
-												src="https://kream-phinf.pstatic.net/MjAyMzA2MjFfNzMg/MDAxNjg3MzUxMTQxMDk5._X8ITUGTSzqIhQitbG9KEl_aNAZIvERaeBnWZ4kd4b0g.oC0IhncZ1jN15hqLP3khlX5o0ov4RhzM4sW9d3ayFCIg.PNG/a_067df32d884c4361a6674c79902d5c66.png0"
-												width="20" height="20" alt="더보기"> 상세보기 </a></li>
+												src="https://kream-phinf.pstatic.net/MjAyMzA2MjFfNzMg/MDAxNjg3MzUxMTQxMDk5._X8ITUGTSzqIhQitbG9KEl_aNAZIvERaeBnWZ4kd4b0g.oC0IhncZ1jN15hqLP3khlX5o0ov4RhzM4sW9d3ayFCIg.PNG/a_067df32d884c4361a6674c79902d5c66.png"
+												width="20" height="20" alt="더보기"> 더보기 </a></li>
 									</ul>
 									<div data-v-71603f99="" class="v-portal" style="display: none;"></div>
 								</div>
@@ -90,21 +90,21 @@ h4 {
 										class="product_wrap tag_top">
 										<div data-v-4d00617c="" class="product_img_flex_box">
 											<div data-v-4d00617c="" class="product_img_wrap">
-												<img data-v-4d00617c="" alt="image"
-													src="http://localhost/retro_prj/upload/${ purchase.img }"
+												<img data-v-4d00617c="" alt="${data.pname }"
+													src="http://localhost/retro_prj/upload/${data.img }"
 													class="product_img"
-													style="background-color: rgb(246, 238, 237);">
+													style="background-color: rgb(246, 238, 237);height: 250px;">
 												<!---->
 											</div>
 										</div>
 										<div data-v-4d00617c="" class="product_info_wrap">
-											<div data-v-4d00617c="" class="product_info">
+											<div data-v-4d00617c="" class="product_info" style="margin-top: 10px">
 												<!-- 상품명 -->
 												<p data-v-4d00617c="" class="product_description" style="font-size:18px">
-													상품명</p>
-												<!-- 판매자 이름 닉네임 -->
+													${data.pname }</p>
+												<!-- 판매자 닉네임 -->
 												<p data-v-4d00617c="" class="product_title">
-													user(닉네임)
+													${sessionScope.nickname }
 												</p>
 												<div data-v-4d00617c="" class="product_option_wrap">
 													<div data-v-4d00617c="" class="tag_wrap">
@@ -133,7 +133,7 @@ h4 {
 							<div data-v-6a98cab4="" data-v-c54402b6="" class="section_title">
 								<div data-v-6a98cab4="" class="title_box">
 									<h4 data-v-6a98cab4="" class="title">
-									<c:out value="${ param.table eq 'buy' ? '거래 정보' : '결제 정보'}"/>
+									거래 정보
 									</h4>
 								</div>
 								<!---->
@@ -153,7 +153,7 @@ h4 {
 										class="display_line line heavy_text" style="display:flex;">
 										<p data-v-8016a084="" data-v-15287078=""
 											class="line_title display_paragraph"
-											style="color: rgb(34, 34, 34); width:130px; font-size:16px">결제 예정 금액</p>
+											style="color: rgb(34, 34, 34); width:130px; font-size:16px">구매 금액</p>
 										<div data-v-15287078="" class="description_wrap" style="width:94.125px; padding-top: 0px;">
 											<p data-v-8016a084="" data-v-15287078=""
 												class="line_description display_paragraph"
@@ -161,7 +161,7 @@ h4 {
 												
 												<!-- 가격 -->
 												<em style="color: inherit;" class="">
-													<fmt:formatNumber value="230000" pattern="#,###,###,###"/>원
+													<fmt:formatNumber value="${data.price }" pattern="#,###,###,###"/>원
 												</em>
 											</p>
 											<!---->
@@ -197,7 +197,7 @@ h4 {
 										<!---->
 									</div>
 									
-									<c:if test="${ param.table eq 'buy' }">
+									<c:if test="${ code eq 'B' }">
 									<div data-v-00c4558b="" data-v-4217af8e=""
 										class="display_line line separator"
 										style="background-color: rgb(240, 240, 240);">
@@ -211,8 +211,8 @@ h4 {
 											<p data-v-8016a084="" data-v-15287078=""
 												class="line_description display_paragraph"
 												style="color: rgb(34, 34, 34); text-align: left;">
-												<c:if test="${ purchase.payment eq 'T' }">택배거래</c:if>
-												<c:if test="${ purchase.payment eq 'G' }">직거래</c:if>
+												<c:if test="${ data.payment eq 'T' }">택배거래</c:if>
+												<c:if test="${ data.payment eq 'G' }">직거래</c:if>
 												</p>
 											<!---->
 											<!---->
@@ -229,14 +229,14 @@ h4 {
 											class="line_title display_paragraph"
 											style="color: rgb(34, 34, 34); width:130px">
 											
-											<c:out value="${ param.table eq 'buy' ? '거래 일시' : '결제 일시' }"/>
+											거래 일시
 											
 											</p>
 										<div data-v-15287078="" class="description_wrap">
 											<p data-v-8016a084="" data-v-15287078=""
 												class="line_description display_paragraph"
 												style="color: rgb(34, 34, 34); text-align: left;">
-												${ purchase.buy_date }
+												${ data.input_date }
 												</p>
 											<!---->
 											<!---->
@@ -258,18 +258,19 @@ h4 {
 							class="shipping_address_wrap">
 							<div data-v-6a98cab4="" data-v-0c19a43c="" class="section_title">
 								<div data-v-6a98cab4="" class="title_box">
-									<h4 data-v-6a98cab4="" class="title">판매자 정보</h4>
+									<h4 data-v-6a98cab4="" class="title">구매자 정보</h4>
 								</div>
 								<!---->
 							</div>
 							<div data-v-0c19a43c="" class="shipping_address">
 								<dl data-v-0c19a43c="" class="address_item" style="padding: 20px 16px;">
 									<dt data-v-0c19a43c="" class="address_title">닉네임</dt>
-									<dd data-v-0c19a43c="" class="address_txt">${ purchase.nickname }(${ purchase.seller })</dd>
+									<dd data-v-0c19a43c="" class="address_txt">${data.id }(${data.nickname })</dd>
 								</dl>
 								<dl data-v-0c19a43c="" class="address_item" style="padding: 20px 16px;">
 									<dt data-v-0c19a43c="" class="address_title">휴대폰 번호</dt>
-									<dd data-v-0c19a43c="" class="address_txt">${ purchase.phone }</dd>
+									<c:set var="TextValue" value="${data.phone }"/>
+									<dd data-v-0c19a43c="" class="address_txt">${fn:substring(TextValue,0,3)}-${fn:substring(TextValue,3,7)}-${fn:substring(TextValue,7,11)}</dd>
 								</dl>
 							</div>
 							<!---->
@@ -279,7 +280,6 @@ h4 {
 						<!---->
 						<!---->
 						
-						<c:if test="${ param.table eq 'buy' }">
 						<div data-v-0c19a43c="" data-v-7a3bdf55=""
 							class="shipping_address_wrap">
 							<div data-v-6a98cab4="" data-v-0c19a43c="" class="section_title">
@@ -289,27 +289,35 @@ h4 {
 								<!---->
 							</div>
 							<div data-v-0c19a43c="" class="shipping_address">
+							<c:choose>
+							<c:when test="${ not empty data.commentList }">
+								<c:forEach var="comment" items="${ data.commentList }">
 								<dl data-v-0c19a43c="" class="address_item" style="padding: 20px 16px;">
-									<dt data-v-0c19a43c="" class="address_title">· 응답이 빨라요.</dt>
+									<dt data-v-0c19a43c="" class="address_title" style="width: auto">· ${ comment }</dt>
 								</dl>
+								</c:forEach>
+								<c:if test="${ not empty data.context }">
+									<textarea style="width:100%; height: 170px; border: 1px solid #DBDFE6; 
+									border-radius: 5px; resize: none; padding:10px; margin-top:10px; font-size: 15px;" 
+									disabled="disabled">${ data.context }</textarea>
+								</c:if>
+							</c:when>
+							<c:otherwise>
 								<dl data-v-0c19a43c="" class="address_item" style="padding: 20px 16px;">
-									<dt data-v-0c19a43c="" class="address_title">· 상태가 좋아요.</dt>
+									<dt data-v-0c19a43c="" class="address_title" style="width:300px">받은 후기가 없습니다.</dt>
 								</dl>
-								<textarea style="width:100%; height: 170px; border: 1px solid #DBDFE6; 
-								border-radius: 5px; resize: none; padding:10px; margin-top:10px; font-size: 15px;" 
-								disabled="disabled">${ purchase.context }</textarea>
+							</c:otherwise>
+							</c:choose>
 							</div>
-							<!---->
 							<!---->
 						</div>
 						<!---->
 						<!---->
 						<!---->
-						</c:if>
 					</div>
 					
-					<div data-v-7a3bdf55="" class="detail_btn_box">
-						<a data-v-0a6aebaa="" data-v-7a3bdf55="" href="http://localhost/retro_prj/my/purchase.do"
+					<div data-v-7a3bdf55="" class="detail_btn_box" style="margin-bottom:100px">
+						<a data-v-0a6aebaa="" data-v-7a3bdf55="" href="http://localhost/retro_prj/user_sales_frm.do"
 							class="btn btn_view_list outlinegrey medium">목록</a>
 					</div>
 					<div data-v-7a3bdf55="" class="v-portal" style="display: none;"></div>

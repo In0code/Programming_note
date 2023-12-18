@@ -11,6 +11,39 @@
 <link rel="stylesheet" href="https://kream.co.kr/_nuxt/css/7182ff8.css" />
 
 <style type="text/css">
+.css-wsqqvh {
+    height: auto;
+    transform: rotate(0deg);
+}
+
+.btn_view_list[data-v-7a3bdf55] {
+    min-width: 120px;
+}
+
+.outlinegrey[data-v-0a6aebaa] {
+    border: 1px solid #d3d3d3;
+    color: rgba(34,34,34,.8);
+}
+
+.medium[data-v-0a6aebaa] {
+    border-radius: 12px;
+    font-size: 14px;
+    height: 42px;
+    letter-spacing: -.14px;
+    padding: 0 18px;
+}
+
+.btn[data-v-0a6aebaa] {
+    align-items: center;
+    background-color: #fff;
+    color: rgba(34,34,34,.8);
+    cursor: pointer;
+    display: inline-flex;
+    justify-content: center;
+    text-align: center;
+    vertical-align: middle;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -45,8 +78,7 @@
 					</p>
 				</div>
 			</div>
-			<div></div>
-			<div data-v-7a3bdf55="" class="detail_btn_box">
+			<div data-v-7a3bdf55="" class="detail_btn_box" style="text-align: center; margin: 50px 0px 50px 0px">
 				<a data-v-0a6aebaa="" data-v-7a3bdf55="" href="http://localhost/retro_prj/event.do" style="margin-bottom:100px" 
 				class="btn btn_view_list outlinegrey medium"> 
 				목록

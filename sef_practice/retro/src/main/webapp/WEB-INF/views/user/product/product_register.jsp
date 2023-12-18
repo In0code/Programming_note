@@ -65,22 +65,15 @@
 	$(function() {
 		/* ---------------패션 의류--------------------- */
 		/* 패션의류 클릭하면 동작 */
-		$("#C")
-				.click(
-						function() {
-							$(this).css({
-								'background-color' : '#E5E4E4'
-							});
-							$("#G, #T, #P, #B, #C-1, #C1,#C2").css({
-								'background-color' : '#FFFFFF'
-							});
+		$("#C").click(function() {
+			$(this).css({'background-color' : '#E5E4E4'});
+			$("#G, #T, #P, #B, #C-1, #C1,#C2").css({'background-color' : '#FFFFFF'});
 
-							$("#category-depth-1").show();
+			$("#category-depth-1").show();
 
-							$(
-									"#category-depth-2, #category-depth-3, #category-depth-4, #category-depth-5,#category-depth-1-1,#category-depth-1-2, #category-depth-2-3,#category-depth-2-2,#category-depth-2-1,#category-depth-3-1,#category-depth-3-2,#category-depth-4-1,#category-depth-5-1,#category-depth-5-2")
-									.hide();
-						});//click
+			$("#category-depth-2, #category-depth-3, #category-depth-4, #category-depth-5,#category-depth-1-1,#category-depth-1-2, #category-depth-2-3,#category-depth-2-2,#category-depth-2-1,#category-depth-3-1,#category-depth-3-2,#category-depth-4-1,#category-depth-5-1,#category-depth-5-2")
+					.hide();
+			});//click
 
 		/* 여성의류 클릭하면 동작 */
 		$("#C1").click(function() {

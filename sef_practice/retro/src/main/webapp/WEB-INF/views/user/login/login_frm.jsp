@@ -100,7 +100,7 @@ $(function(){
 
  <jsp:include page="/common/cdn/header.jsp"/>
 <body>
-<form id="frm" action="../login_process.do" method="post">
+<form id="frm" action="login_process.do" method="post">
 <div style="margin: 0px auto; text-align: center">
 <img src="http://localhost/retro_prj/common/images/main_logo.png" style="width:160px; margin: 0px auto;  margin-top: 150px "/>
 <br><div id="Warn" style="margin-top: 10px"><c:out value="${requestScope.msg}"/></div><br>
@@ -115,7 +115,7 @@ $(function(){
 <input type="password" id="pw" name="pw" placeholder="비밀번호를 입력해주세요"  class="inputBox" /> 
 <br>
 <input type="button"  style="margin-top:40px; border-radius: 12px; width:450px; height: 50px; font-family:Pretendard Variable;    color:#FFFFFF; background-color:#333333  " id="loginBtn" name="loginBtn" value="로그인" class="btn btn-dark"/>
-<div style="text-align: center;  margin-top: 30px" >
+<div style="text-align: center;  margin-top: 30px; " >
 <ul class="ul" ><li class="li"><a href="user_join.do" class="look_link" >가입</a></li><li class="li"> <a href="find_id_frm.do" class="look_link" >아이디 찾기</a></li><li class="li"><a href="find_pw_frm.do" class="look_link" >비밀번호 찾기</a></li></ul>
 </div>
 </div>

@@ -13,7 +13,6 @@
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 <style type="text/css">
 /* 모달 스타일 */
 .modal-bg, .delModal-bg, .completeModal-bg {
@@ -228,6 +227,7 @@
 					/* location.href=""; 사용자 메인으로 이동 */
 				}//success
 			});//ajax
+			
 		}else if( payment === 'T' ){
 			$.ajax({
 				url : "addBuyReceipt.do",
@@ -244,12 +244,11 @@
 				success : function(jsonObj) {
 					 if (event) {
 			                event.stopPropagation();
-			            }
-					 
-					/* location.href=""; 사용자 메인으로 이동 */
+			            }//end if
+					/* location.href="";  */
 				}//success
 			});//ajax
-		}
+		}//end else
 		
 		
 	}//openDelModal
@@ -278,7 +277,6 @@
 			},
 			success : function(jsonObj) {
 				alert("판매 완료 처리 되었습니다");
-				
 				// Swiper를 숨깁니다.
 	            $("#product-gallery-slider-next").hide();
 				

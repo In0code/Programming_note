@@ -43,12 +43,12 @@
 		
 		$("#on").click(function() {
 			changeCss("on");
-			salesAjax('A');			
+			salesAjax('B');			
 		});
 		
 		$("#fin").click(function() {
 			changeCss("fin");
-			salesAjax('A');			
+			salesAjax('C');			
 		});
 		
 	});//ready
@@ -72,24 +72,24 @@ function salesAjax(val) {
 }
 	
 function moveTo(val){
-	alert(val);
+	location.href = "user_sales_detail.do?pcode="+val;
 }
 
 function changeCss(idName) {
 	if(idName == "all") {
 		$("#all").addClass("border-black");
-		$("#onSale").removeClass("border-black");
-		$('#completed').removeClass("border-black");
+		$("#on").removeClass("border-black");
+		$("#fin").removeClass("border-black");
 	}
-	if(idName == "onSale") {
-		$("#onSale").addClass("border-black");
+	if(idName == "on") {
+		$("#on").addClass("border-black");
 		$("#all").removeClass("border-black");
-		$('#completed').removeClass("border-black");
+		$("#fin").removeClass("border-black");
 	}
-	if(idName == "completed") {
-		$('#completed').addClass("border-black");
+	if(idName == "fin") {
+		$("#fin").addClass("border-black");
 		$("#all").removeClass("border-black");
-		$("#onSale").removeClass("border-black");
+		$("#on").removeClass("border-black");
 	}
 	
 }		

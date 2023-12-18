@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<c:import url="http://localhost/retro_prj/common/cdn/admin_cdn.jsp"/>
 
 <!-- 태균이가 만든거 -->
 <style type="text/css">
@@ -66,7 +67,7 @@ border-radius: 9px;
 <script type="text/javascript">
 $(function() {
 	$("#btnLogout").click(function() {
-		location.href="logout.jsp";
+		location.href="admin_logout_process.do";
 	});
 });
 
@@ -169,15 +170,42 @@ function detailEvt(ecode){
 		</div>
 		<!---->
 		
+	    <!-- pagination start -->
 		<div class="pagenationDiv">
     	<div class="pagination">
-      		<a href="#"><</a>
-        	<span class="active">1</span>
-        	<a href="#">2</a>
-        	<a href="#">3</a>
-        	<a href="#">></a>
+    		<c:if test="${pageEnd != 1 }">
+	    		<c:choose>
+	    			<c:when test="${empty param.page }">
+	    				<c:forEach var="pn" begin="1" end="${pageEnd }" step="1">
+		    				<a href="event.do?page=${pn }">
+		    				<c:if test="${pn == 1 }">
+			    				<span class="active">1</span>
+		    				</c:if>
+		    				<c:if test="${pn != 1 }">
+		    					${pn }
+		    				</c:if>
+		    				</a>
+	    				</c:forEach>
+	    			</c:when>
+		    		<c:when test="${pageEnd != 1 }">
+		    			<c:forEach var="pn" begin="${pageStart }" end="${pageEnd }" step="1">
+			        		<a href="event.do?page=${pn }">
+			        			<c:choose>
+				    				<c:when test="${param.page == pn }">
+							        	<span class="active">${pn }</span>
+				    				</c:when>
+				    				<c:otherwise>
+				    					${pn }
+				    				</c:otherwise>
+			        			</c:choose>
+		    				</a>
+		    			</c:forEach>
+		    		</c:when>
+	    		</c:choose>
+    		</c:if>
     	</div>
-    	</div>
+    </div>
+    <!-- pagination end -->
     	
     	<c:if test="${ not empty keyword }">
     	    <div class="btnDiv">

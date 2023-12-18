@@ -26,9 +26,9 @@
 }
 </style>
 <script type="text/javascript">
-	$(function() {
+$(function() {
 
-	});//ready
+});//ready
 </script>
 
 </head>

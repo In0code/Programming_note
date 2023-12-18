@@ -177,15 +177,42 @@ function logOut() {
 		</div>
 		<!---->
 		
+		<!-- pagination -->
 		<div class="pagenationDiv">
     	<div class="pagination">
-      		<a href="#"><</a>
-        	<span class="active">1</span>
-        	<a href="#">2</a>
-        	<a href="#">3</a>
-        	<a href="#">></a>
+    		<c:if test="${pageEnd != 1 }">
+	    		<c:choose>
+	    			<c:when test="${empty param.page }">
+	    				<c:forEach var="pn" begin="1" end="${pageEnd }" step="1">
+		    				<a href="admin_inquiry_frm.do?page=${pn }">
+		    				<c:if test="${pn == 1 }">
+			    				<span class="active">1</span>
+		    				</c:if>
+		    				<c:if test="${pn != 1 }">
+		    					${pn }
+		    				</c:if>
+		    				</a>
+	    				</c:forEach>
+	    			</c:when>
+		    		<c:when test="${pageEnd != 1 }">
+		    			<c:forEach var="pn" begin="${pageStart }" end="${pageEnd }" step="1">
+			        		<a href="admin_inquiry_frm.do?page=${pn }">
+			        			<c:choose>
+				    				<c:when test="${param.page == pn }">
+							        	<span class="active">${pn }</span>
+				    				</c:when>
+				    				<c:otherwise>
+				    					${pn }
+				    				</c:otherwise>
+			        			</c:choose>
+		    				</a>
+		    			</c:forEach>
+		    		</c:when>
+	    		</c:choose>
+    		</c:if>
     	</div>
-    	</div>
+    </div>
+		<!-- pagination -->
     	
     	<!-- 버튼 쓸 사람 -->
     	<div class="btnDiv">

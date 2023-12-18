@@ -54,12 +54,13 @@
 	});
 	
 function all() {
-	let url = "mypage_prd_"+uri+".do"
+	let url = "mypage_prd_"+uri+".do";
+	var userid = "${sesionScope.id}" != "" ? "${sesionScope.id}" : "${param.id}";
 
 	$.ajax({
 		url:url,
 		type:"POST",
-		data:"flag="+flag,
+		data:{flag:flag, id:userid},
 		dataType:"HTML",
 		error:function(xhr) {
 			alert(xhr.status);
@@ -171,6 +172,7 @@ function sortUp(txt, f) {
 		<!-- 보여지는 상품 하나의 영역 -->
 		<!-- 보여지는 상품 하나의 영역 -->		
 	</div>
+	
 	<div class="py-8 text-center xl:pt-14"></div>
 </div>
 <!-- 판매한 /중인 /완료한 상품 보여주는 곳 끝 -->

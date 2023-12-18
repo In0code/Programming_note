@@ -96,32 +96,36 @@ $(function(){
           </c:forEach> 
 
 		</table>
-
-	<div class="bottom-0 py-3 m-auto text-center bg-white">
-				<ul class="flex justify-center space-x-2 space-x-reverse">
-					<li class="w-4 mr-2"><a class="items-center hidden h-full"
-						href="/search?category=1050&amp;page=0"><svg
-								stroke="currentColor" fill="currentColor" stroke-width="0"
-								viewBox="0 0 24 24" height="1em" width="1em"
-								xmlns="http://www.w3.org/2000/svg">
-								<path d="M15.41 16.09l-4.58-4.59 4.58-4.59L14 5.5l-6 6 6 6z"></path></svg></a></li>
-				
-				<c:forEach var="i" begin="1" end="2" step="1">     
-				
-					<li class="w-10 h-10 rounded-md shrink-0 bg-jngreen/80 text-white">
-					 <a class="block leading-10" href="goods_list1.do?category1=${pageVO.category}&amp;pageNo=${i}">${i}</a>
-					</li>
-					
-				</c:forEach>
-					
-					<li class="w-4 mr-2"><a class="items-center h-full flex"
-						href="/search?category=1050&amp;page=2"><svg
-								stroke="currentColor" fill="currentColor" stroke-width="0"
-								viewBox="0 0 24 24" height="1em" width="1em"
-								xmlns="http://www.w3.org/2000/svg">
-								<path d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z"></path></svg></a></li>
-				</ul>
-			</div>
+	<!-- 페이지네이션 -->
+	<div class="pagenationDiv">
+    	<div class="pagination">
+    		<c:if test="${pageEnd != 1 }">
+	    		<c:choose>
+	    			<c:when test="${empty param.page }">
+	    				<a href="inquiry_frm.do?page=1"><span class="active">1</span></a>
+	    				<a href="inquiry_frm.do?page=1">2</a>
+	    				<a href="inquiry_frm.do?page=1">3</a>
+	    				<a href="inquiry_frm.do?page=1">4</a>
+	    				<a href="inquiry_frm.do?page=1">5</a>
+	    			</c:when>
+		    		<c:when test="${pageEnd != 1 }">
+		    			<c:forEach var="pn" begin="${pageStart }" end="${pageEnd }" step="1">
+			        		<a href="inquiry_frm.do?page=${pn }">
+			        			<c:choose>
+				    				<c:when test="${param.page == pn }">
+							        	<span class="active">${pn }</span>
+				    				</c:when>
+				    				<c:when test="${empty param.page }">
+				    					<span class="active">1</span>
+				    				</c:when>
+			        			</c:choose>
+		    				</a>
+		    			</c:forEach>
+		    		</c:when>
+	    		</c:choose>
+    		</c:if>
+    	</div>
+    </div>
 </div>
 </div>
 

@@ -56,22 +56,24 @@
 				</div>
 				<div class="relative w-full basis-1/2 lg:pl-5 lg:pt-3">
 					<div class="flex justify-between mb-2 text-[#0CB650] font-medium">
-						<strong>신뢰지수 <!-- -->651
+						<strong>신뢰지수 <!-- -->0
 						</strong><span class="text-jnGray-500">1,000</span>
 					</div>
 					<div class="w-full h-1.5 bg-[#CCF4DC] rounded overflow-hidden">
-						<div style="width: 65.10000000000001%"
+						<div style="width: 0%"
 							class="h-full rounded bg-[#0DCC5A]"></div>
 					</div>
-					<ul
-						class="flex justify-between mt-4 py-4 text-center text-jnGray-600 border border-gray-300 rounded-lg lg:border-none [&amp;_li]:w-full [&amp;_li]:border-r [&amp;_li]:border-gray-300">
+					
+					<ul class="flex justify-between mt-4 py-4 text-center text-jnGray-600 border border-gray-300 rounded-lg lg:border-none [&amp;_li]:w-full [&amp;_li]:border-r [&amp;_li]:border-gray-300">
 						<li><dt class="justify-center mt-0">안전거래</dt>
 							<dd class="text-xl font-semibold text-jnblack">3</dd></li>
 						<li class="cursor-pointer"><dt class="justify-center mt-0">거래후기</dt>
-							<dd class="text-xl font-semibold underline text-jnblack">13</dd></li>
+							<a href="http://localhost/retro_prj/user/seller/seller_review.do">
+							<dd class="text-xl font-semibold underline text-jnblack">13</dd></a></li>
 						<li class="last:border-none"><dt class="justify-center mt-0">찜</dt>
 							<dd class="text-xl font-semibold text-jnblack">34</dd></li>
 					</ul>
+					
 				</div>
 			</div>
 			<button data-variant="slim"
@@ -82,7 +84,7 @@
 			<div class="items-center justify-between block mb-4 md:flex lg:mb-7">
 				<div
 					class="flex-shrink-0 mb-1 text-xs leading-4 text-body md:text-sm pe-4 md:me-6 lg:ps-2 lg:block">
-					40
+					10
 					<!-- -->
 					개의 상품
 				</div>
