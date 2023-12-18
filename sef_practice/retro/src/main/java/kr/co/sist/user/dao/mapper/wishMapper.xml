@@ -17,11 +17,15 @@
 
 	<select id="selectAllWish" resultType="wd" parameterType="brVO">
 		select IMG,pname,price, id, pcode , wcode
-	from(select row_number() over(order by wcode ) rnum,
+	from(select row_number() over(order by w.input_date desc ) rnum,
 	 p.IMG, p.pname, p.price, p.id ,p.PCODE, w.wcode
 	  from PRODUCT p,WISH w
 	 where  p.pcode = w.pcode and w.id= #{ id }
 	 ) where rnum between 1 and 5
+		</select>
+		
+		<select id="getPcode" resultType="int" parameterType="wVO">
+			select count(pcode) cnt from wish where id=#{ id } and pcode=#{ pcode }
 		</select>
 	
 	

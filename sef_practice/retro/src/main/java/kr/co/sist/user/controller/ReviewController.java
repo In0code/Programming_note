@@ -26,9 +26,4 @@ public class ReviewController {
 		
 		return "/user/review/review_complete";
 	}
-	/*
-	 * @GetMapping("/user/review/user_sales_review.do") public String
-	 * addSaleComment(Model model, HttpSession session) { return
-	 * "user/review/user_sales_review"; }//addSaleComment
-	 */
 }

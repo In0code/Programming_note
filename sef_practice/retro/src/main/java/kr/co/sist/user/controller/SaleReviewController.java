@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import kr.co.sist.user.service.ProductService;
 import kr.co.sist.user.service.reiview.SaleReviewService;
 import kr.co.sist.user.vo.ReviewVO;
 
@@ -15,7 +16,6 @@ public class SaleReviewController {
 	@PostMapping("/sales_review_write.do")
 	public String saleCommentFrm(String buyerId, Model model) {
 		
-		
 		model.addAttribute("info",srs.searchBuyerInfo(buyerId));
 		return "user/review/user_sales_review";
 	}//saleCommentFrm
@@ -24,8 +24,12 @@ public class SaleReviewController {
 	public String addSaleComment(ReviewVO rVO, Model model) {
 		model.addAttribute("addFlag", srs.addSaleReview(rVO) == 1 ? true : false);
 		
+		String pcode=rVO.getCode();
+		
+		ProductService ps=ProductService.getInstance();
+		ps.editSaleok(pcode);
+		
 		return "user/review/review_complete";
 	}//addSaleComment
 	
-
 }//class

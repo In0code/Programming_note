@@ -17,6 +17,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import kr.co.sist.user.domain.ProductDomain;
 import kr.co.sist.user.service.ProductService;
+import kr.co.sist.user.service.WishService;
 import kr.co.sist.user.vo.ProductVO;
 
 @Controller
@@ -30,18 +31,10 @@ public class ProductController {
 	 * @return
 	 */
 	@RequestMapping("/user/product/product_register.do")
-	public String productRegister(HttpServletRequest request, Model model) {
-		
-		
+	public String productRegister() {
 		
 		return "user/product/product_register";
 	}//productRegister
-	
-//	@RequestMapping("/upload_process.do")
-//	public String upload(HttpServletRequest request, Model model) {
-//		
-//		
-//	}//productRegister
 	
 	
 	
@@ -52,68 +45,37 @@ public class ProductController {
 	 * @return
 	 */
 	@RequestMapping("/user/product/product_register_ok.do")
-	public String productRegisterOk(HttpSession session,HttpServletRequest request, Model model,ProductVO pVO)  {
+	public String productRegisterOk(HttpSession session,HttpServletRequest request,ProductVO pVO)  {
 		
 		File saveDir=new File("C:/Users/user/git/retro/retro_prj/src/main/webapp/upload");
 		
 		int maxSize=1024*1024*30; // 최대 파일 업로드 사이즈 30Mbyte
-		String pcode=null;
 		try {
 			MultipartRequest mr=new MultipartRequest(request, saveDir.getAbsolutePath(), 
 					maxSize, "UTF-8",new DefaultFileRenamePolicy());
 			
-			String pname=mr.getParameter("pname");
-			String context=mr.getParameter("context");
-			String img=mr.getFilesystemName("img");
-			String img2=mr.getFilesystemName("img2");
-			String img3=mr.getFilesystemName("img3");
-			String img4=mr.getFilesystemName("img4");
-			int price=Integer.parseInt(mr.getParameter("price"));
-			String deliver=mr.getParameter("deliver");
-			String status=mr.getParameter("status");
-			String loc=mr.getParameter("loc");
-			String c3code=mr.getParameter("c3code");
 			String id = (String)session.getAttribute("id");
 			
-			
-//			System.out.println(img);
-			pVO.setPname(pname);
-			pVO.setContext(context);
-			pVO.setImg(img);
-			pVO.setImg2(img2);
-			pVO.setImg3(img3);
-			pVO.setImg4(img4);
-			pVO.setPrice(price);
-			pVO.setDeliver(deliver);
-			pVO.setStatus(status);
-			pVO.setLoc(loc);
-			pVO.setC3code(c3code);
-			pVO.setId("1011kiy111");
+			pVO.setPname(mr.getParameter("pname"));
+			pVO.setContext(mr.getParameter("context"));
+			pVO.setImg(mr.getFilesystemName("img"));
+			pVO.setImg2(mr.getFilesystemName("img2"));
+			pVO.setImg3(mr.getFilesystemName("img3"));
+			pVO.setImg4(mr.getFilesystemName("img4"));
+			pVO.setPrice(Integer.parseInt(mr.getParameter("price")));
+			pVO.setDeliver(mr.getParameter("deliver"));
+			pVO.setStatus(mr.getParameter("status"));
+			pVO.setLoc(mr.getParameter("loc"));
+			pVO.setC3code(mr.getParameter("c3code"));
+			pVO.setPcode(mr.getParameter("pcode"));
+			pVO.setId(id);
 			ps.addProduct(pVO);
-
-	     // 파일을 원하는 위치에 저장
-//	        Enumeration<String> files = mr.getFileNames();
-//	        while (files.hasMoreElements()) {
-//	            String name = files.nextElement();
-//	            MultipartFile file = mr.getFile(name);
-//
-//	            // 각 업로드된 파일을 처리합니다.
-//	            String originalFileName = file.getOriginalFilename();
-//	            String fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
-//	            String savedFileName = pcode + fileExtension;
-//
-//	            // 파일을 원하는 위치에 저장합니다.
-//	            File savedFile = new File(saveDir, savedFileName);
-//	            file.transferTo(savedFile);
-//	        }
 	       
 		} catch (IOException e) {
 			e.printStackTrace();
 		}//end catch
 		
-
 	    return "user/product/product_register_ok";
-
 	}//productDetails
 	
 
@@ -124,15 +86,17 @@ public class ProductController {
 	 * @return
 	 */
 	@RequestMapping("/user/product/product_detail.do")
-	public String productDetail(HttpServletRequest request, HttpSession session,Model model,ProductVO pVO) {
+	public String productDetail( HttpSession session,Model model,ProductVO pVO) {
 		String id = (String)session.getAttribute("id");
 	
-		String pcode=ps.getPcode("1011kiy111");
+		String pcode=ps.getPcode(id);
 		pVO.setPcode(pcode);
-		pVO.setId("1011kiy111");
-//		String pcode=request.getParameter("pcode");
+		pVO.setId(id);
 		ProductDomain userProduct=ps.searchProduct(pVO);
-		model.addAttribute("AllCominfo", ps.searchBuyerAllInfo("1011kiy111"));
+		
+		model.addAttribute("AllCominfo", ps.searchBuyerAllInfo(id));
+		model.addAttribute("wishCnt", ps.searchWishCnt(pcode));
+		
 		model.addAttribute("userProduct",userProduct);
 		
 		return "user/product/product_detail";
@@ -145,62 +109,48 @@ public class ProductController {
 	 * @return
 	 */
 	@RequestMapping("/user/product/product_edit.do")
-	public String productEditFrm(HttpServletRequest request, String seller,HttpSession session, Model model, ProductVO pVO) {
+	public String productEditFrm(HttpServletRequest request, Model model, ProductVO pVO) {
 
 	    String pcode = request.getParameter("pcode"); 
 	    pVO.setPcode(pcode); 
 
-		/* model.addAttribute("AllCominfo", ps.searchBuyerAllInfo(seller)); */
 	    model.addAttribute("userProduct", ps.searchProduct(pVO));
 
 	    return "user/product/product_edit";
-	}
+	}//productEditFrm
 	
 	
 	@RequestMapping("/user/product/productEdit_register_ok.do")
-	public String productEdit(HttpSession session,HttpServletRequest request, Model model,ProductVO pVO)  {
+	public String productEdit(HttpSession session,HttpServletRequest request, ProductVO pVO)  {
 		
 		File saveDir=new File("C:/Users/user/git/retro/retro_prj/src/main/webapp/upload");
 		
 		int maxSize=1024*1024*30; // 최대 파일 업로드 사이즈 30Mbyte
-		String pcode=null;
 		try {
 			MultipartRequest mr=new MultipartRequest(request, saveDir.getAbsolutePath(), 
 					maxSize, "UTF-8",new DefaultFileRenamePolicy());
 			
-			String pname=mr.getParameter("pname");
-			String context=mr.getParameter("context");
-			String img=mr.getFilesystemName("img");
-			String img2=mr.getFilesystemName("img2");
-			String img3=mr.getFilesystemName("img3");
-			String img4=mr.getFilesystemName("img4");
-			int price=Integer.parseInt(mr.getParameter("price"));
-			String deliver=mr.getParameter("deliver");
-			String status=mr.getParameter("status");
-			String loc=mr.getParameter("loc");
-			String c3code=mr.getParameter("c3code");
 			String id = (String)session.getAttribute("id");
 			
-			pVO.setPname(pname);
-			pVO.setContext(context);
-			pVO.setImg(img);
-			pVO.setImg2(img2);
-			pVO.setImg3(img3);
-			pVO.setImg4(img4);
-			pVO.setPrice(price);
-			pVO.setDeliver(deliver);
-			pVO.setStatus(status);
-			pVO.setLoc(loc);
-			pVO.setC3code(c3code);
-			pVO.setId("1011kiy111");
+			pVO.setPname(mr.getParameter("pname"));
+			pVO.setContext(mr.getParameter("context"));
+			pVO.setImg(mr.getFilesystemName("img"));
+			pVO.setImg2(mr.getFilesystemName("img2"));
+			pVO.setImg3(mr.getFilesystemName("img3"));
+			pVO.setImg4(mr.getFilesystemName("img4"));
+			pVO.setPrice(Integer.parseInt(mr.getParameter("price")));
+			pVO.setDeliver(mr.getParameter("deliver"));
+			pVO.setStatus(mr.getParameter("status"));
+			pVO.setLoc(mr.getParameter("loc"));
+			pVO.setC3code(mr.getParameter("c3code"));
+			pVO.setPcode(mr.getParameter("pcode"));
+			pVO.setId(id);
 			ps.editProduct(pVO);
-
 	       
 		} catch (IOException e) {
 			e.printStackTrace();
 		}//end catch
-
-	    return "user/product/productEdit_register_ok";
+	    return "user/product/product_register_ok";
 
 	}//productDetails
 	

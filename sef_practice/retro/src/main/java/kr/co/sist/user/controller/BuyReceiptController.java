@@ -1,6 +1,5 @@
 package kr.co.sist.user.controller;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -24,10 +23,9 @@ public class BuyReceiptController {
 	@RequestMapping("/user/product/addBuyReceipt.do")
 	public String addBuyReceipt(HttpSession session, BuyReceiptVO buyRVO) {
 	    String id = (String)session.getAttribute("id");
-	    buyRVO.setId("1011kiy111");
+	    buyRVO.setId(id);
 	    
 	    return brs.addBuyReceipt(buyRVO).toJSONString();
-	}
-	
+	}//addBuyReceipt
 
 }//class

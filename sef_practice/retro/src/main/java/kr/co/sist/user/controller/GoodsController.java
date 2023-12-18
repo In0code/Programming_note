@@ -2,16 +2,23 @@ package kr.co.sist.user.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.sist.common.PageVO;
+import kr.co.sist.common.pagination.Pagination;
+import kr.co.sist.common.pagination.PaginationDomain;
 import kr.co.sist.user.domain.GoodsDomain;
 import kr.co.sist.user.service.GoodsService;
+import kr.co.sist.user.service.WishService;
+import kr.co.sist.user.vo.GoodsVO;
+import kr.co.sist.user.vo.WishVO;
 
 @Controller
 public class GoodsController {
@@ -24,7 +31,7 @@ public class GoodsController {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("/goods/goods_list1.do")
+	@GetMapping("user/goods/goods_list1.do")
 	public String goodsList1(@RequestParam("category1") String category, @RequestParam(required = false, defaultValue="1") Integer pageNo, Model model) {
 		PageVO pageVO = new PageVO(pageNo);
 //		System.out.println("==========================");
@@ -35,70 +42,99 @@ public class GoodsController {
 		
 		List<GoodsDomain> list=null;
 //		list=gs.searchGoodsList1(category);
-		list=gs.searchGoodsList1(pageVO);
+		list=gs.searchGoodsList1Page(pageVO);
 		model.addAttribute("bigCate", list);
 		model.addAttribute("pageVO", pageVO);
 		
-		return "goods/goods_list";
+		return "user/goods/goods_list";
 	}
 	
 	/**
-	 * 중분류 상품 조회
+	 * 중분류 상품 조회, 페이징처리
 	 * @param category
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("/goods/goods_list2.do")
-	public String goodsList2(@RequestParam("category2") String category, Model model) {
-		System.out.println(category);
+	@GetMapping("user/goods/goods_list2.do")
+	public String goodsList2(@RequestParam("category2") String category, @RequestParam(required = false, defaultValue="1") Integer pageNo , Model model) {
+		PageVO pageVO = new PageVO(pageNo);
+//		System.out.println("================");
+//		System.out.println(pageVO);
+		pageVO.setCategory(category);
+		int totalCnt = gs.searchGoodsList2Cnt(pageVO);
+		pageVO.setTotalCnt(totalCnt);
+		
 		List<GoodsDomain> list=null;
-		list=gs.searchGoodsList2(category);
+//		list=gs.searchGoodsList2(category);
+		list=gs.searchGoodsList2Page(pageVO);
 		model.addAttribute("midCate", list);
+		model.addAttribute("pageVO", pageVO);
 		
-		return "goods/goods_list";
+		return "user/goods/goods_list2";
 	}
 	
 	/**
-	 * 소분류 상품 조회
+	 * 소분류 상품 조회, 페이징처리
 	 * @param category
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("/goods/goods_list3.do")
-	public String goodsList3(@RequestParam("category3") String category, Model model) {
+	@GetMapping("user/goods/goods_list3.do")
+	public String goodsList3(@RequestParam("category3") String category, @RequestParam(required = false, defaultValue="1") Integer pageNo, Model model) {
+		PageVO pageVO = new PageVO(pageNo);
+		System.out.println("===============");
+		System.out.println(pageVO);
+		pageVO.setCategory(category);
+		int totalCnt = gs.searchGoodsList3Cnt(pageVO);
+		pageVO.setTotalCnt(totalCnt);
 		
 		List<GoodsDomain> list=null;
-		list=gs.searchGoodsList3(category);
+//		list=gs.searchGoodsList3(category);
+		list=gs.searchGoodsList3Page(pageVO);
 		model.addAttribute("smallCate", list);
+		model.addAttribute("pageVO", pageVO);
 		
-		return "goods/goods_list";
+		return "user/goods/goods_list3";
 	}
 	
 	/**
-	 * 상품 검색, 페이징처리
+	 * 상품 검색창, 페이징처리
 	 * @param category
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("/goods/goods_search_by_text.do")
+	@GetMapping("user/goods/goods_search_by_text.do")
 	public String goodsSearchByText(@RequestParam String searchText, @RequestParam(required = false, defaultValue="1") Integer pageNo, Model model) {
 		PageVO pageVO = new PageVO(pageNo);
 		pageVO.setSearchText(searchText);
 		int totalCnt = gs.searchByTextCnt(pageVO);
 		pageVO.setTotalCnt(totalCnt);
 		
+//		PaginationDomain pd=new Pagination().setStartEndPageNum(totalCnt, pageNo);
+//		pageVO.setStart(pd.getStartNum());
+//		pageVO.setEnd(pd.getEndNum());
+		
+		
 		List<GoodsDomain> list=null;
 //		list=gs.searchByText(searchText);
 		list=gs.searchByText(pageVO);
 		model.addAttribute("bigCate", list);
 		model.addAttribute("pageVO", pageVO);
+//		model.addAttribute("pageStart", pd.getPaginationStartNum());
+//		model.addAttribute("pageEnd", pd.getPaginationEndNum());
 		
-		return "goods/goods_list_search";
+		
+		return "user/goods/goods_list_search";
 	}
 	
 	
-	@GetMapping("/goods/goods_info.do")
-	public String goodsInfo(@RequestParam String pcode, Model model) {
+	@GetMapping("user/goods/goods_info.do")
+	public String goodsInfo(@RequestParam String pcode, Model model, HttpSession session) {
+		String id = (String)session.getAttribute("id");
+		
+		GoodsVO gVO = new GoodsVO();
+		gVO.setId(id);
+		gVO.setPcode(pcode);
 		
 		GoodsDomain gd=gs.searchGoodsDetail(pcode);
 		
@@ -115,27 +151,39 @@ public class GoodsController {
 		model.addAttribute("date",gd.getInput_date());
 		model.addAttribute("pview",gd.getPview());
 		model.addAttribute("wish",gd.getWish());
-		model.addAttribute("delivery",gd.getDelivery());
+		model.addAttribute("deliver",gd.getDeliver());
 		model.addAttribute("status",gd.getStatus());
 		model.addAttribute("loc",gd.getLoc());
 		model.addAttribute("context",gd.getContext());
 		model.addAttribute("id",gd.getId());
 		model.addAttribute("level",gd.getCredit_level());
+		model.addAttribute("pcode",pcode);
 		
+
+		WishVO wVO=new WishVO();
+		WishService ws=WishService.getInstance();
+		wVO.setId(id);
+		wVO.setPcode(pcode);
 		
-		return "goods/goods_info";
+		ws.getChkPcode(wVO);
+		
+		model.addAttribute("chkPcode",ws.getChkPcode(wVO));
+		System.out.println(ws.getChkPcode(wVO));
+		model.addAttribute("pcode",pcode);
+		
+		return "user/goods/goods_info";
 	}
 	
 	
 	
-	@GetMapping("/seller/seller_info.do")
+	@GetMapping("user/seller/seller_info.do")
 	public String sellerInfo() {
-		return "seller/seller_info";
+		return "user/seller/seller_info";
 	}
 
-	@GetMapping("/seller/seller_review.do")
+	@GetMapping("user/seller/seller_review.do")
 	public String sellerReview() {
-		return "seller/seller_review";
+		return "user/seller/seller_review";
 	}
 	
 	

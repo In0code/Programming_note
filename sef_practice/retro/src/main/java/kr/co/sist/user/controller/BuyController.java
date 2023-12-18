@@ -6,9 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class BuyController {
 	
-	@GetMapping("/pay/safe_payment.do")
+	@GetMapping("user/pay/safe_payment.do")
 	public String payment() {
-		return "pay/safe_payment";
+		
+		return "user/pay/safe_payment";
 	}
 	
 }

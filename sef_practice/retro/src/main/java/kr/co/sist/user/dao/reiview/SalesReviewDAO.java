@@ -1,7 +1,5 @@
 package kr.co.sist.user.dao.reiview;
 
-import java.util.List;
-
 import org.apache.ibatis.exceptions.PersistenceException;
 import org.apache.ibatis.session.SqlSession;
 
@@ -52,21 +50,6 @@ public class SalesReviewDAO {
 		
 		return msd;
 	}//selectSaleInfo
-	
-
-	
-//	public static void main(String[] args) {
-//		SalesReviewDAO sdrDAO=SalesReviewDAO.getInstance();
-//		ReviewVO srVO=new ReviewVO();
-////		srVO.setCode("P00106");
-////		srVO.setComment1("1");
-////		srVO.setComment2_1("2");
-////		srVO.setContext("안녕하오리까");
-////		srVO.setId("1011kiy111");
-//		
-////		sdrDAO.insertSaleReview(srVO);
-//		sdrDAO.selectBuyerAllInfo("1011kiy111");
-//	}
 	
 	
 }//class

@@ -6,10 +6,10 @@ import org.apache.ibatis.exceptions.PersistenceException;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Component;
 
-import kr.co.sist.common.BoardRangeVO;
 import kr.co.sist.common.PageVO;
 import kr.co.sist.common.dao.MybatisHandler;
 import kr.co.sist.user.domain.GoodsDomain;
+import kr.co.sist.user.vo.GoodsVO;
 
 @Component
 public class GoodsDAO {
@@ -30,7 +30,7 @@ public class GoodsDAO {
 		mbh.closeHandler(ss);
 		
 		return list;
-	}//selectGoodsList
+	}//selectGoodsList1
 	
 
 	/**
@@ -47,14 +47,14 @@ public class GoodsDAO {
 		mbh.closeHandler(ss);
 		
 		return totalCnt;
-	}
+	}//selectGoodsList1Cnt
 	
 	/**
 	 * 대분류 상품 목록 Paging
 	 * @param pageVO
 	 * @return
 	 */
-	public List<GoodsDomain> selectGoodsList1(PageVO pageVO) {
+	public List<GoodsDomain> selectGoodsList1Page(PageVO pageVO) {
 		List<GoodsDomain> list=null;
 		
 		MybatisHandler mbh=MybatisHandler.getInstance();
@@ -64,7 +64,7 @@ public class GoodsDAO {
 		mbh.closeHandler(ss);
 		
 		return list;
-	}
+	}//selectGoodsList1Page
 	
 	/**
 	 * 중분류 상품 조회
@@ -81,7 +81,41 @@ public class GoodsDAO {
 		mbh.closeHandler(ss);
 		
 		return list;
-	}//selectGoodsList
+	}//selectGoodsList2
+	
+	/**
+	 * 중분류 상품 Count
+	 * @param pageVO
+	 * @return
+	 */
+	public int selectGoodsList2Cnt(PageVO pageVO) {
+		int totalCnt=0;
+		
+		MybatisHandler mbh=MybatisHandler.getInstance();
+		SqlSession ss=mbh.getMyBatisHandler(false);
+		totalCnt=ss.selectOne("kr.co.sist.goods.MidCategoryPageCnt", pageVO);
+		
+		mbh.closeHandler(ss);
+		
+		return totalCnt;
+	}//selectGoodsList2Cnt
+	
+	/**
+	 * 중분류 상품 목록 Paging
+	 * @param pageVO
+	 * @return
+	 */
+	public List<GoodsDomain> selectGoodsList2Page(PageVO pageVO) {
+		List<GoodsDomain> list=null;
+		
+		MybatisHandler mbh=MybatisHandler.getInstance();
+		SqlSession ss=mbh.getMyBatisHandler(false);
+		list=ss.selectList("kr.co.sist.goods.MidCategoryPage", pageVO);
+		
+		mbh.closeHandler(ss);
+		
+		return list;
+	}//selectGoodsList2Page
 	
 	/**
 	 * 소분류 상품 조회
@@ -98,7 +132,42 @@ public class GoodsDAO {
 		mbh.closeHandler(ss);
 		
 		return list;
-	}//selectGoodsList
+	}//selectGoodsList3
+	
+	/**
+	 * 소분류 상품 Count(개수)
+	 * @param brVO
+	 * @return
+	 */
+	public int selectGoodsList3Cnt(PageVO pageVO) {
+		int totalCnt=0;
+		
+		MybatisHandler mbh=MybatisHandler.getInstance();
+		SqlSession ss=mbh.getMyBatisHandler(false);
+		totalCnt=ss.selectOne("kr.co.sist.goods.SmallCategoryPageCnt", pageVO);
+		
+		mbh.closeHandler(ss);
+		
+		return totalCnt;
+	}//selectGoodsList3Cnt
+	
+	
+	/**
+	 * 소분류 상품 목록 Paging
+	 * @param pageVO
+	 * @return
+	 */
+	public List<GoodsDomain> selectGoodsList3Page(PageVO pageVO) {
+		List<GoodsDomain> list=null;
+		
+		MybatisHandler mbh=MybatisHandler.getInstance();
+		SqlSession ss=mbh.getMyBatisHandler(false);
+		list=ss.selectList("kr.co.sist.goods.SmallCategoryPage", pageVO);
+		
+		mbh.closeHandler(ss);
+		
+		return list;
+	}//selectGoodsList3Page
 	
 	
 	/**
@@ -120,13 +189,12 @@ public class GoodsDAO {
 	}//selectGoodsDetail
 	
 	
-	
-	public static void main(String[] args) {
-		GoodsDAO gDAO=new GoodsDAO();
-		System.out.println(gDAO.selectGoodsList3("C101"));
-		
-	}
 
+	/**
+	 * 검색창 상품 검색
+	 * @param searchText
+	 * @return
+	 */
 	public List<GoodsDomain> searchByText(String searchText) {
 		List<GoodsDomain> list=null;
 		
@@ -139,6 +207,11 @@ public class GoodsDAO {
 		return list;
 	}
 	
+	/**
+	 * 검색한 상품 Count(개수)
+	 * @param pageVO
+	 * @return
+	 */
 	public int searchByTextCnt(PageVO pageVO) {
 		int totalCount=0;
 		
@@ -150,6 +223,12 @@ public class GoodsDAO {
 		
 		return totalCount;
 	}
+	
+	/**
+	 * 상품 검색 Paging
+	 * @param pageVO
+	 * @return
+	 */
 	public List<GoodsDomain> searchByText(PageVO pageVO) {
 		List<GoodsDomain> list=null;
 		
@@ -160,6 +239,23 @@ public class GoodsDAO {
 		mbh.closeHandler(ss);
 		
 		return list;
+	}
+	
+	public int searchCheck(GoodsVO gVO) throws PersistenceException {
+		int cnt = 0;
+		
+		MybatisHandler mbh = MybatisHandler.getInstance();
+		SqlSession ss = mbh.getMyBatisHandler(false);
+		cnt = ss.selectOne("kr.co.sist.goods.selectCheck",gVO);
+		
+		return cnt;
+	}
+	
+	
+	public static void main(String[] args) {
+		GoodsDAO gDAO=new GoodsDAO();
+		System.out.println(gDAO.selectGoodsList3("C101"));
+		
 	}
 
 

@@ -25,9 +25,10 @@ WHERE ID=#{id} AND SALEOK='Y'
 </select>
 
 <!-- 판매자 판매 상세 정보 -->
-<!-- <select id="salesDetail" resultType="kr.co.sist.user.domain.sales.SalesDomain" parameterType="kr.co.sist.user.vo.sales.SalesVO">
-select p.pcode, p.pname, br.input_date, m.id, m.nickname, m.phone, br.payment, p.img, p.price, bc.select2, bc.context
-from product p, buyreceipt br, member m, buycomment bc
-where p.id=#{id} and p.pcode=#{pcode} and br.pcode=p.pcode and br.id=m.id and br.buyreceiptcode=bc.buyreceiptcode
-</select> -->
+<select id="salesDetail" resultType="kr.co.sist.user.domain.sales.SalesDomain" parameterType="kr.co.sist.user.vo.sales.SalesVO">
+SELECT P.PCODE, P.PNAME, BR.PAYMENT_DATE, M.ID, M.NICKNAME, M.PHONE, BR.PAYMENT, P.IMG,
+	P.PRICE, BC.SELECT1, BC.SELECT2_1, BC.SELECT2_2, BC.SELECT2_3, BC.SELECT2_4, BC.CONTEXT
+FROM PRODUCT P, BUYRECEIPT BR, MEMBER M, BUYCOMMENT BC
+WHERE P.ID=#{id} AND P.PCODE=#{pcode} AND BR.PCODE=P.PCODE AND BR.ID=M.ID AND BR.BUYRECEIPTCODE=BC.BUYRECEIPTCODE
+</select>
 </mapper>

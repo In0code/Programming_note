@@ -23,7 +23,6 @@ public class MyPurchaseController {
 	
 	@GetMapping("/my/purchase.do")
 	public String purchaseList(HttpSession session, Model model) {
-		session.setAttribute("id", "urface");
 		String id = (String)session.getAttribute("id");
 		HashMap<String, Object> data = (HashMap<String, Object>) mps.searchAllList(id);
 		

@@ -31,7 +31,7 @@ public class JoinController {
 	 * 회원가입 화면 페이지로 이동
 	 * @return
 	 */
-	@GetMapping("/user/login/user_join.do")
+	@GetMapping("/user/user_join.do")
 	public String joinFrm() {		
 		return "user/join/join_frm";
 	}

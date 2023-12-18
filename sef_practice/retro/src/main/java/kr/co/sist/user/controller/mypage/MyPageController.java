@@ -67,7 +67,7 @@ public class MyPageController {
 		return "user/user_mypage/change_pw";
 	}
 	
-	@PostMapping("/user_mypage_frm.do")
+	@RequestMapping(value = "/user_mypage_frm.do", method = {GET, POST})
 	public String userMypageMainFrm() {
 		return "user/user_mypage/user_mypage_frm";
 	}

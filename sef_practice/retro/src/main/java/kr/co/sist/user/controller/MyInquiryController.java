@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.co.sist.common.BoardRangeVO;
+import kr.co.sist.common.pagination.Pagination;
+import kr.co.sist.common.pagination.PaginationDomain;
 import kr.co.sist.user.domain.MyInquiryDomain;
 import kr.co.sist.user.service.MyInquiryService;
 import kr.co.sist.user.vo.MyInquiryVO;
@@ -18,15 +21,29 @@ import kr.co.sist.user.vo.MyInquiryVO;
 @Controller
 public class MyInquiryController {
 	@GetMapping("/user/inquiry/inquiry_frm.do")
-	public String inquery_frm(Model model, HttpSession hs) {
+	public String inquery_frm(Model model, HttpSession hs, String page) {
 		List<MyInquiryDomain> list = null;
-		String id = hs.getId();
+		String id = (String)(hs.getAttribute("id"));
 		//로그인 후 아이디 가져와야함.
 		//System.out.println("--------"+hs.getId());
 		MyInquiryService mis= MyInquiryService.getInstance();
-		list = mis.searchInquiry("tuna51277");
+		
+		int totalCnt = mis.totalCnt(id);
+		int temp = 1;
+		if(page != null && !"".equals(page)) {
+			temp = Integer.parseInt(page);
+		}
+		PaginationDomain pd = new Pagination().setStartEndPageNum(totalCnt, temp);
+		BoardRangeVO brVO = new  BoardRangeVO();
+		brVO.setEndNum(pd.getEndNum());
+		brVO.setStartNum(pd.getStartNum());
+		brVO.setId(id);
+		
+		list = mis.searchInquiry(brVO);
 		
 		model.addAttribute("inquiryList", list);
+		model.addAttribute("pageStart", pd.getPaginationStartNum());
+		model.addAttribute("pageEnd", pd.getPaginationEndNum());
 		
 		return "user/inquiry/inquiry_frm";
 	}

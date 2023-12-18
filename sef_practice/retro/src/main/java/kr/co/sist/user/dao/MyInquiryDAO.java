@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.exceptions.PersistenceException;
 import org.apache.ibatis.session.SqlSession;
 
+import kr.co.sist.common.BoardRangeVO;
 import kr.co.sist.common.dao.MybatisHandler;
 import kr.co.sist.user.domain.MyInquiryDomain;
 import kr.co.sist.user.vo.MyInquiryVO;
@@ -26,12 +27,12 @@ public class MyInquiryDAO {
 		return miDAO;
 	}//getInstance
 
-public List<MyInquiryDomain> selectInquiry(String id)throws PersistenceException {
+public List<MyInquiryDomain> selectInquiry(BoardRangeVO brVO)throws PersistenceException {
 		List<MyInquiryDomain> list=null;
 		MyInquiryDomain mId = new MyInquiryDomain();
 		MybatisHandler mbh= MybatisHandler.getInstance();
 		SqlSession ss= mbh.getMyBatisHandler(configPath, false);
-		list=ss.selectList("kr.co.sist.inquiry.selectInquiry", id);
+		list=ss.selectList("kr.co.sist.inquiry.selectInquiry", brVO);
 		
 		mbh.closeHandler(ss);
 		
@@ -89,6 +90,18 @@ public int insertInquiry( MyInquiryVO miVO)throws PersistenceException{
 	if(cnt==1) {
 		ss.commit();
 	}
+	mbh.closeHandler(ss);
+	
+	return cnt;
+}
+
+public int selectCntRecode(String id)throws PersistenceException{
+	int cnt= 0;
+	MybatisHandler mbh = MybatisHandler.getInstance();
+	SqlSession ss= mbh.getMyBatisHandler(configPath, false);
+	
+	cnt= ss.selectOne("kr.co.sist.inquiry.cntRecode",id);
+	
 	mbh.closeHandler(ss);
 	
 	return cnt;

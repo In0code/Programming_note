@@ -23,7 +23,6 @@ public class BuyReceiptDAO {
 	}// getInstance
 
 
-	
 	/**
 	 * 판매자 상품 상세에서 판매 상태 변경에서 거래 방법 선택 시 추가
 	 * 
@@ -48,15 +47,5 @@ public class BuyReceiptDAO {
 		return insertCnt;
 	}// insertBuyReceipt
 	
-	
-//	public static void main (String[] args) {
-//		BuyReceiptDAO brDAO=BuyReceiptDAO.getInstance();
-//		BuyReceiptVO BuyRVO=new BuyReceiptVO();
-//		BuyRVO.setId("1011kiy111");
-//		BuyRVO.setPcode("P00107");
-//		BuyRVO.setPayment("T");
-//		brDAO.insertBuyReceipt(BuyRVO);
-//		
-//	}
 	
 }//class

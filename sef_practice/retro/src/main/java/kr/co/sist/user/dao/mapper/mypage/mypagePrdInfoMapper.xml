@@ -13,7 +13,7 @@ TO_CHAR(CEIL((SYSDATE - P.INPUT_DATE) * 24)) DATE_GAP,
 TO_CHAR(CEIL((SYSDATE - P.INPUT_DATE) * 24 * 60)) DATE_GAP,
 TO_CHAR(CEIL((SYSDATE - P.INPUT_DATE) * 24 * 60 * 60)) DATE_GAP
 FROM PRODUCT P, MEMBER M, BUYRECEIPT B
-WHERE M.ID=#{id} AND P.ID=M.ID AND PCANCEL='N' AND P.PCODE=B.PCODE(+)
+WHERE M.ID='${id}' AND P.ID=M.ID AND PCANCEL='N' AND P.PCODE=B.PCODE(+)
 <choose>
 	<when test="flag == 'B'">
 		order by PRICE
@@ -42,7 +42,7 @@ FROM PRODUCT P
 WHERE NOT EXISTS
     (SELECT * FROM BUYRECEIPT B WHERE P.PCODE=B.PCODE)
 )
-WHERE ID=#{id}
+WHERE ID='${id}'
 <choose>
 	<when test="flag == 'B'">
 		order by PRICE
@@ -60,7 +60,7 @@ WHERE ID=#{id}
 <select id="selectCompletedPrd" resultType="kr.co.sist.user.domain.mypage.MypagePrdDomain" parameterType="kr.co.sist.user.vo.MypageIDnFlagVO">
 SELECT P.PCODE, P.PNAME, P.PRICE, P.INPUT_DATE, P.LOC, P.IMG
 FROM PRODUCT P, BUYRECEIPT B, MEMBER M
-WHERE M.ID=#{id} AND P.ID=M.ID AND P.PCODE=B.PCODE AND CANCLE IS NULL
+WHERE M.ID='${id}' AND P.ID=M.ID AND P.PCODE=B.PCODE AND CANCLE IS NULL
 <choose>
 	<when test="flag == 'B'">
 		order by PRICE

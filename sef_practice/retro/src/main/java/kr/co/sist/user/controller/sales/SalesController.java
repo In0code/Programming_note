@@ -32,6 +32,7 @@ public class SalesController {
 		return "user/user_mypage/user_sales_process";
 	}
 	
+	@GetMapping("/user_sales_detail.do")
 	public String salesDetail(HttpSession session, String pcode, Model model) {
 		String id = (String)session.getAttribute("id");
 		SalesVO sVO = new SalesVO(id, pcode);

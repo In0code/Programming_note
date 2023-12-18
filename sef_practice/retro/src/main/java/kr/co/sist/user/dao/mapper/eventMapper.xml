@@ -22,7 +22,7 @@ from event
 	]]>
 	</if>
 </where>
-order by input_date desc
+order by start_date desc
 </select>
 
 <!-- 이벤트 상세 -->
