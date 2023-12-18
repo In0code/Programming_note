@@ -19,6 +19,8 @@
 		<typeAlias type="kr.co.sist.user.vo.MyInquiryVO" alias="miVO"/>
 		<typeAlias type="kr.co.sist.user.vo.ReviewVO" alias="rVO"/>
 		<typeAlias type="kr.co.sist.user.domain.MyPurchaseDomain" alias="mpd"/>
+		<typeAlias type="kr.co.sist.admin.domain.AdminInquiryDomain" alias="aid"/>
+   
 		
 		<!-- 인영 시작 -->
 		<typeAlias type="kr.co.sist.user.domain.MySalesDomain" alias="msd"/>
@@ -60,6 +62,7 @@
     <mapper resource="kr/co/sist/user/dao/mapper/reiview/reiviewMapper.xml"/>
     <mapper resource="kr/co/sist/user/dao/mapper/reiview/purchaseReviewMapper.xml"/>
     <mapper resource="kr/co/sist/user/dao/mapper/purchaseMapper.xml"/>
+    <mapper resource="kr/co/sist/admin/dao/mapper/adminInquiryMapper.xml"/>
     
     <!-- 인영 mapper -->
     <mapper resource="kr/co/sist/admin/dao/mapper/adminProductMapper.xml"/>
