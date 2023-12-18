@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.sist.fake">
+	<!-- 컬럼 하나, 행 하나 조회 : dept테이블에서 부서번호를 받아 부서명을 조회 -->
+	<select id="fakeSearch" resultType="int" parameterType="fVO">
+	select count(*) cnt
+	from fake
+	<where>
+		<if test="fraudKeyword neq null and fraudKeyword neq ''">
+			<if test="fraudField eq 'id'">
+			id like #{ fraudKeyword } and input_date >= ADD_MONTHS(SYSDATE, -3)
+			</if>
+			<if test="fraudField eq 'phone'">
+			phone like #{ fraudKeyword } and input_date >= ADD_MONTHS(SYSDATE, -3)
+			</if>
+			<if test="fraudField eq 'email'">
+			email like #{ fraudKeyword } and input_date >= ADD_MONTHS(SYSDATE, -3)
+			</if>
+		</if>
+	</where>
+	</select>
+</mapper>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user.purchase.review">
+<insert id="insertReiview" parameterType="rVO">
+insert into buycomment(BUYCOMMENTCODE, BUYRECEIPTCODE, SELECT1, SELECT2_1, 
+CONTEXT, ID, INPUT_DATE 
+<if test="comment2_2 neq null and comment2_2 neq ''">
+	, SELECT2_2
+</if>
+<if test="comment2_3 neq null and comment2_3 neq ''">
+	, SELECT2_3
+</if>
+<if test="comment2_4 neq null and comment2_4 neq ''">
+	, SELECT2_4
+</if>
+) values ('C'||lpad(buycom_seq.nextval, 5, 0), #{ code }, #{ comment1 }, 
+#{ comment2_1 }, #{ context }, #{ id }, sysdate 
+<if test="comment2_2 neq null and comment2_2 neq ''">
+	, #{ comment2_2 }
+</if>
+<if test="comment2_3 neq null and comment2_3 neq ''">
+	, #{ comment2_3 }
+</if>
+<if test="comment2_4 neq null and comment2_4 neq ''">
+	, #{ comment2_4 }
+</if>
+)
+</insert>
+
+<select id="selectPurchaseInfo" parameterType="String" resultType="mpd">
+select p.img, p.pname, m.nickname
+from buyreceipt b, product p, member m
+where b.pcode = p.pcode and p.id = m.id and buyreceiptcode = '${ code }'
+</select>
+
+</mapper>

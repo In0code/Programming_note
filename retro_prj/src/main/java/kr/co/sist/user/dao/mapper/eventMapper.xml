@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user.event">
+
+<!-- 이벤트 리스트 -->
+<select id="selectAllEvent" resultType="ued" parameterType="String">
+select eventcode, img2, to_char(start_date,'yyyy-mm-dd') start_date, to_char(end_date,'yyyy-mm-dd') end_date,
+to_date(end_date,'yy-mm-dd') - to_date(sysdate, 'yy-mm-dd') as dday
+from event
+<where>
+	to_date(end_date,'yy-mm-dd') - to_date(sysdate, 'yy-mm-dd')
+	<if test="searchType eq 'ING'">
+	<![CDATA[
+		> -1
+	]]>
+	</if>
+	<if test="searchType eq 'END'">
+	<![CDATA[
+		< 0
+	]]>
+	</if>
+</where>
+order by start_date desc
+</select>
+
+<!-- 이벤트 상세 -->
+<select id="selectOneEvent" resultType="ued" parameterType="String">
+select eventcode, title, context, img, img2, to_char(start_date,'yyyy-mm-dd') start_date, to_char(end_date,'yyyy-mm-dd') end_date
+from event
+where eventcode = #{ eventcode } 
+</select>
+
+</mapper>

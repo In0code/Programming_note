@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.sist.user.userSales">
+<!-- 판매자가 판매한 전체 상품 -->
+<select id="allSales" resultType="kr.co.sist.user.domain.sales.SalesListDomain" parameterType="String">
+SELECT PCODE, PNAME, PRICE, TO_CHAR(INPUT_DATE, 'YYYY-MM-DD') INPUT_DATE, WISH, IMG
+FROM  PRODUCT
+WHERE ID=#{id}
+</select>
+
+<!-- 판매자가 판매중인 상품 -->
+<select id="onSales" resultType="kr.co.sist.user.domain.sales.SalesListDomain" parameterType="String">
+SELECT PCODE, PNAME, PRICE, TO_CHAR(INPUT_DATE, 'YYYY-MM-DD') INPUT_DATE, WISH, IMG
+FROM  PRODUCT
+WHERE ID=#{id} AND SALEOK='N'
+</select>
+
+<!-- 판매자가 판매완료한 상품 -->
+<select id="finishedSales" resultType="kr.co.sist.user.domain.sales.SalesListDomain" parameterType="String">
+SELECT PCODE, PNAME, PRICE, TO_CHAR(INPUT_DATE, 'YYYY-MM-DD') INPUT_DATE, WISH, IMG
+FROM  PRODUCT
+WHERE ID=#{id} AND SALEOK='Y'
+</select>
+
+<!-- 판매자 판매 상세 정보 -->
+<!-- <select id="salesDetail" resultType="kr.co.sist.user.domain.sales.SalesDomain" parameterType="kr.co.sist.user.vo.sales.SalesVO">
+select p.pcode, p.pname, br.input_date, m.id, m.nickname, m.phone, br.payment, p.img, p.price, bc.select2, bc.context
+from product p, buyreceipt br, member m, buycomment bc
+where p.id=#{id} and p.pcode=#{pcode} and br.pcode=p.pcode and br.id=m.id and br.buyreceiptcode=bc.buyreceiptcode
+</select> -->
+</mapper>

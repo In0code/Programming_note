@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user.purchase">
+
+<select id="dealCnt" resultType="int" parameterType="String">
+select count(*) cnt
+from buyreceipt
+where id = #{ id }
+</select>
+
+<select id="payCnt" resultType="int" parameterType="String">
+select count(*) cnt
+from safepurchase
+where id = #{ id } and pcode not in (select pcode from buyreceipt) and cancel = 'N'
+</select>
+
+<select id="cancelCnt" resultType="int" parameterType="String">
+select count(*) cnt
+from safepurchase
+where id = #{ id } and cancel = 'Y'
+</select>
+
+<!-- 거래 완료 -->
+<select id="selectDealComplete" resultType="mpd" parameterType="String">
+select b.buyreceiptcode code, p.pcode, p.pname, p.img, p.price, to_char(b.payment_date, 'yyyy-mm-dd') buy_date, p.id seller, b.id buyer, buycommentcode commentcode
+from buyreceipt b, product p, buycomment c
+where b.pcode = p.pcode and c.buyreceiptcode(+) = b.buyreceiptcode and b.id = #{ id }
+order by payment_date desc
+</select>
+
+<!-- 결제 완료 -->
+<select id="selectPayComplete" resultType="mpd" parameterType="String">
+select safecode code, to_char(buy_date, 'yyyy-mm-dd') buy_date, p.pcode, pname, img, price
+from safepurchase s, product p
+where s.pcode = p.pcode and s.pcode not in (select pcode from buyreceipt)
+and s.id = #{ id } and cancel = 'N'
+order by buy_date desc
+</select>
+
+<!-- 취소 -->
+<select id="selectCancelComplete" resultType="mpd" parameterType="String">
+select safecode code, to_char(buy_date, 'yyyy-mm-dd') buy_date, p.pcode, pname, img, price
+from safepurchase s, product p
+where s.pcode = p.pcode and s.pcode not in (select pcode from buyreceipt)
+and s.id = #{ id } and cancel = 'Y'
+order by buy_date desc
+</select>
+
+<!-- 거래완료 디테일 -->
+<select id="selectBuyDetail" resultType="mpd" parameterType="String">
+select buyreceiptcode code, to_char(b.payment_date, 'yyyy-mm-dd') buy_date, p.pcode, p.pname, p.img, p.price, p.id seller, payment, m.phone, m.nickname, b.id buyer, s.commentcode, select1, select2_1, select2_2, select2_3, select2_4 , s.context
+from buyreceipt b, product p, member m, SELLCOMMENT s
+where b.pcode = p.pcode and p.id = m.id and s.pcode(+) = p.pcode and buyreceiptcode = #{ code }
+</select>
+
+<!-- 결제완료 디테일 -->
+<select id="selectPayDetail" resultType="mpd" parameterType="String">
+select safecode code, to_char(buy_date,'yyyy-mm-dd') buy_date, p.pcode, p.pname, p.img, p.price, p.id seller, m.phone, m.nickname, s.id buyer
+from safepurchase s, product p, member m
+where s.pcode = p.pcode and p.id = m.id and safecode = #{ code }
+</select>
+
+<update id="updateCancel" parameterType="String">
+update safepurchase
+set cancel = 'Y'
+where safecode = #{ code }
+</update>
+
+</mapper>

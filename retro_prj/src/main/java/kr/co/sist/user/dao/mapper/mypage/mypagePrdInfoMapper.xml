@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.sist.user.mypagePrdInfo">
+<!-- 모든 상품을 조회 -->
+<select id="selectAllPrd" resultType="kr.co.sist.user.domain.mypage.MypagePrdDomain" parameterType="kr.co.sist.user.vo.MypageIDnFlagVO">
+SELECT P.PCODE, P.PNAME, P.PRICE, P.INPUT_DATE, P.LOC, P.IMG, B.BUYRECEIPTCODE,
+TO_CHAR(CEIL((SYSDATE - P.INPUT_DATE) / (30 * 12))) DATE_GAP,
+TO_CHAR(CEIL((SYSDATE - P.INPUT_DATE) / 30)) DATE_GAP,
+TO_CHAR(CEIL((SYSDATE - P.INPUT_DATE))) DATE_GAP,
+TO_CHAR(CEIL((SYSDATE - P.INPUT_DATE) * 24)) DATE_GAP,
+TO_CHAR(CEIL((SYSDATE - P.INPUT_DATE) * 24 * 60)) DATE_GAP,
+TO_CHAR(CEIL((SYSDATE - P.INPUT_DATE) * 24 * 60 * 60)) DATE_GAP
+FROM PRODUCT P, MEMBER M, BUYRECEIPT B
+WHERE M.ID=#{id} AND P.ID=M.ID AND PCANCEL='N' AND P.PCODE=B.PCODE(+)
+<choose>
+	<when test="flag == 'B'">
+		order by PRICE
+	</when>
+	<when test="flag == 'C'">
+		order by PRICE desc
+	</when>
+	<otherwise>
+		order by INPUT_DATE desc	
+	</otherwise>
+</choose>
+</select>
+
+<!-- 판매중인 상품 조회-->
+<select id="selectPrdOnProcess" resultType="kr.co.sist.user.domain.mypage.MypagePrdDomain" parameterType="kr.co.sist.user.vo.MypageIDnFlagVO">
+SELECT PCODE, PNAME, PRICE, INPUT_DATE, LOC, IMG,
+	TO_CHAR(CEIL((SYSDATE - INPUT_DATE) / (30 * 12))) DATE_GAP,
+  TO_CHAR(CEIL((SYSDATE - INPUT_DATE) / 30)) DATE_GAP,
+  TO_CHAR(CEIL((SYSDATE - INPUT_DATE))) DATE_GAP,
+  TO_CHAR(CEIL((SYSDATE - INPUT_DATE) * 24)) DATE_GAP,
+  TO_CHAR(CEIL((SYSDATE - INPUT_DATE) * 24 * 60)) DATE_GAP,
+  TO_CHAR(CEIL((SYSDATE - INPUT_DATE) * 24 * 60 * 60)) DATE_GAP
+FROM (SELECT
+  P.ID, P.PCODE, P.PNAME, P.PRICE, P.INPUT_DATE, P.LOC, P.IMG
+FROM PRODUCT P
+WHERE NOT EXISTS
+    (SELECT * FROM BUYRECEIPT B WHERE P.PCODE=B.PCODE)
+)
+WHERE ID=#{id}
+<choose>
+	<when test="flag == 'B'">
+		order by PRICE
+	</when>
+	<when test="flag == 'C'">
+		order by PRICE desc
+	</when>
+	<otherwise>
+		order by INPUT_DATE desc	
+	</otherwise>
+</choose>
+</select>
+
+<!-- 판매완료한 상품 조회 -->
+<select id="selectCompletedPrd" resultType="kr.co.sist.user.domain.mypage.MypagePrdDomain" parameterType="kr.co.sist.user.vo.MypageIDnFlagVO">
+SELECT P.PCODE, P.PNAME, P.PRICE, P.INPUT_DATE, P.LOC, P.IMG
+FROM PRODUCT P, BUYRECEIPT B, MEMBER M
+WHERE M.ID=#{id} AND P.ID=M.ID AND P.PCODE=B.PCODE AND CANCLE IS NULL
+<choose>
+	<when test="flag == 'B'">
+		order by PRICE
+	</when>
+	<when test="flag == 'C'">
+		order by PRICE desc
+	</when>
+	<otherwise>
+		order by INPUT_DATE desc	
+	</otherwise>
+</choose>
+</select>
+
+</mapper>

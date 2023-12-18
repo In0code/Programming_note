@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.sist.user.mypageReiview">
+<select id="myReiview" resultType="kr.co.sist.user.domain.reiview.ReiviewDomain" parameterType="String">
+SELECT BC.BUYCOMMENTCODE, BC.ID, BC.CONTEXT, TO_CHAR(BC.INPUT_DATE, 'YYYY-MM-DD') INPUT_DATE, BC.SELECT2, BC.SELECT1
+FROM BUYCOMMENT BC, BUYRECEIPT BR, PRODUCT P
+WHERE BC.BUYRECEIPTCODE=BR.BUYRECEIPTCODE AND BR.PCODE=P.PCODE AND P.ID='${id}'
+</select>
+
+</mapper>

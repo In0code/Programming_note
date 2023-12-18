@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user.product">
+
+	<!-- 카테고리 조회 조회 -->
+	<insert id="insertProduct" parameterType="pVO"  >
+		insert into PRODUCT (PCODE, PNAME, CONTEXT, IMG, 
+			<if test="img2 != null and img2 != ''">
+	 		IMG2,
+	 		</if>
+	 		<if test="img3 != null and img3 != ''">
+	 		IMG3,
+	 		</if>
+	 		<if test="img4 != null and img4 != ''">
+	 		IMG4,
+	 		</if>
+	 		<if test="img5 != null and img5 != ''">
+	 		IMG5,
+	 		</if>
+		PRICE, INPUT_DATE, DELIVER, STATUS, LOC, PCANCEL, C3CODE, ID)
+ 		values ('P' || lpad(pcode_seq.nextval, 5, 0),#{pname},#{context},#{img},
+ 		
+	 		<if test="img2 != null and img2 != ''">
+	 		#{img2},
+	 		</if>
+	 		<if test="img3 != null and img3 != ''">
+	 		#{img3},
+	 		</if>
+	 		<if test="img4 != null and img4 != ''">
+	 		#{img4},
+	 		</if>
+	 		<if test="img5 != null and img5 != ''">
+	 		#{img5},
+	 		</if>
+ 		#{price},sysdate ,#{deliver},#{status},#{loc},'N',
+ 		#{c3code},#{id})
+	</insert>
+	
+	<select id="getPcode" resultType="String" parameterType="String">
+  SELECT pcode FROM (select pcode, input_date from product where id=#{ id }) ORDER BY input_date DESC FETCH FIRST 1 ROW ONLY
+	</select>
+
+	<select id="selectProduct" resultType="pd" parameterType="pVO">
+    SELECT 
+        p.pcode, p.pname, p.context, p.img, p.price, p.img2, p.img3, p.img4,  p.img5,
+         p.input_date, p.deliver, p.status, p.saleok,
+        p.loc, p.pcancel, p.c3code, p.id, c1.name as cname, c2.name as c2name, c3.name as c3name
+    FROM 
+        product p, CATEGORY c1, CATEGORY2 c2, CATEGORY3 c3
+    WHERE  
+        c1.ccode=c2.ccode AND c2.c2code = c3.c2code AND c3.C3CODE=p.C3CODE AND p.PCODE=#{pcode}
+</select>
+		
+		<select id="selectBuyerAllInfo" resultType="msd" parameterType="String">
+		  select m.nickname as buyerNick, c.BUYER_ID as buyerId
+		  from CHATTING c, member m
+		  where m.id = c.BUYER_ID and c.SELLER_ID = #{ seller }
+		</select>
+		
+		<select id="selectWishCnt" resultType="int" parameterType="String">
+		select count(*) cnt
+		from wish
+		where pcode=#{ pcode }
+	</select>
+	
+	<update id="updateProduct" parameterType="pVO">
+	update PRODUCT
+	set  
+			<if test="pname != null and pname != ''">
+	 		pname=#{pname}
+	 		</if>
+	 		<if test="context != null and context != ''">
+	 		,context=#{context}
+	 		</if>
+	 		<if test='img4 != null and img4 != ""'>
+	 		,img=#{img}
+	 		</if>
+			<if test='img2 != null and img2 != ""'>
+	 		,img2=#{img2}
+	 		</if>
+	 		<if test='img3 != null and img3 != ""'>
+	 		,img3=#{img3}
+	 		</if>
+	 		<if test='img4 != null and img4 != ""'>
+	 		,img4=#{img4}
+	 		</if>
+	 		<if test='img5 != null and img5 != ""'>
+	 		,img5=#{img5}
+	 		</if>
+	 		<if test='price != null and price != ""'>
+	 		,price=#{price}
+	 		</if>
+	 		<if test='deliver != null and deliver != ""'>
+	 		,deliver=#{deliver}
+	 		</if>
+	 		<if test='status != null and status != ""'>
+	 		,status=#{status}
+	 		</if>
+			<if test='loc != null and loc != ""'>
+	 		,loc=#{loc}
+	 		</if>
+	 		<if test='c3code != null and c3code != ""'>
+	 		,c3code=#{c3code}
+	 		</if>
+	where PCODE=#{pcode}
+	</update>
+	
+	<update id="updateSaleOk" parameterType="String" >
+		update PRODUCT
+		set saleok='Y'
+		where PCODE=#{pcode}
+	</update>
+	
+	<delete id="deleteProduct" parameterType="String">
+		delete from PRODUCT where PCODE=#{pcode}
+	</delete>
+	
+	
+	
+
+</mapper>

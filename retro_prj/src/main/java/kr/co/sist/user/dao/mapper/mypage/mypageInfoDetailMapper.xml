@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.sist.user.mypageInfoDetail">
+<!-- 내 정보 들어갈 때 비번 확인 -->
+<select id="canEnter" resultType="kr.co.sist.user.domain.MyPageEnterDomain" parameterType="kr.co.sist.user.vo.MyPageIdPwVO">
+SELECT ID, NICKNAME, EMAIL, PHONE
+FROM MEMBER
+WHERE ID=#{id} AND PW=#{pw}
+</select>
+
+<!-- 비번 변경 -->
+<update id="changeUserPw" parameterType="kr.co.sist.user.vo.ChangePwVO">
+UPDATE MEMBER
+SET PW=#{newPw}
+WHERE ID=#{id} and PW=#{oldPw}
+</update>
+
+<!-- 회원탈퇴 -->
+<update id="byebye" parameterType="String">
+UPDATE MEMBER
+SET STATUS='C'
+WHERE ID=#{id}
+</update>
+
+<!-- 상품 판매중 -->
+<select id="selectPrdOnProcess" resultType="kr.co.sist.user.domain.mypage.MypagePrdDomain" parameterType="String">
+SELECT PCODE, PNAME, PRICE, INPUT_DATE, LOC
+FROM PRODUCT
+WHERE ID=#{id}
+</select>
+
+<!-- 마이페이지 사용자 정보 -->
+<select id="selectUserInfo" resultType="kr.co.sist.user.domain.mypage.MypageInfoDomain" parameterType="String">
+SELECT CREDIT_LEVEL,
+(SELECT COUNT(*)
+FROM BUYRECEIPT
+WHERE ID=#{id}) TOTAL_BUYRECEIPT,
+(SELECT COUNT(*)
+FROM PRODUCT
+WHERE ID=#{id}) TOTAL_PRODUCT,
+(SELECT COUNT(*)
+FROM BUYCOMMENT BC, BUYRECEIPT BR, PRODUCT P
+WHERE BC.BUYRECEIPTCODE=BR.BUYRECEIPTCODE AND BR.PCODE=P.PCODE AND P.ID=#{id}) TOTAL_BUYCOMMENT,
+(SELECT COUNT(*)
+FROM WISH
+WHERE ID=#{id}) TOTAL_WISH
+
+FROM MEMBER
+WHERE ID=#{id}
+</select>
+
+<!-- 사용자 개인정보 변경 -->
+<update id="updateUserInfo" parameterType="kr.co.sist.user.vo.ChangeUserInfoVO">
+UPDATE MEMBER
+	<if test='flag eq "N"'>
+		SET NICKNAME=#{data}
+	</if>
+	<if test='flag eq "E"'>
+		SET EMAIL=#{data}
+	</if>
+	<if test='flag eq "P"'>
+		SET PHONE=#{data}
+	</if>
+WHERE ID=#{id}
+</update>
+</mapper>

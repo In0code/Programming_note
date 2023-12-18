@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user.wish">
+
+	<select id="selectWishCnt" resultType="int" parameterType="String">
+		select count(*) cnt
+		from wish
+		where id=#{ id }
+	</select>
+
+	<insert id="insertWish" parameterType="wVO">
+	insert into WISH (WCODE, ID, PCODE, INPUT_DATE) values
+	('W' || lpad(wcode_seq.nextval, 5, 0), #{ id },#{ pcode },sysdate)
+	</insert>
+
+	<select id="selectAllWish" resultType="wd" parameterType="brVO">
+		select IMG,pname,price, id, pcode , wcode
+	from(select row_number() over(order by wcode ) rnum,
+	 p.IMG, p.pname, p.price, p.id ,p.PCODE, w.wcode
+	  from PRODUCT p,WISH w
+	 where  p.pcode = w.pcode and w.id= #{ id }
+	 ) where rnum between 1 and 5
+		</select>
+	
+	
+	<delete id="deleteWish" parameterType="String">
+		delete from WISH where PCODE=#{pcode}
+	</delete>
+	
+
+</mapper>

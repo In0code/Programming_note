@@ -5,9 +5,16 @@
 <mapper namespace="kr.co.sist.user.join">
 
 <!-- 사용자 insert와 동시에 id 검사 -->
-<select id="chkId" parameterType="kr.co.sist.user.vo.JoinVO">
+<insert id="insertUser" parameterType="kr.co.sist.user.vo.JoinVO">
 INSERT INTO MEMBER(ID, NICKNAME, EMAIL, PW, PHONE)
-VALUES(#{id}, #{nickname}, #{email}, #{pw}, #{phone});
+VALUES(#{id}, #{nickname}, #{email}, #{pw}, #{phone})
+</insert>
+
+<!-- 내 정보 들어갈 때 비번 확인 -->
+<select id="canEnter" resultType="kr.co.sist.user.domain.MyPageEnterDomain" parameterType="kr.co.sist.user.vo.MyPageIdPwVO">
+SELECT ID, NICKNAME, EMAIL, PHONE
+FROM MEMBER
+WHERE ID=#{id} AND PW=#{pw}
 </select>
 
 </mapper>
