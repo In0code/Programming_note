@@ -56,24 +56,26 @@ top: 100px; left: 60px;
 outline:  0px;
 /* box-shadow: rgb(204, 202, 202) 0px 2px 8px 0px; */
 /* box-shadow: rgb(204, 202, 202) 0px 2px 8px 0px; */
-border-radius: 9px;
+border-radius: 5px;
 }
 
 .divsmall{background-color: #FFFFFF;
  width: 380px;
   height:80px;
-   border-radius: 12px
+   border-radius: 5px;
+   box-shadow: rgb(204, 202, 202) 0px 1px 0px 0px;
+   
 }
 .box2{
 margin-left: 390px; margin-top: -80px;
 }
 #category_box{
-margin-left: 790px; background-color: #FFFFFF; width:700px; height:395px; margin-top:-737px; border-radius: 12px
+margin-left: 790px; background-color: #FFFFFF; width:700px; height:395px; margin-top:-737px; border-radius: 5px; box-shadow: rgb(204, 202, 202) 0px 1px 0px 0px;
 }
 #visitor_trace_box{
-width: 1490px; height:325px; background-color: #FFFFFF; margin-top: 15px; border-radius: 12px}
+width: 1490px; height:325px; background-color: #FFFFFF; margin-top: 15px; border-radius: 5px; box-shadow: rgb(204, 202, 202) 0px 1px 0px 0px;}
 
-label{padding:13px; font-weight: bold}
+label{padding:13px 13px 6px 13px; font-weight: bold; margin-left: 5px}
 </style>
 <!-- 태균이가 만든거 끝-->
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script> 
@@ -122,10 +124,10 @@ function getDate(num){
 			<strong>대시보드</strong>
 		</div>
 		<div id="background_box1">
-		<div id="evt_box" style="background-color: #FFFFFF; width: 770px; height:210px; border-radius: 12px;margin-top: 10px;"><label style="font-size: 19px">이벤트</label>
+		<div id="evt_box" style="background-color: #FFFFFF; width: 770px; height:210px; border-radius: 5px;margin-top: 10px; box-shadow: rgb(204, 202, 202) 0px 1px 0px 0px;"><label style="font-size: 19px">이벤트</label>
 		<div style="margin-left: 20px"><c:if test="${empty eventList}" ><span>진행 중인 이벤트가 없습니다.</span></c:if>
 		<c:forEach var="evt" items="${eventList}" varStatus="i">
-		<div style="padding:2px; font-size: 15px; font-weight: bold"><c:out value="${i.count}"/>. <c:out value="${evt.title}"/><div style="padding:3px; font-size: 12px; font-weight: bold">시작일 : <fmt:formatDate pattern="yyyy-MM-dd" value="${evt.start_date}"/> 종료일 : <fmt:formatDate pattern="yyyy-MM-dd" value="${evt.end_date}"/></div></div>
+		<div style="padding:2px; font-size: 15px; font-weight: 500"><c:out value="${i.count}"/>. <c:out value="${evt.title}"/><div style="padding:3px; font-size: 12px; font-weight: 500">시작일 : <fmt:formatDate pattern="yyyy-MM-dd" value="${evt.start_date}"/> 종료일 : <fmt:formatDate pattern="yyyy-MM-dd" value="${evt.end_date}"/></div></div>
 		
 		
 		 </c:forEach>
@@ -134,19 +136,19 @@ function getDate(num){
 
 		 </div>
 		
-		<div id="today_visitor_box" class="divsmall"  style="margin-top: 12px"><label>일일 방문자 수</label><div style="margin-left: 20px;margin-top: -5px;">today: <c:out value="${requestScope.visitorCnt}"/></div></div>
+		<div id="today_visitor_box" class="divsmall"  style="margin-top: 12px"><label>일일 방문자 수</label><div style="margin-left: 20px;">today: <c:out value="${requestScope.visitorCnt}"/></div></div>
 		
 		<div id="join_box" class="divsmall box2"  ><label>일일 가입자 수</label>
-		 <div style="margin-left: 20px;margin-top: -5px;">today: <c:out value="${requestScope.joinCnt}"/></div>
+		 <div style="margin-left: 20px;">today: <c:out value="${requestScope.joinCnt}"/></div>
 		</div>
 		
 		<div id="trade_box" class="divsmall" style="margin-top: 15px"><label>일일 거래 수</label>
 		
-		<div style="margin-left: 20px;margin-top: -5px;">today: <c:out value="${requestScope.reportCnt}"/></div>
+		<div style="margin-left: 20px;">today: <c:out value="${requestScope.reportCnt}"/></div>
 		  
 		</div>
 		<div id="report_box" class="divsmall box2"  ><label>일일 신고 건수</label>
-		<div style="margin-left: 20px;margin-top: -5px;">today: <c:out value="${requestScope.tradeCnt}"/></div>
+		<div style="margin-left: 20px;">today: <c:out value="${requestScope.tradeCnt}"/></div>
 		</div> 
 		
 		

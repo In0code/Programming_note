@@ -60,52 +60,9 @@
   	transition: background-color 0.3s ease, color 0.3s ease, font-weight 0.3s ease;
 }
 </style>
-<title>Insert title here</title>
 <script type="text/javascript">
 	$(function() {
-		 /*  $("#imgSrc").val("${ userProduct.img }");
-		  $("#img2Src").val("${ userProduct.img2 }");
-		  $("#img3Src").val("${ userProduct.img3 }");
-		  $("#img4Src").val("${ userProduct.img4 }");
-		 */
-		
-		  // 기존 이미지 변수에 저장
-		    var originalImg = "${userProduct.img}";
-		    var originalImg2 = "${userProduct.img2}";
-		    var originalImg3 = "${userProduct.img3}";
-		    var originalImg4 = "${userProduct.img4}";
-
-		    // 파일 값이 바뀌면 파일명을 보여주는 input 값이 바뀜
-		    $("#mainImg").on('change', function() {
-		        setFileName("#mainImg", "#imgSrc", originalImg);
-		    });
-
-		    $("#subImg").on('change', function() {
-		        setFileName("#subImg", "#img2Src", originalImg2);
-		    });
-
-		    $("#mainImg2").on('change', function() {
-		        setFileName("#mainImg2", "#img3Src", originalImg3);
-		    });
-
-		    $("#subImg2").on('change', function() {
-		        setFileName("#subImg2", "#img4Src", originalImg4);
-		    });
-
-		    // 이미지가 비어있을 경우에만 기존 이미지를 설정
-		    if ($("#imgSrc").val() === "") {
-		        $("#imgSrc").val(originalImg);
-		    }
-		    if ($("#img2Src").val() === "") {
-		        $("#img2Src").val(originalImg2);
-		    }
-		    if ($("#img3Src").val() === "") {
-		        $("#img3Src").val(originalImg3);
-		    }
-		    if ($("#img4Src").val() === "") {
-		        $("#img4Src").val(originalImg4);
-		    }
-
+		   
 		/* 받아온 싱픔 싱테 버튼 설정 */
 		var chkStatus="${ userProduct.status }"
 		if( chkStatus === 'J' ){
@@ -141,7 +98,6 @@
 			flag = true;
 		}//end else
 		
-	
 		
 
 		/* --------희망지역 버튼------------- */
@@ -217,8 +173,9 @@
 
 			var formData = new FormData($("#regiFrm")[0]);
 			
-			if(mainImg == ""){
+			if($("#imgSrc").val() === ""){
 				alert("이미지를 최소 한 개 이상 선택해주세요.");
+				return;
 			}
 
 			if ($("#productTitle").val() === '') {
@@ -261,7 +218,7 @@
 				}//end else
 			}//end if
 			var frm = document.frm;
-			frm.action = "product_register_ok.do";
+			frm.action = "productEdit_register_ok.do";
 			$("#regiFrm").submit();
 
 		});
@@ -270,7 +227,7 @@
 		$("#mainImg").on('change',function(){
 			  var fileName = $("#mainImg").val();
 			  var fileType = fileName.substring(fileName.lastIndexOf(".")).toLowerCase();
-			  fileName = fileName.substring(fileName.lastIndexOf("\\")+1);
+			  fileName = fileName.substring(fileName.lastIndexOf("//")+1);
 				
 			  if(fileType != "" && fileType != ".jpg" && fileType != ".png" && fileType != ".jpeg") {
 				  alert("jpg, jpeg, png 확장자만 가능합니다.");
@@ -284,7 +241,7 @@
 		$("#subImg").on('change',function(){
 			  var fileName = $("#subImg").val();
 			  var fileType = fileName.substring(fileName.lastIndexOf(".")).toLowerCase();
-			  fileName = fileName.substring(fileName.lastIndexOf("\\")+1);
+			  fileName = fileName.substring(fileName.lastIndexOf("//")+1);
 				
 			  if(fileType != "" && fileType != ".jpg" && fileType != ".png" && fileType != ".jpeg") {
 				  alert("jpg, jpeg, png 확장자만 가능합니다.");
@@ -300,7 +257,7 @@
 		$("#mainImg2").on('change',function(){
 			  var fileName = $("#mainImg2").val();
 			  var fileType = fileName.substring(fileName.lastIndexOf(".")).toLowerCase();
-			  fileName = fileName.substring(fileName.lastIndexOf("\\")+1);
+			  fileName = fileName.substring(fileName.lastIndexOf("//")+1);
 				
 			  if(fileType != "" && fileType != ".jpg" && fileType != ".png" && fileType != ".jpeg") {
 				  alert("jpg, jpeg, png 확장자만 가능합니다.");
@@ -314,7 +271,7 @@
 		$("#subImg2").on('change',function(){
 			  var fileName = $("#subImg2").val();
 			  var fileType = fileName.substring(fileName.lastIndexOf(".")).toLowerCase();
-			  fileName = fileName.substring(fileName.lastIndexOf("\\")+1);
+			  fileName = fileName.substring(fileName.lastIndexOf("//")+1);
 				
 			  if(fileType != "" && fileType != ".jpg" && fileType != ".png" && fileType != ".jpeg") {
 				  alert("jpg, jpeg, png 확장자만 가능합니다.");
@@ -326,6 +283,12 @@
 			  
 			  $("#img4Src").val(fileName);
 		});
+		
+		var chkImg= $("#mainImg").val();
+		if(chkImg == null || chkImg == ''){
+			
+		}//end if
+		
 	});//ready
 
 	document.addEventListener("DOMContentLoaded", function() {
@@ -385,7 +348,7 @@
 	 function setFileName(inputId, targetId, originalImgPath) {
 	        var fileName = $(inputId).val();
 	        var fileType = fileName.substring(fileName.lastIndexOf(".")).toLowerCase();
-	        fileName = fileName.substring(fileName.lastIndexOf("\\") + 1);
+	        fileName = fileName.substring(fileName.lastIndexOf("//") + 1);
 
 	        if (fileType != "" && fileType != ".jpg" && fileType != ".png" && fileType != ".jpeg") {
 	            alert("jpg, jpeg, png 확장자만 가능합니다.");
@@ -440,9 +403,9 @@
 
 	<form id="regiFrm" name="frm" enctype="multipart/form-data"
 		method="post">
-		<input type="hidden" name="c3code" id="c3code" /> 
-		 <input
-			type="hidden" name="loc" id="changeLoc" />
+		<input type="hidden" name="c3code" id="c3code"/> 
+		<input type="hidden" name="pcode" id="pcode" value="${ userProduct.pcode }"/> 
+		 <input type="hidden" name="loc" id="changeLoc" />
 		<main class="relative flex-grow border-b-2"
 			style="min-height: -webkit-fill-available; -webkit-overflow-scrolling: touch">
 			<div
@@ -450,24 +413,24 @@
 				<section class="mx-auto w-full max-w-[768px]">
 					<div class="flex px-5 pb-1.5">
 					<div class="filebox">
-    						<input class="upload-name" placeholder="이미지를 선택해주세요." readonly="readonly" id="imgSrc" name="imgSrc">
+    						<input class="upload-name" placeholder="이미지를 선택해주세요." readonly="readonly" id="imgSrc" name="imgSrc" value="${ userProduct.img }">
     						<label for="mainImg">파일찾기</label> 
     						<input type="file" id="mainImg" name="img">
 					</div>
 					<div class="filebox">
-					    	<input class="upload-name" placeholder="이미지를 선택해주세요." readonly="readonly" id="img2Src" name="img2Src">
+					    	<input class="upload-name" placeholder="이미지를 선택해주세요." readonly="readonly" id="img2Src" name="img2Src" value="${ userProduct.img2 }">
     						<label for="subImg">파일찾기</label> 
     						<input type="file" id="subImg" name="img2">
 					</div>
 					</div>
 					<div class="flex px-5 pb-1.5">
 					<div class="filebox">
-    						<input class="upload-name" placeholder="이미지를 선택해주세요." readonly="readonly" id="img3Src" name="img3Src">
+    						<input class="upload-name" placeholder="이미지를 선택해주세요." readonly="readonly" id="img3Src" name="img3Src" value="${ userProduct.img3 }">
     						<label for="mainImg2">파일찾기</label> 
     						<input type="file" id="mainImg2" name="img3">
 					</div>
 					<div class="filebox">
-					    	<input class="upload-name" placeholder="이미지를 선택해주세요." readonly="readonly" id="img4Src" name="img4Src">
+					    	<input class="upload-name" placeholder="이미지를 선택해주세요." readonly="readonly" id="img4Src" name="img4Src" value="${ userProduct.img4 }">
     						<label for="subImg2">파일찾기</label> 
     						<input type="file" id="subImg2" name="img4">
 					</div>

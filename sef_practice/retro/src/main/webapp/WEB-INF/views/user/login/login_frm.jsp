@@ -100,7 +100,7 @@ $(function(){
 
  <jsp:include page="/common/cdn/header.jsp"/>
 <body>
-<form id="frm" action="login_process.do" method="post">
+<form id="frm" action="../login_process.do" method="post">
 <div style="margin: 0px auto; text-align: center">
 <img src="http://localhost/retro_prj/common/images/main_logo.png" style="width:160px; margin: 0px auto;  margin-top: 150px "/>
 <br><div id="Warn" style="margin-top: 10px"><c:out value="${requestScope.msg}"/></div><br>

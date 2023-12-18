@@ -29,6 +29,10 @@
     right: 0;
 }
 
+#purLi{
+	color: #333;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -269,7 +273,6 @@
 						
 						<form id="hrdFrm" action="purchase/detail.do">
 							<input type="hidden" id="code" name="code"/>
-							<input type="hidden" id="id" name="id" value="urface"/> <!-- ${ sessionScope.id } -->
 						</form>
 						
 						<div id="listDiv">

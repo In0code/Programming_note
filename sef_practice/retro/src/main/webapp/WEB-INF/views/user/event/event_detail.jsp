@@ -47,7 +47,7 @@
 			</div>
 			<div></div>
 			<div data-v-7a3bdf55="" class="detail_btn_box">
-				<a data-v-0a6aebaa="" data-v-7a3bdf55="" href="javascript:history.back()" style="margin-bottom:100px" 
+				<a data-v-0a6aebaa="" data-v-7a3bdf55="" href="http://localhost/retro_prj/event.do" style="margin-bottom:100px" 
 				class="btn btn_view_list outlinegrey medium"> 
 				목록
 				</a>

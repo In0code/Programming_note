@@ -54,6 +54,10 @@ body{
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script type="text/javascript">
 	$(function() {
+		
+		$("#btnLogout").click(function() {
+			location.href="admin_logout_process.do";
+		});//click
 	
 		  $("#btnChange").click(function() {
 		        var pcode = "${ productOne.pcode }";

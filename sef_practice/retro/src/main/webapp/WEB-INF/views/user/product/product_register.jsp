@@ -61,7 +61,6 @@
 }
 
 </style>
-<title>Insert title here</title>
 <script type="text/javascript">
 	$(function() {
 		/* ---------------패션 의류--------------------- */
@@ -170,20 +169,13 @@
 		/* ---------------패션 잡화--------------------- */
 
 		/* 패션잡화 클릭하면 동작 */
-		$("#G")
-				.click(
-						function() {
-							$(this).css({
-								'background-color' : '#E5E4E4'
-							});
-							$("#C, #T, #P, #B, #C-1,#G1,#G2,#G3").css({
-								'background-color' : '#FFFFFF'
-							});
-							$("#category-depth-2").show();
-							$(
-									"#category-depth-1, #category-depth-3, #category-depth-4, #category-depth-5,#category-depth-1-1,#category-depth-1-2,#category-depth-2-1,#category-depth-2-2,#category-depth-2-3,#category-depth-3-1,#category-depth-3-2,#category-depth-4-1,#category-depth-5-1,#category-depth-5-2")
-									.hide();
-						});//click
+		$("#G").click(function() {
+			$(this).css({'background-color' : '#E5E4E4'});
+			$("#C, #T, #P, #B, #C-1,#G1,#G2,#G3").css({'background-color' : '#FFFFFF'});
+			$("#category-depth-2").show();
+			$("#category-depth-1, #category-depth-3, #category-depth-4, #category-depth-5,#category-depth-1-1,#category-depth-1-2,#category-depth-2-1,#category-depth-2-2,#category-depth-2-3,#category-depth-3-1,#category-depth-3-2,#category-depth-4-1,#category-depth-5-1,#category-depth-5-2")
+						.hide();
+		});//click
 
 		/* 여성화 클릭하면 동작 */
 		$("#G1").click(function() {
@@ -314,20 +306,13 @@
 		/* ---------------모바일, 테블릿--------------------- */
 
 		/* 모바일, 테블릿 클릭하면 동작 */
-		$("#T")
-				.click(
-						function() {
-							$(this).css({
-								'background-color' : '#E5E4E4'
-							});
-							$("#G, #C, #P, #B, #C-1,#T1,#T2").css({
-								'background-color' : '#FFFFFF'
-							});
-							$("#category-depth-3").show();
-							$(
-									"#category-depth-2, #category-depth-1, #category-depth-4, #category-depth-5,#category-depth-1-1,#category-depth-1-2,#category-depth-2-1,#category-depth-2-2,#category-depth-3-1,#category-depth-3-2,#category-depth-4-1,#category-depth-5-1,#category-depth-5-2, #category-depth-2-3")
+		$("#T").click(function() {
+			$(this).css({'background-color' : '#E5E4E4'});
+			$("#G, #C, #P, #B, #C-1,#T1,#T2").css({'background-color' : '#FFFFFF'});
+			$("#category-depth-3").show();
+			$("#category-depth-2, #category-depth-1, #category-depth-4, #category-depth-5,#category-depth-1-1,#category-depth-1-2,#category-depth-2-1,#category-depth-2-2,#category-depth-3-1,#category-depth-3-2,#category-depth-4-1,#category-depth-5-1,#category-depth-5-2, #category-depth-2-3")
 									.hide();
-						});//click
+		});//click
 
 		/* 스마트폰 클릭하면 동작 */
 		$("#T1").click(function() {
@@ -426,20 +411,13 @@
 		/* ---------------노트북, PC--------------------- */
 
 		/* 노트북, PC 클릭하면 동작 */
-		$("#P")
-				.click(
-						function() {
-							$(this).css({
-								'background-color' : '#E5E4E4'
-							});
-							$("#G, #T, #C, #B, #C-1,#P1,#P2,#P3").css({
-								'background-color' : '#FFFFFF'
-							});
-							$("#category-depth-4").show();
-							$(
-									"#category-depth-2, #category-depth-3, #category-depth-1, #category-depth-5,#category-depth-1-1,#category-depth-1-2,#category-depth-3-1,#category-depth-3-2,#category-depth-2-1,#category-depth-2-2,#category-depth-2-3,#category-depth-4-1,#category-depth-5-1,#category-depth-5-2")
+		$("#P").click(function() {
+			$(this).css({'background-color' : '#E5E4E4'});
+			$("#G, #T, #C, #B, #C-1,#P1,#P2,#P3").css({'background-color' : '#FFFFFF'});
+			$("#category-depth-4").show();
+			$("#category-depth-2, #category-depth-3, #category-depth-1, #category-depth-5,#category-depth-1-1,#category-depth-1-2,#category-depth-3-1,#category-depth-3-2,#category-depth-2-1,#category-depth-2-2,#category-depth-2-3,#category-depth-4-1,#category-depth-5-1,#category-depth-5-2")
 									.hide();
-						});//click
+		});//click
 
 		/* 노트북 클릭하면 동작 */
 		$("#P1").click(function() {
@@ -508,20 +486,13 @@
 		/* ---------------도서 , 문구--------------------- */
 
 		/* 도서/ 문구 클릭하면 동작 */
-		$("#B")
-				.click(
-						function() {
-							$(this).css({
-								'background-color' : '#E5E4E4'
-							});
-							$("#G, #T, #P, #C, #C-1,#B1,#B2,#B3").css({
-								'background-color' : '#FFFFFF'
-							});
-							$("#category-depth-5").show();
-							$(
-									"#category-depth-2, #category-depth-3, #category-depth-4, #category-depth-1,#category-depth-1-1,#category-depth-1-2,#category-depth-2-1,#category-depth-2-2,#category-depth-2-3,#category-depth-3-1,#category-depth-3-2,#category-depth-4-1,#category-depth-5-1,#category-depth-5-2")
+		$("#B").click(function() {
+			$(this).css({'background-color' : '#E5E4E4'});
+			$("#G, #T, #P, #C, #C-1,#B1,#B2,#B3").css({'background-color' : '#FFFFFF'});
+			$("#category-depth-5").show();
+			$("#category-depth-2, #category-depth-3, #category-depth-4, #category-depth-1,#category-depth-1-1,#category-depth-1-2,#category-depth-2-1,#category-depth-2-2,#category-depth-2-3,#category-depth-3-1,#category-depth-3-2,#category-depth-4-1,#category-depth-5-1,#category-depth-5-2")
 									.hide();
-						});//click
+		});//click
 
 		/* 학습 / 교육 클릭하면 동작 */
 		$("#B1").click(function() {
@@ -611,38 +582,22 @@
 		/* --------희망지역 버튼------------- */
 		var flag = true;
 		/* '주소검색' 버튼 누르면 동작 */
-		$("#addrSearchBtn")
-				.click(
-						function() {
-							$(this)
-									.attr(
-											'class',
-											"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 text-white bg-jngreen border-jngreen");
-							$("#noAddrBtn")
-									.attr(
-											'class',
-											"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 border-jnblack text-jnblack bg-white");
-							$("#locInputBox").css('display', 'block');
-							flag = true;
+		$("#addrSearchBtn").click(function() {
+			$(this).attr('class',"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 text-white bg-jngreen border-jngreen");
+			$("#noAddrBtn").attr('class',"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 border-jnblack text-jnblack bg-white");
+			$("#locInputBox").css('display', 'block');
+			flag = true;
 
-						});//clcick
+		});//clcick
 
 		/* '지역 설정 안 함'버튼누르면 동작*/
-		$("#noAddrBtn")
-				.click(
-						function() {
-							$(this)
-									.attr(
-											'class',
-											"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 text-white bg-jngreen border-jngreen");
-							$("#addrSearchBtn")
-									.attr(
-											'class',
-											"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 border-jnblack text-jnblack bg-white");
-							$("#locInputBox").css('display', 'none');
-							$("#locErr").css('display', 'none');
-							flag = false;
-						});//clcick
+		$("#noAddrBtn").click(function() {
+			$(this).attr('class',"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 text-white bg-jngreen border-jngreen");
+			$("#addrSearchBtn").attr('class',"h-10 w-[80px] rounded-md border border-solid font-semibold text-base mb-2 border-jnblack text-jnblack bg-white");
+			$("#locInputBox").css('display', 'none');
+			$("#locErr").css('display', 'none');
+			flag = false;
+		});//clcick
 
 		/* --------상품 상태 버튼------------- */
 
@@ -701,7 +656,7 @@
 				alert("이미지를 최소 한 개 이상 선택해주세요.");
 				$("#imgSrc").focus();
 				return;
-			}
+			}//end if
 
 			if ($("#productTitle").val() === '') {
 				$("#pnameErr").css('display', 'block');
@@ -758,7 +713,7 @@
 				  alert("jpg, jpeg, png 확장자만 가능합니다.");
 				  $("#mainImg").val("");
 				  fileName = "";
-			  }
+			  }//end if
 			  
 			  $("#imgSrc").val(fileName);
 		});
@@ -772,9 +727,8 @@
 				  alert("jpg, jpeg, png 확장자만 가능합니다.");
 				  $("#subImg").val("");
 				  $("#img2Src").val("");
-				  
 				  return;
-			  }
+			  }//end if
 			  
 			  $("#img2Src").val(fileName);
 		});
@@ -788,7 +742,7 @@
 				  alert("jpg, jpeg, png 확장자만 가능합니다.");
 				  $("#mainImg2").val("");
 				  fileName = "";
-			  }
+			  }//end if
 			  
 			  $("#img3Src").val(fileName);
 		});
@@ -804,10 +758,11 @@
 				  $("#img4Src").val("");
 				  
 				  return;
-			  }
+			  }//end if
 			  
 			  $("#img4Src").val(fileName);
 		});
+		
 	});//ready
 
 	document.addEventListener("DOMContentLoaded", function() {

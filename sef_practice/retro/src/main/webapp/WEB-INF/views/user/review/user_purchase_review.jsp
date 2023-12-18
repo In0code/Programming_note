@@ -295,7 +295,7 @@ textarea:focus {
 					<form id="hrdFrm" action="http://localhost/retro_prj/purchase_review_write_prc.do" method="POST">
 					<input type="hidden" id="comment1" name="comment1" value="1">
 					<input type="hidden" id="code" name="code" value="${ param.code }">
-					<input type="hidden" id="id" name="id" value="${ param.id }">
+					<input type="hidden" id="id" name="id" value="${ sessionScope.id }">
 					<!-- 상세 선택 -->
 					<section>
 						<ul class="css-1ovzr4f">

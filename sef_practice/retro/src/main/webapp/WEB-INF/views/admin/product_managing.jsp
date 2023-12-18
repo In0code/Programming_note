@@ -51,7 +51,7 @@ body{
 <script type="text/javascript">
 $(function() {
 	$("#btnLogout").click(function() {
-		location.href="logout.jsp";
+		location.href="admin_logout_process.do";
 	});//click
 	
 	/* $(".searchBtn").click(function() {

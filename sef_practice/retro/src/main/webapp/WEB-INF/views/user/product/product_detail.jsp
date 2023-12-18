@@ -9,6 +9,9 @@
 <c:import url="http://localhost/retro_prj/common/cdn/cdn.jsp" />
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<!-- Swiper 라이브러리 CDN 링크 -->
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
@@ -68,6 +71,47 @@
 </style>
 <script type="text/javascript">
 	$(function() {
+	    // Swiper 초기화 함수
+	    function initializeSwiper() {
+	      var swiper = new Swiper('.swiper', {
+	        slidesPerView: 1,
+	        spaceBetween: 10,
+	        navigation: {
+	          nextEl: '#product-gallery-slider-next',
+	          prevEl: '#product-gallery-slider-prev',
+	        },
+	        pagination: {
+	          el: '.swiper-pagination',
+	          clickable: true,
+	        },
+	      });
+
+	      // 이전 버튼 클릭 시
+	      $("#product-gallery-slider-prev").on("click", function () {
+	        swiper.slidePrev();
+	      });
+
+	      // 다음 버튼 클릭 시
+	      $("#product-gallery-slider-next").on("click", function () {
+	        swiper.slideNext();
+	      });
+
+	      // 페이지네이션 버튼 클릭 시 해당 슬라이드로 이동
+	      $(".swiper-pagination-bullet").on("click", function () {
+	        var index = $(this).index();
+	        swiper.slideTo(index);
+	      });
+
+	      return swiper;
+	    }
+
+	    // 초기화된 슬라이더가 있으면 파괴 후 다시 초기화
+	    var existingSwiper = initializeSwiper();
+	    if (existingSwiper) {
+	      existingSwiper.destroy();
+	      initializeSwiper();
+	    }
+		
 		$("#completeCancel").click(function() {
 			var modalBg3 = document.getElementById('completeModalBg');
 			modalBg3.style.display = 'none';
@@ -234,6 +278,10 @@
 			},
 			success : function(jsonObj) {
 				alert("판매 완료 처리 되었습니다");
+				
+				// Swiper를 숨깁니다.
+	            $("#product-gallery-slider-next").hide();
+				
 				location.reload();
 			}//success
 		});//ajax
@@ -263,74 +311,128 @@
 <body>
 	<!-- header -->
 	<c:import url="http://localhost/retro_prj/common/cdn/header.jsp" />
-	<main class="relative flex-grow border-b-2"
-		style="min-height: -webkit-fill-available; -webkit-overflow-scrolling: touch">
-		<div
-			class="max-w-[1280px] lg:min-h-[950px] mx-auto max-w-[1280px] px-4 md:px-8 2xl:px-16 box-content">
-			<div
-				class="items-start block grid-cols-2 pt-5 lg:grid gap-x-10 xl:gap-x-14 pb-14 lg:py-10 lg:pb-14 2xl:pb-20">
-				<div class="px-3 sticky top-[200px]">
-					<div
-						class="carouselWrapper relative product-gallery swiperThumbnail product-gallery-slider   ">
-						<div
-							class="swiper swiper-initialized swiper-horizontal swiper-pointer-events swiper-backface-hidden"
-							dir="ltr">
-							<div class="swiper-wrapper"
-								style="transform: translate3d(0px, 0px, 0px);">
-								<div class="swiper-slide swiper-slide-active"
-									style="width: 524px;">
-									<div
-										class="col-span-1 transition duration-150 ease-in hover:opacity-90 w-full relative pt-[100%]">
-										<img alt="fds--0" referrerpolicy="no-referrer"
-											src="http://localhost/retro_prj/upload/${ userProduct.img }"
-											decoding="async" data-nimg="fill"
-											class="object-cover w-full h-full rounded-lg top-1/2 left-1/2"
-											loading="lazy"
-											style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
-										<div id="saleOkStyle"
-											onclick="saleOkBtn('${ userProduct.pcode}')"
-											style="display: none;" data-saleok="${userProduct.saleok}"
-											class="absolute top-0 left-0 bg-black/[0.5] w-full h-full z-[1] rounded-lg">
-											<div
-												class="flex justify-center items-center text-2xl text-white font-bold w-full h-full flex-col">
-												<img alt="판매완료" src="http://localhost/retro_prj/common/images/icons/check-circle-white.svg"
-													width="80" height="80" decoding="async" data-nimg="1"
-													class="m-4" loading="lazy" style="color: transparent;">판매완료
-											</div>
+		<div class="max-w-[1280px] lg:min-h-[950px] mx-auto max-w-[1280px] px-4 md:px-8 2xl:px-16 box-content">
+		<div class="items-start block grid-cols-2 pt-5 lg:grid gap-x-10 xl:gap-x-14 pb-14 lg:py-10 lg:pb-14 2xl:pb-20">
+			<div class="carouselWrapper relative product-gallery swiperThumbnail product-gallery-slider sticky top-[200px]   ">
+				<div class="swiper swiper-initialized swiper-horizontal swiper-pointer-events swiper-backface-hidden" dir="ltr">
+					
+					<div class="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px);">
+						<div class="swiper-slide swiper-slide-active" style="width: 503px;">
+							<div class="col-span-1 transition duration-150 ease-in hover:opacity-90 w-full relative pt-[100%]">
+								<img alt="상품이미지-0" referrerpolicy="no-referrer"
+									src="http://localhost/retro_prj/upload/${ userProduct.img }"
+									decoding="async" data-nimg="fill"
+									class="object-cover w-full h-full rounded-lg top-1/2 left-1/2"
+									loading="lazy"
+									style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
+								<div id="saleOkStyle"
+										onclick="saleOkBtn('${ userProduct.pcode}')"
+										style="display: none;" data-saleok="${ userProduct.saleok }"
+										class="absolute top-0 left-0 bg-black/[0.5] w-full h-full z-[1] rounded-lg">
+										<div
+											class="flex justify-center items-center text-2xl text-white font-bold w-full h-full flex-col">
+											<img alt="판매완료" src="http://localhost/retro_prj/common/images/icons/check-circle-white.svg"
+												width="80" height="80" decoding="async" data-nimg="1"
+												class="m-4" loading="lazy" style="color: transparent;">판매완료
 										</div>
 									</div>
-								</div>
-							</div>
-							<div
-								class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal swiper-pagination-lock">
-								<span
-									class="swiper-pagination-bullet swiper-pagination-bullet-active"></span>
 							</div>
 						</div>
-						<div class="flex items-center w-full absolute top-2/4 z-10 hidden">
-							<button
-								class="w-7 h-7 lg:w-8 lg:h-8 text-sm md:text-base lg:text-lg text-black flex items-center justify-center rounded absolute transition duration-250 hover:bg-gray-900 hover:text-white focus:outline-none transform shadow-navigation -translate-x-1/2 rounded-full lg:w-9 lg:h-9 xl:w-10 xl:h-10 3xl:w-12 3xl:h-12 lg:text-xl 3xl:text-2xl -left-4 bg-transparent shadow-transparent hover:bg-transparent hover:text-black swiper-button-disabled swiper-button-lock"
-								id="product-gallery-slider-prev" aria-label="prev-button"
-								disabled="">
-								<svg stroke="currentColor" fill="currentColor" stroke-width="0"
-									viewBox="0 0 512 512" height="1em" width="1em"
-									xmlns="http://www.w3.org/2000/svg">
-									<path
-										d="M217.9 256L345 129c9.4-9.4 9.4-24.6 0-33.9-9.4-9.4-24.6-9.3-34 0L167 239c-9.1 9.1-9.3 23.7-.7 33.1L310.9 417c4.7 4.7 10.9 7 17 7s12.3-2.3 17-7c9.4-9.4 9.4-24.6 0-33.9L217.9 256z"></path></svg>
-							</button>
-							<button
-								class="w-7 h-7 lg:w-8 lg:h-8 text-sm md:text-base lg:text-lg text-black flex items-center justify-center rounded absolute transition duration-250 hover:bg-gray-900 hover:text-white focus:outline-none transform shadow-navigation translate-x-1/2 rounded-full lg:w-9 lg:h-9 xl:w-10 xl:h-10 3xl:w-12 3xl:h-12 lg:text-xl 3xl:text-2xl -right-4 bg-transparent shadow-transparent hover:bg-transparent hover:text-black swiper-button-disabled swiper-button-lock"
-								id="product-gallery-slider-next" aria-label="next-button"
-								disabled="">
-								<svg stroke="currentColor" fill="currentColor" stroke-width="0"
-									viewBox="0 0 512 512" height="1em" width="1em"
-									xmlns="http://www.w3.org/2000/svg">
-									<path
-										d="M294.1 256L167 129c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.3 34 0L345 239c9.1 9.1 9.3 23.7.7 33.1L201.1 417c-4.7 4.7-10.9 7-17 7s-12.3-2.3-17-7c-9.4-9.4-9.4-24.6 0-33.9l127-127.1z"></path></svg>
-							</button>
+						<div class="swiper-slide swiper-slide-next" style="width: 503px;">
+							<div class="col-span-1 transition duration-150 ease-in hover:opacity-90 w-full relative pt-[100%]">
+								<img alt="상품이미지-1" referrerpolicy="no-referrer"
+									src="http://localhost/retro_prj/upload/${ userProduct.img2 }"
+									decoding="async" data-nimg="fill"
+									class="object-cover w-full h-full rounded-lg top-1/2 left-1/2"
+									loading="lazy"
+									style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
+									<div id="saleOkStyle"
+										onclick="saleOkBtn('${ userProduct.pcode}')"
+										style="display: none;" data-saleok="${ userProduct.saleok }"
+										class="absolute top-0 left-0 bg-black/[0.5] w-full h-full z-[1] rounded-lg">
+										<div
+											class="flex justify-center items-center text-2xl text-white font-bold w-full h-full flex-col">
+											<img alt="판매완료" src="http://localhost/retro_prj/common/images/icons/check-circle-white.svg"
+												width="80" height="80" decoding="async" data-nimg="1"
+												class="m-4" loading="lazy" style="color: transparent;">판매완료
+										</div>
+									</div>
+							</div>
 						</div>
+						 <div class="swiper-slide" style="width: 503px;">
+							<div class="col-span-1 transition duration-150 ease-in hover:opacity-90 w-full relative pt-[100%]">
+								<img alt="상품이미지-2" referrerpolicy="no-referrer"
+									src="http://localhost/retro_prj/upload/${ userProduct.img3 }"
+									decoding="async" data-nimg="fill"
+									class="object-cover w-full h-full rounded-lg top-1/2 left-1/2"
+									loading="lazy"
+									style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
+									<div id="saleOkStyle"
+										onclick="saleOkBtn('${ userProduct.pcode}')"
+										style="display: none;" data-saleok="${ userProduct.saleok }"
+										class="absolute top-0 left-0 bg-black/[0.5] w-full h-full z-[1] rounded-lg">
+										<div
+											class="flex justify-center items-center text-2xl text-white font-bold w-full h-full flex-col">
+											<img alt="판매완료" src="http://localhost/retro_prj/common/images/icons/check-circle-white.svg"
+												width="80" height="80" decoding="async" data-nimg="1"
+												class="m-4" loading="lazy" style="color: transparent;">판매완료
+										</div>
+									</div>
+							</div>
+						</div>
+						<div class="swiper-slide" style="width: 503px;">
+							<div class="col-span-1 transition duration-150 ease-in hover:opacity-90 w-full relative pt-[100%]">
+								<img alt="상품이미지-3" referrerpolicy="no-referrer"
+									src="http://localhost/retro_prj/upload/${ userProduct.img4 }"
+									decoding="async" data-nimg="fill"
+									class="object-cover w-full h-full rounded-lg top-1/2 left-1/2"
+									loading="lazy"
+									style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
+									<div id="saleOkStyle"
+										onclick="saleOkBtn('${ userProduct.pcode}')"
+										style="display: none;" data-saleok="${ userProduct.saleok }"
+										class="absolute top-0 left-0 bg-black/[0.5] w-full h-full z-[1] rounded-lg">
+										<div
+											class="flex justify-center items-center text-2xl text-white font-bold w-full h-full flex-col">
+											<img alt="판매완료" src="http://localhost/retro_prj/common/images/icons/check-circle-white.svg"
+												width="80" height="80" decoding="async" data-nimg="1"
+												class="m-4" loading="lazy" style="color: transparent;">판매완료
+										</div>
+									</div>
+							</div>
+						</div>
+						
+						
+					</div>
+					<div class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal">
+						<span class="swiper-pagination-bullet swiper-pagination-bullet-active"></span>
+						
 					</div>
 				</div>
+				<div class="flex items-center w-full absolute top-2/4 z-10 ">
+					<button
+						class="w-7 h-7 lg:w-8 lg:h-8 text-sm md:text-base lg:text-lg text-black flex items-center justify-center rounded absolute transition duration-250 hover:bg-gray-900 hover:text-white focus:outline-none transform shadow-navigation -translate-x-1/2 rounded-full lg:w-9 lg:h-9 xl:w-10 xl:h-10 3xl:w-12 3xl:h-12 lg:text-xl 3xl:text-2xl -left-4 bg-transparent shadow-transparent hover:bg-transparent hover:text-black swiper-button-disabled"
+						id="product-gallery-slider-prev" aria-label="prev-button"
+						disabled="">
+						<svg stroke="currentColor" fill="currentColor" stroke-width="0"
+							viewBox="0 0 512 512" height="1em" width="1em"
+							xmlns="http://www.w3.org/2000/svg">
+							<path
+								d="M217.9 256L345 129c9.4-9.4 9.4-24.6 0-33.9-9.4-9.4-24.6-9.3-34 0L167 239c-9.1 9.1-9.3 23.7-.7 33.1L310.9 417c4.7 4.7 10.9 7 17 7s12.3-2.3 17-7c9.4-9.4 9.4-24.6 0-33.9L217.9 256z"></path></svg>
+					</button>
+					<button
+						class="w-7 h-7 lg:w-8 lg:h-8 text-sm md:text-base lg:text-lg text-black flex items-center justify-center rounded absolute transition duration-250 hover:bg-gray-900 hover:text-white focus:outline-none transform shadow-navigation translate-x-1/2 rounded-full lg:w-9 lg:h-9 xl:w-10 xl:h-10 3xl:w-12 3xl:h-12 lg:text-xl 3xl:text-2xl -right-4 bg-transparent shadow-transparent hover:bg-transparent hover:text-black"
+						id="product-gallery-slider-next" aria-label="next-button">
+						<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" 
+							height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+						<path d="M294.1 256L167 129c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.3 34 0L345 239c9.1 9.1 9.3 23.7.7 33.1L201.1 417c-4.7 4.7-10.9 7-17 7s-12.3-2.3-17-7c-9.4-9.4-9.4-24.6 0-33.9l127-127.1z"></path></svg>
+					</button>
+				</div>
+				
+				
+				
+				
+			</div>
 				<div class="pt-4 lg:pt-0">
 					<div class="pb-4">
 						<div class="flex items-center w-full chawkbazarBreadcrumb">
@@ -377,7 +479,7 @@
 					<div class="py-4 border-b border-gray-300 space-s-4">
 						<div class="pb-1 space-y-5 text-sm">
 							<div class="flex justify-between text-body">
-								<span>13초 전 · 조회 0 · 찜 0</span><a href="/fraud"><div
+								<span> 찜 ${ wishCnt }</span><a href="/fraud"><div
 										class="flex items-center hover:text-gray-400">
 										<svg stroke="currentColor" fill="currentColor"
 											stroke-width="0" viewBox="0 0 16 16" height="1em" width="1em"

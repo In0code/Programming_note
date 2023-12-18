@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Re:tro Admin</title>
+<title>RE:TRO Admin</title>
 <meta name="theme-color" content="#712cf9">
 <script src="/docs/5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 <!-- Bootstrap CDN -->
@@ -18,13 +18,15 @@
 <!-- Bootstrap 5.3 -->
 <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Pretendard -->
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css" />
 
 <style>
 
 html,
 body {
   height: 90%;
-  font-family: Pretendard;
+  font-family: Pretendard Variable;
 }
 
 .form-signin {
@@ -120,7 +122,7 @@ if(cookies != null){
 	 <br>
     <div class="form-floating">
       <input type="text" class="form-control" name="id" id="id" placeholder="Id" value="${ adminIdValue }" >
-      <label for="floatingInput">아이디</label>
+      <label for="floatingInput" style="font-family: 'Pretendard Variable'">아이디</label>
     </div>
     
     <div class="form-floating">
@@ -132,7 +134,8 @@ if(cookies != null){
     <div id="Warn">
     </div>
     <br>
-    <input id="loginBtn" class="btn btn-primary w-100 py-2" type="button" style="background-color: #FE8890; border-color: #FE8890" value="로그인">
+    <input id="loginBtn" class="btn btn-primary w-100 py-2" type="button" 
+    style="background-color: #FE8890; border-color: #FE8890;" value="로그인">
   </form>
 </div>
 
