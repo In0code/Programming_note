@@ -34,7 +34,7 @@
   </select>
     <!-- 일일 방문자 -->
   <select id="selectVisitor" resultType="int">
-  select nvl(max(count(*)),0) cnt from member where to_date(login_date,'yyyy-MM-dd') = to_date(sysdate+1,'yyyy-MM-dd') group by login_date
+  select nvl(max(count(*)),0) cnt from visitors where to_char(daily_date,'yyyy-MM-dd') =  to_char(sysdate,'yyyy-MM-dd')  group by   to_char(sysdate,'yyyy-MM-dd')
   </select>
   <!-- 방문자수 추이 -->
   <select id="selectVisitors" resultType="int" parameterType="Date">

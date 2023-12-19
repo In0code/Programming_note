@@ -12,15 +12,32 @@ import kr.co.sist.admin.domain.AdminInquiryDomain;
 import kr.co.sist.admin.service.AdminInquiryService;
 import kr.co.sist.admin.vo.AdminInquiryVO;
 import kr.co.sist.common.BoardRangeVO;
+import kr.co.sist.common.pagination.Pagination;
+import kr.co.sist.common.pagination.PaginationDomain;
 
 @Controller
 public class AdminInquiryController {
 	@GetMapping("/admin/admin_inquiry_frm.do")
-	public String admin_inquery_frm(Model model, BoardRangeVO brVO) {
+	public String admin_inquery_frm(Model model, BoardRangeVO brVO, String page) {
 		List<AdminInquiryDomain> list= null;
 		AdminInquiryService ais= AdminInquiryService.getInstance();
+		
+		int totalRecode = ais.totalRecode();
+		int pageNum = 1;
+		if(page != null && !"".equals(page)) {
+			pageNum = Integer.parseInt(page);
+		}
+		
+		PaginationDomain pd = new Pagination().setStartEndPageNum(totalRecode, pageNum);
+		brVO.setStartNum(pd.getStartNum());
+		brVO.setEndNum(pd.getEndNum());
+		
 		list=ais.searchInquiry(brVO);
 		model.addAttribute("inquiryList", list);
+		model.addAttribute("pageStart", pd.getPaginationStartNum());
+		model.addAttribute("startNum", pd.getStartNum());
+		model.addAttribute("pageEnd", pd.getPaginationEndNum());
+		
 		return"admin/admin_inquiry_frm";
 	}
 	@GetMapping("/admin/admin_inquiry_detail_frm.do")

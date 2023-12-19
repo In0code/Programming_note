@@ -1,10 +1,12 @@
 package kr.co.sist.common.pagination;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Getter
 @ToString
+@NoArgsConstructor
 public class Pagination {
 
 	//setter로 원하는 값 설정
@@ -21,13 +23,27 @@ public class Pagination {
 	 * @param totalCount int
 	 * @param pageNum int
 	 */
-	public void setStartEndPageNum(int totalCount, int pageNum) {
+	public PaginationDomain setStartEndPageNum(int totalCount, int pageNum) {
 		totalPage = totalCount % pageScale != 0 ? (totalCount / pageScale) + 1 : totalCount / pageScale;
 		currentPage = pageNum;
 		startNum = currentPage * pageScale - pageScale + 1;		
 		endNum = startNum + pageScale - 1; //끝
-		paginationStartNum = (pageNum - paginationScale) < 1 ? pageNum : (pageNum - paginationScale);
-		paginationEndNum = (paginationScale + pageNum) > totalPage ? totalPage : (paginationScale + pageNum);
+		paginationStartNum = (pageNum - paginationScale) < 1 ? 1 : (pageNum - paginationScale);
+		
+		if((paginationStartNum + 4) > totalPage) {
+			paginationEndNum = totalPage;
+			paginationStartNum = 1;
+		} else {
+			paginationEndNum = paginationStartNum + 4;
+		}
+		
+		PaginationDomain pd = new PaginationDomain();
+		pd.setStartNum(startNum);
+		pd.setEndNum(endNum);
+		pd.setPaginationStartNum(paginationStartNum);
+		pd.setPaginationEndNum(paginationEndNum);
+		
+		return pd;
 	}
 	
 	/**

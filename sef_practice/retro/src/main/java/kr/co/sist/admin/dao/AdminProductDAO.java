@@ -93,7 +93,7 @@ public class AdminProductDAO {
 			ss.commit();
 		} else {
 			ss.rollback();
-		}
+		}//end else
 		
 		mbh.closeHandler(ss);
 

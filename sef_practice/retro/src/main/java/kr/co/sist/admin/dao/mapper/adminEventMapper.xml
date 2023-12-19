@@ -35,7 +35,7 @@ from event
 	</if>
 </where>
 )
-where rn between 1 and 10
+where rn between #{startNum} and #{endNum}
 </select>
 
 <!-- 이벤트 상세 -->

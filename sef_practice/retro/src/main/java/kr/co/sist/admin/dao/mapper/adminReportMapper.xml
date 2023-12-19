@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="kr.co.sist.adminreport">
+  
+ <!-- 신고리스트 보여주기 -->
+ <select id="selectReport" resultType="kr.co.sist.admin.domain.AdminReportDomain" parameterType="brVO">
+ select pname, type, category, id ,reportid,inputdate,rcode
+ from(select p.pname, r.type, c.name category , p.id id, r.id reportid, to_char(r.input_date,'yyyy-MM-dd') inputdate ,rcode,
+ row_number() over(order by p.INPUT_DATE desc) rnum  
+ from report r , product p, category3 c 
+ <where>
+ p.pcode=r.pcode and p.c3code= c.c3code 
+ <if test='keyword neq null and keyword neq ""'>
+ 	<if test='field eq "id"'>
+	and p.id like  #{keyword}
+	</if>
+ 	<if test='field eq "reportId"'>
+	and r.id like  #{keyword}
+	</if>
+			
+	<if test='field eq "type"'>
+	and r.type like  '%'||#{keyword}||'%'
+	</if>			
+ </if>
+ 
+ </where>
+ ) where rnum between #{ startNum } and #{ endNum }
+ </select>
+ 
+ 
+ <!-- 신고 내역 상세 보여주기 -->
+<select id="selectReportDetail" parameterType="String" resultType="kr.co.sist.admin.domain.AdminReportDomain">
+	select type, r.id, p.pname, p.id  reportId ,to_char(r.input_date,'yyyy-MM-dd') inputDate, rcode 
+	from report r , product p 
+	where p.pcode=r.pcode and rcode='${rcode}'
+</select>
+
+<!-- 신고된 상품 삭제 -->
+<update id="updatePcancel" parameterType="String">
+ update product
+  set pcancel='C' 
+  where pcode=(select r.pcode from report r , product p where p.pcode=r.pcode and rcode=#{rcode})
+</update>
+
+<select id="totalRecode" resultType="int">
+  select count(*) from report
+  </select>
+  </mapper>

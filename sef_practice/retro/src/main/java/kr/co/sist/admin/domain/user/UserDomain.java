@@ -13,6 +13,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class UserDomain {
 
-	private String id, nickName, userName, phone, input_date, email;
-	private char status;
+	private String id, nickname, phone, input_date, email, status;
 }

@@ -25,6 +25,8 @@ import kr.co.sist.admin.domain.AdminEventDomain;
 import kr.co.sist.admin.service.AdminEventService;
 import kr.co.sist.admin.vo.AdminEventVO;
 import kr.co.sist.common.BoardRangeVO;
+import kr.co.sist.common.pagination.Pagination;
+import kr.co.sist.common.pagination.PaginationDomain;
 
 @Controller
 public class AdminEventController {
@@ -37,11 +39,23 @@ public class AdminEventController {
 	 * @return
 	 */
 	@GetMapping("/admin/event.do")
-	public String eventList(Model model, HttpSession session, BoardRangeVO brVO) {
+	public String eventList(Model model, HttpSession session, BoardRangeVO brVO, String page) {
+		int currentPage = 1;
+		if(page != null && !"".equals(page)) {
+			currentPage = Integer.parseInt(page);
+		}
+		
+		int totalRecode = aes.totalCnt(brVO);
+		PaginationDomain pDomain = new Pagination().setStartEndPageNum(totalRecode, currentPage);
+		
+		brVO.setStartNum(pDomain.getStartNum());
+		brVO.setEndNum(pDomain.getEndNum());
 		
 		List<AdminEventDomain> list = aes.searchAllEvent(brVO);
 		
 		model.addAttribute("eventList", list);
+		model.addAttribute("pageStart", pDomain.getPaginationStartNum());
+		model.addAttribute("pageEnd", pDomain.getPaginationEndNum());
 		
 		return "admin/event/event_managing";
 	}

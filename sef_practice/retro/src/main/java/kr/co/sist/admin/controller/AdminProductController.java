@@ -7,15 +7,13 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.sist.admin.domain.AdminProductDetailDomain;
 import kr.co.sist.admin.domain.AdminProductDomain;
 import kr.co.sist.admin.service.AdminProductService;
-import kr.co.sist.admin.vo.AdminProductVO;
 import kr.co.sist.common.BoardRangeVO;
+import kr.co.sist.common.pagination.PaginationDomain;
 
 @Controller
 public class AdminProductController {
@@ -23,17 +21,23 @@ public class AdminProductController {
 	private AdminProductService aps = AdminProductService.getInstance();
 
 	@RequestMapping("/admin/product_managing.do")
-	public String productManage(HttpServletRequest request, BoardRangeVO brVO, Model model) {
-
+	public String productManage(HttpServletRequest request, BoardRangeVO brVO, String page, Model model) {
+		
+		
+		PaginationDomain pg=aps.productTotalCnt(page);
 		String keyword = request.getParameter("keyword");
 		String field = request.getParameter("field");
 
 		brVO.setKeyword(keyword);
 		brVO.setField(field);
+		brVO.setStartNum(pg.getStartNum());
+		brVO.setEndNum(pg.getEndNum());
 
 		List<AdminProductDomain> productList = aps.searchAllProduct(brVO);
 
 		model.addAttribute("productList", productList);
+		model.addAttribute("pageStartNum", pg.getPaginationStartNum());
+		model.addAttribute("pageEndNum", pg.getPaginationEndNum());
 
 		return "admin/product_managing";
 	}// productManage
@@ -57,6 +61,5 @@ public class AdminProductController {
 		return aps.editRemoveProduct(pcode).toJSONString();
 	}// productManage
 
-	
 	
 }// class

@@ -61,4 +61,16 @@ public int updateAnswer(AdminInquiryVO aiVO) {
 		return cnt;
 		
 	}//updateAnswer
+
+public int selectTotalRecode() {
+	int cnt=0;
+	MybatisHandler mbh= MybatisHandler.getInstance();
+	SqlSession ss= mbh.getMyBatisHandler(configPath, false);
+	cnt=ss.selectOne("kr.co.sist.admininquiry.totalRecode");
+	
+	mbh.closeHandler(ss);
+	
+	return cnt;
+	
+}
 }

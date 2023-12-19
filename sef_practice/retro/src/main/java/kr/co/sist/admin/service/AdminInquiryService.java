@@ -43,5 +43,10 @@ public class AdminInquiryService {
 		cnt = aiDAO.updateAnswer(aiVO);
 		return cnt;
 	}//modifyAnswer
+	
+	public int totalRecode() {
+		AdminInquiryDAO aiDAO = AdminInquiryDAO.getInstance();
+		return aiDAO.selectTotalRecode();
+	}
 }
 

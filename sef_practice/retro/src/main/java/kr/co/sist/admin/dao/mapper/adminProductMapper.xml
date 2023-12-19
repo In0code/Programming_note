@@ -6,8 +6,8 @@
 
 <select id="productTotalCnt" resultType="int" parameterType="brVO">
 select count(*) cnt
-from  PRODUCT 
-<where>
+from  PRODUCT p, MEMBER m,CATEGORY2 c2,CATEGORY3 c3
+where m.id=p.id   and p.C3CODE = c3.C3CODE and c2.C2CODE=c3.C2CODE and  p.PCANCEL !='D' and p.SALEOK !='Y'
 	<if test="keyword neq null and keyword neq ''">
 			<if test="field eq 'category'">
 			and c2.NAME like '%'||#{ keyword }||'%'
@@ -16,7 +16,6 @@ from  PRODUCT
 			and p.ID like '%'||#{ keyword }||'%'
 			</if>
 		</if>
-</where>
 </select>
 
 
@@ -36,7 +35,7 @@ where m.id=p.id   and p.C3CODE = c3.C3CODE and c2.C2CODE=c3.C2CODE and  PCANCEL 
 			</if>
 		</if>
 )
- where rnum between 1 and 10
+ where rnum between #{ startNum } and #{ endNum }
 </select>
 
 <!-- 상품 상세 조회 -->
@@ -53,8 +52,6 @@ update PRODUCT
 set   PCANCEL='C'
 where  PCODE=#{pcode}
 </update>
-
-
 
 
 </mapper>
