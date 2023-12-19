@@ -132,7 +132,12 @@
 				</li>
 			</c:forEach>
 		</c:when>
-		
+		<c:otherwise>
+		<div style="text-align: center; width: 1300px;">
+			<img src="http://localhost/retro_prj/common/images/no.png" width="90px" style="left:46%; position: relative; margin-bottom:20px"/>
+			<span>검색 결과가 없습니다.</span>
+		</div>
+		</c:otherwise>
 	</c:choose>
 		</ul>
 			<div class="bottom-0 py-3 m-auto text-center bg-white">

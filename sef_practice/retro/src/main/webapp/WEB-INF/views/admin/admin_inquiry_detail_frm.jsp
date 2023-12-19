@@ -138,12 +138,7 @@ function moveInquery() {
 		
 		<div class="text" id="mainTitle">
 			<strong>문의 상세</strong>
-			<a href="http://localhost/retro_prj/event.do">
-				<svg style="margin-bottom: 5px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
-  					<path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>
-  					<path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/>
-				</svg>
-			</a>
+			
 		</div>
 		
 		<!-- 검색 -->
@@ -160,7 +155,7 @@ function moveInquery() {
 		
 		<input type="hidden" name="inquiryCode" value="${param.inquiryCode}"/>
 		<div id="background_box" style=" height: 150%;">
-		<div style="margin-top: 30px;margin-left: 50px; font-size: 25px"><strong>문의자 ID:tuna51277</strong><br><br>문의 유형 : 거래물품 미발송</div>
+		<div style="margin-top: 30px;margin-left: 50px; font-size: 25px"><strong>문의자 ID: <c:out value="${aid.id}"/></strong><br><br>문의 유형 : <c:out value="${aid.type}"/></div>
 		<div style="margin-left: 50px; margin-top: 20px">문의 내용</div>
 		<textarea style="width:800px; height:220px; margin-left: 50px; margin-top:5px; resize:none;" readonly="readonly" id="context"><c:out value="${aid.context}"/></textarea>
 		

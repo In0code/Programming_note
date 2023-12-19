@@ -206,7 +206,7 @@ $(function() {
         <ul>
           <li><a href="admin_inquiry_frm.do?no=3">&ensp;&ensp;1:1문의</a>
           </li>
-          <li><a href="#void">&ensp;&ensp;신고내역</a>
+          <li><a href="admin_report_frm.do?no=3">&ensp;&ensp;신고내역</a>
           </li>
         </ul>
       </li>

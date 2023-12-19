@@ -53,7 +53,7 @@ $(function() {
 		location.href="logout.jsp";
 	});//click
 	
-	/* $(".searchBtn").click(function() {
+	$(".searchBtn").click(function() {
 		chkNull();
 	});//click
 	
@@ -61,7 +61,7 @@ $(function() {
 		if(evt.which == 13){
 			chkNull();
 		}//end if
-	});//keyup */
+	});//keyup
 	
 	$("#allList").click(function(){
 		location.href="product_managing.jsp";
@@ -113,10 +113,11 @@ function chkNull() {
 		<!-- 검색 -->
 		 <div class="searchDiv">
 		<div class="allBox">
-		<form id="frmSearch">
+		<form id="frmSearch" method="user_list.do">
 			<select class="searchList" id="field" name="field">
-				<option value="category"${ param.field eq "category" ? " selected='selected'" : "" }>아이디</option>
-				<option value="id"${ param.field eq "id" ? " selected='selected'" : "" }>닉네임</option>
+				<option value="id"${ param.field eq "category" ? " selected='selected'" : "" }>아이디</option>
+				<option value="nickname"${ param.field eq "id" ? " selected='selected'" : "" }>닉네임</option>
+				<option value="phone"${ param.field eq "id" ? " selected='selected'" : "" }>전화번호</option>
 			</select>
 			<span class="textBox" style="vertical-align: middle">
 			<input type="text" id="keyword" name="keyword" class="keywordBox" placeholder="내용을 입력해주세요"
@@ -165,7 +166,7 @@ function chkNull() {
 				
 					 <c:forEach var="member" items="${ userList }" varStatus="i">
 					<tr onclick="userDetail('${ member.id }')" style="cursor: pointer;">
-						<td>${ i.count }</td> 
+						<td>${ i.index + startNum }</td> 
 						<td><c:out value="${ member.id }"/></td>
 						<td>${ member.nickname }</td>
 						<td>${ member.phone }</td>
@@ -211,7 +212,7 @@ function chkNull() {
 	    		</c:choose>
     		</c:if>
     	</div>
-    </div>
+    	</div>
     	<c:if test="${ not empty param.keyword }">
 	    	<div class="btnDiv">
 				<a href="product_managing.do">

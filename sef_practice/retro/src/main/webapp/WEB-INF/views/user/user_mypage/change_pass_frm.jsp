@@ -6,7 +6,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 <c:import url="http://localhost/retro_prj/common/cdn/cdn.jsp"/>
 <link rel="stylesheet" href="https://kream.co.kr/_nuxt/css/199727e.css">
 <style type="text/css">
@@ -91,7 +90,7 @@ function check(pass) {
 </head>
 <body>
 <!-- header -->
-<c:import url="http://localhost/retro_prj/common/cdn/header.jsp" />
+<c:import url="/common/cdn/header.jsp" />
 	
 <main class="relative flex-grow border-b-2" style="min-height: -webkit-fill-available; -webkit-overflow-scrolling: touch">
 	<div class="flex mx-auto max-w-[1280px] px-4 md:px-8 2xl:px-16 box-content">

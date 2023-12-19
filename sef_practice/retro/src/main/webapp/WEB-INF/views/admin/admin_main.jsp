@@ -142,12 +142,12 @@ function getDate(num){
 		 <div style="margin-left: 20px;">today: <c:out value="${requestScope.joinCnt}"/></div>
 		</div>
 		
-		<div id="trade_box" class="divsmall" style="margin-top: 15px"><label>일일 거래 수</label>
+		<div id="trade_box" class="divsmall" style="margin-top: 15px"><label>일일 신고 건 수</label>
 		
 		<div style="margin-left: 20px;">today: <c:out value="${requestScope.reportCnt}"/></div>
 		  
 		</div>
-		<div id="report_box" class="divsmall box2"  ><label>일일 신고 건수</label>
+		<div id="report_box" class="divsmall box2"  ><label>일일 거래 건수</label>
 		<div style="margin-left: 20px;">today: <c:out value="${requestScope.tradeCnt}"/></div>
 		</div> 
 		
@@ -184,7 +184,7 @@ var myChart = new Chart(context, {
               label: '방문자', //차트 제목
               fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
               data: [
-                  ${visitorsList.get(0)},${visitorsList.get(1)},${visitorsList.get(2)},${visitorsList.get(3)},${visitorsList.get(4)} //x축 label에 대응되는 데이터 값
+                  ${visitorsList.get(4)},${visitorsList.get(3)},${visitorsList.get(2)},${visitorsList.get(1)},${visitorsList.get(0)} //x축 label에 대응되는 데이터 값
               ],
               backgroundColor: [
                   //색상

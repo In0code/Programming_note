@@ -6,7 +6,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 <link rel="icon" href="http://192.168.10.142/mvc_prj/common/main/favicon.png">
 <!-- bootstrap CDN-->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -27,7 +26,7 @@
 	}
 	label{font-weight: bold; font-family:Pretendard Variable}
 	
-	.ul {
+.ul {
     list-style: none;
     margin-left: 620px;
     font-family:Pretendard Variable;
@@ -106,7 +105,7 @@ $(function(){
 <br><div id="Warn" style="margin-top: 10px"><c:out value="${requestScope.msg}"/></div><br>
 
 </div>
-<div style="text-align: center; margin:0px auto; margin-top: 80px" id="LoginWrap">
+<div style="text-align: center; margin:0px auto;" id="LoginWrap">
 
 <label style="margin-left: -410px">아이디</label><br>
 <input type="text" id="id" name="id" placeholder="아이디를 입력해주세요"  class="inputBox" /> 

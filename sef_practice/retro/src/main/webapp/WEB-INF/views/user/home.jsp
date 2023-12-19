@@ -367,9 +367,7 @@ h1 {
 													</div>
 													<c:if test="${ not empty prd.loc }">
 														<span class="text-sm text-gray-400">${ prd.loc }</span>
-														<span class="text-sm text-gray-400 mx-1">|</span>
 													</c:if>
-													<span class="text-sm text-gray-400">5초 전</span>
 												</div>
 											</a>
 										</div>
@@ -416,9 +414,7 @@ h1 {
 													</div>
 													<c:if test="${ not empty prd.loc }">
 														<span class="text-sm text-gray-400">${ prd.loc }</span>
-														<span class="text-sm text-gray-400 mx-1">|</span>
 													</c:if>
-													<span class="text-sm text-gray-400">5초 전</span>
 												</div>
 											</a>
 										</div>
@@ -447,9 +443,7 @@ h1 {
 												<div class="my-1">
 													<c:if test="${ not empty prd.loc }">
 														<span class="text-sm text-gray-400">${ prd.loc }</span>
-														<span class="text-sm text-gray-400 mx-1">|</span>
 													</c:if>
-													<span class="text-sm text-gray-400">5초 전</span>
 												</div>
 											</div>
 										</a>
@@ -507,9 +501,7 @@ h1 {
 														<div class="my-1">
 															<c:if test="${ not empty prd.loc }">
 																<span class="text-sm text-gray-400">${ prd.loc }</span>
-																<span class="text-sm text-gray-400 mx-1">|</span>
 															</c:if>
-															<span class="text-sm text-gray-400">2분 전</span>
 														</div>
 														<div class="flex items-center">
 														</div>

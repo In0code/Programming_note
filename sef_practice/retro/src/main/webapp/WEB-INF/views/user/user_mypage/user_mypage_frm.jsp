@@ -6,7 +6,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 <c:import url="http://localhost/retro_prj/common/cdn/cdn.jsp" />
 <link rel="stylesheet" href="https://web.joongna.com/_next/static/css/8ef8137d4e8264e4.css">
 <link rel="stylesheet" href="https://web.joongna.com/_next/static/bJ7oyaYqN2wpRZw9j4F5K/_buildManifest.js">
@@ -67,8 +66,10 @@ function all() {
 		},
 		success:function(data) {
 			var cnt = $("#totalPrd").val();
-			$("#cntDiv").html(cnt+"개의 상품");
+			$("#prdInfo").html("");
+			$("#cntDiv").html("");
 			$("#prdInfo").html(data);
+			$("#cntDiv").html(cnt+"개의 상품");
 		}
 	});
 }
@@ -111,7 +112,7 @@ function sortUp(txt, f) {
 </head>
 <body>
 <!-- header -->
-<c:import url="http://localhost/retro_prj/common/cdn/header.jsp" />
+<c:import url="/common/cdn/header.jsp" />
 	
 <main class="relative flex-grow border-b-2" style="min-height: -webkit-fill-available; -webkit-overflow-scrolling: touch">
 	<div class="flex mx-auto max-w-[1280px] px-4 md:px-8 2xl:px-16 box-content">

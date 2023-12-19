@@ -25,7 +25,7 @@ $(function(){
 	   var confirmReport = confirm("정말로 신고하시겠습니까?");
 	   
 	   if(confirmReport){
-		   var id = "${param.id}";
+		   var id = "${sessionScope.id}";
 		   var pcode="${param.pcode}";
 		   var type=$("#type").val();
 		   reportAjax("report_add_success.do" ,id, type, pcode);
@@ -58,12 +58,12 @@ function reportAjax(url,userId,type,pcode){
 
 </head>
 <body>
-<div style="text-align: center; margin-top: 50px">
+<div style="text-align: center; margin-top: 50px; font-style: pretendard">
 <h3 >신고하기</h3>
 </div>
 
 <form id="btn" action="">
-<div style="text-align: center; margin-top: 40px">
+<div style="text-align: center; margin-top: 40px; font-style: pretendard">
 <input type="radio" name="type" id="type" value="광고성 콘텐츠(상점)이에요"/>광고성 콘텐츠(상점)이에요<br><br>
 <input type="radio" name="type" id="type"  value="상품정보가 부정확해요"/>상품정보가 부정확해요<br><br>
 <input type="radio" name="type" id="type"  value="거래 금지 품목으로 판단돼요."/>거래 금지 품목으로 판단돼요.<br><br>

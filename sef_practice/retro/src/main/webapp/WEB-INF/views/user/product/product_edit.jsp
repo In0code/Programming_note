@@ -169,7 +169,7 @@
 		});
 
 		/* 등록 버튼 클릭 시 동작 */
-		$("#registerBtn").click(function() {
+		$("#editBtn").click(function() {
 
 			var formData = new FormData($("#regiFrm")[0]);
 			
@@ -218,7 +218,7 @@
 				}//end else
 			}//end if
 			var frm = document.frm;
-			frm.action = "productEdit_register_ok.do";
+			frm.action = "${searchChk == 1 ? 'productEdit_register_ok.do' : '../product/productEdit_register_ok.do'}";
 			$("#regiFrm").submit();
 
 		});
@@ -552,7 +552,7 @@
 					</section>
 					<!-- 등록 버튼 -->
 					<div class="relative flex gap-4 px-5 py-3">
-						<input type="button" id="registerBtn"
+						<input type="button" id="editBtn"
 							class="text-[13px] md:text-sm leading-4 inline-flex items-center cursor-pointer transition ease-in-out duration-300 font-semibold font-body text-center justify-center border-0 border-transparent placeholder-white focus-visible:outline-none focus:outline-none rounded-md bg-heading text-white px-5 md:px-6 lg:px-8 py-4 md:py-3.5 lg:py-4 hover:text-white hover:bg-gray-600 hover:shadow-cart w-[20%] break-keep"
 							style="margin-left: 590px;" value="수정" />
 					</div>

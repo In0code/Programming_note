@@ -6,7 +6,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 <link rel="icon" href="http://192.168.10.143/mvc_prj/common/main/favicon.png">
 <!-- bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -33,7 +32,7 @@ function moveTo(bcCode) {
 </head>
 <body>
 <!-- header -->
-<c:import url="http://localhost/retro_prj/common/cdn/header.jsp" />
+<c:import url="/common/cdn/header.jsp" />
 	
 <main class="relative flex-grow border-b-2" style="min-height: -webkit-fill-available; -webkit-overflow-scrolling: touch">
 	<div class="flex mx-auto max-w-[1280px] px-4 md:px-8 2xl:px-16 box-content">
@@ -109,7 +108,7 @@ function moveTo(bcCode) {
 	<table style="border: none;border-collapse: separate;border-spacing: 0px 12px;">
 		<c:choose>
 			<c:when test="${not empty reiviews }">
-			<c:forEach var="reiview" items="${reiviews }">
+			<c:forEach var="reiview" items="${reiviews }" varStatus="i">
 				<tr style="border: none;cursor: pointer;" onclick="moveTo(${reiview.buycommentcode})">
 					<td style="border: none;text-align: left;width: 50px;">
 						<img src="https://img2.joongna.com/common/Profile/Default/profile_f.png" alt="id" width="42" height="42" referrerpolicy="no-referrer" class="css-sxxyvs" style="border-radius: 24px;">
@@ -136,6 +135,42 @@ function moveTo(bcCode) {
 	</table>
 </div>
 <div style="margin-bottom: 150px;">
+<!-- pagination start -->
+<div class="pagenationDiv">
+ <div class="pagination">
+ 	<c:if test="${pageEnd != 1 }">
+		<c:choose>
+			<c:when test="${empty param.page }">
+				<c:forEach var="pn" begin="1" end="${pageEnd }" step="1">
+					<a href="admin_inquiry_frm.do?page=${pn }">
+						<c:if test="${pn == 1 }">
+							<span class="active">1</span>
+						</c:if>
+						<c:if test="${pn != 1 }">
+							${pn }
+						</c:if>
+					</a>
+				</c:forEach>
+			</c:when>
+			<c:when test="${pageEnd != 1 }">
+				<c:forEach var="pn" begin="${pageStart }" end="${pageEnd }" step="1">
+					<a href="admin_inquiry_frm.do?page=${pn }">
+						<c:choose>
+							<c:when test="${param.page == pn }">
+								<span class="active">${pn }</span>
+							</c:when>
+							<c:otherwise>
+								${pn }
+							</c:otherwise>
+						</c:choose>
+					</a>
+				</c:forEach>
+			</c:when>
+		</c:choose>
+	</c:if>
+</div>
+</div>
+<!-- pagination end -->
 </div>
 </div>
 <!--  -->

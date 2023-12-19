@@ -5,9 +5,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 <c:import url="http://localhost/retro_prj/common/cdn/cdn.jsp" />
 <link rel="stylesheet" href="https://kream.co.kr/_nuxt/css/199727e.css">
+<link rel="stylesheet" href="https://kream.co.kr/_nuxt/css/e14864c.css">
+<link rel="stylesheet" href="https://kream.co.kr/_nuxt/css/1f3c072.css">
 <style type="text/css">
 .input_join{
 	text-align: left;
@@ -167,9 +168,9 @@ function handleOnInputPhone(e)  {
 
 	<!-- 회원가입 -->
 	<div data-v-286e873e="" data-v-7304c5c4="" class="container join" style="text-align: center;">
-		<div data-v-286e873e="" class="content lg">
+		<div data-v-286e873e="" class="content lg" style="padding-left:20px">
 			<div data-v-286e873e="" class="join_area">
-				<h2 data-v-286e873e="" class="join_title"><strong>회원가입</strong></h2>
+				<h2 data-v-286e873e="" class="join_title" style="margin: 50px 0px 20px 0px; font-size:23px"><strong>회원가입</strong></h2>
 				<div data-v-5ee806c3="" data-v-286e873e="" class="input_join input_box">
 					<h3 data-v-286e873e="" data-v-5ee806c3="" class="input_title ess">아이디</h3>
 					<div data-v-5ee806c3="" class="input_item">
@@ -213,7 +214,7 @@ function handleOnInputPhone(e)  {
 					</div>
 					<p data-v-286e873e="" data-v-5ee806c3="" class="input_error"></p>
 				</div>
-				<div data-v-286e873e="" class="join_terms">
+				<div data-v-286e873e="" class="join_terms" style="margin: 30px 0px 30px 0px">
 					<div id="detailInfo" class="terms_box">
 						<div class="check_main">
 							<div data-v-4c714e9f="" data-v-286e873e="" class="checkbox_item">

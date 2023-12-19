@@ -8,9 +8,9 @@
 <head>
 <meta charset="UTF-8">
 <c:import url="http://localhost/retro_prj/common/cdn/cdn.jsp" />
-<link rel="stylesheet" href="https://kream.co.kr/_nuxt/css/9caa514.css" />
-<link rel="stylesheet" href="https://kream.co.kr/_nuxt/css/199727e.css" />
-<link rel="stylesheet" href="https://kream.co.kr/_nuxt/css/7182ff8.css" />
+<link rel="stylesheet" href="https://kream.co.kr/_nuxt/css/1f3c072.css" />
+<link rel="stylesheet" href="https://kream.co.kr/_nuxt/css/7d787ff.css" />
+<link rel="stylesheet" href="https://kream.co.kr/_nuxt/css/c0c15c2.css" />
 
 <style type="text/css">
 dl, dt {
@@ -47,7 +47,7 @@ h4 {
 </head>
 <body>
 
-<c:import url="http://localhost/retro_prj/common/cdn/header.jsp"/>
+<c:import url="/common/cdn/header.jsp"/>
 	<main class="relative flex-grow border-b-2"
 		style="min-height: -webkit-fill-available; -webkit-overflow-scrolling: touch">
 		<div class="flex mx-auto max-w-[1280px] px-4 md:px-8 2xl:px-16 box-content">
@@ -70,7 +70,7 @@ h4 {
 										<li data-v-71603f99="" class="menu_item_parent select_item"><a
 											data-v-71603f99="" href="#select_item" class="menu_item"><img
 												data-v-71603f99=""
-												src="https://kream-phinf.pstatic.net/MjAyMzA2MjFfNzMg/MDAxNjg3MzUxMTQxMDk5._X8ITUGTSzqIhQitbG9KEl_aNAZIvERaeBnWZ4kd4b0g.oC0IhncZ1jN15hqLP3khlX5o0ov4RhzM4sW9d3ayFCIg.PNG/a_067df32d884c4361a6674c79902d5c66.png"
+												src="https://kream-phinf.pstatic.net/MjAyMzA2MjFfNzMg/MDAxNjg3MzUxMTQxMDk5._X8ITUGTSzqIhQitbG9KEl_aNAZIvERaeBnWZ4kd4b0g.oC0IhncZ1jN15hqLP3khlX5o0ov4RhzM4sW9d3ayFCIg.PNG/a_067df32d884c4361a6674c79902d5c66.png0"
 												width="20" height="20" alt="더보기"> 더보기 </a></li>
 									</ul>
 									<div data-v-71603f99="" class="v-portal" style="display: none;"></div>
@@ -82,34 +82,29 @@ h4 {
 					<div data-v-6287e8b0="" data-v-7a3bdf55="">
 						<div data-v-6287e8b0="">
 							
-							<div data-v-6287e8b0="" class="order_info" style="border-top: 0px">
+							<div data-v-6287e8b0="" class="order_info">
 								<!---->
-								<div data-v-41e7c61c="" data-v-6287e8b0=""
-									class="order_detail_header_product">
-									<div data-v-4d00617c="" data-v-41e7c61c=""
-										class="product_wrap tag_top">
-										<div data-v-4d00617c="" class="product_img_flex_box">
-											<div data-v-4d00617c="" class="product_img_wrap">
-												<img data-v-4d00617c="" alt="${data.pname }"
+								<div data-v-41e7c61c="" data-v-6287e8b0="" class="order_detail_header_product">
+									<div data-v-fc7cb978="" data-v-41e7c61c="" class="product_wrap tag_top">
+										<div data-v-fc7cb978="" class="product_img_flex_box">
+											<div data-v-fc7cb978="" class="product_img_wrap">
+												<img data-v-fc7cb978="" alt="${data.pname }"
 													src="http://localhost/retro_prj/upload/${data.img }"
 													class="product_img"
-													style="background-color: rgb(246, 238, 237);height: 250px;">
+													style="background-color: rgb(246, 238, 237);">
 												<!---->
 											</div>
 										</div>
-										<div data-v-4d00617c="" class="product_info_wrap">
-											<div data-v-4d00617c="" class="product_info" style="margin-top: 10px">
+										<div data-v-fc7cb978="" class="product_info_wrap">
+											<div data-v-fc7cb978="" class="product_info">
+												<div data-v-fc7cb978="" class="tag_wrap">
 												<!-- 상품명 -->
-												<p data-v-4d00617c="" class="product_description" style="font-size:18px">
+												<p data-v-fc7cb978="" class="product_description">
 													${data.pname }</p>
 												<!-- 판매자 닉네임 -->
-												<p data-v-4d00617c="" class="product_title">
+												<p data-v-fc7cb978="" class="product_title">
 													${sessionScope.nickname }
 												</p>
-												<div data-v-4d00617c="" class="product_option_wrap">
-													<div data-v-4d00617c="" class="tag_wrap">
-														<!---->
-													</div>
 												</div>
 											</div>
 										</div>
@@ -270,7 +265,7 @@ h4 {
 								<dl data-v-0c19a43c="" class="address_item" style="padding: 20px 16px;">
 									<dt data-v-0c19a43c="" class="address_title">휴대폰 번호</dt>
 									<c:set var="TextValue" value="${data.phone }"/>
-									<dd data-v-0c19a43c="" class="address_txt">${fn:substring(TextValue,0,3)}-${fn:substring(TextValue,3,7)}-${fn:substring(TextValue,7,11)}</dd>
+									<dd data-v-0c19a43c="" class="address_txt">${fn:substring(TextValue,0,3)}-${fn:substring(TextValue,3,4)}***-*${fn:substring(TextValue,8,11)}</dd>
 								</dl>
 							</div>
 							<!---->

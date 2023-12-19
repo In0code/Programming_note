@@ -94,17 +94,22 @@ function moveInquery() {
 		<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
  		<path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
 		</svg>
-		1:1문의 관리
+		신고리스트
 		
 		<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
  		<path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
 		</svg>
-		문의 상세
+		신고 상세
 		</div>
 		
 		<div class="text" id="mainTitle">
 			<strong>문의 상세</strong>
-			
+			<a href="http://localhost/retro_prj/event.do">
+				<svg style="margin-bottom: 5px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
+  					<path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>
+  					<path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/>
+				</svg>
+			</a>
 		</div>
 		
 		<!-- 검색 -->
@@ -120,7 +125,7 @@ function moveInquery() {
 		
 		
 		<div id="background_box" style="overflow:hidden; border-radius: 12px">
-		<div style="text-align:center; margin-top: 300px; font-size: 30px"><c:out value="${msg}"/></div>
+		<div style="text-align:center; margin-top: 300px; font-size: 30px"><c:out value="${result eq 1 ? '신고 상품 삭제가 완료되었습니다.':'신고 상품 삭제가 실패했습니다. 다시 시도해주세요.'}"/></div>
 		
 		
     	

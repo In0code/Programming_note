@@ -13,6 +13,7 @@
 <!-- jQuery CDN -->
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+ <c:import url="/common/cdn/cdn.jsp" /> 
 <style type="text/css">
 	.inputBox {
 	 border:none;
@@ -37,6 +38,70 @@ a:hover { color:#222222 }
 table, tr, td{
  border:none;
 }
+ .pagenationDiv{
+	position: absolute;
+	top: 735px;
+	width: 1480px;
+	text-align: center;
+}
+
+.pagination {
+  display: inline-block;
+}
+
+.pagination a{
+  display: inline-block;
+  padding: 10px 18px;
+  color: #222;
+}
+
+.pagination span{
+  display: inline-block;
+  padding: 10px 18px;
+  color: #222;
+}
+
+.pagination a.active {
+  font-weight: bold;
+  border-bottom: 3px solid #2ecc71;
+}
+
+.pagination span.active {
+  font-weight: bold;
+  border-bottom: 3px solid #2ecc71;
+}
+
+.pagination a:hover:not(.active) {
+	background-color: #D7F7E4;
+}
+
+a {
+	text-decoration: none;
+	color: #5d5f63;
+}
+
+a:hover {
+	color: #333;
+}
+
+.pagination ul{
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.pagination a{
+  display: inline-block;
+  padding: 10px 18px;
+  color: #222;
+}
+
+/* TWO */
+
+.p2 .is-active li{
+  font-weight: bold;
+  border-bottom: 3px solid #2ecc71;
+} */
 
 
 </style>
@@ -58,13 +123,11 @@ $(function(){
 
 
 </head>
- <c:import url="/common/cdn/cdn.jsp" /> 
-
  <jsp:include page="/common/cdn/header.jsp"/>
  
 <body>
 <main class="relative flex-grow border-b-2"
-		style="min-height: -webkit-fill-available; -webkit-overflow-scrolling: touch">
+		style="min-height: 600px; -webkit-overflow-scrolling: touch">
 		<div class="flex mx-auto max-w-[1280px] px-4 md:px-8 2xl:px-16 box-content">
 		<c:import url="http://localhost/retro_prj/common/cdn/mypage_sidebar.jsp" />
 		<div class="w-full flex-grow">
@@ -72,7 +135,7 @@ $(function(){
 <div style=" font-size: 35px; font-weight: bold; color: #333333;  margin-top: 30px; margin-bottom:10px ">1:1 문의내용</div>
 	<input type="button" id="writebtn" value="문의작성" style="color:#FFFFFF; background-color:#333333; margin-left: 1000px; margin-bottom: 5px" class="btn btn-dark">
 	<hr style="border: solid 2px #000000; margin-top:10px; width: 100%; margin: 0px auto">
-
+		
 		<table style="border-left: none; border-right: none; border-top: none;">
 
        
@@ -96,39 +159,45 @@ $(function(){
           </c:forEach> 
 
 		</table>
+		
 	<!-- 페이지네이션 -->
-	<div class="pagenationDiv">
-    	<div class="pagination">
-    		<c:if test="${pageEnd != 1 }">
-	    		<c:choose>
-	    			<c:when test="${empty param.page }">
-	    				<a href="inquiry_frm.do?page=1"><span class="active">1</span></a>
-	    				<a href="inquiry_frm.do?page=1">2</a>
-	    				<a href="inquiry_frm.do?page=1">3</a>
-	    				<a href="inquiry_frm.do?page=1">4</a>
-	    				<a href="inquiry_frm.do?page=1">5</a>
-	    			</c:when>
-		    		<c:when test="${pageEnd != 1 }">
-		    			<c:forEach var="pn" begin="${pageStart }" end="${pageEnd }" step="1">
-			        		<a href="inquiry_frm.do?page=${pn }">
-			        			<c:choose>
-				    				<c:when test="${param.page == pn }">
-							        	<span class="active">${pn }</span>
-				    				</c:when>
-				    				<c:when test="${empty param.page }">
-				    					<span class="active">1</span>
-				    				</c:when>
-			        			</c:choose>
-		    				</a>
-		    			</c:forEach>
-		    		</c:when>
-	    		</c:choose>
-    		</c:if>
-    	</div>
-    </div>
+	<!-- pagination start -->
+<div class="pagenationDiv" style="margin-left: -200px; margin-top: -200px">
+<div class="pagination">
+	<c:if test="${pageEnd != 1 }">
+		<c:choose>
+			<c:when test="${empty param.page }">
+				<c:forEach var="pn" begin="1" end="${pageEnd }" step="1">
+ 				<a href="inquiry_frm.do?page=${pn }">
+ 				<c:if test="${pn == 1 }">
+  				<span class="active">1</span>
+ 				</c:if>
+ 				<c:if test="${pn != 1 }">
+ 					${pn }
+ 				</c:if>
+ 				</a>
+				</c:forEach>
+			</c:when>
+	 		<c:when test="${pageEnd != 1 }">
+	 			<c:forEach var="pn" begin="${pageStart }" end="${pageEnd }" step="1">
+	      		<a href="inquiry_frm.do?page=${pn }">
+	      			<c:choose>
+	   				<c:when test="${param.page == pn }">
+			        	<span class="active">${pn }</span>
+	   				</c:when>
+	   				<c:otherwise>
+	   					${pn }
+	   				</c:otherwise>
+	      			</c:choose>
+	 				</a>
+	 			</c:forEach>
+	 		</c:when>
+		</c:choose>
+	</c:if>
 </div>
 </div>
 
+<!-- pagination end -->
 
 </main>
  <jsp:include page="/common/cdn/footer.jsp"/> 

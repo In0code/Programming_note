@@ -45,9 +45,16 @@ body{
 	position: absolute;
 	left : 60px;
 } 
+textarea{
 
+border:3px solid #EEEEEE;
+ margin-top: 15px;
+  border-radius: 5px
+ }
  
-
+ textarea:focus {
+  outline: none;
+}
 
 .btn{
 	height: 46px;
@@ -63,7 +70,14 @@ body{
 
 <script type="text/javascript">
 $(function() {
-
+	$("#removebtn").click(function(){
+		$("#frm").submit();
+	
+	})
+	
+	
+	
+	
 	
 });//ready
 
@@ -73,9 +87,9 @@ function logOut() {
 }
 
 //목록가기
-function moveInquery() {
+function moveReport() {
 	
-	location.href="admin_inquiry_frm.do";
+	location.href="admin_report_frm.do";
 
 }
 
@@ -84,6 +98,7 @@ function moveInquery() {
 <body>
  <%@ include file="sidebar.jsp" %>
 <div id="right">
+
 	<div id="rightHeader" align="right">
 		<span style="font-weight: bold;margin-right: 20px">관리자님</span>
 		<input id="btnLogout" type="button" onclick="logOut()" class="btn btn-outline-dark" value="로그아웃" style="margin-right: 20px">
@@ -94,16 +109,16 @@ function moveInquery() {
 		<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
  		<path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
 		</svg>
-		1:1문의 관리
+		<a href="admin_report_frm.do">신고내역</a>
 		
 		<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
  		<path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
 		</svg>
-		문의 상세
+		신고 상세
 		</div>
 		
 		<div class="text" id="mainTitle">
-			<strong>문의 상세</strong>
+			<strong>신고 상세</strong>
 			
 		</div>
 		
@@ -117,19 +132,31 @@ function moveInquery() {
 
 		
 		<!-- 테이블 -->
+		<form id="frm" action="admin_report_update_success.do" method="get">
 		
+		<input type="hidden" name="rcode" value="${param.rcode}"/>
+		<div id="background_box" style=" height: 130%;">
+		<div style="margin-top: 0px;margin-left: 50px; font-size: 25px">
+		<br><br>
+		<img src="http://localhost/retro_prj/upload/<c:out value="${ img }"/>" style="width:400px; height:400px"/>
+		<div style="margin-top: 15px; padding:15px">
+		신고 물품 : <c:out value="${ard.pname}"/><br><br>
+		신고일 : <c:out value="${ard.inputDate }"/>
+		</div>
+		</div>
+		<div style="margin-left: 550px; margin-top: -550px; font-size: 25px"><strong>신고유형 : <c:out value="${ard.type}"/></strong><br><br>
+		신고자 ID : <c:out value="${ard.id}"/><br><br>
+		피신고자 ID : <c:out value="${ard.reportId}"/>
+		</div>
 		
-		<div id="background_box" style="overflow:hidden; border-radius: 12px">
-		<div style="text-align:center; margin-top: 300px; font-size: 30px"><c:out value="${msg}"/></div>
-		
-		
-    	
+		</div>    	
     	<!-- 버튼 쓸 사람 -->
     	<div class="btnDiv">
-			<input type="button" class="btn" value="돌아가기" onclick="moveInquery() " id="listbtn1" name="listbtn" style=" margin:0px auto; margin-left:100px; margin-top: -600px; background-color: #333333; color: white" >	
+			<input type="button" class="btn" value="목록" onclick="moveReport()" id="listbtn" name="listbtn" style="margin-left:550px; margin-top: -540px; background-color: #333333; color: white; " >	
+			<input type="button" class="btn" value="신고상품삭제"  id="removebtn" name="removebtn" style="margin-left:300px; margin-top: -586px; background-color: #333333; color: white; width:120px">	
 		</div>
 		<!---->
-	
+		</form>
 	</div>	
 </div>
 </body>

@@ -30,6 +30,7 @@
 	<p><a href="indexdw.do">로그인</a></p>
 	<p><a href="user_join.do">회원 가입</a></p>
 	<p><a href="user_sales_frm.do">판매내역</a></p>
+	<p><a href="user_list.do">회원관리</a></p>
 </div>
 </body>
 </html>
