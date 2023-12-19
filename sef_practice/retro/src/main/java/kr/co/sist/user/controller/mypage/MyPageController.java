@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.sist.common.BoardRangeVO;
+import kr.co.sist.common.pagination.Pagination;
+import kr.co.sist.common.pagination.PaginationDomain;
 import kr.co.sist.user.domain.MyPageEnterDomain;
 import kr.co.sist.user.domain.reiview.ReiviewCntDomain;
 import kr.co.sist.user.domain.reiview.ReiviewDomain;
@@ -86,7 +89,7 @@ public class MyPageController {
 	}
 	
 	@RequestMapping(value = "/user_buy_comment.do", method = {GET, POST})
-	public String userBuyCommentFrm(HttpSession session,String id, Model model) {
+	public String userBuyCommentFrm(HttpSession session,String id, String page, Model model) {
 		String useId = "";
 		if((String)session.getAttribute("id") != null) {
 			useId = (String)session.getAttribute("id");			
@@ -94,11 +97,27 @@ public class MyPageController {
 			useId = id;
 		}
 		
-		List<ReiviewDomain> list = rService.searchUseProfileReiview(useId);
+		BoardRangeVO brVO = new BoardRangeVO();
+		brVO.setId(useId);
+		
+		int pageNum = 1;
+		if(page != null && !"".equals(page)) {
+			pageNum = Integer.parseInt(page);
+		}
+		
+		int totalRecode = rService.totalReocodeCnt(useId);
+		PaginationDomain pd = new Pagination().setStartEndPageNum(totalRecode, pageNum);
+		
+		brVO.setStartNum(pd.getStartNum());
+		brVO.setEndNum(pd.getEndNum());
+		
+		List<ReiviewDomain> list = rService.searchUseProfileReiview(brVO);
 		ReiviewCntDomain rcDomain = rService.getReiviewCnt(list);
 		
 		model.addAttribute("reiviews", list);
 		model.addAttribute("reiviewCnt", rcDomain);
+		model.addAttribute("pageStart", pd.getPaginationStartNum());
+		model.addAttribute("pageEnd", pd.getPaginationEndNum());
 		
 		return "user/user_mypage/seller_comment_list";
 	}

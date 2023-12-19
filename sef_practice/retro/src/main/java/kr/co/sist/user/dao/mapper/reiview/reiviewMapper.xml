@@ -3,10 +3,17 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.sist.user.mypageReiview">
-<select id="myReiview" resultType="kr.co.sist.user.domain.reiview.ReiviewDomain" parameterType="String">
-SELECT BC.BUYCOMMENTCODE, BC.ID, BC.CONTEXT, TO_CHAR(BC.INPUT_DATE, 'YYYY-MM-DD') INPUT_DATE, BC.SELECT2, BC.SELECT1
+<select id="myReiview" resultType="kr.co.sist.user.domain.reiview.ReiviewDomain" parameterType="kr.co.sist.common.BoardRangeVO">
+SELECT BC.BUYCOMMENTCODE, BC.ID, BC.CONTEXT, TO_CHAR(BC.INPUT_DATE, 'YYYY-MM-DD') INPUT_DATE, BC.SELECT1, 
+BC.SELECT2_1, BC.SELECT2_2, BC.SELECT2_3, BC.SELECT2_4
 FROM BUYCOMMENT BC, BUYRECEIPT BR, PRODUCT P
 WHERE BC.BUYRECEIPTCODE=BR.BUYRECEIPTCODE AND BR.PCODE=P.PCODE AND P.ID='${id}'
 </select>
 
+<!-- 전체 레코드 구하기 -->
+<select id="totalRecode" resultType="int" parameterType="String">
+SELECT COUNT(*)
+FROM BUYCOMMENT BC, BUYRECEIPT BR, PRODUCT P
+WHERE BC.BUYRECEIPTCODE=BR.BUYRECEIPTCODE AND BR.PCODE=P.PCODE AND P.ID='${id}'
+</select>
 </mapper>

@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Component;
 
+import kr.co.sist.common.BoardRangeVO;
 import kr.co.sist.common.dao.MybatisHandler;
 import kr.co.sist.user.domain.mypage.MypagePrdDomain;
 import kr.co.sist.user.vo.MypageIDnFlagVO;
@@ -23,13 +24,13 @@ public class MypagePrdInfoDAO {
 	 * @param id
 	 * @return  List&lt;MypagePrdDomain&gt;
 	 */
-	public List<MypagePrdDomain> selectAllPrd(MypageIDnFlagVO mVO) {
+	public List<MypagePrdDomain> selectAllPrd(BoardRangeVO brVO) {
 		List<MypagePrdDomain> list = null;
 		
 		mh = MybatisHandler.getInstance();
 		SqlSession ss = mh.getMyBatisHandler(false);
 		
-		list = ss.selectList("kr.co.sist.user.mypagePrdInfo.selectAllPrd", mVO);
+		list = ss.selectList("kr.co.sist.user.mypagePrdInfo.selectAllPrd", brVO);
 		
 		mh.closeHandler(ss);
 		
@@ -41,13 +42,13 @@ public class MypagePrdInfoDAO {
 	 * @param id
 	 * @return List&lt;MypagePrdDomain&gt;
 	 */
-	public List<MypagePrdDomain> selectPrdOnProcess(MypageIDnFlagVO mVO) {
+	public List<MypagePrdDomain> selectPrdOnProcess(BoardRangeVO brVO) {
 		List<MypagePrdDomain> list = null;
 		
 		mh = MybatisHandler.getInstance();
 		SqlSession ss = mh.getMyBatisHandler(false);
 		
-		list = ss.selectList("kr.co.sist.user.mypagePrdInfo.selectPrdOnProcess", mVO);
+		list = ss.selectList("kr.co.sist.user.mypagePrdInfo.selectPrdOnProcess", brVO);
 		
 		mh.closeHandler(ss);
 		
@@ -59,16 +60,29 @@ public class MypagePrdInfoDAO {
 	 * @param id
 	 * @return  List&lt;MypagePrdDomain&gt;
 	 */
-	public List<MypagePrdDomain> selectCompletedPrd(MypageIDnFlagVO mVO) {
+	public List<MypagePrdDomain> selectCompletedPrd(BoardRangeVO brVO) {
 		List<MypagePrdDomain> list = null;
 		
 		mh = MybatisHandler.getInstance();
 		SqlSession ss = mh.getMyBatisHandler(false);
 		
-		list = ss.selectList("kr.co.sist.user.mypagePrdInfo.selectCompletedPrd", mVO);
+		list = ss.selectList("kr.co.sist.user.mypagePrdInfo.selectCompletedPrd", brVO);
 		
 		mh.closeHandler(ss);
 		
 		return list;
+	}
+	
+	public int selectTotalRecode(BoardRangeVO brVO) {
+		int result = 0;
+		
+		MybatisHandler mh = MybatisHandler.getInstance();
+		SqlSession ss = mh.getMyBatisHandler(false);
+		
+		result = ss.selectOne("kr.co.sist.user.mypagePrdInfo.totalRecode", brVO);
+		
+		mh.closeHandler(ss);
+		
+		return result;
 	}
 }

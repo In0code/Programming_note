@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.sist.common.BoardRangeVO;
 import kr.co.sist.user.dao.sales.SalesDAO;
 import kr.co.sist.user.domain.sales.SalesDomain;
 import kr.co.sist.user.domain.sales.SalesListDomain;
@@ -18,18 +19,18 @@ public class SalesService {
 	@Autowired
 	private SalesDAO sDAO;
 	
-	public List<SalesListDomain> searchSales(SalesListVO slVO) {
+	public List<SalesListDomain> searchSales(BoardRangeVO brVO) {
 		List<SalesListDomain> list = null;
 
-		switch (slVO.getFlag()) {
+		switch (brVO.getStatus().charAt(0)) {
 		case 'A':
-			list = searchAllSales(slVO.getId());
+			list = searchAllSales(brVO.getId());
 			break;
 		case 'O':
-			list = searchOnSales(slVO.getId());
+			list = searchOnSales(brVO.getId());
 			break;
 		case 'F':
-			list = searchFinishedSales(slVO.getId());
+			list = searchFinishedSales(brVO.getId());
 			break;
 		}
 		
@@ -78,5 +79,9 @@ public class SalesService {
 		}
 		
 		return sDomain;
+	}
+	
+	public int totalRecodeCnt(String id) {
+		return sDAO.selectTotalRecode(id);
 	}
 }

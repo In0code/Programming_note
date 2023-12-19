@@ -8,18 +8,18 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import kr.co.sist.user.domain.ProductDomain;
 import kr.co.sist.user.service.ProductService;
-import kr.co.sist.user.service.WishService;
 import kr.co.sist.user.vo.ProductVO;
 
+@SessionAttributes("pcode")
 @Controller
 public class ProductController {
 	private ProductService ps=ProductService.getInstance();
@@ -45,16 +45,21 @@ public class ProductController {
 	 * @return
 	 */
 	@RequestMapping("/user/product/product_register_ok.do")
-	public String productRegisterOk(HttpSession session,HttpServletRequest request,ProductVO pVO)  {
+	public String productRegisterOk(Model model,HttpSession session,HttpServletRequest request,ProductVO pVO)  {
 		
 		File saveDir=new File("C:/Users/user/git/retro/retro_prj/src/main/webapp/upload");
 		
 		int maxSize=1024*1024*30; // 최대 파일 업로드 사이즈 30Mbyte
 		try {
+			
+			String pcode=ps.pcode();
+			
 			MultipartRequest mr=new MultipartRequest(request, saveDir.getAbsolutePath(), 
 					maxSize, "UTF-8",new DefaultFileRenamePolicy());
 			
 			String id = (String)session.getAttribute("id");
+			
+			
 			
 			pVO.setPname(mr.getParameter("pname"));
 			pVO.setContext(mr.getParameter("context"));
@@ -67,9 +72,12 @@ public class ProductController {
 			pVO.setStatus(mr.getParameter("status"));
 			pVO.setLoc(mr.getParameter("loc"));
 			pVO.setC3code(mr.getParameter("c3code"));
-			pVO.setPcode(mr.getParameter("pcode"));
+			pVO.setPcode(pcode);
 			pVO.setId(id);
+			
 			ps.addProduct(pVO);
+			
+			model.addAttribute("pcode", pcode);
 	       
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -89,13 +97,14 @@ public class ProductController {
 	public String productDetail( HttpSession session,Model model,ProductVO pVO) {
 		String id = (String)session.getAttribute("id");
 	
-		String pcode=ps.getPcode(id);
+		String pcode = (String)session.getAttribute("pcode"); 
 		pVO.setPcode(pcode);
 		pVO.setId(id);
 		ProductDomain userProduct=ps.searchProduct(pVO);
 		
 		model.addAttribute("AllCominfo", ps.searchBuyerAllInfo(id));
 		model.addAttribute("wishCnt", ps.searchWishCnt(pcode));
+		model.addAttribute("searchChk", ps.searchCheck(pVO));
 		
 		model.addAttribute("userProduct",userProduct);
 		
@@ -115,6 +124,7 @@ public class ProductController {
 	    pVO.setPcode(pcode); 
 
 	    model.addAttribute("userProduct", ps.searchProduct(pVO));
+	    model.addAttribute("searchChk", ps.searchCheck(pVO));
 
 	    return "user/product/product_edit";
 	}//productEditFrm

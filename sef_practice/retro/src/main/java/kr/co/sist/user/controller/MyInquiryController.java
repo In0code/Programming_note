@@ -20,7 +20,7 @@ import kr.co.sist.user.vo.MyInquiryVO;
 
 @Controller
 public class MyInquiryController {
-	@GetMapping("/user/inquiry/inquiry_frm.do")
+	@GetMapping("/inquiry_frm.do")
 	public String inquery_frm(Model model, HttpSession hs, String page) {
 		List<MyInquiryDomain> list = null;
 		String id = (String)(hs.getAttribute("id"));
@@ -51,7 +51,7 @@ public class MyInquiryController {
 
 	
 	
-	@GetMapping("/user/inquiry/inquiry_detail_frm.do")
+	@GetMapping("/inquiry_detail_frm.do")
 	public String inquery_detail_frm(Model model, @RequestParam("icode") String icode) {
 		
 		
@@ -75,7 +75,7 @@ public class MyInquiryController {
 		return "user/inquiry/inquiry_detail_frm";
 	}
 	
-	@RequestMapping("/user/inquiry/inquiry_updt_frm.do")
+	@RequestMapping("/inquiry_updt_frm.do")
 	public String inquiry_updt_frm( Model model, MyInquiryVO miVO) {
 		
 		
@@ -91,7 +91,7 @@ public class MyInquiryController {
 		return "user/inquiry/inquiry_updt_frm";
 	}
 	
-	@RequestMapping("/user/inquiry/inquiry_delete_frm.do")
+	@RequestMapping("/inquiry_delete_frm.do")
 	public String inquiry_updt_frm( Model model, String inquiryCode) {
 		
 		
@@ -107,7 +107,7 @@ public class MyInquiryController {
 		return "user/inquiry/inquiry_delete_frm";
 	}
 	
-	@GetMapping("/user/inquiry/inquiry_write_frm.do")
+	@GetMapping("/inquiry_write_frm.do")
 	public String inquiry_write_frm() {
 		
 		
@@ -117,7 +117,7 @@ public class MyInquiryController {
 		return "user/inquiry/inquiry_write_frm";
 	}
 	
-	@RequestMapping("/user/inquiry/inquiry_write_success.do")
+	@RequestMapping("/inquiry_write_success.do")
 	public String inquiry_write_success(Model model, MyInquiryVO miVO) {
 		miVO.setId("tuna51277");
 		MyInquiryService mis= MyInquiryService.getInstance();

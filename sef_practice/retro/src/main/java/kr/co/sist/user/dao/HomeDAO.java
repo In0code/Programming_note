@@ -39,4 +39,20 @@ public class HomeDAO {
 		
 		return list;
 	}
+	
+	public void insertDailyDate() throws PersistenceException{
+		
+		int result=0;
+		MybatisHandler mbh=MybatisHandler.getInstance();
+		SqlSession ss = mbh.getMyBatisHandler(configPath,false);
+		result=ss.insert("user.home.insertDailyDate");
+		 if(result==1) {
+			 ss.commit();
+		 }else {
+			 ss.rollback();
+		 }
+		 
+		mbh.closeHandler(ss);
+		
+	}//insertDailyDate
 }

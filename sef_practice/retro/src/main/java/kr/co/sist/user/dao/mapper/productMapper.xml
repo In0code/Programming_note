@@ -4,6 +4,9 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="user.product">
 
+	<select id="createPcode" resultType="String">
+	select 'P' || lpad(pcode_seq.nextval, 5, 0) as pcode from dual
+	</select>
 	<!-- 카테고리 조회 조회 -->
 	<insert id="insertProduct" parameterType="pVO"  >
 		insert into PRODUCT (PCODE, PNAME, CONTEXT, IMG, 
@@ -20,7 +23,7 @@
 	 		IMG5,
 	 		</if>
 		PRICE, INPUT_DATE, DELIVER, STATUS, LOC, PCANCEL, C3CODE, ID)
- 		values ('P' || lpad(pcode_seq.nextval, 5, 0),#{pname},#{context},#{img},
+ 		values (#{ pcode },#{pname},#{context},#{img},
  		
 	 		<if test="img2 != null and img2 != ''">
 	 		#{img2},
@@ -38,9 +41,6 @@
  		#{c3code},#{id})
 	</insert>
 	
-	<select id="getPcode" resultType="String" parameterType="String">
-  SELECT pcode FROM (select pcode, input_date from product where id=#{ id }) ORDER BY input_date DESC FETCH FIRST 1 ROW ONLY
-	</select>
 
 	<select id="selectProduct" resultType="pd" parameterType="pVO">
     SELECT 
@@ -117,6 +117,11 @@
 		delete from PRODUCT where PCODE=#{pcode}
 	</delete>
 	
+	<select id="selectCheck" parameterType="pVO" resultType="int">
+	select count(*) cnt
+	from product
+	where pcode = #{ pcode } and id = #{ id }
+	</select>
 	
 	
 

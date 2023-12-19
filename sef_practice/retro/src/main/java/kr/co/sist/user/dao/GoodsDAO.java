@@ -9,7 +9,9 @@ import org.springframework.stereotype.Component;
 import kr.co.sist.common.PageVO;
 import kr.co.sist.common.dao.MybatisHandler;
 import kr.co.sist.user.domain.GoodsDomain;
+import kr.co.sist.user.domain.ProductDomain;
 import kr.co.sist.user.vo.GoodsVO;
+import kr.co.sist.user.vo.ProductVO;
 
 @Component
 public class GoodsDAO {
@@ -251,6 +253,24 @@ public class GoodsDAO {
 		return cnt;
 	}
 	
+	/**
+	 * 상품 조회
+	 * 
+	 * @param pVO
+	 * @return
+	 * @throws PersistenceException
+	 */
+	public ProductDomain selectProduct(ProductVO pVO) throws PersistenceException {
+		ProductDomain search = null;
+
+		MybatisHandler mbh = MybatisHandler.getInstance();
+		SqlSession ss = mbh.getMyBatisHandler(false);
+		search = ss.selectOne("kr.co.sist.goods.selectProduct", pVO);
+
+		mbh.closeHandler(ss);
+
+		return search;
+	}// selectProduct
 	
 	public static void main(String[] args) {
 		GoodsDAO gDAO=new GoodsDAO();

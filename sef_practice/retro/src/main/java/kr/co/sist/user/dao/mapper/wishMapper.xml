@@ -21,7 +21,7 @@
 	 p.IMG, p.pname, p.price, p.id ,p.PCODE, w.wcode
 	  from PRODUCT p,WISH w
 	 where  p.pcode = w.pcode and w.id= #{ id }
-	 ) where rnum between 1 and 5
+	 ) where rnum between 1 and 10
 		</select>
 		
 		<select id="getPcode" resultType="int" parameterType="wVO">

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import kr.co.sist.common.BoardRangeVO;
 import kr.co.sist.user.dao.MypagePrdInfoDAO;
 import kr.co.sist.user.domain.mypage.MypagePrdDomain;
 import kr.co.sist.user.vo.MypageIDnFlagVO;
@@ -27,8 +28,8 @@ public class MypagePrdInfoService {
 	 * @return List&lt;MypagePrdDomain&gt;
 	 */
 	@PostMapping("/mypage_prd_all.do")
-	public List<MypagePrdDomain> searchAllPrd(MypageIDnFlagVO mVO) {
-		return mpDAO.selectAllPrd(mVO);
+	public List<MypagePrdDomain> searchAllPrd(BoardRangeVO brVO) {
+		return mpDAO.selectAllPrd(brVO);
 	}
 	
 	/**
@@ -37,8 +38,8 @@ public class MypagePrdInfoService {
 	 * @return List&lt;MypagePrdDomain&gt;
 	 */
 	@PostMapping("/mypage_prd_onsale.do")
-	public List<MypagePrdDomain> searchPrdOnProcess(MypageIDnFlagVO mVO) {
-		return mpDAO.selectPrdOnProcess(mVO);
+	public List<MypagePrdDomain> searchPrdOnProcess(BoardRangeVO brVO) {
+		return mpDAO.selectPrdOnProcess(brVO);
 	}
 	
 	/**
@@ -47,7 +48,11 @@ public class MypagePrdInfoService {
 	 * @return JSONObject
 	 */
 	@GetMapping("/mypage_prd_completed.do")
-	public List<MypagePrdDomain> searchCompletedPrd(MypageIDnFlagVO mVO) {
-		return mpDAO.selectCompletedPrd(mVO);
+	public List<MypagePrdDomain> searchCompletedPrd(BoardRangeVO brVO) {
+		return mpDAO.selectCompletedPrd(brVO);
+	}
+	
+	public int totalRecodeCnt(BoardRangeVO brVO) {
+		return mpDAO.selectTotalRecode(brVO);
 	}
 }

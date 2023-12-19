@@ -46,7 +46,7 @@
 	JOIN CATEGORY2 C2 ON C3.C2CODE = C2.C2CODE
 	JOIN CATEGORY C ON C2.CCODE = C.CCODE
 	WHERE C.CCODE = #{category}	
-	) TB
+	) 
 	WHERE RNUM &gt;= #{start} and RNUM &lt;= #{end}
 	</select>
 	
@@ -151,6 +151,17 @@
 	from product
 	where pcode = #{ pcode } and id = #{ id }
 	</select>
+	
+	<select id="selectProduct" resultType="pd" parameterType="pVO">
+    SELECT 
+        p.pcode, p.pname, p.context, p.img, p.price, p.img2, p.img3, p.img4,  p.img5,
+         p.input_date, p.deliver, p.status, p.saleok,
+        p.loc, p.pcancel, p.c3code, p.id, c1.name as cname, c2.name as c2name, c3.name as c3name
+    FROM 
+        product p, CATEGORY c1, CATEGORY2 c2, CATEGORY3 c3
+    WHERE  
+        c1.ccode=c2.ccode AND c2.c2code = c3.c2code AND c3.C3CODE=p.C3CODE AND p.PCODE=#{pcode}
+</select>
 	
 </mapper>
 

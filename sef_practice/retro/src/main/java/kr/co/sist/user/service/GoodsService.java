@@ -9,7 +9,9 @@ import org.springframework.stereotype.Component;
 import kr.co.sist.common.PageVO;
 import kr.co.sist.user.dao.GoodsDAO;
 import kr.co.sist.user.domain.GoodsDomain;
+import kr.co.sist.user.domain.ProductDomain;
 import kr.co.sist.user.vo.GoodsVO;
+import kr.co.sist.user.vo.ProductVO;
 
 @Component
 public class GoodsService {
@@ -242,6 +244,15 @@ public class GoodsService {
 		return cnt;
 	}
 	
+	 public ProductDomain searchProduct(ProductVO pVO) {
+	    	ProductDomain search = null;
+	    	try {
+	    		search = gDAO.selectProduct(pVO);
+	    	} catch (PersistenceException pe) {
+	    		pe.printStackTrace();
+	        }//end catch
+	        return search;
+	    }//searchProduct
 	
 
 }//class

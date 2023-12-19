@@ -9,15 +9,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.sist.common.PageVO;
 import kr.co.sist.common.pagination.Pagination;
 import kr.co.sist.common.pagination.PaginationDomain;
 import kr.co.sist.user.domain.GoodsDomain;
+import kr.co.sist.user.domain.ProductDomain;
 import kr.co.sist.user.service.GoodsService;
+import kr.co.sist.user.service.ProductService;
 import kr.co.sist.user.service.WishService;
 import kr.co.sist.user.vo.GoodsVO;
+import kr.co.sist.user.vo.ProductVO;
 import kr.co.sist.user.vo.WishVO;
 
 @Controller
@@ -131,6 +135,7 @@ public class GoodsController {
 	@GetMapping("user/goods/goods_info.do")
 	public String goodsInfo(@RequestParam String pcode, Model model, HttpSession session) {
 		String id = (String)session.getAttribute("id");
+		String url = "user/goods/goods_info";
 		
 		GoodsVO gVO = new GoodsVO();
 		gVO.setId(id);
@@ -159,7 +164,6 @@ public class GoodsController {
 		model.addAttribute("level",gd.getCredit_level());
 		model.addAttribute("pcode",pcode);
 		
-
 		WishVO wVO=new WishVO();
 		WishService ws=WishService.getInstance();
 		wVO.setId(id);
@@ -170,11 +174,23 @@ public class GoodsController {
 		model.addAttribute("chkPcode",ws.getChkPcode(wVO));
 		System.out.println(ws.getChkPcode(wVO));
 		model.addAttribute("pcode",pcode);
+		if(id != null) {
+			if(gs.searchCheck(gVO) == 1) {
+				ProductVO pVO = new ProductVO();
+				pVO.setPcode(pcode);
+				pVO.setId(id);
+				ProductDomain userProduct=gs.searchProduct(pVO);
+				ProductService ps=ProductService.getInstance();
+				
+				model.addAttribute("AllCominfo", ps.searchBuyerAllInfo(id));
+				model.addAttribute("wishCnt", ps.searchWishCnt(pcode));
+				model.addAttribute("userProduct",userProduct);
+				return "user/product/product_detail";
+			}
+		}
 		
 		return "user/goods/goods_info";
 	}
-	
-	
 	
 	@GetMapping("user/seller/seller_info.do")
 	public String sellerInfo() {

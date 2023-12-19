@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import kr.co.sist.common.dao.MybatisHandler;
 import kr.co.sist.user.domain.MySalesDomain;
 import kr.co.sist.user.domain.ProductDomain;
+import kr.co.sist.user.vo.GoodsVO;
 import kr.co.sist.user.vo.ProductVO;
 
 public class ProductDAO {
@@ -26,6 +27,30 @@ public class ProductDAO {
 		return pDAO;
 	}// getInstance
 
+	public String sellectPrdPcode() {
+		String pcode = "";
+
+		MybatisHandler mbh = MybatisHandler.getInstance();
+		SqlSession ss = mbh.getMyBatisHandler(configPath, false);
+		try {
+			pcode = ss.selectOne("user.product.createPcode");
+		} finally {
+			mbh.closeHandler(ss);
+		} // finally
+
+		return pcode;
+	}
+
+	public int searchCheck(ProductVO pVO) throws PersistenceException {
+		int cnt = 0;
+		
+		MybatisHandler mbh = MybatisHandler.getInstance();
+		SqlSession ss = mbh.getMyBatisHandler(false);
+		cnt = ss.selectOne("user.product.selectCheck",pVO);
+		
+		return cnt;
+	}
+	
 	/**
 	 * 상품 등록
 	 * 
@@ -39,30 +64,18 @@ public class ProductDAO {
 		SqlSession ss = mbh.getMyBatisHandler(configPath, false);
 		try {
 			insertCnt = ss.insert("user.product.insertProduct", pVO);
-	        if (insertCnt == 1) {
-	            ss.commit();
-	        } else {
-	            ss.rollback();
-	        }//end else
-	    } finally {
-	        mbh.closeHandler(ss);
-	    }//finally
+
+			if (insertCnt == 1) {
+				ss.commit();
+			} else {
+				ss.rollback();
+			} // end else
+		} finally {
+			mbh.closeHandler(ss);
+		} // finally
 		return insertCnt;
 	}// selectCategory
 
-
-	public String getPcode(String id) throws PersistenceException{
-		
-		String getRecentPcode="";
-		MybatisHandler mbh = MybatisHandler.getInstance();
-		SqlSession ss = mbh.getMyBatisHandler(configPath, false);
-		getRecentPcode = ss.selectOne("user.product.getPcode",id);
-
-		mbh.closeHandler(ss);
-
-		return getRecentPcode;
-	}//getPcode
-	
 	/**
 	 * 상품 조회
 	 * 
@@ -75,95 +88,95 @@ public class ProductDAO {
 
 		MybatisHandler mbh = MybatisHandler.getInstance();
 		SqlSession ss = mbh.getMyBatisHandler(configPath, false);
+		System.out.println( "------33333---->"+pVO.getPcode() );
 		search = ss.selectOne("user.product.selectProduct", pVO);
 
 		mbh.closeHandler(ss);
 
 		return search;
 	}// selectProduct
-	
-	public int  updateProduct(ProductVO pVO) throws PersistenceException {
-	    
-		int updateCnt=0;
-		
-		MybatisHandler mbh = MybatisHandler.getInstance();
-	    SqlSession ss = mbh.getMyBatisHandler(configPath, false);
-	    try {
-	         updateCnt = ss.update("user.product.updateProduct", pVO);
-	        if (updateCnt == 1) {
-	            ss.commit();
-	        } else {
-	            ss.rollback();
-	        }//end else
-	    } finally {
-	        mbh.closeHandler(ss);
-	    }//finally
-	    
-	    return updateCnt;
-	}//updateProduct
-	
-	public int updateSaleok(String pcode) throws PersistenceException {
-		
-		int updateSaleCnt=0;
+
+	public int updateProduct(ProductVO pVO) throws PersistenceException {
+
+		int updateCnt = 0;
 
 		MybatisHandler mbh = MybatisHandler.getInstance();
-	    SqlSession ss = mbh.getMyBatisHandler(configPath, false);
-	    try {
-	        updateSaleCnt = ss.update("user.product.updateSaleOk", pcode);
-	        if (updateSaleCnt == 1) {
-	            ss.commit();
-	        } else {
-	            ss.rollback();
-	        }//end else
-	    } finally {
-	        mbh.closeHandler(ss);
-	    }//finally
-	    
-	    return updateSaleCnt;
-	}//updateSaleok
-	
+		SqlSession ss = mbh.getMyBatisHandler(configPath, false);
+		try {
+			updateCnt = ss.update("user.product.updateProduct", pVO);
+			if (updateCnt == 1) {
+				ss.commit();
+			} else {
+				ss.rollback();
+			} // end else
+		} finally {
+			mbh.closeHandler(ss);
+		} // finally
+
+		return updateCnt;
+	}// updateProduct
+
+	public int updateSaleok(String pcode) throws PersistenceException {
+
+		int updateSaleCnt = 0;
+
+		MybatisHandler mbh = MybatisHandler.getInstance();
+		SqlSession ss = mbh.getMyBatisHandler(configPath, false);
+		try {
+			updateSaleCnt = ss.update("user.product.updateSaleOk", pcode);
+			if (updateSaleCnt == 1) {
+				ss.commit();
+			} else {
+				ss.rollback();
+			} // end else
+		} finally {
+			mbh.closeHandler(ss);
+		} // finally
+
+		return updateSaleCnt;
+	}// updateSaleok
+
 	public int deleteProduct(String pcode) throws PersistenceException {
-	    int deleteCnt=0;
-		
-		MybatisHandler mbh = MybatisHandler.getInstance();
-	    SqlSession ss = mbh.getMyBatisHandler(configPath, false);
-	    try {
-	        deleteCnt = ss.delete("user.product.deleteProduct", pcode);
-	        if (deleteCnt == 1) {
-	            ss.commit();
-	        } else {
-	            ss.rollback();
-	        }//end else
-	    } finally {
-	        mbh.closeHandler(ss);
-	    }//end finally
-	    return deleteCnt;
-	}//deleteProduct
-	
-	public List<MySalesDomain> selectBuyerAllInfo(String seller)throws PersistenceException{
-		
-		List<MySalesDomain> selectInfo=null;
-		
+		int deleteCnt = 0;
+
 		MybatisHandler mbh = MybatisHandler.getInstance();
 		SqlSession ss = mbh.getMyBatisHandler(configPath, false);
-		selectInfo = ss.selectList("user.product.selectBuyerAllInfo",seller);
-		
+		try {
+			deleteCnt = ss.delete("user.product.deleteProduct", pcode);
+			if (deleteCnt == 1) {
+				ss.commit();
+			} else {
+				ss.rollback();
+			} // end else
+		} finally {
+			mbh.closeHandler(ss);
+		} // end finally
+		return deleteCnt;
+	}// deleteProduct
+
+	public List<MySalesDomain> selectBuyerAllInfo(String seller) throws PersistenceException {
+
+		List<MySalesDomain> selectInfo = null;
+
+		MybatisHandler mbh = MybatisHandler.getInstance();
+		SqlSession ss = mbh.getMyBatisHandler(configPath, false);
+		selectInfo = ss.selectList("user.product.selectBuyerAllInfo", seller);
+
 		mbh.closeHandler(ss);
-		
+
 		return selectInfo;
-		
-	}//selectBuyerAllInfo
-	
-	public int selectWishCnt(String pcode)throws PersistenceException{
-		int wishCnt=0;
+
+	}// selectBuyerAllInfo
+
+	public int selectWishCnt(String pcode) throws PersistenceException {
+		int wishCnt = 0;
 		MybatisHandler mbh = MybatisHandler.getInstance();
 		SqlSession ss = mbh.getMyBatisHandler(configPath, false);
-		wishCnt = ss.selectOne("user.product.selectWishCnt",pcode);
-		
+		wishCnt = ss.selectOne("user.product.selectWishCnt", pcode);
+
 		mbh.closeHandler(ss);
-		
+
 		return wishCnt;
-	}//selectWishCnt
-	
+	}// selectWishCnt
 
 }// class

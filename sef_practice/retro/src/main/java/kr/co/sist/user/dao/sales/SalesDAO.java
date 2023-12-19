@@ -64,4 +64,17 @@ public class SalesDAO {
 		
 		return sDomain;
 	}
+	
+	public int selectTotalRecode(String id) {
+		int result = 0;
+		
+		MybatisHandler mh = MybatisHandler.getInstance();
+		SqlSession ss = mh.getMyBatisHandler(false);
+		
+		result = ss.selectOne("kr.co.sist.user.userSales.totalRecode", id);
+		
+		mh.closeHandler(ss);
+		
+		return result;
+	}
 }

@@ -31,4 +31,11 @@ SELECT P.PCODE, P.PNAME, BR.PAYMENT_DATE, M.ID, M.NICKNAME, M.PHONE, BR.PAYMENT,
 FROM PRODUCT P, BUYRECEIPT BR, MEMBER M, BUYCOMMENT BC
 WHERE P.ID=#{id} AND P.PCODE=#{pcode} AND BR.PCODE=P.PCODE AND BR.ID=M.ID AND BR.BUYRECEIPTCODE=BC.BUYRECEIPTCODE
 </select>
+
+<!-- 전체 레코드 수 구하기 -->
+<select id="totalRecode" resultType="int" parameterType="String">
+SELECT COUNT(*)
+FROM PRODUCT
+WHERE ID=#{id}
+</select>
 </mapper>

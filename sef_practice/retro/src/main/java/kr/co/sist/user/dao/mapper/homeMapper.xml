@@ -21,5 +21,7 @@ from product
 where saleok != 'Y' and pcancel = 'N')
 where rn between 1 and 50
 </select>
-
+<insert id="insertDailyDate">
+	insert into visitors (DAILY_DATE) values(sysdate)
+</insert>
  </mapper>

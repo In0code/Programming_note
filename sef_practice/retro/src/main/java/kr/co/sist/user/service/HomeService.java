@@ -56,5 +56,11 @@ public class HomeService {
 		return list;
 	}
 	
+	public void modifyDailyDate(){
+	
+		
+		hDAO.insertDailyDate();
+	}
+	
 
 }
