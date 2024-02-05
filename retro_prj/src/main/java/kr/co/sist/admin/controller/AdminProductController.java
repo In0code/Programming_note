@@ -17,7 +17,7 @@ public class AdminProductController {
 		return "admin/product_managing";
 	}//productManage
 		
-	}
+	}//AdminProductController
 	
 	
 
