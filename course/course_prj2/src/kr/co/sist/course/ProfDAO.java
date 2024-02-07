@@ -13,7 +13,7 @@ import kr.co.sist.dao.DbConn;
 
 /**
  * 인영 교수 DAO
- * ㄴ
+ * 
  * 
  * @author user
  *
