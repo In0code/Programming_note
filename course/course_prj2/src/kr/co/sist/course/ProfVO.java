@@ -4,11 +4,7 @@ package kr.co.sist.course;
  * 인영 교수 VO
  * 
  * @author user
-<<<<<<< HEAD
- *ㄴ
-=======
  *
->>>>>>> refs/heads/main
  */
 public class ProfVO {
 	private String ename, phone, email, majorName, dptName, empno;
