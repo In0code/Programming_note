@@ -13,7 +13,7 @@ import javax.swing.JTextField;
 
 /**
  * 인영 교수 등록 Event
- * ㄴ
+ * 
  * 
  * @author user
  *
