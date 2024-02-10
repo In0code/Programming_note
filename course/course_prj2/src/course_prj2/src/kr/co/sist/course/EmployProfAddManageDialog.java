@@ -16,7 +16,7 @@ import javax.swing.border.LineBorder;
 
 /**
  * 인영 교수 관리 - 등록 Dialog
- * ㄴ
+ * 
  * 
  * @author user
  *
